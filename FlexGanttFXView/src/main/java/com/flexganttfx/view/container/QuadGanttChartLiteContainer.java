@@ -1,0 +1,62 @@
+/**
+ * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
+ *
+ * This file is part of FlexGanttFX.
+ */
+package com.flexganttfx.view.container;
+
+import com.flexganttfx.view.GanttChartLite;
+import com.flexganttfx.view.GanttChartBase;
+import org.controlsfx.control.MasterDetailPane;
+
+/**
+ * A specialization of {@link QuadGanttChartContainerBase} capable of displaying
+ * exactly four instances of {@link GanttChartLite} and keeping their layouts and
+ * their scrolling and zooming behavior in sync. The container distinguishes between
+ * four Gantt chart locations, where the right and the lower Gantt charts are located
+ * in the detail node sections of several {@link MasterDetailPane} instances. They
+ * can be hidden or shown on demand. Each one of the four Gantt charts can have its
+ * own header and footer.
+ *
+ * The screenshot below shows the initial appearance of an empty Quad Gantt
+ * chart lite container control.
+ *
+ *
+ *     <img src="doc-files/quad-gantt-chart-lite.png" alt="Quad Gantt Chart Container Lite" width="100%">
+ *
+ *
+ * @since 1.6
+ */
+public class QuadGanttChartLiteContainer extends QuadGanttChartContainerBase<GanttChartLite<?>> {
+
+    /**
+     * Constructs a new container with the given Gantt chart controls.
+     *
+     * @param upperLeft
+     *            the Gantt chart shown in the upper left position
+     * @param upperRight
+     *            the Gantt chart shown in the upper right position
+     * @param lowerLeft
+     *            the Gantt chart shown in the lower left position
+     * @param lowerRight
+     *            the Gantt chart shown in the lower right position
+     *
+     * @since 1.6
+     */
+    public QuadGanttChartLiteContainer(GanttChartLite<?> upperLeft, GanttChartLite<?> upperRight, GanttChartLite<?> lowerLeft, GanttChartLite<?> lowerRight) {
+        super(upperLeft, upperRight, lowerLeft, lowerRight);
+    }
+
+    /**
+     * Constructs a new container. Gantt charts must be added by calling
+     * {@link #setUpperLeftGanttChart(GanttChartBase)} and
+     * {@link #setUpperRightGanttChart(GanttChartBase)} and
+     * {@link #setLowerLeftGanttChart(GanttChartBase)} and
+     * {@link #setLowerRightGanttChart(GanttChartBase)}.
+     *
+     * @since 1.6
+     */
+    public QuadGanttChartLiteContainer() {
+        this(new GanttChartLite<>(), new GanttChartLite<>(), new GanttChartLite<>(), new GanttChartLite<>());
+    }
+}

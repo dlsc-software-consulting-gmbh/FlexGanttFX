@@ -1,0 +1,97 @@
+/**
+ * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
+ *
+ * This file is part of FlexGanttFX.
+ */
+package com.flexganttfx.msproject;
+
+import com.flexganttfx.extras.GanttChartStatusBar;
+import com.flexganttfx.extras.GanttChartToolBar;
+import com.flexganttfx.msproject.model.MSProjectTaskRow;
+import com.flexganttfx.msproject.view.MSProjectGanttChart;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+
+public class MSProjectApp extends Application {
+
+	private static final String STAGE_TITLE = "MSProject Reader";
+	private MSProjectGanttChart gantt;
+	private FileChooser fileChooser;
+	private Stage stage;
+
+	@Override
+	public void start(Stage stage) {
+		this.stage = stage;
+		this.stage.setTitle(STAGE_TITLE);
+
+		gantt = new MSProjectGanttChart();
+		gantt.load("com.flexganttfx.msproject.files/n0741.mpp", MSProjectApp.class.getResourceAsStream("/com.flexganttfx.msproject.files/n0741.mpp"));
+
+		VBox.setVgrow(gantt, Priority.ALWAYS);
+
+		VBox vbox = new VBox(0);
+
+		MenuBar menuBar = createMenuBar();
+		vbox.getChildren().add(menuBar);
+
+		GanttChartToolBar<MSProjectTaskRow> toolBar = new GanttChartToolBar<>(
+				gantt);
+		vbox.getChildren().add(toolBar);
+
+		vbox.getChildren().add(gantt);
+
+		GanttChartStatusBar<MSProjectTaskRow> statusBar = new GanttChartStatusBar<>(
+				gantt);
+		vbox.getChildren().add(statusBar);
+
+		Scene scene = new Scene(vbox);
+		stage.setScene(scene);
+		stage.sizeToScene();
+		stage.centerOnScreen();
+		stage.show();
+	}
+
+	private MenuBar createMenuBar() {
+		MenuBar menuBar = new MenuBar();
+
+		Menu fileMenu = new Menu("File");
+		MenuItem openItem = new MenuItem("Open...");
+		openItem.setOnAction(event -> openFile());
+		fileMenu.getItems().add(openItem);
+		menuBar.getMenus().add(fileMenu);
+		return menuBar;
+	}
+
+	protected void openFile() {
+		if (fileChooser == null) {
+			fileChooser = new FileChooser();
+		}
+
+		File file = fileChooser.showOpenDialog(gantt.getScene().getWindow());
+		if (file != null) {
+			try {
+				gantt.load(file);
+				stage.setTitle(STAGE_TITLE + ": " + file.getName());
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		launch(args);
+	}
+}

@@ -1,0 +1,88 @@
+/**
+ * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
+ *
+ * This file is part of FlexGanttFX.
+ */
+package com.flexganttfx.demo.timeline;
+
+import com.flexganttfx.model.timeline.TimelineModel;
+import javafx.beans.binding.Bindings;
+import javafx.geometry.Insets;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+
+import java.text.FieldPosition;
+import java.text.Format;
+import java.text.ParsePosition;
+import java.time.Duration;
+import java.time.Instant;
+
+public class TimelineModelControlPanel extends VBox {
+
+	public TimelineModelControlPanel(final TimelineModel<?> timelineModel,
+			Instant startTime, Instant endTime) {
+
+		setPadding(new Insets(10, 10, 10, 10));
+		setFillWidth(true);
+		setSpacing(10);
+
+		Format format = new Format() {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Object parseObject(String source, ParsePosition pos) {
+				Double value = Double.parseDouble(source);
+				pos.setIndex(source.length() - 1);
+				return value;
+			}
+
+			@Override
+			public StringBuffer format(Object obj, StringBuffer toAppendTo,
+					FieldPosition pos) {
+				return toAppendTo.append(obj);
+			}
+		};
+
+		// millis per pixel
+
+		getChildren().add(new Label("Millis Per Pixel"));
+
+		TextField temporalUnitWidthField = new TextField();
+		Bindings.bindBidirectional(temporalUnitWidthField.textProperty(),
+				timelineModel.millisPerPixelProperty(), format);
+		getChildren().add(temporalUnitWidthField);
+
+		Slider unitWidthSlider = new Slider(1000, 96 * 60 * 60 * 1000,
+				24 * 60 * 60 * 1000);
+		Bindings.bindBidirectional(unitWidthSlider.valueProperty(),
+				timelineModel.millisPerPixelProperty());
+		Bindings.bindBidirectional(temporalUnitWidthField.textProperty(),
+				unitWidthSlider.valueProperty(), format);
+		getChildren().add(unitWidthSlider);
+
+		// start time
+
+		getChildren().add(new Label("Start Time"));
+
+		if (startTime == null) {
+			startTime = Instant.now();
+			endTime = startTime.plus(Duration.ofDays(100));
+			timelineModel.setStartTime(startTime);
+		}
+
+		final Slider slider = new Slider(startTime.toEpochMilli(),
+				endTime.toEpochMilli(), 0);
+		slider.valueProperty().addListener((value, oldNumber, newNumber) -> {
+			Instant time = Instant.ofEpochMilli(newNumber.longValue());
+			timelineModel.setStartTime(time);
+		});
+		getChildren().add(slider);
+
+		timelineModel.startTimeProperty().addListener(
+				(value, oldTime, newTime) -> slider.setValue(newTime
+						.toEpochMilli()));
+	}
+}

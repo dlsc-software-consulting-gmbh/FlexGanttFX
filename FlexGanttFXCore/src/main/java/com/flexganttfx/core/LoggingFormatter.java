@@ -1,0 +1,101 @@
+/**
+ * Copyright (C) 2014 - 2016 Dirk Lemmermann Software & Consulting (dlsc.com)
+ * <p>
+ * This file is part of FlexGanttFX.
+ */
+package com.flexganttfx.core;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.logging.Formatter;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+
+/**
+ * A formatter for the logging framework. Formats logging messages in a very
+ * compact format.
+ *
+ * @since 1.0
+ */
+public class LoggingFormatter extends Formatter {
+
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT, FormatStyle.SHORT);
+
+    private static int MAX_LEVEL_SIZE = 0;
+
+    static {
+        MAX_LEVEL_SIZE = Math.max(MAX_LEVEL_SIZE, Level.INFO.getLocalizedName().length());
+        MAX_LEVEL_SIZE = Math.max(MAX_LEVEL_SIZE, Level.CONFIG.getLocalizedName().length());
+        MAX_LEVEL_SIZE = Math.max(MAX_LEVEL_SIZE, Level.FINE.getLocalizedName().length());
+        MAX_LEVEL_SIZE = Math.max(MAX_LEVEL_SIZE, Level.FINER.getLocalizedName().length());
+        MAX_LEVEL_SIZE = Math.max(MAX_LEVEL_SIZE, Level.FINEST.getLocalizedName().length());
+        MAX_LEVEL_SIZE = Math.max(MAX_LEVEL_SIZE, Level.SEVERE.getLocalizedName().length());
+        MAX_LEVEL_SIZE = Math.max(MAX_LEVEL_SIZE, Level.WARNING.getLocalizedName().length());
+    }
+
+    /**
+     * Format the given LogRecord.
+     *
+     * @param record
+     *            the log record to be formatted.
+     * @return a formatted log record
+     * @since 1.0
+     */
+    @Override
+    public synchronized String format(LogRecord record) {
+        StringBuilder sb = new StringBuilder();
+
+        ZonedDateTime timestamp = ZonedDateTime.ofInstant(
+                Instant.ofEpochMilli(record.getMillis()),
+                ZoneId.systemDefault());
+
+        sb.append(formatter.format(timestamp));
+        sb.append(" | ");
+
+        if (record.getSourceClassName() != null) {
+            sb.append(truncate(
+                    record.getSourceClassName().substring(
+                            record.getSourceClassName().lastIndexOf('.') + 1),
+                    30));
+        } else {
+            sb.append(truncate(record.getLoggerName(), 10));
+        }
+
+        sb.append(" | ");
+
+        if (record.getSourceMethodName() != null) {
+            sb.append(truncate(record.getSourceMethodName(), 30));
+        }
+
+        sb.append(" | ");
+
+        String message = formatMessage(record);
+        sb.append(truncate(record.getLevel().getLocalizedName(), MAX_LEVEL_SIZE));
+
+        sb.append(" | ");
+
+        sb.append(message);
+
+        sb.append(System.getProperty("line.separator"));
+        if (record.getThrown() != null) {
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            record.getThrown().printStackTrace(pw);
+            pw.close();
+            sb.append(sw.toString());
+        }
+        return sb.toString();
+    }
+
+    private CharSequence truncate(String s, int n) {
+        if (s.length() > n) {
+            s = s.substring(0, n);
+        }
+        return String.format("%1$-" + n + "s", s);
+    }
+}

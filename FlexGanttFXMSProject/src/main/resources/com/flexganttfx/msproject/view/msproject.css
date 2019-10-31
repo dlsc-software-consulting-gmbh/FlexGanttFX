@@ -1,0 +1,7 @@
+.parent-task-image {
+	-fx-graphic: url("documents_empty.png");	
+}
+
+.child-task-image {
+	-fx-graphic: url("document_empty.png");	
+}

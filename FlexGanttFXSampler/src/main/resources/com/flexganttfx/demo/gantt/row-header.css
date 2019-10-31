@@ -1,0 +1,7 @@
+.warning {
+	-fx-graphic: url("sign_warning.png");
+}
+
+.error {
+	-fx-graphic: url("sign_stop.png");
+}

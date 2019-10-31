@@ -1,0 +1,100 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>msproject</artifactId>
+    <name>FlexGanttFXMSProject</name>
+    <description>Utility classes to easily load MSProject files via MPXJ.</description>
+
+    <parent>
+        <groupId>com.flexganttfx</groupId>
+        <artifactId>gantt</artifactId>
+        <version>11.9.1</version>
+        <relativePath>..</relativePath>
+    </parent>
+
+    <properties>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+        <jproVersion>2019.2.0-SNAPSHOT</jproVersion>
+    </properties>
+
+    <pluginRepositories>
+
+        <pluginRepository>
+            <id>jpro - sandec repository</id>
+            <url>http://sandec.bintray.com/repo</url>
+        </pluginRepository>
+
+    </pluginRepositories>
+
+    <repositories>
+
+        <repository>
+            <id>my-local-core-repo</id>
+            <url>file://${project.basedir}/repository</url>
+        </repository>
+
+        <repository>
+            <id>jpro - sandec repository</id>
+            <url>http://sandec.bintray.com/repo</url>
+        </repository>
+
+    </repositories>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>net.sf.mpxj</groupId>
+            <artifactId>mpxj</artifactId>
+            <version>7.9.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>backport-util-concurrent</groupId>
+            <artifactId>backport-util-concurrent</artifactId>
+            <version>3.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.flexganttfx</groupId>
+            <artifactId>extras</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>com.gluonhq</groupId>
+                <artifactId>client-maven-plugin</artifactId>
+                <version>0.0.2-SNAPSHOT</version>
+                <configuration>
+                    <mainClass>com.flexganttfx.msproject.MSProjectApp</mainClass>
+                    <graalLibsPath>/Users/lemmi/Downloads/bundle/lib</graalLibsPath>
+                    <releaseSymbolsList>_Java_java_util_prefs_MacOSXPreferencesFile_*</releaseSymbolsList>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>${javafx.maven.plugin.version}</version>
+                <configuration>
+                    <mainClass>com.flexganttfx.msproject.MSProjectApp</mainClass>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.sandec.jpro</groupId>
+                <artifactId>jpro-maven-plugin</artifactId>
+                <version>${jproVersion}</version>
+                <configuration>
+                    <visible>false</visible>
+                    <!-- noRenderJobs>true</noRenderJobs -->
+                    <mainClassName>com.flexganttfx.msproject.MSProjectApp</mainClassName>
+                    <openingPath>/</openingPath>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,233 @@
+/*
+ * gantt.css file of FlexGanttFX
+ * 
+ * Copyright 2019 DLSC Software & Consulting GmbH
+ */
+ 
+.gantt-chart {
+	-fx-background-color: -fx-box-border;
+	-fx-padding: 1px;
+}
+
+.scroll-bar {
+	-fx-opacity: .75;
+}
+
+/*
+ * The split pane padding gets removed so that the tree table and the
+ * graphics view both completely fill their sides.
+ */
+
+.split-pane {
+	-fx-background-insets: 0;
+	-fx-padding: 0;
+}
+
+/*
+ * Row header cells are used in the row header column / the first column
+ * of the tree table. The row header is used to display row numbers. The user
+ * can also resize rows via a mouse drag inside the cell.
+ */ 
+ 
+.row-header-cell {
+	-fx-text-fill: -fx-text-base-color;
+	-fx-background-color: -fx-box-border, derive(-fx-base, 25%);
+	-fx-background-insets: 0, 0 0 1 0;
+}
+
+.gantt-chart .show-hide-column-image {
+	-fx-background-color: -fx-text-base-color;
+}
+
+.gantt-chart .column-header .text {
+	-fx-fill: -fx-text-base-color;
+}
+
+/*
+ * The tree table header has to have the same height as the timeline.
+ * The height can depend on the location of the Gantt chart if it is
+ * shown in a multi Gantt chart container.
+ */
+ 
+.gantt-tree-table-view {
+	-fx-padding: 0;
+	-fx-border-width: 0;
+	-fx-background-insets: 0;
+	-fx-table-cell-border-color: -fx-box-border;
+}
+
+.gantt-tree-table-view:focused {
+	-fx-border-width: 0;
+	-fx-background-insets: 0;
+}
+
+.gantt-tree-table-view .column-header,
+.gantt-tree-table-view-first .column-header {
+	-fx-pref-height: 6em;
+}
+
+/*
+ * The table header is smaller when the Gantt chart is placed in the
+ * middle or bottom of a multi Gantt chart context.
+ */
+ 
+.gantt-tree-table-view-middle .column-header,
+.gantt-tree-table-view-last .column-header {
+	-fx-pref-height: 2em;
+}
+ 
+ /*
+  * We do not need the vertical scrollbar of the table. We are styling it
+  * away by setting its preferred width to zero. But we only do this if the
+  * current display mode is "standard" (table and graphics are both visible).
+  */
+  
+.tree-table-view-standard-display-mode > .virtual-flow > .scroll-bar:vertical,  
+.tree-table-view-standard-display-mode > .virtual-flow > .scroll-bar:vertical .decrement-arrow ,  
+.tree-table-view-standard-display-mode > .virtual-flow > .scroll-bar:vertical .increment-arrow {
+	-fx-pref-width: 0.0;
+}
+
+ /*
+  * We do not need the horizontal scrollbar of the table. We are styling it
+  * away by setting its preferred height to zero. We are replacing the scrollbar
+  * with our own scrollbar located hidden inside a HiddenSidesPane instance. The
+  * scrollbar only becomes visible if the user moves the mouse cursor close to
+  * the bottom edge of the table.
+  */
+  
+.gantt-tree-table-view > .virtual-flow > .scroll-bar:horizontal,  
+.gantt-tree-table-view > .virtual-flow > .scroll-bar:horizontal .decrement-arrow ,  
+.gantt-tree-table-view > .virtual-flow > .scroll-bar:horizontal .increment-arrow {
+	-fx-pref-height: 0.0;
+}
+
+/*
+ * We like to center the column header text and use a normal font weight
+ * for it.
+ */
+ 
+.gantt-tree-table-view .column-header .label {
+    -fx-alignment: center;
+}
+
+.gantt-tree-table-view .column-header, .gantt-tree-table-view .filler {
+    -fx-font-weight: normal;
+}
+
+/* 
+ * Alternating row colors inside the table.
+ */
+ 
+.gantt-tree-table-view .tree-table-row-cell:even {
+	-fx-background-color: -fx-control-inner-background;
+}
+
+.gantt-tree-table-view .tree-table-row-cell:odd {
+	-fx-background-color: -fx-control-inner-background-alt;
+}
+
+.gantt-tree-table-view > .virtual-flow > .clipped-container > .sheet > .tree-table-row-cell:selected {
+	-fx-background-color: -fx-selection-bar-non-focused;
+}
+
+.gantt-tree-table-view:focused > .virtual-flow > .clipped-container > .sheet > .tree-table-row-cell:selected {
+	-fx-background-color: -fx-selection-bar;
+}
+
+/*
+ * The style used by the buttons inside the layers control (layer up, down, delete).
+ */
+.layers-navigate-button {
+	-fx-background-insets: 0;
+	-fx-border-insets: null;
+	-fx-background-color: transparent;
+	-fx-padding: 0;
+}
+
+/*
+ * The column headers inside the layers control.
+ */
+.layers-table-header {
+	-fx-padding: 0 0 5 0;
+	-fx-text-fill: gray;
+	-fx-font-weight: bold;
+	-fx-alignment: center;
+	-fx-border-color: transparent transparent lightgray transparent;
+}
+
+/*
+ * The blank area on top of the graphics view that becomes visible
+ * for Gantt charts in the middle or last position in a multi Gantt
+ * chart container context.
+ */
+.graphic-view-header {
+	-fx-background-color: -fx-body-color;
+	-fx-border-color: 
+        derive(-fx-base, 80%) 
+        linear-gradient(to bottom, derive(-fx-base,80%) 20%, derive(-fx-base,-10%) 90%)
+        derive(-fx-base, 10%) 
+        linear-gradient(to bottom, derive(-fx-base,80%) 20%, derive(-fx-base,-10%) 90%),
+        /* Outer border: */
+        transparent -fx-box-border -fx-box-border transparent;
+    -fx-border-insets: 0 1 1 0, 0 0 0 0;
+    -fx-border-width: 0.083333em 0.083333em 0.083333em 0, 0.083333em 0.083333em 0.083333em;  
+    -fx-pref-height: 24px;
+}
+
+/*
+ * The container "around" the timeline and the graphics area.
+ */
+.timeline-graphics-wrapper {
+}
+
+/*
+ * The time slider is used to scroll the timeline to the left or right.
+ * It becomes visible when the user moves the mouse cursor close to the
+ * bottom edge of the graphics view.
+ */
+ 
+.time-slider {
+	-fx-opacity: .75;
+    -fx-background-radius: 0.0;
+    -fx-border-color: null;
+    -fx-border-radius: 0.0;
+}
+
+.time-slider:horizontal {
+    -fx-background-color: linear-gradient(to bottom, derive(-fx-base,-3%), derive(-fx-base,5%) 50%, derive(-fx-base,-3%));
+    -fx-pref-height: 16.0;
+    -fx-max-height: 16.0;
+}
+
+.time-slider > * > .slider {
+    -fx-show-tick-marks: false;
+}
+
+.time-slider > * > .slider > .track {
+    -fx-background-color: transparent;
+}
+
+.time-slider > * > .slider > .thumb {
+	-fx-pref-width: 100;
+    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color; 
+    -fx-background-insets: 2.0, 3.0, 4.0;
+    -fx-background-radius: 3.0, 2.0, 1.0;
+}
+
+.time-slider > * > .slider:focused > .thumb {
+}
+
+.time-slider > * > .adjust-plus {
+	-fx-pref-width: 0;
+	-fx-shape: null;
+}
+
+.time-slider > * > .adjust-minus {
+	-fx-pref-width: 0;
+	-fx-shape: null;
+}
+
+.search-field {
+	-fx-background-radius: 1000;
+}

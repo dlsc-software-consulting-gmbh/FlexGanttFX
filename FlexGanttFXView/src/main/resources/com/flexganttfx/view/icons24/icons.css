@@ -1,0 +1,11 @@
+.sign-stop-icon-24 {
+	-fx-graphic: url("sign_stop.png");
+}
+
+.front-icon-24 {
+	-fx-graphic: url("front.png");
+}
+
+.back-icon-24 {
+	-fx-graphic: url("back.png");
+}

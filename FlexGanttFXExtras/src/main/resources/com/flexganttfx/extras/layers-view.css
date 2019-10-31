@@ -1,0 +1,14 @@
+.layer-controls {
+	-fx-padding: 20.0 10.0 10.0 10.0;
+	-fx-border-color: transparent;
+	-fx-background-color: transparent;
+}
+
+.layer-control {
+	-fx-padding: 0;
+}
+
+.layer-control:hover {
+	-fx-background-color: lightgray;
+	-fx-background-radius: 4;
+}

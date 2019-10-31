@@ -1,0 +1,30 @@
+.grid-button,
+.grid-button:hover,
+.grid-button:selected,
+.grid-button:focused,
+.grid-button:pressed {
+	-fx-font-weight: bold;
+	-fx-font-size: 10px;
+	-fx-alignment: center-left;
+	-fx-label-padding: 2 0 2 0;
+	-fx-background-radius: 2;
+	-fx-background-insets: 4;
+}
+
+.grid-button {
+	-fx-background-color: white;	
+}
+
+.grid-button:hover {
+	-fx-background-color: lightgray;	
+}
+
+.grid-button:pressed {
+	-fx-background-color: gray;	
+	-fx-text-fill: white;
+}
+
+.grid-button:selected {
+	-fx-background-color: black;
+	-fx-text-fill: white;
+}

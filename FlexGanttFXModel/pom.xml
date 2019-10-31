@@ -1,0 +1,84 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>model</artifactId>
+	<packaging>bundle</packaging>
+	<name>FlexGanttFXModel</name>
+
+	<parent>
+		<groupId>com.flexganttfx</groupId>
+		<artifactId>gantt</artifactId>
+		<version>11.9.1</version>
+		<relativePath>..</relativePath>
+	</parent>
+
+	<properties>
+		<maven.javadoc.skip>false</maven.javadoc.skip>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-base</artifactId>
+			<version>${javafx.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.flexganttfx</groupId>
+			<artifactId>core</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>4.1.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Export-Package>com.flexganttfx.model.*</Export-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+		<!-- <plugins> -->
+
+		<!-- <plugin> -->
+		<!-- <groupId>com.pyx4me</groupId> -->
+		<!-- <artifactId>proguard-maven-plugin</artifactId> -->
+		<!-- <version>2.0.4</version> -->
+		<!-- <executions> -->
+		<!-- <execution> -->
+		<!-- <id>proguard</id> -->
+		<!-- <phase>package</phase> -->
+		<!-- <goals> -->
+		<!-- <goal>proguard</goal> -->
+		<!-- </goals> -->
+		<!-- </execution> -->
+		<!-- </executions> -->
+		<!-- <configuration> -->
+		<!-- <proguardVersion>5.0</proguardVersion> -->
+		<!-- <options> -->
+		<!-- <option>-allowaccessmodification</option> -->
+		<!-- <option>-keep public class * extends java.applet.Applet { *; }</option> -->
+		<!-- </options> -->
+		<!-- <proguardInclude>../FlexGanttFX/proguard.conf</proguardInclude> -->
+		<!-- <obfuscate>true</obfuscate> -->
+		<!-- <injar>model-1.0.0.jar</injar> -->
+		<!-- <outjar>model-1.0.0-obfuscated.jar</outjar> -->
+		<!-- <libs> -->
+		<!-- <lib>${java.home}/lib/rt.jar</lib> -->
+		<!-- </libs> -->
+		<!-- </configuration> -->
+		<!-- </plugin> -->
+
+		<!-- </plugins> -->
+	</build>
+</project>

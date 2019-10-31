@@ -1,0 +1,36 @@
+/*
+ * timeline.css file of FlexGanttFX
+ * 
+ * Copyright 2019 DLSC Software & Consulting GmbH
+ */
+ 
+ 
+/*
+ * timeline-first/middle/last are styles that are applied depending on the 
+ * position of the Gantt chart in a multi Gantt chart context, e.g. the
+ * DualGanttChartContainer or the MultipleGanttChartContainer.
+ */
+
+.timeline {
+	-fx-background-color: -fx-body-color;
+	
+	/*
+	 * The pref height of the timeline has to match the pref height
+	 * of the table column headers, so that they align properly.
+	 */
+	-fx-padding: 0;
+}
+
+.timeline-first {
+}
+
+.timeline-middle,
+.timeline-last {
+
+	/*
+	 * The pref height of the timeline is smaller if the timeline 
+	 * is used for the second, third, ... chart in a multi Gantt chart
+	 * context. 
+	 */
+	-fx-pref-height: 24px;
+}

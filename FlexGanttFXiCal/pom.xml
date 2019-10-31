@@ -1,0 +1,34 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>ical</artifactId>
+	<name>FlexGanttFXiCal</name>
+	<description>Utility classes for working with iCal.</description>
+
+	<parent>
+		<groupId>com.flexganttfx</groupId>
+		<artifactId>gantt</artifactId>
+		<version>11.9.1</version>
+		<relativePath>..</relativePath>
+	</parent>
+
+	<properties>
+		<maven.javadoc.skip>true</maven.javadoc.skip>
+	</properties>
+
+	<dependencies>
+	
+		<dependency>
+			<groupId>org.mnode.ical4j</groupId>
+			<artifactId>ical4j</artifactId>
+			<version>1.0.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.flexganttfx</groupId>
+			<artifactId>view</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+	</dependencies>
+</project>

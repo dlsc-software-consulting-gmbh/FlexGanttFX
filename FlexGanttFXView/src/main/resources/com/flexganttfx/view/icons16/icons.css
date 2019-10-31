@@ -1,0 +1,95 @@
+.pencil-icon-16 {
+	-fx-graphic: url("pencil.png");
+}
+
+.radar-icon-16 {
+	-fx-graphic: url("radar.png");
+}
+
+.table-icon-16 {
+	-fx-graphic: url("table.png");
+}
+
+.gearwheel-icon-16 {
+	-fx-graphic: url("gearwheel.png");
+}
+
+.front-icon-16 {
+	-fx-graphic: url("front.png");
+}
+
+.undo-icon-16 {
+	-fx-graphic: url("undo.png");
+}
+
+.redo-icon-16 {
+	-fx-graphic: url("redo.png");
+}
+
+.delete-16 {
+	-fx-graphic: url("delete.png");
+}
+
+.bookmark-icon-16 {
+	-fx-graphic: url("bookmark.png");	
+}
+
+.print-icon-16 {
+	-fx-graphic: url("printer.png");
+}
+
+.garbage-icon-16 {
+	-fx-graphic: url("garbage.png");
+}
+
+.clock-icon-16 {
+	-fx-graphic: url("clock.png");
+}
+
+.navigate-up-16 {
+	-fx-graphic: url("navigate_up.png");
+}
+
+.navigate-up2-16 {
+	-fx-graphic: url("navigate_up2.png");
+}
+
+.navigate-down-16 {
+	-fx-graphic: url("navigate_down.png");
+}
+
+.navigate-down2-16 {
+	-fx-graphic: url("navigate_down2.png");
+}
+
+.navigate-beginning-icon-16 {
+	-fx-graphic: url("navigate_beginning.png");
+}
+
+.navigate-end-icon-16 {
+	-fx-graphic: url("navigate_end.png");
+}
+
+.fit-to-width-icon-16 {
+	-fx-graphic: url("fit_to_width.png");
+}
+
+.zoom-in-icon-16 {
+	-fx-graphic: url("zoom_in.png");
+}
+
+.zoom-out-icon-16 {
+	-fx-graphic: url("zoom_out.png");
+}
+
+.cursor-icon-16 {
+	-fx-graphic: url("mouse.png");
+}
+
+.close-treetable-icon-16 {
+	-fx-graphic: url("window_split_hor.png");
+}
+
+.progress-bar-icon-16 {
+	-fx-graphic: url("progress_bar.png");
+}

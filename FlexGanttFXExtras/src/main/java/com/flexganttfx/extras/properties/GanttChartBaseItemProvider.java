@@ -1,0 +1,272 @@
+/**
+ * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
+ *
+ * This file is part of FlexGanttFX.
+ */
+package com.flexganttfx.extras.properties;
+
+import com.flexganttfx.model.Layer;
+import com.flexganttfx.model.Row;
+import com.flexganttfx.view.GanttChartBase;
+import com.flexganttfx.view.graphics.ListViewGraphics;
+import com.flexganttfx.view.timeline.Timeline;
+import com.flexganttfx.view.util.Position;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import org.controlsfx.control.PropertySheet.Item;
+
+import java.util.List;
+import java.util.Optional;
+
+public class GanttChartBaseItemProvider<R extends Row<?,?,?>> implements ItemProvider<GanttChartBase<R>> {
+
+
+    private static final String GANTT_CHART_BASE_PROPERTIES_CATEGORY = "Control: Gantt Chart Base";
+
+    @Override
+    public List<Item> getPropertySheetItems(GanttChartBase<R> gc) {
+        ObservableList<Item> items = FXCollections.observableArrayList();
+
+        items.add(new Item() {
+
+            @Override
+            public Optional<ObservableValue<?>> getObservableValue() {
+                return Optional.of(gc.fixedCellSizeProperty());
+            }
+
+            @Override
+            public void setValue(Object value) {
+                gc.setFixedCellSize((Double) value);
+            }
+
+            @Override
+            public Object getValue() {
+                return gc.getFixedCellSize();
+            }
+
+            @Override
+            public Class<?> getType() {
+                return Double.class;
+            }
+
+            @Override
+            public String getName() {
+                return "Fixed Cell Size";
+            }
+
+            @Override
+            public String getDescription() {
+                return "Controls whether cells have a fixed or varying row height.";
+            }
+
+            @Override
+            public String getCategory() {
+                return GANTT_CHART_BASE_PROPERTIES_CATEGORY;
+            }
+        });
+
+        items.add(new Item() {
+
+            @Override
+            public Optional<ObservableValue<?>> getObservableValue() {
+                return Optional.of(gc.positionProperty());
+            }
+
+            @Override
+            public void setValue(Object value) {
+                gc.setPosition((Position) value);
+            }
+
+            @Override
+            public Object getValue() {
+                return gc.getPosition();
+            }
+
+            @Override
+            public Class<?> getType() {
+                return Position.class;
+            }
+
+            @Override
+            public String getName() {
+                return "Position";
+            }
+
+            @Override
+            public String getDescription() {
+                return "The position of the Gantt chart within a dual / multi Gantt chart container.";
+            }
+
+            @Override
+            public String getCategory() {
+                return GANTT_CHART_BASE_PROPERTIES_CATEGORY;
+            }
+        });
+
+        Timeline timeline = gc.getTimeline();
+        items.addAll(timeline.getPropertySheetItems());
+        items.addAll(timeline.getDateline().getPropertySheetItems());
+        items.addAll(timeline.getEventline().getPropertySheetItems());
+
+        ListViewGraphics<R> graphics = gc.getGraphics();
+        GraphicsBaseItemProvider graphicsBasePropertySheetSupport = new GraphicsBaseItemProvider<>();
+        items.addAll(graphicsBasePropertySheetSupport.getPropertySheetItems(graphics));
+
+        for (final Layer layer : graphics.getLayers()) {
+            items.add(new Item() {
+
+                @Override
+                public Optional<ObservableValue<?>> getObservableValue() {
+                    return Optional.of(layer.visibleProperty());
+                }
+
+                @Override
+                public void setValue(Object value) {
+                    layer.setVisible((Boolean) value);
+                }
+
+                @Override
+                public Object getValue() {
+                    return layer.isVisible();
+                }
+
+                @Override
+                public Class<?> getType() {
+                    return Boolean.class;
+                }
+
+                @Override
+                public String getName() {
+                    return "Visible";
+                }
+
+                @Override
+                public String getDescription() {
+                    return "Show / hide the model layer (its activities)";
+                }
+
+                @Override
+                public String getCategory() {
+                    return "Model Layer: " + layer.getName();
+                }
+            });
+
+            items.add(new Item() {
+
+                @Override
+                public Optional<ObservableValue<?>> getObservableValue() {
+                    return Optional.of(layer.deletableProperty());
+                }
+
+                @Override
+                public void setValue(Object value) {
+                    layer.setDeletable((Boolean) value);
+                }
+
+                @Override
+                public Object getValue() {
+                    return layer.isDeletable();
+                }
+
+                @Override
+                public Class<?> getType() {
+                    return Boolean.class;
+                }
+
+                @Override
+                public String getName() {
+                    return "Deletable";
+                }
+
+                @Override
+                public String getDescription() {
+                    return "Determines if the layer can be deleted by the user.";
+                }
+
+                @Override
+                public String getCategory() {
+                    return "Model Layer: " + layer.getName();
+                }
+            });
+
+            items.add(new Item() {
+
+                @Override
+                public Optional<ObservableValue<?>> getObservableValue() {
+                    return Optional.of(layer.nameProperty());
+                }
+
+                @Override
+                public void setValue(Object value) {
+                    layer.setName((String) value);
+                }
+
+                @Override
+                public Object getValue() {
+                    return layer.getName();
+                }
+
+                @Override
+                public Class<?> getType() {
+                    return String.class;
+                }
+
+                @Override
+                public String getName() {
+                    return "Name";
+                }
+
+                @Override
+                public String getDescription() {
+                    return "The name of the model layer";
+                }
+
+                @Override
+                public String getCategory() {
+                    return "Model Layer: " + layer.getName();
+                }
+            });
+
+            items.add(new Item() {
+
+                @Override
+                public Optional<ObservableValue<?>> getObservableValue() {
+                    return Optional.of(layer.opacityProperty());
+                }
+
+                @Override
+                public void setValue(Object value) {
+                    layer.setOpacity((Double) value);
+                }
+
+                @Override
+                public Object getValue() {
+                    return layer.getOpacity();
+                }
+
+                @Override
+                public Class<?> getType() {
+                    return Double.class;
+                }
+
+                @Override
+                public String getName() {
+                    return "Opacity";
+                }
+
+                @Override
+                public String getDescription() {
+                    return "Layer opacity / transparency.";
+                }
+
+                @Override
+                public String getCategory() {
+                    return "Model Layer: " + layer.getName();
+                }
+            });
+        }
+
+        return items;
+    }
+}

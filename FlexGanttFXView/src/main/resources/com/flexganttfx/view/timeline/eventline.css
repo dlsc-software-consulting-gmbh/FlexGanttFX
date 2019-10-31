@@ -1,0 +1,63 @@
+/*
+ * eventline.css file of FlexGanttFX
+ * 
+ * Copyright 2019 DLSC Software & Consulting GmbH
+ */
+
+/*
+ * The eventline uses the same style as the dateline cells. This style
+ * is based on the default modena style of the table column headers.
+ */
+.eventline {
+    -fx-background-color: -fx-box-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0, 0 1 1 0, 1 2 2 1;
+    -fx-pref-height: 2em;
+}
+
+.dst-marker {
+    -fx-font-size: 0.8em;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-background-color: darkorange;
+    -fx-background-insets: 1 0 1 0;
+    -fx-border-color: derive(darkorange, -20%);
+    -fx-padding: 0 .25em 0 .25em;
+}
+
+/*
+ * The style used for the label that displays the time at the current
+ * mouse cursor location.
+ */
+.time-cursor {
+    -fx-control-inner-background: -fx-accent;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-inner-color;
+    -fx-background-color: -fx-control-inner-background;
+    -fx-background-insets: .5 0 .5 0;
+    -fx-padding: 0 .25em 0 .25em;
+}
+
+/*
+ * The style used for the two labels that display the start and end time
+ * of the currently edited activity.
+ */
+.marked-time {
+    -fx-control-inner-background: -fx-accent;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-inner-color;
+    -fx-background-color: -fx-control-inner-background;
+    -fx-background-insets: .5 0 .5 0;
+    -fx-padding: 0 .25em 0 .25em;
+}
+
+/*
+ * Additional style to modify the appearance of the start time only.
+ */
+.marked-time-start {
+}
+
+/*
+ * Additional style to modify the appearance of the end time only.
+ */
+.marked-time-end {
+}

@@ -1,0 +1,79 @@
+.header {
+	-fx-padding: 10.0 0.0 10.0 10.0;
+	-fx-font-weight: bold;
+	-fx-border-color: transparent transparent lightgray transparent;
+	-fx-border-insets: 0.0 10.0 0.0 10.0;
+}
+
+.header > .title {
+	-fx-padding: 0;
+	-fx-text-fill: green;
+	-fx-font-size: 16.0px;
+	-fx-background-color: null;
+	-fx-border-color: null;
+}
+
+.header > .subtitle {
+	-fx-padding: 0;
+	-fx-text-fill: gray ;
+	-fx-background-color: null;
+	-fx-border-color: null;
+}
+
+.header > .color-picker {
+	-fx-background-color: null;
+	-fx-color-label-visible: false;	
+}
+
+.footer {
+	-fx-padding: 10.0 10.0 10.0 10.0;
+}
+
+.accordion > .titled-pane > .title > .arrow-button .arrow {
+    -fx-opacity: 0.0;
+}
+
+.arrow-button {
+	-fx-pref-width: 0.0;	
+	-fx-pref-height: 0.0;	
+}
+
+.accordion > .titled-pane {
+	-fx-background-color: transparent;
+	-fx-animated: true;
+	-fx-text-fill: gray;
+}
+
+.accordion > .titled-pane:expanded {
+	-fx-text-fill: gray;
+}
+
+.accordion > .titled-pane > .title {
+	-fx-background-color: transparent;
+	-fx-border-color: transparent transparent transparent transparent;
+	-fx-border-insets: 1.0 10.0 1.0 10.0;
+}
+
+.accordion > .titled-pane:collapsed > .title {
+	-fx-border-color: transparent transparent lightgray transparent;
+	-fx-border-style: dashed;
+}
+
+.accordion > .titled-pane > .content {
+	-fx-border-color: null;
+	-fx-padding: 20.0;
+}
+
+.accordion > .titled-pane > .title > .arrow-button > .arrow {
+	-fx-pref-width: 0.0;
+	-fx-pref-height: 0.0;
+}
+
+.accordion > .titled-pane:expanded > * {
+	-fx-background-color: rgba(240.0,240.0,240.0, 0.95);
+ 	-fx-effect: innershadow(gaussian, rgba(0,0,0,.6), 6.0, 0.0, 0, 0);
+}
+
+.summary-text {
+	-fx-text-fill: gray;
+}

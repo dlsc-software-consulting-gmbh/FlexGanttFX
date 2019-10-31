@@ -1,0 +1,69 @@
+<assembly
+	xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+	<id>src</id>
+	<formats>
+		<format>dir</format>
+		<format>zip</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+
+	<files>
+
+		<file>
+			<source>README-SRC.txt</source>
+			<destName>README.txt</destName>
+		</file>
+
+	</files>
+
+	<fileSets>
+	
+		<!--  Source files -->
+
+		<fileSet>
+			<directory>../FlexGanttFXCore/src/main/java</directory>
+			<outputDirectory>src/core/main/java</outputDirectory>
+		</fileSet>
+
+		<fileSet>
+			<directory>../FlexGanttFXModel/src/main/java</directory>
+			<outputDirectory>src/model/main/java</outputDirectory>
+		</fileSet>
+
+		<fileSet>
+			<directory>../FlexGanttFXView/src/main/java</directory>
+			<outputDirectory>src/view/main/java</outputDirectory>
+		</fileSet>
+
+		<fileSet>
+			<directory>../FlexGanttFXExtras/src/main/java</directory>
+			<outputDirectory>src/extras/main/java</outputDirectory>
+		</fileSet>
+
+		<!--  Resource files -->
+
+		<fileSet>
+			<directory>../FlexGanttFXCore/src/main/resources</directory>
+			<outputDirectory>src/core/main/resources</outputDirectory>
+		</fileSet>
+
+		<fileSet>
+			<directory>../FlexGanttFXModel/src/main/resources</directory>
+			<outputDirectory>src/model/main/resources</outputDirectory>
+		</fileSet>
+
+		<fileSet>
+			<directory>../FlexGanttFXView/src/main/resources</directory>
+			<outputDirectory>src/view/main/resources</outputDirectory>
+		</fileSet>
+
+		<fileSet>
+			<directory>../FlexGanttFXExtras/src/main/resources</directory>
+			<outputDirectory>src/view/main/resources</outputDirectory>
+		</fileSet>
+
+	</fileSets>
+
+</assembly>

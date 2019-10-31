@@ -1,0 +1,15 @@
+.date-slider {
+    -fx-padding: 1em;
+    -fx-background-color: #f4e5bc;
+    -fx-background-insets: 0 2em 0 2em;
+    -fx-background-radius: 6px;
+}
+
+.earliest-date-label,
+.latest-date-label,
+.date-tooltip .label {
+    -fx-padding: 4;
+    -fx-text-fill: white;
+    -fx-background-radius: 4;
+    -fx-background-color: #e68400;
+}

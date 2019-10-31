@@ -1,0 +1,141 @@
+-----------------------------------
+Release: 11.9.1, October 24th, 2019
+-----------------------------------
+
+** Bug fix: re-enabled drawing of activity links.
+
+-----------------------------------
+Release: 11.9.0, October 23rd, 2019
+-----------------------------------
+
+** See Release 8.9.0 plus modularity plus JavaFX 11+ support.
+
+** The demo folder and the applications inside of it were removed as building standalone
+   and executable JAR files have become quite difficult to do with the new module system and
+   the fact that JavaFX is now an external dependency.
+
+----------------------------------
+Release: 8.9.0, April 8th, 2019
+----------------------------------
+
+** Bug
+    * [FLEXFX-342] - scale in ChartLayout not aligned
+    * [FLEXFX-344] - RadarView: visibleStartTime/visibleEndTime outside earliestTimeUsed/latestTimeUsed
+    * [FLEXFX-345] - Distorted cursors in MAC OS
+
+** New Feature
+    * [FLEXFX-348] - Add ability to add a frozen row in the time line
+
+** Enhancements
+    * [FLEXFX-319] - Redraw graphics when row calendars change.
+    * [FLEXFX-343] - Visible Area in RadarView
+    * [FLEXFX-349] - Use modena color constants for GraphicsBase
+    * [FLEXFX-350] - Move property sheet support into "extras" module.
+    * [FLEXFX-351] - The style class "zoneIdLabel" should be moved from gantt.css to graphics.css (and renamed).
+
+** Other
+    * Moved style class "zoneIdLabel" from gantt.css to graphics.css. Renamed it to "zone-id-label".
+    * Move property sheet support into "extras" module.
+    * Time labels in Eventline are not mouse transparent causing flickering
+    * CalendarLayer does not define a default renderer for mutable calendar entries
+    * Not using modena color constants for row background colors inside the tree table
+
+
+----------------------------------
+Release: 8.8.1, October 13th, 2017
+----------------------------------
+
+** New Feature
+    * [FLEXFX-329] - Add filter for rows
+
+** Bug
+    * [FLEXFX-324] - There is no i18n for time unit and time zones
+    * [FLEXFX-336] - Cursor / Calendars / Now Line widgets are not bindig with action state
+    * [FLEXFX-337] - Transferring custom data via drag and drop from gantt chart.
+    * [FLEXFX-338] - Memory leak in RowCanvasBehaviour
+    * [FLEXFX-339] - NPE layouting gantt when width is 0
+    * [FLEXFX-340] - Links are not being rendered properly after sorting rows
+
+
+-------------------------------
+Release: 8.8.0, June 19th, 2017
+-------------------------------
+
+** Improvement
+    * [FLEXFX-328] - Improve rendering performance.
+
+** Bug
+    * [FLEXFX-308] - Agenda layout scale does not show hours
+    * [FLEXFX-318] - After changing the size of rows, links are pointing to nowhere
+    * [FLEXFX-325] - Drag indicators stay after dropping outside graphics area
+    * [FLEXFX-326] - Infinite loop rendering dateline in DST change (March 26th)
+    * [FLEXFX-327] - Vertical scrollbar behaves strange when there is only one row visible
+    * [FLEXFX-330] - Too many redraws when scrolling vertically.
+    * [FLEXFX-332] - Timeline scrolls to the right when trying to zoom in with "frozen" time over the set zoom limit
+    * [FLEXFX-333] - Shift + scroll wheel scrolls timeline to the left regardless of scroll direction
+    * [FLEXFX-334] - Horizontal cursor is being drawn on vertical scroll bar.
+    * [FLEXFX-335] - Radar widget / NPE on mousePressed and mouseDragged
+
+----------------------------------
+Release: 1.7.0, October 26th, 2016
+----------------------------------
+
+- Added a manual PDF to the distribution. This is an export of the product's WIKI pages
+  that can normally be found at:
+
+         https://flexgantt.atlassian.net/wiki/display/FFXMAN/FlexGanttFX+Developer+Manual
+
+** Bug
+    * [FLEXFX-306] - Endless automatic horizontal scroll if dragging activities
+    * [FLEXFX-311] - onActivityStartTimeChangeStartedProperty() always returns null
+    * [FLEXFX-313] - TimelineModel HorizonStartTime / HorizonEndTime
+    * [FLEXFX-314] - NPE when expanding or collapsing rows with empty model
+
+** Task
+    * [FLEXFX-315] - Change behaviour of property "smallestTemporalUnit" in TimelineModel class.
+
+** Improvement
+    * [FLEXFX-301] - Too many calls of the GanttChartSkin.updateListRows() method.
+
+-------------------------------
+Release: 1.6.0, July 12th, 2016
+-------------------------------
+
+Highlights:
+
+- Introduced new control: GanttChartLite (graphics only, no treetable)
+- Introduced new containers:
+    DualGanttChartLiteContainer
+    MultiGanttChartLiteContainer
+    QuadGanttChartContainer (displays 4 Gantt charts in sync)
+    QuadGanttChartLiteContainer
+- Introduced base class for (old) GanttChart control and new GanttChartLiteControl: GanttChartBase
+- Moved "dual", "multi" containers into a new package called "container".
+- Renamed GanttChart.getPrimaryMasterDetailPane to GanttChart.getTreeTableMasterDetailPane
+- Renamed / Moved GanttChart.getSecondaryMasterDetailPane to GanttChartBase.getGraphicsMasterDetailPane().
+- Added new filter for activities: GanttChartBase.setActivityFilter(Predicate).
+- Updated to controlsfx version 8.40.11
+
+JIRA tickets:
+
+** Bug
+    * [FLEXFX-202] - GraphicsHeader taken only when creating Skin
+    * [FLEXFX-268] - Unsynchronized tree table and list view models
+    * [FLEXFX-277] - Activity "lost" if dragged to a timeline horizon boundary
+    * [FLEXFX-289] - DragEvent stays accepted during whole event handling
+    * [FLEXFX-292] - Marker lines have wrong height when graphics area resizes
+    * [FLEXFX-294] - Dragged activity sometimes not drawn at cursor location
+    * [FLEXFX-297] - Link rendering broken when target outside viewport
+    * [FLEXFX-298] - Deleting activities with links does not work properly
+
+
+** New Feature
+    * [FLEXFX-291] - Activity Filter
+    * [FLEXFX-295] - Add property to enable / disable the lasso functionality
+    * [FLEXFX-296] - Containers for synchronizing multiple graphics (Dual/MultiGanttChartLiteContainer)
+
+
+** Improvement
+    * [FLEXFX-32] - Provide a way for a row to allow / prevent a drop of an activity
+    * [FLEXFX-103] - Remove timeline completely from Gantt charts with a position other than FIRST or ONLY.
+    * [FLEXFX-299] - Fire single event while setting activity selection

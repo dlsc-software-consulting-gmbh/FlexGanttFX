@@ -1,0 +1,115 @@
+<assembly
+	xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+
+	<id>bin</id>
+	<formats>
+		<format>dir</format>
+		<format>zip</format>
+	</formats>
+
+	<includeBaseDirectory>false</includeBaseDirectory>
+
+	<dependencySets>
+
+		<dependencySet>
+			<outputDirectory>lib</outputDirectory>
+			<includes>
+				<include>com.flexganttfx:core</include>
+				<include>com.flexganttfx:model</include>
+				<include>com.flexganttfx:view</include>
+				<include>com.flexganttfx:extras</include>
+			</includes>
+			<outputFileNameMapping>flexganttfx-${artifact.artifactId}-${artifact.version}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+		</dependencySet>
+
+		<dependencySet>
+			<outputDirectory>ext</outputDirectory>
+			<includes>
+				<include>org.controlsfx:controlsfx</include>
+				<include>com.smardec:license4j</include>
+			</includes>
+			<outputFileNameMapping>${artifact.artifactId}-${artifact.version}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+		</dependencySet>
+
+	</dependencySets>
+
+
+	<files>
+
+		<file>
+			<source>manual.pdf</source>
+			<outputDirectory>.</outputDirectory>
+		</file>
+
+		<file>
+			<source>RELEASE-NOTES.txt</source>
+			<outputDirectory>.</outputDirectory>
+		</file>
+
+		<file>
+			<source>README-BIN.txt</source>
+			<destName>README.txt</destName>
+		</file>
+
+		<file>
+			<source>README-EXT.txt</source>
+			<outputDirectory>ext</outputDirectory>
+		</file>
+
+		<file>
+			<source>README-TUTORIAL.txt</source>
+			<outputDirectory>tutorial</outputDirectory>
+		</file>
+
+		<file>
+			<source>../FlexGanttFXView/src/main/resources/com/flexganttfx/view/gantt.css</source>
+			<outputDirectory>css</outputDirectory>
+		</file>
+
+		<file>
+			<source>../FlexGanttFXView/src/main/resources/com/flexganttfx/view/timeline/timeline.css</source>
+			<outputDirectory>css</outputDirectory>
+		</file>
+
+		<file>
+			<source>../FlexGanttFXView/src/main/resources/com/flexganttfx/view/timeline/dateline.css</source>
+			<outputDirectory>css</outputDirectory>
+		</file>
+
+		<file>
+			<source>../FlexGanttFXView/src/main/resources/com/flexganttfx/view/timeline/eventline.css</source>
+			<outputDirectory>css</outputDirectory>
+		</file>
+
+		<file>
+			<source>../FlexGanttFXView/src/main/resources/com/flexganttfx/view/graphics/graphics.css</source>
+			<outputDirectory>css</outputDirectory>
+		</file>
+
+	</files>
+
+	<fileSets>
+		<!-- Tutorial sources -->
+
+		<fileSet>
+			<directory>../FlexGanttFXTutorials/src/main/java</directory>
+			<outputDirectory>tutorial/src</outputDirectory>
+		</fileSet>
+
+		<!-- API / Javadocs -->
+
+		<fileSet>
+			<directory>../target/site/apidocs</directory>
+			<outputDirectory>docs</outputDirectory>
+		</fileSet>
+
+		<fileSet>
+			<directory>licenses</directory>
+			<outputDirectory>legal</outputDirectory>
+		</fileSet>
+
+	</fileSets>
+
+</assembly>
