@@ -15,6 +15,9 @@ import org.controlsfx.control.PropertySheet.Item;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * A property sheet item provider for {@link CompletableActivityRenderer}.
+ */
 public class CompletableActivityRendererItemProvider implements ItemProvider<CompletableActivityRenderer> {
 
     @Override

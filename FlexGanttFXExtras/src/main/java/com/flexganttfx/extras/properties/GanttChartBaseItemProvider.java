@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.extras.properties;
@@ -19,8 +19,12 @@ import org.controlsfx.control.PropertySheet.Item;
 import java.util.List;
 import java.util.Optional;
 
-public class GanttChartBaseItemProvider<R extends Row<?,?,?>> implements ItemProvider<GanttChartBase<R>> {
-
+/**
+ * A property sheet item provider for {@link GanttChartBase}.
+ *
+ * @param <R> the row type
+ */
+public class GanttChartBaseItemProvider<R extends Row<?, ?, ?>> implements ItemProvider<GanttChartBase<R>> {
 
     private static final String GANTT_CHART_BASE_PROPERTIES_CATEGORY = "Control: Gantt Chart Base";
 

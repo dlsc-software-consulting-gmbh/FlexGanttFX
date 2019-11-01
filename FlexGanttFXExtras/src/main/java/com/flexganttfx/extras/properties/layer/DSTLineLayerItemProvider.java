@@ -15,6 +15,9 @@ import org.controlsfx.control.PropertySheet.Item;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * A property sheet item provider for {@link DSTLineLayer}.
+ */
 public class DSTLineLayerItemProvider implements ItemProvider<DSTLineLayer> {
 
     @Override

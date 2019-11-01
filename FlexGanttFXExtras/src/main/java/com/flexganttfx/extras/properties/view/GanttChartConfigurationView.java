@@ -12,6 +12,10 @@ import javafx.geometry.Side;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
+/**
+ * A tab pane containing four tabs with property sheets for controls, renderers,
+ * background, and foreground layers.
+ */
 public class GanttChartConfigurationView extends TabPane  {
 
     private GanttChartPropertySheet controlsSheet = new GanttChartPropertySheet();
@@ -19,6 +23,9 @@ public class GanttChartConfigurationView extends TabPane  {
     private GanttChartPropertySheet foregroundLayersSheet = new GanttChartPropertySheet();
     private GanttChartPropertySheet renderersSheet = new GanttChartPropertySheet();
 
+    /**
+     * Constructs a new view.
+     */
     public GanttChartConfigurationView() {
         setSide(Side.RIGHT);
 
@@ -32,11 +39,17 @@ public class GanttChartConfigurationView extends TabPane  {
         ganttChart.addListener(it -> update());
     }
 
+    /**
+     * Constructs a new view for the given gantt chart.
+     */
     public GanttChartConfigurationView(GanttChartBase<?> ganttChart) {
         this();
         setGanttChart(ganttChart);
     }
 
+    /**
+     * Explicitly updates the view (after some change that the view did not detect automatically).
+     */
     public void update() {
         GanttChartBase ganttChart = getGanttChart();
         controlsSheet.getTargets().setAll(ganttChart);
@@ -47,14 +60,29 @@ public class GanttChartConfigurationView extends TabPane  {
 
     private final ObjectProperty<GanttChartBase> ganttChart = new SimpleObjectProperty<>(this, "ganttChart");
 
-    public final GanttChartBase getGanttChart() {
-        return ganttChart.get();
-    }
-
+    /**
+     * Returns the property that stores the Gantt chart for which the view is being used.
+     *
+     * @return the Gantt chart.
+     */
     public final ObjectProperty<GanttChartBase> ganttChartProperty() {
         return ganttChart;
     }
 
+    /**
+     * Returns the Gantt chart.
+     *
+     * @return the Gantt chart.
+     */
+    public final GanttChartBase getGanttChart() {
+        return ganttChart.get();
+    }
+
+    /**
+     * Sets the Gantt chart.
+     *
+     * @param ganttChart the chart
+     */
     public final void setGanttChart(GanttChartBase ganttChart) {
         this.ganttChart.set(ganttChart);
     }

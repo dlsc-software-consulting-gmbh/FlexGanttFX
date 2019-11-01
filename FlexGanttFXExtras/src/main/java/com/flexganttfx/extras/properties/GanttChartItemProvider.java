@@ -13,6 +13,11 @@ import org.controlsfx.control.PropertySheet.Item;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * A property sheet item provider for {@link GanttChart}.
+ *
+ * @param <R> the row type
+ */
 public class GanttChartItemProvider<R extends Row<?, ?, ?>> implements ItemProvider<GanttChart<R>> {
 
     private static final String GANTT_CHART_PROPERTIES_CATEGORY = "Control: Gantt Chart";

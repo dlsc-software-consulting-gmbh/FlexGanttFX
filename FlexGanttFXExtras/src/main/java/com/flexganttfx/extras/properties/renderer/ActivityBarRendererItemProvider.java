@@ -16,6 +16,9 @@ import org.controlsfx.control.PropertySheet.Item;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * A property sheet item provider for {@link ActivityBarRenderer}.
+ */
 public class ActivityBarRendererItemProvider implements ItemProvider<ActivityBarRenderer> {
 
     @Override

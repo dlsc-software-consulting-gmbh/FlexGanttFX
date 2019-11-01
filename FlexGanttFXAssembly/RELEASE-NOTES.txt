@@ -3,6 +3,7 @@ Release: 11.9.1, October 24th, 2019
 -----------------------------------
 
 ** Bug fix: re-enabled drawing of activity links.
+** Re-added missing API docs / javadocs.
 
 -----------------------------------
 Release: 11.9.0, October 23rd, 2019

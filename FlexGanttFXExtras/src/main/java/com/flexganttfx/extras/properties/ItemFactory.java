@@ -24,6 +24,36 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This factory creates property sheet items for a given object. In previous versions of
+ * FlexGanttFX these items were returned by the custom controls themselves but since this
+ * was more a feature used at evaluation time of the product it did not make sense to keep
+ * them in production code. Hence they were refactored to this place.
+ * <p>
+ * Supported classes / classes with an item provider implementation
+ * <ul>
+ *     <li>GanttChartBase</li>
+ *     <li>GanttChart</li>
+ *     <li>GraphicsBase</li>
+ *     <li>AgendaLinesLayer</li>
+ *     <li>ChartLinesLayer</li>
+ *     <li>DSTLineLayer</li>
+ *     <li>GridLinesLayer</li>
+ *     <li>HoverTimeIntervalLayer</li>
+ *     <li>InnerLinesLayer</li>
+ *     <li>LayoutLayer</li>
+ *     <li>NowLineLayer</li>
+ *     <li>ScaleLayer</li>
+ *     <li>SelectedTimeIntervalsLayer</li>
+ *     <li>SystemLayer</li>
+ *     <li>ZoomTimeIntervalLayer</li>
+ *     <li>ActivityBarRenderer</li>
+ *     <li>ActivityRendererItemProvider</li>
+ *     <li>CompletableActivityRenderer</li>
+ *     <li>Renderer</li>
+ * </ul>
+ * </p>
+ */
 public class ItemFactory {
 
     private final static Map<Class, ItemProvider<?>> PROVIDER_MAP = new HashMap<>();
@@ -53,6 +83,14 @@ public class ItemFactory {
 
     }
 
+    /**
+     * Returns a list of property sheet items for the given object. The method will try to find
+     * a dedicated item provider based on the class of the object. If none can be found it will
+     * utilise {@link BeanPropertyUtils#getProperties}.
+     *
+     * @param object the object for which to return property sheet items
+     * @return the resulting property sheet items
+     */
     public List<Item> getItems(Object object) {
         ItemProvider<Object> provider = findItemProvider(object);
         if (provider == null) {

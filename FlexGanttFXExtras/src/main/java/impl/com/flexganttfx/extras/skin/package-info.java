@@ -4,10 +4,6 @@
  * This file is part of FlexGanttFX.
  */
 /**
- * 
- */
-/**
- *
- * @since 1.0
+ *  Skins for the extra controls.
  */
 package impl.com.flexganttfx.extras.skin;

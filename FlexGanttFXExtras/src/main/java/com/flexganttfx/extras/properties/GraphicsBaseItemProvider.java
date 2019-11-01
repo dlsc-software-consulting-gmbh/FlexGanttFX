@@ -15,6 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * A property sheet item provider for {@link GraphicsBase}.
+ *
+ * @param <R> the row type
+ */
 public class GraphicsBaseItemProvider<R extends Row<?,?,?>> implements ItemProvider<GraphicsBase<R>> {
 
     private static final String GRAPHICS_VIEW_PROPERTIES = "Control: Graphics";

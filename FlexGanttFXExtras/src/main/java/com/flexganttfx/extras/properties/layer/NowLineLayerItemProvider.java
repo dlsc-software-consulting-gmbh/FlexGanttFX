@@ -15,6 +15,9 @@ import org.controlsfx.control.PropertySheet.Item;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * A property sheet item provider for {@link NowLineLayer}.
+ */
 public class NowLineLayerItemProvider implements ItemProvider<NowLineLayer> {
 
     @Override

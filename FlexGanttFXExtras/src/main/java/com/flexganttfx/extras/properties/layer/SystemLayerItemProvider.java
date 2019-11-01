@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * A property sheet item provider for {@link SystemLayer}.
+ */
 public class SystemLayerItemProvider implements ItemProvider<SystemLayer> {
 
     @Override

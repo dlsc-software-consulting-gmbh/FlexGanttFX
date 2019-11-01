@@ -4217,6 +4217,13 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         return rowControlsFactory.get();
     }
 
+    /**
+     * A callback parameter object used to provide context for the row controls
+     * factory.
+     *
+     * @see #rowControlsFactoryProperty()
+     * @param <R> the row type
+     */
     public static final class RowControlsParameter<R extends Row<?, ?, ?>> {
 
         private final R row;
@@ -4258,6 +4265,13 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         return rowEditorFactory.get();
     }
 
+    /**
+     * A callback parameter object used to provide context for the row editor
+     * factory.
+     *
+     * @see #rowEditorFactoryProperty()
+     * @param <R> the row type
+     */
     public static final class RowEditorParameter<R extends Row<?, ?, ?>> {
 
         private final R row;
@@ -4295,8 +4309,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         NONE, SINGLE_ROW, MULTIPLE_ROWS
     }
 
-    private final ObjectProperty<RowEditingMode> rowEditingMode = new SimpleObjectProperty<>(
-            this, "rowEditingMode", RowEditingMode.SINGLE_ROW);
+    private final ObjectProperty<RowEditingMode> rowEditingMode = new SimpleObjectProperty<>(this, "rowEditingMode", RowEditingMode.SINGLE_ROW);
 
     public final ObjectProperty<RowEditingMode> rowEditingModeProperty() {
         return rowEditingMode;
@@ -4310,8 +4323,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         return rowEditingMode.get();
     }
 
-    private final ObservableList<R> rowsEditing = FXCollections
-            .observableArrayList();
+    private final ObservableList<R> rowsEditing = FXCollections.observableArrayList();
 
     public final ObservableList<R> getRowsEditing() {
         return rowsEditing;
@@ -4365,12 +4377,22 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     // Edit mode support.
 
+    /**
+     * A callback parameter object used by the edit mode callback that provides information
+     * about the context for which the edit mode will be determined.
+     */
     public static final class EditModeCallbackParameter {
 
         private final ActivityBounds activityBounds;
 
         private final MouseEvent event;
 
+        /**
+         * Constructs a new callback parameter.
+         *
+         * @param activityBounds the activity / bounds for which to determine the edit mode
+         * @param event the mouse event triggering the edit mode lookup
+         */
         public EditModeCallbackParameter(ActivityBounds activityBounds,
                                          MouseEvent event) {
             requireNonNull(activityBounds);
@@ -4380,10 +4402,20 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
             this.event = event;
         }
 
+        /**
+         * The activity / bounds for which to determine the edit mode.
+         *
+         * @return the activity
+         */
         public ActivityBounds getActivityBounds() {
             return activityBounds;
         }
 
+        /**
+         * The event that triggered the lookup.
+         *
+         * @return the event causing the lookup
+         */
         public MouseEvent getMouseEvent() {
             return event;
         }
