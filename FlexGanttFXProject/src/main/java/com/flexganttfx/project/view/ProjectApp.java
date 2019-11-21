@@ -6,6 +6,7 @@
 package com.flexganttfx.project.view;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -20,12 +21,13 @@ public class ProjectApp extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		TaskGanttChart taskGanttChart = new TaskGanttChart();
 		ResourceGanttChart resourceGanttChart = new ResourceGanttChart();
-		DualGanttChartContainer dual = new DualGanttChartContainer(
-				taskGanttChart, resourceGanttChart);
+		DualGanttChartContainer dual = new DualGanttChartContainer(taskGanttChart, resourceGanttChart);
 		dual.setShowSecondary(false);
+		Platform.runLater(() -> {
+			taskGanttChart.getTimeline().showNow(true);
+		});
 		Scene scene = new Scene(dual);
-		scene.getStylesheets().add(
-				ProjectApp.class.getResource("project.css").toExternalForm());
+		scene.getStylesheets().add(ProjectApp.class.getResource("project.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.sizeToScene();
 		primaryStage.centerOnScreen();

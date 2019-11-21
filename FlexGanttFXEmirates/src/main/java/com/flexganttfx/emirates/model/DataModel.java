@@ -5,6 +5,15 @@
  */
 package com.flexganttfx.emirates.model;
 
+import com.flexganttfx.emirates.EmiratesApp;
+import com.flexganttfx.emirates.model.Flight.ServiceType;
+import com.flexganttfx.extras.GanttChartStatusBar;
+import com.flexganttfx.model.Layer;
+import javafx.application.Platform;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -22,17 +31,6 @@ import java.util.StringTokenizer;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-
-import javafx.application.Platform;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-
-import com.flexganttfx.emirates.EmiratesApp;
-import com.flexganttfx.emirates.model.Flight.ServiceType;
-import com.flexganttfx.extras.GanttChartStatusBar;
-import com.flexganttfx.model.Layer;
 
 public class DataModel extends HashMap<Group, Map<String, Aircraft>> {
 
@@ -98,8 +96,7 @@ public class DataModel extends HashMap<Group, Map<String, Aircraft>> {
 		return layerMap.values();
 	}
 
-	private void loadDataSet(final String zipArchive,
-			final int numberOfFlightsInFile) throws IOException {
+	private void loadDataSet(final String zipArchive, final int numberOfFlightsInFile) throws IOException {
 		ZipInputStream zin = null;
 		try {
 			zin = new ZipInputStream(
