@@ -958,13 +958,21 @@ public class Timeline extends FlexGanttFXControl {
 
         Instant targetTime = Instant.ofEpochMilli(startTime + jump);
 
-        final LongProperty prop = new SimpleLongProperty(model.getStartTime().toEpochMilli());
-        prop.addListener(it -> model.setStartTime(Instant.ofEpochMilli(prop.get())));
+        if (Boolean.getBoolean("flexganttfx.animation.off")) {
 
-        KeyValue keyValue = new KeyValue(prop, targetTime.toEpochMilli());
-        KeyFrame keyFrame = new KeyFrame(Duration.millis(333), keyValue);
-        javafx.animation.Timeline timeline = new javafx.animation.Timeline(keyFrame);
-        timeline.play();
+            model.setStartTime(targetTime);
+
+        } else {
+
+            final LongProperty prop = new SimpleLongProperty(model.getStartTime().toEpochMilli());
+            prop.addListener(it -> model.setStartTime(Instant.ofEpochMilli(prop.get())));
+
+            KeyValue keyValue = new KeyValue(prop, targetTime.toEpochMilli());
+            KeyFrame keyFrame = new KeyFrame(Duration.millis(333), keyValue);
+            javafx.animation.Timeline timeline = new javafx.animation.Timeline(keyFrame);
+            timeline.play();
+
+        }
     }
 
     private static final String TIMELINE_PROPERTIES_CATEGORY = "Control: Timeline";

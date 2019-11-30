@@ -31,10 +31,14 @@ public class MSProjectApp extends Application {
 
 	@Override
 	public void start(Stage stage) {
+		System.setProperty("flexganttfx.animation.off", "true");
+
 		this.stage = stage;
 		this.stage.setTitle(STAGE_TITLE);
 
 		gantt = new MSProjectGanttChart();
+		gantt.getTimeline().setZoomAnimated(false);
+
 		gantt.load("com.flexganttfx.msproject.files/n0741.mpp", MSProjectApp.class.getResourceAsStream("/com.flexganttfx.msproject.files/n0741.mpp"));
 
 		VBox.setVgrow(gantt, Priority.ALWAYS);
