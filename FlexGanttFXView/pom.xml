@@ -14,7 +14,7 @@
 	</parent>
 
 	<properties>
-		<maven.javadoc.skip>false</maven.javadoc.skip>
+		<maven.javadoc.skip>true</maven.javadoc.skip>
 	</properties>
 
 	<repositories>

@@ -16,11 +16,25 @@
 		<maven.javadoc.skip>true</maven.javadoc.skip>
 	</properties>
 
+	<pluginRepositories>
+
+		<pluginRepository>
+			<id>jpro - sandec repository</id>
+			<url>http://sandec.bintray.com/repo</url>
+		</pluginRepository>
+
+	</pluginRepositories>
+
 	<repositories>
 
 		<repository>
 			<id>my-local-emirates-repo</id>
 			<url>file://${project.basedir}/repository</url>
+		</repository>
+
+		<repository>
+			<id>jpro - sandec repository</id>
+			<url>http://sandec.bintray.com/repo</url>
 		</repository>
 
 	</repositories>
@@ -93,6 +107,18 @@
 				<configuration>
 					<mainClass>com.flexganttfx.emirates.EmiratesApp</mainClass>
 					<graalLibsPath>/Users/lemmi/Downloads/bundle/lib</graalLibsPath>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>com.sandec.jpro</groupId>
+				<artifactId>jpro-maven-plugin</artifactId>
+				<version>2019.2.0-SNAPSHOT</version>
+				<configuration>
+					<visible>false</visible>
+					<!-- noRenderJobs>true</noRenderJobs -->
+					<mainClassName>com.flexganttfx.emirates.EmiratesApp</mainClassName>
+					<openingPath>/</openingPath>
 				</configuration>
 			</plugin>
 
