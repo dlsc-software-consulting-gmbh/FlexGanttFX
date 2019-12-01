@@ -130,8 +130,8 @@ public class CalendarLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 				while (entries.hasNext()) {
 					CalendarActivity activity = entries.next();
 
-					double x1 = snapPosition(timelineModel.calculateLocationForTime(activity.getStartTime()));
-					double x2 = snapPosition(timelineModel.calculateLocationForTime(activity.getEndTime()));
+					double x1 = snapPosition(timelineModel.calculateLocationForTime(activity.getStartTime()) - canvas.getTranslateX());
+					double x2 = snapPosition(timelineModel.calculateLocationForTime(activity.getEndTime()) - canvas.getTranslateX());
 
 					CalendarActivityRenderer renderer = getCalendarActivityRenderer(activity.getClass());
 

@@ -51,12 +51,15 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
 		getStyleClass().add("row-pane");
 
 		setPrefWidth(0);
+		setMinWidth(0);
 		setPrefHeight(Row.DEFAULT_ROW_HEIGHT);
 
 		canvas = new RowCanvas<>(graphics);
-		canvas.widthProperty().bind(widthProperty());
+		canvas.widthProperty().bind(widthProperty().multiply(GraphicsBase.BUFFER_FACTOR));
 		canvas.heightProperty().bind(heightProperty());
 		canvas.rowProperty().bind(rowProperty());
+		canvas.translateXProperty().bind(graphics.canvasTranslateXProperty());
+		StackPane.setAlignment(canvas, Pos.CENTER_LEFT);
 
 		zoneIdLabel = new Label("Zone ID");
 		zoneIdLabel.getStyleClass().add("zone-id-label");

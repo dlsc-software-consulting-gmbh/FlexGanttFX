@@ -80,9 +80,9 @@ public class ZoomTimeIntervalLayer<R extends Row<?, ?, ?>>
 			gc.setFill(getZoomTimeIntervalFill());
 
 			double x1 = snapPosition(timelineModel.calculateLocationForTime(
-					selectedTimeInterval.getStartTime()));
+					selectedTimeInterval.getStartTime()) + canvas.getTranslateX());
 			double x2 = snapPosition(timelineModel.calculateLocationForTime(
-					selectedTimeInterval.getEndTime()));
+					selectedTimeInterval.getEndTime()) + canvas.getTranslateX());
 
 			gc.fillRect(x1, 0, x2 - x1, canvas.getHeight());
 		}

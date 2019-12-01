@@ -5,17 +5,16 @@
  */
 package impl.com.flexganttfx.skin.graphics;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.logging.Level;
-
 import com.flexganttfx.core.LoggingDomain;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.view.graphics.GraphicsBase;
-
 import javafx.beans.binding.Bindings;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ListCell;
+
+import java.util.logging.Level;
+
+import static java.util.Objects.requireNonNull;
 
 public class RowCell<R extends Row<?, ?, ?>> extends ListCell<R> {
 
@@ -77,6 +76,12 @@ public class RowCell<R extends Row<?, ?, ?>> extends ListCell<R> {
 								rowPane.draw();
 							}
 						});
+	}
+
+	@Override
+	protected void layoutChildren() {
+		super.layoutChildren();
+		rowPane.resizeRelocate(0,0,getWidth(), getHeight());
 	}
 
 	public final RowPane<R> getRowPane() {

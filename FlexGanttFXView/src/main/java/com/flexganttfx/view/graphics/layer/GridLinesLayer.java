@@ -207,12 +207,12 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
 			Instant time = resolution.truncate(startTime, zoneId, firstDayOfWeek);
 
-			double x = snapPosition(timelineModel.calculateLocationForTime(time));
+			double x = snapPosition(timelineModel.calculateLocationForTime(time) + canvas.getTranslateX());
 
 			do {
 				gc.strokeLine(x, 0, x, height);
 				time = resolution.increment(time, zoneId);
-				x = snapPosition(timelineModel.calculateLocationForTime(time));
+				x = snapPosition(timelineModel.calculateLocationForTime(time) + canvas.getTranslateX());
 			} while (x < width);
 
 			counter++;

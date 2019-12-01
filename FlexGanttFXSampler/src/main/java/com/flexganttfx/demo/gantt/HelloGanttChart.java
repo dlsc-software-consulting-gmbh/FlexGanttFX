@@ -6,11 +6,16 @@
 package com.flexganttfx.demo.gantt;
 
 import com.flexganttfx.demo.FlexGanttFXSample;
+import com.flexganttfx.demo.HelloActivity;
 import com.flexganttfx.demo.HelloRow;
 import com.flexganttfx.extras.properties.view.GanttChartConfigurationView;
+import com.flexganttfx.model.Layer;
 import com.flexganttfx.view.GanttChart;
 import javafx.application.Application;
 import javafx.scene.Node;
+
+import java.time.Duration;
+import java.time.Instant;
 
 public class HelloGanttChart extends FlexGanttFXSample {
 
@@ -19,6 +24,17 @@ public class HelloGanttChart extends FlexGanttFXSample {
     @Override
     protected GanttChart<?> createGanttChart() {
         HelloRow root = new HelloRow("root");
+
+        Layer layer = new Layer("layer");
+        gc.getLayers().add(layer);
+
+        HelloActivity activity = new HelloActivity();
+        activity.setStartTime(Instant.now());
+        activity.setEndTime(Instant.now().plus(Duration.ofDays(7)));
+        root.addActivity(layer, activity);
+
+        System.out.println(activity);
+
         for (int i = 0; i < 200; i++) {
             HelloRow row = new HelloRow("Row " + (i + 1));
             root.getChildren().add(row);

@@ -93,7 +93,7 @@ public class NowLineLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 		TimelineModel<?> model = canvas.getTimelineModel();
 		Instant now = model.getNow();
 
-		double nowLocation = snapPosition(model.calculateLocationForTime(now));
+		double nowLocation = snapPosition(model.calculateLocationForTime(now) + canvas.getTranslateX());
 
 		gc.strokeLine(nowLocation, 0, nowLocation, canvas.getHeight());
 	}

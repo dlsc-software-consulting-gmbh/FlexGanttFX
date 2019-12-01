@@ -1,14 +1,29 @@
 /**
  * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.view.graphics;
 
 import com.flexganttfx.core.LoggingDomain;
+import com.flexganttfx.model.Activity;
+import com.flexganttfx.model.ActivityLink;
+import com.flexganttfx.model.ActivityRef;
+import com.flexganttfx.model.ActivityRepository;
 import com.flexganttfx.model.Calendar;
-import com.flexganttfx.model.*;
-import com.flexganttfx.model.activity.*;
+import com.flexganttfx.model.Layer;
+import com.flexganttfx.model.Layout;
+import com.flexganttfx.model.Row;
+import com.flexganttfx.model.activity.ActivityBase;
+import com.flexganttfx.model.activity.ChartActivity;
+import com.flexganttfx.model.activity.ChartActivityBase;
+import com.flexganttfx.model.activity.CompletableActivity;
+import com.flexganttfx.model.activity.CompletableActivityBase;
+import com.flexganttfx.model.activity.MutableActivity;
+import com.flexganttfx.model.activity.MutableActivityBase;
+import com.flexganttfx.model.activity.MutableChartActivityBase;
+import com.flexganttfx.model.activity.MutableCompletableActivityBase;
+import com.flexganttfx.model.activity.MutableHighLowChartActivityBase;
 import com.flexganttfx.model.calendar.CalendarActivity;
 import com.flexganttfx.model.calendar.CalendarActivityBase;
 import com.flexganttfx.model.calendar.WeekendCalendar;
@@ -20,7 +35,20 @@ import com.flexganttfx.model.layout.GanttLayout;
 import com.flexganttfx.model.repository.RepositoryEvent;
 import com.flexganttfx.model.timeline.TimelineModel;
 import com.flexganttfx.model.util.TimeInterval;
-import com.flexganttfx.view.graphics.layer.*;
+import com.flexganttfx.view.graphics.layer.AgendaLinesLayer;
+import com.flexganttfx.view.graphics.layer.CalendarLayer;
+import com.flexganttfx.view.graphics.layer.ChartLinesLayer;
+import com.flexganttfx.view.graphics.layer.DSTLineLayer;
+import com.flexganttfx.view.graphics.layer.GridLinesLayer;
+import com.flexganttfx.view.graphics.layer.HoverTimeIntervalLayer;
+import com.flexganttfx.view.graphics.layer.InnerLinesLayer;
+import com.flexganttfx.view.graphics.layer.LayoutLayer;
+import com.flexganttfx.view.graphics.layer.NowLineLayer;
+import com.flexganttfx.view.graphics.layer.RowLayer;
+import com.flexganttfx.view.graphics.layer.ScaleLayer;
+import com.flexganttfx.view.graphics.layer.SelectedTimeIntervalsLayer;
+import com.flexganttfx.view.graphics.layer.SystemLayer;
+import com.flexganttfx.view.graphics.layer.ZoomTimeIntervalLayer;
 import com.flexganttfx.view.graphics.renderer.ActivityRenderer;
 import com.flexganttfx.view.graphics.renderer.ChartActivityRenderer;
 import com.flexganttfx.view.graphics.renderer.CompletableActivityRenderer;
@@ -40,12 +68,34 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.WeakInvalidationListener;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.*;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.Property;
+import javafx.beans.property.ReadOnlyBooleanProperty;
+import javafx.beans.property.ReadOnlyBooleanWrapper;
+import javafx.beans.property.ReadOnlyDoubleWrapper;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
-import javafx.collections.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ListChangeListener.Change;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
+import javafx.collections.ObservableSet;
 import javafx.css.CssMetaData;
 import javafx.css.Styleable;
 import javafx.css.StyleableObjectProperty;
@@ -57,7 +107,12 @@ import javafx.event.WeakEventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Control;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
@@ -71,7 +126,11 @@ import javafx.util.Duration;
 
 import java.time.Instant;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 
@@ -176,6 +235,16 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     private Instant zoomTime;
 
+    private final ReadOnlyDoubleWrapper canvasTranslateX = new ReadOnlyDoubleWrapper();
+
+    public double getCanvasTranslateX() {
+        return canvasTranslateX.get();
+    }
+
+    public ReadOnlyDoubleWrapper canvasTranslateXProperty() {
+        return canvasTranslateX;
+    }
+
     /**
      * Constructs a new graphics view and initializes the following:
      * <ul>
@@ -191,6 +260,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
      */
     @SuppressWarnings("unchecked")
     public GraphicsBase() {
+        canvasTranslateX.addListener(it -> System.out.println("translate: " + getCanvasTranslateX()));
         getStyleClass().add(DEFAULT_STYLE_CLASS);
 
         // Virtual grids
@@ -246,6 +316,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
             }
         });
 
+        addEventFilter(MouseEvent.MOUSE_CLICKED, evt -> redraw());
         debugModeProperty().addListener(weakRedrawListener);
 
         selectionModeProperty().addListener(observable -> getSelectedActivities().clear());
@@ -676,7 +747,25 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
     private void connectToTimeline() {
         Timeline timeline = getTimeline();
 
-        redrawObservable(timeline.getModel().startTimeProperty());
+        final ChangeListener<Instant> startTimeListener = (obs, oldTime, newTime) -> {
+            double x = timeline.getModel().calculateLocationForTime(oldTime);
+            //System.out.println("x: " + x);
+
+            canvasTranslateX.set((canvasTranslateX.get() + x) % getWidth());
+
+            Instant st = getTimeAt(0);
+            Instant et = getTimeAt(getWidth());
+
+            boolean contained = (st.equals(drawingStartTime) || st.isAfter(drawingStartTime)) &&
+                    (et.equals(drawingEndTime) || et.isBefore(drawingEndTime));
+
+            if (!contained) {
+                redraw();
+            }
+        };
+
+        timeline.getModel().startTimeProperty().addListener(startTimeListener);
+
         redrawObservable(timeline.getModel().millisPerPixelProperty());
 
         /*
@@ -697,7 +786,8 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
                     if (newValue != null) {
                         // special "now redraw calendarListListener"
                         newValue.nowProperty().addListener(weakRedrawNowListener);
-                        redrawObservable(timeline.getModel().startTimeProperty());
+                        //redrawObservable(timeline.getModel().startTimeProperty());
+                        timeline.getModel().startTimeProperty().addListener(startTimeListener);
                         redrawObservable(timeline.getModel().millisPerPixelProperty());
                     }
                 });
@@ -710,7 +800,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         redrawObservable(dateline.selectedTimeIntervalProperty());
 
         dateline.getSelectedIntervals().addListener(weakRedrawListener);
-        dateline.getScaleResolutions().addListener(weakRedrawListener);
+        //dateline.getScaleResolutions().addListener(weakRedrawListener);
 
         timelineProperty()
                 .addListener((observable, oldTimeline, newTimeline) -> {
@@ -3298,11 +3388,14 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     private LinksPane<R> linksPane;
 
+    private int redrawCounter;
+
     /**
      * Performs a redraw of the displayed activities. Also lays out the links
      * shown by the {@link LinksPane}.
      */
     public void redraw() {
+        System.out.println("redrawing " + redrawCounter++);
         if (LoggingDomain.RENDERING.isLoggable(Level.FINE)) {
             LoggingDomain.RENDERING.fine("row cells list size = "
                     + getRowPanes().size());
@@ -3331,17 +3424,29 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         }
     }
 
+    private Instant drawingStartTime;
+
+    private Instant drawingEndTime;
+
+    public final static double BUFFER_FACTOR = 2;
+
     private void doDraw() {
-        for (RowPane<R> pane : getRowPanes()) {
-            if (pane.isVisible()) {
+        if (getTimeline() != null && getTimeline().getModel() != null) {
 
-                // Fix for FLEXFX-340: "Links are not being rendered properly after sorting rows"
-                final R row = pane.getRow();
-                if (row != null && !row.isShowing()) {
-                    row.getProperties().put("com.flexganttfx.row.showing", true);
+            drawingStartTime = getTimeAt(0);
+            drawingEndTime = getTimeAt(getWidth() * BUFFER_FACTOR);
+
+            for (RowPane<R> pane : getRowPanes()) {
+                if (pane.isVisible()) {
+
+                    // Fix for FLEXFX-340: "Links are not being rendered properly after sorting rows"
+                    final R row = pane.getRow();
+                    if (row != null && !row.isShowing()) {
+                        row.getProperties().put("com.flexganttfx.row.showing", true);
+                    }
+
+                    pane.draw();
                 }
-
-                pane.draw();
             }
         }
     }
@@ -3389,9 +3494,9 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
      * via the given layout.
      *
      * @param activityType the type of the activity
-     * @param layoutType the type of the layout
-     * @param renderer the renderer instance
-     * @param <A> the type of the activity
+     * @param layoutType   the type of the layout
+     * @param renderer     the renderer instance
+     * @param <A>          the type of the activity
      */
     public final <A extends Activity> void setActivityRenderer(
             Class<? extends A> activityType, Class<? extends Layout> layoutType,
@@ -4221,8 +4326,8 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
      * A callback parameter object used to provide context for the row controls
      * factory.
      *
-     * @see #rowControlsFactoryProperty()
      * @param <R> the row type
+     * @see #rowControlsFactoryProperty()
      */
     public static final class RowControlsParameter<R extends Row<?, ?, ?>> {
 
@@ -4269,8 +4374,8 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
      * A callback parameter object used to provide context for the row editor
      * factory.
      *
-     * @see #rowEditorFactoryProperty()
      * @param <R> the row type
+     * @see #rowEditorFactoryProperty()
      */
     public static final class RowEditorParameter<R extends Row<?, ?, ?>> {
 
@@ -4391,7 +4496,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
          * Constructs a new callback parameter.
          *
          * @param activityBounds the activity / bounds for which to determine the edit mode
-         * @param event the mouse event triggering the edit mode lookup
+         * @param event          the mouse event triggering the edit mode lookup
          */
         public EditModeCallbackParameter(ActivityBounds activityBounds,
                                          MouseEvent event) {
@@ -4714,6 +4819,14 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
         public GraphicsViewMenu(final ContextMenuParameter<R> input) {
             requireNonNull(input);
+
+            MenuItem reset = new MenuItem("RESET");
+            reset.setOnAction(evt -> {
+                canvasTranslateX.set(0);
+                redraw();
+            });
+
+            getItems().add(reset);
 
             MenuItem highlightOn = new MenuItem(
                     Messages.getString("GraphicsBase.HIGHLIGHT_ON"));

@@ -80,9 +80,9 @@ public class SelectedTimeIntervalsLayer<R extends Row<?, ?, ?>> extends
 		gc.setFill(getSelectedTimeIntervalFill());
 		for (TimeInterval timeInterval : dateline.getSelectedIntervals()) {
 			double x1 = snapPosition(timelineModel
-					.calculateLocationForTime(timeInterval.getStartTime()));
+					.calculateLocationForTime(timeInterval.getStartTime()) + canvas.getTranslateX());
 			double x2 = snapPosition(timelineModel
-					.calculateLocationForTime(timeInterval.getEndTime()));
+					.calculateLocationForTime(timeInterval.getEndTime()) + canvas.getTranslateX());
 			gc.fillRect(x1, 0, x2 - x1, canvas.getHeight());
 		}
 	}

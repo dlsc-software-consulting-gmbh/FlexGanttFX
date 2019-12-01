@@ -86,18 +86,11 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         rowProperty().addListener(evt -> draw());
 
-        ChangeListener<ActivityRef<?>> weakActivityRedrawListener = new WeakChangeListener<>(
-                activityRedrawListener);
-
-        graphics.editModeProperty()
-                .addListener(new WeakInvalidationListener(editModeListener));
-
-        graphics.hoverActivityProperty()
-                .addListener(weakActivityRedrawListener);
-        graphics.pressedActivityProperty()
-                .addListener(weakActivityRedrawListener);
-        graphics.getSelectedActivities().addListener(
-                new WeakListChangeListener<>(selectedActivitiesListener));
+        ChangeListener<ActivityRef<?>> weakActivityRedrawListener = new WeakChangeListener<>(activityRedrawListener);
+        graphics.editModeProperty().addListener(new WeakInvalidationListener(editModeListener));
+        graphics.hoverActivityProperty().addListener(weakActivityRedrawListener);
+        graphics.pressedActivityProperty().addListener(weakActivityRedrawListener);
+        graphics.getSelectedActivities().addListener(new WeakListChangeListener<>(selectedActivitiesListener));
 
         InvalidationListener pseudoStateRedrawListener = observable -> draw();
 
@@ -152,8 +145,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         return graphics;
     }
 
-    private final ChangeListener<Number> redrawListener = (value, oldSize,
-                                                           newSize) -> draw();
+    private final ChangeListener<Number> redrawListener = (value, oldSize, newSize) -> draw();
 
     private final ObjectProperty<R> row = new SimpleObjectProperty<>(this, "row");
 
@@ -210,12 +202,15 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         TimelineModel<?> timelineModel = getTimelineModel();
 
+        // TODO: extra pixels still needed with new canvas translate approach?
         int extraPixels = graphics.getExtraPixels();
-        double startLocation = -extraPixels;
-        double endLocation = width + extraPixels;
 
-        Instant startTime = timelineModel.calculateTimeForLocation(startLocation);
-        Instant endTime = timelineModel.calculateTimeForLocation(endLocation);
+        double x = localToScene(getLayoutBounds()).getMinX() - getGraphics().localToScene(graphics.getLayoutBounds()).getMinX();
+
+        Instant startTime = timelineModel.calculateTimeForLocation(x);
+        Instant endTime = timelineModel.calculateTimeForLocation(x + getWidth());
+
+       // System.out.println("minx: " + x);
 
         safeRendering = getGraphics().isSafeRendering();
 
@@ -239,7 +234,6 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
             }
 
             drawModelLayers();
-
 
             for (SystemLayer layer : graphics.getForegroundSystemLayers()) {
                 if (layer.isVisible()) {
@@ -352,8 +346,8 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         Timeline timeline = graphics.getTimeline();
         TimelineModel<?> timelineModel = timeline.getModel();
-        Instant startTime = timelineModel.getStartTime();
-        Instant endTime = timelineModel.calculateTimeForLocation(timeline.getWidth());
+        Instant startTime = timelineModel.calculateTimeForLocation(getBoundsInParent().getMinX());
+        Instant endTime = timelineModel.calculateTimeForLocation(getBoundsInParent().getMaxX());
         TemporalUnit temporalUnit = timeline.getDateline().getPrimaryTemporalUnit();
         ZoneId zoneId = row.getZoneId();
 
