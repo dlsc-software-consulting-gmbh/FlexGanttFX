@@ -108,7 +108,7 @@ public class DSTLineLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 			if (zoneId != null) {
 				final ZoneOffsetTransition transition = zoneId.getRules().nextTransition(startTime);
 				if (transition != null) {
-					double location = snapPosition(model.calculateLocationForTime(transition.getInstant()) + canvas.getTranslateX());
+					double location = snapPosition(model.calculateLocationForTime(transition.getInstant()) - canvas.getTranslateX());
 					gc.strokeLine(location, 0, location, canvas.getHeight());
 				}
 			}

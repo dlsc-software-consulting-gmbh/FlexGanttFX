@@ -149,7 +149,7 @@ public abstract class Renderer {
 	protected final double getLocation(Instant time) {
 		Timeline timeline = getGraphics().getTimeline();
 		TimelineModel<?> timelineModel = timeline.getModel();
-		return timelineModel.calculateLocationForTime(time);
+		return timelineModel.calculateLocationForTime(time) - getGraphics().getCanvasTranslateX();
 	}
 
 	/**

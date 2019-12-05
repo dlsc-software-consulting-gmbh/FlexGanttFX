@@ -1141,7 +1141,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
     public final double getLocation(Instant time) {
         Timeline timeline = getTimeline();
         TimelineModel<?> timelineModel = timeline.getModel();
-        return timelineModel.calculateLocationForTime(time);
+        return timelineModel.calculateLocationForTime(time) - getCanvasTranslateX();
     }
 
     /**

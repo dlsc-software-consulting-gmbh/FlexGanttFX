@@ -502,8 +502,8 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
             return Collections.emptyList();
         }
 
-        double x1 = timelineModel.calculateLocationForTime(activity.getStartTime());
-        double x2 = timelineModel.calculateLocationForTime(activity.getEndTime());
+        double x1 = calculateLocation(activity.getStartTime());
+        double x2 = calculateLocation(activity.getEndTime());
 
         boolean selected = graphics.getSelectedActivities().contains(ref);
         boolean focused = ref.equals(graphics.getHoverActivity());
@@ -585,17 +585,13 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                      * from midnight till midnight.
                      */
 
-                    ZonedDateTime truncatedDateTime = zonedStartDateTime
-                            .truncatedTo(DAYS).plus(column, DAYS);
+                    ZonedDateTime truncatedDateTime = zonedStartDateTime.truncatedTo(DAYS).plus(column, DAYS);
 
-                    x1 = timelineModel.calculateLocationForTime(
-                            Instant.from(truncatedDateTime));
+                    x1 = calculateLocation(Instant.from(truncatedDateTime));
+                    x2 = calculateLocation(Instant.from(truncatedDateTime.plus(1, DAYS)));
 
-                    x2 = timelineModel.calculateLocationForTime(
-                            Instant.from(truncatedDateTime.plus(1, DAYS)));
+                    LayoutStrategy layoutStrategy = agendaLayout.getLayoutStrategy();
 
-                    LayoutStrategy layoutStrategy = agendaLayout
-                            .getLayoutStrategy();
                     switch (layoutStrategy) {
                         case OVERLAPPING:
                             List<ActivityEntry> columnActivities = agendaColumnMap
@@ -770,9 +766,11 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         return boundsList;
     }
 
-    private double calculateChartValueOffset(double value, ChartLayout layout,
-                                             double availableHeight) {
+    private double calculateLocation(Instant startTime) {
+        return getTimelineModel().calculateLocationForTime(startTime) - getTranslateX();
+    }
 
+    private double calculateChartValueOffset(double value, ChartLayout layout, double availableHeight) {
         double range = layout.getMaxValue() - layout.getMinValue();
         double ppv = availableHeight / range;
         double zeroLineLocation = layout.getMaxValue() * ppv;
@@ -780,9 +778,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         return zeroLineLocation - (value * ppv);
     }
 
-    private double calculateChartOffset(ChartActivity chartActivity,
-                                        ChartLayout layout, double availableHeight) {
-
+    private double calculateChartOffset(ChartActivity chartActivity, ChartLayout layout, double availableHeight) {
         double range = layout.getMaxValue() - layout.getMinValue();
         double ppv = availableHeight / range;
         double zeroLineLocation = layout.getMaxValue() * ppv;

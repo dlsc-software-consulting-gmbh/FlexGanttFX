@@ -616,8 +616,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
                                   double contentWidth, double contentHeight) {
         super.layoutChildren(contentX, contentY, contentWidth, contentHeight);
 
-        linksPane.resizeRelocate(contentX, contentY, contentWidth,
-                contentHeight);
+        linksPane.resizeRelocate(contentX, contentY, contentWidth, contentHeight);
 
         dragCanvas.setWidth(contentWidth);
         dragCanvas.setHeight(contentHeight);
@@ -628,22 +627,19 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
             Timeline timeline = getTimeline();
             TimelineModel<?> model = timeline.getModel();
 
-            double x1 = model.calculateLocationForTime(lassoStartTime);
-            double x2 = model.calculateLocationForTime(lassoEndTime);
+            double x1 = model.calculateLocationForTime(lassoStartTime) - getSkinnable().getCanvasTranslateX();
+            double x2 = model.calculateLocationForTime(lassoEndTime) - getSkinnable().getCanvasTranslateX();
 
             lasso.setX(Math.min(x1, x2));
             lasso.setY(Math.min(lassoY1, lassoY2));
             lasso.setWidth(Math.max(x2, x1) - Math.min(x1, x2));
-            lasso.setHeight(
-                    Math.max(lassoY1, lassoY2) - Math.min(lassoY1, lassoY2));
+            lasso.setHeight(Math.max(lassoY1, lassoY2) - Math.min(lassoY1, lassoY2));
             lasso.setVisible(true);
 
             if (lassoStartTime.isBefore(lassoEndTime)) {
-                getTimeline().getEventline().setMarkedTimeInterval(
-                        new TimeInterval(lassoStartTime, lassoEndTime));
+                getTimeline().getEventline().setMarkedTimeInterval(new TimeInterval(lassoStartTime, lassoEndTime));
             } else {
-                getTimeline().getEventline().setMarkedTimeInterval(
-                        new TimeInterval(lassoEndTime, lassoStartTime));
+                getTimeline().getEventline().setMarkedTimeInterval(new TimeInterval(lassoEndTime, lassoStartTime));
             }
         }
     }
