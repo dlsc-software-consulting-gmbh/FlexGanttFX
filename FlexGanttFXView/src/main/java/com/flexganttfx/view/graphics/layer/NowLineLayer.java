@@ -84,8 +84,7 @@ public class NowLineLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 	}
 
 	@Override
-	public void drawLayer(RowCanvas<R> canvas, Instant startTime,
-			Instant endTime) {
+	public void drawLayer(RowCanvas<R> canvas, Instant startTime, Instant endTime) {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.setStroke(getStroke());
 		gc.setLineWidth(getLineWidth());
@@ -93,7 +92,7 @@ public class NowLineLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 		TimelineModel<?> model = canvas.getTimelineModel();
 		Instant now = model.getNow();
 
-		double nowLocation = snapPosition(model.calculateLocationForTime(now) - canvas.getTranslateX());
+		double nowLocation = snapPosition(model.calculateLocationForTime(now) + getGraphics().getCanvasBuffer() - canvas.getTranslateX());
 
 		gc.strokeLine(nowLocation, 0, nowLocation, canvas.getHeight());
 	}

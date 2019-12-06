@@ -98,8 +98,7 @@ public class CalendarLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
 		if (row != null) {
 			calendars = row.getCalendars();
-			drawCalendars(row, canvas, timelineModel, calendars, height,
-					startTime, endTime);
+			drawCalendars(row, canvas, timelineModel, calendars, height, startTime, endTime);
 		}
 	}
 
@@ -130,10 +129,10 @@ public class CalendarLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 				while (entries.hasNext()) {
 					CalendarActivity activity = entries.next();
 
-					double x1 = snapPosition(timelineModel.calculateLocationForTime(activity.getStartTime()) - canvas.getTranslateX());
-					double x2 = snapPosition(timelineModel.calculateLocationForTime(activity.getEndTime()) - canvas.getTranslateX());
+					double x1 = snapPosition(timelineModel.calculateLocationForTime(activity.getStartTime()) + getGraphics().getCanvasBuffer() - canvas.getTranslateX());
+					double x2 = snapPosition(timelineModel.calculateLocationForTime(activity.getEndTime()) + getGraphics().getCanvasBuffer() - canvas.getTranslateX());
 
-					CalendarActivityRenderer renderer = getCalendarActivityRenderer(activity.getClass());
+					final CalendarActivityRenderer renderer = getCalendarActivityRenderer(activity.getClass());
 
 					if (renderer != null && renderer.isEnabled()) {
 						double alpha = gc.getGlobalAlpha();
@@ -161,8 +160,7 @@ public class CalendarLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
 	// TODO: add caching for renderer lookup
 
-	private final ObservableMap<Class<?>, CalendarActivityRenderer<?>> calendarRendererMap = FXCollections
-			.observableHashMap();
+	private final ObservableMap<Class<?>, CalendarActivityRenderer<?>> calendarRendererMap = FXCollections.observableHashMap();
 
 	public final <A extends Activity> void setCalendarActivityRenderer(
 			Class<? extends A> clazz,

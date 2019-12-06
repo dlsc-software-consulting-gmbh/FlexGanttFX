@@ -33,8 +33,6 @@ public class HelloGanttChart extends FlexGanttFXSample {
         activity.setEndTime(Instant.now().plus(Duration.ofDays(7)));
         root.addActivity(layer, activity);
 
-        System.out.println(activity);
-
         for (int i = 0; i < 200; i++) {
             HelloRow row = new HelloRow("Row " + (i + 1));
             root.getChildren().add(row);

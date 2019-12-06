@@ -58,12 +58,11 @@ public class EmiratesAircraftGanttChart extends
         getGraphics().getBackgroundSystemLayers().add(new GroupSystemLayer(getGraphics()));
 		getGraphics().setActivityRenderer(Flight.class, GanttLayout.class,new FlightRenderer(getGraphics()));
 
-		EventHandler<ActivityEvent> updateListener = new EventHandler<ActivityEvent>() {
+		EventHandler<ActivityEvent> updateListener = new EventHandler<>() {
 			@Override
 			public void handle(ActivityEvent event) {
 				updateRow(event.getActivityRef().getRow());
 				updateRow(event.getOldRow());
-
 			}
 
 			private void updateRow(Row<?, ?, ?> row) {
@@ -77,23 +76,18 @@ public class EmiratesAircraftGanttChart extends
 					Instant st = aircraft.getEarliestTimeUsed();
 					Instant et = aircraft.getLatestTimeUsed();
 
-					group.updateUsageProfile(new TimeInterval(st, et),
-							layers.get(layers.size() - 1), layers);
+					group.updateUsageProfile(new TimeInterval(st, et), layers.get(layers.size() - 1), layers);
 				}
 
 			}
 		};
 
-		getGraphics().addEventHandler(ActivityEvent.START_TIME_CHANGE_FINISHED,
-				updateListener);
-		getGraphics().addEventHandler(ActivityEvent.END_TIME_CHANGE_FINISHED,
-				updateListener);
-		getGraphics().addEventHandler(ActivityEvent.DRAG_FINISHED,
-				updateListener);
-		getGraphics().addEventHandler(ActivityEvent.HORIZONTAL_DRAG_FINISHED,
-				updateListener);
+		getGraphics().addEventHandler(ActivityEvent.START_TIME_CHANGE_FINISHED, updateListener);
+		getGraphics().addEventHandler(ActivityEvent.END_TIME_CHANGE_FINISHED, updateListener);
+		getGraphics().addEventHandler(ActivityEvent.DRAG_FINISHED, updateListener);
+		getGraphics().addEventHandler(ActivityEvent.HORIZONTAL_DRAG_FINISHED, updateListener);
 
-		getGraphics().getForegroundSystemLayers().add(new NameLayer<>(getGraphics()));
+//		getGraphics().getForegroundSystemLayers().add(new NameLayer<>(getGraphics()));
 
 		getGraphics().setEditModeCallback(Flight.class, GanttLayout.class, param -> GraphicsBase.EditMode.DRAGGING_VERTICAL);
 		getGraphics().setActivityEditingCallback(Flight.class, param -> param.getEditMode().equals(GraphicsBase.EditMode.DRAGGING_VERTICAL));

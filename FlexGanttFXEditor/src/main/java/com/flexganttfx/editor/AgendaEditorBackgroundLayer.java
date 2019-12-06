@@ -169,14 +169,11 @@ public class AgendaEditorBackgroundLayer<R extends Row<?, ?, ?>> extends
 
                     st = st.truncatedTo(ChronoUnit.DAYS);
 
-                    TimelineModel<?> model = canvas.getGraphics().getTimeline()
-                            .getModel();
-                    double x1 = model
-                            .calculateLocationForTime(Instant.from(st));
+                    TimelineModel<?> model = canvas.getGraphics().getTimeline().getModel();
+                    double x1 = model.calculateLocationForTime(Instant.from(st)) + getGraphics().getCanvasBuffer() - canvas.getTranslateX();
 
                     st = st.plusDays(1);
-                    double x2 = model
-                            .calculateLocationForTime(Instant.from(st));
+                    double x2 = model.calculateLocationForTime(Instant.from(st)) + getGraphics().getCanvasBuffer() - canvas.getTranslateX();
 
                     GraphicsContext gc = canvas.getGraphicsContext2D();
                     gc.setFill(new Color(0, 0.5, 0, .1));
@@ -214,8 +211,8 @@ public class AgendaEditorBackgroundLayer<R extends Row<?, ?, ?>> extends
 
         TimelineModel<?> model = canvas.getGraphics().getTimeline().getModel();
 
-        double x1 = model.calculateLocationForTime(zonedDateTime.toInstant()) - canvas.getTranslateX();
-        double x2 = model.calculateLocationForTime(zonedDateTime.plusDays(1).toInstant()) - canvas.getTranslateX();
+        double x1 = model.calculateLocationForTime(zonedDateTime.toInstant()) + getGraphics().getCanvasBuffer() - canvas.getTranslateX();
+        double x2 = model.calculateLocationForTime(zonedDateTime.plusDays(1).toInstant()) + getGraphics().getCanvasBuffer() - canvas.getTranslateX();
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(new Color(0, 0, 0, .1));

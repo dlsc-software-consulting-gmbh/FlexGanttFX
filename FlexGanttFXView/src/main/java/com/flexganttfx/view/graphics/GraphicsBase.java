@@ -260,7 +260,6 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
      */
     @SuppressWarnings("unchecked")
     public GraphicsBase() {
-        canvasTranslateX.addListener(it -> System.out.println("translate: " + getCanvasTranslateX()));
         getStyleClass().add(DEFAULT_STYLE_CLASS);
 
         // Virtual grids
@@ -687,8 +686,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     // Automatic redraw support.
 
-    private final BooleanProperty automaticRedraw = new SimpleBooleanProperty(
-            this, "automaticRedraw", true);
+    private final BooleanProperty automaticRedraw = new SimpleBooleanProperty(this, "automaticRedraw", true);
 
     /**
      * A property used to determine if the graphics will be redrawn whenever the
@@ -744,22 +742,45 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         layer.fadeInOutOpacityProperty().addListener(weakRedrawListener);
     }
 
+    private final DoubleProperty canvasBuffer = new SimpleDoubleProperty(this, "canvasBuffer", 100);
+
+    public final double getCanvasBuffer() {
+        return canvasBuffer.get();
+    }
+
+    public final DoubleProperty canvasBufferProperty() {
+        return canvasBuffer;
+    }
+
+    public final void setCanvasBuffer(double canvasBuffer) {
+        this.canvasBuffer.set(canvasBuffer);
+    }
+
     private void connectToTimeline() {
         Timeline timeline = getTimeline();
 
         final ChangeListener<Instant> startTimeListener = (obs, oldTime, newTime) -> {
             double x = timeline.getModel().calculateLocationForTime(oldTime);
-            //System.out.println("x: " + x);
 
-            canvasTranslateX.set((canvasTranslateX.get() + x) % getWidth());
+            double newTranslateX = canvasTranslateX.get() + x;
 
-            Instant st = getTimeAt(0);
-            Instant et = getTimeAt(getWidth());
+            if (Math.abs(newTranslateX) < getCanvasBuffer()) {
+                canvasTranslateX.set(newTranslateX);
 
-            boolean contained = (st.equals(drawingStartTime) || st.isAfter(drawingStartTime)) &&
-                    (et.equals(drawingEndTime) || et.isBefore(drawingEndTime));
+//                System.out.println("tx: " + newTranslateX);
 
-            if (!contained) {
+                Instant st = getTimeAt(0);
+                Instant et = getTimeAt(getWidth());
+
+                boolean contained = (st.equals(drawingStartTime) || st.isAfter(drawingStartTime)) && (et.equals(drawingEndTime) || et.isBefore(drawingEndTime));
+
+                if (!contained) {
+//                    System.out.println("contained: " + contained);
+                    redraw();
+                }
+            } else {
+                System.out.println("BANG");
+                canvasTranslateX.set(0);
                 redraw();
             }
         };
@@ -1141,7 +1162,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
     public final double getLocation(Instant time) {
         Timeline timeline = getTimeline();
         TimelineModel<?> timelineModel = timeline.getModel();
-        return timelineModel.calculateLocationForTime(time) - getCanvasTranslateX();
+        return timelineModel.calculateLocationForTime(time);
     }
 
     /**
@@ -2658,53 +2679,6 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         return contextMenuCallbackProperty().get();
     }
 
-    // Support for extra pixels.
-
-    private final IntegerProperty extraPixels = new SimpleIntegerProperty(this,
-            "extraPixels", 20);
-
-    /**
-     * A property used to instruct the graphics view to query the activity
-     * repositories also for activities that are ending right in front of the
-     * visible area or starting right after the visible area. Querying the extra
-     * pixels is important for activities that have negative bounds (e.g.
-     * milestones: they would only become visible if their time is inside the
-     * visible area, but their diamond shape might actually already reach into
-     * the area).
-     *
-     * @return the property used to store the number of extra pixels added to
-     * the visible area
-     * @since 1.0
-     */
-    public final IntegerProperty extraPixelsProperty() {
-        return extraPixels;
-    }
-
-    /**
-     * Returns the value of {@link #extraPixelsProperty()}.
-     *
-     * @return the number of extra pixels added to the visible area
-     * @since 1.0
-     */
-    public final int getExtraPixels() {
-        return extraPixelsProperty().get();
-    }
-
-    /**
-     * Sets the value of {@link #extraPixelsProperty()}.
-     *
-     * @param pixels the number of extra pixels added to the visible area
-     * @since 1.0
-     */
-    public final void setExtraPixels(int pixels) {
-        if (pixels < 0 || pixels > 100) {
-            throw new IllegalArgumentException(
-                    "extra pixels must be within [0, 100] but was " + pixels);
-        }
-
-        extraPixelsProperty().set(pixels);
-    }
-
     // Marked interval support.
 
     private final BooleanProperty autoMarkedTimeInterval = new SimpleBooleanProperty(
@@ -3395,10 +3369,9 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
      * shown by the {@link LinksPane}.
      */
     public void redraw() {
-        System.out.println("redrawing " + redrawCounter++);
+//        System.out.println("redrawing " + redrawCounter++);
         if (LoggingDomain.RENDERING.isLoggable(Level.FINE)) {
-            LoggingDomain.RENDERING.fine("row cells list size = "
-                    + getRowPanes().size());
+            LoggingDomain.RENDERING.fine("row cells list size = " + getRowPanes().size());
         }
 
         if (LoggingDomain.PERFORMANCE.isLoggable(Level.FINE)) {
@@ -3411,7 +3384,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
             doDraw();
         }
 
-        layoutLinks();
+        //layoutLinks();
     }
 
     public void layoutLinks() {
@@ -3428,13 +3401,15 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     private Instant drawingEndTime;
 
-    public final static double BUFFER_FACTOR = 2;
-
     private void doDraw() {
         if (getTimeline() != null && getTimeline().getModel() != null) {
 
-            drawingStartTime = getTimeAt(0);
-            drawingEndTime = getTimeAt(getWidth() * BUFFER_FACTOR);
+            final double leftPixel = getCanvasBuffer() - canvasTranslateX.get();
+           // System.out.println("buffer: " + getCanvasBuffer() + ", translate-x: " + canvasTranslateX.get() + ", left: " + leftPixel);
+            drawingStartTime = getTimeAt(-leftPixel);
+            drawingEndTime = getTimeAt(getWidth() + getCanvasBuffer());
+
+            //System.out.println("drawing start time: " + drawingStartTime + ", drawing end time: " + drawingEndTime);
 
             for (RowPane<R> pane : getRowPanes()) {
                 if (pane.isVisible()) {
@@ -3453,11 +3428,9 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     // Renderer support
 
-    private final ObservableMap<Class<? extends Layout>, ObservableMap<Class<?>, ActivityRenderer<?>>> rendererLayoutMap = FXCollections
-            .observableHashMap();
+    private final ObservableMap<Class<? extends Layout>, ObservableMap<Class<?>, ActivityRenderer<?>>> rendererLayoutMap = FXCollections.observableHashMap();
 
-    private final ObservableMap<Class<? extends Layout>, ObservableMap<Class<?>, ActivityRenderer<?>>> cachedRendererMap = FXCollections
-            .observableHashMap();
+    private final ObservableMap<Class<? extends Layout>, ObservableMap<Class<?>, ActivityRenderer<?>>> cachedRendererMap = FXCollections.observableHashMap();
 
     private Map<Class<?>, ActivityRenderer<?>> getRendererMapForLayoutStrategy(
             Class<? extends Layout> layoutType) {
@@ -4820,56 +4793,39 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         public GraphicsViewMenu(final ContextMenuParameter<R> input) {
             requireNonNull(input);
 
-            MenuItem reset = new MenuItem("RESET");
-            reset.setOnAction(evt -> {
-                canvasTranslateX.set(0);
-                redraw();
-            });
-
-            getItems().add(reset);
-
-            MenuItem highlightOn = new MenuItem(
-                    Messages.getString("GraphicsBase.HIGHLIGHT_ON"));
+            MenuItem highlightOn = new MenuItem(Messages.getString("GraphicsBase.HIGHLIGHT_ON"));
             highlightOn.setOnAction(highlightOn(input));
-            highlightOn.disableProperty()
-                    .bind(Bindings.isEmpty(getSelectedActivities()));
+            highlightOn.disableProperty().bind(Bindings.isEmpty(getSelectedActivities()));
             getItems().add(highlightOn);
 
-            MenuItem highlightOff = new MenuItem(
-                    Messages.getString("GraphicsBase.HIGHLIGHT_OFF"));
+            MenuItem highlightOff = new MenuItem(Messages.getString("GraphicsBase.HIGHLIGHT_OFF"));
             highlightOff.setOnAction(highlightOff(input));
-            highlightOff.disableProperty()
-                    .bind(Bindings.isEmpty(getHighlightedActivities()));
+            highlightOff.disableProperty().bind(Bindings.isEmpty(getHighlightedActivities()));
             getItems().add(highlightOff);
 
             calendarMenu = new CalendarMenu();
-            calendarMenu.setText(
-                    Messages.getString("GraphicsBase.CALENDAR_MENU_TITLE"));
+            calendarMenu.setText(Messages.getString("GraphicsBase.CALENDAR_MENU_TITLE"));
 
             getItems().add(calendarMenu);
 
             Row<?, ?, ?> row = input.getRow();
 
             if (row != null) {
-                ObservableList<Calendar<?>> globalCalendars = input
-                        .getGraphics().getCalendars();
+                ObservableList<Calendar<?>> globalCalendars = input.getGraphics().getCalendars();
                 ObservableList<Calendar<?>> localCalendars = row.getCalendars();
-                ObservableList<Calendar<?>> allCalendars = FXCollections
-                        .observableArrayList();
+                ObservableList<Calendar<?>> allCalendars = FXCollections.observableArrayList();
 
                 allCalendars.addAll(globalCalendars);
                 allCalendars.addAll(localCalendars);
 
                 calendarMenu.setCalendars(allCalendars);
-
                 calendarMenu.setDisable(false);
             } else {
                 calendarMenu.setDisable(true);
             }
 
             GridMenu gridMenu = new GridMenu();
-            gridMenu.setText(
-                    Messages.getString("GraphicsBase.GRID_MENU_TITLE"));
+            gridMenu.setText(Messages.getString("GraphicsBase.GRID_MENU_TITLE"));
             gridMenu.setVirtualGrids(getVirtualGrids());
             getItems().add(gridMenu);
 

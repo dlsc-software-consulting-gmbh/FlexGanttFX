@@ -79,10 +79,8 @@ public class SelectedTimeIntervalsLayer<R extends Row<?, ?, ?>> extends
 		// draw time interval selections of the dateline
 		gc.setFill(getSelectedTimeIntervalFill());
 		for (TimeInterval timeInterval : dateline.getSelectedIntervals()) {
-			double x1 = snapPosition(timelineModel
-					.calculateLocationForTime(timeInterval.getStartTime()) + canvas.getTranslateX());
-			double x2 = snapPosition(timelineModel
-					.calculateLocationForTime(timeInterval.getEndTime()) + canvas.getTranslateX());
+			double x1 = snapPosition(timelineModel.calculateLocationForTime(timeInterval.getStartTime()) + getGraphics().getCanvasBuffer() - canvas.getTranslateX());
+			double x2 = snapPosition(timelineModel.calculateLocationForTime(timeInterval.getEndTime()) + getGraphics().getCanvasBuffer() - canvas.getTranslateX());
 			gc.fillRect(x1, 0, x2 - x1, canvas.getHeight());
 		}
 	}

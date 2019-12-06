@@ -242,7 +242,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         getChildren().add(region);
 
         clippedContent = new Pane(
-                linksPane,
+               // linksPane,
                 horizontalCursorLine,
                 horizontalCursorIndicator,
                 verticalCursorLine,
@@ -441,10 +441,9 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
 
             TimelineModel<?> timelineModel = getTimeline().getModel();
 
-            double x1 = timelineModel
-                    .calculateLocationForTime(ref.getActivity().getStartTime());
-            double x2 = timelineModel
-                    .calculateLocationForTime(ref.getActivity().getEndTime());
+            // TODO: translate
+            double x1 = timelineModel.calculateLocationForTime(ref.getActivity().getStartTime());
+            double x2 = timelineModel.calculateLocationForTime(ref.getActivity().getEndTime());
 
             x = x1;
             w = x2 - x1;
@@ -612,8 +611,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
     }
 
     @Override
-    protected void layoutChildren(double contentX, double contentY,
-                                  double contentWidth, double contentHeight) {
+    protected void layoutChildren(double contentX, double contentY, double contentWidth, double contentHeight) {
         super.layoutChildren(contentX, contentY, contentWidth, contentHeight);
 
         linksPane.resizeRelocate(contentX, contentY, contentWidth, contentHeight);
@@ -957,10 +955,8 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         TimelineModel<?> model = timeline.getModel();
 
         if (newInterval != null) {
-            double x1 = model
-                    .calculateLocationForTime(newInterval.getStartTime());
-            double x2 = model
-                    .calculateLocationForTime(newInterval.getEndTime());
+            double x1 = model.calculateLocationForTime(newInterval.getStartTime());
+            double x2 = model.calculateLocationForTime(newInterval.getEndTime());
 
             markedStartTimeLine.setStartX(x1);
             markedStartTimeLine.setEndX(x1);

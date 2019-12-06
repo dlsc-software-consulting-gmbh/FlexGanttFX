@@ -1,12 +1,17 @@
 /**
  * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package impl.com.flexganttfx.skin.graphics;
 
 import com.flexganttfx.core.LoggingDomain;
-import com.flexganttfx.model.*;
+import com.flexganttfx.model.Activity;
+import com.flexganttfx.model.ActivityRef;
+import com.flexganttfx.model.ActivityRepository;
+import com.flexganttfx.model.Layer;
+import com.flexganttfx.model.Layout;
+import com.flexganttfx.model.Row;
 import com.flexganttfx.model.activity.ChartActivity;
 import com.flexganttfx.model.activity.HighLowChartActivity;
 import com.flexganttfx.model.exception.IllegalLineIndexException;
@@ -31,7 +36,11 @@ import impl.com.flexganttfx.skin.util.Resolver;
 import impl.com.flexganttfx.skin.util.ResolverResult;
 import javafx.beans.InvalidationListener;
 import javafx.beans.WeakInvalidationListener;
-import javafx.beans.property.*;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.WeakChangeListener;
 import javafx.collections.ListChangeListener;
@@ -43,16 +52,28 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 import java.text.MessageFormat;
-import java.time.*;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 
 import static com.flexganttfx.model.layout.AgendaLayout.LayoutStrategy.PARALLEL_OVERLAPPING;
-import static com.flexganttfx.view.util.Position.*;
+import static com.flexganttfx.view.util.Position.FIRST;
+import static com.flexganttfx.view.util.Position.LAST;
+import static com.flexganttfx.view.util.Position.MIDDLE;
+import static com.flexganttfx.view.util.Position.ONLY;
 import static java.time.temporal.ChronoUnit.DAYS;
 import static java.util.Objects.requireNonNull;
 
@@ -202,15 +223,10 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         TimelineModel<?> timelineModel = getTimelineModel();
 
-        // TODO: extra pixels still needed with new canvas translate approach?
-        int extraPixels = graphics.getExtraPixels();
+        Instant startTime = timelineModel.calculateTimeForLocation(0 - graphics.getCanvasBuffer());
+        Instant endTime = timelineModel.calculateTimeForLocation(getWidth() + graphics.getCanvasBuffer());
 
-        double x = localToScene(getLayoutBounds()).getMinX() - getGraphics().localToScene(graphics.getLayoutBounds()).getMinX();
-
-        Instant startTime = timelineModel.calculateTimeForLocation(x);
-        Instant endTime = timelineModel.calculateTimeForLocation(x + getWidth());
-
-       // System.out.println("minx: " + x);
+//        System.out.println("  > drawing start time: " + startTime + ", drawing end time: " + endTime);
 
         safeRendering = getGraphics().isSafeRendering();
 
@@ -233,7 +249,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                 }
             }
 
-            drawModelLayers();
+            drawModelLayers(startTime, endTime);
 
             for (SystemLayer layer : graphics.getForegroundSystemLayers()) {
                 if (layer.isVisible()) {
@@ -268,8 +284,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         }
     }
 
-    private void drawSystemLayer(SystemLayer<R> layer, GraphicsContext gc,
-                                 Instant startTime, Instant endTime) {
+    private void drawSystemLayer(SystemLayer<R> layer, GraphicsContext gc, Instant startTime, Instant endTime) {
         double opacity = layer.getOpacity();
         if (opacity > 0) {
             gc.setGlobalAlpha(opacity);
@@ -277,7 +292,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         }
     }
 
-    private void drawModelLayers() throws IllegalLineIndexException, MissingActivityBoundsException {
+    private void drawModelLayers(Instant startTime, Instant endTime) throws IllegalLineIndexException, MissingActivityBoundsException {
 
         R row = getRow();
 
@@ -294,7 +309,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                         if (safeRendering) {
                             gc.save();
                         }
-                        drawLayer(row, layer, false);
+                        drawLayer(row, layer, startTime, endTime, false);
                     } finally {
                         if (safeRendering) {
                             gc.restore();
@@ -320,7 +335,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                             if (safeRendering) {
                                 gc.save();
                             }
-                            drawLayer(row, layer, true);
+                            drawLayer(row, layer, startTime, endTime, true);
                         } finally {
                             if (safeRendering) {
                                 gc.restore();
@@ -341,13 +356,10 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
-    private void drawLayer(Row row, Layer layer, boolean secondPass)
-            throws IllegalLineIndexException, MissingActivityBoundsException {
+    private void drawLayer(Row row, Layer layer, Instant startTime, Instant endTime, boolean secondPass) throws IllegalLineIndexException, MissingActivityBoundsException {
 
         Timeline timeline = graphics.getTimeline();
         TimelineModel<?> timelineModel = timeline.getModel();
-        Instant startTime = timelineModel.calculateTimeForLocation(getBoundsInParent().getMinX());
-        Instant endTime = timelineModel.calculateTimeForLocation(getBoundsInParent().getMaxX());
         TemporalUnit temporalUnit = timeline.getDateline().getPrimaryTemporalUnit();
         ZoneId zoneId = row.getZoneId();
 
@@ -442,8 +454,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                     if (graphics.isDebugMode()) {
                         for (ActivityBounds b : bounds) {
                             getGraphicsContext2D().setStroke(Color.MAGENTA);
-                            getGraphicsContext2D().strokeRect(b.getMinX(),
-                                    b.getMinY(), b.getWidth(), b.getHeight());
+                            getGraphicsContext2D().strokeRect(b.getMinX(), b.getMinY(), b.getWidth(), b.getHeight());
                         }
                     }
                 }
@@ -451,8 +462,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         }
     }
 
-    private boolean isUsingAgendaLayout(Row<?, ?, ?> row)
-            throws IllegalLineIndexException {
+    private boolean isUsingAgendaLayout(Row<?, ?, ?> row) throws IllegalLineIndexException {
         if (row.getLayout() instanceof AgendaLayout) {
             return true;
         }
@@ -471,9 +481,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
-    private List<ActivityBounds> drawActivity(ActivityRef ref,
-                                              TimelineModel<?> timelineModel, ZoneId zoneId, double rowHeight,
-                                              boolean secondPass)
+    private List<ActivityBounds> drawActivity(ActivityRef ref, TimelineModel<?> timelineModel, ZoneId zoneId, double rowHeight, boolean secondPass)
             throws IllegalLineIndexException, MissingActivityBoundsException {
 
         List<ActivityBounds> boundsList = new ArrayList<>();
@@ -767,7 +775,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
     }
 
     private double calculateLocation(Instant startTime) {
-        return getTimelineModel().calculateLocationForTime(startTime) - getTranslateX();
+        return getTimelineModel().calculateLocationForTime(startTime) + graphics.getCanvasBuffer() - getTranslateX();
     }
 
     private double calculateChartValueOffset(double value, ChartLayout layout, double availableHeight) {
@@ -790,16 +798,13 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         return zeroLineLocation - (chartActivity.getChartValue() * ppv);
     }
 
-    private double calculateChartActivityHeight(ChartActivity chartActivity,
-                                                ChartLayout layout, double availableHeight) {
+    private double calculateChartActivityHeight(ChartActivity chartActivity, ChartLayout layout, double availableHeight) {
         double range = layout.getMaxValue() - layout.getMinValue();
         double ppv = availableHeight / range;
-
         return Math.abs(chartActivity.getChartValue()) * ppv;
     }
 
-    private int computeInsetLevel(Activity activity,
-                                  List<ActivityEntry> columnActivities) {
+    private int computeInsetLevel(Activity activity, List<ActivityEntry> columnActivities) {
         int level = 0;
         for (ActivityEntry entry : columnActivities) {
             if (ActivityHelper.intersect(entry.activity, activity)) {
@@ -824,12 +829,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         long millis = st.until(et, ChronoUnit.MILLIS);
         double mpp = millis / availableHeight;
 
-        return Math
-                .min(availableHeight,
-                        Math.max(0,
-                                (time.get(ChronoField.MILLI_OF_DAY)
-                                        - st.get(ChronoField.MILLI_OF_DAY))
-                                        / mpp));
+        return Math.min(availableHeight, Math.max(0, (time.get(ChronoField.MILLI_OF_DAY) - st.get(ChronoField.MILLI_OF_DAY)) / mpp));
     }
 
     public final List<ActivityBounds> getAllActivityBounds() {
@@ -914,8 +914,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
             lookupBounds = null;
         }
 
-        LassoSelectionBehaviour behaviour = graphics
-                .getLassoSelectionBehaviour();
+        LassoSelectionBehaviour behaviour = graphics.getLassoSelectionBehaviour();
         Rectangle2D selectionRectangle = new Rectangle2D(x, y, w, h);
 
         Timeline timeline = graphics.getTimeline();

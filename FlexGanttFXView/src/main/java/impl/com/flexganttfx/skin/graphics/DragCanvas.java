@@ -82,8 +82,7 @@ public class DragCanvas<R extends Row<?, ?, ?>> extends Canvas {
         DragEvent evt = info.getDragEvent();
         ActivityRef<?> ref = bounds.getActivityRef();
         Activity activity = ref.getActivity();
-        ActivityRenderer renderer = graphics.getActivityRenderer(
-                activity.getClass(), bounds.getLayout().getClass());
+        ActivityRenderer renderer = graphics.getActivityRenderer(activity.getClass(), bounds.getLayout().getClass());
 
         ActivityRef<?> draggedActivityRef = draggedBounds.getActivityRef();
         Activity draggedActivity = draggedActivityRef.getActivity();
@@ -96,17 +95,15 @@ public class DragCanvas<R extends Row<?, ?, ?>> extends Canvas {
             startTime = startTime.plus(duration);
         }
 
-        double x = timeline.getModel().calculateLocationForTime(
-                startTime);
+        // TODO: translate?
+        double x = timeline.getModel().calculateLocationForTime(startTime);
 
-        double y = evt.getSceneY() - localToScene(0, 0).getY()
-                - info.getOffset().getY();
+        double y = evt.getSceneY() - localToScene(0, 0).getY() - info.getOffset().getY();
         if (!draggedBounds.equals(bounds)) {
             y = y + (bounds.getMinY() - draggedBounds.getMinY());
         }
 
-        renderer.draw(ref, ONLY, gc, x, y, bounds.getWidth(),
-                bounds.getHeight(), false, false, false, false);
+        renderer.draw(ref, ONLY, gc, x, y, bounds.getWidth(), bounds.getHeight(), false, false, false, false);
 
         renderedBounds.add(new ActivityBounds(ref, x, y, bounds.getWidth(), bounds.getHeight()));
     }

@@ -55,16 +55,15 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
 		setPrefHeight(Row.DEFAULT_ROW_HEIGHT);
 
 		canvas = new RowCanvas<>(graphics);
-		canvas.widthProperty().bind(widthProperty().multiply(GraphicsBase.BUFFER_FACTOR));
+		canvas.widthProperty().bind(widthProperty().add(graphics.canvasBufferProperty().multiply(2)));
 		canvas.heightProperty().bind(heightProperty());
 		canvas.rowProperty().bind(rowProperty());
 		canvas.translateXProperty().bind(graphics.canvasTranslateXProperty());
-		StackPane.setAlignment(canvas, Pos.CENTER_LEFT);
+		StackPane.setAlignment(canvas, Pos.CENTER); // VERY IMPORTANT, we want buffer to the left AND the right
 
 		zoneIdLabel = new Label("Zone ID");
 		zoneIdLabel.getStyleClass().add("zone-id-label");
-		zoneIdLabel.visibleProperty().bind(Bindings.and(Bindings.isNotNull(row),
-				graphics.showZoneIdProperty()));
+		zoneIdLabel.visibleProperty().bind(Bindings.and(Bindings.isNotNull(row), graphics.showZoneIdProperty()));
 
 		flipPane = new FlipPane<>(this);
 		flipPane.getFront().getChildren().add(canvas);
