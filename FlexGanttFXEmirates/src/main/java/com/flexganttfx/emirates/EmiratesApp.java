@@ -87,8 +87,7 @@ public class EmiratesApp extends Application {
 					DataModel model = task.get();
 					gantt.getRows().setAll(model.getRows());
 					gantt.getLayers().setAll(model.getLayers());
-					Platform.runLater(() -> gantt.getGraphics()
-							.showEarliestActivities());
+					Platform.runLater(() -> gantt.getGraphics().showEarliestActivities());
 				} catch (InterruptedException | ExecutionException e) {
 					e.printStackTrace();
 				}

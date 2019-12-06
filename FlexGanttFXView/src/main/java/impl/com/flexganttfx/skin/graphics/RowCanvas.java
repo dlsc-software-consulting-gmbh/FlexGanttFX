@@ -277,6 +277,10 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
             LoggingDomain.RENDERING.finest("drawing canvas of row " + getRow());
         }
 
+        if (getRow() != null && getRow().getName() != null) {
+            System.out.println("drawing " + getRow().getName());
+        }
+
         activityBounds.clear();
 
         double width = getWidth();
