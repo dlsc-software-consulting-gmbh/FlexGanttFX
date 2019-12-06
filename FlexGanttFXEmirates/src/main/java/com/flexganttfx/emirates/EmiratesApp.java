@@ -46,8 +46,7 @@ public class EmiratesApp extends Application {
 
 	@Override
 	public void start(Stage stage) {
-		FlexGanttFX
-				.setLicenseKey("LIC=SYSKRON;VEN=DLSC;VER=11;PRO=STANDARD;RUN=no;CTR=1;SignCode=3F;Signature=302C02147E12D2B805F802CB2D639934A1E7F757361A3CE3021424E1BBC023F20B6C29E8BDAEF61B7D9D95E5005F");
+		FlexGanttFX.setLicenseKey("LIC=SYSKRON;VEN=DLSC;VER=11;PRO=STANDARD;RUN=no;CTR=1;SignCode=3F;Signature=302C02147E12D2B805F802CB2D639934A1E7F757361A3CE3021424E1BBC023F20B6C29E8BDAEF61B7D9D95E5005F");
 
 		this.stage = stage;
 		this.stage.setTitle("Emirates Aircraft Scheduling");
@@ -57,8 +56,7 @@ public class EmiratesApp extends Application {
 		stack.getChildren().add(introNode = createIntro());
 
 		Scene scene = new Scene(stack);
-		scene.getStylesheets().add(
-				EmiratesApp.class.getResource("emirates.css").toExternalForm());
+		scene.getStylesheets().add(EmiratesApp.class.getResource("emirates.css").toExternalForm());
 
 		stage.setScene(scene);
 		stage.setWidth(1400);
@@ -135,6 +133,19 @@ public class EmiratesApp extends Application {
 		MenuBar menuBar = new MenuBar();
 
 		Menu fileMenu = new Menu("File");
+
+		Menu bufferMenu = new Menu("Canvas Buffer");
+
+		MenuItem bufferOff = new MenuItem("Off");
+		bufferOff.setOnAction(evt -> gantt.getGraphics().setCanvasBuffer(0));
+		MenuItem buffer100 = new MenuItem("100 Pixel");
+		buffer100.setOnAction(evt -> gantt.getGraphics().setCanvasBuffer(100));
+		MenuItem buffer200 = new MenuItem("200 Pixel");
+		buffer200.setOnAction(evt -> gantt.getGraphics().setCanvasBuffer(200));
+		MenuItem buffer500 = new MenuItem("500 Pixel");
+		buffer500.setOnAction(evt -> gantt.getGraphics().setCanvasBuffer(500));
+		bufferMenu.getItems().setAll(bufferOff, buffer100, buffer200, buffer500);
+		fileMenu.getItems().add(bufferMenu);
 
 		Menu loadMenu = new Menu("Load");
 		for (final DataSet data : DataSet.values()) {
