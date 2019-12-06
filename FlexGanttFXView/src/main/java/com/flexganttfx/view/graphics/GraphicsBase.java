@@ -262,6 +262,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
     public GraphicsBase() {
         getStyleClass().add(DEFAULT_STYLE_CLASS);
 
+        canvasBuffer.addListener(it -> {
+            canvasTranslateX.set(0);
+            redraw();
+        });
+
         // Virtual grids
         ObservableList<VirtualGrid<?>> grids = getVirtualGrids();
         grids.add(new ChronoUnitGrid(Messages.getString("GraphicsBase.GRID_MINUTES_1"), MINUTES, 1));
@@ -982,8 +987,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     private final LayerVisibilityListener layerVisibilityListener = new LayerVisibilityListener();
 
-    private final WeakChangeListener<Boolean> weakLayerVisibilityListener = new WeakChangeListener<>(
-            layerVisibilityListener);
+    private final WeakChangeListener<Boolean> weakLayerVisibilityListener = new WeakChangeListener<>(layerVisibilityListener);
 
     private class LayerVisibilityListener implements ChangeListener<Boolean> {
 
