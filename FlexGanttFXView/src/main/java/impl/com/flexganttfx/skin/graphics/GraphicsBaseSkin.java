@@ -625,8 +625,8 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
             Timeline timeline = getTimeline();
             TimelineModel<?> model = timeline.getModel();
 
-            double x1 = model.calculateLocationForTime(lassoStartTime) - getSkinnable().getCanvasTranslateX();
-            double x2 = model.calculateLocationForTime(lassoEndTime) - getSkinnable().getCanvasTranslateX();
+            double x1 = model.calculateLocationForTime(lassoStartTime);
+            double x2 = model.calculateLocationForTime(lassoEndTime);
 
             lasso.setX(Math.min(x1, x2));
             lasso.setY(Math.min(lassoY1, lassoY2));

@@ -77,7 +77,6 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyBooleanWrapper;
-import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyProperty;
@@ -235,16 +234,6 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     private Instant zoomTime;
 
-    private final ReadOnlyDoubleWrapper canvasTranslateX = new ReadOnlyDoubleWrapper();
-
-    public double getCanvasTranslateX() {
-        return canvasTranslateX.get();
-    }
-
-    public ReadOnlyDoubleWrapper canvasTranslateXProperty() {
-        return canvasTranslateX;
-    }
-
     /**
      * Constructs a new graphics view and initializes the following:
      * <ul>
@@ -261,11 +250,6 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
     @SuppressWarnings("unchecked")
     public GraphicsBase() {
         getStyleClass().add(DEFAULT_STYLE_CLASS);
-
-        canvasBuffer.addListener(it -> {
-            canvasTranslateX.set(0);
-            redraw();
-        });
 
         // Virtual grids
         ObservableList<VirtualGrid<?>> grids = getVirtualGrids();
@@ -764,33 +748,33 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
     private void connectToTimeline() {
         Timeline timeline = getTimeline();
 
-        final ChangeListener<Instant> startTimeListener = (obs, oldTime, newTime) -> {
-            double x = timeline.getModel().calculateLocationForTime(oldTime);
-
-            double newTranslateX = canvasTranslateX.get() + x;
-
-            if (Math.abs(newTranslateX) < getCanvasBuffer()) {
-                canvasTranslateX.set(newTranslateX);
-
-//                System.out.println("tx: " + newTranslateX);
-
-                Instant st = getTimeAt(0);
-                Instant et = getTimeAt(getWidth());
-
-                boolean contained = (st.equals(drawingStartTime) || st.isAfter(drawingStartTime)) && (et.equals(drawingEndTime) || et.isBefore(drawingEndTime));
-
-                if (!contained) {
-//                    System.out.println("contained: " + contained);
-                    redraw();
-                }
-            } else {
-                System.out.println("BANG");
-                canvasTranslateX.set(0);
-                redraw();
-            }
-        };
-
-        timeline.getModel().startTimeProperty().addListener(startTimeListener);
+//        final ChangeListener<Instant> startTimeListener = (obs, oldTime, newTime) -> {
+//            double x = timeline.getModel().calculateLocationForTime(oldTime);
+//
+//            double newTranslateX = canvasTranslateX.get() + x;
+//
+//            if (Math.abs(newTranslateX) < getCanvasBuffer()) {
+//                canvasTranslateX.set(newTranslateX);
+//
+////                System.out.println("tx: " + newTranslateX);
+//
+//                Instant st = getTimeAt(0);
+//                Instant et = getTimeAt(getWidth());
+//
+//                boolean contained = (st.equals(drawingStartTime) || st.isAfter(drawingStartTime)) && (et.equals(drawingEndTime) || et.isBefore(drawingEndTime));
+//
+//                if (!contained) {
+////                    System.out.println("contained: " + contained);
+//                    redraw();
+//                }
+//            } else {
+//                System.out.println("BANG");
+//                canvasTranslateX.set(0);
+//                redraw();
+//            }
+//        };
+//
+//        timeline.getModel().startTimeProperty().addListener(startTimeListener);
 
         redrawObservable(timeline.getModel().millisPerPixelProperty());
 
@@ -805,15 +789,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
                     if (oldValue != null) {
                         // special "now redraw calendarListListener"
                         oldValue.nowProperty().removeListener(weakRedrawNowListener);
-                        removeRedrawObservable(timeline.getModel().startTimeProperty());
                         removeRedrawObservable(timeline.getModel().millisPerPixelProperty());
                     }
 
                     if (newValue != null) {
                         // special "now redraw calendarListListener"
                         newValue.nowProperty().addListener(weakRedrawNowListener);
-                        //redrawObservable(timeline.getModel().startTimeProperty());
-                        timeline.getModel().startTimeProperty().addListener(startTimeListener);
                         redrawObservable(timeline.getModel().millisPerPixelProperty());
                     }
                 });
@@ -3254,8 +3235,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     // Hover activity support.
 
-    private final ReadOnlyObjectWrapper<ActivityRef<?>> hoverActivity = new ReadOnlyObjectWrapper<>(
-            this, "hoverActivity");
+    private final ReadOnlyObjectWrapper<ActivityRef<?>> hoverActivity = new ReadOnlyObjectWrapper<>(this, "hoverActivity");
 
     public final ReadOnlyObjectProperty<ActivityRef<?>> hoverActivityProperty() {
         return hoverActivity;
@@ -3400,20 +3380,9 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
             linksPane.layoutLinks();
         }
     }
-
-    private Instant drawingStartTime;
-
-    private Instant drawingEndTime;
-
+    
     private void doDraw() {
         if (getTimeline() != null && getTimeline().getModel() != null) {
-
-            final double leftPixel = getCanvasBuffer() - canvasTranslateX.get();
-           // System.out.println("buffer: " + getCanvasBuffer() + ", translate-x: " + canvasTranslateX.get() + ", left: " + leftPixel);
-            drawingStartTime = getTimeAt(-leftPixel);
-            drawingEndTime = getTimeAt(getWidth() + getCanvasBuffer());
-
-            //System.out.println("drawing start time: " + drawingStartTime + ", drawing end time: " + drawingEndTime);
 
             for (RowPane<R> pane : getRowPanes()) {
                 if (pane.isVisible()) {

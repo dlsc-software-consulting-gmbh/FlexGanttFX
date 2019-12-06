@@ -58,7 +58,6 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
 		canvas.widthProperty().bind(widthProperty().add(graphics.canvasBufferProperty().multiply(2)));
 		canvas.heightProperty().bind(heightProperty());
 		canvas.rowProperty().bind(rowProperty());
-		canvas.translateXProperty().bind(graphics.canvasTranslateXProperty());
 		StackPane.setAlignment(canvas, Pos.CENTER); // VERY IMPORTANT, we want buffer to the left AND the right
 
 		zoneIdLabel = new Label("Zone ID");

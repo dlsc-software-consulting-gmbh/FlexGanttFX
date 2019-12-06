@@ -221,8 +221,7 @@ public class HelloGraphicsView extends FlexGanttFXSampleBase {
 
         vboxGraphics = new VBoxGraphics<>();
         vboxGraphics.setDebugMode(DEBUG_MODE);
-        vboxGraphics.setOnLassoSelection(evt -> textArea.appendText(evt
-                .toString()));
+        vboxGraphics.setOnLassoSelection(evt -> textArea.appendText(evt.toString()));
         vboxGraphics.setOnActivityChange(evt -> info(evt));
 
         vboxGraphics.setTimeline(timeline);
@@ -242,7 +241,10 @@ public class HelloGraphicsView extends FlexGanttFXSampleBase {
         borderPane.setCenter(vboxGraphics);
         borderPane.setStyle("-fx-background-color: gray;");
 
-        return borderPane;
+        StackPane stackPane = new StackPane(borderPane);
+        stackPane.setStyle("-fx-padding: 200px");
+
+        return stackPane;
     }
 
     private Region createGraphicsSplitPane() {

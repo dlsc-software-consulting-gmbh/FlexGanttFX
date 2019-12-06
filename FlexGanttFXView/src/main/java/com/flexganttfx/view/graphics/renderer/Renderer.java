@@ -11,8 +11,14 @@ import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.timeline.Timeline;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
-import javafx.beans.property.*;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Insets;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
@@ -146,10 +152,10 @@ public abstract class Renderer {
 	 * @see TimelineModel#calculateLocationForTime(Instant)
 	 * @since 1.0
 	 */
-	protected final double getLocation(Instant time) {
+	protected final double getLocation(Instant time, Canvas canvas) {
 		Timeline timeline = getGraphics().getTimeline();
 		TimelineModel<?> timelineModel = timeline.getModel();
-		return timelineModel.calculateLocationForTime(time) + getGraphics().getCanvasBuffer() - getGraphics().getCanvasTranslateX();
+		return timelineModel.calculateLocationForTime(time) + getGraphics().getCanvasBuffer() - canvas.getTranslateX();
 	}
 
 	/**

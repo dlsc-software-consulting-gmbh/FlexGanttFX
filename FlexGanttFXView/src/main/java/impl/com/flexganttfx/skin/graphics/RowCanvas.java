@@ -93,6 +93,12 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
     private RowCanvasBehaviour<?> rowCanvasBehaviour;
 
+    private Instant drawingStartTime;
+
+    private Instant drawingEndTime;
+
+    private double randomInitialTranslateX;
+
     public RowCanvas(GraphicsBase<R> graphics) {
         requireNonNull(graphics);
 
@@ -118,10 +124,70 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         hoverProperty().addListener(pseudoStateRedrawListener);
         pressedProperty().addListener(pseudoStateRedrawListener);
         focusedProperty().addListener(pseudoStateRedrawListener);
+
+        connectToTimeline();
+        graphics.timelineProperty().addListener(it -> connectToTimeline());
+
+        graphics.canvasBufferProperty().addListener(it -> {
+            setTranslateX(0);
+            draw();
+        });
+
+        graphics.canvasBufferProperty().addListener(it -> randomTranslateX());
+        randomTranslateX();
     }
 
-    private final ChangeListener<ActivityRef<?>> activityRedrawListener = (
-            observable, oldRef, newRef) -> {
+    private void randomTranslateX() {
+        final double canvasBuffer = graphics.getCanvasBuffer();
+        if (Math.random() < .5) {
+            setTranslateX(-Math.random() * canvasBuffer / 4);
+        } else {
+            setTranslateX(Math.random() * canvasBuffer / 4);
+        }
+        System.out.println("translate x: " + getTranslateX());
+    }
+
+    private void connectToTimeline() {
+        Timeline timeline = graphics.getTimeline();
+
+        final ChangeListener<Instant> startTimeListener = (obs, oldTime, newTime) -> {
+            double x = timeline.getModel().calculateLocationForTime(oldTime);
+
+            double newTranslateX = getTranslateX() + x;
+
+            if (Math.abs(newTranslateX) < graphics.getCanvasBuffer()) {
+                setTranslateX(newTranslateX);
+
+                Instant st = graphics.getTimeAt(0);
+                Instant et = graphics.getTimeAt(graphics.getWidth());
+
+                boolean contained = (st.equals(drawingStartTime) || st.isAfter(drawingStartTime)) && (et.equals(drawingEndTime) || et.isBefore(drawingEndTime));
+
+                if (!contained) {
+                    draw();
+                }
+            } else {
+                System.out.println("BANG");
+                randomTranslateX();
+                draw();
+            }
+        };
+
+        timeline.getModel().startTimeProperty().addListener(startTimeListener);
+
+        timeline.modelProperty().addListener((observable, oldValue, newValue) -> {
+            if (oldValue != null) {
+                timeline.getModel().startTimeProperty().removeListener(startTimeListener);
+            }
+
+            if (newValue != null) {
+                timeline.getModel().startTimeProperty().addListener(startTimeListener);
+            }
+        });
+    }
+
+    private final ChangeListener<ActivityRef<?>> activityRedrawListener = (observable, oldRef, newRef) -> {
+
         if ((oldRef != null && oldRef.getRow() == getRow())
                 || (newRef != null && newRef.getRow() == getRow())) {
 
@@ -223,8 +289,8 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         TimelineModel<?> timelineModel = getTimelineModel();
 
-        Instant startTime = timelineModel.calculateTimeForLocation(0 - graphics.getCanvasBuffer());
-        Instant endTime = timelineModel.calculateTimeForLocation(getWidth() + graphics.getCanvasBuffer());
+        drawingStartTime = timelineModel.calculateTimeForLocation(0 - graphics.getCanvasBuffer());
+        drawingEndTime = timelineModel.calculateTimeForLocation(getWidth() + graphics.getCanvasBuffer());
 
 //        System.out.println("  > drawing start time: " + startTime + ", drawing end time: " + endTime);
 
@@ -241,7 +307,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                         gc.save();
                     }
 
-                    drawSystemLayer(layer, gc, startTime, endTime);
+                    drawSystemLayer(layer, gc, drawingStartTime, drawingEndTime);
 
                     if (safeRendering) {
                         gc.restore();
@@ -249,7 +315,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                 }
             }
 
-            drawModelLayers(startTime, endTime);
+            drawModelLayers(drawingStartTime, drawingEndTime);
 
             for (SystemLayer layer : graphics.getForegroundSystemLayers()) {
                 if (layer.isVisible()) {
@@ -257,7 +323,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                         gc.save();
                     }
 
-                    drawSystemLayer(layer, gc, startTime, endTime);
+                    drawSystemLayer(layer, gc, drawingStartTime, drawingEndTime);
 
                     if (safeRendering) {
                         gc.restore();
@@ -1054,10 +1120,8 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
      * If snapToPixel is true, then the value is rounded using Math.round.
      * Otherwise, the value is simply returned.
      *
-     * @param value
-     *            The value that needs to be snapped
-     * @param snapToPixel
-     *            Whether to snap to pixel
+     * @param value       The value that needs to be snapped
+     * @param snapToPixel Whether to snap to pixel
      * @return value either as passed in or rounded based on snapToPixel
      */
     private double snapSpace(double value, boolean snapToPixel) {
@@ -1068,10 +1132,8 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
      * If snapToPixel is true, then the value is ceil'd using Math.ceil.
      * Otherwise, the value is simply returned.
      *
-     * @param value
-     *            The value that needs to be snapped
-     * @param snapToPixel
-     *            Whether to snap to pixel
+     * @param value       The value that needs to be snapped
+     * @param snapToPixel Whether to snap to pixel
      * @return value either as passed in or ceil'd based on snapToPixel
      */
     private double snapSize(double value, boolean snapToPixel) {
@@ -1082,10 +1144,8 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
      * If snapToPixel is true, then the value is rounded using Math.round.
      * Otherwise, the value is simply returned.
      *
-     * @param value
-     *            The value that needs to be snapped
-     * @param snapToPixel
-     *            Whether to snap to pixel
+     * @param value       The value that needs to be snapped
+     * @param snapToPixel Whether to snap to pixel
      * @return value either as passed in or rounded based on snapToPixel
      */
     private double snapPosition(double value, boolean snapToPixel) {
