@@ -113,7 +113,7 @@
 			<plugin>
 				<groupId>com.sandec.jpro</groupId>
 				<artifactId>jpro-maven-plugin</artifactId>
-				<version>2019.2.0-SNAPSHOT</version>
+				<version>${jpro.version}</version>
 				<configuration>
 					<visible>false</visible>
 					<!-- noRenderJobs>true</noRenderJobs -->

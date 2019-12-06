@@ -99,6 +99,8 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
     private double randomInitialTranslateX;
 
+    private boolean showCanvasBounds;
+
     public RowCanvas(GraphicsBase<R> graphics) {
         requireNonNull(graphics);
 
@@ -348,6 +350,11 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         if (agendaColumnMap != null) {
             agendaColumnMap.clear();
+        }
+
+        if (showCanvasBounds) {
+            gc.setStroke(Color.RED);
+            gc.strokeRect(0, 0, getWidth(), getHeight());
         }
     }
 

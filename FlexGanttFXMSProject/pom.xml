@@ -14,7 +14,6 @@
 
     <properties>
         <maven.javadoc.skip>true</maven.javadoc.skip>
-        <jproVersion>2019.2.0-SNAPSHOT</jproVersion>
     </properties>
 
     <pluginRepositories>
@@ -87,7 +86,7 @@
             <plugin>
                 <groupId>com.sandec.jpro</groupId>
                 <artifactId>jpro-maven-plugin</artifactId>
-                <version>${jproVersion}</version>
+                <version>${jpro.version}</version>
                 <configuration>
                     <visible>false</visible>
                     <!-- noRenderJobs>true</noRenderJobs -->

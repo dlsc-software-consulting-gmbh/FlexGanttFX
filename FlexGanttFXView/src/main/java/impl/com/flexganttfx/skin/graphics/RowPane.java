@@ -86,6 +86,11 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
 
 		rowProperty().addListener(editorListener);
 
+		// TODO: remove again
+		rowProperty().addListener(it -> {
+			canvas.setId(getRow().getName().toLowerCase().replace(" ", "-"));
+		});
+
 		final EventHandler<MouseEvent> mouseEntered = evt -> {
 			if (getRow() != null && !flipPane.isBackVisible()) {
 				Callback<RowControlsParameter<R>, Node> controlsFactory = graphics
