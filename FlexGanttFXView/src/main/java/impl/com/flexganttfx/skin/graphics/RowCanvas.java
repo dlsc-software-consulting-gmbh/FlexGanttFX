@@ -133,18 +133,19 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
             draw();
         });
 
-        graphics.canvasBufferProperty().addListener(it -> randomTranslateX());
-        randomTranslateX();
+        graphics.canvasBufferProperty().addListener(it -> randomTranslateX(true));
+        randomTranslateX(true);
     }
 
-    private void randomTranslateX() {
+    private void randomTranslateX(boolean scrollingRight) {
         final double canvasBuffer = graphics.getCanvasBuffer();
-        if (Math.random() < .5) {
-            setTranslateX(-Math.random() * canvasBuffer / 4);
+        final double offset = Math.random() * canvasBuffer / 4;
+
+        if (scrollingRight) {
+            setTranslateX(canvasBuffer - offset);
         } else {
-            setTranslateX(Math.random() * canvasBuffer / 4);
+            setTranslateX(-canvasBuffer + offset);
         }
-        System.out.println("translate x: " + getTranslateX());
     }
 
     private void connectToTimeline() {
@@ -167,8 +168,8 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                     draw();
                 }
             } else {
-                System.out.println("BANG");
-                randomTranslateX();
+                //System.out.println("BANG");
+                randomTranslateX((newTranslateX - getTranslateX()) < 0);
                 draw();
             }
         };
