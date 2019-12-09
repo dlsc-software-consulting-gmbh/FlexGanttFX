@@ -63,9 +63,7 @@ public abstract class DatelineCell<T extends TemporalUnit> extends Region {
 	public void update(Instant startTime, Instant endTime, Resolution<T> resolution, Dateline dateline, Position position) {
 
 		// "dateline-cell, bottom, hours"
-		getStyleClass().setAll(DEFAULT_STYLE_CLASS,
-				position.name().toLowerCase(),
-				resolution.getTemporalUnit().toString().toLowerCase());
+		getStyleClass().setAll(DEFAULT_STYLE_CLASS, position.name().toLowerCase(), resolution.getTemporalUnit().toString().toLowerCase());
 
 		this.startTime = startTime;
 		this.endTime = endTime;
@@ -84,7 +82,7 @@ public abstract class DatelineCell<T extends TemporalUnit> extends Region {
 		double prefWidth = text.prefWidth(h);
 		double prefHeight = text.prefHeight(-1);
 
-		text.setWrappingWidth(Math.max(prefWidth, w));
+		//text.setWrappingWidth(Math.max(prefWidth, w));
 
 		/*
 		 * Text is longer than the available space. We need to adjust its

@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package impl.com.flexganttfx.skin.timeline;
@@ -50,8 +50,6 @@ final class DatelineScale extends Region {
     private final Position position;
 
     private final Dateline dateline;
-
-    private List<DatelineCell<?>> cellList;
 
     DatelineScale(Dateline dateline, Position position) {
         getStyleClass().add(DEFAULT_STYLE_CLASS);
@@ -124,24 +122,17 @@ final class DatelineScale extends Region {
             DatelineCell<?> cell = getCellAt(evt.getX());
             if (cell != null) {
                 TimeInterval interval = cell.getInterval();
-                dateline.getProperties().put(
-                        "com.flexganttfx.dateline.hover.interval", interval);
+                dateline.getProperties().put("com.flexganttfx.dateline.hover.interval", interval);
             } else {
-                dateline.getProperties()
-                        .put("com.flexganttfx.dateline.hover.interval", null);
+                dateline.getProperties().put("com.flexganttfx.dateline.hover.interval", null);
             }
         };
 
-        addEventHandler(MouseEvent.MOUSE_MOVED,
-                updateFocusedTimeIntervalHandler);
-        addEventHandler(MouseEvent.MOUSE_ENTERED,
-                updateFocusedTimeIntervalHandler);
+        addEventHandler(MouseEvent.MOUSE_MOVED, updateFocusedTimeIntervalHandler);
+        addEventHandler(MouseEvent.MOUSE_ENTERED, updateFocusedTimeIntervalHandler);
 
-        EventHandler<MouseEvent> clearFocusedTimeIntervalHandler = evt -> dateline
-                .getProperties().put("com.flexganttfx.dateline.hover.interval",
-                        null);
-        addEventHandler(MouseEvent.MOUSE_EXITED,
-                clearFocusedTimeIntervalHandler);
+        EventHandler<MouseEvent> clearFocusedTimeIntervalHandler = evt -> dateline.getProperties().put("com.flexganttfx.dateline.hover.interval", null);
+        addEventHandler(MouseEvent.MOUSE_EXITED, clearFocusedTimeIntervalHandler);
 
         heightProperty().addListener(it -> {
             if (resolution != null) {
@@ -236,8 +227,7 @@ final class DatelineScale extends Region {
 
     private DatelineCell<?> getCellAt(double x) {
         for (Node node : getChildren()) {
-            if (node.getLayoutX() <= x
-                    && (node.getLayoutX() + node.prefWidth(-1) > x)) {
+            if (node.getLayoutX() <= x && (node.getLayoutX() + node.prefWidth(-1) > x)) {
                 return (DatelineCell<?>) node;
             }
         }
@@ -256,6 +246,9 @@ final class DatelineScale extends Region {
             if (getResolution() != null) {
                 success = buildCells(getResolution(), true);
             } else {
+
+                getChildren().clear();
+
                 Iterator<Resolution> resolutions = datelineModel.getResolutions(unit);
 
                 while (resolutions.hasNext()) {
@@ -289,14 +282,15 @@ final class DatelineScale extends Region {
     @SuppressWarnings({"rawtypes", "unchecked"})
     private boolean buildCells(final Resolution<? extends TemporalUnit> resolution, boolean cached) {
 
+        getChildren().forEach(node -> {
+            node.setVisible(false);
+            node.setManaged(false);
+        });
+
         Timeline timeline = dateline.getTimeline();
         TimelineModel timelineModel = timeline.getModel();
 
         TemporalUnit temporalUnit = resolution.getTemporalUnit();
-
-        Callback<TemporalUnit, DatelineCell> cellFactory = dateline.getCellFactory(temporalUnit.getClass());
-
-        cellList = new ArrayList<>();
 
         ObservableList<TimeInterval> selections = dateline.getSelectedIntervals();
 
@@ -342,21 +336,18 @@ final class DatelineScale extends Region {
 
             if (x1 < dateline.getWidth()) {
 
-				DatelineCell cell = null;
-
-                if (cell == null) {
-                    cell = cellFactory.call(temporalUnit);
-                    cell.update(startTime, endTime, resolution, dateline, getPosition());
-                }
-
+                DatelineCell cell = getOrCreateDatelineCell(temporalUnit, index++);
+                cell.getStyleClass().removeAll("dst-end", "dst-start", "dateline-cell-first", "dateline-cell-last", SELECTED_STYLE_CLASS);
+                cell.setVisible(true);
+                cell.setManaged(true);
+                cell.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                cell.update(startTime, endTime, resolution, dateline, getPosition());
 
                 double x2 = timelineModel.calculateLocationForTime(endTime);
 
                 double padding = getCellPadding();
 
                 if (cached || x1 + cell.prefWidth(scaleHeight) + 2 * padding <= x2) {
-
-                    cellList.add(cell);
 
                     double correctionLeft = Math.max(0, -x1);
                     double correctionRight = Math.max(0, x2 - datelineWidth);
@@ -370,7 +361,6 @@ final class DatelineScale extends Region {
                     cell.setPrefHeight(scaleHeight);
 
                     double cellWidth = x2 - x1 - correctionLeft - correctionRight;
-
                     cell.setPrefWidth(cellWidth);
                     cell.setMaxWidth(cellWidth);
                     cell.setMinWidth(cellWidth);
@@ -397,34 +387,34 @@ final class DatelineScale extends Region {
                     startTime = endTime;
                 }
             }
-
-            index++;
         }
 
-		if (success) {
-			int listSize = cellList.size();
-			if (listSize > 0) {
-				DatelineCell<?> first = cellList.get(0);
-				DatelineCell<?> last = cellList.get(listSize - 1);
-
-                first.getStyleClass().add("dateline-cell-first");
-                last.getStyleClass().add("dateline-cell-last");
+        if (success) {
+            int listSize = getChildren().size();
+            if (listSize > 0) {
+//                DatelineCell<?> first = (DatelineCell<?>) getChildren().get(0);
+//                DatelineCell<?> last = (DatelineCell<?>) getChildren().get(index - 2);
+//
+//                first.getStyleClass().add("dateline-cell-first");
+//                last.getStyleClass().add("dateline-cell-last");
             }
 
             setResolution(resolution);
-        } else {
-            cellList.clear();
         }
 
         return success;
     }
 
-	@Override
-	protected final void layoutChildren() {
-		if (cellList != null) {
-			getChildren().setAll(cellList);
-		}
-		super.layoutChildren();
-	}
+    private DatelineCell getOrCreateDatelineCell(TemporalUnit temporalUnit, int index) {
+        if (index < getChildren().size()) {
+            return (DatelineCell) getChildren().get(index);
+        }
 
+        System.out.println("creating new cell for index " + index);
+        Callback<TemporalUnit, DatelineCell> cellFactory = dateline.getCellFactory(temporalUnit.getClass());
+        DatelineCell cell = cellFactory.call(temporalUnit);
+        getChildren().add(cell);
+
+        return cell;
+    }
 }
