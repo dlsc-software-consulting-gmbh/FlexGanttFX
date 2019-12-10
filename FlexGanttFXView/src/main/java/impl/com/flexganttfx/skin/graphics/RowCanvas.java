@@ -139,11 +139,10 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         final double canvasBuffer = graphics.getCanvasBuffer();
         final double offset = Math.random() * canvasBuffer / 4;
 
-        // TODO: really int's?
         if (scrollingRight) {
-            setTranslateX((int) snapPosition(canvasBuffer - offset));
+            setTranslateX(snapPosition(canvasBuffer - offset));
         } else {
-            setTranslateX((int) snapPosition(-canvasBuffer + offset));
+            setTranslateX(snapPosition(-canvasBuffer + offset));
         }
     }
 
