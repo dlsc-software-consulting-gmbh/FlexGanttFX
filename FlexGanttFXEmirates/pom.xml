@@ -28,11 +28,6 @@
 	<repositories>
 
 		<repository>
-			<id>my-local-emirates-repo</id>
-			<url>file://${project.basedir}/repository</url>
-		</repository>
-
-		<repository>
 			<id>jpro - sandec repository</id>
 			<url>http://sandec.bintray.com/repo</url>
 		</repository>
@@ -69,12 +64,6 @@
 			<groupId>com.miglayout</groupId>
 			<artifactId>miglayout-swing</artifactId>
 			<version>5.2</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.flexganttfx</groupId>
-			<artifactId>mapviewer</artifactId>
-			<version>1.0.0</version>
 		</dependency>
 
 		<dependency>
