@@ -86,6 +86,8 @@ public class DatelineSkin extends SkinBase<Dateline> {
         clip.heightProperty().bind(dateline.heightProperty());
         dateline.setClip(clip);
 
+        dateline.widthProperty().addListener(it -> updateDatelineCells());
+
         dateline.widthProperty().addListener((value, oldNumber, newNumber) -> fireScrollingEvent());
         dateline.heightProperty().addListener((value, oldNumber, newNumber) -> fireScrollingEvent());
 
@@ -96,22 +98,19 @@ public class DatelineSkin extends SkinBase<Dateline> {
         return getSkinnable();
     }
 
+    private final ChangeListener<Instant> startTimeListener = (value, oldStartTime, newStartTime) -> updateDatelineCells();
+
+    private final WeakChangeListener weakStartTimeListener = new WeakChangeListener(startTimeListener);
+
     private void registerTimelineListeners(final Timeline timeline) {
 
         /*
          * Start time changes = scrolling.
          */
-        final ChangeListener<Instant> startTimeListener = (value, oldStartTime,
-                                                           newStartTime) -> {
-            getSkinnable().requestLayout();
-
-            fireScrollingEvent();
-        };
 
         TimelineModel<?> timelineModel = timeline.getModel();
-        ObjectProperty<Instant> startTimeProperty = timelineModel
-                .startTimeProperty();
-        startTimeProperty.addListener(startTimeListener);
+        ObjectProperty<Instant> startTimeProperty = timelineModel.startTimeProperty();
+        startTimeProperty.addListener(weakStartTimeListener);
 
         /*
          * MPP changes = zoom in / out.
@@ -120,31 +119,32 @@ public class DatelineSkin extends SkinBase<Dateline> {
             for (DatelineScale scale : rowScaleMap.values()) {
                 scale.setResolution(null);
             }
-            getSkinnable().requestLayout();
 
-            fireScrollingEvent();
+            updateDatelineCells();
         };
 
         timeline.getModel().millisPerPixelProperty().addListener(mppListener);
 
         timeline.modelProperty().addListener(
                 new WeakChangeListener<>((value, oldModel, newModel) -> {
+
                     if (oldModel != null) {
-                        oldModel.startTimeProperty().removeListener(
-                                startTimeListener);
-                        oldModel.millisPerPixelProperty().removeListener(
-                                mppListener);
+                        oldModel.startTimeProperty().removeListener(weakStartTimeListener);
+                        oldModel.millisPerPixelProperty().removeListener(mppListener);
                     }
 
                     if (newModel != null) {
-                        newModel.startTimeProperty().addListener(
-                                startTimeListener);
-                        newModel.millisPerPixelProperty().addListener(
-                                mppListener);
+                        newModel.startTimeProperty().addListener(weakStartTimeListener);
+                        newModel.millisPerPixelProperty().addListener(mppListener);
                     }
 
                     getSkinnable().requestLayout();
                 }));
+    }
+
+    private void updateDatelineCells() {
+        buildCells();
+        fireScrollingEvent();
     }
 
     private void fireScrollingEvent() {
@@ -362,9 +362,14 @@ public class DatelineSkin extends SkinBase<Dateline> {
         dateline.requestLayout();
     }
 
+    private boolean initialSetup;
+
     @Override
     protected void layoutChildren(double x, double y, double width, double height) {
-        buildCells();
+        if (!initialSetup) {
+            initialSetup = true;
+            buildCells();
+        }
 
         super.layoutChildren(x, y, width, height);
 

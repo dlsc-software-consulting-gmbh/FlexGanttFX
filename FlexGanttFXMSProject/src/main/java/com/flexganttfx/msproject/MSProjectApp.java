@@ -48,15 +48,10 @@ public class MSProjectApp extends Application {
 		MenuBar menuBar = createMenuBar();
 		vbox.getChildren().add(menuBar);
 
-		GanttChartToolBar<MSProjectTaskRow> toolBar = new GanttChartToolBar<>(
-				gantt);
-		vbox.getChildren().add(toolBar);
+		GanttChartToolBar<MSProjectTaskRow> toolBar = new GanttChartToolBar<>(gantt);
+		GanttChartStatusBar<MSProjectTaskRow> statusBar = new GanttChartStatusBar<>(gantt);
 
-		vbox.getChildren().add(gantt);
-
-		GanttChartStatusBar<MSProjectTaskRow> statusBar = new GanttChartStatusBar<>(
-				gantt);
-		vbox.getChildren().add(statusBar);
+		vbox.getChildren().addAll(toolBar, gantt, statusBar);
 
 		Scene scene = new Scene(vbox);
 		stage.setScene(scene);

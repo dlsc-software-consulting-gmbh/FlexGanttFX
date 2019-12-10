@@ -144,9 +144,9 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         final double offset = Math.random() * canvasBuffer / 4;
 
         if (scrollingRight) {
-            setTranslateX(canvasBuffer - offset);
+            setTranslateX(snapPosition(canvasBuffer - offset));
         } else {
-            setTranslateX(-canvasBuffer + offset);
+            setTranslateX(snapPosition(-canvasBuffer + offset));
         }
     }
 
@@ -275,10 +275,6 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
     public final void draw() {
         if (LoggingDomain.RENDERING.isLoggable(Level.FINEST)) {
             LoggingDomain.RENDERING.finest("drawing canvas of row " + getRow());
-        }
-
-        if (getRow() != null && getRow().getName() != null) {
-            System.out.println("drawing " + getRow().getName());
         }
 
         activityBounds.clear();

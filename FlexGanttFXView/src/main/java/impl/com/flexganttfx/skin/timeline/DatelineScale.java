@@ -410,7 +410,6 @@ final class DatelineScale extends Region {
             return (DatelineCell) getChildren().get(index);
         }
 
-        System.out.println("creating new cell for index " + index);
         Callback<TemporalUnit, DatelineCell> cellFactory = dateline.getCellFactory(temporalUnit.getClass());
         DatelineCell cell = cellFactory.call(temporalUnit);
         getChildren().add(cell);

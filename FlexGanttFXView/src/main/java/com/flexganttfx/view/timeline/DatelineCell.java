@@ -82,11 +82,10 @@ public abstract class DatelineCell<T extends TemporalUnit> extends Region {
 		double prefWidth = text.prefWidth(h);
 		double prefHeight = text.prefHeight(-1);
 
-		//text.setWrappingWidth(Math.max(prefWidth, w));
+		text.resizeRelocate(insets.getLeft(), h / 2 - prefHeight / 2, w, h);
 
 		/*
-		 * Text is longer than the available space. We need to adjust its
-		 * position.
+		 * Text is longer than the available space. We need to adjust its position.
 		 */
 		if (prefWidth > w) {
 			if (getStyleClass().contains("dateline-cell-first")) {
@@ -94,8 +93,6 @@ public abstract class DatelineCell<T extends TemporalUnit> extends Region {
 			} else if (getStyleClass().contains("dateline-cell-last")) {
 				text.resizeRelocate(insets.getLeft(), h / 2 - prefHeight / 2, w, h);
 			}
-		} else {
-			text.resizeRelocate(insets.getLeft(), h / 2 - prefHeight / 2, w, h);
 		}
 
 		setClip(new Rectangle(0, 0, getWidth(), getHeight()));
