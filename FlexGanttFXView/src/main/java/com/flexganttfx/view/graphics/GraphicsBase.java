@@ -748,33 +748,9 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
     private void connectToTimeline() {
         Timeline timeline = getTimeline();
 
-//        final ChangeListener<Instant> startTimeListener = (obs, oldTime, newTime) -> {
-//            double x = timeline.getModel().calculateLocationForTime(oldTime);
-//
-//            double newTranslateX = canvasTranslateX.get() + x;
-//
-//            if (Math.abs(newTranslateX) < getCanvasBuffer()) {
-//                canvasTranslateX.set(newTranslateX);
-//
-////                System.out.println("tx: " + newTranslateX);
-//
-//                Instant st = getTimeAt(0);
-//                Instant et = getTimeAt(getWidth());
-//
-//                boolean contained = (st.equals(drawingStartTime) || st.isAfter(drawingStartTime)) && (et.equals(drawingEndTime) || et.isBefore(drawingEndTime));
-//
-//                if (!contained) {
-////                    System.out.println("contained: " + contained);
-//                    redraw();
-//                }
-//            } else {
-//                System.out.println("BANG");
-//                canvasTranslateX.set(0);
-//                redraw();
-//            }
-//        };
-//
-//        timeline.getModel().startTimeProperty().addListener(startTimeListener);
+        final ChangeListener<Instant> startTimeListener = (obs, oldTime, newTime) -> layoutLinks();
+
+        timeline.getModel().startTimeProperty().addListener(startTimeListener);
 
         redrawObservable(timeline.getModel().millisPerPixelProperty());
 
@@ -3368,7 +3344,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
             doDraw();
         }
 
-        //layoutLinks();
+        layoutLinks();
     }
 
     public void layoutLinks() {

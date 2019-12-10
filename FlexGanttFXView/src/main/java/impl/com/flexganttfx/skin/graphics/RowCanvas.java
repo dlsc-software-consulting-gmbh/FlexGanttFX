@@ -97,10 +97,6 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
     private Instant drawingEndTime;
 
-    private double randomInitialTranslateX;
-
-    private boolean showCanvasBounds;
-
     public RowCanvas(GraphicsBase<R> graphics) {
         requireNonNull(graphics);
 
@@ -295,8 +291,6 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         drawingStartTime = timelineModel.calculateTimeForLocation(0 - graphics.getCanvasBuffer());
         drawingEndTime = timelineModel.calculateTimeForLocation(getWidth() + graphics.getCanvasBuffer());
 
-//        System.out.println("  > drawing start time: " + startTime + ", drawing end time: " + endTime);
-
         safeRendering = getGraphics().isSafeRendering();
 
         try {
@@ -350,11 +344,6 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         if (agendaColumnMap != null) {
             agendaColumnMap.clear();
-        }
-
-        if (showCanvasBounds) {
-            gc.setStroke(Color.RED);
-            gc.strokeRect(0, 0, getWidth(), getHeight());
         }
     }
 
@@ -592,8 +581,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         boolean pressed = ref.equals(graphics.getPressedActivity());
 
         boolean highlighted = false;
-        if (!graphics.getHighlightedActivities().isEmpty()
-                && graphics.isHighlighted()) {
+        if (!graphics.getHighlightedActivities().isEmpty() && graphics.isHighlighted()) {
             highlighted = graphics.getHighlightedActivities().contains(ref);
         }
 
@@ -607,16 +595,13 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         ActivityRenderer renderer = graphics
                 .getActivityRenderer(activity.getClass(), layout.getClass());
         if (renderer == null) {
-            throw new IllegalStateException(
-                    "no renderer found for activity of type "
-                            + activity.getClass() + " and layout of type "
-                            + layout.getClass());
+            throw new IllegalStateException("no renderer found for activity of type " + activity.getClass() + " and layout of type " + layout.getClass());
         }
         if (!renderer.isEnabled()) {
             return Collections.emptyList();
         }
 
-        GraphicsContext gc = getGraphicsContext2D();
+        final GraphicsContext gc = getGraphicsContext2D();
 
         double layerOpacity = ref.getLayer().getOpacity();
         double fadeInOutOpacity = ref.getLayer().getFadeInOutOpacity();
@@ -657,12 +642,10 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                     position = MIDDLE;
                 }
 
-                if (ActivityHelper.intersect(zonedStartDateTime.toInstant(),
-                        zonedEndDateTime.toInstant(),
-                        startOfDayTime.toInstant(), endOfDayTime.toInstant())) {
+                if (ActivityHelper.intersect(zonedStartDateTime.toInstant(), zonedEndDateTime.toInstant(), startOfDayTime.toInstant(), endOfDayTime.toInstant())) {
 
                     /*
-                     * The activity might not be visbile at all because the
+                     * The activity might not be visible at all because the
                      * agenda layout defines a start and end time other than
                      * from midnight till midnight.
                      */
@@ -676,15 +659,14 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
                     switch (layoutStrategy) {
                         case OVERLAPPING:
-                            List<ActivityEntry> columnActivities = agendaColumnMap
-                                    .get((int) x1);
+                            List<ActivityEntry> columnActivities = agendaColumnMap.get((int) x1);
+
                             if (columnActivities == null) {
                                 columnActivities = new ArrayList<>();
                                 agendaColumnMap.put((int) x1, columnActivities);
                             }
 
-                            int insetLevel = computeInsetLevel(activity,
-                                    columnActivities);
+                            int insetLevel = computeInsetLevel(activity, columnActivities);
 
                             ActivityEntry entry = new ActivityEntry();
                             entry.activity = activity;
@@ -705,17 +687,14 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                                 }
 
                                 LocalDate date = startOfDayTime.toLocalDate();
-                                List<Activity> dateActivities = dateActivitiesMap
-                                        .computeIfAbsent(date,
-                                                it -> new ArrayList<>());
+                                List<Activity> dateActivities = dateActivitiesMap.computeIfAbsent(date, it -> new ArrayList<>());
                                 dateActivities.add(activity);
                             }
 
                             break;
                     }
 
-                    if (layoutStrategy.equals(LayoutStrategy.OVERLAPPING)
-                            || secondPass) {
+                    if (layoutStrategy.equals(LayoutStrategy.OVERLAPPING) || secondPass) {
                         double yy1 = yOffset;
 
                         if (column == 0) {
@@ -785,14 +764,11 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                         bounds = renderer.draw(ref, position, gc,
                                 snapPosition(x1), snapPosition(yy1),
                                 snapPosition(columnWidth),
-                                Math.max(1,
-                                        (snapPosition(yy2) - snapPosition(yy1)
-                                                - 1)),
+                                Math.max(1, (snapPosition(yy2) - snapPosition(yy1) - 1)),
                                 selected, focused, highlighted, pressed);
 
                         if (bounds == null) {
-                            throw new MissingActivityBoundsException(renderer,
-                                    activity, row, lineIndex);
+                            throw new MissingActivityBoundsException(renderer, activity, row, lineIndex);
                         }
 
                         bounds.setPosition(position);
@@ -805,18 +781,19 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
             }
 
         } else if (layout instanceof GanttLayout) {
+
             ActivityBounds bounds = renderer.draw(ref, ONLY, gc, x1 + .25,
                     yOffset + .5, x2 - x1, availableHeight - 1, selected,
                     focused, highlighted, pressed);
 
             if (bounds == null) {
-                throw new MissingActivityBoundsException(renderer, activity,
-                        row, lineIndex);
+                throw new MissingActivityBoundsException(renderer, activity, row, lineIndex);
             }
 
             bounds.setPosition(ONLY);
             bounds.setLayout(layout);
             boundsList.add(bounds);
+
         } else if (layout instanceof ChartLayout) {
             if (activity instanceof ChartActivity) {
                 yOffset += calculateChartOffset((ChartActivity) activity, (ChartLayout) layout, availableHeight);
@@ -968,8 +945,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                 if (firstPassBounds != null && !firstPassBounds.isEmpty()) {
                     return firstPassBounds.get(0);
                 }
-            } catch (IllegalLineIndexException
-                    | MissingActivityBoundsException e) {
+            } catch (IllegalLineIndexException | MissingActivityBoundsException e) {
                 e.printStackTrace();
             }
         }

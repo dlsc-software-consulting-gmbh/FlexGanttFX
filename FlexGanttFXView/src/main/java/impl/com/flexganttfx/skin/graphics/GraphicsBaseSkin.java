@@ -242,7 +242,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         getChildren().add(region);
 
         clippedContent = new Pane(
-               // linksPane,
+                linksPane,
                 horizontalCursorLine,
                 horizontalCursorIndicator,
                 verticalCursorLine,

@@ -392,11 +392,11 @@ final class DatelineScale extends Region {
         if (success) {
             int listSize = getChildren().size();
             if (listSize > 0) {
-//                DatelineCell<?> first = (DatelineCell<?>) getChildren().get(0);
-//                DatelineCell<?> last = (DatelineCell<?>) getChildren().get(index - 2);
-//
-//                first.getStyleClass().add("dateline-cell-first");
-//                last.getStyleClass().add("dateline-cell-last");
+                DatelineCell<?> first = (DatelineCell<?>) getChildren().get(0);
+                DatelineCell<?> last = (DatelineCell<?>) getChildren().get(index - 1);
+
+                first.getStyleClass().add("dateline-cell-first");
+                last.getStyleClass().add("dateline-cell-last");
             }
 
             setResolution(resolution);

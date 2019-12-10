@@ -104,8 +104,7 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
         }
 
         // right edge check
-        delta = hotRegion.localToScene(0, 0).getX() + hotRegion.getWidth()
-                - evt.getSceneX();
+        delta = hotRegion.localToScene(0, 0).getX() + hotRegion.getWidth() - evt.getSceneX();
         if (delta < proximity) {
             xOffset = proximity - delta;
         }

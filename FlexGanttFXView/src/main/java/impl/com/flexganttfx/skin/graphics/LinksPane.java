@@ -102,8 +102,7 @@ public class LinksPane<R extends Row<?, ?, ?>> extends Region {
             return;
         }
 
-        GraphicsBaseSkin<?, ?> skin = (GraphicsBaseSkin<?, ?>) graphics
-                .getSkin();
+        GraphicsBaseSkin<?, ?> skin = (GraphicsBaseSkin<?, ?>) graphics.getSkin();
 
         if (skin != null) {
 
@@ -111,6 +110,17 @@ public class LinksPane<R extends Row<?, ?, ?>> extends Region {
             Rectangle2D targetBounds = skin.getActivityBounds(targetRef);
 
             if (sourceBounds != null && targetBounds != null) {
+
+                RowCanvas sourceCanvas = skin.getRowCanvas(sourceRef);
+                RowCanvas targetCanvas = skin.getRowCanvas(targetRef);
+
+                if (sourceCanvas != null) {
+                    sourceBounds = new Rectangle2D(sourceBounds.getMinX() - graphics.getCanvasBuffer() + sourceCanvas.getTranslateX() , sourceBounds.getMinY(), sourceBounds.getWidth(), sourceBounds.getHeight());
+                }
+
+                if (targetCanvas != null) {
+                    targetBounds = new Rectangle2D(targetBounds.getMinX() - graphics.getCanvasBuffer() + targetCanvas.getTranslateX() , targetBounds.getMinY(), targetBounds.getWidth(), targetBounds.getHeight());
+                }
 
                 Layer sourceLayer = sourceRef.getLayer();
 
@@ -150,9 +160,7 @@ public class LinksPane<R extends Row<?, ?, ?>> extends Region {
                     getChildren().add(startRegion);
                     startRegion.applyCss();
                     double startRegionWidth = startRegion.prefWidth(-1);
-                    startRegion.resizeRelocate(result.getStart().getX(),
-                            result.getStart().getY(), startRegionWidth,
-                            startRegion.getPrefHeight());
+                    startRegion.resizeRelocate(result.getStart().getX(), result.getStart().getY(), startRegionWidth, startRegion.getPrefHeight());
 
                     Region endRegion = new Region();
                     endRegion.opacityProperty().bind(sourceLayer.opacityProperty());
@@ -162,16 +170,13 @@ public class LinksPane<R extends Row<?, ?, ?>> extends Region {
                     getChildren().add(endRegion);
                     endRegion.applyCss();
                     double endRegionWidth = endRegion.prefWidth(-1);
-                    endRegion.resizeRelocate(result.getEnd().getX(),
-                            result.getEnd().getY(), endRegionWidth,
-                            endRegion.getPrefHeight());
+                    endRegion.resizeRelocate(result.getEnd().getX(), result.getEnd().getY(), endRegionWidth, endRegion.getPrefHeight());
 
                     switch (link.getType()) {
                         case START_TO_START:
                         case START_TO_END:
                             startRegion.setRotate(180);
-                            startRegion.getStyleClass()
-                                    .add("link-start-handle-rotated");
+                            startRegion.getStyleClass().add("link-start-handle-rotated");
                             break;
                         default:
                             break;
@@ -182,16 +187,13 @@ public class LinksPane<R extends Row<?, ?, ?>> extends Region {
                         case END_TO_END:
                         case START_TO_END:
                             endRegion.setRotate(180);
-                            endRegion.getStyleClass()
-                                    .add("link-end-handle-rotated");
+                            endRegion.getStyleClass().add("link-end-handle-rotated");
                             break;
                         default:
                             break;
                     }
 
-                    if (result.getStart().getY() == result.getEnd().getY()
-                            && result.getEnd().getX() - result.getStart()
-                            .getX() < startRegionWidth + endRegionWidth) {
+                    if (result.getStart().getY() == result.getEnd().getY() && result.getEnd().getX() - result.getStart().getX() < startRegionWidth + endRegionWidth) {
                         startRegion.setVisible(false);
                     }
                 }
