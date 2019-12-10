@@ -139,10 +139,11 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         final double canvasBuffer = graphics.getCanvasBuffer();
         final double offset = Math.random() * canvasBuffer / 4;
 
+        // TODO: really int's?
         if (scrollingRight) {
-            setTranslateX(snapPosition(canvasBuffer - offset));
+            setTranslateX((int) snapPosition(canvasBuffer - offset));
         } else {
-            setTranslateX(snapPosition(-canvasBuffer + offset));
+            setTranslateX((int) snapPosition(-canvasBuffer + offset));
         }
     }
 
@@ -1055,8 +1056,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         return bounds;
     }
 
-    private final BooleanProperty snapToPixel = new SimpleBooleanProperty(this,
-            "snapToPixel", true);
+    private final BooleanProperty snapToPixel = new SimpleBooleanProperty(this, "snapToPixel", true);
 
     public final void setSnapToPixel(boolean snap) {
         snapToPixel.set(snap);
