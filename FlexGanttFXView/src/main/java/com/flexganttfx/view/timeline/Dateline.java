@@ -614,6 +614,20 @@ public class Dateline extends FlexGanttFXControl {
         return selectionModeProperty().get();
     }
 
+    private final DoubleProperty datelineBuffer = new SimpleDoubleProperty(this, "datelineBuffer", 100);
+
+    public double getDatelineBuffer() {
+        return datelineBuffer.get();
+    }
+
+    public DoubleProperty datelineBufferProperty() {
+        return datelineBuffer;
+    }
+
+    public void setDatelineBuffer(double datelineBuffer) {
+        this.datelineBuffer.set(datelineBuffer);
+    }
+
     // iCal support
 
     private final ObservableList<Calendar<?>> calendars = FXCollections.observableArrayList();

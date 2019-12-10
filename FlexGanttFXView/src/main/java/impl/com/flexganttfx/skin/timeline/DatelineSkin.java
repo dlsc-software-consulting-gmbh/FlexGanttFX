@@ -98,24 +98,23 @@ public class DatelineSkin extends SkinBase<Dateline> {
         return getSkinnable();
     }
 
-    private void randomTranslateX(boolean scrollingRight) {
-    }
-
     int count = 0;
 
     private final ChangeListener<Instant> startTimeListener = (value, oldTime, newTime) -> {
-        double x = getSkinnable().getTimeline().getModel().calculateLocationForTime(oldTime);
+        final Dateline dateline = getSkinnable();
 
-        double newTranslateX = getSkinnable().getTranslateX() + x;
+        double x = dateline.getTimeline().getModel().calculateLocationForTime(oldTime);
+        double newTranslateX = dateline.getTranslateX() + x;
 
-        if (Math.abs(newTranslateX) <= 50) {
-            getSkinnable().setTranslateX(newTranslateX);
+        if (Math.abs(newTranslateX) < dateline.getDatelineBuffer()) {
+            dateline.setTranslateX(newTranslateX);
         } else {
-            boolean scrollingRight = (newTranslateX - getSkinnable().getTranslateX()) < 0;
+            boolean scrollingRight = (newTranslateX - dateline.getTranslateX()) < 0;
+
             if (scrollingRight) {
-                getSkinnable().setTranslateX(50);
+                dateline.setTranslateX(Math.max(0, dateline.getDatelineBuffer() - 5));
             } else {
-                getSkinnable().setTranslateX(-50);
+                dateline.setTranslateX(Math.min(0, -dateline.getDatelineBuffer() + 5));
             }
 
             System.out.println("BANG: " + (count++));

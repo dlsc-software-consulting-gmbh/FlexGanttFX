@@ -78,21 +78,9 @@ public abstract class DatelineCell<T extends TemporalUnit> extends Region {
 		double w = getWidth() - insets.getLeft() - insets.getRight();
 		double h = getHeight() - insets.getTop() - insets.getBottom();
 
-		double prefWidth = text.prefWidth(h);
 		double prefHeight = text.prefHeight(-1);
 
 		text.resizeRelocate(insets.getLeft(), h / 2 - prefHeight / 2, w, h);
-
-		/*
-		 * Text is longer than the available space. We need to adjust its position.
-		 */
-		if (prefWidth > w) {
-			if (getStyleClass().contains("dateline-cell-first")) {
-				text.resizeRelocate(getWidth() - prefWidth - insets.getRight(), h / 2 - prefHeight / 2, prefWidth, h);
-			} else if (getStyleClass().contains("dateline-cell-last")) {
-				text.resizeRelocate(insets.getLeft(), h / 2 - prefHeight / 2, w, h);
-			}
-		}
 	}
 
 	@Override

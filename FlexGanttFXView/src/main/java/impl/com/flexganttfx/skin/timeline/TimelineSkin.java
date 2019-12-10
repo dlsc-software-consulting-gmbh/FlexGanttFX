@@ -79,7 +79,7 @@ public class TimelineSkin extends SkinBase<Timeline> {
 
 		getChildren().add(box);
 
-		dateline.minWidthProperty().bind(timeline.widthProperty().add(100));
+		dateline.minWidthProperty().bind(timeline.widthProperty().add(dateline.datelineBufferProperty().multiply(2)));
 
 		final Rectangle clip = new Rectangle();
 		clip.widthProperty().bind(timeline.widthProperty());

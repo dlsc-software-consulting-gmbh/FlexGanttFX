@@ -171,6 +171,72 @@ public final class ChronoUnitResolution extends Resolution<ChronoUnit> {
     }
 
     @Override
+    public Instant decrement(Instant instant, ZoneId zoneId) {
+        dstStart = false;
+        dstEnd = false;
+
+        ChronoUnit unit = getTemporalUnit();
+        ZonedDateTime time = ZonedDateTime.ofInstant(instant, zoneId);
+
+        final int stepRate = getStepRate();
+
+        switch (unit) {
+            case NANOS:
+                time = time.minusNanos(stepRate);
+                break;
+            case SECONDS:
+                time = time.minusSeconds(stepRate);
+                break;
+            case MINUTES:
+                time = time.minusMinutes(stepRate);
+                break;
+            case HOURS:
+                int hourBefore = Math.max(0, time.getHour());
+                int dayBefore = time.getDayOfYear();
+
+                time = time.minusHours(stepRate);
+                int hourAfter = Math.min(23, time.getHour());
+                int dayAfter = time.getDayOfYear();
+
+                final int deltaHours = hourAfter - hourBefore;
+                if (dayBefore == dayAfter) {
+                    if (deltaHours < stepRate) {
+                        dstEnd = true;
+                    } else if (deltaHours > stepRate) {
+                        dstStart = true;
+                    }
+                }
+
+                break;
+            case DAYS:
+                time = time.minusDays(stepRate);
+                break;
+            case WEEKS:
+                time = time.minusWeeks(stepRate);
+                break;
+            case MONTHS:
+                time = time.minusMonths(stepRate);
+                break;
+            case YEARS:
+                time = time.minusYears(stepRate);
+                break;
+            case DECADES:
+                time = time.minusYears(stepRate * 10);
+                break;
+            case CENTURIES:
+                time = time.minusYears(stepRate * 100);
+                break;
+            case MILLENNIA:
+                time = time.minusYears(stepRate * 1000);
+                break;
+            default:
+                return instant.minus(getTemporalUnit().getDuration().multipliedBy(stepRate));
+        }
+
+        return Instant.from(time);
+    }
+
+    @Override
     public VirtualGrid<ChronoUnit> createGrid() {
         return new ChronoUnitGrid("Auto", getTemporalUnit(), getStepRate());
     }

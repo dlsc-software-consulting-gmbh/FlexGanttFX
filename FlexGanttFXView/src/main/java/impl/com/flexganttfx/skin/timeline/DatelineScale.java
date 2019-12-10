@@ -298,17 +298,16 @@ final class DatelineScale extends Region {
 
         double scaleTopInsets = getInsets().getTop();
         double scaleHeight = getHeight() - scaleTopInsets - getInsets().getBottom();
-        double datelineWidth = dateline.getWidth();
 
         boolean success = true;
 
-        Instant st = timelineModel.calculateTimeForLocation(-50);
+        Instant st = resolution.decrement(timelineModel.calculateTimeForLocation(-dateline.getDatelineBuffer()), zoneId);
+        st = resolution.decrement(st, zoneId);
 
         DayOfWeek firstDayOfWeek = dateline.getFirstDayOfWeek();
         Instant startTime = resolution.truncate(st, zoneId, firstDayOfWeek);
 
-        double x1 = timelineModel.calculateLocationForTime(startTime);
-
+        double x1 = timelineModel.calculateLocationForTime(startTime) + dateline.getDatelineBuffer() - dateline.getTranslateX();
         int index = 0;
 
         while (x1 < dateline.getWidth()) {
@@ -334,7 +333,7 @@ final class DatelineScale extends Region {
                 endTime = endTime.minus(1, ChronoUnit.HOURS);
             }
 
-            x1 = timelineModel.calculateLocationForTime(startTime) + 50 - dateline.getTranslateX();
+            x1 = timelineModel.calculateLocationForTime(startTime) + dateline.getDatelineBuffer() - dateline.getTranslateX();
 
             if (x1 < dateline.getWidth()) {
 
@@ -342,25 +341,16 @@ final class DatelineScale extends Region {
                 cell.getStyleClass().removeAll("dst-end", "dst-start", "dateline-cell-first", "dateline-cell-last", SELECTED_STYLE_CLASS);
                 cell.setVisible(true);
                 cell.setManaged(true);
-                cell.setPrefWidth(Region.USE_COMPUTED_SIZE);
                 cell.update(startTime, endTime, resolution, dateline, getPosition());
 
-                double x2 = timelineModel.calculateLocationForTime(endTime) + 50 - dateline.getTranslateX();
+                double x2 = timelineModel.calculateLocationForTime(endTime) + dateline.getDatelineBuffer() - dateline.getTranslateX();
 
                 double padding = getCellPadding();
 
                 if (cached || x1 + cell.prefWidth(scaleHeight) + 2 * padding <= x2) {
 
-                    double correctionLeft = Math.max(0, -x1);
-                    double correctionRight = Math.max(0, x2 - datelineWidth);
-
-                    /*
-                     * We can not use snapXYZ() methods to round locations and widths / heights as
-                     * the coordinates are based on time and rounding issues come into play.
-                     */
-
-                    double cellWidth = x2 - x1 - correctionLeft - correctionRight;
-                    cell.resizeRelocate(x1 + correctionLeft, scaleTopInsets, cellWidth, scaleHeight);
+                    double cellWidth = x2 - x1;
+                    cell.resizeRelocate(x1, scaleTopInsets, cellWidth, scaleHeight);
 
                     cell.setPrefSize(cellWidth, scaleHeight);
 
@@ -373,6 +363,7 @@ final class DatelineScale extends Region {
                     } else if (dstCorrectionInHours < 0) {
                         cell.getStyleClass().add("dst-start");
                     }
+
                 } else {
                     success = false;
                     break;
@@ -389,15 +380,6 @@ final class DatelineScale extends Region {
         }
 
         if (success) {
-            int listSize = getChildren().size();
-            if (listSize > 0) {
-                DatelineCell<?> first = (DatelineCell<?>) getChildren().get(0);
-                DatelineCell<?> last = (DatelineCell<?>) getChildren().get(index - 1);
-
-                first.getStyleClass().add("dateline-cell-first");
-                last.getStyleClass().add("dateline-cell-last");
-            }
-
             setResolution(resolution);
         }
 
