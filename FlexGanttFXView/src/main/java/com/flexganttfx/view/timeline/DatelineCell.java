@@ -11,7 +11,6 @@ import com.flexganttfx.model.util.TimeInterval;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.layout.Region;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
@@ -58,6 +57,11 @@ public abstract class DatelineCell<T extends TemporalUnit> extends Region {
 		text.setManaged(false);
 
 		getChildren().add(text);
+
+//		Rectangle clip = new Rectangle();
+//		clip.widthProperty().bind(widthProperty());
+//		clip.heightProperty().bind(heightProperty());
+//		setClip(clip);
 	}
 
 	public void update(Instant startTime, Instant endTime, Resolution<T> resolution, Dateline dateline, Position position) {
@@ -94,8 +98,6 @@ public abstract class DatelineCell<T extends TemporalUnit> extends Region {
 				text.resizeRelocate(insets.getLeft(), h / 2 - prefHeight / 2, w, h);
 			}
 		}
-
-		setClip(new Rectangle(0, 0, getWidth(), getHeight()));
 	}
 
 	@Override

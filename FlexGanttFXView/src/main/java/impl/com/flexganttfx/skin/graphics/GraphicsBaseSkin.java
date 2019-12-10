@@ -379,12 +379,10 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         List<ActivityRef<?>> activities = findLassoSelectedActivities();
 
         if (lassoStartTime.isBefore(lassoEndTime)) {
-            return new LassoInfo(evt, lassoStartTime, lassoEndTime,
-                    localStartTime, localEndTime, rows, activities);
+            return new LassoInfo(evt, lassoStartTime, lassoEndTime, localStartTime, localEndTime, rows, activities);
         }
 
-        return new LassoInfo(evt, lassoEndTime, lassoStartTime, localStartTime,
-                localEndTime, rows, activities);
+        return new LassoInfo(evt, lassoEndTime, lassoStartTime, localStartTime, localEndTime, rows, activities);
     }
 
     protected final RowPane<R> getRowPane(ActivityRef<?> ref) {
@@ -916,15 +914,14 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
 
         LassoInfo info = createLassoInfo(evt);
 
-        LassoEvent lassoEvent = new LassoEvent(getSkinnable(),
-                LassoEvent.SELECTION_FINISHED, info);
+        LassoEvent lassoEvent = new LassoEvent(getSkinnable(), LassoEvent.SELECTION_FINISHED, info);
 
         getSkinnable().fireEvent(lassoEvent);
 
-        getSkinnable().getProperties().put("com.flexganttfx.lassoActive",
-                false);
+        getSkinnable().getProperties().put("com.flexganttfx.lassoActive", false);
 
         if (getSkinnable().getRows().isEmpty()) {
+
 			/*
 			 * Normally the RowCanvasBehaviour class takes care of clearing the marked
 			 * time interval, but when there are no rows then there are no canvases and

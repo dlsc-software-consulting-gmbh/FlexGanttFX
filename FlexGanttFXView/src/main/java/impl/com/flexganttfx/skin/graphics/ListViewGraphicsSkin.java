@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package impl.com.flexganttfx.skin.graphics;
@@ -75,12 +75,12 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
 
     private void autoscrollIfNeeded(DragEvent evt) {
 
-		/*
+        /*
          * Determine the "hot" region that will trigger automatic scrolling.
-		 * Ideally we use the clipped container of the list view skin but when
-		 * the rows are empty the dimensions of the clipped container will be
-		 * 0x0. In this case we try to use the virtual flow.
-		 */
+         * Ideally we use the clipped container of the list view skin but when
+         * the rows are empty the dimensions of the clipped container will be
+         * 0x0. In this case we try to use the virtual flow.
+         */
         Region hotRegion = getClippedContainer();
         if (hotRegion == null || hotRegion.getBoundsInLocal().getWidth() < 1) {
             hotRegion = getSkinnable();
@@ -135,10 +135,10 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
 
     private Region getClippedContainer() {
 
-		/*
-		 * Safest way to find the clipped container. lookup() does not work at
-		 * all.
-		 */
+        /*
+         * Safest way to find the clipped container. lookup() does not work at
+         * all.
+         */
         for (Node child : getVirtualFlow().getChildrenUnmodifiable()) {
             if (child.getStyleClass().contains("clipped-container")) {
                 return (Region) child;
@@ -154,17 +154,17 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
         private double yOffset;
 
         public ScrollThread() {
-            super("Autoscrolling List View"); 
+            super("Autoscrolling List View");
             setDaemon(true);
         }
 
         @Override
         public void run() {
 
-			/*
-			 * Some initial delay, especially useful when dragging something in
-			 * from the outside.
-			 */
+            /*
+             * Some initial delay, especially useful when dragging something in
+             * from the outside.
+             */
 
             try {
                 Thread.sleep(500);
@@ -222,10 +222,10 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
     private void stopAutoScrollIfNeeded(DragEvent evt) {
         if (scrollThread != null) {
 
-			/*
-			 * We do not have to stop the automatic scrolling after a DRAG_EXITED_TARGET event
-			 * if the drag gesture source was the row canvas.
-			 */
+            /*
+             * We do not have to stop the automatic scrolling after a DRAG_EXITED_TARGET event
+             * if the drag gesture source was the row canvas.
+             */
             boolean stopAutoScroll = true;
 
             EventType<DragEvent> eventType = evt.getEventType();
@@ -288,13 +288,14 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
                 RowCanvas<R> canvas = pane.getCanvas();
 
                 List<ActivityBounds> selections = canvas.getActivityBounds(lasso.getBoundsInLocal().getMinX(),
-                                Math.max(0, lassoBounds.getMinY() - cellBounds.getMinY()),
-                                lasso.getBoundsInLocal().getWidth(),
-                                lasso.getBoundsInLocal().getHeight());
+                        Math.max(0, lassoBounds.getMinY() - cellBounds.getMinY()),
+                        lasso.getBoundsInLocal().getWidth(),
+                        lasso.getBoundsInLocal().getHeight());
 
-                List<ActivityRef<?>> refs = selections.stream()
-                        .map(ActivityBounds::getActivityRef)
-                        .collect(Collectors.toList());
+                List<ActivityRef<?>> refs =
+                        selections.stream()
+                                .map(ActivityBounds::getActivityRef)
+                                .collect(Collectors.toList());
 
                 selection.addAll(refs);
             }
@@ -305,9 +306,9 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
 
     @Override
     protected final RowPane<R> getRowPaneAt(double y) {
-		/*
-		 * Careful when checking hits
-		 */
+        /*
+         * Careful when checking hits
+         */
         Point2D localToScene = getSkinnable().localToScene(0, y);
         List<RowCell<R>> cells = getVisibleRowCells();
         for (RowCell<R> cell : cells) {
@@ -322,7 +323,7 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
 
     @Override
     protected boolean isRowAboveViewport(R row) {
-        VirtualFlow<?> flow = (VirtualFlow<?>) listView.lookup("#virtual-flow"); 
+        VirtualFlow<?> flow = (VirtualFlow<?>) listView.lookup("#virtual-flow");
         @SuppressWarnings("unchecked")
         RowCell<R> rowCell = (RowCell<R>) flow.getFirstVisibleCell();
         if (rowCell == null) {
@@ -408,7 +409,7 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
 
         List<RowCell<R>> visibleRowCells = new ArrayList<>();
 
-        VirtualFlow<RowCell<R>> flow = (VirtualFlow<RowCell<R>>) listView.lookup("VirtualFlow"); 
+        VirtualFlow<RowCell<R>> flow = (VirtualFlow<RowCell<R>>) listView.lookup("VirtualFlow");
         if (flow != null) {
 
             RowCell<R> firstCell = flow.getFirstVisibleCell();
@@ -416,11 +417,11 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
 
             if (firstCell != null && lastCell != null) {
 
-				/*
-				 * First and last cell calculations of VirtualFlow are not
-				 * precise enough, so to make sure we subtract -1 from the first
-				 * cell index and add 1 to the last cell index.
-				 */
+                /*
+                 * First and last cell calculations of VirtualFlow are not
+                 * precise enough, so to make sure we subtract -1 from the first
+                 * cell index and add 1 to the last cell index.
+                 */
                 for (int index = Math.max(0, firstCell.getIndex() - 1); index <= lastCell.getIndex() + 2; index++) {
                     RowCell<R> cell = flow.getVisibleCell(index);
                     if (cell != null) {

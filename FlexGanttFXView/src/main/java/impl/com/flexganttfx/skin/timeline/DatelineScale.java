@@ -356,14 +356,11 @@ final class DatelineScale extends Region {
                      * We can not use snapXYZ() methods to round locations and widths / heights as
                      * the coordinates are based on time and rounding issues come into play.
                      */
-                    cell.setLayoutX(x1 + correctionLeft);
-                    cell.setLayoutY(scaleTopInsets);
-                    cell.setPrefHeight(scaleHeight);
 
                     double cellWidth = x2 - x1 - correctionLeft - correctionRight;
-                    cell.setPrefWidth(cellWidth);
-                    cell.setMaxWidth(cellWidth);
-                    cell.setMinWidth(cellWidth);
+                    cell.resizeRelocate(x1 + correctionLeft, scaleTopInsets, cellWidth, scaleHeight);
+
+                    cell.setPrefSize(cellWidth, scaleHeight);
 
                     if (!selections.isEmpty() && selections.contains(cell.getInterval())) {
                         cell.getStyleClass().add(SELECTED_STYLE_CLASS);

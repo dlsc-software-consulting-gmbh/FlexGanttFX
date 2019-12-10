@@ -955,8 +955,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
     private Rectangle2D lookupBounds;
 
-    public final List<ActivityBounds> getActivityBounds(double x, double y,
-                                                        double w, double h) {
+    public final List<ActivityBounds> getActivityBounds(double x, double y, double w, double h) {
 
         if (graphics.isDebugMode()) {
             lookupBounds = new Rectangle2D(x, y, w, h);
@@ -975,14 +974,17 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         List<ActivityBounds> result = new ArrayList<>();
         for (ActivityBounds bounds : activityBounds) {
+
+            Rectangle2D adjustedBounds = new Rectangle2D(bounds.getMinX() - graphics.getCanvasBuffer() + getTranslateX(), bounds.getMinY(), bounds.getWidth(), bounds.getHeight());
+
             switch (behaviour) {
                 case INTERSECTION:
-                    if (selectionRectangle.intersects(bounds)) {
+                    if (selectionRectangle.intersects(adjustedBounds)) {
                         result.add(bounds);
                     }
                     break;
                 case BOUNDS_CONTAINMENT:
-                    if (selectionRectangle.contains(bounds)) {
+                    if (selectionRectangle.contains(adjustedBounds)) {
                         result.add(bounds);
                     }
                     break;
@@ -1000,30 +1002,6 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         }
         return result;
     }
-
-    // public final int getLineIndexAt(double y) {
-    // int result = -1;
-    //
-    // Row<?, ?, ?> row = getRow();
-    // if (row != null) {
-    // int lineCount = row.getLineCount();
-    // if (lineCount <= 0) {
-    // result = -1;
-    // } else {
-    // for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
-    // double lineLocation = row.getLineLocation(lineIndex);
-    // double lineHeight = row.getLineHeight(lineIndex);
-    // if (y >= lineLocation && y <= lineLocation + lineHeight) {
-    // result = lineIndex;
-    // break;
-    // }
-    // }
-    // }
-    // }
-    //
-    // return result;
-    //
-    // }
 
     public final Layout getLayoutAt(double y) {
         Layout layout = null;

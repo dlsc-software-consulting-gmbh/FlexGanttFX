@@ -2274,8 +2274,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     public final ObjectProperty<EventHandler<LassoEvent>> onLassoSelectionFinishedProperty() {
         if (onLassoSelectionFinished == null) {
-            onLassoSelectionFinished = new LassoEventHandlerProperty(
-                    "onLassoSelectionFinished", LassoEvent.SELECTION_FINISHED);
+            onLassoSelectionFinished = new LassoEventHandlerProperty("onLassoSelectionFinished", LassoEvent.SELECTION_FINISHED);
         }
 
         return onLassoSelectionFinished;
@@ -2293,8 +2292,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     // Editing support.
 
-    private final ReadOnlyObjectWrapper<EditMode> editMode = new ReadOnlyObjectWrapper<>(
-            this, "editMode", EditMode.NONE);
+    private final ReadOnlyObjectWrapper<EditMode> editMode = new ReadOnlyObjectWrapper<>(this, "editMode", EditMode.NONE);
 
     /**
      * A property used to store the currently active editing mode, e.g.
