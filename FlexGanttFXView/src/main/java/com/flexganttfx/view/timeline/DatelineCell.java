@@ -57,11 +57,6 @@ public abstract class DatelineCell<T extends TemporalUnit> extends Region {
 		text.setManaged(false);
 
 		getChildren().add(text);
-
-//		Rectangle clip = new Rectangle();
-//		clip.widthProperty().bind(widthProperty());
-//		clip.heightProperty().bind(heightProperty());
-//		setClip(clip);
 	}
 
 	public void update(Instant startTime, Instant endTime, Resolution<T> resolution, Dateline dateline, Position position) {

@@ -10,6 +10,7 @@ import com.flexganttfx.view.timeline.Eventline;
 import com.flexganttfx.view.timeline.Timeline;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.SkinBase;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Priority;
@@ -72,15 +73,18 @@ public class TimelineSkin extends SkinBase<Timeline> {
 		VBox.setVgrow(eventline, Priority.NEVER);
 
 		box = new VBox();
+		box.setAlignment(Pos.CENTER);
 		box.getStyleClass().add("dateline-eventline-wrapper");
 		box.setFillWidth(true);
 
 		getChildren().add(box);
 
+		dateline.minWidthProperty().bind(timeline.widthProperty().add(100));
+
 		final Rectangle clip = new Rectangle();
 		clip.widthProperty().bind(timeline.widthProperty());
 		clip.heightProperty().bind(timeline.heightProperty());
-		timeline.setClip(clip);
+		//timeline.setClip(clip);
 
 		dateline.visibleProperty().addListener(it -> updateVisibilities());
 		eventline.visibleProperty().addListener(it -> updateVisibilities());

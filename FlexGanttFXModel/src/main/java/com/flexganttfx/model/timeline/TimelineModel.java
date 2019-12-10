@@ -509,7 +509,7 @@ public abstract class TimelineModel<T extends TemporalUnit> {
      */
     public final Instant calculateTimeForLocation(double location) {
 
-        long millis = (long) (location * getMillisPerPixel());
+        long millis = (long) ((location) * getMillisPerPixel());
 
         Instant startTime = getStartTime();
 

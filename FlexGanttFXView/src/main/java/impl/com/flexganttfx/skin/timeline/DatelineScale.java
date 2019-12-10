@@ -302,8 +302,10 @@ final class DatelineScale extends Region {
 
         boolean success = true;
 
+        Instant st = timelineModel.calculateTimeForLocation(-50);
+
         DayOfWeek firstDayOfWeek = dateline.getFirstDayOfWeek();
-        Instant startTime = resolution.truncate(timelineModel.getStartTime(), zoneId, firstDayOfWeek);
+        Instant startTime = resolution.truncate(st, zoneId, firstDayOfWeek);
 
         double x1 = timelineModel.calculateLocationForTime(startTime);
 
@@ -332,7 +334,7 @@ final class DatelineScale extends Region {
                 endTime = endTime.minus(1, ChronoUnit.HOURS);
             }
 
-            x1 = timelineModel.calculateLocationForTime(startTime);
+            x1 = timelineModel.calculateLocationForTime(startTime) + 50 - dateline.getTranslateX();
 
             if (x1 < dateline.getWidth()) {
 
@@ -343,7 +345,7 @@ final class DatelineScale extends Region {
                 cell.setPrefWidth(Region.USE_COMPUTED_SIZE);
                 cell.update(startTime, endTime, resolution, dateline, getPosition());
 
-                double x2 = timelineModel.calculateLocationForTime(endTime);
+                double x2 = timelineModel.calculateLocationForTime(endTime) + 50 - dateline.getTranslateX();
 
                 double padding = getCellPadding();
 
