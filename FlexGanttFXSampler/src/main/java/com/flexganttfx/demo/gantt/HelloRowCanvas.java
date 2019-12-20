@@ -27,7 +27,9 @@ public class HelloRowCanvas extends FlexGanttFXSampleBase {
 
     @Override
     public Node getPanel(Stage stage) {
+        System.setProperty("timeline.no.clip", "true");
         Timeline timeline = new Timeline();
+        timeline.getDateline().setDatelineBuffer(200);
 
         VBoxGraphics vboxGraphics = new VBoxGraphics<>();
         vboxGraphics.setStyle("-fx-border-color: red;");

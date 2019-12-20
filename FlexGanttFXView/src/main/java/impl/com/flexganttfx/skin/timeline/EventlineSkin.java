@@ -119,7 +119,7 @@ public class EventlineSkin extends SkinBase<Eventline> {
         Instant time = getSkinnable().getCursorTime();
 
         if (time != null) {
-            double cursorLocation = getSkinnable().getCursorLocation() + timeline.getDateline().getDatelineBuffer();
+            double cursorLocation = getSkinnable().getCursorLocation();
 
             Dateline dateline = timeline.getDateline();
             ZoneId zoneId = dateline.getZoneId();
@@ -205,6 +205,7 @@ public class EventlineSkin extends SkinBase<Eventline> {
 
         timeline.getModel().millisPerPixelProperty().addListener(numberChangedListener);
 
+        // TODO: won't this get garbage collected?
         timeline.modelProperty().addListener(
                 new WeakChangeListener<>((value, oldModel, newModel) -> {
                     if (oldModel != null) {

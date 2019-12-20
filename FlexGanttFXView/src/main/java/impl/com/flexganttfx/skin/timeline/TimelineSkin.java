@@ -77,6 +77,15 @@ public class TimelineSkin extends SkinBase<Timeline> {
 		box.getStyleClass().add("dateline-eventline-wrapper");
 		box.setFillWidth(true);
 
+		/*
+		 * Very important to set the pref and the min width here as otherwise the eventline
+		 * will be as wide as the dateline, including the dateline's buffer. But then the graphics
+		 * inside the eventline will use the dateline buffer AND the canvas buffer causing
+		 * activities to be drawn incorrectly. Run "HelloGlobalActivities" for an example.
+		 */
+		box.setPrefWidth(0);
+		box.setMinWidth(0);
+
 		getChildren().add(box);
 
 		dateline.minWidthProperty().bind(timeline.widthProperty().add(dateline.datelineBufferProperty().multiply(2)));
@@ -84,7 +93,9 @@ public class TimelineSkin extends SkinBase<Timeline> {
 		final Rectangle clip = new Rectangle();
 		clip.widthProperty().bind(timeline.widthProperty());
 		clip.heightProperty().bind(timeline.heightProperty());
-		timeline.setClip(clip);
+		if (!Boolean.getBoolean("timeline.no.clip")) {
+			timeline.setClip(clip);
+		}
 
 		dateline.visibleProperty().addListener(it -> updateVisibilities());
 		eventline.visibleProperty().addListener(it -> updateVisibilities());
