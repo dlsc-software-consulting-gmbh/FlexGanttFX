@@ -79,6 +79,8 @@ public class ZoomTimeIntervalLayer<R extends Row<?, ?, ?>>
 			GraphicsContext gc = canvas.getGraphicsContext2D();
 			gc.setFill(getZoomTimeIntervalFill());
 
+			System.out.println(selectedTimeInterval);
+
 			double x1 = snapPosition(timelineModel.calculateLocationForTime(selectedTimeInterval.getStartTime()) + getGraphics().getCanvasBuffer() - canvas.getTranslateX());
 			double x2 = snapPosition(timelineModel.calculateLocationForTime(selectedTimeInterval.getEndTime()) + getGraphics().getCanvasBuffer() - canvas.getTranslateX());
 

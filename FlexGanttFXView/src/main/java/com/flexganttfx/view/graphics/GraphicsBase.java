@@ -737,6 +737,16 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         return canvasBuffer.get();
     }
 
+    /**
+     * A canvas buffer size that is larger than zero increases the rendering performance
+     * of the Gantt chart substantially as fewer repaints of each row's canvas are needed.
+     * Please be aware that certain system layers can not be used in combination with a
+     * positive value for canvas buffer. For example the {@link ScaleLayer} does not as it
+     * always draws the scale on the left-hand side of the canvas. But when using a buffer
+     * that left-hand side will keep moving out of the visible area.
+     *
+     * @return the canvas buffer size (default is 100 pixel)
+     */
     public final DoubleProperty canvasBufferProperty() {
         return canvasBuffer;
     }

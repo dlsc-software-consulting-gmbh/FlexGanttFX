@@ -84,7 +84,7 @@ public class TimelineSkin extends SkinBase<Timeline> {
 		final Rectangle clip = new Rectangle();
 		clip.widthProperty().bind(timeline.widthProperty());
 		clip.heightProperty().bind(timeline.heightProperty());
-		//timeline.setClip(clip);
+		timeline.setClip(clip);
 
 		dateline.visibleProperty().addListener(it -> updateVisibilities());
 		eventline.visibleProperty().addListener(it -> updateVisibilities());
@@ -98,6 +98,7 @@ public class TimelineSkin extends SkinBase<Timeline> {
 		if (dateline.isVisible()) {
 			box.getChildren().add(dateline);
 		}
+
 		if (eventline.isVisible()) {
 			box.getChildren().add(eventline);
 		}

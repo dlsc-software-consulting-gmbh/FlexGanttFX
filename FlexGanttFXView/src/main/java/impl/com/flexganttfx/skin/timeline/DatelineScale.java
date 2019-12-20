@@ -274,14 +274,11 @@ final class DatelineScale extends Region {
             }
         } while (!success);
 
-        requestLayout();
-
         return datelineModel.nextTemporalUnit(unit);
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     private boolean buildCells(final Resolution<? extends TemporalUnit> resolution, boolean cached) {
-
         getChildren().forEach(node -> {
             node.setVisible(false);
             node.setManaged(false);
@@ -301,7 +298,7 @@ final class DatelineScale extends Region {
 
         boolean success = true;
 
-        Instant st = resolution.decrement(timelineModel.calculateTimeForLocation(-dateline.getDatelineBuffer()), zoneId);
+        Instant st = resolution.decrement(timelineModel.calculateTimeForLocation(-dateline.getDatelineBuffer() + dateline.getTranslateX()), zoneId);
         st = resolution.decrement(st, zoneId);
 
         DayOfWeek firstDayOfWeek = dateline.getFirstDayOfWeek();
@@ -338,31 +335,34 @@ final class DatelineScale extends Region {
             if (x1 < dateline.getWidth()) {
 
                 DatelineCell cell = getOrCreateDatelineCell(temporalUnit, index++);
+
                 cell.getStyleClass().removeAll("dst-end", "dst-start", "dateline-cell-first", "dateline-cell-last", SELECTED_STYLE_CLASS);
-                cell.setVisible(true);
-                cell.setManaged(true);
                 cell.update(startTime, endTime, resolution, dateline, getPosition());
 
                 double x2 = timelineModel.calculateLocationForTime(endTime) + dateline.getDatelineBuffer() - dateline.getTranslateX();
 
                 double padding = getCellPadding();
 
+                if (dstCorrectionInHours > 0) {
+                    cell.getStyleClass().add("dst-end");
+                } else if (dstCorrectionInHours < 0) {
+                    cell.getStyleClass().add("dst-start");
+                }
+
+                if (!selections.isEmpty() && selections.contains(cell.getInterval())) {
+                    cell.getStyleClass().add(SELECTED_STYLE_CLASS);
+                }
+
+                cell.applyCss();
+
                 if (cached || x1 + cell.prefWidth(scaleHeight) + 2 * padding <= x2) {
 
                     double cellWidth = x2 - x1;
+
                     cell.resizeRelocate(x1, scaleTopInsets, cellWidth, scaleHeight);
-
                     cell.setPrefSize(cellWidth, scaleHeight);
-
-                    if (!selections.isEmpty() && selections.contains(cell.getInterval())) {
-                        cell.getStyleClass().add(SELECTED_STYLE_CLASS);
-                    }
-
-                    if (dstCorrectionInHours > 0) {
-                        cell.getStyleClass().add("dst-end");
-                    } else if (dstCorrectionInHours < 0) {
-                        cell.getStyleClass().add("dst-start");
-                    }
+                    cell.setVisible(true);
+                    cell.setManaged(true);
 
                 } else {
                     success = false;
@@ -393,6 +393,7 @@ final class DatelineScale extends Region {
 
         Callback<TemporalUnit, DatelineCell> cellFactory = dateline.getCellFactory(temporalUnit.getClass());
         DatelineCell cell = cellFactory.call(temporalUnit);
+        cell.setManaged(false);
         getChildren().add(cell);
 
         return cell;

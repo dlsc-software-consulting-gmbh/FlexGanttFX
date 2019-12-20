@@ -18,20 +18,22 @@ import com.flexganttfx.view.graphics.SingleRowGraphics;
 import com.flexganttfx.view.graphics.renderer.ActivityRenderer;
 import com.flexganttfx.view.util.FlexGanttFXControl;
 import impl.com.flexganttfx.skin.timeline.EventlineSkin;
-import javafx.beans.property.*;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.property.ReadOnlyDoubleWrapper;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Skin;
 import javafx.scene.paint.Color;
-import org.controlsfx.control.PropertySheet.Item;
 
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * The eventline is a control that displays time cursors and other information
@@ -92,8 +94,8 @@ public class Eventline extends FlexGanttFXControl {
                         (javafx.collections.MapChangeListener.Change<?, ?> change) -> {
                             if (change.getKey().equals("com.flexganttfx.eventline.cursor.location")) {
                                 if (change.getValueAdded() != null) {
-                                    Double mode = (Double) change.getValueAdded();
-                                    cursorLocation.set(mode);
+                                    Double location = (Double) change.getValueAdded();
+                                    cursorLocation.set(location);
                                 }
                             }
                         });
@@ -285,128 +287,5 @@ public class Eventline extends FlexGanttFXControl {
 
     public final TimeInterval getMarkedTimeInterval() {
         return markedTimeInterval.get();
-    }
-
-    private static final String EVENTLINE_PROPERTIES_CATEGORY = "Control: Eventline";
-
-    public final List<Item> getPropertySheetItems() {
-
-        List<Item> items = new ArrayList<>();
-
-        items.add(new Item() {
-
-            @Override
-            public Optional<ObservableValue<?>> getObservableValue() {
-                return Optional.of(showTimeCursorProperty());
-            }
-
-            @Override
-            public void setValue(Object value) {
-                setShowTimeCursor((Boolean) value);
-            }
-
-            @Override
-            public Object getValue() {
-                return isShowTimeCursor();
-            }
-
-            @Override
-            public Class<?> getType() {
-                return Boolean.class;
-            }
-
-            @Override
-            public String getName() {
-                return "Show Time Cursor";
-            }
-
-            @Override
-            public String getDescription() {
-                return "Enables / disables the display of the time cursor.";
-            }
-
-            @Override
-            public String getCategory() {
-                return EVENTLINE_PROPERTIES_CATEGORY;
-            }
-        });
-
-        items.add(new Item() {
-
-            @Override
-            public Optional<ObservableValue<?>> getObservableValue() {
-                return Optional.of(showFrozenRowProperty());
-            }
-
-            @Override
-            public void setValue(Object value) {
-                setShowFrozenRow((Boolean) value);
-            }
-
-            @Override
-            public Object getValue() {
-                return isShowFrozenRow();
-            }
-
-            @Override
-            public Class<?> getType() {
-                return Boolean.class;
-            }
-
-            @Override
-            public String getName() {
-                return "Show Frozen Row";
-            }
-
-            @Override
-            public String getDescription() {
-                return "Enables / disables the use of a frozen row.";
-            }
-
-            @Override
-            public String getCategory() {
-                return EVENTLINE_PROPERTIES_CATEGORY;
-            }
-        });
-
-        items.add(new Item() {
-
-            @Override
-            public Optional<ObservableValue<?>> getObservableValue() {
-                return Optional.of(showMarkedTimeIntervalProperty());
-            }
-
-            @Override
-            public void setValue(Object value) {
-                setShowMarkedTimeInterval((Boolean) value);
-            }
-
-            @Override
-            public Object getValue() {
-                return isShowMarkedTimeInterval();
-            }
-
-            @Override
-            public Class<?> getType() {
-                return Boolean.class;
-            }
-
-            @Override
-            public String getName() {
-                return "Show Marked Time Intervals";
-            }
-
-            @Override
-            public String getDescription() {
-                return "Enables / disables the display of a marked time interval.";
-            }
-
-            @Override
-            public String getCategory() {
-                return EVENTLINE_PROPERTIES_CATEGORY;
-            }
-        });
-
-        return items;
     }
 }

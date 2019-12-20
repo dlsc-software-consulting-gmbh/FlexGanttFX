@@ -112,12 +112,11 @@ public class DatelineSkin extends SkinBase<Dateline> {
             boolean scrollingRight = (newTranslateX - dateline.getTranslateX()) < 0;
 
             if (scrollingRight) {
-                dateline.setTranslateX(Math.max(0, dateline.getDatelineBuffer() - 5));
+                dateline.setTranslateX(Math.max(0, dateline.getDatelineBuffer()));
             } else {
-                dateline.setTranslateX(Math.min(0, -dateline.getDatelineBuffer() + 5));
+                dateline.setTranslateX(Math.min(0, -dateline.getDatelineBuffer()));
             }
 
-            System.out.println("BANG: " + (count++));
             updateDatelineCells();
         }
 
@@ -368,8 +367,8 @@ public class DatelineSkin extends SkinBase<Dateline> {
 
             TimelineModel<?> timelineModel = dateline.getTimeline().getModel();
 
-            double x1 = timelineModel.calculateLocationForTime(st);
-            double x2 = timelineModel.calculateLocationForTime(et);
+            double x1 = timelineModel.calculateLocationForTime(st) + dateline.getDatelineBuffer() - dateline.getTranslateX();
+            double x2 = timelineModel.calculateLocationForTime(et) + dateline.getDatelineBuffer() - dateline.getTranslateX();
 
             Insets insets = dateline.getInsets();
 

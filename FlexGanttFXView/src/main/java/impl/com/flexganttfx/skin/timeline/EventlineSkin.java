@@ -119,7 +119,7 @@ public class EventlineSkin extends SkinBase<Eventline> {
         Instant time = getSkinnable().getCursorTime();
 
         if (time != null) {
-            double cursorLocation = getSkinnable().getCursorLocation();
+            double cursorLocation = getSkinnable().getCursorLocation() + timeline.getDateline().getDatelineBuffer();
 
             Dateline dateline = timeline.getDateline();
             ZoneId zoneId = dateline.getZoneId();

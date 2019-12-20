@@ -5,18 +5,12 @@
  */
 package com.flexganttfx.demo.timeline;
 
-import java.time.Instant;
-
-import org.controlsfx.control.PropertySheet;
-
 import com.flexganttfx.demo.FlexGanttFXSampleBase;
 import com.flexganttfx.model.dateline.SimpleUnitDatelineModel;
 import com.flexganttfx.model.timeline.SimpleUnitTimelineModel;
 import com.flexganttfx.view.timeline.Dateline;
 import com.flexganttfx.view.timeline.Timeline;
-
 import javafx.application.Application;
-import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
@@ -27,6 +21,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
+import java.time.Instant;
 
 public class HelloSimpleUnitTimeline extends FlexGanttFXSampleBase {
 
@@ -71,9 +67,7 @@ public class HelloSimpleUnitTimeline extends FlexGanttFXSampleBase {
 	@Override
 	public Node getControlPanel() {
 		BorderPane pane = new BorderPane();
-		pane.setBottom(new TimelineControlPanel(timeline));
-		pane.setCenter(new PropertySheet(FXCollections
-				.observableArrayList(timeline.getPropertySheetItems())));
+		pane.setCenter(new TimelineControlPanel(timeline));
 		return pane;
 	}
 

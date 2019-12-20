@@ -67,8 +67,7 @@ public class SelectedTimeIntervalsLayer<R extends Row<?, ?, ?>> extends
 	}
 
 	@Override
-	public void drawLayer(RowCanvas<R> canvas, Instant startTime,
-			Instant endTime) {
+	public void drawLayer(RowCanvas<R> canvas, Instant startTime, Instant endTime) {
 		GraphicsBase<R> graphics = getGraphics();
 		Timeline timeline = graphics.getTimeline();
 		Dateline dateline = timeline.getDateline();

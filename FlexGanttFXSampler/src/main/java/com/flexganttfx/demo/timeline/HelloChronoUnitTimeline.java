@@ -9,13 +9,16 @@ import com.flexganttfx.demo.FlexGanttFXSampleBase;
 import com.flexganttfx.view.timeline.Dateline;
 import com.flexganttfx.view.timeline.Timeline;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import org.controlsfx.control.PropertySheet;
 
 public class HelloChronoUnitTimeline extends FlexGanttFXSampleBase {
 
@@ -56,9 +59,7 @@ public class HelloChronoUnitTimeline extends FlexGanttFXSampleBase {
 	@Override
 	public Node getControlPanel() {
 		BorderPane pane = new BorderPane();
-		pane.setBottom(new TimelineControlPanel(timeline));
-		pane.setCenter(new PropertySheet(FXCollections
-				.observableArrayList(timeline.getPropertySheetItems())));
+		pane.setCenter(new TimelineControlPanel(timeline));
 		return pane;
 	}
 
