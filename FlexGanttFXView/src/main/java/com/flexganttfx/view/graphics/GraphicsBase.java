@@ -34,6 +34,7 @@ import com.flexganttfx.model.layout.ChartLayout;
 import com.flexganttfx.model.layout.GanttLayout;
 import com.flexganttfx.model.repository.RepositoryEvent;
 import com.flexganttfx.model.timeline.TimelineModel;
+import com.flexganttfx.model.util.IntervalTree;
 import com.flexganttfx.model.util.TimeInterval;
 import com.flexganttfx.view.graphics.layer.AgendaLinesLayer;
 import com.flexganttfx.view.graphics.layer.CalendarLayer;
@@ -331,7 +332,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         // Edit mode controllers
 
         /*
-         * Normal activites, capacities, and high low activities all use the
+         * Normal activities, capacities, and high low activities all use the
          * same editing behaviour as long as they are being displayed with a
          * gantt layout.
          */
@@ -987,15 +988,15 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         }
     }
 
-    private final ObservableList<ActivityLink<?>> links = FXCollections.observableArrayList();
+    private final IntervalTree<ActivityLink> links = new IntervalTree<>();
 
     /**
-     * Returns the list that is used to store all activity links of the model.
+     * Returns the interval tree that is used to store all activity links of the model.
      *
      * @return a list of activity links
      * @since 1.0
      */
-    public final ObservableList<ActivityLink<?>> getLinks() {
+    public final IntervalTree<ActivityLink> getLinks() {
         return links;
     }
 

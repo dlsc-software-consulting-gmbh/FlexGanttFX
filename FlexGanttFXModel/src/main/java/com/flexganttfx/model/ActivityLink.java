@@ -5,6 +5,8 @@
  */
 package com.flexganttfx.model;
 
+import java.time.Instant;
+
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -20,7 +22,7 @@ import static java.util.Objects.requireNonNull;
  *
  * @since 1.0
  */
-public class ActivityLink<A extends Activity> {
+public class ActivityLink<A extends Activity> implements Activity {
 
 	/**
 	 * An enumerator listing the available link types.
@@ -172,5 +174,29 @@ public class ActivityLink<A extends Activity> {
 	public void setType(LinkType type) {
 		requireNonNull(type);
 		this.type = type;
+	}
+
+	@Override
+	public String getName() {
+		return getSourceActivityRef().getActivity().getName() + " -> " + getTargetActivityRef().getActivity().getName();
+	}
+
+	@Override
+	public String getId() {
+		return "";
+	}
+
+	@Override
+	public Instant getStartTime() {
+		return Instant.ofEpochMilli(Math.min(
+				getSourceActivityRef().getActivity().getStartTime().toEpochMilli(),
+				getTargetActivityRef().getActivity().getStartTime().toEpochMilli()));
+	}
+
+	@Override
+	public Instant getEndTime() {
+		return Instant.ofEpochMilli(Math.max(
+				getSourceActivityRef().getActivity().getEndTime().toEpochMilli(),
+				getTargetActivityRef().getActivity().getEndTime().toEpochMilli()));
 	}
 }

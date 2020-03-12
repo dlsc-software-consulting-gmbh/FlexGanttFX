@@ -35,7 +35,6 @@
         <module>FlexGanttFXEmirates</module>
         <module>FlexGanttFXTutorials</module>
         <module>FlexGanttFXEditor</module>
-        <module>FlexGanttFXMobile</module>
         <module>FlexGanttFXAssembly</module>
     </modules>
 

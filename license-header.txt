@@ -1,3 +1,3 @@
-Copyright (C) 2014 - 2019 ${holder}
+Copyright (C) 2014 - 2020 ${holder}
 
 This file is part of ${name}.

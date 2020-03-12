@@ -11,6 +11,7 @@ import com.flexganttfx.model.repository.IntervalTreeActivityRepository;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.function.Predicate;
 
 /**
  * An interval tree implementation to store activities based on their start and
@@ -104,6 +105,11 @@ public class IntervalTree<A extends Activity> {
         return true;
     }
 
+    public final boolean removeIf(Predicate<A> predicate) {
+        // TODO: implement
+        return true;
+    }
+
     /**
      * Removes all activities found within the given time interval.
      *
@@ -173,8 +179,7 @@ public class IntervalTree<A extends Activity> {
         }
 
         // Check this node
-        if (checkPLow(entry, pLow) || checkPHigh(entry, pHigh)
-                || (pLow <= entry.low && entry.high <= pHigh)) {
+        if (checkPLow(entry, pLow) || checkPHigh(entry, pHigh) || (pLow <= entry.low && entry.high <= pHigh)) {
             result.add(entry.value);
         }
 

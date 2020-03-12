@@ -592,7 +592,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
     @SuppressWarnings({"rawtypes", "unchecked"})
     private void fixLinks(ActivityRef<?> oldActivityRef, ActivityRef<?> newActivityRef) {
 
-        for (ActivityLink link : canvas.getGraphics().getLinks()) {
+        for (ActivityLink link : canvas.getGraphics().getLinks().getIntersectingObjects(0, Long.MAX_VALUE)) {
             if (link.getSourceActivityRef().equals(oldActivityRef)) {
                 link.setSourceActivityRef(newActivityRef);
             }

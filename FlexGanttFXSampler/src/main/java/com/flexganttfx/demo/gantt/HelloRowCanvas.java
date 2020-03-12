@@ -8,22 +8,52 @@ package com.flexganttfx.demo.gantt;
 import com.flexganttfx.demo.FlexGanttFXSampleBase;
 import com.flexganttfx.demo.HelloActivity;
 import com.flexganttfx.demo.HelloRow;
+import com.flexganttfx.model.ActivityRef;
+import com.flexganttfx.model.Layer;
+import com.flexganttfx.model.Row;
+import com.flexganttfx.model.calendar.CalendarBase;
+import com.flexganttfx.model.calendar.MutableCalendarActivityBase;
+import com.flexganttfx.model.dateline.ChronoUnitGrid;
 import com.flexganttfx.model.layout.GanttLayout;
+import com.flexganttfx.model.repository.RepositoryEvent;
+import com.flexganttfx.view.graphics.ActivityBounds;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.graphics.VBoxGraphics;
+import com.flexganttfx.view.graphics.layer.CalendarLayer;
 import com.flexganttfx.view.graphics.renderer.ActivityBarRenderer;
+import com.flexganttfx.view.graphics.renderer.ActivityRenderer;
+import com.flexganttfx.view.graphics.renderer.CalendarActivityRenderer;
+import com.flexganttfx.view.timeline.Eventline;
 import com.flexganttfx.view.timeline.Timeline;
+import com.flexganttfx.view.util.Position;
 import javafx.application.Application;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+import java.time.DayOfWeek;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class HelloRowCanvas extends FlexGanttFXSampleBase {
 
+    private HelloRowCanvas.EventlineCalendar calendar = new HelloRowCanvas.EventlineCalendar();
+    private Layer layer = new Layer("Default Layer");
+    private PhaseRow frozenRow = new PhaseRow();
+    private ChronoUnitGrid dayGrid = new ChronoUnitGrid("Day Grid", ChronoUnit.DAYS, 1);
 
     @Override
     public Node getPanel(Stage stage) {
@@ -31,12 +61,19 @@ public class HelloRowCanvas extends FlexGanttFXSampleBase {
         Timeline timeline = new Timeline();
         timeline.getDateline().setDatelineBuffer(200);
 
-        VBoxGraphics vboxGraphics = new VBoxGraphics<>();
-        vboxGraphics.setStyle("-fx-border-color: red;");
+        Eventline eventline = timeline.getEventline();
+        eventline.setShowFrozenRow(true);
+        eventline.setFrozenRow(frozenRow);
+        eventline.getGraphics().getLayers().add(layer);
+        eventline.getGraphics().setVirtualGrid(dayGrid);
+
+        VBoxGraphics<HelloRow> vboxGraphics = new VBoxGraphics<>();
+        vboxGraphics.setStyle("-fx-border-color: red; -fx-border-width: 3px;");
         vboxGraphics.setDebugMode(false);
         vboxGraphics.setTimeline(timeline);
         vboxGraphics.setActivityRenderer(HelloActivity.class, GanttLayout.class, new ActivityBarRenderer<>(vboxGraphics, "HelloActivityRenderer"));
         vboxGraphics.getLayers().add(HelloRow.layer);
+        vboxGraphics.getCalendars().add(calendar);
 
         List<HelloRow> rows = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -54,7 +91,107 @@ public class HelloRowCanvas extends FlexGanttFXSampleBase {
         StackPane stackPane = new StackPane(borderPane);
         stackPane.setStyle("-fx-padding: 250px; -fx-background-color: white;");
 
+        final CalendarLayer calendarLayer = vboxGraphics.getSystemLayer(CalendarLayer.class);
+        calendarLayer.setCalendarActivityRenderer(Phase.class, new PhaseCalendarActivityRenderer(vboxGraphics));
+
+        timeline.getEventline().getGraphics().setActivityRenderer(Phase.class, GanttLayout.class, new PhaseActivityRenderer(timeline.getEventline().getGraphics()));
+
+        addPhase("Design", Instant.now().plus(1, ChronoUnit.DAYS), Instant.now().plus(5, ChronoUnit.DAYS));
+        addPhase("Implementation", Instant.now().plus(8, ChronoUnit.DAYS), Instant.now().plus(16, ChronoUnit.DAYS));
+        addPhase("Testing", Instant.now().plus(19, ChronoUnit.DAYS), Instant.now().plus(25, ChronoUnit.DAYS));
+
+
         return stackPane;
+    }
+
+    private void addPhase(String title, Instant st, Instant et) {
+        st = dayGrid.adjustTime(st, ZoneId.systemDefault(), true, DayOfWeek.MONDAY);
+        et = dayGrid.adjustTime(et, ZoneId.systemDefault(), true, DayOfWeek.MONDAY);
+
+        Phase phase = new Phase(title);
+        phase.setStartTime(st);
+        phase.setEndTime(et);
+        frozenRow.addActivity(layer, phase);
+        calendar.addPhase(phase);
+    }
+
+    private final ObjectProperty<Paint> phaseColor = new SimpleObjectProperty<>(Color.ORANGE);
+
+    private final ObjectProperty<Paint> phaseTextColor = new SimpleObjectProperty<>(Color.WHITE);
+
+    class PhaseActivityRenderer extends ActivityRenderer {
+
+        public PhaseActivityRenderer(GraphicsBase graphics) {
+            super(graphics, "Phase Activity Renderer");
+            fillProperty().bindBidirectional(phaseColor);
+            setStroke(Color.TRANSPARENT);
+        }
+
+        @Override
+        protected ActivityBounds drawActivity(ActivityRef activityRef, Position position, GraphicsContext gc, double x, double y, double w, double h, boolean selected, boolean hover, boolean highlighted, boolean pressed) {
+            ActivityBounds bounds = super.drawActivity(activityRef, position, gc, x, y, w, h, selected, hover, highlighted, pressed);
+
+            Phase phase = (Phase) activityRef.getActivity();
+            String name = phase.getName();
+
+            gc.setTextAlign(TextAlignment.LEFT);
+            gc.setTextBaseline(VPos.BOTTOM);
+
+            gc.setFill(phaseTextColor.get());
+            gc.fillText(name, x + 2, h);
+
+            return bounds;
+        }
+    }
+
+    class PhaseCalendarActivityRenderer extends CalendarActivityRenderer {
+
+        public PhaseCalendarActivityRenderer(GraphicsBase graphics) {
+            super(graphics, "Phase Calendar Renderer");
+            strokeProperty().bindBidirectional(phaseColor);
+        }
+
+        @Override
+        protected ActivityBounds drawActivity(ActivityRef activityRef, Position position, GraphicsContext gc, double x, double y, double w, double h, boolean selected, boolean hover, boolean highlighted, boolean pressed) {
+            gc.setStroke(getStroke());
+
+            gc.setLineWidth(2);
+            gc.strokeLine(x, 0, x, h);
+
+            return null;
+        }
+    }
+
+
+    class EventlineCalendar extends CalendarBase<Phase> {
+
+        private List<Phase> phases = new ArrayList<>();
+
+        protected EventlineCalendar() {
+            super("Eventline Calendar");
+        }
+
+        @Override
+        public Iterator<Phase> getActivities(Layer layer, Instant startTime, Instant endTime, TemporalUnit temporalUnit, ZoneId zoneId) {
+            return phases.iterator();
+        }
+
+        public void addPhase(Phase phase) {
+            phases.add(phase);
+            fireEvent(new RepositoryEvent(this));
+        }
+    }
+
+    class PhaseRow extends Row<PhaseRow, PhaseRow, Phase> {
+
+    }
+
+    class Phase extends MutableCalendarActivityBase<String> {
+
+
+        public Phase(String name) {
+            super(name);
+        }
     }
 
     @Override

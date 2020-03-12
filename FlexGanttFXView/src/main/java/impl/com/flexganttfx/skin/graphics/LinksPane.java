@@ -5,14 +5,18 @@
  */
 package impl.com.flexganttfx.skin.graphics;
 
-import com.flexganttfx.model.*;
+import com.flexganttfx.model.Activity;
+import com.flexganttfx.model.ActivityLink;
+import com.flexganttfx.model.ActivityRef;
+import com.flexganttfx.model.Layer;
+import com.flexganttfx.model.Row;
 import com.flexganttfx.model.timeline.TimelineModel;
+import com.flexganttfx.model.util.IntervalTree;
 import com.flexganttfx.view.graphics.ActivityEvent;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.timeline.Timeline;
 import impl.com.flexganttfx.skin.graphics.PathBuilder.PathBuilderResult;
 import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.beans.WeakInvalidationListener;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ListChangeListener;
@@ -24,6 +28,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.shape.Path;
 
 import java.time.Instant;
+import java.util.Collection;
 import java.util.function.Predicate;
 
 public class LinksPane<R extends Row<?, ?, ?>> extends Region {
@@ -64,7 +69,8 @@ public class LinksPane<R extends Row<?, ?, ?>> extends Region {
 
         graphics.getRows().addListener(weakRowListChangedListener);
 
-        graphics.getLinks().addListener((Observable evt) -> layoutLinks());
+        // TODO: implement
+        //graphics.getLinks().addListener((Observable evt) -> layoutLinks());
     }
 
     private final ListChangeListener<Row<?, ?, ?>> rowListChangedListener = (Change<? extends Row<?, ?, ?>> c) -> graphics.redraw();
@@ -84,12 +90,18 @@ public class LinksPane<R extends Row<?, ?, ?>> extends Region {
         requestLayout();
     }
 
+    private int counter = 0;
+
     @Override
     protected void layoutChildren() {
         super.layoutChildren();
         if (layout) {
+            counter = 0;
             getChildren().clear();
-            graphics.getLinks().forEach(this::layoutLink);
+            final IntervalTree<ActivityLink> links = graphics.getLinks();
+            final Collection<ActivityLink> visibleLinks = links.getIntersectingObjects(graphics.getTimeline().getVisibleStartTime().toEpochMilli(), graphics.getTimeline().getVisibleStartTime().toEpochMilli());
+            visibleLinks.forEach(this::layoutLink);
+            System.out.println("rendered links count: " + counter);
             layout = false;
         }
     }
@@ -101,6 +113,8 @@ public class LinksPane<R extends Row<?, ?, ?>> extends Region {
         if (!isShowing(sourceRef, targetRef)) {
             return;
         }
+
+        counter++;
 
         GraphicsBaseSkin<?, ?> skin = (GraphicsBaseSkin<?, ?>) graphics.getSkin();
 
