@@ -100,8 +100,9 @@ public class LinksPane<R extends Row<?, ?, ?>> extends Region {
             getChildren().clear();
             final IntervalTree<ActivityLink> links = graphics.getLinks();
             final Collection<ActivityLink> visibleLinks = links.getIntersectingObjects(graphics.getTimeline().getVisibleStartTime().toEpochMilli(), graphics.getTimeline().getVisibleStartTime().toEpochMilli());
+            long time = System.currentTimeMillis();
             visibleLinks.forEach(this::layoutLink);
-            System.out.println("rendered links count: " + counter);
+            System.out.println("rendered links count: " + counter + ", time = " + (System.currentTimeMillis() - time));
             layout = false;
         }
     }
@@ -274,12 +275,10 @@ public class LinksPane<R extends Row<?, ?, ?>> extends Region {
         Activity sourceActivity = sourceRef.getActivity();
         Activity targetActivity = targetRef.getActivity();
 
-        if (sourceActivity.getEndTime().isBefore(visibleStart)
-                && targetActivity.getEndTime().isBefore(visibleStart)) {
+        if (sourceActivity.getEndTime().isBefore(visibleStart) && targetActivity.getEndTime().isBefore(visibleStart)) {
             return false;
         }
 
-        return !sourceActivity.getStartTime().isAfter(visibleEnd)
-                || !targetActivity.getStartTime().isAfter(visibleEnd);
+        return !sourceActivity.getStartTime().isAfter(visibleEnd) || !targetActivity.getStartTime().isAfter(visibleEnd);
     }
 }
