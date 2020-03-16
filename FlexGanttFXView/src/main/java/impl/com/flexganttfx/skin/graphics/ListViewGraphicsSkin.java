@@ -439,7 +439,7 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
 
         if (graphicsViewScrollBar != null) {
 
-            graphicsViewScrollBar.valueProperty().addListener(observable -> getSkinnable().layoutLinks());
+            graphicsViewScrollBar.valueProperty().addListener(observable -> getSkinnable().drawLinks());
 
             // TODO: put back in
             // graphicsViewScrollBar.addEventHandler(MouseEvent.MOUSE_MOVED,

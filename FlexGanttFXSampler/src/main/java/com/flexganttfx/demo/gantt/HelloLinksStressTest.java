@@ -30,7 +30,9 @@ import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class HelloLinksStressTest extends FlexGanttFXSample {
@@ -71,6 +73,9 @@ public class HelloLinksStressTest extends FlexGanttFXSample {
         gantt.getLayers().add(layer);
 
 
+        // source set ensures that only one link will come "out of" an activity.
+        Set<ActivityRow> sourceSet = new HashSet<>();
+
         for (int i = 0; i < 100000; i++) {
             int s = -1, e = -1;
             while (s >= e) {
@@ -84,10 +89,13 @@ public class HelloLinksStressTest extends FlexGanttFXSample {
             ActivityRow predecessor = rsChild.getChildren().get((int) (Math.random() * rsChild.getChildren().size()));
             ActivityRow successor = reChild.getChildren().get((int) (Math.random() * reChild.getChildren().size()));
 
-            links.add(new ActivityLink<>(
-                    new ActivityRef<>(predecessor, layer, predecessor.act),
-                    new ActivityRef<>(successor, layer, successor.act)
-            ));
+            if (!sourceSet.contains(predecessor)) {
+                sourceSet.add(predecessor);
+                links.add(new ActivityLink<>(
+                        new ActivityRef<>(predecessor, layer, predecessor.act),
+                        new ActivityRef<>(successor, layer, successor.act)
+                ));
+            }
         }
 
         ListViewGraphics graphics = gantt.getGraphics();
@@ -103,12 +111,15 @@ public class HelloLinksStressTest extends FlexGanttFXSample {
                 gantt.getGraphics().getTimeline().showTime(item.getValue().act.getStartTime());
             }
         });
+
         TreeTableColumn<ActivityRow, Instant> column = new TreeTableColumn<>("start");
         column.setMinWidth(100);
         column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getValue().data.start));
+
         TreeTableColumn<ActivityRow, Instant> column1 = new TreeTableColumn<>("end");
         column1.setMinWidth(100);
         column1.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getValue().data.end));
+
         TreeTableColumn<ActivityRow, String> column2 = new TreeTableColumn<>("name");
         column2.setMinWidth(100);
         column2.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getValue().data.name));
@@ -168,6 +179,7 @@ public class HelloLinksStressTest extends FlexGanttFXSample {
         }
 
         protected void createActivity(Data data) {
+//            System.out.println("st: " + data.start + ", et: " + data.end);
             act = new MutableCompletableActivityBase<>(data.name, data.start, data.end);
             act.setUserObject(data);
             addActivity(layer, act);

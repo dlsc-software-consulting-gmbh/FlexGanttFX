@@ -60,7 +60,7 @@ import com.flexganttfx.view.util.FlexGanttFXControl;
 import com.flexganttfx.view.util.Messages;
 import com.flexganttfx.view.util.Position;
 import impl.com.flexganttfx.skin.graphics.GraphicsBaseSkin;
-import impl.com.flexganttfx.skin.graphics.LinksPane;
+import impl.com.flexganttfx.skin.graphics.LinksCanvas;
 import impl.com.flexganttfx.skin.graphics.RowPane;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -127,6 +127,7 @@ import javafx.util.Duration;
 import java.time.Instant;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -568,6 +569,18 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
                 }
             }
         });
+
+        addEventHandler(ActivityEvent.ACTIVITY_CHANGE, evt -> {
+            long time = System.currentTimeMillis();
+            final ActivityRef<?> activityRef = evt.getActivityRef();
+            final Collection<ActivityLink> links = getLinks().getIntersectingObjects(evt.getOldTimeInterval());
+            for (ActivityLink link : links) {
+                if (link.getSourceActivityRef().equals(activityRef) || link.getTargetActivityRef().equals(activityRef)) {
+                    getLinks().remove(link);
+                    getLinks().add(link);
+                }
+            }
+        });
     }
 
     @Override
@@ -759,7 +772,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
     private void connectToTimeline() {
         Timeline timeline = getTimeline();
 
-        final ChangeListener<Instant> startTimeListener = (obs, oldTime, newTime) -> layoutLinks();
+        final ChangeListener<Instant> startTimeListener = (obs, oldTime, newTime) -> drawLinks();
 
         timeline.getModel().startTimeProperty().addListener(startTimeListener);
 
@@ -3329,13 +3342,13 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         return rowPanes;
     }
 
-    private LinksPane<R> linksPane;
+    private LinksCanvas<R> linksCanvas;
 
     private int redrawCounter;
 
     /**
      * Performs a redraw of the displayed activities. Also lays out the links
-     * shown by the {@link LinksPane}.
+     * shown by the {@link LinksCanvas}.
      */
     public void redraw() {
 //        System.out.println("redrawing " + redrawCounter++);
@@ -3353,19 +3366,19 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
             doDraw();
         }
 
-        layoutLinks();
+        drawLinks();
     }
 
-    public void layoutLinks() {
-        if (linksPane == null) {
-            linksPane = (LinksPane<R>) lookup("LinksPane");
+    public void drawLinks() {
+        if (linksCanvas == null) {
+            linksCanvas = (LinksCanvas<R>) lookup("LinksCanvas");
         }
 
-        if (linksPane != null) {
-            linksPane.layoutLinks();
+        if (linksCanvas != null) {
+            linksCanvas.draw();
         }
     }
-    
+
     private void doDraw() {
         if (getTimeline() != null && getTimeline().getModel() != null) {
 
@@ -3390,11 +3403,9 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     private final ObservableMap<Class<? extends Layout>, ObservableMap<Class<?>, ActivityRenderer<?>>> cachedRendererMap = FXCollections.observableHashMap();
 
-    private Map<Class<?>, ActivityRenderer<?>> getRendererMapForLayoutStrategy(
-            Class<? extends Layout> layoutType) {
+    private Map<Class<?>, ActivityRenderer<?>> getRendererMapForLayoutStrategy(Class<? extends Layout> layoutType) {
 
-        ObservableMap<Class<?>, ActivityRenderer<?>> layoutMap = rendererLayoutMap
-                .get(layoutType);
+        ObservableMap<Class<?>, ActivityRenderer<?>> layoutMap = rendererLayoutMap.get(layoutType);
 
         if (layoutMap == null) {
             layoutMap = FXCollections.observableHashMap();

@@ -7,11 +7,11 @@ package impl.com.flexganttfx.skin.graphics;
 
 import com.flexganttfx.model.ActivityLink;
 import javafx.collections.ObservableList;
-import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.shape.*;
-
-import static java.util.Objects.requireNonNull;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.PathElement;
 
 /**
  * The path builder is used to compute path nodes for instances of type
@@ -19,50 +19,7 @@ import static java.util.Objects.requireNonNull;
  *
  * @since 1.0
  */
-public class PathBuilder {
-
-	final class PathBuilderResult {
-
-		private final Point2D start;
-		private final Point2D end;
-		private final Path path;
-		private final boolean close;
-		private final ArrowDirection arrowDirection;
-
-		public PathBuilderResult(Point2D start, Point2D end, Path path, ArrowDirection arrowDirection, boolean close) {
-			this.start = requireNonNull(start);
-			this.end = requireNonNull(end);
-			this.path = requireNonNull(path);
-			this.arrowDirection = requireNonNull(arrowDirection);
-			this.close = close;
-		}
-
-		public final Point2D getStart() {
-			return start;
-		}
-
-		public final Point2D getEnd() {
-			return end;
-		}
-
-		public final Path getPath() {
-			return path;
-		}
-
-		public ArrowDirection getArrowDirection() {
-			return arrowDirection;
-		}
-
-		public boolean isClose() {
-			return close;
-		}
-
-		@Override
-		public String toString() {
-			return "start = " + start.toString() + ", end = " + end.toString()
-					+ ", path = " + path.toString();
-		}
-	}
+public class LinkRenderer {
 
 	/**
 	 * An enumerator of possible locations that the target object can have
@@ -213,11 +170,10 @@ public class PathBuilder {
 	 *
 	 * @since 1.0
 	 */
-	public PathBuilder() {
+	public LinkRenderer() {
 	}
 
-	private TargetLocation calculateTargetLocation(double sx, double sy,
-			double tx, double ty) {
+	private TargetLocation calculateTargetLocation(double sx, double sy, double tx, double ty) {
 
 		double xDelta = tx - sx;
 		if (sy < ty) {
@@ -259,8 +215,7 @@ public class PathBuilder {
 	 *
 	 * @since 1.0
 	 */
-	public PathBuilderResult buildPathStartToStart(
-			Rectangle2D sourceRect, Rectangle2D targetRect) {
+	public void drawStartToStart(GraphicsContext gc, Rectangle2D sourceRect, Rectangle2D targetRect) {
 
 		double sx = sourceRect.getMinX();
 		double sx1 = sx - offset;
@@ -270,11 +225,6 @@ public class PathBuilder {
 
 		double sy = sourceRect.getMinY() + sourceRect.getHeight() / 2;
 		double ty = targetRect.getMinY() + targetRect.getHeight() / 2;
-
-		Point2D startPoint = new Point2D(sx, sy);
-		Point2D endPoint = new Point2D(tx, ty);
-		Path path = new Path();
-		boolean close = false;
 
 		TargetLocation targetLocation = calculateTargetLocation(sx1, sy, tx1, ty);
 
@@ -288,66 +238,62 @@ public class PathBuilder {
 				sx1 = sx;
 				tx1 = tx;
 				targetLocation = targetLocationOriginalLocations;
-				close = true;
 			}
 		}
 
-		PathBuilderResult result = new PathBuilderResult(startPoint, endPoint,
-				path, ArrowDirection.RIGHT, close);
-
-		ObservableList<PathElement> pathElements = path.getElements();
-		pathElements.add(new MoveTo(sx, sy));
-
+		gc.beginPath();
+		gc.moveTo(sx, sy);
+		
 		switch (targetLocation) {
 		case BELOW_RIGHT:
 		case BELOW:
 		case BELOW_LEFT:
 			double x = Math.min(sx1, tx1);
-			pathElements.add(new LineTo(x + curve, sy));
-			pathElements.add(new QuadCurveTo(x, sy, x, sy + curve));
-			pathElements.add(new LineTo(x, ty - curve));
-			pathElements.add(new QuadCurveTo(x, ty, x + curve, ty));
-			pathElements.add(new LineTo(tx, ty));
+			gc.lineTo(x + curve, sy);
+			gc.quadraticCurveTo(x, sy, x, sy + curve);
+			gc.lineTo(x, ty - curve);
+			gc.quadraticCurveTo(x, ty, x + curve, ty);
+			gc.lineTo(tx, ty);
 			break;
 		case ABOVE_RIGHT:
 		case ABOVE_LEFT:
 		case ABOVE:
 			x = Math.min(sx1, tx1);
-			pathElements.add(new LineTo(x + curve, sy));
-			pathElements.add(new QuadCurveTo(x, sy, x, sy - curve));
-			pathElements.add(new LineTo(x, ty + curve));
-			pathElements.add(new QuadCurveTo(x, ty, x + curve, ty));
-			pathElements.add(new LineTo(tx, ty));
+			gc.lineTo(x + curve, sy);
+			gc.quadraticCurveTo(x, sy, x, sy - curve);
+			gc.lineTo(x, ty + curve);
+			gc.quadraticCurveTo(x, ty, x + curve, ty);
+			gc.lineTo(tx, ty);
 			break;
 		case RIGHT:
 			double my = sourceRect.getMinY() + sourceRect.getHeight() + gap;
-			pathElements.add(new LineTo(sx1 + curve, sy));
-			pathElements.add(new QuadCurveTo(sx1, sy, sx1, sy + curve));
-			pathElements.add(new LineTo(sx1, my - curve));
-			pathElements.add(new QuadCurveTo(sx1, my, sx1 + curve, my));
-			pathElements.add(new LineTo(tx1 - curve, my));
-			pathElements.add(new QuadCurveTo(tx1, my, tx1, my - curve));
-			pathElements.add(new LineTo(tx1, ty + curve));
-			pathElements.add(new QuadCurveTo(tx1, ty, tx1 + curve, ty));
-			pathElements.add(new LineTo(tx, ty));
+			gc.lineTo(sx1 + curve, sy);
+			gc.quadraticCurveTo(sx1, sy, sx1, sy + curve);
+			gc.lineTo(sx1, my - curve);
+			gc.quadraticCurveTo(sx1, my, sx1 + curve, my);
+			gc.lineTo(tx1 - curve, my);
+			gc.quadraticCurveTo(tx1, my, tx1, my - curve);
+			gc.lineTo(tx1, ty + curve);
+			gc.quadraticCurveTo(tx1, ty, tx1 + curve, ty);
+			gc.lineTo(tx, ty);
 			break;
 		case LEFT:
 			my = sourceRect.getMinY() - gap;
-			pathElements.add(new LineTo(sx1 + curve, sy));
-			pathElements.add(new QuadCurveTo(sx1, sy, sx1, sy - curve));
-			pathElements.add(new LineTo(sx1, my + curve));
-			pathElements.add(new QuadCurveTo(sx1, my, sx1 - curve, my));
-			pathElements.add(new LineTo(tx1 + curve, my));
-			pathElements.add(new QuadCurveTo(tx1, my, tx1, my + curve));
-			pathElements.add(new LineTo(tx1, ty - curve));
-			pathElements.add(new QuadCurveTo(tx1, ty, tx + curve, ty));
-			pathElements.add(new LineTo(tx, ty));
+			gc.lineTo(sx1 + curve, sy);
+			gc.quadraticCurveTo(sx1, sy, sx1, sy - curve);
+			gc.lineTo(sx1, my + curve);
+			gc.quadraticCurveTo(sx1, my, sx1 - curve, my);
+			gc.lineTo(tx1 + curve, my);
+			gc.quadraticCurveTo(tx1, my, tx1, my + curve);
+			gc.lineTo(tx1, ty - curve);
+			gc.quadraticCurveTo(tx1, ty, tx + curve, ty);
+			gc.lineTo(tx, ty);
 			break;
 		case SAME_LOCATION:
 			break;
 		}
 
-		return result;
+		gc.stroke();
 	}
 
 	/**
@@ -362,8 +308,7 @@ public class PathBuilder {
 	 *
 	 * @since 1.0
 	 */
-	public PathBuilderResult buildPathEndToEnd(
-			Rectangle2D sourceRect, Rectangle2D targetRect) {
+	public void drawEndToEnd(GraphicsContext gc, Rectangle2D sourceRect, Rectangle2D targetRect) {
 
 		double sx = sourceRect.getMinX() + sourceRect.getWidth();
 		double sx1 = sx + offset;
@@ -374,13 +319,9 @@ public class PathBuilder {
 		double sy = sourceRect.getMinY() + sourceRect.getHeight() / 2;
 		double ty = targetRect.getMinY() + targetRect.getHeight() / 2;
 
-		Point2D startPoint = new Point2D(sx, sy);
-		Point2D endPoint = new Point2D(tx, ty);
 		Path path = new Path();
 
 		TargetLocation targetLocation = calculateTargetLocation(sx1, sy, tx1, ty);
-
-		boolean close = false;
 
 		/*
 		 * Some optimization in case the start and end are on the same y coordinate / same row
@@ -392,66 +333,65 @@ public class PathBuilder {
 				sx1 = sx;
 				tx1 = tx;
 				targetLocation = targetLocationOriginalLocations;
-				close = true;
 			}
 		}
 
-		PathBuilderResult result = new PathBuilderResult(startPoint, endPoint,
-				path, ArrowDirection.LEFT, close);
-
 		ObservableList<PathElement> pathElements = path.getElements();
 		pathElements.add(new MoveTo(sx, sy));
+
+		gc.beginPath();
+		gc.moveTo(sx, sy);
 
 		switch (targetLocation) {
 		case BELOW_RIGHT:
 		case BELOW:
 		case BELOW_LEFT:
 			double x = Math.max(sx1, tx1);
-			pathElements.add(new LineTo(x - curve, sy));
-			pathElements.add(new QuadCurveTo(x, sy, x, sy + curve));
-			pathElements.add(new LineTo(x, ty - curve));
-			pathElements.add(new QuadCurveTo(x, ty, x - curve, ty));
-			pathElements.add(new LineTo(tx, ty));
+			gc.lineTo(x - curve, sy);
+			gc.quadraticCurveTo(x, sy, x, sy + curve);
+			gc.lineTo(x, ty - curve);
+			gc.quadraticCurveTo(x, ty, x - curve, ty);
+			gc.lineTo(tx, ty);
 			break;
 		case ABOVE_RIGHT:
 		case ABOVE_LEFT:
 		case ABOVE:
 			x = Math.max(sx1, tx1);
-			pathElements.add(new LineTo(x - curve, sy));
-			pathElements.add(new QuadCurveTo(x, sy, x, sy - curve));
-			pathElements.add(new LineTo(x, ty + curve));
-			pathElements.add(new QuadCurveTo(x, ty, x - curve, ty));
-			pathElements.add(new LineTo(tx, ty));
+			gc.lineTo(x - curve, sy);
+			gc.quadraticCurveTo(x, sy, x, sy - curve);
+			gc.lineTo(x, ty + curve);
+			gc.quadraticCurveTo(x, ty, x - curve, ty);
+			gc.lineTo(tx, ty);
 			break;
 		case RIGHT:
 			double my = sourceRect.getMinY() - gap;
-			pathElements.add(new LineTo(sx1 - curve, sy));
-			pathElements.add(new QuadCurveTo(sx1, sy, sx1, sy - curve));
-			pathElements.add(new LineTo(sx1, my + curve));
-			pathElements.add(new QuadCurveTo(sx1, my, sx1 + curve, my));
-			pathElements.add(new LineTo(tx1 - curve, my));
-			pathElements.add(new QuadCurveTo(tx1, my, tx1, my + curve));
-			pathElements.add(new LineTo(tx1, ty - curve));
-			pathElements.add(new QuadCurveTo(tx1, ty, tx1 - curve, ty));
-			pathElements.add(new LineTo(tx, ty));
+			gc.lineTo(sx1 - curve, sy);
+			gc.quadraticCurveTo(sx1, sy, sx1, sy - curve);
+			gc.lineTo(sx1, my + curve);
+			gc.quadraticCurveTo(sx1, my, sx1 + curve, my);
+			gc.lineTo(tx1 - curve, my);
+			gc.quadraticCurveTo(tx1, my, tx1, my + curve);
+			gc.lineTo(tx1, ty - curve);
+			gc.quadraticCurveTo(tx1, ty, tx1 - curve, ty);
+			gc.lineTo(tx, ty);
 			break;
 		case LEFT:
 			my = sourceRect.getMinY() + sourceRect.getHeight() + gap;
-			pathElements.add(new LineTo(sx1 - curve, sy));
-			pathElements.add(new QuadCurveTo(sx1, sy, sx1, sy + curve));
-			pathElements.add(new LineTo(sx1, my - curve));
-			pathElements.add(new QuadCurveTo(sx1, my, sx1 - curve, my));
-			pathElements.add(new LineTo(tx1 + curve, my));
-			pathElements.add(new QuadCurveTo(tx1, my, tx1, my - curve));
-			pathElements.add(new LineTo(tx1, ty + curve));
-			pathElements.add(new QuadCurveTo(tx1, ty, tx1 - curve, ty));
-			pathElements.add(new LineTo(tx, ty));
+			gc.lineTo(sx1 - curve, sy);
+			gc.quadraticCurveTo(sx1, sy, sx1, sy + curve);
+			gc.lineTo(sx1, my - curve);
+			gc.quadraticCurveTo(sx1, my, sx1 - curve, my);
+			gc.lineTo(tx1 + curve, my);
+			gc.quadraticCurveTo(tx1, my, tx1, my - curve);
+			gc.lineTo(tx1, ty + curve);
+			gc.quadraticCurveTo(tx1, ty, tx1 - curve, ty);
+			gc.lineTo(tx, ty);
 			break;
 		case SAME_LOCATION:
 			break;
 		}
 
-		return result;
+		gc.stroke();
 	}
 
 	/**
@@ -466,8 +406,7 @@ public class PathBuilder {
 	 *
 	 * @since 1.0
 	 */
-	public PathBuilderResult buildPathStartToEnd(
-			Rectangle2D sourceRect, Rectangle2D targetRect) {
+	public void drawStartToEnd(GraphicsContext gc, Rectangle2D sourceRect, Rectangle2D targetRect) {
 
 		double sx = sourceRect.getMinX();
 		double sx1 = sx - offset;
@@ -477,12 +416,6 @@ public class PathBuilder {
 
 		double sy = sourceRect.getMinY() + sourceRect.getHeight() / 2;
 		double ty = targetRect.getMinY() + targetRect.getHeight() / 2;
-
-		Point2D startPoint = new Point2D(sx, sy);
-		Point2D endPoint = new Point2D(tx, ty);
-		Path path = new Path();
-
-		boolean close = false;
 
 		TargetLocation targetLocation = calculateTargetLocation(sx1, sy, tx1, ty);
 
@@ -496,76 +429,73 @@ public class PathBuilder {
 				sx1 = sx;
 				tx1 = tx;
 				targetLocation = targetLocationOriginalLocations;
-				close = true;
 			}
 		}
 
-		PathBuilderResult result = new PathBuilderResult(startPoint, endPoint,
-				path, ArrowDirection.LEFT, close);
-		ObservableList<PathElement> pathElements = path.getElements();
-		pathElements.add(new MoveTo(sx, sy));
+		gc.beginPath();
+		gc.moveTo(sx, sy);
 
 		switch (targetLocation) {
 		case BELOW:
 		case BELOW_LEFT:
-			pathElements.add(new LineTo(sx1 + curve, sy));
-			pathElements.add(new QuadCurveTo(sx1, sy, sx1, sy + curve));
-			pathElements.add(new LineTo(sx1, ty - curve));
-			pathElements.add(new QuadCurveTo(sx1, ty, sx1 - curve, ty));
-			pathElements.add(new LineTo(tx, ty));
+			gc.lineTo(sx1 + curve, sy);
+			gc.quadraticCurveTo(sx1, sy, sx1, sy + curve);
+			gc.lineTo(sx1, ty - curve);
+			gc.quadraticCurveTo(sx1, ty, sx1 - curve, ty);
+			gc.lineTo(tx, ty);
 			break;
 		case BELOW_RIGHT:
 			double my = sourceRect.getMinY() + sourceRect.getHeight() + gap;
-			pathElements.add(new LineTo(sx1 + curve, sy));
-			pathElements.add(new QuadCurveTo(sx1, sy, sx1, sy + curve));
-			pathElements.add(new LineTo(sx1, my - curve));
-			pathElements.add(new QuadCurveTo(sx1, my, sx1 + curve, my));
-			pathElements.add(new LineTo(tx1 - curve, my));
-			pathElements.add(new QuadCurveTo(tx1, my, tx1, my + curve));
-			pathElements.add(new LineTo(tx1, ty - curve));
-			pathElements.add(new QuadCurveTo(tx1, ty, tx1 - curve, ty));
-			pathElements.add(new LineTo(tx, ty));
+			gc.lineTo(sx1 + curve, sy);
+			gc.quadraticCurveTo(sx1, sy, sx1, sy + curve);
+			gc.lineTo(sx1, my - curve);
+			gc.quadraticCurveTo(sx1, my, sx1 + curve, my);
+			gc.lineTo(tx1 - curve, my);
+			gc.quadraticCurveTo(tx1, my, tx1, my + curve);
+			gc.lineTo(tx1, ty - curve);
+			gc.quadraticCurveTo(tx1, ty, tx1 - curve, ty);
+			gc.lineTo(tx, ty);
 			break;
 		case ABOVE_RIGHT:
 			my = sourceRect.getMinY() - gap;
-			pathElements.add(new LineTo(sx1 + curve, sy));
-			pathElements.add(new QuadCurveTo(sx1, sy, sx1, sy - curve));
-			pathElements.add(new LineTo(sx1, my + curve));
-			pathElements.add(new QuadCurveTo(sx1, my, sx1 + curve, my));
-			pathElements.add(new LineTo(tx1 - curve, my));
-			pathElements.add(new QuadCurveTo(tx1, my, tx1, my - curve));
-			pathElements.add(new LineTo(tx1, ty + curve));
-			pathElements.add(new QuadCurveTo(tx1, ty, tx1 - curve, ty));
-			pathElements.add(new LineTo(tx, ty));
+			gc.lineTo(sx1 + curve, sy);
+			gc.quadraticCurveTo(sx1, sy, sx1, sy - curve);
+			gc.lineTo(sx1, my + curve);
+			gc.quadraticCurveTo(sx1, my, sx1 + curve, my);
+			gc.lineTo(tx1 - curve, my);
+			gc.quadraticCurveTo(tx1, my, tx1, my - curve);
+			gc.lineTo(tx1, ty + curve);
+			gc.quadraticCurveTo(tx1, ty, tx1 - curve, ty);
+			gc.lineTo(tx, ty);
 			break;
 		case ABOVE_LEFT:
 		case ABOVE:
-			pathElements.add(new LineTo(sx1 + curve, sy));
-			pathElements.add(new QuadCurveTo(sx1, sy, sx1, sy - curve));
-			pathElements.add(new LineTo(sx1, ty + curve));
-			pathElements.add(new QuadCurveTo(sx1, ty, sx1 - curve, ty));
-			pathElements.add(new LineTo(tx, ty));
+			gc.lineTo(sx1 + curve, sy);
+			gc.quadraticCurveTo(sx1, sy, sx1, sy - curve);
+			gc.lineTo(sx1, ty + curve);
+			gc.quadraticCurveTo(sx1, ty, sx1 - curve, ty);
+			gc.lineTo(tx, ty);
 			break;
 		case RIGHT:
 			my = sourceRect.getMinY() - gap;
-			pathElements.add(new LineTo(sx1 + curve, sy));
-			pathElements.add(new QuadCurveTo(sx1, sy, sx1, sy - curve));
-			pathElements.add(new LineTo(sx1, my + curve));
-			pathElements.add(new QuadCurveTo(sx1, my, sx1 + curve, my));
-			pathElements.add(new LineTo(tx1 - curve, my));
-			pathElements.add(new QuadCurveTo(tx1, my, tx1, my + curve));
-			pathElements.add(new LineTo(tx1, ty - curve));
-			pathElements.add(new QuadCurveTo(tx1, ty, tx1 - curve, ty));
-			pathElements.add(new LineTo(tx, ty));
+			gc.lineTo(sx1 + curve, sy);
+			gc.quadraticCurveTo(sx1, sy, sx1, sy - curve);
+			gc.lineTo(sx1, my + curve);
+			gc.quadraticCurveTo(sx1, my, sx1 + curve, my);
+			gc.lineTo(tx1 - curve, my);
+			gc.quadraticCurveTo(tx1, my, tx1, my + curve);
+			gc.lineTo(tx1, ty - curve);
+			gc.quadraticCurveTo(tx1, ty, tx1 - curve, ty);
+			gc.lineTo(tx, ty);
 			break;
 		case LEFT:
-			pathElements.add(new LineTo(tx, ty));
+			gc.lineTo(tx, ty);
 			break;
 		case SAME_LOCATION:
 			break;
 		}
 
-		return result;
+		gc.stroke();
 	}
 
 	/**
@@ -580,8 +510,7 @@ public class PathBuilder {
 	 *
 	 * @since 1.0
 	 */
-	public PathBuilderResult buildPathEndToStart(Rectangle2D sourceRect,
-			Rectangle2D targetRect) {
+	public void drawEndToStart(GraphicsContext gc, Rectangle2D sourceRect, Rectangle2D targetRect) {
 
 		double sx = snapLocation(sourceRect.getMinX() + sourceRect.getWidth());
 		double sx1 = snapLocation(sx + offset);
@@ -589,17 +518,10 @@ public class PathBuilder {
 		double tx = snapLocation(targetRect.getMinX()) + .5;
 		double tx1 = snapLocation(tx - offset);
 
-		double sy = snapLocation(sourceRect.getMinY() + sourceRect.getHeight()
-				/ 2);
+		double sy = snapLocation(sourceRect.getMinY() + sourceRect.getHeight() / 2);
 		double ty = snapLocation(targetRect.getMinY() + targetRect.getHeight() / 2);
 
-		Point2D startPoint = new Point2D(sx, sy);
-		Point2D endPoint = new Point2D(tx, ty);
-		Path path = new Path();
-
 		TargetLocation targetLocation = calculateTargetLocation(sx1, sy, tx1, ty);
-
-		boolean close = false;
 
 		/*
 		 * Some optimization in case the start and end are on the same y coordinate / same row
@@ -611,78 +533,70 @@ public class PathBuilder {
 				sx1 = sx;
 				tx1 = tx;
 				targetLocation = targetLocationOriginalLocations;
-				close = true;
 			}
 		}
 
-		PathBuilderResult result = new PathBuilderResult(startPoint, endPoint,
-				path, ArrowDirection.RIGHT, close);
-
-		ObservableList<PathElement> pathElements = path.getElements();
-		pathElements.add(new MoveTo(sx, sy));
+		gc.beginPath();
+		gc.moveTo(sx, sy);
 
 		switch (targetLocation) {
 		case BELOW_RIGHT:
-			pathElements.add(new LineTo(sx1 - curve, sy));
-			pathElements.add(new QuadCurveTo(sx1, sy, sx1, sy + curve));
-			pathElements.add(new LineTo(sx1, ty - curve));
-			pathElements.add(new QuadCurveTo(sx1, ty, sx1 + curve, ty));
-			pathElements.add(new LineTo(tx, ty));
+			gc.lineTo(sx1 - curve, sy);
+			gc.quadraticCurveTo(sx1, sy, sx1, sy + curve);
+			gc.lineTo(sx1, ty - curve);
+			gc.quadraticCurveTo(sx1, ty, sx1 + curve, ty);
+			gc.lineTo(tx, ty);
 			break;
 		case BELOW_LEFT:
 		case BELOW:
 			double my = sourceRect.getMinY() + sourceRect.getHeight() + gap;
-			pathElements.add(new LineTo(sx1 - curve, sy));
-			pathElements.add(new QuadCurveTo(sx1, sy, sx1, sy + curve));
-			pathElements.add(new LineTo(sx1, my - curve));
-			pathElements.add(new QuadCurveTo(sx1, my, sx1 - curve, my));
-			pathElements.add(new LineTo(tx1 + curve, my));
-			pathElements.add(new QuadCurveTo(tx1, my, tx1, my + curve));
-			pathElements.add(new LineTo(tx1, ty - curve));
-			pathElements.add(new QuadCurveTo(tx1, ty, tx1 + curve, ty));
-			pathElements.add(new LineTo(tx, ty));
+			gc.lineTo(sx1 - curve, sy);
+			gc.quadraticCurveTo(sx1, sy, sx1, sy + curve);
+			gc.lineTo(sx1, my - curve);
+			gc.quadraticCurveTo(sx1, my, sx1 - curve, my);
+			gc.lineTo(tx1 + curve, my);
+			gc.quadraticCurveTo(tx1, my, tx1, my + curve);
+			gc.lineTo(tx1, ty - curve);
+			gc.quadraticCurveTo(tx1, ty, tx1 + curve, ty);
+			gc.lineTo(tx, ty);
 			break;
 		case ABOVE_RIGHT:
-			pathElements.add(new LineTo(sx1 - curve, sy));
-			pathElements.add(new QuadCurveTo(sx1, sy, sx1, sy - curve));
-			pathElements.add(new LineTo(sx1, ty + curve));
-			pathElements.add(new QuadCurveTo(sx1, ty, sx1 + curve, ty));
-			pathElements.add(new LineTo(tx, ty));
+			gc.lineTo(sx1 - curve, sy);
+			gc.quadraticCurveTo(sx1, sy, sx1, sy - curve);
+			gc.lineTo(sx1, ty + curve);
+			gc.quadraticCurveTo(sx1, ty, sx1 + curve, ty);
+			gc.lineTo(tx, ty);
 			break;
 		case ABOVE_LEFT:
 		case ABOVE:
 			my = sourceRect.getMinY() - gap;
-			pathElements.add(new LineTo(sx1 - curve, sy));
+			gc.lineTo(sx1 - curve, sy);
 			double delta = (sy - my) / 2 + 1;
-			pathElements.add(
-					new QuadCurveTo(sx1 - curve + delta, sy - delta, sx1
-							- curve, my));
-			pathElements.add(new LineTo(tx1 + curve, my));
-			pathElements.add(new QuadCurveTo(tx1, my, tx1, my - curve));
-			pathElements.add(new LineTo(tx1, ty + curve));
-			pathElements.add(new QuadCurveTo(tx1, ty, tx1 + curve, ty));
-			pathElements.add(new LineTo(tx, ty));
+			gc.quadraticCurveTo(sx1 - curve + delta, sy - delta, sx1 - curve, my);
+			gc.lineTo(tx1 + curve, my);
+			gc.quadraticCurveTo(tx1, my, tx1, my - curve);
+			gc.lineTo(tx1, ty + curve);
+			gc.quadraticCurveTo(tx1, ty, tx1 + curve, ty);
+			gc.lineTo(tx, ty);
 			break;
 		case RIGHT:
-			pathElements.add(new LineTo(tx, ty));
+			gc.lineTo(tx, ty);
 			break;
 		case LEFT:
 			my = sourceRect.getMinY() - gap;
-			pathElements.add(new LineTo(sx1 - curve, sy));
+			gc.lineTo(sx1 - curve, sy);
 			delta = (sy - my) / 2 + 1;
-			pathElements.add(
-					new QuadCurveTo(sx1 - curve + delta, sy - delta, sx1
-							- curve, my));
-			pathElements.add(new LineTo(tx1 + curve, my));
-			pathElements.add(new QuadCurveTo(tx1, my, tx1, my + curve));
-			pathElements.add(new LineTo(tx1, ty - curve));
-			pathElements.add(new QuadCurveTo(tx1, ty, tx1 + curve, ty));
+			gc.quadraticCurveTo(sx1 - curve + delta, sy - delta, sx1 - curve, my);
+			gc.lineTo(tx1 + curve, my);
+			gc.quadraticCurveTo(tx1, my, tx1, my + curve);
+			gc.lineTo(tx1, ty - curve);
+			gc.quadraticCurveTo(tx1, ty, tx1 + curve, ty);
 			break;
 		case SAME_LOCATION:
 			break;
 		}
 
-		return result;
+		gc.stroke();
 	}
 
 	/**

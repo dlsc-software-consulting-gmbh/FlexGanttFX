@@ -74,7 +74,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
     private final Region horizontalCursorIndicator;
     private final Cursor lassoCursor;
     private final Rectangle lasso;
-    private final LinksPane<R> linksPane;
+    private final LinksCanvas<R> linksCanvas;
     private final DragCanvas<R> dragCanvas;
     private final Pane clippedContent;
 
@@ -166,8 +166,8 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         graphics.addEventHandler(KeyEvent.KEY_PRESSED, arrowKeysHandler);
         graphics.addEventHandler(KeyEvent.KEY_TYPED, plusMinusKeyHandler);
 
-        linksPane = createLinksPane();
-        linksPane.setManaged(false);
+        linksCanvas = createLinksCanvas();
+        linksCanvas.setManaged(false);
 
         dragCanvas = createDragCanvas();
         dragCanvas.setManaged(false);
@@ -242,7 +242,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         getChildren().add(region);
 
         clippedContent = new Pane(
-                linksPane,
+                linksCanvas,
                 horizontalCursorLine,
                 horizontalCursorIndicator,
                 verticalCursorLine,
@@ -314,8 +314,8 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         return new DragCanvas<>(getSkinnable());
     }
 
-    protected LinksPane<R> createLinksPane() {
-        return new LinksPane<>(getSkinnable());
+    protected LinksCanvas<R> createLinksCanvas() {
+        return new LinksCanvas<>(getSkinnable());
     }
 
     public final DragCanvas<R> getDragCanvas() {
@@ -326,8 +326,8 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         return lasso;
     }
 
-    protected final LinksPane<R> getLinksPane() {
-        return linksPane;
+    protected final LinksCanvas<R> getLinksCanvas() {
+        return linksCanvas;
     }
 
     protected abstract Region createRowPaneRegion();
@@ -612,7 +612,8 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
     protected void layoutChildren(double contentX, double contentY, double contentWidth, double contentHeight) {
         super.layoutChildren(contentX, contentY, contentWidth, contentHeight);
 
-        linksPane.resizeRelocate(contentX, contentY, contentWidth, contentHeight);
+        linksCanvas.setWidth(contentWidth);
+        linksCanvas.setHeight(contentHeight);
 
         dragCanvas.setWidth(contentWidth);
         dragCanvas.setHeight(contentHeight);

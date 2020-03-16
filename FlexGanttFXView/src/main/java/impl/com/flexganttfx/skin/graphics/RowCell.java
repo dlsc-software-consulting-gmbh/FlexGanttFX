@@ -49,7 +49,7 @@ public class RowCell<R extends Row<?, ?, ?>> extends ListCell<R> {
 						it -> {
 							GraphicsBaseSkin<?, ?> skin = (GraphicsBaseSkin<?, ?>) graphics
 									.getSkin();
-							skin.getLinksPane().requestLayout();
+							skin.getLinksCanvas().draw();
 						});
 
 		setPrefWidth(0);
