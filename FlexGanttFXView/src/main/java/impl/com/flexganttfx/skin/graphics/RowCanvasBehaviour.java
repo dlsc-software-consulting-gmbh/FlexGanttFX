@@ -154,12 +154,16 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         canvas.getGraphics().addEventFilter(KeyEvent.ANY, this::updateEditModeAfterKeyEvent);
     }
 
+    private void draw() {
+        canvas.draw("row canvas behaviour call");
+    }
+
     /**
      * Changes the current edit mode to NONE and redraws the canvas.
      */
     public void stopEdit() {
         editMode = EditMode.NONE;
-        canvas.draw();
+        draw();
     }
 
     private void updateEditModeAfterKeyEvent(KeyEvent evt) {
@@ -583,7 +587,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
             }
         }
 
-        canvas.draw();
+        draw();
 
         lastDragLocation = null;
         dragPreviouslyAccepted = false;
@@ -622,7 +626,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         clearDragCanvas();
 
         clearCurrentlyEditedActivity();
-        canvas.draw();
+        draw();
 
         Dragboard dragboard = evt.getDragboard();
         DragInfo dragInfo = (DragInfo) dragboard.getContent(DRAG_INFO);
@@ -710,7 +714,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         if (editMode != EditMode.NONE && activityBounds != null && event.getButton().equals(PRIMARY)) {
             clearCurrentlyEditedActivity();
 
-            canvas.draw();
+            draw();
 
             fireActivityChangeFinished();
         }
@@ -965,7 +969,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
         updateMarkedTimeInterval(new TimeInterval(activity.getStartTime(), activity.getEndTime()));
 
-        canvas.draw();
+        draw();
     }
 
     private void changeEndTime(MouseEvent event) {
@@ -980,7 +984,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
         updateMarkedTimeInterval(new TimeInterval(activity.getStartTime(), activity.getEndTime()));
 
-        canvas.draw();
+        draw();
     }
 
     private void changeStartAndEndTime(MouseEvent event) {
@@ -999,7 +1003,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
         updateMarkedTimeInterval(new TimeInterval(activity.getStartTime(), activity.getEndTime()));
 
-        canvas.draw();
+        draw();
     }
 
     private void updateMarkedTimeInterval(TimeInterval markedTimeInterval) {
@@ -1018,7 +1022,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         double percent = Math.min(100, deltaX / activityBounds.getWidth() * 100);
         MutableCompletableActivity completable = (MutableCompletableActivity) activityBounds.getActivity();
         completable.setPercentageComplete(percent);
-        canvas.draw();
+        draw();
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
@@ -1071,7 +1075,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         EDITING.fine("chart value = " + chartValue);
 
         chartActivity.setChartValue(chartValue);
-        canvas.draw();
+        draw();
     }
 
     private void changeStartAndEndTimeAgenda(MouseEvent event) {
@@ -1105,7 +1109,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
             activity.setStartTime(newStartTime);
             activity.setEndTime(newEndTime);
 
-            canvas.draw();
+            draw();
 
             editStartY = event.getY();
             editStartX = event.getX();
@@ -1134,7 +1138,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
             activity.setStartTime(GridHelper.grid(canvas.getGraphics(), activity.getEndTime().minus(layout.getMinDuration())));
         }
 
-        canvas.draw();
+        draw();
     }
 
     private void changeEndTimeAgenda(MouseEvent event) {
@@ -1159,7 +1163,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
             activity.setEndTime(GridHelper.grid(canvas.getGraphics(), activity.getStartTime().plus(layout.getMinDuration())));
         }
 
-        canvas.draw();
+        draw();
     }
 
     private LocalTime timeAt(AgendaLayout layout, double y) {

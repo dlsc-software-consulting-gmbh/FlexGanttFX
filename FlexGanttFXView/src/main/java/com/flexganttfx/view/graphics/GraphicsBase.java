@@ -573,11 +573,13 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         addEventHandler(ActivityEvent.ACTIVITY_CHANGE, evt -> {
             long time = System.currentTimeMillis();
             final ActivityRef<?> activityRef = evt.getActivityRef();
-            final Collection<ActivityLink> links = getLinks().getIntersectingObjects(evt.getOldTimeInterval());
-            for (ActivityLink link : links) {
-                if (link.getSourceActivityRef().equals(activityRef) || link.getTargetActivityRef().equals(activityRef)) {
-                    getLinks().remove(link);
-                    getLinks().add(link);
+            if (evt.getOldTimeInterval() != null) {
+                final Collection<ActivityLink> links = getLinks().getIntersectingObjects(evt.getOldTimeInterval());
+                for (ActivityLink link : links) {
+                    if (link.getSourceActivityRef().equals(activityRef) || link.getTargetActivityRef().equals(activityRef)) {
+                        getLinks().remove(link);
+                        getLinks().add(link);
+                    }
                 }
             }
         });
@@ -771,10 +773,6 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     private void connectToTimeline() {
         Timeline timeline = getTimeline();
-
-        final ChangeListener<Instant> startTimeListener = (obs, oldTime, newTime) -> drawLinks();
-
-        timeline.getModel().startTimeProperty().addListener(startTimeListener);
 
         redrawObservable(timeline.getModel().millisPerPixelProperty());
 
@@ -3375,7 +3373,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         }
 
         if (linksCanvas != null) {
-            linksCanvas.draw();
+            linksCanvas.draw("complete redraw");
         }
     }
 
@@ -3391,7 +3389,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
                         row.getProperties().put("com.flexganttfx.row.showing", true);
                     }
 
-                    pane.draw();
+                    pane.draw("complete redraw inside GraphicsBase");
                 }
             }
         }

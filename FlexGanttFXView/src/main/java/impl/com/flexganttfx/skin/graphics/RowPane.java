@@ -228,8 +228,8 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
 		}
 	}
 
-	public void draw() {
-		canvas.draw();
+	public void draw(String reason) {
+		canvas.draw(reason);
 	}
 
 	private void updateZoneIdLabel() {
@@ -243,15 +243,13 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
 		}
 	}
 
-	private final InvalidationListener redrawListener = it -> draw();
+	private final InvalidationListener redrawListener = it -> draw("row pane's redraw listener was called");
 
-	private final InvalidationListener weakRedrawListener = new WeakInvalidationListener(
-			redrawListener);
+	private final InvalidationListener weakRedrawListener = new WeakInvalidationListener(redrawListener);
 
 	private final InvalidationListener updateZoneIdListener = evt -> updateZoneIdLabel();
 
-	private final InvalidationListener weakUpdateZoneIdListener = new WeakInvalidationListener(
-			updateZoneIdListener);
+	private final InvalidationListener weakUpdateZoneIdListener = new WeakInvalidationListener(updateZoneIdListener);
 
 	private final EventHandler<RepositoryEvent> repositoryListener = evt -> {
 		/*
@@ -260,7 +258,7 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
 		 * in a batch.
 		 */
 		if (graphics.isAutomaticRedraw()) {
-			draw();
+			draw("row pane's repository listener fired");
 		}
 	};
 

@@ -109,7 +109,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         rowCanvasBehaviour = new RowCanvasBehaviour<>(this);
 
-        rowProperty().addListener(evt -> draw());
+        rowProperty().addListener(evt -> draw("row model object changed"));
 
         ChangeListener<ActivityRef<?>> weakActivityRedrawListener = new WeakChangeListener<>(activityRedrawListener);
         graphics.editModeProperty().addListener(new WeakInvalidationListener(editModeListener));
@@ -117,7 +117,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         graphics.pressedActivityProperty().addListener(weakActivityRedrawListener);
         graphics.getSelectedActivities().addListener(new WeakListChangeListener<>(selectedActivitiesListener));
 
-        InvalidationListener pseudoStateRedrawListener = observable -> draw();
+        InvalidationListener pseudoStateRedrawListener = observable -> draw("pseudo state changed");
 
         hoverProperty().addListener(pseudoStateRedrawListener);
         pressedProperty().addListener(pseudoStateRedrawListener);
@@ -128,7 +128,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         graphics.canvasBufferProperty().addListener(it -> {
             setTranslateX(0);
-            draw();
+            draw("canvas buffer size changed");
         });
 
         graphics.canvasBufferProperty().addListener(it -> randomTranslateX(true));
@@ -163,12 +163,11 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                 boolean contained = (st.equals(drawingStartTime) || st.isAfter(drawingStartTime)) && (et.equals(drawingEndTime) || et.isBefore(drawingEndTime));
 
                 if (!contained) {
-                    draw();
+                    draw("start time changed");
                 }
             } else {
-                //System.out.println("BANG");
                 randomTranslateX((newTranslateX - getTranslateX()) < 0);
-                draw();
+                draw("start time changed");
             }
         };
 
@@ -199,7 +198,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                 }
             }
 
-            draw();
+            draw("activity redraw listener fired");
         }
     };
 
@@ -209,18 +208,17 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         }
     };
 
-    private final ListChangeListener<ActivityRef<?>> selectedActivitiesListener = (
-            Change<? extends ActivityRef<?>> change) -> {
+    private final ListChangeListener<ActivityRef<?>> selectedActivitiesListener = (Change<? extends ActivityRef<?>> change) -> {
         while (change.next()) {
             for (ActivityRef<?> ref : change.getAddedSubList()) {
                 if (ref.getRow() == getRow()) {
-                    draw();
+                    draw("selected activities listener fired after activities were added");
                     return;
                 }
             }
             for (ActivityRef<?> ref : change.getRemoved()) {
                 if (ref.getRow() == getRow()) {
-                    draw();
+                    draw("selected activities listener fired after activities were removed");
                     return;
                 }
             }
@@ -231,7 +229,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         return graphics;
     }
 
-    private final ChangeListener<Number> redrawListener = (value, oldSize, newSize) -> draw();
+    private final ChangeListener<Number> redrawListener = (value, oldSize, newSize) -> draw("redraw listener fired");
 
     private final ObjectProperty<R> row = new SimpleObjectProperty<>(this, "row");
 
@@ -268,7 +266,8 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
     private boolean safeRendering;
 
-    public final void draw() {
+    public final void draw(String reason) {
+        System.out.println("drawing row canvas because of " + reason);
         if (LoggingDomain.RENDERING.isLoggable(Level.FINEST)) {
             LoggingDomain.RENDERING.finest("drawing canvas of row " + getRow());
         }
@@ -1049,7 +1048,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         if (graphics.isDebugMode()) {
             debugRectangle = bounds;
-            draw();
+            draw("layout bounds lookup in debug mode");
         }
 
         return bounds;
