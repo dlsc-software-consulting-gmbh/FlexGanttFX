@@ -9,26 +9,30 @@ import com.flexganttfx.core.LoggingDomain;
 import com.flexganttfx.model.timeline.ChronoUnitTimelineModel;
 import com.flexganttfx.model.timeline.TimelineModel;
 import com.flexganttfx.model.util.TimeInterval;
-import com.flexganttfx.view.util.FlexGanttFXControl;
 import com.flexganttfx.view.GanttChart;
 import com.flexganttfx.view.graphics.GraphicsBase;
+import com.flexganttfx.view.util.FlexGanttFXControl;
 import impl.com.flexganttfx.skin.timeline.TimelineSkin;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
-import javafx.beans.property.*;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Skin;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.input.ZoomEvent;
 import javafx.util.Duration;
-import org.controlsfx.control.PropertySheet.Item;
 
 import java.time.Instant;
 import java.time.temporal.TemporalUnit;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
 
@@ -973,241 +977,5 @@ public class Timeline extends FlexGanttFXControl {
             timeline.play();
 
         }
-    }
-
-    private static final String TIMELINE_PROPERTIES_CATEGORY = "Control: Timeline";
-
-    public final List<Item> getPropertySheetItems() {
-        List<Item> items = new ArrayList<>();
-
-        items.add(new Item() {
-
-            @Override
-            public Optional<ObservableValue<?>> getObservableValue() {
-                return Optional.of(zoomAnimatedProperty());
-            }
-
-            @Override
-            public void setValue(Object value) {
-                setZoomAnimated((Boolean) value);
-            }
-
-            @Override
-            public Object getValue() {
-                return isZoomAnimated();
-            }
-
-            @Override
-            public Class<?> getType() {
-                return Boolean.class;
-            }
-
-            @Override
-            public String getName() {
-                return "Animated Zoom";
-            }
-
-            @Override
-            public String getDescription() {
-                return "Zoom operations can be performed with or without animation.";
-            }
-
-            @Override
-            public String getCategory() {
-                return TIMELINE_PROPERTIES_CATEGORY;
-            }
-        });
-
-        items.add(new Item() {
-
-            @Override
-            public Optional<ObservableValue<?>> getObservableValue() {
-                return Optional.of(zoomFactorProperty());
-            }
-
-            @Override
-            public void setValue(Object value) {
-                setZoomFactor((Double) value);
-            }
-
-            @Override
-            public Object getValue() {
-                return getZoomFactor();
-            }
-
-            @Override
-            public Class<?> getType() {
-                return Double.class;
-            }
-
-            @Override
-            public String getName() {
-                return "Zoom Factor";
-            }
-
-            @Override
-            public String getDescription() {
-                return "The factor used for zooming in or out, default = .5";
-            }
-
-            @Override
-            public String getCategory() {
-                return TIMELINE_PROPERTIES_CATEGORY;
-            }
-        });
-
-        items.add(new Item() {
-
-            @Override
-            public Optional<ObservableValue<?>> getObservableValue() {
-                return Optional.of(zoomModeProperty());
-            }
-
-            @Override
-            public void setValue(Object value) {
-                setZoomMode((ZoomMode) value);
-            }
-
-            @Override
-            public Object getValue() {
-                return getZoomMode();
-            }
-
-            @Override
-            public Class<?> getType() {
-                return ZoomMode.class;
-            }
-
-            @Override
-            public String getName() {
-                return "Zoom Mode";
-            }
-
-            @Override
-            public String getDescription() {
-                return "The method of zooming in (keep start, keep end, keep center time).";
-            }
-
-            @Override
-            public String getCategory() {
-                return TIMELINE_PROPERTIES_CATEGORY;
-            }
-        });
-
-        items.add(new Item() {
-
-            @Override
-            public Optional<ObservableValue<?>> getObservableValue() {
-                return Optional.of(zoomDurationProperty());
-            }
-
-            @Override
-            public void setValue(Object value) {
-                setZoomDuration((Duration) value);
-            }
-
-            @Override
-            public Object getValue() {
-                return getZoomDuration();
-            }
-
-            @Override
-            public Class<?> getType() {
-                return Duration.class;
-            }
-
-            @Override
-            public String getName() {
-                return "Zoom Duration";
-            }
-
-            @Override
-            public String getDescription() {
-                return "The duration of the zoom animation.";
-            }
-
-            @Override
-            public String getCategory() {
-                return TIMELINE_PROPERTIES_CATEGORY;
-            }
-        });
-
-        items.add(new Item() {
-
-            @Override
-            public Optional<ObservableValue<?>> getObservableValue() {
-                return Optional.of(moveAnimatedProperty());
-            }
-
-            @Override
-            public void setValue(Object value) {
-                setMoveAnimated((Boolean) value);
-            }
-
-            @Override
-            public Object getValue() {
-                return isMoveAnimated();
-            }
-
-            @Override
-            public Class<?> getType() {
-                return Boolean.class;
-            }
-
-            @Override
-            public String getName() {
-                return "Animated Move";
-            }
-
-            @Override
-            public String getDescription() {
-                return "Move operations can be performed with or without animation.";
-            }
-
-            @Override
-            public String getCategory() {
-                return TIMELINE_PROPERTIES_CATEGORY;
-            }
-        });
-
-        items.add(new Item() {
-
-            @Override
-            public Optional<ObservableValue<?>> getObservableValue() {
-                return Optional.of(moveDurationProperty());
-            }
-
-            @Override
-            public void setValue(Object value) {
-                setMoveDuration((Duration) value);
-            }
-
-            @Override
-            public Object getValue() {
-                return getMoveDuration();
-            }
-
-            @Override
-            public Class<?> getType() {
-                return Duration.class;
-            }
-
-            @Override
-            public String getName() {
-                return "Move Duration";
-            }
-
-            @Override
-            public String getDescription() {
-                return "The duration of the move animation.";
-            }
-
-            @Override
-            public String getCategory() {
-                return TIMELINE_PROPERTIES_CATEGORY;
-            }
-        });
-
-        return items;
     }
 }

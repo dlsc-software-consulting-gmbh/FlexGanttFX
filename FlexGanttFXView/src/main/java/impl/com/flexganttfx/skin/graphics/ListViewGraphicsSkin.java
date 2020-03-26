@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package impl.com.flexganttfx.skin.graphics;
@@ -25,6 +25,7 @@ import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.skin.VirtualFlow;
 import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Rectangle;
 
@@ -75,12 +76,12 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
 
     private void autoscrollIfNeeded(DragEvent evt) {
 
-		/*
+        /*
          * Determine the "hot" region that will trigger automatic scrolling.
-		 * Ideally we use the clipped container of the list view skin but when
-		 * the rows are empty the dimensions of the clipped container will be
-		 * 0x0. In this case we try to use the virtual flow.
-		 */
+         * Ideally we use the clipped container of the list view skin but when
+         * the rows are empty the dimensions of the clipped container will be
+         * 0x0. In this case we try to use the virtual flow.
+         */
         Region hotRegion = getClippedContainer();
         if (hotRegion == null || hotRegion.getBoundsInLocal().getWidth() < 1) {
             hotRegion = getSkinnable();
@@ -104,8 +105,7 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
         }
 
         // right edge check
-        delta = hotRegion.localToScene(0, 0).getX() + hotRegion.getWidth()
-                - evt.getSceneX();
+        delta = hotRegion.localToScene(0, 0).getX() + hotRegion.getWidth() - evt.getSceneX();
         if (delta < proximity) {
             xOffset = proximity - delta;
         }
@@ -136,10 +136,10 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
 
     private Region getClippedContainer() {
 
-		/*
-		 * Safest way to find the clipped container. lookup() does not work at
-		 * all.
-		 */
+        /*
+         * Safest way to find the clipped container. lookup() does not work at
+         * all.
+         */
         for (Node child : getVirtualFlow().getChildrenUnmodifiable()) {
             if (child.getStyleClass().contains("clipped-container")) {
                 return (Region) child;
@@ -155,17 +155,17 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
         private double yOffset;
 
         public ScrollThread() {
-            super("Autoscrolling List View"); 
+            super("Autoscrolling List View");
             setDaemon(true);
         }
 
         @Override
         public void run() {
 
-			/*
-			 * Some initial delay, especially useful when dragging something in
-			 * from the outside.
-			 */
+            /*
+             * Some initial delay, especially useful when dragging something in
+             * from the outside.
+             */
 
             try {
                 Thread.sleep(500);
@@ -223,10 +223,10 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
     private void stopAutoScrollIfNeeded(DragEvent evt) {
         if (scrollThread != null) {
 
-			/*
-			 * We do not have to stop the automatic scrolling after a DRAG_EXITED_TARGET event
-			 * if the drag gesture source was the row canvas.
-			 */
+            /*
+             * We do not have to stop the automatic scrolling after a DRAG_EXITED_TARGET event
+             * if the drag gesture source was the row canvas.
+             */
             boolean stopAutoScroll = true;
 
             EventType<DragEvent> eventType = evt.getEventType();
@@ -284,14 +284,15 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
         List<RowCell<R>> cells = getVisibleRowCells();
         for (RowCell<R> cell : cells) {
             Bounds cellBounds = cell.localToScene(cell.getLayoutBounds());
+
             if (cellBounds.intersects(lassoBounds)) {
                 RowPane<R> pane = cell.getRowPane();
                 RowCanvas<R> canvas = pane.getCanvas();
 
                 List<ActivityBounds> selections = canvas.getActivityBounds(lasso.getBoundsInLocal().getMinX(),
-                                Math.max(0, lassoBounds.getMinY() - cellBounds.getMinY()),
-                                lasso.getBoundsInLocal().getWidth(),
-                                lasso.getBoundsInLocal().getHeight());
+                        Math.max(0, lassoBounds.getMinY() - cellBounds.getMinY()),
+                        lasso.getBoundsInLocal().getWidth(),
+                        lasso.getBoundsInLocal().getHeight());
 
                 List<ActivityRef<?>> refs = selections.stream()
                         .map(ActivityBounds::getActivityRef)
@@ -306,9 +307,9 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
 
     @Override
     protected final RowPane<R> getRowPaneAt(double y) {
-		/*
-		 * Careful when checking hits
-		 */
+        /*
+         * Careful when checking hits
+         */
         Point2D localToScene = getSkinnable().localToScene(0, y);
         List<RowCell<R>> cells = getVisibleRowCells();
         for (RowCell<R> cell : cells) {
@@ -323,7 +324,7 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
 
     @Override
     protected boolean isRowAboveViewport(R row) {
-        VirtualFlow<?> flow = (VirtualFlow<?>) listView.lookup("#virtual-flow"); 
+        VirtualFlow<?> flow = (VirtualFlow<?>) listView.lookup("#virtual-flow");
         @SuppressWarnings("unchecked")
         RowCell<R> rowCell = (RowCell<R>) flow.getFirstVisibleCell();
         if (rowCell == null) {
@@ -405,11 +406,17 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
         }
     }
 
+    private VirtualFlow<RowCell<R>> flow;
+
     private List<RowCell<R>> getVisibleRowCells() {
 
         List<RowCell<R>> visibleRowCells = new ArrayList<>();
 
-        VirtualFlow<RowCell<R>> flow = (VirtualFlow<RowCell<R>>) listView.lookup("VirtualFlow"); 
+        if (flow == null) {
+            flow = (VirtualFlow<RowCell<R>>) listView.lookup("VirtualFlow");
+        }
+
+        // flow could still be null
         if (flow != null) {
 
             RowCell<R> firstCell = flow.getFirstVisibleCell();
@@ -417,11 +424,11 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
 
             if (firstCell != null && lastCell != null) {
 
-				/*
-				 * First and last cell calculations of VirtualFlow are not
-				 * precise enough, so to make sure we subtract -1 from the first
-				 * cell index and add 1 to the last cell index.
-				 */
+                /*
+                 * First and last cell calculations of VirtualFlow are not
+                 * precise enough, so to make sure we subtract -1 from the first
+                 * cell index and add 1 to the last cell index.
+                 */
                 for (int index = Math.max(0, firstCell.getIndex() - 1); index <= lastCell.getIndex() + 2; index++) {
                     RowCell<R> cell = flow.getVisibleCell(index);
                     if (cell != null) {
@@ -435,114 +442,15 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
     }
 
     private void registerListViewScrollBarListener() {
-        ScrollBar graphicsViewScrollBar = findScrollBar(listView, Orientation.VERTICAL);
+        ScrollBar scrollBar = findScrollBar(listView, Orientation.VERTICAL);
 
-        if (graphicsViewScrollBar != null) {
-
-            graphicsViewScrollBar.valueProperty().addListener(observable -> getSkinnable().layoutLinks());
-
-            // TODO: put back in
-            // graphicsViewScrollBar.addEventHandler(MouseEvent.MOUSE_MOVED,
-            // evt -> showLens(evt, graphicsViewScrollBar));
-            // graphicsViewScrollBar.addEventHandler(MouseEvent.MOUSE_PRESSED,
-            // evt -> hideLens(evt));
-            // graphicsViewScrollBar.addEventHandler(MouseEvent.MOUSE_DRAGGED,
-            // evt -> hideLens(evt));
+        if (scrollBar != null) {
+            scrollBar.addEventFilter(MouseEvent.MOUSE_DRAGGED, evt -> getSkinnable().drawLinks("scrolling down, mouse event"));
+            scrollBar.valueProperty().addListener(it -> {
+                getSkinnable().drawLinks("scrolling down");
+            });
         }
     }
-
-    // private PopOver lensPopOver;
-    //
-    // private Lens<R> lens;
-    //
-    // class ShowLensThread extends Thread {
-    //
-    // private boolean running = true;
-    // private MouseEvent evt;
-    // private ScrollBar scrollbar;
-    //
-    // public ShowLensThread(MouseEvent evt, ScrollBar bar) {
-    // super("FlexGanttFX - Show Lens Thread");
-    //
-    // setDaemon(true);
-    //
-    // this.evt = requireNonNull(evt);
-    // this.scrollbar = requireNonNull(bar);
-    // }
-    //
-    // public void stopRunning() {
-    // running = false;
-    // }
-    //
-    // @Override
-    // public void run() {
-    // try {
-    // sleep(1000);
-    // if (running) {
-    // System.out.println("thread still running, showing lens");
-    // Platform.runLater(() -> doShowLens(evt, scrollbar));
-    // }
-    // } catch (InterruptedException ex) {
-    // ex.printStackTrace();
-    // }
-    // }
-    // }
-    //
-    // private ShowLensThread showLensThread;
-    //
-    // private void showLens(MouseEvent evt, ScrollBar scrollbar) {
-    // if (lensPopOver != null && !lensPopOver.isDetached()
-    // && lensPopOver.isShowing()) {
-    // doShowLens(evt, scrollbar);
-    // } else {
-    // if (showLensThread != null) {
-    // System.out.println("found existing thread, stopping it");
-    // showLensThread.stopRunning();
-    // }
-    //
-    // System.out.println("creating new thread");
-    // showLensThread = new ShowLensThread(evt, scrollbar);
-    // showLensThread.start();
-    // }
-    // }
-    //
-    // private void doShowLens(MouseEvent evt, ScrollBar scrollbar) {
-    // ListViewGraphics<R> skinnable = getSkinnable();
-    // ObservableList<R> rows = skinnable.getRows();
-    //
-    // if (lensPopOver == null || lensPopOver.isDetached()) {
-    // lens = new Lens<>(getSkinnable());
-    // lensPopOver = new PopOver();
-    // lensPopOver.getStyleClass().add("graphics-lens-popover");
-    // lensPopOver.setContentNode(lens);
-    // lensPopOver.setArrowLocation(RIGHT_CENTER);
-    // Bindings.bindContent(lens.getRows(), rows);
-    // }
-    //
-    // double value = scrollbar.getMax() * evt.getY() / scrollbar.getHeight();
-    //
-    // int startIndex = (int) (rows.size() * value);
-    // lens.setStartIndex(startIndex);
-    //
-    // if (lensPopOver.isShowing()) {
-    // lensPopOver.setY(evt.getScreenY() - lensPopOver.getHeight() / 2);
-    // } else {
-    // lensPopOver.show(skinnable, scrollbar
-    // .localToScreen(-20, evt.getY()).getX(), evt.getScreenY());
-    // }
-    // }
-    //
-    // private void hideLens(MouseEvent evt) {
-    // System.out.println("hiding lens");
-    // if (showLensThread != null) {
-    // System.out.println("killing thread");
-    // showLensThread.stopRunning();
-    // }
-    //
-    // if (lensPopOver != null) {
-    // lensPopOver.hide();
-    // }
-    // }
 
     private ScrollBar findScrollBar(Parent parent, Orientation orientation) {
         for (Node node : parent.getChildrenUnmodifiable()) {

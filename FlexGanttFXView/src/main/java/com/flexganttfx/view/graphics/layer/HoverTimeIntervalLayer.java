@@ -83,10 +83,8 @@ public class HoverTimeIntervalLayer<R extends Row<?, ?, ?>> extends
 		if (hoverTimeInterval != null) {
 			gc.setFill(getHoverTimeIntervalFill());
 
-			double x1 = snapPosition(timelineModel
-					.calculateLocationForTime(hoverTimeInterval.getStartTime()));
-			double x2 = snapPosition(timelineModel
-					.calculateLocationForTime(hoverTimeInterval.getEndTime()));
+			double x1 = snapPosition(timelineModel.calculateLocationForTime(hoverTimeInterval.getStartTime()) + getGraphics().getCanvasBuffer() - canvas.getTranslateX());
+			double x2 = snapPosition(timelineModel.calculateLocationForTime(hoverTimeInterval.getEndTime()) + getGraphics().getCanvasBuffer() - canvas.getTranslateX());
 
 			gc.fillRect(x1, 0, x2 - x1, canvas.getHeight());
 		}

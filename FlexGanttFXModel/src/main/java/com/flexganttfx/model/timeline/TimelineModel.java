@@ -355,8 +355,7 @@ public abstract class TimelineModel<T extends TemporalUnit> {
 
     // Start time support.
 
-    private final ObjectProperty<Instant> startTime = new SimpleObjectProperty<Instant>(
-            this, "startTime", Instant.now()) {
+    private final ObjectProperty<Instant> startTime = new SimpleObjectProperty<>(this, "startTime", Instant.now()) {
 
         @Override
         public void set(Instant newTime) {
@@ -510,7 +509,7 @@ public abstract class TimelineModel<T extends TemporalUnit> {
      */
     public final Instant calculateTimeForLocation(double location) {
 
-        long millis = (long) (location * getMillisPerPixel());
+        long millis = (long) ((location) * getMillisPerPixel());
 
         Instant startTime = getStartTime();
 

@@ -1,12 +1,16 @@
 /**
  * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package impl.com.flexganttfx.skin.graphics;
 
 import com.flexganttfx.core.LoggingDomain;
-import com.flexganttfx.model.*;
+import com.flexganttfx.model.Activity;
+import com.flexganttfx.model.ActivityRef;
+import com.flexganttfx.model.Calendar;
+import com.flexganttfx.model.Layout;
+import com.flexganttfx.model.Row;
 import com.flexganttfx.model.calendar.CalendarActivity;
 import com.flexganttfx.model.dateline.VirtualGrid;
 import com.flexganttfx.model.layout.AgendaLayout;
@@ -74,7 +78,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
     private final Region horizontalCursorIndicator;
     private final Cursor lassoCursor;
     private final Rectangle lasso;
-    private final LinksPane<R> linksPane;
+    private final LinksCanvas<R> linksCanvas;
     private final DragCanvas<R> dragCanvas;
     private final Pane clippedContent;
 
@@ -130,8 +134,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
                     break;
                 case BACK_SPACE:
                 case DELETE:
-                    for (ActivityRef<?> ref : new ArrayList<>(
-                            graphics.getSelectedActivities())) {
+                    for (ActivityRef<?> ref : new ArrayList<>(graphics.getSelectedActivities())) {
                         Activity activity = ref.getActivity();
                         Callback<EditingCallbackParameter, Boolean> callback = graphics.getActivityEditingCallback(activity.getClass());
                         EditingCallbackParameter param = new EditingCallbackParameter(ref, EditMode.DELETING);
@@ -166,8 +169,8 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         graphics.addEventHandler(KeyEvent.KEY_PRESSED, arrowKeysHandler);
         graphics.addEventHandler(KeyEvent.KEY_TYPED, plusMinusKeyHandler);
 
-        linksPane = createLinksPane();
-        linksPane.setManaged(false);
+        linksCanvas = createLinksCanvas();
+        linksCanvas.setManaged(false);
 
         dragCanvas = createDragCanvas();
         dragCanvas.setManaged(false);
@@ -176,8 +179,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         verticalCursorLine.setMouseTransparent(true);
         verticalCursorLine.setManaged(false);
 
-        BooleanBinding verticalCursorVisible = Bindings.createBooleanBinding(
-                () -> graphics.getRowsEditing().isEmpty()
+        BooleanBinding verticalCursorVisible = Bindings.createBooleanBinding(() -> graphics.getRowsEditing().isEmpty()
                         && graphics.isShowVerticalCursor()
                         && graphics.getPressedActivity() == null
                         && graphics.getTimeline().getEventline()
@@ -194,10 +196,8 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         horizontalCursorLine.setMouseTransparent(true);
         horizontalCursorLine.setManaged(false);
 
-        BooleanBinding horizontalCursorVisible = Bindings.createBooleanBinding(
-                () -> graphics.getHoverLayout() != null
-                        && graphics.getHoverLayout()
-                        .isSupportingHorizontalCursorLine()
+        BooleanBinding horizontalCursorVisible = Bindings.createBooleanBinding(() -> graphics.getHoverLayout() != null
+                        && graphics.getHoverLayout().isSupportingHorizontalCursorLine()
                         && graphics.isShowScaleLayer()
                         && graphics.isShowHorizontalCursor()
                         && graphics.getRowsEditing().isEmpty()
@@ -242,7 +242,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         getChildren().add(region);
 
         clippedContent = new Pane(
-                linksPane,
+                linksCanvas,
                 horizontalCursorLine,
                 horizontalCursorIndicator,
                 verticalCursorLine,
@@ -314,8 +314,8 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         return new DragCanvas<>(getSkinnable());
     }
 
-    protected LinksPane<R> createLinksPane() {
-        return new LinksPane<>(getSkinnable());
+    protected LinksCanvas<R> createLinksCanvas() {
+        return new LinksCanvas<>(getSkinnable());
     }
 
     public final DragCanvas<R> getDragCanvas() {
@@ -326,8 +326,8 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         return lasso;
     }
 
-    protected final LinksPane<R> getLinksPane() {
-        return linksPane;
+    protected final LinksCanvas<R> getLinksCanvas() {
+        return linksCanvas;
     }
 
     protected abstract Region createRowPaneRegion();
@@ -379,12 +379,10 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         List<ActivityRef<?>> activities = findLassoSelectedActivities();
 
         if (lassoStartTime.isBefore(lassoEndTime)) {
-            return new LassoInfo(evt, lassoStartTime, lassoEndTime,
-                    localStartTime, localEndTime, rows, activities);
+            return new LassoInfo(evt, lassoStartTime, lassoEndTime, localStartTime, localEndTime, rows, activities);
         }
 
-        return new LassoInfo(evt, lassoEndTime, lassoStartTime, localStartTime,
-                localEndTime, rows, activities);
+        return new LassoInfo(evt, lassoEndTime, lassoStartTime, localStartTime, localEndTime, rows, activities);
     }
 
     protected final RowPane<R> getRowPane(ActivityRef<?> ref) {
@@ -430,7 +428,9 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
                 y = activityBounds.getMinY() + transY;
                 w = activityBounds.getWidth();
                 h = activityBounds.getHeight();
+
             }
+
         } else {
             R row = (R) ref.getRow();
             if (isRowAboveViewport(row)) {
@@ -441,10 +441,9 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
 
             TimelineModel<?> timelineModel = getTimeline().getModel();
 
-            double x1 = timelineModel
-                    .calculateLocationForTime(ref.getActivity().getStartTime());
-            double x2 = timelineModel
-                    .calculateLocationForTime(ref.getActivity().getEndTime());
+            // TODO: translate
+            double x1 = timelineModel.calculateLocationForTime(ref.getActivity().getStartTime());
+            double x2 = timelineModel.calculateLocationForTime(ref.getActivity().getEndTime());
 
             x = x1;
             w = x2 - x1;
@@ -493,8 +492,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
     public final List<ActivityRef<?>> getAllActivityRefsAt(double x, double y) {
         List<ActivityRef<?>> result = new ArrayList<>();
         List<ActivityBounds> bounds = getAllActivityBoundsAt(x, y);
-        result.addAll(bounds.stream().map(ActivityBounds::getActivityRef)
-                .collect(Collectors.toList()));
+        result.addAll(bounds.stream().map(ActivityBounds::getActivityRef).collect(Collectors.toList()));
         return result;
     }
 
@@ -514,21 +512,17 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         R row = getRowAt(y);
 
         if (row != null) {
-            addCalendarEntries(result, row.getCalendars(), time, unit,
-                    row.getZoneId());
+            addCalendarEntries(result, row.getCalendars(), time, unit, row.getZoneId());
         }
 
         return result;
     }
 
-    private void addCalendarEntries(List<CalendarActivity> result,
-                                    List<Calendar<?>> calendars, Instant time, TemporalUnit unit,
-                                    ZoneId zoneId) {
+    private void addCalendarEntries(List<CalendarActivity> result, List<Calendar<?>> calendars, Instant time, TemporalUnit unit, ZoneId zoneId) {
 
         for (Calendar<?> calendar : calendars) {
             @SuppressWarnings("unchecked")
-            Iterator<CalendarActivity> activities = (Iterator<CalendarActivity>) calendar
-                    .getActivities(null, time, time, unit, zoneId);
+            Iterator<CalendarActivity> activities = (Iterator<CalendarActivity>) calendar.getActivities(null, time, time, unit, zoneId);
             if (activities != null) {
                 while (activities.hasNext()) {
                     result.add(activities.next());
@@ -564,8 +558,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         RowCanvas<R> canvas = getRowCanvasAt(y);
         if (canvas != null) {
             Bounds canvasBounds = canvas.localToScene(canvas.getLayoutBounds());
-            return canvas
-                    .getLayoutAt(localToScene.getY() - canvasBounds.getMinY());
+            return canvas.getLayoutAt(localToScene.getY() - canvasBounds.getMinY());
         }
 
         return null;
@@ -576,8 +569,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         RowCanvas<R> canvas = getRowCanvasAt(y);
         if (canvas != null) {
             Bounds canvasBounds = canvas.localToScene(canvas.getLayoutBounds());
-            return canvas.getLayoutBoundsAt(
-                    localToScene.getY() - canvasBounds.getMinY());
+            return canvas.getLayoutBoundsAt(localToScene.getY() - canvasBounds.getMinY());
         }
 
         return null;
@@ -612,12 +604,11 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
     }
 
     @Override
-    protected void layoutChildren(double contentX, double contentY,
-                                  double contentWidth, double contentHeight) {
+    protected void layoutChildren(double contentX, double contentY, double contentWidth, double contentHeight) {
         super.layoutChildren(contentX, contentY, contentWidth, contentHeight);
 
-        linksPane.resizeRelocate(contentX, contentY, contentWidth,
-                contentHeight);
+        linksCanvas.setWidth(contentWidth);
+        linksCanvas.setHeight(contentHeight);
 
         dragCanvas.setWidth(contentWidth);
         dragCanvas.setHeight(contentHeight);
@@ -634,16 +625,13 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
             lasso.setX(Math.min(x1, x2));
             lasso.setY(Math.min(lassoY1, lassoY2));
             lasso.setWidth(Math.max(x2, x1) - Math.min(x1, x2));
-            lasso.setHeight(
-                    Math.max(lassoY1, lassoY2) - Math.min(lassoY1, lassoY2));
+            lasso.setHeight(Math.max(lassoY1, lassoY2) - Math.min(lassoY1, lassoY2));
             lasso.setVisible(true);
 
             if (lassoStartTime.isBefore(lassoEndTime)) {
-                getTimeline().getEventline().setMarkedTimeInterval(
-                        new TimeInterval(lassoStartTime, lassoEndTime));
+                getTimeline().getEventline().setMarkedTimeInterval(new TimeInterval(lassoStartTime, lassoEndTime));
             } else {
-                getTimeline().getEventline().setMarkedTimeInterval(
-                        new TimeInterval(lassoEndTime, lassoStartTime));
+                getTimeline().getEventline().setMarkedTimeInterval(new TimeInterval(lassoEndTime, lassoStartTime));
             }
         }
     }
@@ -705,11 +693,11 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
 
             Timeline timeline = getTimeline();
 
-			/*
+            /*
              * Clear the dateline selection of intervals, but only if the
-			 * primary button was used. This way we can still use the selection
-			 * while working with the context menu.
-			 */
+             * primary button was used. This way we can still use the selection
+             * while working with the context menu.
+             */
             if (evt.isPrimaryButtonDown()) {
                 timeline.getDateline().getSelectedIntervals().clear();
             }
@@ -722,10 +710,10 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
                 if (getSkinnable().getEditMode().equals(EditMode.NONE)
                         && getSkinnable().getHoverActivity() == null) {
 
-					/*
+                    /*
                      * First we assume the lasso has never actually started.
-					 * This flag gets set to true in the startLasso() method.
-					 */
+                     * This flag gets set to true in the startLasso() method.
+                     */
                     lassoStarted = false;
 
                     startLasso(evt);
@@ -733,8 +721,8 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
             } else {
                 /*
                  * First we assume the lasso has never actually started. This
-				 * flag gets set to true in the startLasso() method.
-				 */
+                 * flag gets set to true in the startLasso() method.
+                 */
                 lassoStarted = false;
 
                 startLassoThread = new StartLassoThread(evt);
@@ -781,10 +769,10 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
 
                 lassoY2 = evt.getY();
 
-				/*
+                /*
                  * The lasso has to have a minimum size before we consider it
-				 * being "used".
-				 */
+                 * being "used".
+                 */
                 if (Math.abs(lassoY2 - lassoY1) > 5) {
                     lassoUsed = true;
                 }
@@ -806,14 +794,13 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
                 double scrollX = evt.getScreenX();
                 double deltaX = mouseStartX - scrollX;
 
-                Instant newStartTime = timelineModel
-                        .calculateTimeForLocation(deltaX);
+                Instant newStartTime = timelineModel.calculateTimeForLocation(deltaX);
 
-				/*
-				 * Hack for the case when the dateline displays SimpleUnit.ONE.
-				 * In this case the same instant is shown across several pixels
-				 * and the dateline will hardly move.
-				 */
+                /*
+                 * Hack for the case when the dateline displays SimpleUnit.ONE.
+                 * In this case the same instant is shown across several pixels
+                 * and the dateline will hardly move.
+                 */
                 if (newStartTime.equals(timelineModel.getStartTime())) {
                     if (deltaX > 0) {
                         newStartTime = newStartTime.plusMillis(1);
@@ -828,8 +815,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
             }
         });
 
-        node.widthProperty().addListener(
-                (value, oldNumber, newNumber) -> getSkinnable().redraw());
+        node.widthProperty().addListener((value, oldNumber, newNumber) -> getSkinnable().redraw());
 
         node.heightProperty().addListener((value, oldHeight, newHeight) -> {
             verticalCursorLine.setEndY(newHeight.doubleValue());
@@ -838,8 +824,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
     }
 
     private void updateCursorLocation(double location) {
-        getTimeline().getEventline().getProperties()
-                .put("com.flexganttfx.eventline.cursor.location", location);
+        getTimeline().getEventline().getProperties().put("com.flexganttfx.eventline.cursor.location", location);
     }
 
     class StartLassoThread extends Thread {
@@ -885,10 +870,10 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
 
         lassoStarted = true;
 
-		/*
-		 * The lasso is only considered "used" after the user has performed a
-		 * minimum drag.
-		 */
+        /*
+         * The lasso is only considered "used" after the user has performed a
+         * minimum drag.
+         */
         lassoUsed = false;
 
         lassoY1 = evt.getY();
@@ -922,22 +907,21 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
 
         LassoInfo info = createLassoInfo(evt);
 
-        LassoEvent lassoEvent = new LassoEvent(getSkinnable(),
-                LassoEvent.SELECTION_FINISHED, info);
+        LassoEvent lassoEvent = new LassoEvent(getSkinnable(), LassoEvent.SELECTION_FINISHED, info);
 
         getSkinnable().fireEvent(lassoEvent);
 
-        getSkinnable().getProperties().put("com.flexganttfx.lassoActive",
-                false);
+        getSkinnable().getProperties().put("com.flexganttfx.lassoActive", false);
 
         if (getSkinnable().getRows().isEmpty()) {
-			/*
-			 * Normally the RowCanvasBehaviour class takes care of clearing the marked
-			 * time interval, but when there are no rows then there are no canvases and
-			 * no RowCanvasBehaviour to clear it.
-			 *
-			 * See also FLEXFX-271: "Marker lines stay visible when no rows in Gantt chart"
-			 */
+
+            /*
+             * Normally the RowCanvasBehaviour class takes care of clearing the marked
+             * time interval, but when there are no rows then there are no canvases and
+             * no RowCanvasBehaviour to clear it.
+             *
+             * See also FLEXFX-271: "Marker lines stay visible when no rows in Gantt chart"
+             */
             getTimeline().getEventline().setMarkedTimeInterval(null);
         }
 
@@ -961,10 +945,8 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         TimelineModel<?> model = timeline.getModel();
 
         if (newInterval != null) {
-            double x1 = model
-                    .calculateLocationForTime(newInterval.getStartTime());
-            double x2 = model
-                    .calculateLocationForTime(newInterval.getEndTime());
+            double x1 = model.calculateLocationForTime(newInterval.getStartTime());
+            double x2 = model.calculateLocationForTime(newInterval.getEndTime());
 
             markedStartTimeLine.setStartX(x1);
             markedStartTimeLine.setEndX(x1);

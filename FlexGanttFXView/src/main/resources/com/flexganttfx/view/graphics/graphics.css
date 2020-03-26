@@ -141,44 +141,6 @@
 }
 
 /*
- * The styles used for the activity links. A link consists of a path and two
- * regions (one for the start handle, one for the end handle).
- */
-
-.link {
-    -fx-stroke-width: 1.5px;
-    -fx-stroke: rosybrown;
-}
-
-.link-start-handle {
-    -fx-border-color: derive(rosybrown, -20%);
-    -fx-background-color: derive(rosybrown, -20%);
-    -fx-pref-width: 6px;
-    -fx-pref-height: 6px;
-    -fx-translate-y: -3px;
-    -fx-shape: "M 100, 100  m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0";
-    -fx-scale-shape: true;
-}
-
-.link-end-handle {
-    -fx-background-color: derive(rosybrown, -20%);
-    -fx-pref-width: 8px;
-    -fx-pref-height: 8px;
-    -fx-translate-x: -8px;
-    -fx-translate-y: -4px;
-    -fx-shape: "M 0 0 L 100 50 L 0 100 L 0 0 Z";
-    -fx-scale-shape: true;
-}
-
-.link-start-handle-rotated {
-    -fx-translate-x: -6px;
-}
-
-.link-end-handle-rotated {
-    -fx-translate-x: 0;
-}
-
-/*
  * The lens for the graphics area. Experimental. Feature planned for 1.2 release earliest.
  */
 .graphics-lens {

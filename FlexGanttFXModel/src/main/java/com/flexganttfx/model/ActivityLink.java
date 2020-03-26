@@ -5,6 +5,8 @@
  */
 package com.flexganttfx.model;
 
+import java.time.Instant;
+
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -20,7 +22,9 @@ import static java.util.Objects.requireNonNull;
  *
  * @since 1.0
  */
-public class ActivityLink<A extends Activity> {
+public class ActivityLink<A extends Activity> implements Activity {
+
+	private Object userObject;
 
 	/**
 	 * An enumerator listing the available link types.
@@ -172,5 +176,47 @@ public class ActivityLink<A extends Activity> {
 	public void setType(LinkType type) {
 		requireNonNull(type);
 		this.type = type;
+	}
+
+	@Override
+	public String getName() {
+		return getSourceActivityRef().getActivity().getName() + " -> " + getTargetActivityRef().getActivity().getName();
+	}
+
+	@Override
+	public String getId() {
+		return "";
+	}
+
+	@Override
+	public final Instant getStartTime() {
+		return Instant.ofEpochMilli(Math.min(
+				getSourceActivityRef().getActivity().getStartTime().toEpochMilli(),
+				getTargetActivityRef().getActivity().getStartTime().toEpochMilli()));
+	}
+
+	@Override
+	public final Instant getEndTime() {
+		return Instant.ofEpochMilli(Math.max(
+				getSourceActivityRef().getActivity().getEndTime().toEpochMilli(),
+				getTargetActivityRef().getActivity().getEndTime().toEpochMilli()));
+	}
+
+	/**
+	 * An optional user object that might be useful for creating a custom renderer.
+	 *
+	 * @param userObject an optional user object
+	 */
+	public final void setUserObject(Object userObject) {
+		this.userObject = userObject;
+	}
+
+	/**
+	 * Returns the (optional) user object of the activity link.
+	 *
+	 * @return the optional user object
+	 */
+	public final Object getUserObject() {
+		return userObject;
 	}
 }

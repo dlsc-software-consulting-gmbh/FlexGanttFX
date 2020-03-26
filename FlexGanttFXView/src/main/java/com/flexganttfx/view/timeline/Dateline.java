@@ -18,17 +18,30 @@ import impl.com.flexganttfx.skin.timeline.ChronoUnitDatelineCell;
 import impl.com.flexganttfx.skin.timeline.DatelineSkin;
 import impl.com.flexganttfx.skin.timeline.SimpleUnitDatelineCell;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.*;
-import javafx.beans.value.ObservableValue;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ObjectPropertyBase;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.Skin;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
-import org.controlsfx.control.PropertySheet.Item;
 
 import java.time.DayOfWeek;
 import java.time.Instant;
@@ -36,7 +49,9 @@ import java.time.ZoneId;
 import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 import static java.util.Objects.requireNonNull;
 import static javafx.scene.control.SelectionMode.MULTIPLE;
@@ -102,7 +117,7 @@ public class Dateline extends FlexGanttFXControl {
 				 */
                 TimelineModel<?> timelineModel = timeline.getModel();
 
-                selectionStart = timelineModel.calculateTimeForLocation(evt.getX());
+                selectionStart = timelineModel.calculateTimeForLocation(evt.getX() - getDatelineBuffer() + getTranslateX());
                 selectedTimeInterval.set(new TimeInterval(selectionStart, selectionStart));
             } else {
                 /*
@@ -122,7 +137,7 @@ public class Dateline extends FlexGanttFXControl {
 				 */
                 if (isZoomLassoEnabled() && !timeline.isScrollDragEnabled() && evt.getSource().equals(Dateline.this)) {
                     TimelineModel<?> timelineModel = timeline.getModel();
-                    selectionEnd = timelineModel.calculateTimeForLocation(evt.getX());
+                    selectionEnd = timelineModel.calculateTimeForLocation(evt.getX() - getDatelineBuffer() + getTranslateX());
 
                     if (selectionStart.isBefore(selectionEnd) || selectionStart.equals(selectionEnd)) {
                         selectedTimeInterval.set(new TimeInterval(selectionStart, selectionEnd));
@@ -614,6 +629,20 @@ public class Dateline extends FlexGanttFXControl {
         return selectionModeProperty().get();
     }
 
+    private final DoubleProperty datelineBuffer = new SimpleDoubleProperty(this, "datelineBuffer", 500);
+
+    public double getDatelineBuffer() {
+        return datelineBuffer.get();
+    }
+
+    public DoubleProperty datelineBufferProperty() {
+        return datelineBuffer;
+    }
+
+    public void setDatelineBuffer(double datelineBuffer) {
+        this.datelineBuffer.set(datelineBuffer);
+    }
+
     // iCal support
 
     private final ObservableList<Calendar<?>> calendars = FXCollections.observableArrayList();
@@ -736,165 +765,5 @@ public class Dateline extends FlexGanttFXControl {
             int count = getModel().getScaleCount();
             getModel().setScaleCount(count + 1);
         };
-    }
-
-    private static final String DATELINE_PROPERTIES_CATEGORY = "Control: Dateline";
-
-    public final List<Item> getPropertySheetItems() {
-        List<Item> items = new ArrayList<>();
-
-        items.add(new Item() {
-
-            @Override
-            public Optional<ObservableValue<?>> getObservableValue() {
-                return Optional.of(selectionModeProperty());
-            }
-
-            @Override
-            public void setValue(Object value) {
-                setSelectionMode((SelectionMode) value);
-            }
-
-            @Override
-            public Object getValue() {
-                return getSelectionMode();
-            }
-
-            @Override
-            public Class<?> getType() {
-                return SelectionMode.class;
-            }
-
-            @Override
-            public String getName() {
-                return "Selection Mode";
-            }
-
-            @Override
-            public String getDescription() {
-                return "Single or multiple selections of dateline cells / time intervals.";
-            }
-
-            @Override
-            public String getCategory() {
-                return DATELINE_PROPERTIES_CATEGORY;
-            }
-        });
-
-        items.add(new Item() {
-
-            @Override
-            public Optional<ObservableValue<?>> getObservableValue() {
-                return Optional.of(zoneIdProperty());
-            }
-
-            @Override
-            public void setValue(Object value) {
-                setZoneId((ZoneId) value);
-            }
-
-            @Override
-            public Object getValue() {
-                return getZoneId();
-            }
-
-            @Override
-            public Class<?> getType() {
-                return ZoneId.class;
-            }
-
-            @Override
-            public String getName() {
-                return "Timezone";
-            }
-
-            @Override
-            public String getDescription() {
-                return "The timezone that will be displayed by the dateline.";
-            }
-
-            @Override
-            public String getCategory() {
-                return DATELINE_PROPERTIES_CATEGORY;
-            }
-        });
-
-        items.add(new Item() {
-
-            @Override
-            public Optional<ObservableValue<?>> getObservableValue() {
-                return Optional.of(firstDayOfWeekProperty());
-            }
-
-            @Override
-            public void setValue(Object value) {
-                setFirstDayOfWeek((DayOfWeek) value);
-            }
-
-            @Override
-            public Object getValue() {
-                return getFirstDayOfWeek();
-            }
-
-            @Override
-            public Class<?> getType() {
-                return DayOfWeek.class;
-            }
-
-            @Override
-            public String getName() {
-                return "First Day of Week";
-            }
-
-            @Override
-            public String getDescription() {
-                return "The day representing the beginning of the week.";
-            }
-
-            @Override
-            public String getCategory() {
-                return DATELINE_PROPERTIES_CATEGORY;
-            }
-        });
-
-        items.add(new Item() {
-
-            @Override
-            public Optional<ObservableValue<?>> getObservableValue() {
-                return Optional.of(zoomLassoEnabledProperty());
-            }
-
-            @Override
-            public void setValue(Object value) {
-                setZoomLassoEnabled((Boolean) value);
-            }
-
-            @Override
-            public Object getValue() {
-                return isZoomLassoEnabled();
-            }
-
-            @Override
-            public Class<?> getType() {
-                return Boolean.class;
-            }
-
-            @Override
-            public String getName() {
-                return "Support Zoom Lasso";
-            }
-
-            @Override
-            public String getDescription() {
-                return "If enabled the user can perform a zoom by selecting a time range with a lasso.";
-            }
-
-            @Override
-            public String getCategory() {
-                return DATELINE_PROPERTIES_CATEGORY;
-            }
-        });
-
-        return items;
     }
 }

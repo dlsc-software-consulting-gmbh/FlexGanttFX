@@ -5,13 +5,9 @@
  */
 package impl.com.flexganttfx.skin.graphics;
 
-import static java.lang.Double.MAX_VALUE;
-import static java.util.Objects.requireNonNull;
-
 import com.flexganttfx.model.Row;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.graphics.GraphicsBase.RowEditorParameter;
-
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -26,6 +22,9 @@ import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
+
+import static java.lang.Double.MAX_VALUE;
+import static java.util.Objects.requireNonNull;
 
 public class FlipPane<R extends Row<?, ?, ?>> extends StackPane {
 	private final StackPane front;
@@ -60,6 +59,12 @@ public class FlipPane<R extends Row<?, ?, ?>> extends StackPane {
 
 		front = new StackPane();
 		back = new StackPane();
+
+		front.setMinWidth(0);
+		back.setMinWidth(0);
+
+		front.setPrefSize(0,0);
+		back.setPrefSize(0,0);
 
 		back.setVisible(false);
 

@@ -1,12 +1,17 @@
 /**
  * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package impl.com.flexganttfx.skin.graphics;
 
 import com.flexganttfx.core.LoggingDomain;
-import com.flexganttfx.model.*;
+import com.flexganttfx.model.Activity;
+import com.flexganttfx.model.ActivityRef;
+import com.flexganttfx.model.ActivityRepository;
+import com.flexganttfx.model.Layer;
+import com.flexganttfx.model.Layout;
+import com.flexganttfx.model.Row;
 import com.flexganttfx.model.activity.ChartActivity;
 import com.flexganttfx.model.activity.HighLowChartActivity;
 import com.flexganttfx.model.exception.IllegalLineIndexException;
@@ -31,7 +36,11 @@ import impl.com.flexganttfx.skin.util.Resolver;
 import impl.com.flexganttfx.skin.util.ResolverResult;
 import javafx.beans.InvalidationListener;
 import javafx.beans.WeakInvalidationListener;
-import javafx.beans.property.*;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.WeakChangeListener;
 import javafx.collections.ListChangeListener;
@@ -43,16 +52,28 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 import java.text.MessageFormat;
-import java.time.*;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 
 import static com.flexganttfx.model.layout.AgendaLayout.LayoutStrategy.PARALLEL_OVERLAPPING;
-import static com.flexganttfx.view.util.Position.*;
+import static com.flexganttfx.view.util.Position.FIRST;
+import static com.flexganttfx.view.util.Position.LAST;
+import static com.flexganttfx.view.util.Position.MIDDLE;
+import static com.flexganttfx.view.util.Position.ONLY;
 import static java.time.temporal.ChronoUnit.DAYS;
 import static java.util.Objects.requireNonNull;
 
@@ -72,6 +93,10 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
     private RowCanvasBehaviour<?> rowCanvasBehaviour;
 
+    private Instant drawingStartTime;
+
+    private Instant drawingEndTime;
+
     public RowCanvas(GraphicsBase<R> graphics) {
         requireNonNull(graphics);
 
@@ -84,32 +109,65 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         rowCanvasBehaviour = new RowCanvasBehaviour<>(this);
 
-        rowProperty().addListener(evt -> draw());
+        rowProperty().addListener(evt -> draw("row model object changed"));
 
-        ChangeListener<ActivityRef<?>> weakActivityRedrawListener = new WeakChangeListener<>(
-                activityRedrawListener);
+        ChangeListener<ActivityRef<?>> weakActivityRedrawListener = new WeakChangeListener<>(activityRedrawListener);
+        graphics.editModeProperty().addListener(new WeakInvalidationListener(editModeListener));
+        graphics.hoverActivityProperty().addListener(weakActivityRedrawListener);
+        graphics.pressedActivityProperty().addListener(weakActivityRedrawListener);
+        graphics.getSelectedActivities().addListener(new WeakListChangeListener<>(selectedActivitiesListener));
 
-        graphics.editModeProperty()
-                .addListener(new WeakInvalidationListener(editModeListener));
-
-        graphics.hoverActivityProperty()
-                .addListener(weakActivityRedrawListener);
-        graphics.pressedActivityProperty()
-                .addListener(weakActivityRedrawListener);
-        graphics.getSelectedActivities().addListener(
-                new WeakListChangeListener<>(selectedActivitiesListener));
-
-        InvalidationListener pseudoStateRedrawListener = observable -> draw();
+        InvalidationListener pseudoStateRedrawListener = observable -> draw("pseudo state changed");
 
         hoverProperty().addListener(pseudoStateRedrawListener);
         pressedProperty().addListener(pseudoStateRedrawListener);
         focusedProperty().addListener(pseudoStateRedrawListener);
+
+        graphics.canvasBufferProperty().addListener(it -> {
+            setTranslateX(0);
+            draw("canvas buffer size changed");
+        });
+
+        graphics.canvasBufferProperty().addListener(it -> randomTranslateX(true));
+        randomTranslateX(true);
     }
 
-    private final ChangeListener<ActivityRef<?>> activityRedrawListener = (
-            observable, oldRef, newRef) -> {
-        if ((oldRef != null && oldRef.getRow() == getRow())
-                || (newRef != null && newRef.getRow() == getRow())) {
+    private void randomTranslateX(boolean scrollingRight) {
+        final double canvasBuffer = graphics.getCanvasBuffer();
+        final double offset = Math.random() * canvasBuffer / 4;
+
+        if (scrollingRight) {
+            setTranslateX(snapPosition(canvasBuffer - offset));
+        } else {
+            setTranslateX(snapPosition(-canvasBuffer + offset));
+        }
+    }
+
+    public void draw(String reason, Instant oldTime) {
+        final Timeline timeline = graphics.getTimeline();
+        double x = timeline.getModel().calculateLocationForTime(oldTime);
+
+        double newTranslateX = getTranslateX() + x;
+
+        if (Math.abs(newTranslateX) < graphics.getCanvasBuffer()) {
+            setTranslateX(newTranslateX);
+
+            Instant st = graphics.getTimeAt(0);
+            Instant et = graphics.getTimeAt(graphics.getWidth());
+
+            boolean contained = (st.equals(drawingStartTime) || st.isAfter(drawingStartTime)) && (et.equals(drawingEndTime) || et.isBefore(drawingEndTime));
+
+            if (!contained) {
+                draw(reason);
+            }
+        } else {
+            randomTranslateX((newTranslateX - getTranslateX()) < 0);
+            draw(reason);
+        }
+    }
+
+    private final ChangeListener<ActivityRef<?>> activityRedrawListener = (observable, oldRef, newRef) -> {
+        if ((oldRef != null && oldRef.getRow() == getRow()) || (newRef != null && newRef.getRow() == getRow())) {
 
             if (observable instanceof ReadOnlyProperty) {
                 if (LoggingDomain.RENDERING.isLoggable(Level.FINE)) {
@@ -120,7 +178,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                 }
             }
 
-            draw();
+            draw("activity redraw listener fired");
         }
     };
 
@@ -130,18 +188,17 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         }
     };
 
-    private final ListChangeListener<ActivityRef<?>> selectedActivitiesListener = (
-            Change<? extends ActivityRef<?>> change) -> {
+    private final ListChangeListener<ActivityRef<?>> selectedActivitiesListener = (Change<? extends ActivityRef<?>> change) -> {
         while (change.next()) {
             for (ActivityRef<?> ref : change.getAddedSubList()) {
                 if (ref.getRow() == getRow()) {
-                    draw();
+                    draw("selected activities listener fired after activities were added");
                     return;
                 }
             }
             for (ActivityRef<?> ref : change.getRemoved()) {
                 if (ref.getRow() == getRow()) {
-                    draw();
+                    draw("selected activities listener fired after activities were removed");
                     return;
                 }
             }
@@ -152,8 +209,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         return graphics;
     }
 
-    private final ChangeListener<Number> redrawListener = (value, oldSize,
-                                                           newSize) -> draw();
+    private final ChangeListener<Number> redrawListener = (value, oldSize, newSize) -> draw("redraw listener fired");
 
     private final ObjectProperty<R> row = new SimpleObjectProperty<>(this, "row");
 
@@ -190,9 +246,9 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
     private boolean safeRendering;
 
-    public final void draw() {
+    public final void draw(String reason) {
         if (LoggingDomain.RENDERING.isLoggable(Level.FINEST)) {
-            LoggingDomain.RENDERING.finest("drawing canvas of row " + getRow());
+            LoggingDomain.RENDERING.finest("drawing canvas of row " + getRow() + ", reason: " + reason);
         }
 
         activityBounds.clear();
@@ -210,12 +266,8 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         TimelineModel<?> timelineModel = getTimelineModel();
 
-        int extraPixels = graphics.getExtraPixels();
-        double startLocation = -extraPixels;
-        double endLocation = width + extraPixels;
-
-        Instant startTime = timelineModel.calculateTimeForLocation(startLocation);
-        Instant endTime = timelineModel.calculateTimeForLocation(endLocation);
+        drawingStartTime = timelineModel.calculateTimeForLocation(0 - graphics.getCanvasBuffer());
+        drawingEndTime = timelineModel.calculateTimeForLocation(getWidth() + graphics.getCanvasBuffer());
 
         safeRendering = getGraphics().isSafeRendering();
 
@@ -230,7 +282,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                         gc.save();
                     }
 
-                    drawSystemLayer(layer, gc, startTime, endTime);
+                    drawSystemLayer(layer, gc, drawingStartTime, drawingEndTime);
 
                     if (safeRendering) {
                         gc.restore();
@@ -238,8 +290,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                 }
             }
 
-            drawModelLayers();
-
+            drawModelLayers(drawingStartTime, drawingEndTime);
 
             for (SystemLayer layer : graphics.getForegroundSystemLayers()) {
                 if (layer.isVisible()) {
@@ -247,7 +298,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                         gc.save();
                     }
 
-                    drawSystemLayer(layer, gc, startTime, endTime);
+                    drawSystemLayer(layer, gc, drawingStartTime, drawingEndTime);
 
                     if (safeRendering) {
                         gc.restore();
@@ -274,8 +325,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         }
     }
 
-    private void drawSystemLayer(SystemLayer<R> layer, GraphicsContext gc,
-                                 Instant startTime, Instant endTime) {
+    private void drawSystemLayer(SystemLayer<R> layer, GraphicsContext gc, Instant startTime, Instant endTime) {
         double opacity = layer.getOpacity();
         if (opacity > 0) {
             gc.setGlobalAlpha(opacity);
@@ -283,7 +333,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         }
     }
 
-    private void drawModelLayers() throws IllegalLineIndexException, MissingActivityBoundsException {
+    private void drawModelLayers(Instant startTime, Instant endTime) throws IllegalLineIndexException, MissingActivityBoundsException {
 
         R row = getRow();
 
@@ -300,7 +350,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                         if (safeRendering) {
                             gc.save();
                         }
-                        drawLayer(row, layer, false);
+                        drawLayer(row, layer, startTime, endTime, false);
                     } finally {
                         if (safeRendering) {
                             gc.restore();
@@ -326,7 +376,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                             if (safeRendering) {
                                 gc.save();
                             }
-                            drawLayer(row, layer, true);
+                            drawLayer(row, layer, startTime, endTime, true);
                         } finally {
                             if (safeRendering) {
                                 gc.restore();
@@ -347,13 +397,10 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
-    private void drawLayer(Row row, Layer layer, boolean secondPass)
-            throws IllegalLineIndexException, MissingActivityBoundsException {
+    private void drawLayer(Row row, Layer layer, Instant startTime, Instant endTime, boolean secondPass) throws IllegalLineIndexException, MissingActivityBoundsException {
 
         Timeline timeline = graphics.getTimeline();
         TimelineModel<?> timelineModel = timeline.getModel();
-        Instant startTime = timelineModel.getStartTime();
-        Instant endTime = timelineModel.calculateTimeForLocation(timeline.getWidth());
         TemporalUnit temporalUnit = timeline.getDateline().getPrimaryTemporalUnit();
         ZoneId zoneId = row.getZoneId();
 
@@ -448,8 +495,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                     if (graphics.isDebugMode()) {
                         for (ActivityBounds b : bounds) {
                             getGraphicsContext2D().setStroke(Color.MAGENTA);
-                            getGraphicsContext2D().strokeRect(b.getMinX(),
-                                    b.getMinY(), b.getWidth(), b.getHeight());
+                            getGraphicsContext2D().strokeRect(b.getMinX(), b.getMinY(), b.getWidth(), b.getHeight());
                         }
                     }
                 }
@@ -457,8 +503,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         }
     }
 
-    private boolean isUsingAgendaLayout(Row<?, ?, ?> row)
-            throws IllegalLineIndexException {
+    private boolean isUsingAgendaLayout(Row<?, ?, ?> row) throws IllegalLineIndexException {
         if (row.getLayout() instanceof AgendaLayout) {
             return true;
         }
@@ -477,9 +522,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
-    private List<ActivityBounds> drawActivity(ActivityRef ref,
-                                              TimelineModel<?> timelineModel, ZoneId zoneId, double rowHeight,
-                                              boolean secondPass)
+    private List<ActivityBounds> drawActivity(ActivityRef ref, TimelineModel<?> timelineModel, ZoneId zoneId, double rowHeight, boolean secondPass)
             throws IllegalLineIndexException, MissingActivityBoundsException {
 
         List<ActivityBounds> boundsList = new ArrayList<>();
@@ -508,16 +551,15 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
             return Collections.emptyList();
         }
 
-        double x1 = timelineModel.calculateLocationForTime(activity.getStartTime());
-        double x2 = timelineModel.calculateLocationForTime(activity.getEndTime());
+        double x1 = calculateLocation(activity.getStartTime());
+        double x2 = calculateLocation(activity.getEndTime());
 
         boolean selected = graphics.getSelectedActivities().contains(ref);
         boolean focused = ref.equals(graphics.getHoverActivity());
         boolean pressed = ref.equals(graphics.getPressedActivity());
 
         boolean highlighted = false;
-        if (!graphics.getHighlightedActivities().isEmpty()
-                && graphics.isHighlighted()) {
+        if (!graphics.getHighlightedActivities().isEmpty() && graphics.isHighlighted()) {
             highlighted = graphics.getHighlightedActivities().contains(ref);
         }
 
@@ -531,16 +573,13 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         ActivityRenderer renderer = graphics
                 .getActivityRenderer(activity.getClass(), layout.getClass());
         if (renderer == null) {
-            throw new IllegalStateException(
-                    "no renderer found for activity of type "
-                            + activity.getClass() + " and layout of type "
-                            + layout.getClass());
+            throw new IllegalStateException("no renderer found for activity of type " + activity.getClass() + " and layout of type " + layout.getClass());
         }
         if (!renderer.isEnabled()) {
             return Collections.emptyList();
         }
 
-        GraphicsContext gc = getGraphicsContext2D();
+        final GraphicsContext gc = getGraphicsContext2D();
 
         double layerOpacity = ref.getLayer().getOpacity();
         double fadeInOutOpacity = ref.getLayer().getFadeInOutOpacity();
@@ -581,38 +620,31 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                     position = MIDDLE;
                 }
 
-                if (ActivityHelper.intersect(zonedStartDateTime.toInstant(),
-                        zonedEndDateTime.toInstant(),
-                        startOfDayTime.toInstant(), endOfDayTime.toInstant())) {
+                if (ActivityHelper.intersect(zonedStartDateTime.toInstant(), zonedEndDateTime.toInstant(), startOfDayTime.toInstant(), endOfDayTime.toInstant())) {
 
                     /*
-                     * The activity might not be visbile at all because the
+                     * The activity might not be visible at all because the
                      * agenda layout defines a start and end time other than
                      * from midnight till midnight.
                      */
 
-                    ZonedDateTime truncatedDateTime = zonedStartDateTime
-                            .truncatedTo(DAYS).plus(column, DAYS);
+                    ZonedDateTime truncatedDateTime = zonedStartDateTime.truncatedTo(DAYS).plus(column, DAYS);
 
-                    x1 = timelineModel.calculateLocationForTime(
-                            Instant.from(truncatedDateTime));
+                    x1 = calculateLocation(Instant.from(truncatedDateTime));
+                    x2 = calculateLocation(Instant.from(truncatedDateTime.plus(1, DAYS)));
 
-                    x2 = timelineModel.calculateLocationForTime(
-                            Instant.from(truncatedDateTime.plus(1, DAYS)));
+                    LayoutStrategy layoutStrategy = agendaLayout.getLayoutStrategy();
 
-                    LayoutStrategy layoutStrategy = agendaLayout
-                            .getLayoutStrategy();
                     switch (layoutStrategy) {
                         case OVERLAPPING:
-                            List<ActivityEntry> columnActivities = agendaColumnMap
-                                    .get((int) x1);
+                            List<ActivityEntry> columnActivities = agendaColumnMap.get((int) x1);
+
                             if (columnActivities == null) {
                                 columnActivities = new ArrayList<>();
                                 agendaColumnMap.put((int) x1, columnActivities);
                             }
 
-                            int insetLevel = computeInsetLevel(activity,
-                                    columnActivities);
+                            int insetLevel = computeInsetLevel(activity, columnActivities);
 
                             ActivityEntry entry = new ActivityEntry();
                             entry.activity = activity;
@@ -633,17 +665,14 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                                 }
 
                                 LocalDate date = startOfDayTime.toLocalDate();
-                                List<Activity> dateActivities = dateActivitiesMap
-                                        .computeIfAbsent(date,
-                                                it -> new ArrayList<>());
+                                List<Activity> dateActivities = dateActivitiesMap.computeIfAbsent(date, it -> new ArrayList<>());
                                 dateActivities.add(activity);
                             }
 
                             break;
                     }
 
-                    if (layoutStrategy.equals(LayoutStrategy.OVERLAPPING)
-                            || secondPass) {
+                    if (layoutStrategy.equals(LayoutStrategy.OVERLAPPING) || secondPass) {
                         double yy1 = yOffset;
 
                         if (column == 0) {
@@ -713,14 +742,11 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                         bounds = renderer.draw(ref, position, gc,
                                 snapPosition(x1), snapPosition(yy1),
                                 snapPosition(columnWidth),
-                                Math.max(1,
-                                        (snapPosition(yy2) - snapPosition(yy1)
-                                                - 1)),
+                                Math.max(1, (snapPosition(yy2) - snapPosition(yy1) - 1)),
                                 selected, focused, highlighted, pressed);
 
                         if (bounds == null) {
-                            throw new MissingActivityBoundsException(renderer,
-                                    activity, row, lineIndex);
+                            throw new MissingActivityBoundsException(renderer, activity, row, lineIndex);
                         }
 
                         bounds.setPosition(position);
@@ -733,18 +759,19 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
             }
 
         } else if (layout instanceof GanttLayout) {
+
             ActivityBounds bounds = renderer.draw(ref, ONLY, gc, x1 + .25,
                     yOffset + .5, x2 - x1, availableHeight - 1, selected,
                     focused, highlighted, pressed);
 
             if (bounds == null) {
-                throw new MissingActivityBoundsException(renderer, activity,
-                        row, lineIndex);
+                throw new MissingActivityBoundsException(renderer, activity, row, lineIndex);
             }
 
             bounds.setPosition(ONLY);
             bounds.setLayout(layout);
             boundsList.add(bounds);
+
         } else if (layout instanceof ChartLayout) {
             if (activity instanceof ChartActivity) {
                 yOffset += calculateChartOffset((ChartActivity) activity, (ChartLayout) layout, availableHeight);
@@ -776,9 +803,11 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         return boundsList;
     }
 
-    private double calculateChartValueOffset(double value, ChartLayout layout,
-                                             double availableHeight) {
+    private double calculateLocation(Instant startTime) {
+        return getTimelineModel().calculateLocationForTime(startTime) + graphics.getCanvasBuffer() - getTranslateX();
+    }
 
+    private double calculateChartValueOffset(double value, ChartLayout layout, double availableHeight) {
         double range = layout.getMaxValue() - layout.getMinValue();
         double ppv = availableHeight / range;
         double zeroLineLocation = layout.getMaxValue() * ppv;
@@ -786,9 +815,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         return zeroLineLocation - (value * ppv);
     }
 
-    private double calculateChartOffset(ChartActivity chartActivity,
-                                        ChartLayout layout, double availableHeight) {
-
+    private double calculateChartOffset(ChartActivity chartActivity, ChartLayout layout, double availableHeight) {
         double range = layout.getMaxValue() - layout.getMinValue();
         double ppv = availableHeight / range;
         double zeroLineLocation = layout.getMaxValue() * ppv;
@@ -800,16 +827,13 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         return zeroLineLocation - (chartActivity.getChartValue() * ppv);
     }
 
-    private double calculateChartActivityHeight(ChartActivity chartActivity,
-                                                ChartLayout layout, double availableHeight) {
+    private double calculateChartActivityHeight(ChartActivity chartActivity, ChartLayout layout, double availableHeight) {
         double range = layout.getMaxValue() - layout.getMinValue();
         double ppv = availableHeight / range;
-
         return Math.abs(chartActivity.getChartValue()) * ppv;
     }
 
-    private int computeInsetLevel(Activity activity,
-                                  List<ActivityEntry> columnActivities) {
+    private int computeInsetLevel(Activity activity, List<ActivityEntry> columnActivities) {
         int level = 0;
         for (ActivityEntry entry : columnActivities) {
             if (ActivityHelper.intersect(entry.activity, activity)) {
@@ -834,12 +858,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         long millis = st.until(et, ChronoUnit.MILLIS);
         double mpp = millis / availableHeight;
 
-        return Math
-                .min(availableHeight,
-                        Math.max(0,
-                                (time.get(ChronoField.MILLI_OF_DAY)
-                                        - st.get(ChronoField.MILLI_OF_DAY))
-                                        / mpp));
+        return Math.min(availableHeight, Math.max(0, (time.get(ChronoField.MILLI_OF_DAY) - st.get(ChronoField.MILLI_OF_DAY)) / mpp));
     }
 
     public final List<ActivityBounds> getAllActivityBounds() {
@@ -904,8 +923,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                 if (firstPassBounds != null && !firstPassBounds.isEmpty()) {
                     return firstPassBounds.get(0);
                 }
-            } catch (IllegalLineIndexException
-                    | MissingActivityBoundsException e) {
+            } catch (IllegalLineIndexException | MissingActivityBoundsException e) {
                 e.printStackTrace();
             }
         }
@@ -915,8 +933,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
     private Rectangle2D lookupBounds;
 
-    public final List<ActivityBounds> getActivityBounds(double x, double y,
-                                                        double w, double h) {
+    public final List<ActivityBounds> getActivityBounds(double x, double y, double w, double h) {
 
         if (graphics.isDebugMode()) {
             lookupBounds = new Rectangle2D(x, y, w, h);
@@ -924,8 +941,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
             lookupBounds = null;
         }
 
-        LassoSelectionBehaviour behaviour = graphics
-                .getLassoSelectionBehaviour();
+        LassoSelectionBehaviour behaviour = graphics.getLassoSelectionBehaviour();
         Rectangle2D selectionRectangle = new Rectangle2D(x, y, w, h);
 
         Timeline timeline = graphics.getTimeline();
@@ -936,14 +952,17 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         List<ActivityBounds> result = new ArrayList<>();
         for (ActivityBounds bounds : activityBounds) {
+
+            Rectangle2D adjustedBounds = new Rectangle2D(bounds.getMinX() - graphics.getCanvasBuffer() + getTranslateX(), bounds.getMinY(), bounds.getWidth(), bounds.getHeight());
+
             switch (behaviour) {
                 case INTERSECTION:
-                    if (selectionRectangle.intersects(bounds)) {
+                    if (selectionRectangle.intersects(adjustedBounds)) {
                         result.add(bounds);
                     }
                     break;
                 case BOUNDS_CONTAINMENT:
-                    if (selectionRectangle.contains(bounds)) {
+                    if (selectionRectangle.contains(adjustedBounds)) {
                         result.add(bounds);
                     }
                     break;
@@ -961,30 +980,6 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         }
         return result;
     }
-
-    // public final int getLineIndexAt(double y) {
-    // int result = -1;
-    //
-    // Row<?, ?, ?> row = getRow();
-    // if (row != null) {
-    // int lineCount = row.getLineCount();
-    // if (lineCount <= 0) {
-    // result = -1;
-    // } else {
-    // for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
-    // double lineLocation = row.getLineLocation(lineIndex);
-    // double lineHeight = row.getLineHeight(lineIndex);
-    // if (y >= lineLocation && y <= lineLocation + lineHeight) {
-    // result = lineIndex;
-    // break;
-    // }
-    // }
-    // }
-    // }
-    //
-    // return result;
-    //
-    // }
 
     public final Layout getLayoutAt(double y) {
         Layout layout = null;
@@ -1032,14 +1027,13 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         if (graphics.isDebugMode()) {
             debugRectangle = bounds;
-            draw();
+            draw("layout bounds lookup in debug mode");
         }
 
         return bounds;
     }
 
-    private final BooleanProperty snapToPixel = new SimpleBooleanProperty(this,
-            "snapToPixel", true);
+    private final BooleanProperty snapToPixel = new SimpleBooleanProperty(this, "snapToPixel", true);
 
     public final void setSnapToPixel(boolean snap) {
         snapToPixel.set(snap);
@@ -1065,10 +1059,8 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
      * If snapToPixel is true, then the value is rounded using Math.round.
      * Otherwise, the value is simply returned.
      *
-     * @param value
-     *            The value that needs to be snapped
-     * @param snapToPixel
-     *            Whether to snap to pixel
+     * @param value       The value that needs to be snapped
+     * @param snapToPixel Whether to snap to pixel
      * @return value either as passed in or rounded based on snapToPixel
      */
     private double snapSpace(double value, boolean snapToPixel) {
@@ -1079,10 +1071,8 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
      * If snapToPixel is true, then the value is ceil'd using Math.ceil.
      * Otherwise, the value is simply returned.
      *
-     * @param value
-     *            The value that needs to be snapped
-     * @param snapToPixel
-     *            Whether to snap to pixel
+     * @param value       The value that needs to be snapped
+     * @param snapToPixel Whether to snap to pixel
      * @return value either as passed in or ceil'd based on snapToPixel
      */
     private double snapSize(double value, boolean snapToPixel) {
@@ -1093,10 +1083,8 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
      * If snapToPixel is true, then the value is rounded using Math.round.
      * Otherwise, the value is simply returned.
      *
-     * @param value
-     *            The value that needs to be snapped
-     * @param snapToPixel
-     *            Whether to snap to pixel
+     * @param value       The value that needs to be snapped
+     * @param snapToPixel Whether to snap to pixel
      * @return value either as passed in or rounded based on snapToPixel
      */
     private double snapPosition(double value, boolean snapToPixel) {

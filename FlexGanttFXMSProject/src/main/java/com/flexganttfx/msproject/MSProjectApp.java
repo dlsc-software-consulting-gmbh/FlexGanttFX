@@ -7,15 +7,20 @@ package com.flexganttfx.msproject;
 
 import com.flexganttfx.extras.GanttChartStatusBar;
 import com.flexganttfx.extras.GanttChartToolBar;
+import com.flexganttfx.model.ActivityLink;
 import com.flexganttfx.msproject.model.MSProjectTaskRow;
 import com.flexganttfx.msproject.view.MSProjectGanttChart;
+import com.flexganttfx.view.graphics.renderer.LinkRenderer;
 import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -31,15 +36,23 @@ public class MSProjectApp extends Application {
 
 	@Override
 	public void start(Stage stage) {
-		System.setProperty("flexganttfx.animation.off", "true");
-
 		this.stage = stage;
 		this.stage.setTitle(STAGE_TITLE);
 
 		gantt = new MSProjectGanttChart();
-		gantt.getTimeline().setZoomAnimated(false);
+		gantt.getGraphics().setLinkRenderer(ActivityLink.class, new LinkRenderer<>(gantt.getGraphics(), "Custom Link Renderer") {
+			@Override
+			public void draw(ActivityLink<?> link, GraphicsContext gc, Rectangle2D sourceBounds, Rectangle2D targetBounds) {
+				if (link.getTargetActivityRef().getActivity().getStartTime().isBefore(link.getSourceActivityRef().getActivity().getEndTime())) {
+					setStrokeColor(Color.RED);
+				} else {
+					setStrokeColor(Color.BLACK);
+				}
 
-		gantt.load("com.flexganttfx.msproject.files/n0741.mpp", MSProjectApp.class.getResourceAsStream("/com.flexganttfx.msproject.files/n0741.mpp"));
+				super.draw(link, gc, sourceBounds, targetBounds);
+			}
+		});
+		gantt.load("com/flexganttfx/msproject/files/n0741.mpp", MSProjectApp.class.getResourceAsStream("/com/flexganttfx/msproject/files/n0741.mpp"));
 
 		VBox.setVgrow(gantt, Priority.ALWAYS);
 
@@ -48,15 +61,10 @@ public class MSProjectApp extends Application {
 		MenuBar menuBar = createMenuBar();
 		vbox.getChildren().add(menuBar);
 
-		GanttChartToolBar<MSProjectTaskRow> toolBar = new GanttChartToolBar<>(
-				gantt);
-		vbox.getChildren().add(toolBar);
+		GanttChartToolBar<MSProjectTaskRow> toolBar = new GanttChartToolBar<>(gantt);
+		GanttChartStatusBar<MSProjectTaskRow> statusBar = new GanttChartStatusBar<>(gantt);
 
-		vbox.getChildren().add(gantt);
-
-		GanttChartStatusBar<MSProjectTaskRow> statusBar = new GanttChartStatusBar<>(
-				gantt);
-		vbox.getChildren().add(statusBar);
+		vbox.getChildren().addAll(toolBar, gantt, statusBar);
 
 		Scene scene = new Scene(vbox);
 		stage.setScene(scene);

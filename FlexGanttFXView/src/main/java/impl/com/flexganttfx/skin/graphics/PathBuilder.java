@@ -15,7 +15,7 @@ import static java.util.Objects.requireNonNull;
 
 /**
  * The path builder is used to compute path nodes for instances of type
- * {@link ActivityLink}. It is only used by the {@link LinksPane}.
+ * {@link ActivityLink}. It is only used by the {@link LinksCanvas}.
  *
  * @since 1.0
  */

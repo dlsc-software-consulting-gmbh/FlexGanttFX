@@ -5,16 +5,15 @@
  */
 package com.flexganttfx.model;
 
+import com.flexganttfx.model.repository.IntervalTreeActivityRepository;
+import com.flexganttfx.model.repository.RepositoryEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventTarget;
+
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.temporal.TemporalUnit;
 import java.util.Iterator;
-
-import javafx.event.EventHandler;
-import javafx.event.EventTarget;
-
-import com.flexganttfx.model.repository.IntervalTreeActivityRepository;
-import com.flexganttfx.model.repository.RepositoryEvent;
 
 /**
  * Activity repositories are used by rows to store and lookup activities. Each
@@ -51,8 +50,7 @@ public interface ActivityRepository<A extends Activity> extends EventTarget {
 	 * @return the activities on the given layer and in the given time interval
 	 * @since 1.0
 	 */
-	Iterator<A> getActivities(Layer layer, Instant startTime, Instant endTime,
-			TemporalUnit temporalUnit, ZoneId zoneId);
+	Iterator<A> getActivities(Layer layer, Instant startTime, Instant endTime, TemporalUnit temporalUnit, ZoneId zoneId);
 
 	/**
 	 * Returns the earliest time used by the activities stored in this

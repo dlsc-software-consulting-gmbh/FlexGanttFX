@@ -5,6 +5,9 @@
  */
 package com.flexganttfx.extras.properties;
 
+import com.flexganttfx.extras.properties.timeline.DatelineItemProvider;
+import com.flexganttfx.extras.properties.timeline.EventlineItemProvider;
+import com.flexganttfx.extras.properties.timeline.TimelineItemProvider;
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.view.GanttChartBase;
@@ -109,9 +112,14 @@ public class GanttChartBaseItemProvider<R extends Row<?, ?, ?>> implements ItemP
         });
 
         Timeline timeline = gc.getTimeline();
-        items.addAll(timeline.getPropertySheetItems());
-        items.addAll(timeline.getDateline().getPropertySheetItems());
-        items.addAll(timeline.getEventline().getPropertySheetItems());
+        TimelineItemProvider timelineItemProvider = new TimelineItemProvider();
+        items.addAll(timelineItemProvider.getPropertySheetItems(timeline));
+
+        DatelineItemProvider datelineItemProvider = new DatelineItemProvider();
+        items.addAll(datelineItemProvider.getPropertySheetItems(timeline.getDateline()));
+
+        EventlineItemProvider eventlineItemProvider = new EventlineItemProvider();
+        items.addAll(eventlineItemProvider.getPropertySheetItems(timeline.getEventline()));
 
         ListViewGraphics<R> graphics = gc.getGraphics();
         GraphicsBaseItemProvider graphicsBasePropertySheetSupport = new GraphicsBaseItemProvider<>();

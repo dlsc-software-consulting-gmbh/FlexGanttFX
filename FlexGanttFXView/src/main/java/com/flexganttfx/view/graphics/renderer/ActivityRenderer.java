@@ -85,8 +85,7 @@ public class ActivityRenderer<A extends Activity> extends Renderer {
                 gc.save();
             }
 			gc.setGlobalAlpha(alpha * getAlpha());
-			drawBackground(activityRef, position, gc, x, y, w, h, selected, hover,
-					highlighted, pressed);
+			drawBackground(activityRef, position, gc, x, y, w, h, selected, hover, highlighted, pressed);
 		} finally {
             if (graphics.isSafeRendering()) {
                 gc.restore();
@@ -100,8 +99,7 @@ public class ActivityRenderer<A extends Activity> extends Renderer {
                 gc.save();
             }
 			gc.setGlobalAlpha(alpha * getAlpha());
-			drawBorder(activityRef, position, gc, x, y, w, h, selected, hover,
-					highlighted, pressed);
+			drawBorder(activityRef, position, gc, x, y, w, h, selected, hover, highlighted, pressed);
 		} finally {
             if (graphics.isSafeRendering()) {
                 gc.restore();

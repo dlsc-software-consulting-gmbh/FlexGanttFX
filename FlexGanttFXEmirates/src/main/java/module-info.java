@@ -1,6 +1,5 @@
 module com.flexganttfx.emirates {
 
-    requires mapviewer;
     requires miglayout.core;
     requires miglayout.swing;
     requires opencsv;

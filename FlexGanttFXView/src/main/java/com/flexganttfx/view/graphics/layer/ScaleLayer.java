@@ -49,6 +49,10 @@ import static javafx.scene.text.TextAlignment.RIGHT;
  * layout displays a time scale (8am, 9am, 10am, .....). The labels and dashes
  * in the scale layer have to align perfectly with the lines drawn by the agenda
  * lines layer and the chart lines layer.
+ * <p>
+ *     Important: this layer can only be used if the graphics buffer size is
+ *     equal to zero. See also {@link GraphicsBase#setCanvasBuffer(double)}.
+ * </p>
  *
  * @param <R>
  *            the type of the rows

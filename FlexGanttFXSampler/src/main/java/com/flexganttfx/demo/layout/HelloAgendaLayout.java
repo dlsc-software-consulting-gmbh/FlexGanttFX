@@ -86,6 +86,7 @@ public class HelloAgendaLayout extends FlexGanttFXSample {
 		AgendaRow root = new AgendaRow("Root");
 
 		gc = new GanttChart<>(root);
+		gc.getGraphics().setCanvasBuffer(0);
 		gc.getTimeline().showTemporalUnit(ChronoUnit.DAYS, 100);
 		ListViewGraphics<AgendaRow> graphics = gc.getGraphics();
 

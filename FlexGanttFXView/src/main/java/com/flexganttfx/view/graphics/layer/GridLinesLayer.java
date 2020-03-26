@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.view.graphics.layer;
@@ -45,181 +45,179 @@ import java.util.Objects;
  */
 public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
-	public GridLinesLayer(GraphicsBase<R> graphics) {
-		super("Grid Lines", graphics);
+    public GridLinesLayer(GraphicsBase<R> graphics) {
+        super("Grid Lines", graphics);
 
-		lineStroke1.bindBidirectional(graphics.gridLineColor1Property());
-		lineStroke2.bindBidirectional(graphics.gridLineColor2Property());
-		lineStroke3.bindBidirectional(graphics.gridLineColor3Property());
+        lineStroke1.bindBidirectional(graphics.gridLineColor1Property());
+        lineStroke2.bindBidirectional(graphics.gridLineColor2Property());
+        lineStroke3.bindBidirectional(graphics.gridLineColor3Property());
 
 
-		// TODO: add styleable property
-		setLineWidth1(0.5);
-		// TODO: add styleable property
-		setLineWidth2(0.5);
-		// TODO: add styleable property
-		setLineWidth3(0.5);
+        // TODO: add styleable property
+        setLineWidth1(0.5);
+        // TODO: add styleable property
+        setLineWidth2(0.5);
+        // TODO: add styleable property
+        setLineWidth3(0.5);
 
-		redrawObservable(lineStroke1);
-		redrawObservable(lineStroke2);
-		redrawObservable(lineStroke3);
-		redrawObservable(lineWidth1);
-		redrawObservable(lineWidth2);
-		redrawObservable(lineWidth3);
+        redrawObservable(lineStroke1);
+        redrawObservable(lineStroke2);
+        redrawObservable(lineStroke3);
+        redrawObservable(lineWidth1);
+        redrawObservable(lineWidth2);
+        redrawObservable(lineWidth3);
 
-		fadeInOutObservable(graphics.showGridLineLayerProperty());
-	}
+        fadeInOutObservable(graphics.showGridLineLayerProperty());
+    }
 
-	private final ObjectProperty<Paint> lineStroke1 = new SimpleObjectProperty<>(
-			this, "lineStroke1");
+    private final ObjectProperty<Paint> lineStroke1 = new SimpleObjectProperty<>(
+            this, "lineStroke1");
 
-	public final ObjectProperty<Paint> lineStroke1Property() {
-		return lineStroke1;
-	}
+    public final ObjectProperty<Paint> lineStroke1Property() {
+        return lineStroke1;
+    }
 
-	public final Paint getLineStroke1() {
-		return lineStroke1.get();
-	}
+    public final Paint getLineStroke1() {
+        return lineStroke1.get();
+    }
 
-	public final void setLineStroke1(Paint stroke) {
-		Objects.requireNonNull(stroke);
-		lineStroke1.set(stroke);
-	}
+    public final void setLineStroke1(Paint stroke) {
+        Objects.requireNonNull(stroke);
+        lineStroke1.set(stroke);
+    }
 
-	private final ObjectProperty<Paint> lineStroke2 = new SimpleObjectProperty<>(
-			this, "lineStroke2");
+    private final ObjectProperty<Paint> lineStroke2 = new SimpleObjectProperty<>(
+            this, "lineStroke2");
 
-	public final ObjectProperty<Paint> lineStroke2Property() {
-		return lineStroke2;
-	}
+    public final ObjectProperty<Paint> lineStroke2Property() {
+        return lineStroke2;
+    }
 
-	public final Paint getLineStroke2() {
-		return lineStroke2.get();
-	}
+    public final Paint getLineStroke2() {
+        return lineStroke2.get();
+    }
 
-	public final void setLineStroke2(Paint stroke) {
-		Objects.requireNonNull(stroke);
-		lineStroke2.set(stroke);
-	}
+    public final void setLineStroke2(Paint stroke) {
+        Objects.requireNonNull(stroke);
+        lineStroke2.set(stroke);
+    }
 
-	private final ObjectProperty<Paint> lineStroke3 = new SimpleObjectProperty<>(
-			this, "lineStroke3");
+    private final ObjectProperty<Paint> lineStroke3 = new SimpleObjectProperty<>(
+            this, "lineStroke3");
 
-	public final ObjectProperty<Paint> lineStroke3Property() {
-		return lineStroke3;
-	}
+    public final ObjectProperty<Paint> lineStroke3Property() {
+        return lineStroke3;
+    }
 
-	public final Paint getLineStroke3() {
-		return lineStroke3.get();
-	}
+    public final Paint getLineStroke3() {
+        return lineStroke3.get();
+    }
 
-	public final void setLineStroke3(Paint stroke) {
-		Objects.requireNonNull(stroke);
-		lineStroke3.set(stroke);
-	}
+    public final void setLineStroke3(Paint stroke) {
+        Objects.requireNonNull(stroke);
+        lineStroke3.set(stroke);
+    }
 
-	private final DoubleProperty lineWidth1 = new SimpleDoubleProperty(this,
-			"lineWidth1");
+    private final DoubleProperty lineWidth1 = new SimpleDoubleProperty(this,
+            "lineWidth1");
 
-	public final DoubleProperty lineWidth1Property() {
-		return lineWidth1;
-	}
+    public final DoubleProperty lineWidth1Property() {
+        return lineWidth1;
+    }
 
-	public final double getLineWidth1() {
-		return lineWidth1.get();
-	}
+    public final double getLineWidth1() {
+        return lineWidth1.get();
+    }
 
-	public final void setLineWidth1(double width) {
-		lineWidth1.set(width);
-	}
+    public final void setLineWidth1(double width) {
+        lineWidth1.set(width);
+    }
 
-	private final DoubleProperty lineWidth2 = new SimpleDoubleProperty(this,
-			"lineWidth2");
+    private final DoubleProperty lineWidth2 = new SimpleDoubleProperty(this,
+            "lineWidth2");
 
-	public final DoubleProperty lineWidth2Property() {
-		return lineWidth2;
-	}
+    public final DoubleProperty lineWidth2Property() {
+        return lineWidth2;
+    }
 
-	public final double getLineWidth2() {
-		return lineWidth2.get();
-	}
+    public final double getLineWidth2() {
+        return lineWidth2.get();
+    }
 
-	public final void setLineWidth2(double width) {
-		lineWidth2.set(width);
-	}
+    public final void setLineWidth2(double width) {
+        lineWidth2.set(width);
+    }
 
-	private final DoubleProperty lineWidth3 = new SimpleDoubleProperty(this,
-			"lineWidth3");
+    private final DoubleProperty lineWidth3 = new SimpleDoubleProperty(this,
+            "lineWidth3");
 
-	public final DoubleProperty lineWidth3Property() {
-		return lineWidth3;
-	}
+    public final DoubleProperty lineWidth3Property() {
+        return lineWidth3;
+    }
 
-	public final double getLineWidth3() {
-		return lineWidth3.get();
-	}
+    public final double getLineWidth3() {
+        return lineWidth3.get();
+    }
 
-	public final void setLineWidth3(double width) {
-		lineWidth3.set(width);
-	}
+    public final void setLineWidth3(double width) {
+        lineWidth3.set(width);
+    }
 
-	@Override
-	public void drawLayer(RowCanvas<R> canvas, Instant startTime,
-			Instant endTime) {
+    @Override
+    public void drawLayer(RowCanvas<R> canvas, Instant startTime, Instant endTime) {
+        Dateline dateline = canvas.getGraphics().getTimeline().getDateline();
+        DayOfWeek firstDayOfWeek = dateline.getFirstDayOfWeek();
 
-		Dateline dateline = canvas.getGraphics().getTimeline().getDateline();
-		DayOfWeek firstDayOfWeek = dateline.getFirstDayOfWeek();
+        TimelineModel<?> timelineModel = canvas.getTimelineModel();
 
-		TimelineModel<?> timelineModel = canvas.getTimelineModel();
+        GraphicsContext gc = canvas.getGraphicsContext2D();
 
-		GraphicsContext gc = canvas.getGraphicsContext2D();
+        ZoneId zoneId = dateline.getZoneId();
 
-		ZoneId zoneId = dateline.getZoneId();
+        R row = canvas.getRow();
+        if (row != null) {
+            zoneId = row.getZoneId();
+        }
 
-		R row = canvas.getRow();
-		if (row != null) {
-			zoneId = row.getZoneId();
-		}
+        double height = canvas.getHeight();
+        double width = canvas.getWidth();
 
-		double height = canvas.getHeight();
-		double width = canvas.getWidth();
+        int maxGridLevel = canvas.getGraphics().getMaxGridLevel();
 
-		int maxGridLevel = canvas.getGraphics().getMaxGridLevel();
+        int counter = 0;
+        for (Resolution<?> resolution : getGraphics().getTimeline().getDateline().getScaleResolutions()) {
 
-		int counter = 0;
-		for (Resolution<?> resolution : getGraphics().getTimeline().getDateline().getScaleResolutions()) {
+            switch (counter) {
+                case 0:
+                    gc.setStroke(getLineStroke1());
+                    gc.setLineWidth(getLineWidth1());
+                    break;
+                case 1:
+                    gc.setStroke(getLineStroke2());
+                    gc.setLineWidth(getLineWidth2());
+                    break;
+                case 2:
+                default:
+                    gc.setStroke(getLineStroke3());
+                    gc.setLineWidth(getLineWidth3());
+                    break;
+            }
 
-			switch (counter) {
-			case 0:
-				gc.setStroke(getLineStroke1());
-				gc.setLineWidth(getLineWidth1());
-				break;
-			case 1:
-				gc.setStroke(getLineStroke2());
-				gc.setLineWidth(getLineWidth2());
-				break;
-			case 2:
-			default:
-				gc.setStroke(getLineStroke3());
-				gc.setLineWidth(getLineWidth3());
-				break;
-			}
+            Instant time = resolution.truncate(startTime, zoneId, firstDayOfWeek);
 
-			Instant time = resolution.truncate(startTime, zoneId, firstDayOfWeek);
+            double x = snapPosition(timelineModel.calculateLocationForTime(time) + getGraphics().getCanvasBuffer() - canvas.getTranslateX());
 
-			double x = snapPosition(timelineModel.calculateLocationForTime(time));
+            do {
+                gc.strokeLine(x, 0, x, height);
+                time = resolution.increment(time, zoneId);
+                x = snapPosition(timelineModel.calculateLocationForTime(time) + getGraphics().getCanvasBuffer() - canvas.getTranslateX());
+            } while (x < width);
 
-			do {
-				gc.strokeLine(x, 0, x, height);
-				time = resolution.increment(time, zoneId);
-				x = snapPosition(timelineModel.calculateLocationForTime(time));
-			} while (x < width);
+            counter++;
 
-			counter++;
-
-			if (counter >= maxGridLevel) {
-				break;
-			}
-		}
-	}
+            if (counter >= maxGridLevel) {
+                break;
+            }
+        }
+    }
 }

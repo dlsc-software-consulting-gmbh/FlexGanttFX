@@ -11,7 +11,6 @@ import com.flexganttfx.model.util.TimeInterval;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.layout.Region;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
@@ -63,9 +62,7 @@ public abstract class DatelineCell<T extends TemporalUnit> extends Region {
 	public void update(Instant startTime, Instant endTime, Resolution<T> resolution, Dateline dateline, Position position) {
 
 		// "dateline-cell, bottom, hours"
-		getStyleClass().setAll(DEFAULT_STYLE_CLASS,
-				position.name().toLowerCase(),
-				resolution.getTemporalUnit().toString().toLowerCase());
+		getStyleClass().setAll(DEFAULT_STYLE_CLASS, position.name().toLowerCase(), resolution.getTemporalUnit().toString().toLowerCase());
 
 		this.startTime = startTime;
 		this.endTime = endTime;
@@ -81,26 +78,9 @@ public abstract class DatelineCell<T extends TemporalUnit> extends Region {
 		double w = getWidth() - insets.getLeft() - insets.getRight();
 		double h = getHeight() - insets.getTop() - insets.getBottom();
 
-		double prefWidth = text.prefWidth(h);
 		double prefHeight = text.prefHeight(-1);
 
-		text.setWrappingWidth(Math.max(prefWidth, w));
-
-		/*
-		 * Text is longer than the available space. We need to adjust its
-		 * position.
-		 */
-		if (prefWidth > w) {
-			if (getStyleClass().contains("dateline-cell-first")) {
-				text.resizeRelocate(getWidth() - prefWidth - insets.getRight(), h / 2 - prefHeight / 2, prefWidth, h);
-			} else if (getStyleClass().contains("dateline-cell-last")) {
-				text.resizeRelocate(insets.getLeft(), h / 2 - prefHeight / 2, w, h);
-			}
-		} else {
-			text.resizeRelocate(insets.getLeft(), h / 2 - prefHeight / 2, w, h);
-		}
-
-		setClip(new Rectangle(0, 0, getWidth(), getHeight()));
+		text.resizeRelocate(insets.getLeft(), h / 2 - prefHeight / 2, w, h);
 	}
 
 	@Override

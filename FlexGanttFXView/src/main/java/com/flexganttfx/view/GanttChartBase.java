@@ -10,6 +10,7 @@ import com.flexganttfx.model.ActivityLink;
 import com.flexganttfx.model.Calendar;
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.model.Row;
+import com.flexganttfx.model.util.IntervalTree;
 import com.flexganttfx.view.container.DualGanttChartContainer;
 import com.flexganttfx.view.container.MultiGanttChartContainerBase;
 import com.flexganttfx.view.graphics.GraphicsBase;
@@ -499,7 +500,7 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
      * @see GraphicsBase#getLinks()
      * @since 1.6
      */
-    public final ObservableList<ActivityLink<?>> getLinks() {
+    public final IntervalTree<ActivityLink> getLinks() {
         return graphics.getLinks();
     }
 

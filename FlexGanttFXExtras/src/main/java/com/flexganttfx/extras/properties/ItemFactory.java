@@ -5,18 +5,46 @@
  */
 package com.flexganttfx.extras.properties;
 
-import com.flexganttfx.extras.properties.layer.*;
+import com.flexganttfx.extras.properties.layer.AgendaLinesLayerItemProvider;
+import com.flexganttfx.extras.properties.layer.ChartLinesLayerItemProvider;
+import com.flexganttfx.extras.properties.layer.DSTLineLayerItemProvider;
+import com.flexganttfx.extras.properties.layer.GridLinesLayerItemProvider;
+import com.flexganttfx.extras.properties.layer.HoverTimeIntervalLayerItemProvider;
+import com.flexganttfx.extras.properties.layer.InnerLinesLayerItemProvider;
+import com.flexganttfx.extras.properties.layer.LayoutLayerItemProvider;
+import com.flexganttfx.extras.properties.layer.NowLineLayerItemProvider;
+import com.flexganttfx.extras.properties.layer.ScaleLayerItemProvider;
+import com.flexganttfx.extras.properties.layer.SelectedTimeIntervalsLayerItemProvider;
+import com.flexganttfx.extras.properties.layer.SystemLayerItemProvider;
+import com.flexganttfx.extras.properties.layer.ZoomIntervalLayerItemProvider;
 import com.flexganttfx.extras.properties.renderer.ActivityBarRendererItemProvider;
 import com.flexganttfx.extras.properties.renderer.ActivityRendererItemProvider;
 import com.flexganttfx.extras.properties.renderer.CompletableActivityRendererItemProvider;
 import com.flexganttfx.extras.properties.renderer.RendererItemProvider;
+import com.flexganttfx.extras.properties.timeline.DatelineItemProvider;
+import com.flexganttfx.extras.properties.timeline.EventlineItemProvider;
+import com.flexganttfx.extras.properties.timeline.TimelineItemProvider;
 import com.flexganttfx.view.GanttChart;
 import com.flexganttfx.view.GanttChartBase;
 import com.flexganttfx.view.graphics.GraphicsBase;
-import com.flexganttfx.view.graphics.layer.*;
+import com.flexganttfx.view.graphics.layer.AgendaLinesLayer;
+import com.flexganttfx.view.graphics.layer.ChartLinesLayer;
+import com.flexganttfx.view.graphics.layer.DSTLineLayer;
+import com.flexganttfx.view.graphics.layer.GridLinesLayer;
+import com.flexganttfx.view.graphics.layer.HoverTimeIntervalLayer;
+import com.flexganttfx.view.graphics.layer.InnerLinesLayer;
+import com.flexganttfx.view.graphics.layer.LayoutLayer;
+import com.flexganttfx.view.graphics.layer.NowLineLayer;
+import com.flexganttfx.view.graphics.layer.ScaleLayer;
+import com.flexganttfx.view.graphics.layer.SelectedTimeIntervalsLayer;
+import com.flexganttfx.view.graphics.layer.SystemLayer;
+import com.flexganttfx.view.graphics.layer.ZoomTimeIntervalLayer;
 import com.flexganttfx.view.graphics.renderer.ActivityBarRenderer;
 import com.flexganttfx.view.graphics.renderer.CompletableActivityRenderer;
 import com.flexganttfx.view.graphics.renderer.Renderer;
+import com.flexganttfx.view.timeline.Dateline;
+import com.flexganttfx.view.timeline.Eventline;
+import com.flexganttfx.view.timeline.Timeline;
 import org.controlsfx.control.PropertySheet.Item;
 import org.controlsfx.property.BeanPropertyUtils;
 
@@ -63,6 +91,10 @@ public class ItemFactory {
         PROVIDER_MAP.put(GanttChart.class, new GanttChartItemProvider());
         PROVIDER_MAP.put(GraphicsBase.class, new GraphicsBaseItemProvider());
 
+        PROVIDER_MAP.put(Dateline.class, new DatelineItemProvider());
+        PROVIDER_MAP.put(Timeline.class, new TimelineItemProvider());
+        PROVIDER_MAP.put(Eventline.class, new EventlineItemProvider());
+
         PROVIDER_MAP.put(AgendaLinesLayer.class, new AgendaLinesLayerItemProvider());
         PROVIDER_MAP.put(ChartLinesLayer.class, new ChartLinesLayerItemProvider());
         PROVIDER_MAP.put(DSTLineLayer.class, new DSTLineLayerItemProvider());
@@ -80,7 +112,6 @@ public class ItemFactory {
         PROVIDER_MAP.put(ActivityRendererItemProvider.class, new ActivityRendererItemProvider());
         PROVIDER_MAP.put(CompletableActivityRenderer.class, new CompletableActivityRendererItemProvider());
         PROVIDER_MAP.put(Renderer.class, new RendererItemProvider());
-
     }
 
     /**

@@ -87,10 +87,12 @@ public class EventlineSkin extends SkinBase<Eventline> {
         graphics.getBackgroundSystemLayers().clear();
         graphics.getForegroundSystemLayers().clear();
 
-        Rectangle eventlineClip = new Rectangle();
-        eventlineClip.widthProperty().bind(getSkinnable().widthProperty());
-        eventlineClip.heightProperty().bind(getSkinnable().heightProperty());
-        graphics.setClip(eventlineClip);
+        if (!Boolean.getBoolean("timeline.no.clip")) {
+            Rectangle eventlineClip = new Rectangle();
+            eventlineClip.widthProperty().bind(getSkinnable().widthProperty());
+            eventlineClip.heightProperty().bind(getSkinnable().heightProperty());
+            graphics.setClip(eventlineClip);
+        }
 
         eventline.frozenRowProperty().addListener(it -> updateRowList());
         updateRowList();
@@ -205,6 +207,7 @@ public class EventlineSkin extends SkinBase<Eventline> {
 
         timeline.getModel().millisPerPixelProperty().addListener(numberChangedListener);
 
+        // TODO: won't this get garbage collected?
         timeline.modelProperty().addListener(
                 new WeakChangeListener<>((value, oldModel, newModel) -> {
                     if (oldModel != null) {

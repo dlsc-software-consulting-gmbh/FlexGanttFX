@@ -51,17 +51,18 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
 		getStyleClass().add("row-pane");
 
 		setPrefWidth(0);
+		setMinWidth(0);
 		setPrefHeight(Row.DEFAULT_ROW_HEIGHT);
 
 		canvas = new RowCanvas<>(graphics);
-		canvas.widthProperty().bind(widthProperty());
+		canvas.widthProperty().bind(widthProperty().add(graphics.canvasBufferProperty().multiply(2)));
 		canvas.heightProperty().bind(heightProperty());
 		canvas.rowProperty().bind(rowProperty());
+		StackPane.setAlignment(canvas, Pos.CENTER); // VERY IMPORTANT, we want buffer to the left AND the right
 
 		zoneIdLabel = new Label("Zone ID");
 		zoneIdLabel.getStyleClass().add("zone-id-label");
-		zoneIdLabel.visibleProperty().bind(Bindings.and(Bindings.isNotNull(row),
-				graphics.showZoneIdProperty()));
+		zoneIdLabel.visibleProperty().bind(Bindings.and(Bindings.isNotNull(row), graphics.showZoneIdProperty()));
 
 		flipPane = new FlipPane<>(this);
 		flipPane.getFront().getChildren().add(canvas);
@@ -87,8 +88,7 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
 
 		final EventHandler<MouseEvent> mouseEntered = evt -> {
 			if (getRow() != null && !flipPane.isBackVisible()) {
-				Callback<RowControlsParameter<R>, Node> controlsFactory = graphics
-						.getRowControlsFactory();
+				Callback<RowControlsParameter<R>, Node> controlsFactory = graphics.getRowControlsFactory();
 				if (controlsFactory != null) {
 					RowControlsParameter<R> param = new RowControlsParameter<>(
 							graphics, getRow());
@@ -228,10 +228,6 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
 		}
 	}
 
-	public void draw() {
-		canvas.draw();
-	}
-
 	private void updateZoneIdLabel() {
 		R row = getRow();
 		if (row != null) {
@@ -243,15 +239,13 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
 		}
 	}
 
-	private final InvalidationListener redrawListener = it -> draw();
+	private final InvalidationListener redrawListener = it -> getCanvas().draw("row pane's redraw listener was called");
 
-	private final InvalidationListener weakRedrawListener = new WeakInvalidationListener(
-			redrawListener);
+	private final InvalidationListener weakRedrawListener = new WeakInvalidationListener(redrawListener);
 
 	private final InvalidationListener updateZoneIdListener = evt -> updateZoneIdLabel();
 
-	private final InvalidationListener weakUpdateZoneIdListener = new WeakInvalidationListener(
-			updateZoneIdListener);
+	private final InvalidationListener weakUpdateZoneIdListener = new WeakInvalidationListener(updateZoneIdListener);
 
 	private final EventHandler<RepositoryEvent> repositoryListener = evt -> {
 		/*
@@ -260,7 +254,7 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
 		 * in a batch.
 		 */
 		if (graphics.isAutomaticRedraw()) {
-			draw();
+			getCanvas().draw("row pane's repository listener fired");
 		}
 	};
 

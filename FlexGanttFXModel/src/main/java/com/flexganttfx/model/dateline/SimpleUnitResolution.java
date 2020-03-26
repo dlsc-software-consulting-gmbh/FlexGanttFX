@@ -75,6 +75,11 @@ public final class SimpleUnitResolution extends Resolution<SimpleUnit> {
 	}
 
 	@Override
+	public Instant decrement(Instant instant, ZoneId zoneId) {
+		return instant.minus(getTemporalUnit().getDuration().multipliedBy(getStepRate()));
+	}
+
+	@Override
 	public VirtualGrid<SimpleUnit> createGrid() {
 		return new SimpleUnitGrid("Auto", getTemporalUnit(), getStepRate());
 	}

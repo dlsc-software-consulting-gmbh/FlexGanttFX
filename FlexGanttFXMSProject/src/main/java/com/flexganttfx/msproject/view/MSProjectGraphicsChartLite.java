@@ -215,11 +215,11 @@ public class MSProjectGraphicsChartLite extends GanttChartLite<MSProjectTaskRow>
 					projectFile);
 
 			getLayers().setAll(model.getLayers());
-			getLinks().setAll(model.getLinks());
+			model.getLinks().forEach(link -> getLinks().add(link));
 
 			Timeline timeline = getTimeline();
-			timeline.showTime(projectFile.getStartDate().toInstant()
-					.minus(3, ChronoUnit.DAYS));
+			timeline.showTime(projectFile.getStartDate().toInstant().minus(3, ChronoUnit.DAYS));
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

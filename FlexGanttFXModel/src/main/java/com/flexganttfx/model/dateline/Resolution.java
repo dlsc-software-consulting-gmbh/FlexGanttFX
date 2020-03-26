@@ -154,7 +154,7 @@ public abstract class Resolution<T extends TemporalUnit> {
     public abstract Instant truncate(Instant instant, ZoneId zoneId, DayOfWeek firstDayOfWeek);
 
     /**
-     * Increments the given time based on the temoral unit represented by this
+     * Increments the given time based on the temporal unit represented by this
      * resolution. Example: if the temporal unit is DAY and the given time is
      * located on Monday, then the incremented time will be Tuesday. If the temporal
      * unit is WEEK then the incremented time will be the Monday of the next week.
@@ -167,6 +167,20 @@ public abstract class Resolution<T extends TemporalUnit> {
      * @since 1.0
      */
     public abstract Instant increment(Instant instant, ZoneId zoneId);
+
+    /**
+     * Decrements the given time based on the temporal unit represented by this
+     * resolution. Example: if the temporal unit is DAY and the given time is
+     * located on Monday, then the decremented time will be Sunday. If the temporal
+     * unit is WEEK then the decremented time will be the Monday of the previous week.
+     * This function is very important for building the cells in the dateline
+     * control.
+     *
+     * @param instant the time to increment
+     * @param zoneId  the time zone
+     * @return the incremented time
+     */
+    public abstract Instant decrement(Instant instant, ZoneId zoneId);
 
     /**
      * Creates a virtual grid for editing operations based on the settings of this

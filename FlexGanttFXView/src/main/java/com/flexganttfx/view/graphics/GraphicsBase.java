@@ -1,14 +1,29 @@
 /**
  * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.view.graphics;
 
 import com.flexganttfx.core.LoggingDomain;
+import com.flexganttfx.model.Activity;
+import com.flexganttfx.model.ActivityLink;
+import com.flexganttfx.model.ActivityRef;
+import com.flexganttfx.model.ActivityRepository;
 import com.flexganttfx.model.Calendar;
-import com.flexganttfx.model.*;
-import com.flexganttfx.model.activity.*;
+import com.flexganttfx.model.Layer;
+import com.flexganttfx.model.Layout;
+import com.flexganttfx.model.Row;
+import com.flexganttfx.model.activity.ActivityBase;
+import com.flexganttfx.model.activity.ChartActivity;
+import com.flexganttfx.model.activity.ChartActivityBase;
+import com.flexganttfx.model.activity.CompletableActivity;
+import com.flexganttfx.model.activity.CompletableActivityBase;
+import com.flexganttfx.model.activity.MutableActivity;
+import com.flexganttfx.model.activity.MutableActivityBase;
+import com.flexganttfx.model.activity.MutableChartActivityBase;
+import com.flexganttfx.model.activity.MutableCompletableActivityBase;
+import com.flexganttfx.model.activity.MutableHighLowChartActivityBase;
 import com.flexganttfx.model.calendar.CalendarActivity;
 import com.flexganttfx.model.calendar.CalendarActivityBase;
 import com.flexganttfx.model.calendar.WeekendCalendar;
@@ -19,11 +34,26 @@ import com.flexganttfx.model.layout.ChartLayout;
 import com.flexganttfx.model.layout.GanttLayout;
 import com.flexganttfx.model.repository.RepositoryEvent;
 import com.flexganttfx.model.timeline.TimelineModel;
+import com.flexganttfx.model.util.IntervalTree;
 import com.flexganttfx.model.util.TimeInterval;
-import com.flexganttfx.view.graphics.layer.*;
+import com.flexganttfx.view.graphics.layer.AgendaLinesLayer;
+import com.flexganttfx.view.graphics.layer.CalendarLayer;
+import com.flexganttfx.view.graphics.layer.ChartLinesLayer;
+import com.flexganttfx.view.graphics.layer.DSTLineLayer;
+import com.flexganttfx.view.graphics.layer.GridLinesLayer;
+import com.flexganttfx.view.graphics.layer.HoverTimeIntervalLayer;
+import com.flexganttfx.view.graphics.layer.InnerLinesLayer;
+import com.flexganttfx.view.graphics.layer.LayoutLayer;
+import com.flexganttfx.view.graphics.layer.NowLineLayer;
+import com.flexganttfx.view.graphics.layer.RowLayer;
+import com.flexganttfx.view.graphics.layer.ScaleLayer;
+import com.flexganttfx.view.graphics.layer.SelectedTimeIntervalsLayer;
+import com.flexganttfx.view.graphics.layer.SystemLayer;
+import com.flexganttfx.view.graphics.layer.ZoomTimeIntervalLayer;
 import com.flexganttfx.view.graphics.renderer.ActivityRenderer;
 import com.flexganttfx.view.graphics.renderer.ChartActivityRenderer;
 import com.flexganttfx.view.graphics.renderer.CompletableActivityRenderer;
+import com.flexganttfx.view.graphics.renderer.LinkRenderer;
 import com.flexganttfx.view.timeline.Dateline;
 import com.flexganttfx.view.timeline.Eventline;
 import com.flexganttfx.view.timeline.Timeline;
@@ -31,7 +61,7 @@ import com.flexganttfx.view.util.FlexGanttFXControl;
 import com.flexganttfx.view.util.Messages;
 import com.flexganttfx.view.util.Position;
 import impl.com.flexganttfx.skin.graphics.GraphicsBaseSkin;
-import impl.com.flexganttfx.skin.graphics.LinksPane;
+import impl.com.flexganttfx.skin.graphics.LinksCanvas;
 import impl.com.flexganttfx.skin.graphics.RowPane;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -40,12 +70,33 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.WeakInvalidationListener;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.*;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.Property;
+import javafx.beans.property.ReadOnlyBooleanProperty;
+import javafx.beans.property.ReadOnlyBooleanWrapper;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
-import javafx.collections.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ListChangeListener.Change;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
+import javafx.collections.ObservableSet;
 import javafx.css.CssMetaData;
 import javafx.css.Styleable;
 import javafx.css.StyleableObjectProperty;
@@ -57,7 +108,12 @@ import javafx.event.WeakEventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Control;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
@@ -71,7 +127,12 @@ import javafx.util.Duration;
 
 import java.time.Instant;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 
@@ -246,6 +307,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
             }
         });
 
+        addEventFilter(MouseEvent.MOUSE_CLICKED, evt -> redraw());
         debugModeProperty().addListener(weakRedrawListener);
 
         selectionModeProperty().addListener(observable -> getSelectedActivities().clear());
@@ -269,10 +331,13 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
         setActivityRenderer(MutableActivityBase.class, AgendaLayout.class, new ActivityRenderer<>(this, "Activities (Agenda Layout)"));
 
+        // Activity link renderer
+        setLinkRenderer(ActivityLink.class, new LinkRenderer<>(this, "Default Link Renderer"));
+
         // Edit mode controllers
 
         /*
-         * Normal activites, capacities, and high low activities all use the
+         * Normal activities, capacities, and high low activities all use the
          * same editing behaviour as long as they are being displayed with a
          * gantt layout.
          */
@@ -406,6 +471,8 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
         getLayers().addListener(layerListListener);
 
+        getRows().addListener((Observable it) -> Platform.runLater(() -> redraw("row list changed")));
+
         automaticRedraw.addListener(weakRedrawListener);
 
         layers.forEach(this::addListenersToLayer);
@@ -414,8 +481,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
          * We are "abusing" the properties map to pass new values of read-only
          * properties from the skin to the control.
          */
-        getProperties().addListener((
-                javafx.collections.MapChangeListener.Change<?, ?> change) -> {
+        getProperties().addListener((javafx.collections.MapChangeListener.Change<?, ?> change) -> {
             if (change.getKey().equals("com.flexganttfx.currenteditmode")) {
                 if (change.getValueAdded() != null) {
                     EditMode mode = (EditMode) change.getValueAdded();
@@ -505,6 +571,20 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
                     }
                 } else {
                     pressedActivity.set(null);
+                }
+            }
+        });
+
+        addEventHandler(ActivityEvent.ACTIVITY_CHANGE, evt -> {
+            long time = System.currentTimeMillis();
+            final ActivityRef<?> activityRef = evt.getActivityRef();
+            if (evt.getOldTimeInterval() != null) {
+                final Collection<ActivityLink> links = getLinks().getIntersectingObjects(evt.getOldTimeInterval());
+                for (ActivityLink link : links) {
+                    if (link.getSourceActivityRef().equals(activityRef) || link.getTargetActivityRef().equals(activityRef)) {
+                        getLinks().remove(link);
+                        getLinks().add(link);
+                    }
                 }
             }
         });
@@ -616,8 +696,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     // Automatic redraw support.
 
-    private final BooleanProperty automaticRedraw = new SimpleBooleanProperty(
-            this, "automaticRedraw", true);
+    private final BooleanProperty automaticRedraw = new SimpleBooleanProperty(this, "automaticRedraw", true);
 
     /**
      * A property used to determine if the graphics will be redrawn whenever the
@@ -673,10 +752,35 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         layer.fadeInOutOpacityProperty().addListener(weakRedrawListener);
     }
 
+    private final DoubleProperty canvasBuffer = new SimpleDoubleProperty(this, "canvasBuffer", 100);
+
+    public final double getCanvasBuffer() {
+        return canvasBuffer.get();
+    }
+
+    /**
+     * A canvas buffer size that is larger than zero increases the rendering performance
+     * of the Gantt chart substantially as fewer repaints of each row's canvas are needed.
+     * Please be aware that certain system layers can not be used in combination with a
+     * positive value for canvas buffer. For example the {@link ScaleLayer} does not as it
+     * always draws the scale on the left-hand side of the canvas. But when using a buffer
+     * that left-hand side will keep moving out of the visible area.
+     *
+     * @return the canvas buffer size (default is 100 pixel)
+     */
+    public final DoubleProperty canvasBufferProperty() {
+        return canvasBuffer;
+    }
+
+    public final void setCanvasBuffer(double canvasBuffer) {
+        this.canvasBuffer.set(canvasBuffer);
+    }
+
     private void connectToTimeline() {
         Timeline timeline = getTimeline();
 
-        redrawObservable(timeline.getModel().startTimeProperty());
+        timeline.getModel().startTimeProperty().addListener((obs, oldTime, newTime) -> redraw());
+
         redrawObservable(timeline.getModel().millisPerPixelProperty());
 
         /*
@@ -684,23 +788,20 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
          */
         timeline.getModel().nowProperty().addListener(weakRedrawNowListener);
 
-        timeline.modelProperty()
-                .addListener((observable, oldValue, newValue) -> {
+        timeline.modelProperty().addListener((observable, oldValue, newValue) -> {
 
-                    if (oldValue != null) {
-                        // special "now redraw calendarListListener"
-                        oldValue.nowProperty().removeListener(weakRedrawNowListener);
-                        removeRedrawObservable(timeline.getModel().startTimeProperty());
-                        removeRedrawObservable(timeline.getModel().millisPerPixelProperty());
-                    }
+            if (oldValue != null) {
+                // special "now redraw calendarListListener"
+                oldValue.nowProperty().removeListener(weakRedrawNowListener);
+                removeRedrawObservable(timeline.getModel().millisPerPixelProperty());
+            }
 
-                    if (newValue != null) {
-                        // special "now redraw calendarListListener"
-                        newValue.nowProperty().addListener(weakRedrawNowListener);
-                        redrawObservable(timeline.getModel().startTimeProperty());
-                        redrawObservable(timeline.getModel().millisPerPixelProperty());
-                    }
-                });
+            if (newValue != null) {
+                // special "now redraw calendarListListener"
+                newValue.nowProperty().addListener(weakRedrawNowListener);
+                redrawObservable(timeline.getModel().millisPerPixelProperty());
+            }
+        });
 
         // Dateline & Eventline
         Dateline dateline = timeline.getDateline();
@@ -710,27 +811,26 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         redrawObservable(dateline.selectedTimeIntervalProperty());
 
         dateline.getSelectedIntervals().addListener(weakRedrawListener);
-        dateline.getScaleResolutions().addListener(weakRedrawListener);
+        //dateline.getScaleResolutions().addListener(weakRedrawListener);
 
-        timelineProperty()
-                .addListener((observable, oldTimeline, newTimeline) -> {
+        timelineProperty().addListener((observable, oldTimeline, newTimeline) -> {
 
-                    if (oldTimeline != null) {
-                        Dateline oldDateline = oldTimeline.getDateline();
-                        removeRedrawObservable(oldDateline.primaryTemporalUnitProperty());
-                        removeRedrawObservable(oldDateline.hoverTimeIntervalProperty());
-                        oldDateline.getSelectedIntervals().removeListener(weakRedrawListener);
-                        removeRedrawObservable(oldTimeline.getDateline().selectedTimeIntervalProperty());
-                    }
+            if (oldTimeline != null) {
+                Dateline oldDateline = oldTimeline.getDateline();
+                removeRedrawObservable(oldDateline.primaryTemporalUnitProperty());
+                removeRedrawObservable(oldDateline.hoverTimeIntervalProperty());
+                oldDateline.getSelectedIntervals().removeListener(weakRedrawListener);
+                removeRedrawObservable(oldTimeline.getDateline().selectedTimeIntervalProperty());
+            }
 
-                    if (newTimeline != null) {
-                        Dateline newDateline = newTimeline.getDateline();
-                        redrawObservable(newDateline.primaryTemporalUnitProperty());
-                        redrawObservable(newDateline.hoverTimeIntervalProperty());
-                        newDateline.getSelectedIntervals().addListener(weakRedrawListener);
-                        redrawObservable(newTimeline.getDateline().selectedTimeIntervalProperty());
-                    }
-                });
+            if (newTimeline != null) {
+                Dateline newDateline = newTimeline.getDateline();
+                redrawObservable(newDateline.primaryTemporalUnitProperty());
+                redrawObservable(newDateline.hoverTimeIntervalProperty());
+                newDateline.getSelectedIntervals().addListener(weakRedrawListener);
+                redrawObservable(newTimeline.getDateline().selectedTimeIntervalProperty());
+            }
+        });
 
         autoGridEnabled.addListener(it -> updateGridProperty());
         virtualGrid.addListener(it -> updateGridProperty());
@@ -783,10 +883,9 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         property.removeListener(weakRedrawListener);
     }
 
-    private final ChangeListener<Instant> redrawNowListener = new ChangeListener<Instant>() {
+    private final ChangeListener<Instant> redrawNowListener = new ChangeListener<>() {
         @Override
-        public void changed(ObservableValue<? extends Instant> observable,
-                            Instant oldNow, Instant newNow) {
+        public void changed(ObservableValue<? extends Instant> observable, Instant oldNow, Instant newNow) {
 
             Instant visibleStart = getTimeline().getVisibleStartTime();
             Instant visibleEnd = getTimeline().getVisibleEndTime();
@@ -798,14 +897,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
             }
         }
 
-        private boolean inRange(Instant time, Instant visibleStart,
-                                Instant visibleEnd) {
+        private boolean inRange(Instant time, Instant visibleStart, Instant visibleEnd) {
             return visibleStart.equals(time) || visibleEnd.equals(time) || (visibleStart.isBefore(time) && visibleEnd.isAfter(time));
         }
     };
 
-    private final WeakChangeListener<Instant> weakRedrawNowListener = new WeakChangeListener<>(
-            redrawNowListener);
+    private final WeakChangeListener<Instant> weakRedrawNowListener = new WeakChangeListener<>(redrawNowListener);
 
     // Lasso active support.
 
@@ -871,8 +968,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     private final LayerVisibilityListener layerVisibilityListener = new LayerVisibilityListener();
 
-    private final WeakChangeListener<Boolean> weakLayerVisibilityListener = new WeakChangeListener<>(
-            layerVisibilityListener);
+    private final WeakChangeListener<Boolean> weakLayerVisibilityListener = new WeakChangeListener<>(layerVisibilityListener);
 
     private class LayerVisibilityListener implements ChangeListener<Boolean> {
 
@@ -905,15 +1001,15 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         }
     }
 
-    private final ObservableList<ActivityLink<?>> links = FXCollections.observableArrayList();
+    private final IntervalTree<ActivityLink> links = new IntervalTree<>();
 
     /**
-     * Returns the list that is used to store all activity links of the model.
+     * Returns the interval tree that is used to store all activity links of the model.
      *
      * @return a list of activity links
      * @since 1.0
      */
-    public final ObservableList<ActivityLink<?>> getLinks() {
+    public final IntervalTree<ActivityLink> getLinks() {
         return links;
     }
 
@@ -2202,8 +2298,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     public final ObjectProperty<EventHandler<LassoEvent>> onLassoSelectionFinishedProperty() {
         if (onLassoSelectionFinished == null) {
-            onLassoSelectionFinished = new LassoEventHandlerProperty(
-                    "onLassoSelectionFinished", LassoEvent.SELECTION_FINISHED);
+            onLassoSelectionFinished = new LassoEventHandlerProperty("onLassoSelectionFinished", LassoEvent.SELECTION_FINISHED);
         }
 
         return onLassoSelectionFinished;
@@ -2221,8 +2316,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     // Editing support.
 
-    private final ReadOnlyObjectWrapper<EditMode> editMode = new ReadOnlyObjectWrapper<>(
-            this, "editMode", EditMode.NONE);
+    private final ReadOnlyObjectWrapper<EditMode> editMode = new ReadOnlyObjectWrapper<>(this, "editMode", EditMode.NONE);
 
     /**
      * A property used to store the currently active editing mode, e.g.
@@ -2566,53 +2660,6 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
      */
     public final Callback<ContextMenuParameter<R>, ContextMenu> getContextMenuCallback() {
         return contextMenuCallbackProperty().get();
-    }
-
-    // Support for extra pixels.
-
-    private final IntegerProperty extraPixels = new SimpleIntegerProperty(this,
-            "extraPixels", 20);
-
-    /**
-     * A property used to instruct the graphics view to query the activity
-     * repositories also for activities that are ending right in front of the
-     * visible area or starting right after the visible area. Querying the extra
-     * pixels is important for activities that have negative bounds (e.g.
-     * milestones: they would only become visible if their time is inside the
-     * visible area, but their diamond shape might actually already reach into
-     * the area).
-     *
-     * @return the property used to store the number of extra pixels added to
-     * the visible area
-     * @since 1.0
-     */
-    public final IntegerProperty extraPixelsProperty() {
-        return extraPixels;
-    }
-
-    /**
-     * Returns the value of {@link #extraPixelsProperty()}.
-     *
-     * @return the number of extra pixels added to the visible area
-     * @since 1.0
-     */
-    public final int getExtraPixels() {
-        return extraPixelsProperty().get();
-    }
-
-    /**
-     * Sets the value of {@link #extraPixelsProperty()}.
-     *
-     * @param pixels the number of extra pixels added to the visible area
-     * @since 1.0
-     */
-    public final void setExtraPixels(int pixels) {
-        if (pixels < 0 || pixels > 100) {
-            throw new IllegalArgumentException(
-                    "extra pixels must be within [0, 100] but was " + pixels);
-        }
-
-        extraPixelsProperty().set(pixels);
     }
 
     // Marked interval support.
@@ -3186,8 +3233,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     // Hover activity support.
 
-    private final ReadOnlyObjectWrapper<ActivityRef<?>> hoverActivity = new ReadOnlyObjectWrapper<>(
-            this, "hoverActivity");
+    private final ReadOnlyObjectWrapper<ActivityRef<?>> hoverActivity = new ReadOnlyObjectWrapper<>(this, "hoverActivity");
 
     public final ReadOnlyObjectProperty<ActivityRef<?>> hoverActivityProperty() {
         return hoverActivity;
@@ -3296,77 +3342,89 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         return rowPanes;
     }
 
-    private LinksPane<R> linksPane;
+    private LinksCanvas<R> linksCanvas;
+
+    private int redrawCounter;
 
     /**
      * Performs a redraw of the displayed activities. Also lays out the links
-     * shown by the {@link LinksPane}.
+     * shown by the {@link LinksCanvas}.
      */
     public void redraw() {
+        redraw("complete redraw", null);
+    }
+
+    private void redraw(String reason) {
+        redraw(reason, null);
+    }
+
+    private void redraw(String reason, Instant oldTime) {
         if (LoggingDomain.RENDERING.isLoggable(Level.FINE)) {
-            LoggingDomain.RENDERING.fine("row cells list size = "
-                    + getRowPanes().size());
+            LoggingDomain.RENDERING.fine("row cells list size = " + getRowPanes().size());
         }
 
         if (LoggingDomain.PERFORMANCE.isLoggable(Level.FINE)) {
             Instant timeBefore = Instant.now();
-            doDraw();
+
+            drawRows(oldTime);
+            drawLinks(reason);
+
             Instant timeAfter = Instant.now();
             java.time.Duration duration = java.time.Duration.between(timeBefore, timeAfter);
-            LoggingDomain.PERFORMANCE.fine("redraw duration (nanos): " + duration);
+            LoggingDomain.PERFORMANCE.fine("redraw duration in millis: " + duration.toMillis());
         } else {
-            doDraw();
+
+            drawRows(oldTime);
+            drawLinks(reason);
+
         }
 
-        layoutLinks();
     }
 
-    public void layoutLinks() {
-        if (linksPane == null) {
-            linksPane = (LinksPane<R>) lookup("LinksPane");
+    public void drawLinks(String reason) {
+        if (linksCanvas == null) {
+            linksCanvas = (LinksCanvas<R>) lookup("LinksCanvas");
         }
 
-        if (linksPane != null) {
-            linksPane.layoutLinks();
+        if (linksCanvas != null) {
+            linksCanvas.draw(reason);
         }
     }
 
-    private void doDraw() {
-        for (RowPane<R> pane : getRowPanes()) {
-            if (pane.isVisible()) {
+    private void drawRows(Instant oldTime) {
+        if (getTimeline() != null && getTimeline().getModel() != null) {
 
-                // Fix for FLEXFX-340: "Links are not being rendered properly after sorting rows"
-                final R row = pane.getRow();
-                if (row != null && !row.isShowing()) {
-                    row.getProperties().put("com.flexganttfx.row.showing", true);
+            for (RowPane<R> pane : getRowPanes()) {
+                if (pane.isVisible()) {
+
+                    // Fix for FLEXFX-340: "Links are not being rendered properly after sorting rows"
+                    final R row = pane.getRow();
+                    if (row != null && !row.isShowing()) {
+                        row.getProperties().put("com.flexganttfx.row.showing", true);
+                    }
+
+                    if (oldTime != null) {
+                        pane.getCanvas().draw("complete redraw inside GraphicsBase", oldTime);
+                    } else {
+                        pane.getCanvas().draw("complete redraw inside GraphicsBase");
+                    }
                 }
-
-                pane.draw();
             }
         }
     }
 
-    // Renderer support
+    // Activity Renderer support
 
-    private final ObservableMap<Class<? extends Layout>, ObservableMap<Class<?>, ActivityRenderer<?>>> rendererLayoutMap = FXCollections
-            .observableHashMap();
+    private final ObservableMap<Class<? extends Layout>, ObservableMap<Class<?>, ActivityRenderer<?>>> rendererLayoutMap = FXCollections.observableHashMap();
 
-    private final ObservableMap<Class<? extends Layout>, ObservableMap<Class<?>, ActivityRenderer<?>>> cachedRendererMap = FXCollections
-            .observableHashMap();
+    private final ObservableMap<Class<? extends Layout>, ObservableMap<Class<?>, ActivityRenderer<?>>> cachedRendererMap = FXCollections.observableHashMap();
 
-    private Map<Class<?>, ActivityRenderer<?>> getRendererMapForLayoutStrategy(
-            Class<? extends Layout> layoutType) {
-
-        ObservableMap<Class<?>, ActivityRenderer<?>> layoutMap = rendererLayoutMap
-                .get(layoutType);
-
-        if (layoutMap == null) {
-            layoutMap = FXCollections.observableHashMap();
-            layoutMap.addListener(weakUpdatePropertySheetListener);
-            rendererLayoutMap.put(layoutType, layoutMap);
-        }
-
-        return layoutMap;
+    private Map<Class<?>, ActivityRenderer<?>> getRendererMapForLayoutStrategy(Class<? extends Layout> layoutType) {
+        return rendererLayoutMap.computeIfAbsent(layoutType, k -> {
+            ObservableMap<Class<?>, ActivityRenderer<?>> map = FXCollections.observableHashMap();
+            map.addListener(weakUpdatePropertySheetListener);
+            return map;
+        });
     }
 
     /**
@@ -3389,9 +3447,9 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
      * via the given layout.
      *
      * @param activityType the type of the activity
-     * @param layoutType the type of the layout
-     * @param renderer the renderer instance
-     * @param <A> the type of the activity
+     * @param layoutType   the type of the layout
+     * @param renderer     the renderer instance
+     * @param <A>          the type of the activity
      */
     public final <A extends Activity> void setActivityRenderer(
             Class<? extends A> activityType, Class<? extends Layout> layoutType,
@@ -3403,17 +3461,13 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         cachedRendererMap.clear();
 
         if (renderer != null) {
-            LoggingDomain.CONFIG.fine("activity type = " + activityType
-                    + ", layout type " + layoutType + ", renderer = "
-                    + renderer.getClass().getName());
+            LoggingDomain.CONFIG.fine("activity type = " + activityType + ", layout type " + layoutType + ", renderer = " + renderer.getClass().getName());
         } else {
-            LoggingDomain.CONFIG.fine("activity type = " + activityType
-                    + ", layout type " + layoutType + ", renderer = null");
+            LoggingDomain.CONFIG.fine("activity type = " + activityType + ", layout type " + layoutType + ", renderer = null");
         }
 
         if (renderer != null) {
-            for (ObservableMap<Class<?>, ActivityRenderer<?>> layoutMap : rendererLayoutMap
-                    .values()) {
+            for (ObservableMap<Class<?>, ActivityRenderer<?>> layoutMap : rendererLayoutMap.values()) {
                 for (ActivityRenderer<?> r : layoutMap.values()) {
                     if (r != null && r.getName().equals(renderer.getName())) {
                         throw new IllegalArgumentException(
@@ -3426,24 +3480,18 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
             }
         }
 
-        Map<Class<?>, ActivityRenderer<?>> rendererMap = getRendererMapForLayoutStrategy(
-                layoutType);
+        Map<Class<?>, ActivityRenderer<?>> rendererMap = getRendererMapForLayoutStrategy(layoutType);
         rendererMap.put(activityType, renderer);
     }
 
-    private final ActivityRenderer<?> defaultGanttActivityRenderer = new ChartActivityRenderer<>(
-            this, "Default Gantt Activity Renderer");
+    private final ActivityRenderer<?> defaultGanttActivityRenderer = new ChartActivityRenderer<>(this, "Default Gantt Activity Renderer");
 
-    private final ActivityRenderer<?> defaultChartActivityRenderer = new ChartActivityRenderer<>(
-            this, "Default Chart Activity Renderer");
+    private final ActivityRenderer<?> defaultChartActivityRenderer = new ChartActivityRenderer<>(this, "Default Chart Activity Renderer");
 
-    private final ActivityRenderer<?> defaultAgendaActivityRenderer = new ChartActivityRenderer<>(
-            this, "Default Agenda Activity Renderer");
+    private final ActivityRenderer<?> defaultAgendaActivityRenderer = new ChartActivityRenderer<>(this, "Default Agenda Activity Renderer");
 
     @SuppressWarnings("unchecked")
-    public final <A extends Activity> ActivityRenderer<? extends A> getActivityRenderer(
-            Class<? extends A> activityType,
-            Class<? extends Layout> layoutType) {
+    public final <A extends Activity> ActivityRenderer<? extends A> getActivityRenderer(Class<? extends A> activityType, Class<? extends Layout> layoutType) {
 
         requireNonNull(activityType);
         requireNonNull(layoutType);
@@ -3470,14 +3518,70 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         return renderer;
     }
 
-    private <A extends Activity> ActivityRenderer<A> doGetActivityRenderer(
-            Map<Class<?>, ? extends ActivityRenderer<?>> map, Class<?> clazz) {
+    private <A extends Activity> ActivityRenderer<A> doGetActivityRenderer(Map<Class<?>, ? extends ActivityRenderer<?>> map, Class<?> clazz) {
         if (clazz != null) {
             @SuppressWarnings("unchecked")
             ActivityRenderer<A> renderer = (ActivityRenderer<A>) map.get(clazz);
             if (renderer == null) {
                 return doGetActivityRenderer(map, clazz.getSuperclass());
             }
+            return renderer;
+        }
+
+        return null;
+    }
+
+    // Link renderer support.
+
+    private final ObservableMap<Class<?>, LinkRenderer<?>> linkRendererMap = FXCollections.observableHashMap();
+
+    private final ObservableMap<Class<?>, LinkRenderer<?>> linkRendererCache = FXCollections.observableHashMap();
+
+    /**
+     * Sets a custom link renderer for the given type of activity link.
+     *
+     * @param clazz    the activity type
+     * @param renderer the renderer
+     */
+    public final void setLinkRenderer(Class<? extends Activity> clazz, LinkRenderer<?> renderer) {
+        linkRendererCache.clear();
+
+        if (renderer != null) {
+            LoggingDomain.CONFIG.fine("class = " + clazz + ", renderer = " + renderer.getClass().getName());
+        } else {
+            LoggingDomain.CONFIG.fine("class = " + clazz + ", renderer = null");
+        }
+
+        requireNonNull(clazz);
+
+        linkRendererMap.put(clazz, renderer);
+    }
+
+    /**
+     * Returns a renderer for the given activity link type.
+     *
+     * @param clazz the activity link type
+     * @param <AL>  the activity link type
+     * @return the link renderer
+     */
+    public final <AL extends ActivityLink<?>> LinkRenderer<AL> getLinkRenderer(Class<AL> clazz) {
+        LinkRenderer<AL> cachedRenderer = (LinkRenderer<AL>) linkRendererCache.get(clazz);
+        if (cachedRenderer != null) {
+            return cachedRenderer;
+        }
+
+        LinkRenderer<AL> renderer = (LinkRenderer<AL>) doGetLinkRenderer(clazz);
+        linkRendererCache.put(clazz, renderer);
+        return renderer;
+    }
+
+    private LinkRenderer<?> doGetLinkRenderer(Class<?> clazz) {
+        if (clazz != null) {
+            LinkRenderer<?> renderer = linkRendererMap.get(clazz);
+            if (renderer == null) {
+                return doGetLinkRenderer(clazz.getSuperclass());
+            }
+
             return renderer;
         }
 
@@ -3618,11 +3722,8 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
      * @since 1.0
      */
     @SuppressWarnings("rawtypes")
-    public final void setRowDragAndDropCallback(Class<? extends Row> rowType,
-                                                Callback<DragAndDropInfo, Boolean> callback) {
-
+    public final void setRowDragAndDropCallback(Class<? extends Row> rowType, Callback<DragAndDropInfo, Boolean> callback) {
         requireNonNull(rowType);
-
         dragAndDropCallbackMap.put(rowType, callback);
     }
 
@@ -3636,16 +3737,13 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
      * @since 1.0
      */
     @SuppressWarnings("rawtypes")
-    public final Callback<DragAndDropInfo, Boolean> getRowDragAndDropCallback(
-            Class<? extends Row> rowType) {
+    public final Callback<DragAndDropInfo, Boolean> getRowDragAndDropCallback(Class<? extends Row> rowType) {
         return doGetRowDragAndDropCallback(rowType);
     }
 
-    private Callback<DragAndDropInfo, Boolean> doGetRowDragAndDropCallback(
-            Class<?> rowType) {
+    private Callback<DragAndDropInfo, Boolean> doGetRowDragAndDropCallback(Class<?> rowType) {
         if (rowType != null) {
-            Callback<DragAndDropInfo, Boolean> callback = dragAndDropCallbackMap
-                    .get(rowType);
+            Callback<DragAndDropInfo, Boolean> callback = dragAndDropCallbackMap.get(rowType);
             if (callback == null) {
                 return doGetRowDragAndDropCallback(rowType.getSuperclass());
             }
@@ -3656,8 +3754,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         return null;
     }
 
-    private final ReadOnlyObjectWrapper<DragAndDropInfo> dragAndDropInfo = new ReadOnlyObjectWrapper<>(
-            this, "dragAndDropInfo");
+    private final ReadOnlyObjectWrapper<DragAndDropInfo> dragAndDropInfo = new ReadOnlyObjectWrapper<>(this, "dragAndDropInfo");
 
     /**
      * A property used to store the current drag and drop information. This
@@ -3680,15 +3777,13 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         return dragAndDropInfoProperty().get();
     }
 
-    private final ObjectProperty<Callback<ActivityRef<?>, Image>> dragImageProvider = new SimpleObjectProperty<>(
-            this, "dragImageProvider");
+    private final ObjectProperty<Callback<ActivityRef<?>, Image>> dragImageProvider = new SimpleObjectProperty<>(this, "dragImageProvider");
 
     public final ObjectProperty<Callback<ActivityRef<?>, Image>> dragImageProviderProperty() {
         return dragImageProvider;
     }
 
-    public final void setDragImageProvider(
-            Callback<ActivityRef<?>, Image> provider) {
+    public final void setDragImageProvider(Callback<ActivityRef<?>, Image> provider) {
         dragImageProvider.set(provider);
     }
 
@@ -4221,8 +4316,8 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
      * A callback parameter object used to provide context for the row controls
      * factory.
      *
-     * @see #rowControlsFactoryProperty()
      * @param <R> the row type
+     * @see #rowControlsFactoryProperty()
      */
     public static final class RowControlsParameter<R extends Row<?, ?, ?>> {
 
@@ -4269,8 +4364,8 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
      * A callback parameter object used to provide context for the row editor
      * factory.
      *
-     * @see #rowEditorFactoryProperty()
      * @param <R> the row type
+     * @see #rowEditorFactoryProperty()
      */
     public static final class RowEditorParameter<R extends Row<?, ?, ?>> {
 
@@ -4391,7 +4486,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
          * Constructs a new callback parameter.
          *
          * @param activityBounds the activity / bounds for which to determine the edit mode
-         * @param event the mouse event triggering the edit mode lookup
+         * @param event          the mouse event triggering the edit mode lookup
          */
         public EditModeCallbackParameter(ActivityBounds activityBounds,
                                          MouseEvent event) {
@@ -4715,48 +4810,39 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         public GraphicsViewMenu(final ContextMenuParameter<R> input) {
             requireNonNull(input);
 
-            MenuItem highlightOn = new MenuItem(
-                    Messages.getString("GraphicsBase.HIGHLIGHT_ON"));
+            MenuItem highlightOn = new MenuItem(Messages.getString("GraphicsBase.HIGHLIGHT_ON"));
             highlightOn.setOnAction(highlightOn(input));
-            highlightOn.disableProperty()
-                    .bind(Bindings.isEmpty(getSelectedActivities()));
+            highlightOn.disableProperty().bind(Bindings.isEmpty(getSelectedActivities()));
             getItems().add(highlightOn);
 
-            MenuItem highlightOff = new MenuItem(
-                    Messages.getString("GraphicsBase.HIGHLIGHT_OFF"));
+            MenuItem highlightOff = new MenuItem(Messages.getString("GraphicsBase.HIGHLIGHT_OFF"));
             highlightOff.setOnAction(highlightOff(input));
-            highlightOff.disableProperty()
-                    .bind(Bindings.isEmpty(getHighlightedActivities()));
+            highlightOff.disableProperty().bind(Bindings.isEmpty(getHighlightedActivities()));
             getItems().add(highlightOff);
 
             calendarMenu = new CalendarMenu();
-            calendarMenu.setText(
-                    Messages.getString("GraphicsBase.CALENDAR_MENU_TITLE"));
+            calendarMenu.setText(Messages.getString("GraphicsBase.CALENDAR_MENU_TITLE"));
 
             getItems().add(calendarMenu);
 
             Row<?, ?, ?> row = input.getRow();
 
             if (row != null) {
-                ObservableList<Calendar<?>> globalCalendars = input
-                        .getGraphics().getCalendars();
+                ObservableList<Calendar<?>> globalCalendars = input.getGraphics().getCalendars();
                 ObservableList<Calendar<?>> localCalendars = row.getCalendars();
-                ObservableList<Calendar<?>> allCalendars = FXCollections
-                        .observableArrayList();
+                ObservableList<Calendar<?>> allCalendars = FXCollections.observableArrayList();
 
                 allCalendars.addAll(globalCalendars);
                 allCalendars.addAll(localCalendars);
 
                 calendarMenu.setCalendars(allCalendars);
-
                 calendarMenu.setDisable(false);
             } else {
                 calendarMenu.setDisable(true);
             }
 
             GridMenu gridMenu = new GridMenu();
-            gridMenu.setText(
-                    Messages.getString("GraphicsBase.GRID_MENU_TITLE"));
+            gridMenu.setText(Messages.getString("GraphicsBase.GRID_MENU_TITLE"));
             gridMenu.setVirtualGrids(getVirtualGrids());
             getItems().add(gridMenu);
 

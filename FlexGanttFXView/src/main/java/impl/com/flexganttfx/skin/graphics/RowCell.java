@@ -1,85 +1,84 @@
 /**
  * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package impl.com.flexganttfx.skin.graphics;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.logging.Level;
-
 import com.flexganttfx.core.LoggingDomain;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.view.graphics.GraphicsBase;
-
 import javafx.beans.binding.Bindings;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ListCell;
 
+import java.util.logging.Level;
+
+import static java.util.Objects.requireNonNull;
+
 public class RowCell<R extends Row<?, ?, ?>> extends ListCell<R> {
 
-	private static final String DEFAULT_STYLE_CLASS = "row-cell";
+    private static final String DEFAULT_STYLE_CLASS = "row-cell";
 
-	private final RowPane<R> rowPane;
+    private final RowPane<R> rowPane;
 
-	public RowCell(GraphicsBase<R> graphics) {
-		requireNonNull(graphics);
+    public RowCell(GraphicsBase<R> graphics) {
+        requireNonNull(graphics);
 
-		this.rowPane = new RowPane<>(graphics);
+        this.rowPane = new RowPane<>(graphics);
 
-		graphics.getRowPanes().add(rowPane);
+        graphics.getRowPanes().add(rowPane);
 
-		getStyleClass().add(DEFAULT_STYLE_CLASS);
+        getStyleClass().add(DEFAULT_STYLE_CLASS);
 
-		rowPane.prefWidthProperty().bind(widthProperty());
-		rowPane.rowProperty().bind(itemProperty());
+        rowPane.prefWidthProperty().bind(widthProperty());
+        rowPane.rowProperty().bind(itemProperty());
 
-		/*
-		 * The pref height of the row pane is bound to the height of the row. So
-		 * when the row pane grows the cell will also grow.
-		 */
-		Bindings.bindBidirectional(prefHeightProperty(),
-				rowPane.prefHeightProperty());
+        /*
+         * The pref height of the row pane is bound to the height of the row. So
+         * when the row pane grows the cell will also grow.
+         */
+        Bindings.bindBidirectional(prefHeightProperty(),
+                rowPane.prefHeightProperty());
 
-		/*
-		 * We might have to relayout activity links.
-		 */
-		heightProperty()
-				.addListener(
-						it -> {
-							GraphicsBaseSkin<?, ?> skin = (GraphicsBaseSkin<?, ?>) graphics
-									.getSkin();
-							skin.getLinksPane().requestLayout();
-						});
+        /*
+         * We might have to redraw activity links.
+         */
+        heightProperty().addListener(it -> ((GraphicsBaseSkin<?, ?>) graphics.getSkin()).getLinksCanvas().draw("row height changed"));
 
-		setPrefWidth(0);
-		setGraphic(rowPane);
-		setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+        setPrefWidth(0);
+        setGraphic(rowPane);
+        setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
 
-		visibleProperty()
-				.addListener(
-						observable -> {
+        visibleProperty()
+                .addListener(
+                        observable -> {
 
-							boolean visible = isVisible();
+                            boolean visible = isVisible();
 
-							Row<?, ?, ?> row = getItem();
-							if (row != null) {
-								row.getProperties().put("com.flexganttfx.row.showing", visible);
-							}
+                            Row<?, ?, ?> row = getItem();
+                            if (row != null) {
+                                row.getProperties().put("com.flexganttfx.row.showing", visible);
+                            }
 
-							if (visible) {
-								if (LoggingDomain.RENDERING
-										.isLoggable(Level.FINE)) {
-									LoggingDomain.RENDERING
-											.fine("redrawing canvas because of row cell visibility changing to true");
-								}
-								rowPane.draw();
-							}
-						});
-	}
+                            if (visible) {
+                                if (LoggingDomain.RENDERING
+                                        .isLoggable(Level.FINE)) {
+                                    LoggingDomain.RENDERING
+                                            .fine("redrawing canvas because of row cell visibility changing to true");
+                                }
+                                rowPane.getCanvas().draw("row cell became visible");
+                            }
+                        });
+    }
 
-	public final RowPane<R> getRowPane() {
-		return rowPane;
-	}
+    @Override
+    protected void layoutChildren() {
+        super.layoutChildren();
+        rowPane.resizeRelocate(0, 0, getWidth(), getHeight());
+    }
+
+    public final RowPane<R> getRowPane() {
+        return rowPane;
+    }
 }

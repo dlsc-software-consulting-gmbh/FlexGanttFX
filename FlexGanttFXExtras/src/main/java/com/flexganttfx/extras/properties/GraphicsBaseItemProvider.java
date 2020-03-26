@@ -33,6 +33,44 @@ public class GraphicsBaseItemProvider<R extends Row<?,?,?>> implements ItemProvi
 
             @Override
             public Optional<ObservableValue<?>> getObservableValue() {
+                return Optional.of(graphics.canvasBufferProperty());
+            }
+
+            @Override
+            public void setValue(Object value) {
+                graphics.setCanvasBuffer((Double) value);
+            }
+
+            @Override
+            public Object getValue() {
+                return graphics.getCanvasBuffer();
+            }
+
+            @Override
+            public Class<?> getType() {
+                return Double.class;
+            }
+
+            @Override
+            public String getName() {
+                return "Canvas Buffer";
+            }
+
+            @Override
+            public String getDescription() {
+                return "Increases the canvas widths to reduce redraws";
+            }
+
+            @Override
+            public String getCategory() {
+                return GRAPHICS_VIEW_PROPERTIES;
+            }
+        });
+
+        items.add(new Item() {
+
+            @Override
+            public Optional<ObservableValue<?>> getObservableValue() {
                 return Optional.of(graphics.safeRenderingProperty());
             }
 

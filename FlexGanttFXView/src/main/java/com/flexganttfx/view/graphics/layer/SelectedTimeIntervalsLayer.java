@@ -67,8 +67,7 @@ public class SelectedTimeIntervalsLayer<R extends Row<?, ?, ?>> extends
 	}
 
 	@Override
-	public void drawLayer(RowCanvas<R> canvas, Instant startTime,
-			Instant endTime) {
+	public void drawLayer(RowCanvas<R> canvas, Instant startTime, Instant endTime) {
 		GraphicsBase<R> graphics = getGraphics();
 		Timeline timeline = graphics.getTimeline();
 		Dateline dateline = timeline.getDateline();
@@ -79,10 +78,8 @@ public class SelectedTimeIntervalsLayer<R extends Row<?, ?, ?>> extends
 		// draw time interval selections of the dateline
 		gc.setFill(getSelectedTimeIntervalFill());
 		for (TimeInterval timeInterval : dateline.getSelectedIntervals()) {
-			double x1 = snapPosition(timelineModel
-					.calculateLocationForTime(timeInterval.getStartTime()));
-			double x2 = snapPosition(timelineModel
-					.calculateLocationForTime(timeInterval.getEndTime()));
+			double x1 = snapPosition(timelineModel.calculateLocationForTime(timeInterval.getStartTime()) + getGraphics().getCanvasBuffer() - canvas.getTranslateX());
+			double x2 = snapPosition(timelineModel.calculateLocationForTime(timeInterval.getEndTime()) + getGraphics().getCanvasBuffer() - canvas.getTranslateX());
 			gc.fillRect(x1, 0, x2 - x1, canvas.getHeight());
 		}
 	}
