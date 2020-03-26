@@ -140,20 +140,6 @@ public class LinkRenderer<T extends ActivityLink<?>> extends RendererBase {
     public enum ArrowDirection {
 
         /**
-         * Draws the arrow pointing up.
-         *
-         * @since 1.0
-         */
-        UP,
-
-        /**
-         * Draws the arrow pointing down.
-         *
-         * @since 1.0
-         */
-        DOWN,
-
-        /**
          * Draws the arrow pointing left.
          *
          * @since 1.0
@@ -328,6 +314,8 @@ public class LinkRenderer<T extends ActivityLink<?>> extends RendererBase {
         }
 
         gc.stroke();
+
+        drawArrowHead(ArrowDirection.RIGHT, gc, tx, ty);
     }
 
     /**
@@ -427,6 +415,8 @@ public class LinkRenderer<T extends ActivityLink<?>> extends RendererBase {
         }
 
         gc.stroke();
+
+        drawArrowHead(ArrowDirection.LEFT, gc, tx, ty);
     }
 
     /**
@@ -532,6 +522,8 @@ public class LinkRenderer<T extends ActivityLink<?>> extends RendererBase {
         }
 
         gc.stroke();
+
+        drawArrowHead(ArrowDirection.LEFT, gc, tx, ty);
     }
 
     /**
@@ -640,9 +632,20 @@ public class LinkRenderer<T extends ActivityLink<?>> extends RendererBase {
 
     protected void drawArrowHead(ArrowDirection direction, GraphicsContext gc, double x, double y) {
         final int s = getArrowSize();
+
+        gc.setStroke(getArrowHeadColor());
         gc.setFill(getArrowHeadColor());
-        gc.fillPolygon(new double[]{x, x - s * 1.5, x - s * 1.5}, new double[]{y, y - s, y + s}, 3);
-        gc.strokePolygon(new double[]{x, x - s * 1.5, x - s * 1.5}, new double[]{y, y - s, y + s}, 3);
+
+        switch (direction) {
+            case LEFT:
+                gc.fillPolygon(new double[]{x, x + s * 1.5, x + s * 1.5}, new double[]{y, y - s, y + s}, 3);
+                gc.strokePolygon(new double[]{x, x + s * 1.5, x + s * 1.5}, new double[]{y, y - s, y + s}, 3);
+                break;
+            case RIGHT:
+                gc.fillPolygon(new double[]{x, x - s * 1.5, x - s * 1.5}, new double[]{y, y - s, y + s}, 3);
+                gc.strokePolygon(new double[]{x, x - s * 1.5, x - s * 1.5}, new double[]{y, y - s, y + s}, 3);
+                break;
+        }
     }
 
     // STROKE WIDTH
@@ -663,7 +666,7 @@ public class LinkRenderer<T extends ActivityLink<?>> extends RendererBase {
 
     // STROKE COLOR
 
-    private final ObjectProperty<Color> strokeColor = new SimpleObjectProperty<>(this, "strokeColor", Color.BLACK);
+    private final ObjectProperty<Color> strokeColor = new SimpleObjectProperty<>(this, "strokeColor", Color.ROSYBROWN);
 
     public final Color getStrokeColor() {
         return strokeColor.get();
@@ -679,7 +682,7 @@ public class LinkRenderer<T extends ActivityLink<?>> extends RendererBase {
 
     // ARROW HEAD COLOR
 
-    private final ObjectProperty<Color> arrowHeadColor = new SimpleObjectProperty<>(this, "arrowHeadColor", Color.BLACK);
+    private final ObjectProperty<Color> arrowHeadColor = new SimpleObjectProperty<>(this, "arrowHeadColor", Color.ROSYBROWN);
 
     public final Color getArrowHeadColor() {
         return arrowHeadColor.get();

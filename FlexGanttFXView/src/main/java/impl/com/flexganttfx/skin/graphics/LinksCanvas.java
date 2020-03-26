@@ -74,7 +74,12 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
                 graphics.getTimeline().getVisibleStartTime().toEpochMilli(),
                 graphics.getTimeline().getVisibleEndTime().toEpochMilli());
 
-        long time = System.currentTimeMillis();
+        long time = 0;
+
+        if (LoggingDomain.RENDERING.isLoggable(Level.FINER)) {
+            time = System.currentTimeMillis();
+        }
+
         visibleLinks.forEach(link -> drawLink(gc, link));
 
         if (LoggingDomain.RENDERING.isLoggable(Level.FINER)) {
