@@ -13,19 +13,13 @@ import com.flexganttfx.model.util.IntervalTree;
 import com.flexganttfx.view.graphics.ActivityEvent;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.graphics.renderer.LinkRenderer;
-import com.flexganttfx.view.timeline.Timeline;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.beans.value.ChangeListener;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
-import javafx.collections.WeakListChangeListener;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
-import java.time.Instant;
 import java.util.Collection;
 import java.util.function.Predicate;
 import java.util.logging.Level;
@@ -36,59 +30,18 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
     public LinksCanvas(GraphicsBase<R> graphics) {
         this.graphics = graphics;
-        this.linkRenderer = new LinkRenderer(graphics, "Default Link Renderer");
 
         /*
          * Don't show links when a row editor is in use.
          */
         visibleProperty().bind(Bindings.isEmpty(graphics.getRowsEditing()));
 
+        widthProperty().addListener(it -> Platform.runLater(() -> draw("width changed")));
+        heightProperty().addListener(it -> Platform.runLater(() -> draw("height changed")));
+
         setMouseTransparent(true);
 
         graphics.addEventFilter(ActivityEvent.ACTIVITY_CHANGE, event -> draw("an activity changed"));
-        graphics.getRows().addListener(weakRowListChangedListener);
-
-        connectToTimeline();
-    }
-
-    private void connectToTimeline() {
-        Timeline timeline = graphics.getTimeline();
-
-        final ChangeListener<Instant> startTimeListener = (obs, oldTime, newTime) -> {
-//            double x = timeline.getModel().calculateLocationForTime(oldTime);
-//
-//            double newTranslateX = getTranslateX() + x;
-//
-//            if (Math.abs(newTranslateX) < graphics.getCanvasBuffer()) {
-//                setTranslateX(newTranslateX);
-//
-//                Instant st = graphics.getTimeAt(0);
-//                Instant et = graphics.getTimeAt(graphics.getWidth());
-//
-//                boolean contained = (st.equals(drawingStartTime) || st.isAfter(drawingStartTime)) && (et.equals(drawingEndTime) || et.isBefore(drawingEndTime));
-//
-//                if (!contained) {
-//                    draw("start time changed");
-//                }
-//            } else {
-//                randomTranslateX((newTranslateX - getTranslateX()) < 0);
-            Platform.runLater(() -> {
-                draw("start time changed");
-            });
-//            }
-        };
-
-        timeline.getModel().startTimeProperty().addListener(startTimeListener);
-
-        timeline.modelProperty().addListener((observable, oldValue, newValue) -> {
-            if (oldValue != null) {
-                timeline.getModel().startTimeProperty().removeListener(startTimeListener);
-            }
-
-            if (newValue != null) {
-                timeline.getModel().startTimeProperty().addListener(startTimeListener);
-            }
-        });
     }
 
     @Override
@@ -96,11 +49,6 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
         return true;
     }
 
-    private final ListChangeListener<Row<?, ?, ?>> rowListChangedListener = (Change<? extends Row<?, ?, ?>> c) -> graphics.redraw();
-
-    private final WeakListChangeListener<Row<?, ?, ?>> weakRowListChangedListener = new WeakListChangeListener<>(rowListChangedListener);
-
-    private final LinkRenderer linkRenderer;
 
     private int counterTotal = 0;
     private int counterDrawn = 0;
@@ -108,16 +56,16 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
     private int counterBelow = 0;
 
     public void draw(String reason) {
-        System.out.println("redrawing links because " + reason);
+        if (LoggingDomain.RENDERING.isLoggable(Level.FINE)) {
+            LoggingDomain.RENDERING.fine("redrawing links, reason: " + reason);
+        }
 
         counterDrawn = 0;
         counterTotal = 0;
         counterAbove = 0;
         counterBelow = 0;
 
-
         final GraphicsContext gc = getGraphicsContext2D();
-
         gc.clearRect(0, 0, getWidth(), getHeight());
 
         final IntervalTree<ActivityLink> links = graphics.getLinks();
@@ -132,14 +80,14 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
         if (LoggingDomain.RENDERING.isLoggable(Level.FINER)) {
             LoggingDomain.RENDERING.finer(
                     "total: " + counterTotal +
-                    ", above: " + counterAbove +
-                    ", below: " + counterBelow +
-                    ", rendered: " + counterDrawn +
-                    ", time = " + (System.currentTimeMillis() - time));
+                            ", above: " + counterAbove +
+                            ", below: " + counterBelow +
+                            ", rendered: " + counterDrawn +
+                            ", time = " + (System.currentTimeMillis() - time));
         }
     }
 
-    private void drawLink(GraphicsContext gc, ActivityLink<?> link) {
+    private void drawLink(GraphicsContext gc, ActivityLink link) {
         counterTotal++;
 
         ActivityRef<?> sourceRef = link.getSourceActivityRef();
@@ -171,6 +119,7 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
                     targetBounds = new Rectangle2D(targetBounds.getMinX() - graphics.getCanvasBuffer() + targetCanvas.getTranslateX(), targetBounds.getMinY(), targetBounds.getWidth(), targetBounds.getHeight());
                 }
 
+                final LinkRenderer linkRenderer = graphics.getLinkRenderer(link.getClass());
                 linkRenderer.draw(link, gc, sourceBounds, targetBounds);
             }
         }

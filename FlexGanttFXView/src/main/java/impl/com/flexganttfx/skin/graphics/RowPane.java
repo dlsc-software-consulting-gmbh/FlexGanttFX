@@ -228,10 +228,6 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
 		}
 	}
 
-	public void draw(String reason) {
-		canvas.draw(reason);
-	}
-
 	private void updateZoneIdLabel() {
 		R row = getRow();
 		if (row != null) {
@@ -243,7 +239,7 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
 		}
 	}
 
-	private final InvalidationListener redrawListener = it -> draw("row pane's redraw listener was called");
+	private final InvalidationListener redrawListener = it -> getCanvas().draw("row pane's redraw listener was called");
 
 	private final InvalidationListener weakRedrawListener = new WeakInvalidationListener(redrawListener);
 
@@ -258,7 +254,7 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
 		 * in a batch.
 		 */
 		if (graphics.isAutomaticRedraw()) {
-			draw("row pane's repository listener fired");
+			getCanvas().draw("row pane's repository listener fired");
 		}
 	};
 

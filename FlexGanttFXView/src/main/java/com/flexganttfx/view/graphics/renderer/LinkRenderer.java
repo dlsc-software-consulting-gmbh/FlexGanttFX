@@ -28,7 +28,7 @@ import javafx.scene.shape.PathElement;
  *
  * @since 1.0
  */
-public class LinkRenderer extends RendererBase {
+public class LinkRenderer<T extends ActivityLink<?>> extends RendererBase {
 
     /**
      * An enumerator of possible locations that the target object can have
@@ -214,7 +214,7 @@ public class LinkRenderer extends RendererBase {
      * @param sourceBounds the bounds of the source activity
      * @param targetBounds the bounds of the target activity
      */
-    public void draw(ActivityLink<?> link, GraphicsContext gc, Rectangle2D sourceBounds, Rectangle2D targetBounds) {
+    public void draw(T link, GraphicsContext gc, Rectangle2D sourceBounds, Rectangle2D targetBounds) {
         gc.setStroke(getStrokeColor());
         gc.setLineWidth(getStrokeWidth());
 

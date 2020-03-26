@@ -53,6 +53,7 @@ import com.flexganttfx.view.graphics.layer.ZoomTimeIntervalLayer;
 import com.flexganttfx.view.graphics.renderer.ActivityRenderer;
 import com.flexganttfx.view.graphics.renderer.ChartActivityRenderer;
 import com.flexganttfx.view.graphics.renderer.CompletableActivityRenderer;
+import com.flexganttfx.view.graphics.renderer.LinkRenderer;
 import com.flexganttfx.view.timeline.Dateline;
 import com.flexganttfx.view.timeline.Eventline;
 import com.flexganttfx.view.timeline.Timeline;
@@ -330,6 +331,9 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
         setActivityRenderer(MutableActivityBase.class, AgendaLayout.class, new ActivityRenderer<>(this, "Activities (Agenda Layout)"));
 
+        // Activity link renderer
+        setLinkRenderer(ActivityLink.class, new LinkRenderer<>(this, "Default Link Renderer"));
+
         // Edit mode controllers
 
         /*
@@ -467,6 +471,8 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
         getLayers().addListener(layerListListener);
 
+        getRows().addListener((Observable it) -> Platform.runLater(() -> redraw("row list changed")));
+
         automaticRedraw.addListener(weakRedrawListener);
 
         layers.forEach(this::addListenersToLayer);
@@ -475,8 +481,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
          * We are "abusing" the properties map to pass new values of read-only
          * properties from the skin to the control.
          */
-        getProperties().addListener((
-                javafx.collections.MapChangeListener.Change<?, ?> change) -> {
+        getProperties().addListener((javafx.collections.MapChangeListener.Change<?, ?> change) -> {
             if (change.getKey().equals("com.flexganttfx.currenteditmode")) {
                 if (change.getValueAdded() != null) {
                     EditMode mode = (EditMode) change.getValueAdded();
@@ -774,6 +779,8 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
     private void connectToTimeline() {
         Timeline timeline = getTimeline();
 
+        timeline.getModel().startTimeProperty().addListener((obs, oldTime, newTime) -> redraw());
+
         redrawObservable(timeline.getModel().millisPerPixelProperty());
 
         /*
@@ -781,21 +788,20 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
          */
         timeline.getModel().nowProperty().addListener(weakRedrawNowListener);
 
-        timeline.modelProperty()
-                .addListener((observable, oldValue, newValue) -> {
+        timeline.modelProperty().addListener((observable, oldValue, newValue) -> {
 
-                    if (oldValue != null) {
-                        // special "now redraw calendarListListener"
-                        oldValue.nowProperty().removeListener(weakRedrawNowListener);
-                        removeRedrawObservable(timeline.getModel().millisPerPixelProperty());
-                    }
+            if (oldValue != null) {
+                // special "now redraw calendarListListener"
+                oldValue.nowProperty().removeListener(weakRedrawNowListener);
+                removeRedrawObservable(timeline.getModel().millisPerPixelProperty());
+            }
 
-                    if (newValue != null) {
-                        // special "now redraw calendarListListener"
-                        newValue.nowProperty().addListener(weakRedrawNowListener);
-                        redrawObservable(timeline.getModel().millisPerPixelProperty());
-                    }
-                });
+            if (newValue != null) {
+                // special "now redraw calendarListListener"
+                newValue.nowProperty().addListener(weakRedrawNowListener);
+                redrawObservable(timeline.getModel().millisPerPixelProperty());
+            }
+        });
 
         // Dateline & Eventline
         Dateline dateline = timeline.getDateline();
@@ -807,25 +813,24 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         dateline.getSelectedIntervals().addListener(weakRedrawListener);
         //dateline.getScaleResolutions().addListener(weakRedrawListener);
 
-        timelineProperty()
-                .addListener((observable, oldTimeline, newTimeline) -> {
+        timelineProperty().addListener((observable, oldTimeline, newTimeline) -> {
 
-                    if (oldTimeline != null) {
-                        Dateline oldDateline = oldTimeline.getDateline();
-                        removeRedrawObservable(oldDateline.primaryTemporalUnitProperty());
-                        removeRedrawObservable(oldDateline.hoverTimeIntervalProperty());
-                        oldDateline.getSelectedIntervals().removeListener(weakRedrawListener);
-                        removeRedrawObservable(oldTimeline.getDateline().selectedTimeIntervalProperty());
-                    }
+            if (oldTimeline != null) {
+                Dateline oldDateline = oldTimeline.getDateline();
+                removeRedrawObservable(oldDateline.primaryTemporalUnitProperty());
+                removeRedrawObservable(oldDateline.hoverTimeIntervalProperty());
+                oldDateline.getSelectedIntervals().removeListener(weakRedrawListener);
+                removeRedrawObservable(oldTimeline.getDateline().selectedTimeIntervalProperty());
+            }
 
-                    if (newTimeline != null) {
-                        Dateline newDateline = newTimeline.getDateline();
-                        redrawObservable(newDateline.primaryTemporalUnitProperty());
-                        redrawObservable(newDateline.hoverTimeIntervalProperty());
-                        newDateline.getSelectedIntervals().addListener(weakRedrawListener);
-                        redrawObservable(newTimeline.getDateline().selectedTimeIntervalProperty());
-                    }
-                });
+            if (newTimeline != null) {
+                Dateline newDateline = newTimeline.getDateline();
+                redrawObservable(newDateline.primaryTemporalUnitProperty());
+                redrawObservable(newDateline.hoverTimeIntervalProperty());
+                newDateline.getSelectedIntervals().addListener(weakRedrawListener);
+                redrawObservable(newTimeline.getDateline().selectedTimeIntervalProperty());
+            }
+        });
 
         autoGridEnabled.addListener(it -> updateGridProperty());
         virtualGrid.addListener(it -> updateGridProperty());
@@ -878,10 +883,9 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         property.removeListener(weakRedrawListener);
     }
 
-    private final ChangeListener<Instant> redrawNowListener = new ChangeListener<Instant>() {
+    private final ChangeListener<Instant> redrawNowListener = new ChangeListener<>() {
         @Override
-        public void changed(ObservableValue<? extends Instant> observable,
-                            Instant oldNow, Instant newNow) {
+        public void changed(ObservableValue<? extends Instant> observable, Instant oldNow, Instant newNow) {
 
             Instant visibleStart = getTimeline().getVisibleStartTime();
             Instant visibleEnd = getTimeline().getVisibleEndTime();
@@ -893,14 +897,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
             }
         }
 
-        private boolean inRange(Instant time, Instant visibleStart,
-                                Instant visibleEnd) {
+        private boolean inRange(Instant time, Instant visibleStart, Instant visibleEnd) {
             return visibleStart.equals(time) || visibleEnd.equals(time) || (visibleStart.isBefore(time) && visibleEnd.isAfter(time));
         }
     };
 
-    private final WeakChangeListener<Instant> weakRedrawNowListener = new WeakChangeListener<>(
-            redrawNowListener);
+    private final WeakChangeListener<Instant> weakRedrawNowListener = new WeakChangeListener<>(redrawNowListener);
 
     // Lasso active support.
 
@@ -3349,35 +3351,47 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
      * shown by the {@link LinksCanvas}.
      */
     public void redraw() {
-//        System.out.println("redrawing " + redrawCounter++);
+        redraw("complete redraw", null);
+    }
+
+    private void redraw(String reason) {
+        redraw(reason, null);
+    }
+
+    private void redraw(String reason, Instant oldTime) {
         if (LoggingDomain.RENDERING.isLoggable(Level.FINE)) {
             LoggingDomain.RENDERING.fine("row cells list size = " + getRowPanes().size());
         }
 
         if (LoggingDomain.PERFORMANCE.isLoggable(Level.FINE)) {
             Instant timeBefore = Instant.now();
-            doDraw();
+
+            drawRows(oldTime);
+            drawLinks(reason);
+
             Instant timeAfter = Instant.now();
             java.time.Duration duration = java.time.Duration.between(timeBefore, timeAfter);
-            LoggingDomain.PERFORMANCE.fine("redraw duration (nanos): " + duration);
+            LoggingDomain.PERFORMANCE.fine("redraw duration in millis: " + duration.toMillis());
         } else {
-            doDraw();
+
+            drawRows(oldTime);
+            drawLinks(reason);
+
         }
 
-        drawLinks();
     }
 
-    public void drawLinks() {
+    public void drawLinks(String reason) {
         if (linksCanvas == null) {
             linksCanvas = (LinksCanvas<R>) lookup("LinksCanvas");
         }
 
         if (linksCanvas != null) {
-            linksCanvas.draw("complete redraw");
+            linksCanvas.draw(reason);
         }
     }
 
-    private void doDraw() {
+    private void drawRows(Instant oldTime) {
         if (getTimeline() != null && getTimeline().getModel() != null) {
 
             for (RowPane<R> pane : getRowPanes()) {
@@ -3389,29 +3403,28 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
                         row.getProperties().put("com.flexganttfx.row.showing", true);
                     }
 
-                    pane.draw("complete redraw inside GraphicsBase");
+                    if (oldTime != null) {
+                        pane.getCanvas().draw("complete redraw inside GraphicsBase", oldTime);
+                    } else {
+                        pane.getCanvas().draw("complete redraw inside GraphicsBase");
+                    }
                 }
             }
         }
     }
 
-    // Renderer support
+    // Activity Renderer support
 
     private final ObservableMap<Class<? extends Layout>, ObservableMap<Class<?>, ActivityRenderer<?>>> rendererLayoutMap = FXCollections.observableHashMap();
 
     private final ObservableMap<Class<? extends Layout>, ObservableMap<Class<?>, ActivityRenderer<?>>> cachedRendererMap = FXCollections.observableHashMap();
 
     private Map<Class<?>, ActivityRenderer<?>> getRendererMapForLayoutStrategy(Class<? extends Layout> layoutType) {
-
-        ObservableMap<Class<?>, ActivityRenderer<?>> layoutMap = rendererLayoutMap.get(layoutType);
-
-        if (layoutMap == null) {
-            layoutMap = FXCollections.observableHashMap();
-            layoutMap.addListener(weakUpdatePropertySheetListener);
-            rendererLayoutMap.put(layoutType, layoutMap);
-        }
-
-        return layoutMap;
+        return rendererLayoutMap.computeIfAbsent(layoutType, k -> {
+            ObservableMap<Class<?>, ActivityRenderer<?>> map = FXCollections.observableHashMap();
+            map.addListener(weakUpdatePropertySheetListener);
+            return map;
+        });
     }
 
     /**
@@ -3448,17 +3461,13 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         cachedRendererMap.clear();
 
         if (renderer != null) {
-            LoggingDomain.CONFIG.fine("activity type = " + activityType
-                    + ", layout type " + layoutType + ", renderer = "
-                    + renderer.getClass().getName());
+            LoggingDomain.CONFIG.fine("activity type = " + activityType + ", layout type " + layoutType + ", renderer = " + renderer.getClass().getName());
         } else {
-            LoggingDomain.CONFIG.fine("activity type = " + activityType
-                    + ", layout type " + layoutType + ", renderer = null");
+            LoggingDomain.CONFIG.fine("activity type = " + activityType + ", layout type " + layoutType + ", renderer = null");
         }
 
         if (renderer != null) {
-            for (ObservableMap<Class<?>, ActivityRenderer<?>> layoutMap : rendererLayoutMap
-                    .values()) {
+            for (ObservableMap<Class<?>, ActivityRenderer<?>> layoutMap : rendererLayoutMap.values()) {
                 for (ActivityRenderer<?> r : layoutMap.values()) {
                     if (r != null && r.getName().equals(renderer.getName())) {
                         throw new IllegalArgumentException(
@@ -3471,24 +3480,18 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
             }
         }
 
-        Map<Class<?>, ActivityRenderer<?>> rendererMap = getRendererMapForLayoutStrategy(
-                layoutType);
+        Map<Class<?>, ActivityRenderer<?>> rendererMap = getRendererMapForLayoutStrategy(layoutType);
         rendererMap.put(activityType, renderer);
     }
 
-    private final ActivityRenderer<?> defaultGanttActivityRenderer = new ChartActivityRenderer<>(
-            this, "Default Gantt Activity Renderer");
+    private final ActivityRenderer<?> defaultGanttActivityRenderer = new ChartActivityRenderer<>(this, "Default Gantt Activity Renderer");
 
-    private final ActivityRenderer<?> defaultChartActivityRenderer = new ChartActivityRenderer<>(
-            this, "Default Chart Activity Renderer");
+    private final ActivityRenderer<?> defaultChartActivityRenderer = new ChartActivityRenderer<>(this, "Default Chart Activity Renderer");
 
-    private final ActivityRenderer<?> defaultAgendaActivityRenderer = new ChartActivityRenderer<>(
-            this, "Default Agenda Activity Renderer");
+    private final ActivityRenderer<?> defaultAgendaActivityRenderer = new ChartActivityRenderer<>(this, "Default Agenda Activity Renderer");
 
     @SuppressWarnings("unchecked")
-    public final <A extends Activity> ActivityRenderer<? extends A> getActivityRenderer(
-            Class<? extends A> activityType,
-            Class<? extends Layout> layoutType) {
+    public final <A extends Activity> ActivityRenderer<? extends A> getActivityRenderer(Class<? extends A> activityType, Class<? extends Layout> layoutType) {
 
         requireNonNull(activityType);
         requireNonNull(layoutType);
@@ -3515,14 +3518,70 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         return renderer;
     }
 
-    private <A extends Activity> ActivityRenderer<A> doGetActivityRenderer(
-            Map<Class<?>, ? extends ActivityRenderer<?>> map, Class<?> clazz) {
+    private <A extends Activity> ActivityRenderer<A> doGetActivityRenderer(Map<Class<?>, ? extends ActivityRenderer<?>> map, Class<?> clazz) {
         if (clazz != null) {
             @SuppressWarnings("unchecked")
             ActivityRenderer<A> renderer = (ActivityRenderer<A>) map.get(clazz);
             if (renderer == null) {
                 return doGetActivityRenderer(map, clazz.getSuperclass());
             }
+            return renderer;
+        }
+
+        return null;
+    }
+
+    // Link renderer support.
+
+    private final ObservableMap<Class<?>, LinkRenderer<?>> linkRendererMap = FXCollections.observableHashMap();
+
+    private final ObservableMap<Class<?>, LinkRenderer<?>> linkRendererCache = FXCollections.observableHashMap();
+
+    /**
+     * Sets a custom link renderer for the given type of activity link.
+     *
+     * @param clazz    the activity type
+     * @param renderer the renderer
+     */
+    public final void setLinkRenderer(Class<? extends Activity> clazz, LinkRenderer<?> renderer) {
+        linkRendererCache.clear();
+
+        if (renderer != null) {
+            LoggingDomain.CONFIG.fine("class = " + clazz + ", renderer = " + renderer.getClass().getName());
+        } else {
+            LoggingDomain.CONFIG.fine("class = " + clazz + ", renderer = null");
+        }
+
+        requireNonNull(clazz);
+
+        linkRendererMap.put(clazz, renderer);
+    }
+
+    /**
+     * Returns a renderer for the given activity link type.
+     *
+     * @param clazz the activity link type
+     * @param <AL>  the activity link type
+     * @return the link renderer
+     */
+    public final <AL extends ActivityLink<?>> LinkRenderer<AL> getLinkRenderer(Class<AL> clazz) {
+        LinkRenderer<AL> cachedRenderer = (LinkRenderer<AL>) linkRendererCache.get(clazz);
+        if (cachedRenderer != null) {
+            return cachedRenderer;
+        }
+
+        LinkRenderer<AL> renderer = (LinkRenderer<AL>) doGetLinkRenderer(clazz);
+        linkRendererCache.put(clazz, renderer);
+        return renderer;
+    }
+
+    private LinkRenderer<?> doGetLinkRenderer(Class<?> clazz) {
+        if (clazz != null) {
+            LinkRenderer<?> renderer = linkRendererMap.get(clazz);
+            if (renderer == null) {
+                return doGetLinkRenderer(clazz.getSuperclass());
+            }
+
             return renderer;
         }
 
@@ -3663,11 +3722,8 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
      * @since 1.0
      */
     @SuppressWarnings("rawtypes")
-    public final void setRowDragAndDropCallback(Class<? extends Row> rowType,
-                                                Callback<DragAndDropInfo, Boolean> callback) {
-
+    public final void setRowDragAndDropCallback(Class<? extends Row> rowType, Callback<DragAndDropInfo, Boolean> callback) {
         requireNonNull(rowType);
-
         dragAndDropCallbackMap.put(rowType, callback);
     }
 
@@ -3681,16 +3737,13 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
      * @since 1.0
      */
     @SuppressWarnings("rawtypes")
-    public final Callback<DragAndDropInfo, Boolean> getRowDragAndDropCallback(
-            Class<? extends Row> rowType) {
+    public final Callback<DragAndDropInfo, Boolean> getRowDragAndDropCallback(Class<? extends Row> rowType) {
         return doGetRowDragAndDropCallback(rowType);
     }
 
-    private Callback<DragAndDropInfo, Boolean> doGetRowDragAndDropCallback(
-            Class<?> rowType) {
+    private Callback<DragAndDropInfo, Boolean> doGetRowDragAndDropCallback(Class<?> rowType) {
         if (rowType != null) {
-            Callback<DragAndDropInfo, Boolean> callback = dragAndDropCallbackMap
-                    .get(rowType);
+            Callback<DragAndDropInfo, Boolean> callback = dragAndDropCallbackMap.get(rowType);
             if (callback == null) {
                 return doGetRowDragAndDropCallback(rowType.getSuperclass());
             }
@@ -3701,8 +3754,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         return null;
     }
 
-    private final ReadOnlyObjectWrapper<DragAndDropInfo> dragAndDropInfo = new ReadOnlyObjectWrapper<>(
-            this, "dragAndDropInfo");
+    private final ReadOnlyObjectWrapper<DragAndDropInfo> dragAndDropInfo = new ReadOnlyObjectWrapper<>(this, "dragAndDropInfo");
 
     /**
      * A property used to store the current drag and drop information. This
@@ -3725,15 +3777,13 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         return dragAndDropInfoProperty().get();
     }
 
-    private final ObjectProperty<Callback<ActivityRef<?>, Image>> dragImageProvider = new SimpleObjectProperty<>(
-            this, "dragImageProvider");
+    private final ObjectProperty<Callback<ActivityRef<?>, Image>> dragImageProvider = new SimpleObjectProperty<>(this, "dragImageProvider");
 
     public final ObjectProperty<Callback<ActivityRef<?>, Image>> dragImageProviderProperty() {
         return dragImageProvider;
     }
 
-    public final void setDragImageProvider(
-            Callback<ActivityRef<?>, Image> provider) {
+    public final void setDragImageProvider(Callback<ActivityRef<?>, Image> provider) {
         dragImageProvider.set(provider);
     }
 

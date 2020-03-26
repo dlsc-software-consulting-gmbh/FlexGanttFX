@@ -1,9 +1,11 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>msproject</artifactId>
     <name>FlexGanttFXMSProject</name>
-    <description>Utility classes to easily load MSProject files via MPXJ.</description>
+    <description>Utility classes to easily load MSProject files via MPXJ.
+    </description>
 
     <parent>
         <groupId>com.flexganttfx</groupId>
@@ -21,6 +23,13 @@
         <pluginRepository>
             <id>jpro - sandec repository</id>
             <url>http://sandec.bintray.com/repo</url>
+        </pluginRepository>
+
+        <pluginRepository>
+            <id>gluon-releases</id>
+            <url>
+                https://nexus.gluonhq.com/nexus/content/repositories/releases/
+            </url>
         </pluginRepository>
 
     </pluginRepositories>
@@ -66,11 +75,9 @@
             <plugin>
                 <groupId>com.gluonhq</groupId>
                 <artifactId>client-maven-plugin</artifactId>
-                <version>0.0.2-SNAPSHOT</version>
+                <version>0.1.18</version>
                 <configuration>
                     <mainClass>com.flexganttfx.msproject.MSProjectApp</mainClass>
-                    <graalLibsPath>/Users/lemmi/Downloads/bundle/lib</graalLibsPath>
-                    <releaseSymbolsList>_Java_java_util_prefs_MacOSXPreferencesFile_*</releaseSymbolsList>
                 </configuration>
             </plugin>
 
@@ -90,7 +97,8 @@
                 <configuration>
                     <visible>false</visible>
                     <!-- noRenderJobs>true</noRenderJobs -->
-                    <mainClassName>com.flexganttfx.msproject.MSProjectApp</mainClassName>
+                    <mainClassName>com.flexganttfx.msproject.MSProjectApp
+                    </mainClassName>
                     <openingPath>/</openingPath>
                 </configuration>
             </plugin>

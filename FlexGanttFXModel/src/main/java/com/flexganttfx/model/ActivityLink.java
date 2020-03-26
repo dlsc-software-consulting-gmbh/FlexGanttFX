@@ -24,6 +24,8 @@ import static java.util.Objects.requireNonNull;
  */
 public class ActivityLink<A extends Activity> implements Activity {
 
+	private Object userObject;
+
 	/**
 	 * An enumerator listing the available link types.
 	 *
@@ -187,16 +189,34 @@ public class ActivityLink<A extends Activity> implements Activity {
 	}
 
 	@Override
-	public Instant getStartTime() {
+	public final Instant getStartTime() {
 		return Instant.ofEpochMilli(Math.min(
 				getSourceActivityRef().getActivity().getStartTime().toEpochMilli(),
 				getTargetActivityRef().getActivity().getStartTime().toEpochMilli()));
 	}
 
 	@Override
-	public Instant getEndTime() {
+	public final Instant getEndTime() {
 		return Instant.ofEpochMilli(Math.max(
 				getSourceActivityRef().getActivity().getEndTime().toEpochMilli(),
 				getTargetActivityRef().getActivity().getEndTime().toEpochMilli()));
+	}
+
+	/**
+	 * An optional user object that might be useful for creating a custom renderer.
+	 *
+	 * @param userObject an optional user object
+	 */
+	public final void setUserObject(Object userObject) {
+		this.userObject = userObject;
+	}
+
+	/**
+	 * Returns the (optional) user object of the activity link.
+	 *
+	 * @return the optional user object
+	 */
+	public final Object getUserObject() {
+		return userObject;
 	}
 }

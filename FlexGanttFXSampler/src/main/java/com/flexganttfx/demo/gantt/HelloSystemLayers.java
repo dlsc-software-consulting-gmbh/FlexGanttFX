@@ -62,17 +62,17 @@ public class HelloSystemLayers extends FlexGanttFXSample {
         row.addActivity(layer, activity2);
         row.addActivity(layer, activity3);
 
-        gc.getGraphics().getBackgroundSystemLayers().add(new LinksLayer(gc.getGraphics()));
+        gc.getGraphics().getBackgroundSystemLayers().add(new CustomLinksLayer(gc.getGraphics()));
         gc.getTimeline().showTime(Instant.now().plus(1, ChronoUnit.DAYS), false);
         gc.setRoot(row);
 
         return gc;
     }
 
-    class LinksLayer extends SystemLayer<HelloRow> {
+    class CustomLinksLayer extends SystemLayer<HelloRow> {
         private Map<String, Rectangle2D> boundsMap = new HashMap<>();
 
-        public LinksLayer(GraphicsBase<HelloRow> graphicsView) {
+        public CustomLinksLayer(GraphicsBase<HelloRow> graphicsView) {
             super("Links Layer", graphicsView);
         }
 

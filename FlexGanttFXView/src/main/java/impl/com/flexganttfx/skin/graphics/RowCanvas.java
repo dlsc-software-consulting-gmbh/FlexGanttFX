@@ -123,9 +123,6 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         pressedProperty().addListener(pseudoStateRedrawListener);
         focusedProperty().addListener(pseudoStateRedrawListener);
 
-        connectToTimeline();
-        graphics.timelineProperty().addListener(it -> connectToTimeline());
-
         graphics.canvasBufferProperty().addListener(it -> {
             setTranslateX(0);
             draw("canvas buffer size changed");
@@ -146,48 +143,31 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         }
     }
 
-    private void connectToTimeline() {
-        Timeline timeline = graphics.getTimeline();
+    public void draw(String reason, Instant oldTime) {
+        final Timeline timeline = graphics.getTimeline();
+        double x = timeline.getModel().calculateLocationForTime(oldTime);
 
-        final ChangeListener<Instant> startTimeListener = (obs, oldTime, newTime) -> {
-            double x = timeline.getModel().calculateLocationForTime(oldTime);
+        double newTranslateX = getTranslateX() + x;
 
-            double newTranslateX = getTranslateX() + x;
+        if (Math.abs(newTranslateX) < graphics.getCanvasBuffer()) {
+            setTranslateX(newTranslateX);
 
-            if (Math.abs(newTranslateX) < graphics.getCanvasBuffer()) {
-                setTranslateX(newTranslateX);
+            Instant st = graphics.getTimeAt(0);
+            Instant et = graphics.getTimeAt(graphics.getWidth());
 
-                Instant st = graphics.getTimeAt(0);
-                Instant et = graphics.getTimeAt(graphics.getWidth());
+            boolean contained = (st.equals(drawingStartTime) || st.isAfter(drawingStartTime)) && (et.equals(drawingEndTime) || et.isBefore(drawingEndTime));
 
-                boolean contained = (st.equals(drawingStartTime) || st.isAfter(drawingStartTime)) && (et.equals(drawingEndTime) || et.isBefore(drawingEndTime));
-
-                if (!contained) {
-                    draw("start time changed");
-                }
-            } else {
-                randomTranslateX((newTranslateX - getTranslateX()) < 0);
-                draw("start time changed");
+            if (!contained) {
+                draw(reason);
             }
-        };
-
-        timeline.getModel().startTimeProperty().addListener(startTimeListener);
-
-        timeline.modelProperty().addListener((observable, oldValue, newValue) -> {
-            if (oldValue != null) {
-                timeline.getModel().startTimeProperty().removeListener(startTimeListener);
-            }
-
-            if (newValue != null) {
-                timeline.getModel().startTimeProperty().addListener(startTimeListener);
-            }
-        });
+        } else {
+            randomTranslateX((newTranslateX - getTranslateX()) < 0);
+            draw(reason);
+        }
     }
 
     private final ChangeListener<ActivityRef<?>> activityRedrawListener = (observable, oldRef, newRef) -> {
-
-        if ((oldRef != null && oldRef.getRow() == getRow())
-                || (newRef != null && newRef.getRow() == getRow())) {
+        if ((oldRef != null && oldRef.getRow() == getRow()) || (newRef != null && newRef.getRow() == getRow())) {
 
             if (observable instanceof ReadOnlyProperty) {
                 if (LoggingDomain.RENDERING.isLoggable(Level.FINE)) {
@@ -267,9 +247,8 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
     private boolean safeRendering;
 
     public final void draw(String reason) {
-        System.out.println("drawing row canvas because of " + reason);
         if (LoggingDomain.RENDERING.isLoggable(Level.FINEST)) {
-            LoggingDomain.RENDERING.finest("drawing canvas of row " + getRow());
+            LoggingDomain.RENDERING.finest("drawing canvas of row " + getRow() + ", reason: " + reason);
         }
 
         activityBounds.clear();

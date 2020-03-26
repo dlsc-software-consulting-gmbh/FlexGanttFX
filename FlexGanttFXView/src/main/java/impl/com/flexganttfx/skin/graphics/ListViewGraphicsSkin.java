@@ -25,6 +25,7 @@ import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.skin.VirtualFlow;
 import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Rectangle;
 
@@ -283,6 +284,7 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
         List<RowCell<R>> cells = getVisibleRowCells();
         for (RowCell<R> cell : cells) {
             Bounds cellBounds = cell.localToScene(cell.getLayoutBounds());
+
             if (cellBounds.intersects(lassoBounds)) {
                 RowPane<R> pane = cell.getRowPane();
                 RowCanvas<R> canvas = pane.getCanvas();
@@ -292,10 +294,9 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
                         lasso.getBoundsInLocal().getWidth(),
                         lasso.getBoundsInLocal().getHeight());
 
-                List<ActivityRef<?>> refs =
-                        selections.stream()
-                                .map(ActivityBounds::getActivityRef)
-                                .collect(Collectors.toList());
+                List<ActivityRef<?>> refs = selections.stream()
+                        .map(ActivityBounds::getActivityRef)
+                        .collect(Collectors.toList());
 
                 selection.addAll(refs);
             }
@@ -405,11 +406,17 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
         }
     }
 
+    private VirtualFlow<RowCell<R>> flow;
+
     private List<RowCell<R>> getVisibleRowCells() {
 
         List<RowCell<R>> visibleRowCells = new ArrayList<>();
 
-        VirtualFlow<RowCell<R>> flow = (VirtualFlow<RowCell<R>>) listView.lookup("VirtualFlow");
+        if (flow == null) {
+            flow = (VirtualFlow<RowCell<R>>) listView.lookup("VirtualFlow");
+        }
+
+        // flow could still be null
         if (flow != null) {
 
             RowCell<R> firstCell = flow.getFirstVisibleCell();
@@ -435,114 +442,15 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
     }
 
     private void registerListViewScrollBarListener() {
-        ScrollBar graphicsViewScrollBar = findScrollBar(listView, Orientation.VERTICAL);
+        ScrollBar scrollBar = findScrollBar(listView, Orientation.VERTICAL);
 
-        if (graphicsViewScrollBar != null) {
-
-            graphicsViewScrollBar.valueProperty().addListener(observable -> getSkinnable().drawLinks());
-
-            // TODO: put back in
-            // graphicsViewScrollBar.addEventHandler(MouseEvent.MOUSE_MOVED,
-            // evt -> showLens(evt, graphicsViewScrollBar));
-            // graphicsViewScrollBar.addEventHandler(MouseEvent.MOUSE_PRESSED,
-            // evt -> hideLens(evt));
-            // graphicsViewScrollBar.addEventHandler(MouseEvent.MOUSE_DRAGGED,
-            // evt -> hideLens(evt));
+        if (scrollBar != null) {
+            scrollBar.addEventFilter(MouseEvent.MOUSE_DRAGGED, evt -> getSkinnable().drawLinks("scrolling down, mouse event"));
+            scrollBar.valueProperty().addListener(it -> {
+                getSkinnable().drawLinks("scrolling down");
+            });
         }
     }
-
-    // private PopOver lensPopOver;
-    //
-    // private Lens<R> lens;
-    //
-    // class ShowLensThread extends Thread {
-    //
-    // private boolean running = true;
-    // private MouseEvent evt;
-    // private ScrollBar scrollbar;
-    //
-    // public ShowLensThread(MouseEvent evt, ScrollBar bar) {
-    // super("FlexGanttFX - Show Lens Thread");
-    //
-    // setDaemon(true);
-    //
-    // this.evt = requireNonNull(evt);
-    // this.scrollbar = requireNonNull(bar);
-    // }
-    //
-    // public void stopRunning() {
-    // running = false;
-    // }
-    //
-    // @Override
-    // public void run() {
-    // try {
-    // sleep(1000);
-    // if (running) {
-    // System.out.println("thread still running, showing lens");
-    // Platform.runLater(() -> doShowLens(evt, scrollbar));
-    // }
-    // } catch (InterruptedException ex) {
-    // ex.printStackTrace();
-    // }
-    // }
-    // }
-    //
-    // private ShowLensThread showLensThread;
-    //
-    // private void showLens(MouseEvent evt, ScrollBar scrollbar) {
-    // if (lensPopOver != null && !lensPopOver.isDetached()
-    // && lensPopOver.isShowing()) {
-    // doShowLens(evt, scrollbar);
-    // } else {
-    // if (showLensThread != null) {
-    // System.out.println("found existing thread, stopping it");
-    // showLensThread.stopRunning();
-    // }
-    //
-    // System.out.println("creating new thread");
-    // showLensThread = new ShowLensThread(evt, scrollbar);
-    // showLensThread.start();
-    // }
-    // }
-    //
-    // private void doShowLens(MouseEvent evt, ScrollBar scrollbar) {
-    // ListViewGraphics<R> skinnable = getSkinnable();
-    // ObservableList<R> rows = skinnable.getRows();
-    //
-    // if (lensPopOver == null || lensPopOver.isDetached()) {
-    // lens = new Lens<>(getSkinnable());
-    // lensPopOver = new PopOver();
-    // lensPopOver.getStyleClass().add("graphics-lens-popover");
-    // lensPopOver.setContentNode(lens);
-    // lensPopOver.setArrowLocation(RIGHT_CENTER);
-    // Bindings.bindContent(lens.getRows(), rows);
-    // }
-    //
-    // double value = scrollbar.getMax() * evt.getY() / scrollbar.getHeight();
-    //
-    // int startIndex = (int) (rows.size() * value);
-    // lens.setStartIndex(startIndex);
-    //
-    // if (lensPopOver.isShowing()) {
-    // lensPopOver.setY(evt.getScreenY() - lensPopOver.getHeight() / 2);
-    // } else {
-    // lensPopOver.show(skinnable, scrollbar
-    // .localToScreen(-20, evt.getY()).getX(), evt.getScreenY());
-    // }
-    // }
-    //
-    // private void hideLens(MouseEvent evt) {
-    // System.out.println("hiding lens");
-    // if (showLensThread != null) {
-    // System.out.println("killing thread");
-    // showLensThread.stopRunning();
-    // }
-    //
-    // if (lensPopOver != null) {
-    // lensPopOver.hide();
-    // }
-    // }
 
     private ScrollBar findScrollBar(Parent parent, Orientation orientation) {
         for (Node node : parent.getChildrenUnmodifiable()) {

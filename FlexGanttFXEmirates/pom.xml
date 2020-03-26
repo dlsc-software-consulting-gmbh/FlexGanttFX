@@ -90,16 +90,6 @@
 		<plugins>
 
 			<plugin>
-				<groupId>com.gluonhq</groupId>
-				<artifactId>client-maven-plugin</artifactId>
-				<version>0.0.1</version>
-				<configuration>
-					<mainClass>com.flexganttfx.emirates.EmiratesApp</mainClass>
-					<graalLibsPath>/Users/lemmi/Downloads/bundle/lib</graalLibsPath>
-				</configuration>
-			</plugin>
-
-			<plugin>
 				<groupId>com.sandec.jpro</groupId>
 				<artifactId>jpro-maven-plugin</artifactId>
 				<version>${jpro.version}</version>
