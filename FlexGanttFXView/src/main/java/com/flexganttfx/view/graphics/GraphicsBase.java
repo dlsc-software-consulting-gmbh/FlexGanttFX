@@ -527,6 +527,8 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
                     } else {
                         lassoActive.set(Boolean.FALSE);
                     }
+                } else {
+                    lassoActive.set(Boolean.FALSE);
                 }
             } else if (change.getKey().equals("com.flexganttfx.hover.row")) {
                 Object valueAdded = change.getValueAdded();

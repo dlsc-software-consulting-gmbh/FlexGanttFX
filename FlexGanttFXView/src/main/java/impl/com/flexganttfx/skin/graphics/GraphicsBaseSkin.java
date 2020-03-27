@@ -652,7 +652,11 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
             }
         });
 
-        node.addEventHandler(ContextMenuEvent.CONTEXT_MENU_REQUESTED, this::showContextMenu);
+        node.addEventHandler(ContextMenuEvent.CONTEXT_MENU_REQUESTED, evt1 -> {
+             if (!lassoStarted) {
+                showContextMenu(evt1);
+            }
+        });
 
         EventHandler<MouseEvent> updateHorizontalCursor = evt -> {
             horizontalCursorLine.setStartX(0);
@@ -687,6 +691,10 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         node.addEventHandler(MouseEvent.MOUSE_PRESSED, evt -> {
             if (contextMenu != null && contextMenu.isShowing()) {
                 contextMenu.hide();
+            }
+
+            if (!evt.isPrimaryButtonDown()) {
+                return;
             }
 
             getSkinnable().requestFocus();
@@ -746,7 +754,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         });
 
         node.addEventHandler(MouseEvent.MOUSE_DRAGGED, evt -> {
-            if (evt.isConsumed()) {
+            if (!evt.isPrimaryButtonDown() || evt.isConsumed()) {
                 return;
             }
 
@@ -755,11 +763,10 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
 
             if (getSkinnable().isLassoActive()) {
 
-                lassoEndTime = timelineModel
-                        .calculateTimeForLocation(evt.getX());
+                lassoEndTime = timelineModel.calculateTimeForLocation(evt.getX());
+
                 if (getSkinnable().isLassoSnapsToGrid()) {
-                    lassoEndTime = GridHelper.grid(getSkinnable(),
-                            lassoEndTime);
+                    lassoEndTime = GridHelper.grid(getSkinnable(), lassoEndTime);
                 }
 
                 // hack, this should not be necessary
@@ -891,8 +898,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
 
         LassoInfo info = createLassoInfo(evt);
 
-        LassoEvent event = new LassoEvent(graphics,
-                LassoEvent.SELECTION_STARTED, info);
+        LassoEvent event = new LassoEvent(graphics, LassoEvent.SELECTION_STARTED, info);
 
         graphics.fireEvent(event);
     }
