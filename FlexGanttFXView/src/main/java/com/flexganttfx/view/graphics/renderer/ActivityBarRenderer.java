@@ -387,11 +387,10 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
         switch (position) {
             case LEADING:
             case TRAILING:
-                gc.fillText(text, snapPosition(textX), snapPosition(textY));
+                gc.fillText(text, snapPositionX(textX), snapPositionY(textY));
                 break;
             default:
-                gc.fillText(text, snapPosition(textX), snapPosition(textY),
-                        availableWidth);
+                gc.fillText(text, snapPositionX(textX), snapPositionY(textY), availableWidth);
                 break;
         }
     }

@@ -1,5 +1,5 @@
 ----------------------------------------------------------
-Release: 12.0.0, March 2020 (Performance / Corona Release)
+Release: 11.10.0, March 2020 (Performance / Corona Release)
 ----------------------------------------------------------
 
 ** Replaced LinksPane with LinksCanvas. Links are now drawn via CanvasAPI (much faster).

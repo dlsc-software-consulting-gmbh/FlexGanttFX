@@ -552,8 +552,7 @@ public class HelloAgendaLayout extends FlexGanttFXSample {
 					gc.setFill(textColorMap.get(type));
 					gc.setTextBaseline(VPos.TOP);
 					gc.setTextAlign(TextAlignment.RIGHT);
-					gc.fillText(startText, snapPosition(x + w - 4),
-							snapPosition(y + 4));
+					gc.fillText(startText, snapPositionX(x + w - 4), snapPositionY(y + 4));
 				}
 
 				if (h >= 40 && w > 50) {
@@ -566,8 +565,7 @@ public class HelloAgendaLayout extends FlexGanttFXSample {
 						gc.setFill(textColorMap.get(type));
 						gc.setTextBaseline(VPos.BOTTOM);
 						gc.setTextAlign(TextAlignment.RIGHT);
-						gc.fillText(endText, snapPosition(x + w - 4),
-								snapPosition(y + h - 4));
+						gc.fillText(endText, snapPositionX(x + w - 4), snapPositionY(y + h - 4));
 						break;
 					default:
 						break;

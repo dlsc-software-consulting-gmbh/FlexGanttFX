@@ -20,20 +20,27 @@ import javafx.scene.canvas.Canvas;
 import javafx.stage.Window;
 
 import java.time.Instant;
+import java.util.Objects;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * The base class of all renderers used by FlexGanttFX.
+ */
 public abstract class RendererBase {
 
     private final String name;
-    private GraphicsBase<?> graphics;
+    private final GraphicsBase<?> graphics;
 
+    /**
+     * Constructs a new renderer.
+     *
+     * @param graphics the graphics control where the renderer will be used
+     * @param name the name of the renderer (useful for tooling)
+     */
     public RendererBase(GraphicsBase<?> graphics, String name) {
-        requireNonNull(name);
-        requireNonNull(graphics);
-
-        this.name = name;
-        this.graphics = graphics;
+        this.name = Objects.requireNonNull(name);
+        this.graphics = Objects.requireNonNull(graphics);
 
         // Listener support / Redraw
 
@@ -43,130 +50,79 @@ public abstract class RendererBase {
     }
 
     /**
-     * If this region's snapToPixel property is false, this method returns the
-     * same value, else it tries to return a value rounded to the nearest
-     * pixel, but since there is no indication if the value is a vertical
-     * or horizontal measurement then it may be snapped to the wrong pixel
-     * size metric on screens with different horizontal and vertical scales.
-     * @param value the space value to be snapped
-     * @return value rounded to nearest pixel
-     * @deprecated replaced by {@code snapSpaceX()} and {@code snapSpaceY()}
-     */
-    @Deprecated(since = "9")
-    protected double snapSpace(double value) {
-        return snapSpaceX(value, isSnapToPixel());
-    }
-
-    /**
-     * If this region's snapToPixel property is true, returns a value rounded
+     * If this renderer's snapToPixel property is true, returns a value rounded
      * to the nearest pixel in the horizontal direction, else returns the
      * same value.
      * @param value the space value to be snapped
      * @return value rounded to nearest pixel
-     * @since 9
      */
     public double snapSpaceX(double value) {
         return snapSpaceX(value, isSnapToPixel());
     }
 
     /**
-     * If this region's snapToPixel property is true, returns a value rounded
+     * If this renderer's snapToPixel property is true, returns a value rounded
      * to the nearest pixel in the vertical direction, else returns the
      * same value.
      * @param value the space value to be snapped
      * @return value rounded to nearest pixel
-     * @since 9
      */
     public double snapSpaceY(double value) {
         return snapSpaceY(value, isSnapToPixel());
     }
 
     /**
-     * If this region's snapToPixel property is false, this method returns the
-     * same value, else it tries to return a value ceiled to the nearest
-     * pixel, but since there is no indication if the value is a vertical
-     * or horizontal measurement then it may be snapped to the wrong pixel
-     * size metric on screens with different horizontal and vertical scales.
-     * @param value the size value to be snapped
-     * @return value ceiled to nearest pixel
-     * @deprecated replaced by {@code snapSizeX()} and {@code snapSizeY()}
-     */
-    @Deprecated(since = "9")
-    protected double snapSize(double value) {
-        return snapSizeX(value, isSnapToPixel());
-    }
-
-    /**
-     * If this region's snapToPixel property is true, returns a value ceiled
+     * If this renderer's snapToPixel property is true, returns a value ceiled
      * to the nearest pixel in the horizontal direction, else returns the
      * same value.
      * @param value the size value to be snapped
      * @return value ceiled to nearest pixel
-     * @since 9
      */
     public double snapSizeX(double value) {
         return snapSizeX(value, isSnapToPixel());
     }
 
     /**
-     * If this region's snapToPixel property is true, returns a value ceiled
+     * If this renderer's snapToPixel property is true, returns a value ceiled
      * to the nearest pixel in the vertical direction, else returns the
      * same value.
      * @param value the size value to be snapped
      * @return value ceiled to nearest pixel
-     * @since 9
      */
     public double snapSizeY(double value) {
         return snapSizeY(value, isSnapToPixel());
     }
 
     /**
-     * If this region's snapToPixel property is false, this method returns the
-     * same value, else it tries to return a value rounded to the nearest
-     * pixel, but since there is no indication if the value is a vertical
-     * or horizontal measurement then it may be snapped to the wrong pixel
-     * size metric on screens with different horizontal and vertical scales.
-     * @param value the position value to be snapped
-     * @return value rounded to nearest pixel
-     * @deprecated replaced by {@code snapPositionX()} and {@code snapPositionY()}
-     */
-    @Deprecated(since = "9")
-    protected double snapPosition(double value) {
-        return snapPositionX(value, isSnapToPixel());
-    }
-
-    /**
-     * If this region's snapToPixel property is true, returns a value rounded
+     * If this renderer's snapToPixel property is true, returns a value rounded
      * to the nearest pixel in the horizontal direction, else returns the
      * same value.
      * @param value the position value to be snapped
      * @return value rounded to nearest pixel
-     * @since 9
      */
     public double snapPositionX(double value) {
         return snapPositionX(value, isSnapToPixel());
     }
 
     /**
-     * If this region's snapToPixel property is true, returns a value rounded
+     * If this renderer's snapToPixel property is true, returns a value rounded
      * to the nearest pixel in the vertical direction, else returns the
      * same value.
      * @param value the position value to be snapped
      * @return value rounded to nearest pixel
-     * @since 9
      */
     public double snapPositionY(double value) {
         return snapPositionY(value, isSnapToPixel());
     }
 
-    private static double _getSnapScaleXimpl(Scene scene) {
+    private static double getSnapScaleXImpl(Scene scene) {
         if (scene == null) return 1.0;
         Window window = scene.getWindow();
         if (window == null) return 1.0;
         return window.getRenderScaleX();
     }
 
-    private static double _getSnapScaleYimpl(Scene scene) {
+    private static double getSnapScaleYImpl(Scene scene) {
         if (scene == null) return 1.0;
         Window window = scene.getWindow();
         if (window == null) return 1.0;
@@ -174,11 +130,11 @@ public abstract class RendererBase {
     }
 
     private double getSnapScaleX() {
-        return _getSnapScaleXimpl(graphics.getScene());
+        return getSnapScaleXImpl(graphics.getScene());
     }
 
     private double getSnapScaleY() {
-        return _getSnapScaleYimpl(graphics.getScene());
+        return getSnapScaleYImpl(graphics.getScene());
     }
 
     private double scaledRound(double value, double scale) {
@@ -241,22 +197,37 @@ public abstract class RendererBase {
         return snapToPixel ? scaledRound(value, getSnapScaleY()) : value;
     }
 
-    private boolean drawingInProgress;
+    private boolean disableRedrawAfterPropertyChange;
 
+    /**
+     * Disables automatic redrawing of the graphics area when one of the
+     * observed properties changes. Useful for not going into infinite loops.
+     */
     protected final void disableRedrawAfterPropertyChange() {
-        drawingInProgress = true;
+        disableRedrawAfterPropertyChange = true;
     }
 
+    /**
+     * Enabled automatic redrawing of the graphics area when one of the
+     * observed properties changes. Useful for not going into infinite loops.
+     */
     protected final void enableRedrawAfterPropertyChange() {
-        drawingInProgress = false;
+        disableRedrawAfterPropertyChange = false;
     }
 
     private final InvalidationListener redrawListener = observable -> {
-        if (!drawingInProgress) {
-            graphics.redraw();
+        if (!disableRedrawAfterPropertyChange) {
+            getGraphics().redraw();
         }
     };
 
+    /**
+     * Registers the given observable as something that requires
+     * a redraw of the graphics area. E.g.: the stroke color has
+     * changed.
+     *
+     * @param observable the observable to monitor for changes
+     */
     protected void redrawObservable(Observable observable) {
         requireNonNull(observable);
         observable.addListener(redrawListener);

@@ -34,8 +34,7 @@ import java.util.Map;
  */
 public class AgendaEntryRenderer extends ActivityRenderer<AgendaEntryBase> {
 
-	private DateTimeFormatter timeFormatter = DateTimeFormatter
-			.ofLocalizedTime(FormatStyle.SHORT);
+	private DateTimeFormatter timeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT);
 
 	private Map<Type, Color> fillColorMap = new HashMap<>();
 	private Map<Type, Color> strokeColorMap = new HashMap<>();
@@ -44,14 +43,9 @@ public class AgendaEntryRenderer extends ActivityRenderer<AgendaEntryBase> {
 
 	private Font font = Font.font("system", FontWeight.BOLD, 10);
 
-	private Image linkImage = new Image(
-			AgendaEntryRenderer.class.getResourceAsStream("link.png"));
-
-	private Image upArrow = new Image(
-			AgendaEntryRenderer.class.getResourceAsStream("arrow_up.png"));
-
-	private Image downArrow = new Image(
-			AgendaEntryRenderer.class.getResourceAsStream("arrow_down.png"));
+	private Image linkImage = new Image(AgendaEntryRenderer.class.getResourceAsStream("link.png"));
+	private Image upArrow = new Image(AgendaEntryRenderer.class.getResourceAsStream("arrow_up.png"));
+	private Image downArrow = new Image(AgendaEntryRenderer.class.getResourceAsStream("arrow_down.png"));
 
 	public AgendaEntryRenderer(GraphicsBase<?> graphics) {
 		super(graphics, "Agenda Entries");
@@ -75,13 +69,10 @@ public class AgendaEntryRenderer extends ActivityRenderer<AgendaEntryBase> {
 		strokeColorMap.put(Type.SPORT, Color.CORAL.darker());
 
 		textColorMap.put(Type.GERMAN, Color.GREEN.darker().darker().darker());
-		textColorMap
-				.put(Type.ENGLISH, Color.CRIMSON.darker().darker().darker());
+		textColorMap.put(Type.ENGLISH, Color.CRIMSON.darker().darker().darker());
 		textColorMap.put(Type.BIOLOGY, Color.BISQUE.darker().darker().darker());
-		textColorMap.put(Type.PHYSICS, Color.CORNFLOWERBLUE.darker().darker()
-				.darker());
-		textColorMap.put(Type.CHEMISTRY, Color.CADETBLUE.darker().darker()
-				.darker());
+		textColorMap.put(Type.PHYSICS, Color.CORNFLOWERBLUE.darker().darker().darker());
+		textColorMap.put(Type.CHEMISTRY, Color.CADETBLUE.darker().darker().darker());
 		textColorMap.put(Type.MATH, Color.INDIANRED.darker().darker().darker());
 		textColorMap.put(Type.RELIGION, Color.WHEAT.darker().darker().darker());
 		textColorMap.put(Type.SPORT, Color.CORAL.darker().darker().darker());
@@ -132,8 +123,7 @@ public class AgendaEntryRenderer extends ActivityRenderer<AgendaEntryBase> {
 		redrawObservable(showDebugInfo);
 	}
 
-	private final BooleanProperty showReflections = new SimpleBooleanProperty(
-			this, "showReflections", false);
+	private final BooleanProperty showReflections = new SimpleBooleanProperty(this, "showReflections", false);
 
 	public final BooleanProperty showReflectionsProperty() {
 		return showReflections;
@@ -147,8 +137,7 @@ public class AgendaEntryRenderer extends ActivityRenderer<AgendaEntryBase> {
 		return showReflectionsProperty().get();
 	}
 
-	private final BooleanProperty showDebugInfo = new SimpleBooleanProperty(
-			this, "showDebugInfo", false);
+	private final BooleanProperty showDebugInfo = new SimpleBooleanProperty(this, "showDebugInfo", false);
 
 	public final BooleanProperty showDebugInfoProperty() {
 		return showDebugInfo;
@@ -162,8 +151,7 @@ public class AgendaEntryRenderer extends ActivityRenderer<AgendaEntryBase> {
 		return showDebugInfoProperty().get();
 	}
 
-	private final BooleanProperty showIcons = new SimpleBooleanProperty(this,
-			"showIcons", true);
+	private final BooleanProperty showIcons = new SimpleBooleanProperty(this, "showIcons", true);
 
 	public final BooleanProperty showIconsProperty() {
 		return showIcons;
@@ -249,18 +237,15 @@ public class AgendaEntryRenderer extends ActivityRenderer<AgendaEntryBase> {
 				double imgHeight = img.getHeight();
 
 				if (w > imgWidth + 8 && h > imgHeight + 20) {
-					gc.drawImage(img, x + (w - imgWidth) / 2, y
-							+ (h - imgHeight) / 2);
+					gc.drawImage(img, x + (w - imgWidth) / 2, y + (h - imgHeight) / 2);
 				}
 			}
 
 			gc.setFont(font);
 
 			Row<?, ?, ?> row = activityRef.getRow();
-			ZonedDateTime zonedStart = ZonedDateTime.ofInstant(
-					entry.getStartTime(), row.getZoneId());
-			ZonedDateTime zonedEnd = ZonedDateTime.ofInstant(
-					entry.getEndTime(), row.getZoneId());
+			ZonedDateTime zonedStart = ZonedDateTime.ofInstant(entry.getStartTime(), row.getZoneId());
+			ZonedDateTime zonedEnd = ZonedDateTime.ofInstant(entry.getEndTime(), row.getZoneId());
 
 			String startText = timeFormatter.format(zonedStart);
 			String endText = timeFormatter.format(zonedEnd);
@@ -270,15 +255,13 @@ public class AgendaEntryRenderer extends ActivityRenderer<AgendaEntryBase> {
 
 			ZonedDateTime originalZonedStart = null;
 			if (entry.getOriginalStartTime() != null) {
-				originalZonedStart = ZonedDateTime.ofInstant(
-						entry.getOriginalStartTime(), row.getZoneId());
+				originalZonedStart = ZonedDateTime.ofInstant(entry.getOriginalStartTime(), row.getZoneId());
 				originalStartText = timeFormatter.format(originalZonedStart);
 			}
 
 			ZonedDateTime originalZonedEnd = null;
 			if (entry.getOriginalEndTime() != null) {
-				originalZonedEnd = ZonedDateTime.ofInstant(
-						entry.getOriginalEndTime(), row.getZoneId());
+				originalZonedEnd = ZonedDateTime.ofInstant(entry.getOriginalEndTime(), row.getZoneId());
 				originalEndText = timeFormatter.format(originalZonedEnd);
 			}
 
@@ -292,14 +275,12 @@ public class AgendaEntryRenderer extends ActivityRenderer<AgendaEntryBase> {
 				gc.setFill(textColorMap.get(type));
 				gc.setTextBaseline(VPos.TOP);
 				gc.setTextAlign(TextAlignment.RIGHT);
-				gc.fillText(startText, snapPosition(x + w - 4),
-						snapPosition(y + 4));
+				gc.fillText(startText, snapPositionX(x + w - 4), snapPositionY(y + 4));
 
 				if (isShowDebugInfo() && originalStartText != null) {
 					gc.setFill(Color.RED);
 					gc.setTextAlign(TextAlignment.LEFT);
-					gc.fillText(originalStartText, snapPosition(x + 4),
-							snapPosition(y + 4));
+					gc.fillText(originalStartText, snapPositionX(x + 4), snapPositionY(y + 4));
 				}
 			}
 
@@ -313,14 +294,12 @@ public class AgendaEntryRenderer extends ActivityRenderer<AgendaEntryBase> {
 					gc.setFill(textColorMap.get(type));
 					gc.setTextBaseline(VPos.BOTTOM);
 					gc.setTextAlign(TextAlignment.RIGHT);
-					gc.fillText(endText, snapPosition(x + w - 4),
-							snapPosition(y + h - 4));
+					gc.fillText(endText, snapPositionX(x + w - 4), snapPositionY(y + h - 4));
 
 					if (isShowDebugInfo() && originalEndText != null) {
 						gc.setFill(Color.RED);
 						gc.setTextAlign(TextAlignment.LEFT);
-						gc.fillText(originalEndText, snapPosition(x + 4),
-								snapPosition(y + h - 4));
+						gc.fillText(originalEndText, snapPositionX(x + 4), snapPositionY(y + h - 4));
 					}
 					break;
 				default:

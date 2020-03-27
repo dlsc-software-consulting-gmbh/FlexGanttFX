@@ -1,13 +1,22 @@
 /**
  * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package impl.com.flexganttfx.skin.graphics;
 
 import com.flexganttfx.core.LoggingDomain;
-import com.flexganttfx.model.*;
-import com.flexganttfx.model.activity.*;
+import com.flexganttfx.model.Activity;
+import com.flexganttfx.model.ActivityLink;
+import com.flexganttfx.model.ActivityRef;
+import com.flexganttfx.model.Layer;
+import com.flexganttfx.model.Layout;
+import com.flexganttfx.model.Row;
+import com.flexganttfx.model.activity.ChartActivity;
+import com.flexganttfx.model.activity.CompletableActivity;
+import com.flexganttfx.model.activity.MutableActivity;
+import com.flexganttfx.model.activity.MutableChartActivity;
+import com.flexganttfx.model.activity.MutableCompletableActivity;
 import com.flexganttfx.model.exception.IllegalLineIndexException;
 import com.flexganttfx.model.layout.AgendaLayout;
 import com.flexganttfx.model.layout.ChartLayout;
@@ -16,7 +25,11 @@ import com.flexganttfx.model.util.TimeInterval;
 import com.flexganttfx.view.graphics.ActivityBounds;
 import com.flexganttfx.view.graphics.ActivityEvent;
 import com.flexganttfx.view.graphics.GraphicsBase;
-import com.flexganttfx.view.graphics.GraphicsBase.*;
+import com.flexganttfx.view.graphics.GraphicsBase.DragAndDropInfo;
+import com.flexganttfx.view.graphics.GraphicsBase.EditMode;
+import com.flexganttfx.view.graphics.GraphicsBase.EditModeCallbackParameter;
+import com.flexganttfx.view.graphics.GraphicsBase.EditingCallbackParameter;
+import com.flexganttfx.view.graphics.GraphicsBase.SelectionMode;
 import com.flexganttfx.view.graphics.ListViewGraphics;
 import com.flexganttfx.view.timeline.Eventline;
 import com.flexganttfx.view.timeline.Timeline;
@@ -30,11 +43,22 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.control.skin.VirtualFlow;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
-import javafx.scene.input.*;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DataFormat;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.util.Callback;
 
 import java.io.Serializable;
-import java.time.*;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -365,9 +389,9 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
         graphics.getProperties().put(DRAGANDDROPINFO, dragAndDropInfo);
 
-		/*
+        /*
          * Callback determines if drop is possible.
-		 */
+         */
 
         Callback<DragAndDropInfo, Boolean> callback;
         if (row != null) {
@@ -441,10 +465,9 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         if (dragInfo.getEditMode().equals(EditMode.DRAGGING)) {
 
             Timeline timeline = graphics.getTimeline();
-            TimelineModel<?> timelineModel = timeline.getModel();
 
             Duration duration = Duration.between(activity.getStartTime(), activity.getEndTime());
-            Instant newStartTime = timelineModel.calculateTimeForLocation(evt.getX() - dragInfo.getOffset());
+            Instant newStartTime = calculateTimeForLocation(evt.getX() - dragInfo.getOffset());
             Instant newEndTime = newStartTime.plus(duration);
 
             switch (graphics.getDragAndDropFeedback()) {
@@ -472,10 +495,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
                         Instant newEndTime2 = GridHelper.grid(graphics, newEndTime, true);
 
                         // durations can be negative, let's use abs
-                        if (Math.abs(Duration.between(newEndTime, newEndTime1)
-                                .toMillis()) < Math.abs(
-                                Duration.between(newEndTime, newEndTime2)
-                                        .toMillis())) {
+                        if (Math.abs(Duration.between(newEndTime, newEndTime1).toMillis()) < Math.abs(Duration.between(newEndTime, newEndTime2).toMillis())) {
                             newEndTime = newEndTime1;
                         } else {
                             newEndTime = newEndTime2;
@@ -523,9 +543,9 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
         TimeInterval dragInterval = getDragInterval(evt);
 
-		/*
+        /*
          * Add to the new row.
-		 */
+         */
         Row newRow = canvas.getRow();
 
         if (newRow == null) {
@@ -539,9 +559,9 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
         if (callback.call(dragAndDropInfo)) {
 
-			/*
+            /*
              * Detach before updating the start and end time.
-			 */
+             */
             oldActivityRef.detachFromRow();
 
             if (dragEditMode == DRAGGING) {
@@ -567,14 +587,14 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
             ActivityRef<?> newActivityRef = new ActivityRef<Activity>(newRow, newLayer, activity);
 
-			/*
+            /*
              * Fix the activity links.
-			 */
+             */
             fixLinks(oldActivityRef, newActivityRef);
 
-			/*
+            /*
              * Fire event.
-			 */
+             */
             switch (dragEditMode) {
                 case DRAGGING:
                     fireEvent(new ActivityEvent(oldActivityRef, canvas, ActivityEvent.DRAG_FINISHED, oldRow, newRow, oldTimeInterval));
@@ -633,9 +653,9 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
         EditMode dragEditMode = dragInfo.getEditMode();
 
-		/*
+        /*
          * Fire event.
-		 */
+         */
         switch (dragEditMode) {
             case DRAGGING:
                 fireEvent(new ActivityEvent(activityBounds.getActivityRef(), canvas, ActivityEvent.DRAG_DONE));
@@ -755,7 +775,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
         private void scrollX() {
             TimelineModel<?> model = canvas.getTimelineModel();
-            Instant targetTime = model.calculateTimeForLocation(xOffset);
+            Instant targetTime = calculateTimeForLocation(xOffset);
             Instant oldStartTime = model.getStartTime();
             model.setStartTime(targetTime);
             Instant newStartTime = model.getStartTime();
@@ -771,9 +791,9 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         private void scrollY() {
             VirtualFlow<?> flow = getFlow();
             if (flow != null) {
-				/*
-				 * Flow only exists when using ListView.
-				 */
+                /*
+                 * Flow only exists when using ListView.
+                 */
                 flow.scrollPixels(yOffset);
                 doMouseDragged(evt);
             }
@@ -833,10 +853,10 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
         GraphicsBase<?> graphics = canvas.getGraphics();
 
-		/*
-		 * We only perform autoscroll in y direction if the graphics view is
-		 * using a list view.
-		 */
+        /*
+         * We only perform autoscroll in y direction if the graphics view is
+         * using a list view.
+         */
         if (graphics instanceof ListViewGraphics) {
             if (sceneY > graphics.localToScene(0, 0).getY() + graphics.getHeight()) {
                 yOffset = sceneY - (graphics.localToScene(0, 0).getY() + canvas.getGraphics().getHeight());
@@ -889,10 +909,10 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
                     break;
                 case DRAGGING:
                 case DRAGGING_VERTICAL:
-				/*
-				 * These notifications will be handled by the drag and drop
-				 * support.
-				 */
+                    /*
+                     * These notifications will be handled by the drag and drop
+                     * support.
+                     */
                     break;
                 case DRAGGING_HORIZONTAL:
                     changeStartAndEndTime(event);
@@ -958,8 +978,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
     }
 
     private void changeStartTime(MouseEvent event) {
-        TimelineModel<?> timelineModel = canvas.getTimelineModel();
-        Instant time = GridHelper.grid(canvas.getGraphics(), timelineModel.calculateTimeForLocation(event.getX()));
+        Instant time = GridHelper.grid(canvas.getGraphics(), calculateTimeForLocation(event));
         MutableActivity activity = (MutableActivity) activityBounds.getActivity();
         if (time.isAfter(activity.getEndTime())) {
             activity.setStartTime(activity.getEndTime());
@@ -972,9 +991,16 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         draw();
     }
 
+    private Instant calculateTimeForLocation(MouseEvent event) {
+        return calculateTimeForLocation(event.getX());
+    }
+
+    private Instant calculateTimeForLocation(double x) {
+        return canvas.getTimelineModel().calculateTimeForLocation(x - canvas.getGraphics().getCanvasBuffer() + canvas.getTranslateX());
+    }
+
     private void changeEndTime(MouseEvent event) {
-        TimelineModel<?> timelineModel = canvas.getTimelineModel();
-        Instant time = GridHelper.grid(canvas.getGraphics(), timelineModel.calculateTimeForLocation(event.getX()));
+        Instant time = GridHelper.grid(canvas.getGraphics(), calculateTimeForLocation(event));
         MutableActivity activity = (MutableActivity) activityBounds.getActivity();
         if (time.isBefore(activity.getStartTime())) {
             activity.setEndTime(activity.getStartTime());
@@ -988,11 +1014,10 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
     }
 
     private void changeStartAndEndTime(MouseEvent event) {
-        TimelineModel<?> timelineModel = canvas.getTimelineModel();
         MutableActivity activity = (MutableActivity) activityBounds.getActivity();
 
-        Instant timeA = GridHelper.grid(canvas.getGraphics(), timelineModel.calculateTimeForLocation(editStartX));
-        Instant timeB = GridHelper.grid(canvas.getGraphics(), timelineModel.calculateTimeForLocation(event.getX()));
+        Instant timeA = GridHelper.grid(canvas.getGraphics(), calculateTimeForLocation(editStartX));
+        Instant timeB = GridHelper.grid(canvas.getGraphics(), calculateTimeForLocation(event));
 
         if (!timeA.equals(timeB)) {
             Duration deltaTime = Duration.between(timeA, timeB);
@@ -1087,8 +1112,8 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         LocalTime oldLocalTime = timeAt(layout, editStartY);
         LocalTime newLocalTime = timeAt(layout, event.getY());
 
-        Instant oldTime = timelineModel.calculateTimeForLocation(editStartX);
-        Instant newTime = timelineModel.calculateTimeForLocation(event.getX());
+        Instant oldTime = calculateTimeForLocation(editStartX);
+        Instant newTime = calculateTimeForLocation(event);
 
         LocalDate oldLocalDate = ZonedDateTime.ofInstant(oldTime, rowZoneId).toLocalDate();
         LocalDate newLocalDate = ZonedDateTime.ofInstant(newTime, rowZoneId).toLocalDate();
@@ -1122,7 +1147,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         AgendaLayout layout = (AgendaLayout) activityBounds.getLayout();
         LocalTime timeAt = timeAt(layout, event.getY());
 
-        ZonedDateTime dateAndTimeAt = ZonedDateTime.ofInstant(canvas.getTimelineModel().calculateTimeForLocation(event.getX()), rowZoneId);
+        ZonedDateTime dateAndTimeAt = ZonedDateTime.ofInstant(calculateTimeForLocation(event.getX()), rowZoneId);
 
         LocalDate dateAt = dateAndTimeAt.toLocalDate();
 
@@ -1147,7 +1172,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         AgendaLayout layout = (AgendaLayout) activityBounds.getLayout();
         LocalTime timeAt = timeAt(layout, event.getY());
 
-        ZonedDateTime dateAndTimeAt = ZonedDateTime.ofInstant(canvas.getTimelineModel().calculateTimeForLocation(event.getX()), rowZoneId);
+        ZonedDateTime dateAndTimeAt = ZonedDateTime.ofInstant(calculateTimeForLocation(event.getX()), rowZoneId);
 
         LocalDate dateAt = dateAndTimeAt.toLocalDate();
 
@@ -1210,12 +1235,12 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         EDITING.finest("editing start x: " + editStartX);
         EDITING.finest("editing start y: " + editStartY);
 
-		/*
-		 * We have to find the bounds again, not just in the mouse moved
-		 * handler, but also here, in the mouse pressed handler. Because after a
-		 * drop the user might start a new edit right away without first moving
-		 * the mouse.
-		 */
+        /*
+         * We have to find the bounds again, not just in the mouse moved
+         * handler, but also here, in the mouse pressed handler. Because after a
+         * drop the user might start a new edit right away without first moving
+         * the mouse.
+         */
         activityBounds = canvas.getActivityBounds(event.getX(), event.getY());
 
         if (activityBounds != null) {
@@ -1225,9 +1250,9 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
             GraphicsBase<R> graphics = canvas.getGraphics();
             graphics.getProperties().put("com.flexganttfx.pressed.activity", activityBounds.getActivityRef());
 
-			/*
-			 * A little trick to make the graphics view update a read-only property.
-			 */
+            /*
+             * A little trick to make the graphics view update a read-only property.
+             */
             graphics.getProperties().put(CURRENTEDITMODE, editMode);
 
             if (!editMode.equals(EditMode.NONE) && event.getButton().equals(PRIMARY)) {
@@ -1257,10 +1282,10 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
     }
 
     private void clearCurrentlyEditedActivity() {
-		/*
-		 * Passing anything else but an activity ref will clear the currently
-		 * edited activity property.
-		 */
+        /*
+         * Passing anything else but an activity ref will clear the currently
+         * edited activity property.
+         */
         canvas.getGraphics().getProperties().put(CURRENTLYEDITEDACTIVITY, "");
     }
 
@@ -1371,9 +1396,9 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
                 break;
             case DRAGGING:
             case DRAGGING_VERTICAL:
-			/*
-			 * These notifications will be handled by the drag and drop support.
-			 */
+                /*
+                 * These notifications will be handled by the drag and drop support.
+                 */
                 break;
             case DRAGGING_HORIZONTAL:
                 fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.HORIZONTAL_DRAG_STARTED, oldTimeInterval));
@@ -1429,9 +1454,9 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
                 break;
             case DRAGGING:
             case DRAGGING_VERTICAL:
-			/*
-			 * These notifications will be handled by the drag and drop support.
-			 */
+                /*
+                 * These notifications will be handled by the drag and drop support.
+                 */
                 break;
             case DRAGGING_HORIZONTAL:
                 fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.HORIZONTAL_DRAG_FINISHED, oldTimeInterval));
@@ -1484,9 +1509,9 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
                 break;
             case DRAGGING:
             case DRAGGING_VERTICAL:
-			/*
-			 * These notifications will be handled by the drag and drop support.
-			 */
+                /*
+                 * These notifications will be handled by the drag and drop support.
+                 */
                 break;
             case DRAGGING_HORIZONTAL:
                 fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.HORIZONTAL_DRAG_ONGOING, oldTimeInterval));
