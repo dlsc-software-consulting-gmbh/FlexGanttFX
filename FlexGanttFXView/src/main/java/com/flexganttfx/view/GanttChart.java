@@ -861,10 +861,9 @@ public class GanttChart<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
             cell.updateTreeTableRow(treeTableRow);
             cell.updateIndex(row);
 
-            if ((cell.getText() != null && !cell.getText().isEmpty())
-                    || cell.getGraphic() != null) {
+            if ((cell.getText() != null && !cell.getText().isEmpty()) || cell.getGraphic() != null) {
                 getChildren().add(cell);
-//                cell.impl_processCSS(false);
+                cell.applyCss();
 
                 double w = cell.prefWidth(-1);
 
