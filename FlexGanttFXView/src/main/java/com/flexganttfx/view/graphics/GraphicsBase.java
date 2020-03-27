@@ -779,7 +779,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
     private void connectToTimeline() {
         Timeline timeline = getTimeline();
 
-        timeline.getModel().startTimeProperty().addListener((obs, oldTime, newTime) -> redraw());
+        timeline.getModel().startTimeProperty().addListener((obs, oldTime, newTime) -> redraw("start time changed", oldTime));
 
         redrawObservable(timeline.getModel().millisPerPixelProperty());
 
