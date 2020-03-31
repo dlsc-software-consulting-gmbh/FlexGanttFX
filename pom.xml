@@ -16,7 +16,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <javafx.version>14</javafx.version>
         <javafx.maven.plugin.version>0.0.3</javafx.maven.plugin.version>
-        <controlsfx.version>11.0.0</controlsfx.version>
+        <controlsfx.version>11.0.1</controlsfx.version>
         <maven.javadoc.skip>false</maven.javadoc.skip>
         <jpro.version>2019.2.1-SNAPSHOT</jpro.version>
     </properties>
