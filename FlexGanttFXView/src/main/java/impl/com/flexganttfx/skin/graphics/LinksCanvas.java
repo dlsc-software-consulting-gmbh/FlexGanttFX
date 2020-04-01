@@ -76,14 +76,14 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         long time = 0;
 
-        if (LoggingDomain.RENDERING.isLoggable(Level.FINER)) {
+        if (LoggingDomain.PERFORMANCE.isLoggable(Level.FINE)) {
             time = System.currentTimeMillis();
         }
 
         visibleLinks.forEach(link -> drawLink(gc, link));
 
-        if (LoggingDomain.RENDERING.isLoggable(Level.FINER)) {
-            LoggingDomain.RENDERING.finer(
+        if (LoggingDomain.PERFORMANCE.isLoggable(Level.FINE)) {
+            LoggingDomain.PERFORMANCE.fine(
                     "total: " + counterTotal +
                             ", above: " + counterAbove +
                             ", below: " + counterBelow +

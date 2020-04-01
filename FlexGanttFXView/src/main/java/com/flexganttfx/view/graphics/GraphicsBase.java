@@ -3362,7 +3362,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     private void redraw(String reason, Instant oldTime) {
         if (LoggingDomain.RENDERING.isLoggable(Level.FINE)) {
-            LoggingDomain.RENDERING.fine("row cells list size = " + getRowPanes().size());
+            LoggingDomain.RENDERING.finer("row cells list size = " + getRowPanes().size());
         }
 
         if (LoggingDomain.PERFORMANCE.isLoggable(Level.FINE)) {
