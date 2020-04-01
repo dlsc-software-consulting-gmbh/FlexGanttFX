@@ -42,8 +42,7 @@ import static java.util.Objects.requireNonNull;
  * are mapped to the entry types. Applications can register their own renderers
  * by calling {@link #setCalendarActivityRenderer(Class, CalendarActivityRenderer)}.
  *
- * @param <R>
- *            the type of the rows
+ * @param <R> the type of the rows
  *
  * @see Calendar
  * @see CalendarActivity
@@ -72,8 +71,7 @@ public class CalendarLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
     }
 
     @Override
-    public void drawLayer(RowCanvas<R> canvas, Instant startTime,
-                          Instant endTime) {
+    public void drawLayer(RowCanvas<R> canvas, Instant startTime, Instant endTime) {
 
         Row<?, ?, ?> row = canvas.getRow();
         TimelineModel<?> timelineModel = canvas.getTimelineModel();
@@ -93,10 +91,7 @@ public class CalendarLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
-    private void drawCalendars(Row<?, ?, ?> row, RowCanvas canvas,
-                               TimelineModel<?> timelineModel,
-                               ObservableList<Calendar<?>> calendars, double height,
-                               Instant startTime, Instant endTime) {
+    private void drawCalendars(Row<?, ?, ?> row, RowCanvas canvas, TimelineModel<?> timelineModel, ObservableList<Calendar<?>> calendars, double height, Instant startTime, Instant endTime) {
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
@@ -113,8 +108,6 @@ public class CalendarLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
         for (Calendar calendar : calendars) {
             if (calendar.visibleProperty().get()) {
-
-				System.out.println("temporalUnit: " + temporalUnit);
 
                 Iterator<CalendarActivity> entries = calendar.getActivities(null, startTime, endTime, temporalUnit, zoneId);
 
@@ -155,15 +148,12 @@ public class CalendarLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
     private final ObservableMap<Class<?>, CalendarActivityRenderer<?>> calendarRendererMap = FXCollections.observableHashMap();
 
-    public final <A extends Activity> void setCalendarActivityRenderer(
-            Class<? extends A> clazz,
-            CalendarActivityRenderer<? extends A> renderer) {
+    public final <A extends Activity> void setCalendarActivityRenderer(Class<? extends A> clazz, CalendarActivityRenderer<? extends A> renderer) {
 
         requireNonNull(clazz);
 
         if (renderer != null) {
-            LoggingDomain.CONFIG.fine("class = " + clazz + ", policy = "
-                    + renderer.getClass().getName());
+            LoggingDomain.CONFIG.fine("class = " + clazz + ", policy = " + renderer.getClass().getName());
         } else {
             LoggingDomain.CONFIG.fine("class = " + clazz + ", policy = null");
         }
@@ -172,18 +162,14 @@ public class CalendarLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
     }
 
     @SuppressWarnings("unchecked")
-    public final <A extends CalendarActivity> CalendarActivityRenderer<? extends A> getCalendarActivityRenderer(
-            Class<? extends A> clazz) {
+    public final <A extends CalendarActivity> CalendarActivityRenderer<? extends A> getCalendarActivityRenderer(Class<? extends A> clazz) {
 
         Objects.requireNonNull(clazz);
 
-        return (CalendarActivityRenderer<? extends A>) doGetCalendarActivityRenderer(
-                calendarRendererMap, clazz);
+        return (CalendarActivityRenderer<? extends A>) doGetCalendarActivityRenderer(calendarRendererMap, clazz);
     }
 
-    private <A extends CalendarActivity> CalendarActivityRenderer<A> doGetCalendarActivityRenderer(
-            Map<Class<?>, ? extends CalendarActivityRenderer<?>> map,
-            Class<?> clazz) {
+    private <A extends CalendarActivity> CalendarActivityRenderer<A> doGetCalendarActivityRenderer(Map<Class<?>, ? extends CalendarActivityRenderer<?>> map, Class<?> clazz) {
         if (clazz != null) {
             @SuppressWarnings("unchecked")
             CalendarActivityRenderer<A> renderer = (CalendarActivityRenderer<A>) map.get(clazz);
