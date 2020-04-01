@@ -10,7 +10,7 @@ import com.flexganttfx.extras.GanttChartToolBar;
 import com.flexganttfx.model.ActivityLink;
 import com.flexganttfx.msproject.model.MSProjectTaskRow;
 import com.flexganttfx.msproject.view.MSProjectGanttChart;
-import com.flexganttfx.view.graphics.renderer.LinkRenderer;
+import com.flexganttfx.view.graphics.renderer.CurvedLinkRenderer;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -40,7 +40,7 @@ public class MSProjectApp extends Application {
 		this.stage.setTitle(STAGE_TITLE);
 
 		gantt = new MSProjectGanttChart();
-		gantt.getGraphics().setLinkRenderer(ActivityLink.class, new LinkRenderer<>(gantt.getGraphics(), "Custom Link Renderer") {
+		gantt.getGraphics().setLinkRenderer(ActivityLink.class, new CurvedLinkRenderer<>(gantt.getGraphics(), "Custom Link Renderer") {
 			@Override
 			public void draw(ActivityLink<?> link, GraphicsContext gc, Rectangle2D sourceBounds, Rectangle2D targetBounds) {
 				if (link.getTargetActivityRef().getActivity().getStartTime().isBefore(link.getSourceActivityRef().getActivity().getEndTime())) {

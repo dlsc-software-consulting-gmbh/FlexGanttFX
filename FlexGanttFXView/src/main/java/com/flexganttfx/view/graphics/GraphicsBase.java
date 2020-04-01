@@ -53,6 +53,7 @@ import com.flexganttfx.view.graphics.layer.ZoomTimeIntervalLayer;
 import com.flexganttfx.view.graphics.renderer.ActivityRenderer;
 import com.flexganttfx.view.graphics.renderer.ChartActivityRenderer;
 import com.flexganttfx.view.graphics.renderer.CompletableActivityRenderer;
+import com.flexganttfx.view.graphics.renderer.CurvedLinkRenderer;
 import com.flexganttfx.view.graphics.renderer.LinkRenderer;
 import com.flexganttfx.view.timeline.Dateline;
 import com.flexganttfx.view.timeline.Eventline;
@@ -332,7 +333,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         setActivityRenderer(MutableActivityBase.class, AgendaLayout.class, new ActivityRenderer<>(this, "Activities (Agenda Layout)"));
 
         // Activity link renderer
-        setLinkRenderer(ActivityLink.class, new LinkRenderer<>(this, "Default Link Renderer"));
+        setLinkRenderer(ActivityLink.class, new CurvedLinkRenderer<>(this, "Curved Link Renderer"));
 
         // Edit mode controllers
 

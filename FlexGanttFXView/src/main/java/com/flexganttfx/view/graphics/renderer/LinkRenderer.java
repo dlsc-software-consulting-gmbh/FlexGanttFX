@@ -14,21 +14,19 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
-import javafx.scene.shape.PathElement;
 
 /**
- * The path builder is used to compute path nodes for instances of type
- * {@link ActivityLink}. It is only used by the {@link LinksCanvas}.
+ * The base class for all link renderers. It is only used by the {@link LinksCanvas}.
  *
+ * @see CurvedLinkRenderer
+ * @see StraightLinkRenderer
+ * @see GraphicsBase#setLinkRenderer(Class, LinkRenderer)
  * @since 1.0
  */
-public class LinkRenderer<T extends ActivityLink<?>> extends RendererBase {
+public abstract class LinkRenderer<T extends ActivityLink<?>> extends RendererBase {
 
     /**
      * An enumerator of possible locations that the target object can have
@@ -155,15 +153,15 @@ public class LinkRenderer<T extends ActivityLink<?>> extends RendererBase {
     }
 
     /**
-     * Constructs a new path calculator.
+     * Constructs a new link renderer.
      *
      * @since 1.0
      */
-    public LinkRenderer(GraphicsBase<?> graphics, String name) {
+    protected LinkRenderer(GraphicsBase<?> graphics, String name) {
         super(graphics, name);
     }
 
-    protected TargetLocation calculateTargetLocation(double sx, double sy, double tx, double ty) {
+    protected final TargetLocation calculateTargetLocation(double sx, double sy, double tx, double ty) {
         double xDelta = tx - sx;
         if (sy < ty) {
             if (xDelta > 0) {
@@ -231,92 +229,7 @@ public class LinkRenderer<T extends ActivityLink<?>> extends RendererBase {
      * @return the result path
      * @since 1.0
      */
-    protected void drawStartToStart(GraphicsContext gc, Rectangle2D sourceRect, Rectangle2D targetRect) {
-
-        double offset = getOffset();
-        double gap = getGap();
-        double curve = getCurve();
-
-        double sx = snapPositionX(sourceRect.getMinX());
-        double sx1 = snapPositionX(sx - offset);
-
-        double tx = snapPositionX(targetRect.getMinX());
-        double tx1 = snapPositionX(tx - offset);
-
-        double sy = snapPositionY(sourceRect.getMinY() + sourceRect.getHeight() / 2);
-        double ty = snapPositionY(targetRect.getMinY() + targetRect.getHeight() / 2);
-
-        TargetLocation targetLocation = calculateTargetLocation(sx1, sy, tx1, ty);
-
-        /*
-         * Some optimization in case the start and end are on the same y coordinate / same row
-         */
-        if (sy == ty && (targetLocation.equals(TargetLocation.RIGHT) || targetLocation.equals(TargetLocation.LEFT))) {
-            TargetLocation targetLocationOriginalLocations = calculateTargetLocation(sx, sy, tx, ty);
-            if (!targetLocation.equals(targetLocationOriginalLocations)) {
-                // source and target rectangles are too close to each other. We can not use the offset.
-                sx1 = sx;
-                tx1 = tx;
-                targetLocation = targetLocationOriginalLocations;
-            }
-        }
-
-        gc.beginPath();
-        gc.moveTo(sx, sy);
-
-        switch (targetLocation) {
-            case BELOW_RIGHT:
-            case BELOW:
-            case BELOW_LEFT:
-                double x = Math.min(sx1, tx1);
-                gc.lineTo(x + curve, sy);
-                gc.quadraticCurveTo(x, sy, x, sy + curve);
-                gc.lineTo(x, ty - curve);
-                gc.quadraticCurveTo(x, ty, x + curve, ty);
-                gc.lineTo(tx, ty);
-                break;
-            case ABOVE_RIGHT:
-            case ABOVE_LEFT:
-            case ABOVE:
-                x = Math.min(sx1, tx1);
-                gc.lineTo(x + curve, sy);
-                gc.quadraticCurveTo(x, sy, x, sy - curve);
-                gc.lineTo(x, ty + curve);
-                gc.quadraticCurveTo(x, ty, x + curve, ty);
-                gc.lineTo(tx, ty);
-                break;
-            case RIGHT:
-                double my = sourceRect.getMinY() + sourceRect.getHeight() + gap;
-                gc.lineTo(sx1 + curve, sy);
-                gc.quadraticCurveTo(sx1, sy, sx1, sy + curve);
-                gc.lineTo(sx1, my - curve);
-                gc.quadraticCurveTo(sx1, my, sx1 + curve, my);
-                gc.lineTo(tx1 - curve, my);
-                gc.quadraticCurveTo(tx1, my, tx1, my - curve);
-                gc.lineTo(tx1, ty + curve);
-                gc.quadraticCurveTo(tx1, ty, tx1 + curve, ty);
-                gc.lineTo(tx, ty);
-                break;
-            case LEFT:
-                my = sourceRect.getMinY() - gap;
-                gc.lineTo(sx1 + curve, sy);
-                gc.quadraticCurveTo(sx1, sy, sx1, sy - curve);
-                gc.lineTo(sx1, my + curve);
-                gc.quadraticCurveTo(sx1, my, sx1 - curve, my);
-                gc.lineTo(tx1 + curve, my);
-                gc.quadraticCurveTo(tx1, my, tx1, my + curve);
-                gc.lineTo(tx1, ty - curve);
-                gc.quadraticCurveTo(tx1, ty, tx + curve, ty);
-                gc.lineTo(tx, ty);
-                break;
-            case SAME_LOCATION:
-                break;
-        }
-
-        gc.stroke();
-
-        drawArrowHead(ArrowDirection.RIGHT, gc, tx, ty);
-    }
+    protected abstract void drawStartToStart(GraphicsContext gc, Rectangle2D sourceRect, Rectangle2D targetRect);
 
     /**
      * Draws a path in the given graphics context from the end of the source
@@ -327,97 +240,7 @@ public class LinkRenderer<T extends ActivityLink<?>> extends RendererBase {
      * @return the result path
      * @since 1.0
      */
-    protected void drawEndToEnd(GraphicsContext gc, Rectangle2D sourceRect, Rectangle2D targetRect) {
-
-        double offset = getOffset();
-        double gap = getGap();
-        double curve = getCurve();
-
-        double sx = sourceRect.getMinX() + sourceRect.getWidth();
-        double sx1 = sx + offset;
-
-        double tx = targetRect.getMinX() + targetRect.getWidth();
-        double tx1 = tx + offset;
-
-        double sy = sourceRect.getMinY() + sourceRect.getHeight() / 2;
-        double ty = targetRect.getMinY() + targetRect.getHeight() / 2;
-
-        Path path = new Path();
-
-        TargetLocation targetLocation = calculateTargetLocation(sx1, sy, tx1, ty);
-
-        /*
-         * Some optimization in case the start and end are on the same y coordinate / same row
-         */
-        if (sy == ty && (targetLocation.equals(TargetLocation.RIGHT) || targetLocation.equals(TargetLocation.LEFT))) {
-            TargetLocation targetLocationOriginalLocations = calculateTargetLocation(sx, sy, tx, ty);
-            if (!targetLocation.equals(targetLocationOriginalLocations)) {
-                // source and target rectangles are too close to each other. We can not use the offset.
-                sx1 = sx;
-                tx1 = tx;
-                targetLocation = targetLocationOriginalLocations;
-            }
-        }
-
-        ObservableList<PathElement> pathElements = path.getElements();
-        pathElements.add(new MoveTo(sx, sy));
-
-        gc.beginPath();
-        gc.moveTo(sx, sy);
-
-        switch (targetLocation) {
-            case BELOW_RIGHT:
-            case BELOW:
-            case BELOW_LEFT:
-                double x = Math.max(sx1, tx1);
-                gc.lineTo(x - curve, sy);
-                gc.quadraticCurveTo(x, sy, x, sy + curve);
-                gc.lineTo(x, ty - curve);
-                gc.quadraticCurveTo(x, ty, x - curve, ty);
-                gc.lineTo(tx, ty);
-                break;
-            case ABOVE_RIGHT:
-            case ABOVE_LEFT:
-            case ABOVE:
-                x = Math.max(sx1, tx1);
-                gc.lineTo(x - curve, sy);
-                gc.quadraticCurveTo(x, sy, x, sy - curve);
-                gc.lineTo(x, ty + curve);
-                gc.quadraticCurveTo(x, ty, x - curve, ty);
-                gc.lineTo(tx, ty);
-                break;
-            case RIGHT:
-                double my = sourceRect.getMinY() - gap;
-                gc.lineTo(sx1 - curve, sy);
-                gc.quadraticCurveTo(sx1, sy, sx1, sy - curve);
-                gc.lineTo(sx1, my + curve);
-                gc.quadraticCurveTo(sx1, my, sx1 + curve, my);
-                gc.lineTo(tx1 - curve, my);
-                gc.quadraticCurveTo(tx1, my, tx1, my + curve);
-                gc.lineTo(tx1, ty - curve);
-                gc.quadraticCurveTo(tx1, ty, tx1 - curve, ty);
-                gc.lineTo(tx, ty);
-                break;
-            case LEFT:
-                my = sourceRect.getMinY() + sourceRect.getHeight() + gap;
-                gc.lineTo(sx1 - curve, sy);
-                gc.quadraticCurveTo(sx1, sy, sx1, sy + curve);
-                gc.lineTo(sx1, my - curve);
-                gc.quadraticCurveTo(sx1, my, sx1 - curve, my);
-                gc.lineTo(tx1 + curve, my);
-                gc.quadraticCurveTo(tx1, my, tx1, my - curve);
-                gc.lineTo(tx1, ty + curve);
-                gc.quadraticCurveTo(tx1, ty, tx1 - curve, ty);
-                gc.lineTo(tx, ty);
-                break;
-            case SAME_LOCATION:
-                break;
-        }
-
-        gc.stroke();
-
-        drawArrowHead(ArrowDirection.LEFT, gc, tx, ty);
-    }
+    protected abstract void drawEndToEnd(GraphicsContext gc, Rectangle2D sourceRect, Rectangle2D targetRect);
 
     /**
      * Draws a path in the given graphics context from the start of the source
@@ -428,103 +251,7 @@ public class LinkRenderer<T extends ActivityLink<?>> extends RendererBase {
      * @return the result path
      * @since 1.0
      */
-    protected void drawStartToEnd(GraphicsContext gc, Rectangle2D sourceRect, Rectangle2D targetRect) {
-
-        double offset = getOffset();
-        double gap = getGap();
-        double curve = getCurve();
-
-        double sx = sourceRect.getMinX();
-        double sx1 = sx - offset;
-
-        double tx = targetRect.getMinX() + targetRect.getWidth();
-        double tx1 = tx + offset;
-
-        double sy = sourceRect.getMinY() + sourceRect.getHeight() / 2;
-        double ty = targetRect.getMinY() + targetRect.getHeight() / 2;
-
-        TargetLocation targetLocation = calculateTargetLocation(sx1, sy, tx1, ty);
-
-        /*
-         * Some optimization in case the start and end are on the same y coordinate / same row
-         */
-        if (sy == ty && (targetLocation.equals(TargetLocation.RIGHT) || targetLocation.equals(TargetLocation.LEFT))) {
-            TargetLocation targetLocationOriginalLocations = calculateTargetLocation(sx, sy, tx, ty);
-            if (!targetLocation.equals(targetLocationOriginalLocations)) {
-                // source and target rectangles are too close to each other. We can not use the offset.
-                sx1 = sx;
-                tx1 = tx;
-                targetLocation = targetLocationOriginalLocations;
-            }
-        }
-
-        gc.beginPath();
-        gc.moveTo(sx, sy);
-
-        switch (targetLocation) {
-            case BELOW:
-            case BELOW_LEFT:
-                gc.lineTo(sx1 + curve, sy);
-                gc.quadraticCurveTo(sx1, sy, sx1, sy + curve);
-                gc.lineTo(sx1, ty - curve);
-                gc.quadraticCurveTo(sx1, ty, sx1 - curve, ty);
-                gc.lineTo(tx, ty);
-                break;
-            case BELOW_RIGHT:
-                double my = sourceRect.getMinY() + sourceRect.getHeight() + gap;
-                gc.lineTo(sx1 + curve, sy);
-                gc.quadraticCurveTo(sx1, sy, sx1, sy + curve);
-                gc.lineTo(sx1, my - curve);
-                gc.quadraticCurveTo(sx1, my, sx1 + curve, my);
-                gc.lineTo(tx1 - curve, my);
-                gc.quadraticCurveTo(tx1, my, tx1, my + curve);
-                gc.lineTo(tx1, ty - curve);
-                gc.quadraticCurveTo(tx1, ty, tx1 - curve, ty);
-                gc.lineTo(tx, ty);
-                break;
-            case ABOVE_RIGHT:
-                my = sourceRect.getMinY() - gap;
-                gc.lineTo(sx1 + curve, sy);
-                gc.quadraticCurveTo(sx1, sy, sx1, sy - curve);
-                gc.lineTo(sx1, my + curve);
-                gc.quadraticCurveTo(sx1, my, sx1 + curve, my);
-                gc.lineTo(tx1 - curve, my);
-                gc.quadraticCurveTo(tx1, my, tx1, my - curve);
-                gc.lineTo(tx1, ty + curve);
-                gc.quadraticCurveTo(tx1, ty, tx1 - curve, ty);
-                gc.lineTo(tx, ty);
-                break;
-            case ABOVE_LEFT:
-            case ABOVE:
-                gc.lineTo(sx1 + curve, sy);
-                gc.quadraticCurveTo(sx1, sy, sx1, sy - curve);
-                gc.lineTo(sx1, ty + curve);
-                gc.quadraticCurveTo(sx1, ty, sx1 - curve, ty);
-                gc.lineTo(tx, ty);
-                break;
-            case RIGHT:
-                my = sourceRect.getMinY() - gap;
-                gc.lineTo(sx1 + curve, sy);
-                gc.quadraticCurveTo(sx1, sy, sx1, sy - curve);
-                gc.lineTo(sx1, my + curve);
-                gc.quadraticCurveTo(sx1, my, sx1 + curve, my);
-                gc.lineTo(tx1 - curve, my);
-                gc.quadraticCurveTo(tx1, my, tx1, my + curve);
-                gc.lineTo(tx1, ty - curve);
-                gc.quadraticCurveTo(tx1, ty, tx1 - curve, ty);
-                gc.lineTo(tx, ty);
-                break;
-            case LEFT:
-                gc.lineTo(tx, ty);
-                break;
-            case SAME_LOCATION:
-                break;
-        }
-
-        gc.stroke();
-
-        drawArrowHead(ArrowDirection.LEFT, gc, tx, ty);
-    }
+    protected abstract void drawStartToEnd(GraphicsContext gc, Rectangle2D sourceRect, Rectangle2D targetRect);
 
     /**
      * Draws a path in the given graphics context from the end of the source
@@ -535,100 +262,7 @@ public class LinkRenderer<T extends ActivityLink<?>> extends RendererBase {
      * @return the result path
      * @since 1.0
      */
-    protected void drawEndToStart(GraphicsContext gc, Rectangle2D sourceRect, Rectangle2D targetRect) {
-
-        double offset = getOffset();
-        double gap = getGap();
-        double curve = getCurve();
-
-        double sx = snapPositionX(sourceRect.getMinX() + sourceRect.getWidth());
-        double sx1 = snapPositionX(sx + offset);
-
-        double tx = snapPositionX(targetRect.getMinX()) + .5;
-        double tx1 = snapPositionX(tx - offset);
-
-        double sy = snapPositionY(sourceRect.getMinY() + sourceRect.getHeight() / 2);
-        double ty = snapPositionY(targetRect.getMinY() + targetRect.getHeight() / 2);
-
-        TargetLocation targetLocation = calculateTargetLocation(sx1, sy, tx1, ty);
-
-        /*
-         * Some optimization in case the start and end are on the same y coordinate / same row
-         */
-        if (sy == ty && (targetLocation.equals(TargetLocation.RIGHT) || targetLocation.equals(TargetLocation.LEFT))) {
-            TargetLocation targetLocationOriginalLocations = calculateTargetLocation(sx, sy, tx, ty);
-            if (!targetLocation.equals(targetLocationOriginalLocations)) {
-                // source and target rectangles are too close to each other. We can not use the offset.
-                sx1 = sx;
-                tx1 = tx;
-                targetLocation = targetLocationOriginalLocations;
-            }
-        }
-
-        gc.beginPath();
-        gc.moveTo(sx, sy);
-
-        switch (targetLocation) {
-            case BELOW_RIGHT:
-                gc.lineTo(sx1 - curve, sy);
-                gc.quadraticCurveTo(sx1, sy, sx1, sy + curve);
-                gc.lineTo(sx1, ty - curve);
-                gc.quadraticCurveTo(sx1, ty, sx1 + curve, ty);
-                gc.lineTo(tx, ty);
-                break;
-            case BELOW_LEFT:
-            case BELOW:
-                double my = sourceRect.getMinY() + sourceRect.getHeight() + gap;
-                gc.lineTo(sx1 - curve, sy);
-                gc.quadraticCurveTo(sx1, sy, sx1, sy + curve);
-                gc.lineTo(sx1, my - curve);
-                gc.quadraticCurveTo(sx1, my, sx1 - curve, my);
-                gc.lineTo(tx1 + curve, my);
-                gc.quadraticCurveTo(tx1, my, tx1, my + curve);
-                gc.lineTo(tx1, ty - curve);
-                gc.quadraticCurveTo(tx1, ty, tx1 + curve, ty);
-                gc.lineTo(tx, ty);
-                break;
-            case ABOVE_RIGHT:
-                gc.lineTo(sx1 - curve, sy);
-                gc.quadraticCurveTo(sx1, sy, sx1, sy - curve);
-                gc.lineTo(sx1, ty + curve);
-                gc.quadraticCurveTo(sx1, ty, sx1 + curve, ty);
-                gc.lineTo(tx, ty);
-                break;
-            case ABOVE_LEFT:
-            case ABOVE:
-                my = sourceRect.getMinY() - gap;
-                gc.lineTo(sx1 - curve, sy);
-                double delta = (sy - my) / 2 + 1;
-                gc.quadraticCurveTo(sx1 - curve + delta, sy - delta, sx1 - curve, my);
-                gc.lineTo(tx1 + curve, my);
-                gc.quadraticCurveTo(tx1, my, tx1, my - curve);
-                gc.lineTo(tx1, ty + curve);
-                gc.quadraticCurveTo(tx1, ty, tx1 + curve, ty);
-                gc.lineTo(tx, ty);
-                break;
-            case RIGHT:
-                gc.lineTo(snapPositionX(tx), snapPositionY(ty));
-                break;
-            case LEFT:
-                my = sourceRect.getMinY() - gap;
-                gc.lineTo(sx1 - curve, sy);
-                delta = (sy - my) / 2 + 1;
-                gc.quadraticCurveTo(sx1 - curve + delta, sy - delta, sx1 - curve, my);
-                gc.lineTo(tx1 + curve, my);
-                gc.quadraticCurveTo(tx1, my, tx1, my + curve);
-                gc.lineTo(tx1, ty - curve);
-                gc.quadraticCurveTo(tx1, ty, tx1 + curve, ty);
-                break;
-            case SAME_LOCATION:
-                break;
-        }
-
-        gc.stroke();
-
-        drawArrowHead(ArrowDirection.RIGHT, gc, tx, ty);
-    }
+    protected abstract void drawEndToStart(GraphicsContext gc, Rectangle2D sourceRect, Rectangle2D targetRect);
 
     protected void drawArrowHead(ArrowDirection direction, GraphicsContext gc, double x, double y) {
         final int s = getArrowSize();
@@ -755,45 +389,7 @@ public class LinkRenderer<T extends ActivityLink<?>> extends RendererBase {
             throw new IllegalArgumentException("offset can not be negative");
         }
 
-        if (getCurve() > offset) {
-            throw new IllegalArgumentException("curve can not be larger than the offset (requested offset = " + offset + ", current curve = " + getCurve() + ")");
-        }
-
         this.offset.set(offset);
-    }
-
-    // CURVE
-
-    private final DoubleProperty curve = new SimpleDoubleProperty(this, "curve", 6);
-
-    /**
-     * Sets the radius for the curve. The radius can not be larger than the
-     * offset (see {@link #setOffset(double)}). Setting this value to 0 results
-     * in corners instead of curves.
-     *
-     * @param curve the radius of the curve
-     * @since 1.0
-     */
-    public final void setCurve(double curve) {
-        if (curve < 0) {
-            throw new IllegalArgumentException("curve can not be negative");
-        }
-
-        if (curve > getOffset()) {
-            throw new IllegalArgumentException("curve can not be larger than the offset (current offset = " + getOffset() + ", requested curve = " + curve + ")");
-        }
-
-        this.curve.set(curve);
-    }
-
-    /**
-     * Returns the radius of the curve.
-     *
-     * @return the curve radius
-     * @since 1.0
-     */
-    public final double getCurve() {
-        return curve.get();
     }
 
     // GAP
