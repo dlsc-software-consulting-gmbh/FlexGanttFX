@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.view.graphics.layer;
@@ -41,165 +41,158 @@ import static java.util.Objects.requireNonNull;
  * the entire graphics view. The calendar layer uses plugable renderers that
  * are mapped to the entry types. Applications can register their own renderers
  * by calling {@link #setCalendarActivityRenderer(Class, CalendarActivityRenderer)}.
- * 
+ *
  * @param <R>
  *            the type of the rows
- * 
+ *
  * @see Calendar
  * @see CalendarActivity
- * 
+ *
  * @see GraphicsBase#getForegroundSystemLayers()
  * @see GraphicsBase#getBackgroundSystemLayers()
  * @see GraphicsBase#getForegroundSystemLayer(Class)
  * @see GraphicsBase#getBackgroundSystemLayer(Class)
- * 
+ *
  * @since 1.0
  */
 public class CalendarLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
-	public CalendarLayer(GraphicsBase<R> graphics) {
-		super("Calendar", graphics);
+    public CalendarLayer(GraphicsBase<R> graphics) {
+        super("Calendar", graphics);
 
-		setCalendarActivityRenderer(CalendarActivityBase.class,
-				new CalendarActivityRenderer<CalendarActivityBase<?>>(graphics,
-						"Calendars"));
+        setCalendarActivityRenderer(CalendarActivityBase.class, new CalendarActivityRenderer<CalendarActivityBase<?>>(graphics, "Calendars"));
+        setCalendarActivityRenderer(MutableCalendarActivityBase.class, new CalendarActivityRenderer<CalendarActivityBase<?>>(graphics, "Mutable Calendars"));
+        setCalendarActivityRenderer(WeekendCalendarActivity.class, new WeekendCalendarActivityRenderer<>(graphics, "Weekends"));
 
-		setCalendarActivityRenderer(MutableCalendarActivityBase.class,
-				new CalendarActivityRenderer<CalendarActivityBase<?>>(graphics,
-						"Mutable Calendars"));
+        redrawObservable(calendarRendererMap);
 
-		setCalendarActivityRenderer(WeekendCalendarActivity.class,
-				new WeekendCalendarActivityRenderer<>(graphics,
-						"Weekends"));
+        fadeInOutObservable(graphics.showCalendarLayerProperty());
 
-		redrawObservable(calendarRendererMap);
+        calendarRendererMap.addListener((Observable evt) -> graphics.updatePropertySheet());
+    }
 
-		fadeInOutObservable(graphics.showCalendarLayerProperty());
+    @Override
+    public void drawLayer(RowCanvas<R> canvas, Instant startTime,
+                          Instant endTime) {
 
-		calendarRendererMap.addListener((Observable evt) -> graphics
-				.updatePropertySheet());
-	}
+        Row<?, ?, ?> row = canvas.getRow();
+        TimelineModel<?> timelineModel = canvas.getTimelineModel();
 
-	@Override
-	public void drawLayer(RowCanvas<R> canvas, Instant startTime,
-			Instant endTime) {
+        double height = canvas.getHeight();
 
-		Row<?, ?, ?> row = canvas.getRow();
-		TimelineModel<?> timelineModel = canvas.getTimelineModel();
+        GraphicsBase<R> graphicsView = canvas.getGraphics();
 
-		double height = canvas.getHeight();
+        ObservableList<Calendar<?>> calendars = graphicsView.getCalendars();
 
-		GraphicsBase<R> graphicsView = canvas.getGraphics();
+        drawCalendars(row, canvas, timelineModel, calendars, height, startTime, endTime);
 
-		ObservableList<Calendar<?>> calendars = graphicsView.getCalendars();
+        if (row != null) {
+            calendars = row.getCalendars();
+            drawCalendars(row, canvas, timelineModel, calendars, height, startTime, endTime);
+        }
+    }
 
-		drawCalendars(row, canvas, timelineModel, calendars, height, startTime,
-				endTime);
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    private void drawCalendars(Row<?, ?, ?> row, RowCanvas canvas,
+                               TimelineModel<?> timelineModel,
+                               ObservableList<Calendar<?>> calendars, double height,
+                               Instant startTime, Instant endTime) {
 
-		if (row != null) {
-			calendars = row.getCalendars();
-			drawCalendars(row, canvas, timelineModel, calendars, height, startTime, endTime);
-		}
-	}
+        GraphicsContext gc = canvas.getGraphicsContext2D();
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private void drawCalendars(Row<?, ?, ?> row, RowCanvas canvas,
-			TimelineModel<?> timelineModel,
-			ObservableList<Calendar<?>> calendars, double height,
-			Instant startTime, Instant endTime) {
+        GraphicsBase graphics = canvas.getGraphics();
+        Dateline dateline = graphics.getTimeline().getDateline();
 
-		GraphicsContext gc = canvas.getGraphicsContext2D();
+        ZoneId zoneId = dateline.getZoneId();
 
-		GraphicsBase graphics = canvas.getGraphics();
-		Dateline dateline = graphics.getTimeline().getDateline();
+        if (row != null) {
+            zoneId = row.getZoneId();
+        }
 
-		ZoneId zoneId = dateline.getZoneId();
+        TemporalUnit temporalUnit = dateline.getPrimaryTemporalUnit();
 
-		if (row != null) {
-			zoneId = row.getZoneId();
-		}
+        for (Calendar calendar : calendars) {
+            if (calendar.visibleProperty().get()) {
 
-		TemporalUnit temporalUnit = dateline.getPrimaryTemporalUnit();
+				System.out.println("temporalUnit: " + temporalUnit);
 
-		for (Calendar calendar : calendars) {
-			if (calendar.visibleProperty().get()) {
-				Iterator<CalendarActivity> entries = calendar.getActivities(
-						null, startTime, endTime, temporalUnit, zoneId);
+                Iterator<CalendarActivity> entries = calendar.getActivities(null, startTime, endTime, temporalUnit, zoneId);
 
-				while (entries.hasNext()) {
-					CalendarActivity activity = entries.next();
+                while (entries.hasNext()) {
 
-					double x1 = snapPosition(timelineModel.calculateLocationForTime(activity.getStartTime()) + getGraphics().getCanvasBuffer() - canvas.getTranslateX());
-					double x2 = snapPosition(timelineModel.calculateLocationForTime(activity.getEndTime()) + getGraphics().getCanvasBuffer() - canvas.getTranslateX());
+                    final CalendarActivity activity = entries.next();
 
-					final CalendarActivityRenderer renderer = getCalendarActivityRenderer(activity.getClass());
+                    final double x1 = snapPosition(timelineModel.calculateLocationForTime(activity.getStartTime()) + getGraphics().getCanvasBuffer() - canvas.getTranslateX());
+                    final double x2 = snapPosition(timelineModel.calculateLocationForTime(activity.getEndTime()) + getGraphics().getCanvasBuffer() - canvas.getTranslateX());
 
-					if (renderer != null && renderer.isEnabled()) {
-						double alpha = gc.getGlobalAlpha();
+                    final CalendarActivityRenderer renderer = getCalendarActivityRenderer(activity.getClass());
 
-						try {
-							if (graphics.isSafeRendering()) {
-								gc.save();
-							}
-							gc.setGlobalAlpha(alpha * renderer.getAlpha());
-							renderer.draw(new ActivityRef(row, null, activity), Position.ONLY, gc, x1, 0, x2 - x1, height, false, false, false, false);
-						} finally {
-							if (graphics.isSafeRendering()) {
-								gc.restore();
-							} else {
-								gc.setGlobalAlpha(alpha);
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+                    if (renderer != null && renderer.isEnabled()) {
+                        double alpha = gc.getGlobalAlpha();
 
-	// Calendar renderers
+                        try {
+                            if (graphics.isSafeRendering()) {
+                                gc.save();
+                            }
+                            gc.setGlobalAlpha(alpha * renderer.getAlpha());
+                            renderer.draw(new ActivityRef(row, null, activity), Position.ONLY, gc, x1, 0, x2 - x1, height, false, false, false, false);
+                        } finally {
+                            if (graphics.isSafeRendering()) {
+                                gc.restore();
+                            } else {
+                                gc.setGlobalAlpha(alpha);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-	// TODO: add caching for renderer lookup
+    // Calendar renderers
 
-	private final ObservableMap<Class<?>, CalendarActivityRenderer<?>> calendarRendererMap = FXCollections.observableHashMap();
+    // TODO: add caching for renderer lookup
 
-	public final <A extends Activity> void setCalendarActivityRenderer(
-			Class<? extends A> clazz,
-			CalendarActivityRenderer<? extends A> renderer) {
+    private final ObservableMap<Class<?>, CalendarActivityRenderer<?>> calendarRendererMap = FXCollections.observableHashMap();
 
-		requireNonNull(clazz);
+    public final <A extends Activity> void setCalendarActivityRenderer(
+            Class<? extends A> clazz,
+            CalendarActivityRenderer<? extends A> renderer) {
 
-		if (renderer != null) {
-			LoggingDomain.CONFIG.fine("class = " + clazz + ", policy = "
-					+ renderer.getClass().getName());
-		} else {
-			LoggingDomain.CONFIG.fine("class = " + clazz + ", policy = null");
-		}
+        requireNonNull(clazz);
 
-		calendarRendererMap.put(clazz, renderer);
-	}
+        if (renderer != null) {
+            LoggingDomain.CONFIG.fine("class = " + clazz + ", policy = "
+                    + renderer.getClass().getName());
+        } else {
+            LoggingDomain.CONFIG.fine("class = " + clazz + ", policy = null");
+        }
 
-	@SuppressWarnings("unchecked")
-	public final <A extends CalendarActivity> CalendarActivityRenderer<? extends A> getCalendarActivityRenderer(
-			Class<? extends A> clazz) {
+        calendarRendererMap.put(clazz, renderer);
+    }
 
-		Objects.requireNonNull(clazz);
+    @SuppressWarnings("unchecked")
+    public final <A extends CalendarActivity> CalendarActivityRenderer<? extends A> getCalendarActivityRenderer(
+            Class<? extends A> clazz) {
 
-		return (CalendarActivityRenderer<? extends A>) doGetCalendarActivityRenderer(
-				calendarRendererMap, clazz);
-	}
+        Objects.requireNonNull(clazz);
 
-	private <A extends CalendarActivity> CalendarActivityRenderer<A> doGetCalendarActivityRenderer(
-			Map<Class<?>, ? extends CalendarActivityRenderer<?>> map,
-			Class<?> clazz) {
-		if (clazz != null) {
-			@SuppressWarnings("unchecked")
-			CalendarActivityRenderer<A> renderer = (CalendarActivityRenderer<A>) map.get(clazz);
-			if (renderer == null) {
-				return doGetCalendarActivityRenderer(map, clazz.getSuperclass());
-			}
-			return renderer;
-		}
+        return (CalendarActivityRenderer<? extends A>) doGetCalendarActivityRenderer(
+                calendarRendererMap, clazz);
+    }
 
-		return null;
-	}
+    private <A extends CalendarActivity> CalendarActivityRenderer<A> doGetCalendarActivityRenderer(
+            Map<Class<?>, ? extends CalendarActivityRenderer<?>> map,
+            Class<?> clazz) {
+        if (clazz != null) {
+            @SuppressWarnings("unchecked")
+            CalendarActivityRenderer<A> renderer = (CalendarActivityRenderer<A>) map.get(clazz);
+            if (renderer == null) {
+                return doGetCalendarActivityRenderer(map, clazz.getSuperclass());
+            }
+            return renderer;
+        }
+
+        return null;
+    }
 }

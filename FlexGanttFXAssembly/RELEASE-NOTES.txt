@@ -1,3 +1,11 @@
+----------------------------------------------------------------
+Release: 11.10.1, April 2020 (Performance / StillCorona Release)
+----------------------------------------------------------------
+
+** Fixed bug where grid lines were drawn from previous time unit after zoom operation
+** Fixed bug where calendar entries (e.g. weekend days) were still drawn even when
+   currently displayed primary time unit does not want to display them.
+
 ----------------------------------------------------------
 Release: 11.10.0, March 2020 (Performance / Corona Release)
 ----------------------------------------------------------

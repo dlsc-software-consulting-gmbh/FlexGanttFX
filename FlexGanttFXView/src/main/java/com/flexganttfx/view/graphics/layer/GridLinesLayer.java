@@ -53,11 +53,9 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         lineStroke3.bindBidirectional(graphics.gridLineColor3Property());
 
 
-        // TODO: add styleable property
+        // TODO: add stylable properties
         setLineWidth1(0.5);
-        // TODO: add styleable property
         setLineWidth2(0.5);
-        // TODO: add styleable property
         setLineWidth3(0.5);
 
         redrawObservable(lineStroke1);
@@ -70,8 +68,7 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         fadeInOutObservable(graphics.showGridLineLayerProperty());
     }
 
-    private final ObjectProperty<Paint> lineStroke1 = new SimpleObjectProperty<>(
-            this, "lineStroke1");
+    private final ObjectProperty<Paint> lineStroke1 = new SimpleObjectProperty<>(this, "lineStroke1");
 
     public final ObjectProperty<Paint> lineStroke1Property() {
         return lineStroke1;
@@ -86,8 +83,7 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         lineStroke1.set(stroke);
     }
 
-    private final ObjectProperty<Paint> lineStroke2 = new SimpleObjectProperty<>(
-            this, "lineStroke2");
+    private final ObjectProperty<Paint> lineStroke2 = new SimpleObjectProperty<>(this, "lineStroke2");
 
     public final ObjectProperty<Paint> lineStroke2Property() {
         return lineStroke2;
@@ -102,8 +98,7 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         lineStroke2.set(stroke);
     }
 
-    private final ObjectProperty<Paint> lineStroke3 = new SimpleObjectProperty<>(
-            this, "lineStroke3");
+    private final ObjectProperty<Paint> lineStroke3 = new SimpleObjectProperty<>(this, "lineStroke3");
 
     public final ObjectProperty<Paint> lineStroke3Property() {
         return lineStroke3;
@@ -118,8 +113,7 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         lineStroke3.set(stroke);
     }
 
-    private final DoubleProperty lineWidth1 = new SimpleDoubleProperty(this,
-            "lineWidth1");
+    private final DoubleProperty lineWidth1 = new SimpleDoubleProperty(this, "lineWidth1");
 
     public final DoubleProperty lineWidth1Property() {
         return lineWidth1;
@@ -133,8 +127,7 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         lineWidth1.set(width);
     }
 
-    private final DoubleProperty lineWidth2 = new SimpleDoubleProperty(this,
-            "lineWidth2");
+    private final DoubleProperty lineWidth2 = new SimpleDoubleProperty(this, "lineWidth2");
 
     public final DoubleProperty lineWidth2Property() {
         return lineWidth2;
@@ -148,8 +141,7 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         lineWidth2.set(width);
     }
 
-    private final DoubleProperty lineWidth3 = new SimpleDoubleProperty(this,
-            "lineWidth3");
+    private final DoubleProperty lineWidth3 = new SimpleDoubleProperty(this, "lineWidth3");
 
     public final DoubleProperty lineWidth3Property() {
         return lineWidth3;

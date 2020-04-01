@@ -814,7 +814,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         redrawObservable(dateline.selectedTimeIntervalProperty());
 
         dateline.getSelectedIntervals().addListener(weakRedrawListener);
-        //dateline.getScaleResolutions().addListener(weakRedrawListener);
+        dateline.getScaleResolutions().addListener(weakRedrawListener);
 
         timelineProperty().addListener((observable, oldTimeline, newTimeline) -> {
 
