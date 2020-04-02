@@ -44,8 +44,7 @@ public class ChronoUnitTimelineModelTest {
     public void shouldReturnZeroForStartTimeLocation() {
 
         // when
-        double location = timelineModel
-                .calculateLocationForTime(timelineModel.getStartTime());
+        double location = timelineModel.calculateLocationForTime(timelineModel.getStartTime());
 
         // then
         assertThat(location, is(equalTo(0.0)));
@@ -62,8 +61,7 @@ public class ChronoUnitTimelineModelTest {
             double location = timelineModel.calculateLocationForTime(nextDay);
 
             // then
-            assertThat(location % timelineModel.getMillisPerPixel(),
-                    is(equalTo(0.0)));
+            assertThat(location % timelineModel.getMillisPerPixel(), is(equalTo(0.0)));
         }
     }
 

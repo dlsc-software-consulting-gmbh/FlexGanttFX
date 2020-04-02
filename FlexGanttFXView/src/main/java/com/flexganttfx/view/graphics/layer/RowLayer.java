@@ -57,7 +57,7 @@ public class RowLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 			RowRenderer renderer = getRowRenderer(row.getClass());
 
 			if (renderer != null) {
-				GraphicsBase<R> graphics = getGraphics();
+				GraphicsBase graphics = getGraphics();
 				GraphicsContext gc = canvas.getGraphicsContext2D();
 
 				boolean selected = false;

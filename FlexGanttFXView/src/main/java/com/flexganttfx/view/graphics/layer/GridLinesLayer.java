@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
+ * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
  * <p>
  * This file is part of FlexGanttFX.
  */
@@ -7,7 +7,6 @@ package com.flexganttfx.view.graphics.layer;
 
 import com.flexganttfx.model.Row;
 import com.flexganttfx.model.dateline.Resolution;
-import com.flexganttfx.model.timeline.TimelineModel;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.timeline.Dateline;
 import impl.com.flexganttfx.skin.graphics.RowCanvas;
@@ -53,9 +52,11 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         lineStroke3.bindBidirectional(graphics.gridLineColor3Property());
 
 
-        // TODO: add stylable properties
+        // TODO: add styleable property
         setLineWidth1(0.5);
+        // TODO: add styleable property
         setLineWidth2(0.5);
+        // TODO: add styleable property
         setLineWidth3(0.5);
 
         redrawObservable(lineStroke1);
@@ -68,7 +69,8 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         fadeInOutObservable(graphics.showGridLineLayerProperty());
     }
 
-    private final ObjectProperty<Paint> lineStroke1 = new SimpleObjectProperty<>(this, "lineStroke1");
+    private final ObjectProperty<Paint> lineStroke1 = new SimpleObjectProperty<>(
+            this, "lineStroke1");
 
     public final ObjectProperty<Paint> lineStroke1Property() {
         return lineStroke1;
@@ -83,7 +85,8 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         lineStroke1.set(stroke);
     }
 
-    private final ObjectProperty<Paint> lineStroke2 = new SimpleObjectProperty<>(this, "lineStroke2");
+    private final ObjectProperty<Paint> lineStroke2 = new SimpleObjectProperty<>(
+            this, "lineStroke2");
 
     public final ObjectProperty<Paint> lineStroke2Property() {
         return lineStroke2;
@@ -98,7 +101,8 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         lineStroke2.set(stroke);
     }
 
-    private final ObjectProperty<Paint> lineStroke3 = new SimpleObjectProperty<>(this, "lineStroke3");
+    private final ObjectProperty<Paint> lineStroke3 = new SimpleObjectProperty<>(
+            this, "lineStroke3");
 
     public final ObjectProperty<Paint> lineStroke3Property() {
         return lineStroke3;
@@ -113,7 +117,8 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         lineStroke3.set(stroke);
     }
 
-    private final DoubleProperty lineWidth1 = new SimpleDoubleProperty(this, "lineWidth1");
+    private final DoubleProperty lineWidth1 = new SimpleDoubleProperty(this,
+            "lineWidth1");
 
     public final DoubleProperty lineWidth1Property() {
         return lineWidth1;
@@ -127,7 +132,8 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         lineWidth1.set(width);
     }
 
-    private final DoubleProperty lineWidth2 = new SimpleDoubleProperty(this, "lineWidth2");
+    private final DoubleProperty lineWidth2 = new SimpleDoubleProperty(this,
+            "lineWidth2");
 
     public final DoubleProperty lineWidth2Property() {
         return lineWidth2;
@@ -141,7 +147,8 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         lineWidth2.set(width);
     }
 
-    private final DoubleProperty lineWidth3 = new SimpleDoubleProperty(this, "lineWidth3");
+    private final DoubleProperty lineWidth3 = new SimpleDoubleProperty(this,
+            "lineWidth3");
 
     public final DoubleProperty lineWidth3Property() {
         return lineWidth3;
@@ -159,8 +166,6 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
     public void drawLayer(RowCanvas<R> canvas, Instant startTime, Instant endTime) {
         Dateline dateline = canvas.getGraphics().getTimeline().getDateline();
         DayOfWeek firstDayOfWeek = dateline.getFirstDayOfWeek();
-
-        TimelineModel<?> timelineModel = canvas.getTimelineModel();
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
@@ -197,12 +202,12 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
             Instant time = resolution.truncate(startTime, zoneId, firstDayOfWeek);
 
-            double x = snapPosition(timelineModel.calculateLocationForTime(time) + getGraphics().getCanvasBuffer() - canvas.getTranslateX());
+            double x = getLocation(time, canvas);
 
             do {
                 gc.strokeLine(x, 0, x, height);
                 time = resolution.increment(time, zoneId);
-                x = snapPosition(timelineModel.calculateLocationForTime(time) + getGraphics().getCanvasBuffer() - canvas.getTranslateX());
+                x = getLocation(time, canvas);
             } while (x < width);
 
             counter++;

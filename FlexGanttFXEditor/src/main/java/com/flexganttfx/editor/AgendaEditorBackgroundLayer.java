@@ -8,7 +8,6 @@ package com.flexganttfx.editor;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.model.dateline.VirtualGrid;
 import com.flexganttfx.model.layout.AgendaLayout;
-import com.flexganttfx.model.timeline.TimelineModel;
 import com.flexganttfx.model.util.TimeInterval;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.graphics.LassoEvent;
@@ -35,8 +34,7 @@ import static java.util.Objects.requireNonNull;
  *
  * @param <R>
  */
-public class AgendaEditorBackgroundLayer<R extends Row<?, ?, ?>> extends
-        SystemLayer<R> {
+public class AgendaEditorBackgroundLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
     private boolean lassoActive;
 
@@ -68,12 +66,12 @@ public class AgendaEditorBackgroundLayer<R extends Row<?, ?, ?>> extends
 
         graphics.addEventHandler(LassoEvent.SELECTION_STARTED, evt -> {
             lassoActive = true;
-            redraw();
+            getGraphics().redraw();
         });
 
         graphics.addEventHandler(LassoEvent.SELECTION_FINISHED, evt -> {
             lassoActive = false;
-            redraw();
+            getGraphics().redraw();
         });
 
         redrawObservable(showPasteLocations);
@@ -86,7 +84,7 @@ public class AgendaEditorBackgroundLayer<R extends Row<?, ?, ?>> extends
     private void redraw(MouseEvent evt) {
         mouseX = evt.getX();
         mouseY = evt.getY();
-        super.redraw();
+        getGraphics().redraw();
     }
 
     private final BooleanProperty showPasteLocations = new SimpleBooleanProperty(
@@ -108,7 +106,7 @@ public class AgendaEditorBackgroundLayer<R extends Row<?, ?, ?>> extends
     public void drawLayer(RowCanvas<R> canvas, Instant startTime,
                           Instant endTime) {
 
-        GraphicsBase<R> graphics = getGraphics();
+        GraphicsBase graphics = getGraphics();
 
         Row<?, ?, ?> row = graphics.getRowAt(mouseY);
 
@@ -169,11 +167,10 @@ public class AgendaEditorBackgroundLayer<R extends Row<?, ?, ?>> extends
 
                     st = st.truncatedTo(ChronoUnit.DAYS);
 
-                    TimelineModel<?> model = canvas.getGraphics().getTimeline().getModel();
-                    double x1 = model.calculateLocationForTime(Instant.from(st)) + getGraphics().getCanvasBuffer() - canvas.getTranslateX();
+                    double x1 = getLocation(Instant.from(st), canvas);
 
                     st = st.plusDays(1);
-                    double x2 = model.calculateLocationForTime(Instant.from(st)) + getGraphics().getCanvasBuffer() - canvas.getTranslateX();
+                    double x2 = getLocation(Instant.from(st), canvas);
 
                     GraphicsContext gc = canvas.getGraphicsContext2D();
                     gc.setFill(new Color(0, 0.5, 0, .1));
@@ -188,9 +185,7 @@ public class AgendaEditorBackgroundLayer<R extends Row<?, ?, ?>> extends
     private void drawTimeCursor(RowCanvas<R> canvas, GraphicsBase<R> graphics) {
         Instant time = graphics.getTimeAt(mouseX);
         VirtualGrid<?> grid = graphics.getVirtualGrid();
-        ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(time,
-                canvas.getRow().getZoneId()).truncatedTo(ChronoUnit.DAYS);
-        time = zonedDateTime.toInstant();
+        ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(time, canvas.getRow().getZoneId()).truncatedTo(ChronoUnit.DAYS);
 
         AgendaLayout layout = (AgendaLayout) canvas.getRow().getLayout();
 
@@ -209,10 +204,8 @@ public class AgendaEditorBackgroundLayer<R extends Row<?, ?, ?>> extends
                 + calculateVerticalTimeLocation(endLocalTime, layout,
                 canvas.getHeight() - 2 * layout.getPadding());
 
-        TimelineModel<?> model = canvas.getGraphics().getTimeline().getModel();
-
-        double x1 = model.calculateLocationForTime(zonedDateTime.toInstant()) + getGraphics().getCanvasBuffer() - canvas.getTranslateX();
-        double x2 = model.calculateLocationForTime(zonedDateTime.plusDays(1).toInstant()) + getGraphics().getCanvasBuffer() - canvas.getTranslateX();
+        double x1 = getLocation(zonedDateTime.toInstant(), canvas);
+        double x2 = getLocation(zonedDateTime.plusDays(1).toInstant(), canvas);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(new Color(0, 0, 0, .1));
@@ -220,18 +213,12 @@ public class AgendaEditorBackgroundLayer<R extends Row<?, ?, ?>> extends
     }
 
     private double calculateVerticalTimeLocation(LocalTime time, AgendaLayout layout, double availableHeight) {
-
         LocalTime st = layout.getStartTime();
         LocalTime et = layout.getEndTime();
 
         long millis = st.until(et, ChronoUnit.MILLIS);
         double mpp = millis / availableHeight;
 
-        return Math.min(
-                availableHeight,
-                Math.max(
-                        0,
-                        (time.get(ChronoField.MILLI_OF_DAY) - st
-                                .get(ChronoField.MILLI_OF_DAY)) / mpp));
+        return Math.min(availableHeight, Math.max(0, (time.get(ChronoField.MILLI_OF_DAY) - st.get(ChronoField.MILLI_OF_DAY)) / mpp));
     }
 }

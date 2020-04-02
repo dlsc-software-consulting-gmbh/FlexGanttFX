@@ -35,8 +35,7 @@ public abstract class Renderer extends RendererBase {
 		redrawObservable(fillHover);
 	}
 
-	protected Paint getFill(boolean selected, boolean hover,
-			boolean highlighted, boolean pressed) {
+	protected Paint getFill(boolean selected, boolean hover, boolean highlighted, boolean pressed) {
 		if (pressed) {
 			return getFillPressed();
 		} else if (highlighted) {

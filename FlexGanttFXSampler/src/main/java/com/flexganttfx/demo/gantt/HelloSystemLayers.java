@@ -107,8 +107,8 @@ public class HelloSystemLayers extends FlexGanttFXSample {
 
                     String name = activity.getName();
 
-                    double x1 = timeline.getModel().calculateLocationForTime(activity.getStartTime()) + getGraphics().getCanvasBuffer() - canvas.getTranslateX();
-                    double x2 = timeline.getModel().calculateLocationForTime(activity.getEndTime()) + getGraphics().getCanvasBuffer() - canvas.getTranslateX();
+                    double x1 = getLocation(activity.getStartTime(), canvas);
+                    double x2 = getLocation(activity.getEndTime(), canvas);
                     double y1 = (canvas.getHeight() - barHeight) / 2;
                     double y2 = y1 + barHeight;
 

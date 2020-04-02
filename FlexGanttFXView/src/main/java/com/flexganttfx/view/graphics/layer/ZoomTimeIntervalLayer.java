@@ -6,7 +6,6 @@
 package com.flexganttfx.view.graphics.layer;
 
 import com.flexganttfx.model.Row;
-import com.flexganttfx.model.timeline.TimelineModel;
 import com.flexganttfx.model.util.TimeInterval;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.timeline.Dateline;
@@ -36,8 +35,7 @@ import java.util.Objects;
  *
  * @since 1.0
  */
-public class ZoomTimeIntervalLayer<R extends Row<?, ?, ?>>
-		extends SystemLayer<R> {
+public class ZoomTimeIntervalLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
 	public ZoomTimeIntervalLayer(GraphicsBase<R> graphics) {
 		super("Zoom Time Interval", graphics);
@@ -67,22 +65,18 @@ public class ZoomTimeIntervalLayer<R extends Row<?, ?, ?>>
 	}
 
 	@Override
-	public void drawLayer(RowCanvas<R> canvas, Instant startTime,
-			Instant endTime) {
-		GraphicsBase<R> graphics = getGraphics();
+	public void drawLayer(RowCanvas<R> canvas, Instant startTime, Instant endTime) {
+		GraphicsBase graphics = getGraphics();
 		Timeline timeline = graphics.getTimeline();
 		Dateline dateline = timeline.getDateline();
 		TimeInterval selectedTimeInterval = dateline.getSelectedTimeInterval();
 		if (selectedTimeInterval != null) {
-			TimelineModel<?> timelineModel = timeline.getModel();
 
 			GraphicsContext gc = canvas.getGraphicsContext2D();
 			gc.setFill(getZoomTimeIntervalFill());
 
-			System.out.println(selectedTimeInterval);
-
-			double x1 = snapPosition(timelineModel.calculateLocationForTime(selectedTimeInterval.getStartTime()) + getGraphics().getCanvasBuffer() - canvas.getTranslateX());
-			double x2 = snapPosition(timelineModel.calculateLocationForTime(selectedTimeInterval.getEndTime()) + getGraphics().getCanvasBuffer() - canvas.getTranslateX());
+			double x1 = getLocation(selectedTimeInterval.getStartTime(), canvas);
+			double x2 = getLocation(selectedTimeInterval.getEndTime(), canvas);
 
 			gc.fillRect(x1, 0, x2 - x1, canvas.getHeight());
 		}

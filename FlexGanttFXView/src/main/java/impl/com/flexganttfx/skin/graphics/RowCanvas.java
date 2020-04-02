@@ -155,7 +155,11 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
             Instant st = graphics.getTimeAt(0);
             Instant et = graphics.getTimeAt(graphics.getWidth());
 
-            boolean contained = (st.equals(drawingStartTime) || st.isAfter(drawingStartTime)) && (et.equals(drawingEndTime) || et.isBefore(drawingEndTime));
+            boolean contained = false;
+
+            if (drawingStartTime != null && drawingEndTime != null) {
+                contained = (st.equals(drawingStartTime) || st.isAfter(drawingStartTime)) && (et.equals(drawingEndTime) || et.isBefore(drawingEndTime));
+            }
 
             if (!contained) {
                 draw(reason);
@@ -316,8 +320,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         if (lookupBounds != null && graphics.isDebugMode()) {
             gc.setStroke(Color.MAGENTA);
-            gc.strokeRect(lookupBounds.getMinX(), lookupBounds.getMinY(),
-                    lookupBounds.getWidth(), lookupBounds.getHeight());
+            gc.strokeRect(lookupBounds.getMinX(), lookupBounds.getMinY(), lookupBounds.getWidth(), lookupBounds.getHeight());
         }
 
         if (agendaColumnMap != null) {

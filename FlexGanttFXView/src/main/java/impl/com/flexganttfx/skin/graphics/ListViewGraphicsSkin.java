@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
+ * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
  * <p>
  * This file is part of FlexGanttFX.
  */
@@ -11,6 +11,7 @@ import com.flexganttfx.model.timeline.TimelineModel;
 import com.flexganttfx.view.graphics.ActivityBounds;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.graphics.ListViewGraphics;
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,9 +24,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.control.ScrollBar;
-import javafx.scene.control.skin.VirtualFlow;
 import javafx.scene.input.DragEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Rectangle;
 
@@ -196,7 +195,7 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
 
         private void scrollY() {
             VirtualFlow<?> flow = getVirtualFlow();
-            flow.scrollPixels(yOffset);
+            flow.adjustPixels(yOffset);
         }
 
         public void stopRunning() {
@@ -445,10 +444,7 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
         ScrollBar scrollBar = findScrollBar(listView, Orientation.VERTICAL);
 
         if (scrollBar != null) {
-            scrollBar.addEventFilter(MouseEvent.MOUSE_DRAGGED, evt -> getSkinnable().drawLinks("scrolling down, mouse event"));
-            scrollBar.valueProperty().addListener(it -> {
-                getSkinnable().drawLinks("scrolling down");
-            });
+            scrollBar.valueProperty().addListener(it -> getSkinnable().drawLinks("scrolling down"));
         }
     }
 

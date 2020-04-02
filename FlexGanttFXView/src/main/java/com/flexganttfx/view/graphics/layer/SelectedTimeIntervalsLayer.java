@@ -6,7 +6,6 @@
 package com.flexganttfx.view.graphics.layer;
 
 import com.flexganttfx.model.Row;
-import com.flexganttfx.model.timeline.TimelineModel;
 import com.flexganttfx.model.util.TimeInterval;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.timeline.Dateline;
@@ -68,18 +67,17 @@ public class SelectedTimeIntervalsLayer<R extends Row<?, ?, ?>> extends
 
 	@Override
 	public void drawLayer(RowCanvas<R> canvas, Instant startTime, Instant endTime) {
-		GraphicsBase<R> graphics = getGraphics();
+		GraphicsBase graphics = getGraphics();
 		Timeline timeline = graphics.getTimeline();
 		Dateline dateline = timeline.getDateline();
-		TimelineModel<?> timelineModel = timeline.getModel();
 
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 
 		// draw time interval selections of the dateline
 		gc.setFill(getSelectedTimeIntervalFill());
 		for (TimeInterval timeInterval : dateline.getSelectedIntervals()) {
-			double x1 = snapPosition(timelineModel.calculateLocationForTime(timeInterval.getStartTime()) + getGraphics().getCanvasBuffer() - canvas.getTranslateX());
-			double x2 = snapPosition(timelineModel.calculateLocationForTime(timeInterval.getEndTime()) + getGraphics().getCanvasBuffer() - canvas.getTranslateX());
+			double x1 = getLocation(timeInterval.getStartTime(), canvas);
+			double x2 = getLocation(timeInterval.getEndTime(), canvas);
 			gc.fillRect(x1, 0, x2 - x1, canvas.getHeight());
 		}
 	}

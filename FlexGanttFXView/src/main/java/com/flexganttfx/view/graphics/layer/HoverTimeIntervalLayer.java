@@ -1,12 +1,11 @@
 /**
- * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.view.graphics.layer;
 
 import com.flexganttfx.model.Row;
-import com.flexganttfx.model.timeline.TimelineModel;
 import com.flexganttfx.model.util.TimeInterval;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.timeline.Dateline;
@@ -36,57 +35,53 @@ import java.util.Objects;
  *
  * @since 1.0
  */
-public class HoverTimeIntervalLayer<R extends Row<?, ?, ?>> extends
-		SystemLayer<R> {
+public class HoverTimeIntervalLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
-	public HoverTimeIntervalLayer(GraphicsBase<R> graphics) {
-		super("Hover Time Interval", graphics);
+    public HoverTimeIntervalLayer(GraphicsBase<R> graphics) {
+        super("Hover Time Interval", graphics);
 
-		setHoverTimeIntervalFill(Color.BEIGE.deriveColor(0, 1, 1, .5));
+        setHoverTimeIntervalFill(Color.BEIGE.deriveColor(0, 1, 1, .5));
 
-		redrawObservable(hoverTimeIntervalFillProperty());
+        redrawObservable(hoverTimeIntervalFillProperty());
 
-		fadeInOutObservable(graphics.showHoverTimeIntervalLayerProperty());
-	}
+        fadeInOutObservable(graphics.showHoverTimeIntervalLayerProperty());
+    }
 
-	private final ObjectProperty<Paint> hoverTimeIntervalFill = new SimpleObjectProperty<>(
-			this, "hoverTimeIntervalFill");
+    private final ObjectProperty<Paint> hoverTimeIntervalFill = new SimpleObjectProperty<>(
+            this, "hoverTimeIntervalFill");
 
-	public final ObjectProperty<Paint> hoverTimeIntervalFillProperty() {
-		return hoverTimeIntervalFill;
-	}
+    public final ObjectProperty<Paint> hoverTimeIntervalFillProperty() {
+        return hoverTimeIntervalFill;
+    }
 
-	public final Paint getHoverTimeIntervalFill() {
-		return hoverTimeIntervalFillProperty().get();
-	}
+    public final Paint getHoverTimeIntervalFill() {
+        return hoverTimeIntervalFillProperty().get();
+    }
 
-	public final void setHoverTimeIntervalFill(Paint fill) {
-		Objects.requireNonNull(fill);
-		hoverTimeIntervalFillProperty().set(fill);
-	}
+    public final void setHoverTimeIntervalFill(Paint fill) {
+        Objects.requireNonNull(fill);
+        hoverTimeIntervalFillProperty().set(fill);
+    }
 
-	@Override
-	public void drawLayer(RowCanvas<R> canvas, Instant startTime,
-			Instant endTime) {
+    @Override
+    public void drawLayer(RowCanvas<R> canvas, Instant startTime, Instant endTime) {
 
-		GraphicsBase<R> graphics = getGraphics();
-		Timeline timeline = graphics.getTimeline();
-		Dateline dateline = timeline.getDateline();
+        GraphicsBase graphics = getGraphics();
+        Timeline timeline = graphics.getTimeline();
+        Dateline dateline = timeline.getDateline();
 
-		TimelineModel<?> timelineModel = timeline.getModel();
+        GraphicsContext gc = canvas.getGraphicsContext2D();
 
-		GraphicsContext gc = canvas.getGraphicsContext2D();
+        TimeInterval hoverTimeInterval = dateline.getHoverTimeInterval();
 
-		TimeInterval hoverTimeInterval = dateline.getHoverTimeInterval();
+        // draw the focused time interval
+        if (hoverTimeInterval != null) {
+            gc.setFill(getHoverTimeIntervalFill());
 
-		// draw the focused time interval
-		if (hoverTimeInterval != null) {
-			gc.setFill(getHoverTimeIntervalFill());
+            double x1 = getLocation(hoverTimeInterval.getStartTime(), canvas);
+            double x2 = getLocation(hoverTimeInterval.getEndTime(), canvas);
 
-			double x1 = snapPosition(timelineModel.calculateLocationForTime(hoverTimeInterval.getStartTime()) + getGraphics().getCanvasBuffer() - canvas.getTranslateX());
-			double x2 = snapPosition(timelineModel.calculateLocationForTime(hoverTimeInterval.getEndTime()) + getGraphics().getCanvasBuffer() - canvas.getTranslateX());
-
-			gc.fillRect(x1, 0, x2 - x1, canvas.getHeight());
-		}
-	}
+            gc.fillRect(x1, 0, x2 - x1, canvas.getHeight());
+        }
+    }
 }

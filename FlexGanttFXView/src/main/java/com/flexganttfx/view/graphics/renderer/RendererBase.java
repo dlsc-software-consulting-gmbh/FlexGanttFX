@@ -255,7 +255,7 @@ public abstract class RendererBase {
     protected final double getLocation(Instant time, Canvas canvas) {
         Timeline timeline = getGraphics().getTimeline();
         TimelineModel<?> timelineModel = timeline.getModel();
-        return timelineModel.calculateLocationForTime(time) + getGraphics().getCanvasBuffer() - canvas.getTranslateX();
+        return snapPositionX(timelineModel.calculateLocationForTime(time) + getGraphics().getCanvasBuffer() - canvas.getTranslateX());
     }
 
     /**

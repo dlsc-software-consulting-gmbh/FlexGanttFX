@@ -308,7 +308,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
             }
         });
 
-        addEventFilter(MouseEvent.MOUSE_CLICKED, evt -> redraw());
+        addEventFilter(MouseEvent.MOUSE_CLICKED, evt -> redraw("mouse clicked on graphics base"));
         debugModeProperty().addListener(weakRedrawListener);
 
         selectionModeProperty().addListener(observable -> getSelectedActivities().clear());
@@ -1150,7 +1150,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
     public final double getLocation(Instant time) {
         Timeline timeline = getTimeline();
         TimelineModel<?> timelineModel = timeline.getModel();
-        return timelineModel.calculateLocationForTime(time);
+        return snapPosition(timelineModel.calculateLocationForTime(time));
     }
 
     /**
