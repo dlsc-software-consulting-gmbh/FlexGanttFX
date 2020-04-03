@@ -436,7 +436,7 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
     // @formatter:off
     private final DoubleProperty barHeight = new SimpleDoubleProperty(this, "barHeight", 10);
     private final DoubleProperty textGap = new SimpleDoubleProperty(this, "textGap", 8);
-    private final BooleanProperty glossy = new SimpleBooleanProperty(this, "glossy", true);
+    private final BooleanProperty glossy = new SimpleBooleanProperty(this, "glossy", false);
     private final BooleanProperty autoFixText = new SimpleBooleanProperty(this, "autoFixText", true);
 
     private final ObjectProperty<Paint> textFill = new SimpleObjectProperty<>(this, "textFill");

@@ -278,22 +278,23 @@ public class CurvedLinkRenderer<T extends ActivityLink<?>> extends LinkRenderer<
                 gc.quadraticCurveTo(sx1, sy, sx1, sy + curve);
                 gc.lineTo(sx1, my - curve);
                 gc.quadraticCurveTo(sx1, my, sx1 + curve, my);
-                gc.lineTo(tx1 - curve, my);
-                gc.quadraticCurveTo(tx1, my, tx1, my + curve);
-                gc.lineTo(tx1, ty - curve);
-                gc.quadraticCurveTo(tx1, ty, tx1 - curve, ty);
+                double maxX = Math.max(sx1 + curve, tx1);
+                gc.lineTo(maxX, my);
+                gc.quadraticCurveTo(maxX + curve, my, maxX + curve, my + curve);
+                gc.lineTo(maxX + curve, ty - curve);
+                gc.quadraticCurveTo(maxX + curve, ty, maxX, ty);
                 gc.lineTo(tx, ty);
                 break;
             case ABOVE_RIGHT:
                 my = sourceRect.getMinY() - gap;
                 gc.lineTo(sx1 + curve, sy);
                 gc.quadraticCurveTo(sx1, sy, sx1, sy - curve);
-                gc.lineTo(sx1, my + curve);
                 gc.quadraticCurveTo(sx1, my, sx1 + curve, my);
-                gc.lineTo(tx1 - curve, my);
-                gc.quadraticCurveTo(tx1, my, tx1, my - curve);
-                gc.lineTo(tx1, ty + curve);
-                gc.quadraticCurveTo(tx1, ty, tx1 - curve, ty);
+                maxX = Math.max(sx1 + curve, tx1);
+                gc.lineTo(maxX, my);
+                gc.quadraticCurveTo(maxX + curve, my, maxX + curve, my - curve);
+                gc.lineTo(maxX + curve, ty + curve);
+                gc.quadraticCurveTo(maxX + curve, ty, maxX, ty);
                 gc.lineTo(tx, ty);
                 break;
             case ABOVE_LEFT:
@@ -381,12 +382,12 @@ public class CurvedLinkRenderer<T extends ActivityLink<?>> extends LinkRenderer<
                 double my = sourceRect.getMinY() + sourceRect.getHeight() + gap;
                 gc.lineTo(sx1 - curve, sy);
                 gc.quadraticCurveTo(sx1, sy, sx1, sy + curve);
-                gc.lineTo(sx1, my - curve);
                 gc.quadraticCurveTo(sx1, my, sx1 - curve, my);
-                gc.lineTo(tx1 + curve, my);
-                gc.quadraticCurveTo(tx1, my, tx1, my + curve);
-                gc.lineTo(tx1, ty - curve);
-                gc.quadraticCurveTo(tx1, ty, tx1 + curve, ty);
+                double minX = Math.min(sx1 - curve, tx1 + curve);
+                gc.lineTo(minX, my);
+                gc.quadraticCurveTo(minX - curve, my, minX-curve, my + curve);
+                gc.lineTo(minX - curve, ty - curve);
+                gc.quadraticCurveTo(minX - curve, ty, minX, ty);
                 gc.lineTo(tx, ty);
                 break;
             case ABOVE_RIGHT:
@@ -402,10 +403,11 @@ public class CurvedLinkRenderer<T extends ActivityLink<?>> extends LinkRenderer<
                 gc.lineTo(sx1 - curve, sy);
                 double delta = (sy - my) / 2 + 1;
                 gc.quadraticCurveTo(sx1 - curve + delta, sy - delta, sx1 - curve, my);
-                gc.lineTo(tx1 + curve, my);
-                gc.quadraticCurveTo(tx1, my, tx1, my - curve);
-                gc.lineTo(tx1, ty + curve);
-                gc.quadraticCurveTo(tx1, ty, tx1 + curve, ty);
+                minX = Math.min(sx1 - curve, tx1 + curve);
+                gc.lineTo(minX, my);
+                gc.quadraticCurveTo(minX - curve, my, minX - curve, my - curve);
+                gc.lineTo(minX - curve, ty + curve);
+                gc.quadraticCurveTo(minX - curve, ty, minX, ty);
                 gc.lineTo(tx, ty);
                 break;
             case RIGHT:

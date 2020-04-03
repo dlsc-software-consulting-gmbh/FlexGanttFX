@@ -64,6 +64,11 @@ public class HelloLinks extends FlexGanttFXSample {
 
 	private void createActivities() {
 		HelloRow row1 = new HelloRow("Adjacent Activities");
+		HelloRow row2 = new HelloRow("Row 2");
+		HelloRow row3 = new HelloRow("Row 3");
+
+		root.getChildren().addAll(row1, row2, row3);
+
 		HelloActivity activity11 = new HelloActivity("Activity 11");
 		HelloActivity activity12 = new HelloActivity("Activity 12");
 
@@ -74,30 +79,21 @@ public class HelloLinks extends FlexGanttFXSample {
 		activity12.setEndTime(Instant.now().plusMillis(13 * ONE_DAY));
 
 		row1.addActivity(layer, activity11);
-		row1.addActivity(layer, activity12);
+		row3.addActivity(layer, activity12);
 
 		ActivityRef<HelloActivity> ref11 = new ActivityRef<>(row1, layer, activity11);
-		ActivityRef<HelloActivity> ref12 = new ActivityRef<>(row1, layer, activity12);
+		ActivityRef<HelloActivity> ref12 = new ActivityRef<>(row3, layer, activity12);
 
 		link = new ActivityLink<>(ref11, ref12);
+		link.setType(LinkType.END_TO_START);
 		gantt.getGraphics().getLinks().add(link);
-
-		root.getChildren().add(row1);
-
-		// row 2
-		HelloRow row2 = new HelloRow("Row 2");
-		root.getChildren().add(row2);
-
-		// row 3
-		HelloRow row3 = new HelloRow("Row 3");
-		root.getChildren().add(row3);
 	}
 
 	@Override
 	public Node getControlPanel() {
 		ComboBox<LinkType> box = new ComboBox<>();
 		box.getItems().addAll(LinkType.values());
-		box.setValue(LinkType.END_TO_START);
+		box.setValue(link.getType());
 		box.valueProperty().addListener(it -> {
 			link.setType(box.getValue());
 			gantt.getGraphics().redraw();

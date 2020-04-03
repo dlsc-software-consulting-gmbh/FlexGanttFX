@@ -333,7 +333,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         setActivityRenderer(MutableActivityBase.class, AgendaLayout.class, new ActivityRenderer<>(this, "Activities (Agenda Layout)"));
 
         // Activity link renderer
-        setLinkRenderer(ActivityLink.class, new CurvedLinkRenderer<>(this, "Curved Link Renderer"));
+        setLinkRenderer(ActivityLink.class, new CurvedLinkRenderer<>(this, "Default Link Renderer"));
 
         // Edit mode controllers
 
