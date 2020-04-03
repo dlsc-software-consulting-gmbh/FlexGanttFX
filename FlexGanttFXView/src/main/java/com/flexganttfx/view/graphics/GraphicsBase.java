@@ -3992,8 +3992,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     // Support for layout layer
 
-    private final BooleanProperty showLayoutLayer = new SimpleBooleanProperty(this,
-            "showLayoutLayer", true);
+    private final BooleanProperty showLayoutLayer = new SimpleBooleanProperty(this, "showLayoutLayer", true);
 
     public final BooleanProperty showLayoutLayerProperty() {
         return showLayoutLayer;
@@ -4009,8 +4008,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     // Support for showing chart lines
 
-    private final BooleanProperty showChartLinesLayer = new SimpleBooleanProperty(
-            this, "showChartLinesLayer", true);
+    private final BooleanProperty showChartLinesLayer = new SimpleBooleanProperty(this, "showChartLinesLayer", true);
 
     public final BooleanProperty showChartLinesLayerProperty() {
         return showChartLinesLayer;
@@ -4077,8 +4075,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     // Support for showing now line
 
-    private final BooleanProperty showNowLineLayer = new SimpleBooleanProperty(this,
-            "showNowLineLayer", true);
+    private final BooleanProperty showNowLineLayer = new SimpleBooleanProperty(this, "showNowLineLayer", true);
 
     public final BooleanProperty showNowLineLayerProperty() {
         return showNowLineLayer;
@@ -4094,8 +4091,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     // Support for showing DST line
 
-    private final BooleanProperty showDSTLineLayer = new SimpleBooleanProperty(this,
-            "showDSTLineLayer", true);
+    private final BooleanProperty showDSTLineLayer = new SimpleBooleanProperty(this, "showDSTLineLayer", true);
 
     public final BooleanProperty showDSTLineLayerProperty() {
         return showDSTLineLayer;
@@ -4111,8 +4107,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     // Support for showing row layer.
 
-    private final BooleanProperty showRowLayer = new SimpleBooleanProperty(this,
-            "showRowLayer", true);
+    private final BooleanProperty showRowLayer = new SimpleBooleanProperty(this, "showRowLayer", true);
 
     public final BooleanProperty showRowLayerProperty() {
         return showRowLayer;
@@ -4131,8 +4126,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
      * agenda layout).
      */
 
-    private final BooleanProperty showScaleLayer = new SimpleBooleanProperty(this,
-            "showScaleLayer", false);
+    private final BooleanProperty showScaleLayer = new SimpleBooleanProperty(this, "showScaleLayer", false);
 
     public final BooleanProperty showScaleLayerProperty() {
         return showScaleLayer;
@@ -4148,8 +4142,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     // Selected time intervals support.
 
-    private final BooleanProperty showSelectedTimeIntervalsLayer = new SimpleBooleanProperty(
-            this, "showSelectedTimeIntervals", true);
+    private final BooleanProperty showSelectedTimeIntervalsLayer = new SimpleBooleanProperty(this, "showSelectedTimeIntervals", true);
 
     public final BooleanProperty showSelectedTimeIntervalsLayerProperty() {
         return showSelectedTimeIntervalsLayer;
@@ -4165,8 +4158,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     // Zoom time interval support.
 
-    private final BooleanProperty showZoomTimeIntervalLayer = new SimpleBooleanProperty(
-            this, "showZoomTimeIntervalLayer", true);
+    private final BooleanProperty showZoomTimeIntervalLayer = new SimpleBooleanProperty(this, "showZoomTimeIntervalLayer", true);
 
     public final BooleanProperty showZoomTimeIntervalLayerProperty() {
         return showZoomTimeIntervalLayer;
@@ -4182,8 +4174,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     // Support for showing row time zones.
 
-    private final BooleanProperty showZoneId = new SimpleBooleanProperty(this,
-            "showZoneId", false);
+    private final BooleanProperty showZoneId = new SimpleBooleanProperty(this, "showZoneId", false);
 
     public final BooleanProperty showZoneIdProperty() {
         return showZoneId;
@@ -4199,8 +4190,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     // Animate visibility changes.
 
-    private final BooleanProperty fadeInOutVisibilityChanges = new SimpleBooleanProperty(
-            this, "fadeInOutVisibilityChanges", true);
+    private final BooleanProperty fadeInOutVisibilityChanges = new SimpleBooleanProperty(this, "fadeInOutVisibilityChanges", true);
 
     public final BooleanProperty fadeInOutVisibilityChangesProperty() {
         return fadeInOutVisibilityChanges;
@@ -4214,8 +4204,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         fadeInOutVisibilityChangesProperty().set(show);
     }
 
-    private final DoubleProperty fadeInOutVisibilityChangesDuration = new SimpleDoubleProperty(
-            this, "fadeInOutVisibilityChangesDuration", 200);
+    private final DoubleProperty fadeInOutVisibilityChangesDuration = new SimpleDoubleProperty(this, "fadeInOutVisibilityChangesDuration", 200);
 
     public final DoubleProperty fadeInOutVisibilityChangesDurationProperty() {
         return fadeInOutVisibilityChangesDuration;
@@ -4227,11 +4216,30 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     public final void setFadeInOutVisibilityChangesDuration(double duration) {
         if (duration < 0) {
-            throw new IllegalArgumentException(
-                    "duration must be larger or equal to 0 but was "
-                            + duration);
+            throw new IllegalArgumentException("duration must be larger or equal to 0 but was " + duration);
         }
         fadeInOutVisibilityChangesDurationProperty().set(duration);
+    }
+
+    // Support for links canvas
+
+    private final BooleanProperty showLinks = new SimpleBooleanProperty(this, "showLinks", true);
+
+    public final boolean isShowLinks() {
+        return showLinks.get();
+    }
+
+    /**
+     * Controls whether the {@link LinksCanvas} will be visible and links will be drawn.
+     *
+     * @return true if the links will be drawn
+     */
+    public final BooleanProperty showLinksProperty() {
+        return showLinks;
+    }
+
+    public final void setShowLinks(boolean showLinks) {
+        this.showLinks.set(showLinks);
     }
 
     // DRAG AND DROP FEEDBACK

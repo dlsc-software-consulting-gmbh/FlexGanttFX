@@ -34,7 +34,7 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
         /*
          * Don't show links when a row editor is in use.
          */
-        visibleProperty().bind(Bindings.isEmpty(graphics.getRowsEditing()));
+        visibleProperty().bind(graphics.showLinksProperty().and(Bindings.isEmpty(graphics.getRowsEditing())));
 
         widthProperty().addListener(it -> Platform.runLater(() -> draw("width changed")));
         heightProperty().addListener(it -> Platform.runLater(() -> draw("height changed")));
@@ -42,6 +42,12 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
         setMouseTransparent(true);
 
         graphics.addEventFilter(ActivityEvent.ACTIVITY_CHANGE, event -> draw("an activity changed"));
+
+        visibleProperty().addListener(it -> {
+            if (isVisible()) {
+                draw("visibility of links canvas changed to true");
+            }
+        });
     }
 
     @Override
@@ -49,13 +55,16 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
         return true;
     }
 
-
     private int counterTotal = 0;
     private int counterDrawn = 0;
     private int counterAbove = 0;
     private int counterBelow = 0;
 
     public void draw(String reason) {
+        if (!isVisible()) {
+            return;
+        }
+
         if (LoggingDomain.RENDERING.isLoggable(Level.FINE)) {
             LoggingDomain.RENDERING.fine("redrawing links, reason: " + reason);
         }
