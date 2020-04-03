@@ -11,7 +11,6 @@ import com.flexganttfx.model.timeline.TimelineModel;
 import com.flexganttfx.view.graphics.ActivityBounds;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.graphics.ListViewGraphics;
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,11 +18,13 @@ import javafx.event.EventType;
 import javafx.geometry.Bounds;
 import javafx.geometry.Orientation;
 import javafx.geometry.Point2D;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.control.ScrollBar;
+import javafx.scene.control.skin.VirtualFlow;
 import javafx.scene.input.DragEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Rectangle;
@@ -129,8 +130,28 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
         }
     }
 
+    private double sheetY;
+    private double sheetHeight;
+
     private VirtualFlow<?> getVirtualFlow() {
-        return (VirtualFlow<?>) getSkinnable().lookup("VirtualFlow");
+        VirtualFlow<?> flow = (VirtualFlow<?>) getSkinnable().lookup("VirtualFlow");
+
+        /*
+         * SUPER IMPORTANT. We have to observe the group used by VirtualFlow to trigger
+         * an redrawing of the activity links / the LinksCanvas. Otherwise the links will
+         * always lack one redraw cycle behind.
+         */
+        Group group = (Group) flow.lookup(".sheet");
+        group.layoutBoundsProperty().addListener(it -> {
+            final Bounds layoutBounds = group.getLayoutBounds();
+            if (sheetY != layoutBounds.getMinY() || sheetHeight != layoutBounds.getHeight()) {
+                sheetY = layoutBounds.getMinY();
+                sheetHeight = layoutBounds.getHeight();
+                getSkinnable().drawLinks("sheet moved");
+            }
+        });
+
+        return flow;
     }
 
     private Region getClippedContainer() {
@@ -195,7 +216,7 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
 
         private void scrollY() {
             VirtualFlow<?> flow = getVirtualFlow();
-            flow.adjustPixels(yOffset);
+            flow.scrollPixels(yOffset);
         }
 
         public void stopRunning() {
@@ -444,7 +465,9 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
         ScrollBar scrollBar = findScrollBar(listView, Orientation.VERTICAL);
 
         if (scrollBar != null) {
-            scrollBar.valueProperty().addListener(it -> getSkinnable().drawLinks("scrolling down"));
+            scrollBar.valueProperty().addListener(it -> {
+                getSkinnable().drawLinks("scrolling down");
+            });
         }
     }
 
