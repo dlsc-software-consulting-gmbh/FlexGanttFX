@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>com.flexganttfx</groupId>
 		<artifactId>gantt</artifactId>
-		<version>11.10.0</version>
+		<version>11.11.0</version>
 		<relativePath>..</relativePath>
 	</parent>
 
@@ -24,6 +24,24 @@
 			<artifactId>view</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.kordamp.ikonli</groupId>
+			<artifactId>ikonli-core</artifactId>
+			<version>${ikonli.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.kordamp.ikonli</groupId>
+			<artifactId>ikonli-materialdesign-pack</artifactId>
+			<version>${ikonli.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.kordamp.ikonli</groupId>
+			<artifactId>ikonli-javafx</artifactId>
+			<version>${ikonli.version}</version>
+		</dependency>
  
 	</dependencies>
 
@@ -32,7 +50,7 @@
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
-				<version>4.1.0</version>
+				<version>${apache.felix.version}</version>
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>

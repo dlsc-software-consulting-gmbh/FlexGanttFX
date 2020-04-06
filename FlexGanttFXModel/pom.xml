@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>com.flexganttfx</groupId>
 		<artifactId>gantt</artifactId>
-		<version>11.10.0</version>
+		<version>11.11.0</version>
 		<relativePath>..</relativePath>
 	</parent>
 
@@ -39,7 +39,7 @@
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
-				<version>4.1.0</version>
+				<version>${apache.felix.version}</version>
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
