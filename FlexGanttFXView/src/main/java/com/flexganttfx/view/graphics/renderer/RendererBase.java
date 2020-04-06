@@ -217,7 +217,7 @@ public abstract class RendererBase {
 
     private final InvalidationListener redrawListener = observable -> {
         if (!disableRedrawAfterPropertyChange) {
-            getGraphics().redraw();
+            getGraphics().redraw("renderer triggered redraw");
         }
     };
 

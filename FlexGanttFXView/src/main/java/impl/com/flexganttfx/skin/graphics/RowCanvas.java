@@ -93,9 +93,9 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
     private RowCanvasBehaviour<?> rowCanvasBehaviour;
 
-    private Instant drawingStartTime;
+//    private Instant drawingStartTime;
 
-    private Instant drawingEndTime;
+  //  private Instant drawingEndTime;
 
     public RowCanvas(GraphicsBase<R> graphics) {
         requireNonNull(graphics);
@@ -152,18 +152,19 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         if (Math.abs(newTranslateX) < graphics.getCanvasBuffer()) {
             setTranslateX(newTranslateX);
 
-            Instant st = graphics.getTimeAt(0);
-            Instant et = graphics.getTimeAt(graphics.getWidth());
-
-            boolean contained = false;
-
-            if (drawingStartTime != null && drawingEndTime != null) {
-                contained = (st.equals(drawingStartTime) || st.isAfter(drawingStartTime)) && (et.equals(drawingEndTime) || et.isBefore(drawingEndTime));
-            }
-
-            if (!contained) {
-                draw(reason);
-            }
+//            Instant st = graphics.getTimeAt(0);
+//            Instant et = graphics.getTimeAt(graphics.getWidth());
+//
+//            boolean contained = false;
+//
+//            if (drawingStartTime != null && drawingEndTime != null) {
+//                contained = (st.equals(drawingStartTime) || st.isAfter(drawingStartTime)) && (et.equals(drawingEndTime) || et.isBefore(drawingEndTime));
+//            }
+//
+//            System.out.println(contained);
+//            if (!contained) {
+//             //   draw(reason);
+//            }
         } else {
             randomTranslateX((newTranslateX - getTranslateX()) < 0);
             draw(reason);
@@ -270,8 +271,8 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         TimelineModel<?> timelineModel = getTimelineModel();
 
-        drawingStartTime = timelineModel.calculateTimeForLocation(0 - graphics.getCanvasBuffer());
-        drawingEndTime = timelineModel.calculateTimeForLocation(getWidth() + graphics.getCanvasBuffer());
+        Instant drawingStartTime = timelineModel.calculateTimeForLocation(0 - graphics.getCanvasBuffer() + getTranslateX());
+        Instant drawingEndTime = timelineModel.calculateTimeForLocation(0 - graphics.getCanvasBuffer() + getTranslateX() + getWidth());
 
         safeRendering = getGraphics().isSafeRendering();
 
@@ -325,6 +326,16 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         if (agendaColumnMap != null) {
             agendaColumnMap.clear();
+        }
+
+        if (graphics.isDebugMode()) {
+            gc.setStroke(Color.YELLOW);
+            gc.setLineWidth(3);
+            gc.strokeRect(0, 0, getWidth(), getHeight());
+
+            gc.setStroke(Color.BLUE);
+            gc.strokeLine(calculateLocation(drawingStartTime), 5, calculateLocation(drawingStartTime), getHeight() - 10);
+            gc.strokeLine(calculateLocation(drawingEndTime) - 2, 5, calculateLocation(drawingEndTime) - 2, getHeight() - 10);
         }
     }
 
@@ -489,8 +500,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         if (secondPass) {
             ActivityRef<?> editedActivity = graphics.getEditedActivity();
             if (editedActivity != null && editedActivity.getRow() == row) {
-                List<ActivityBounds> bounds = drawActivity(editedActivity,
-                        timelineModel, zoneId, rowHeight, secondPass);
+                List<ActivityBounds> bounds = drawActivity(editedActivity, timelineModel, zoneId, rowHeight, secondPass);
 
                 if (bounds != null && !bounds.isEmpty()) {
                     activityBounds.addAll(bounds);

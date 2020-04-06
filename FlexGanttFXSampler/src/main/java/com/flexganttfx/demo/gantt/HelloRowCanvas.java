@@ -32,6 +32,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.CheckBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -54,11 +55,12 @@ public class HelloRowCanvas extends FlexGanttFXSampleBase {
     private Layer layer = new Layer("Default Layer");
     private PhaseRow frozenRow = new PhaseRow();
     private ChronoUnitGrid dayGrid = new ChronoUnitGrid("Day Grid", ChronoUnit.DAYS, 1);
+    private VBoxGraphics<HelloRow> vboxGraphics = new VBoxGraphics<>();
+    private Timeline timeline = new Timeline();
 
     @Override
     public Node getPanel(Stage stage) {
         System.setProperty("timeline.no.clip", "true");
-        Timeline timeline = new Timeline();
         timeline.getDateline().setDatelineBuffer(200);
 
         Eventline eventline = timeline.getEventline();
@@ -67,16 +69,14 @@ public class HelloRowCanvas extends FlexGanttFXSampleBase {
         eventline.getGraphics().getLayers().add(layer);
         eventline.getGraphics().setVirtualGrid(dayGrid);
 
-        VBoxGraphics<HelloRow> vboxGraphics = new VBoxGraphics<>();
         vboxGraphics.setStyle("-fx-border-color: red; -fx-border-width: 3px;");
-        vboxGraphics.setDebugMode(false);
         vboxGraphics.setTimeline(timeline);
         vboxGraphics.setActivityRenderer(HelloActivity.class, GanttLayout.class, new ActivityBarRenderer<>(vboxGraphics, "HelloActivityRenderer"));
         vboxGraphics.getLayers().add(HelloRow.layer);
         vboxGraphics.getCalendars().add(calendar);
 
         List<HelloRow> rows = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1; i++) {
             HelloRow row = new HelloRow("Row " + i, 10);
             rows.add(row);
         }
@@ -89,7 +89,7 @@ public class HelloRowCanvas extends FlexGanttFXSampleBase {
         borderPane.setStyle("-fx-background-color: gray;");
 
         StackPane stackPane = new StackPane(borderPane);
-        stackPane.setStyle("-fx-padding: 250px; -fx-background-color: white;");
+        stackPane.setStyle("-fx-padding: 250px; -fx-background-color: gray;");
 
         final CalendarLayer calendarLayer = vboxGraphics.getSystemLayer(CalendarLayer.class);
         calendarLayer.setCalendarActivityRenderer(Phase.class, new PhaseCalendarActivityRenderer(vboxGraphics));
@@ -102,6 +102,16 @@ public class HelloRowCanvas extends FlexGanttFXSampleBase {
 
 
         return stackPane;
+    }
+
+    @Override
+    public Node getControlPanel() {
+        CheckBox debugMode = new CheckBox("Debug Mode");
+        debugMode.selectedProperty().addListener(it -> {
+            vboxGraphics.setDebugMode(debugMode.isSelected());
+            timeline.getEventline().getGraphics().setDebugMode(debugMode.isSelected());
+        });
+        return debugMode;
     }
 
     private void addPhase(String title, Instant st, Instant et) {

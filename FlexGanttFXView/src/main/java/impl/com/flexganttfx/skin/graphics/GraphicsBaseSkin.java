@@ -496,8 +496,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         return result;
     }
 
-    public final List<CalendarActivity> getAllCalendarActivitiesAt(double x,
-                                                                   double y) {
+    public final List<CalendarActivity> getAllCalendarActivitiesAt(double x, double y) {
 
         List<CalendarActivity> result = new ArrayList<>();
 
@@ -506,8 +505,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         TemporalUnit unit = dateline.getPrimaryTemporalUnit();
         ZoneId zoneId = dateline.getZoneId();
 
-        addCalendarEntries(result, getSkinnable().getCalendars(), time, unit,
-                zoneId);
+        addCalendarEntries(result, getSkinnable().getCalendars(), time, unit, zoneId);
 
         R row = getRowAt(y);
 
@@ -822,11 +820,11 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
             }
         });
 
-        node.widthProperty().addListener((value, oldNumber, newNumber) -> getSkinnable().redraw());
+        node.widthProperty().addListener((value, oldNumber, newNumber) -> getSkinnable().redraw("graphics node width changed"));
 
         node.heightProperty().addListener((value, oldHeight, newHeight) -> {
             verticalCursorLine.setEndY(newHeight.doubleValue());
-            getSkinnable().redraw();
+            getSkinnable().redraw("graphics node height changed");
         });
     }
 

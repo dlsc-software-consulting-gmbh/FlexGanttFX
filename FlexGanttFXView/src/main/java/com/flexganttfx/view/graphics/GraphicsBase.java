@@ -420,8 +420,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         //
 
         InvalidationListener highlightListener = observable -> {
-            if (!(getHighlightedActivities().isEmpty()
-                    && getHighlightedRows().isEmpty())) {
+            if (!(getHighlightedActivities().isEmpty() && getHighlightedRows().isEmpty())) {
                 startHighlighting();
             } else {
                 stopHighlighting();
@@ -755,7 +754,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         layer.fadeInOutOpacityProperty().addListener(weakRedrawListener);
     }
 
-    private final DoubleProperty canvasBuffer = new SimpleDoubleProperty(this, "canvasBuffer", 100);
+    private final DoubleProperty canvasBuffer = new SimpleDoubleProperty(this, "canvasBuffer", 250);
 
     public final double getCanvasBuffer() {
         return canvasBuffer.get();
@@ -769,7 +768,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
      * always draws the scale on the left-hand side of the canvas. But when using a buffer
      * that left-hand side will keep moving out of the visible area.
      *
-     * @return the canvas buffer size (default is 100 pixel)
+     * @return the canvas buffer size (default is 250 pixel)
      */
     public final DoubleProperty canvasBufferProperty() {
         return canvasBuffer;
@@ -814,7 +813,6 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         redrawObservable(dateline.selectedTimeIntervalProperty());
 
         dateline.getSelectedIntervals().addListener(weakRedrawListener);
-        dateline.getScaleResolutions().addListener(weakRedrawListener);
 
         timelineProperty().addListener((observable, oldTimeline, newTimeline) -> {
 
@@ -859,7 +857,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
          * in a batch.
          */
         if (isAutomaticRedraw()) {
-            redraw();
+            redraw("repository listener fired");
         }
     };
 
@@ -873,7 +871,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
                                 + ((ReadOnlyProperty<?>) observable).getName());
             }
         }
-        redraw();
+        redraw("property in GraphicsBase has changed");
     };
 
     private final WeakInvalidationListener weakRedrawListener = new WeakInvalidationListener(redrawListener);
@@ -895,7 +893,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
             if (visibleStart != null && visibleEnd != null) {
                 if (inRange(oldNow, visibleStart, visibleEnd) || inRange(newNow, visibleStart, visibleEnd)) {
-                    redraw();
+                    redraw("'now' changed");
                 }
             }
         }
@@ -3357,7 +3355,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         redraw("complete redraw", null);
     }
 
-    private void redraw(String reason) {
+    /**
+     * Performs a redraw of the displayed activities and logs the given reason. Also lays out the links
+     * shown by the {@link LinksCanvas}.
+     */
+    public void redraw(String reason) {
         redraw(reason, null);
     }
 
@@ -3369,7 +3371,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         if (LoggingDomain.PERFORMANCE.isLoggable(Level.FINE)) {
             Instant timeBefore = Instant.now();
 
-            drawRows(oldTime);
+            drawRows(reason, oldTime);
             drawLinks(reason);
 
             Instant timeAfter = Instant.now();
@@ -3377,7 +3379,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
             LoggingDomain.PERFORMANCE.fine("redraw duration in millis: " + duration.toMillis());
         } else {
 
-            drawRows(oldTime);
+            drawRows(reason, oldTime);
             drawLinks(reason);
 
         }
@@ -3394,7 +3396,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         }
     }
 
-    private void drawRows(Instant oldTime) {
+    private void drawRows(String reason, Instant oldTime) {
         if (getTimeline() != null && getTimeline().getModel() != null) {
 
             for (RowPane<R> pane : getRowPanes()) {
@@ -3407,9 +3409,9 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
                     }
 
                     if (oldTime != null) {
-                        pane.getCanvas().draw("complete redraw inside GraphicsBase", oldTime);
+                        pane.getCanvas().draw(reason, oldTime);
                     } else {
-                        pane.getCanvas().draw("complete redraw inside GraphicsBase");
+                        pane.getCanvas().draw(reason);
                     }
                 }
             }
@@ -4597,8 +4599,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         }
     }
 
-    class ActivityInAgendaLayoutEditModeCallback
-            implements Callback<EditModeCallbackParameter, EditMode> {
+    class ActivityInAgendaLayoutEditModeCallback implements Callback<EditModeCallbackParameter, EditMode> {
 
         @Override
         public EditMode call(EditModeCallbackParameter input) {

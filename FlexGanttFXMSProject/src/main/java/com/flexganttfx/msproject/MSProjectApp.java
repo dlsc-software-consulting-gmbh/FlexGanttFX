@@ -44,9 +44,11 @@ public class MSProjectApp extends Application {
 			@Override
 			public void draw(ActivityLink<?> link, GraphicsContext gc, Rectangle2D sourceBounds, Rectangle2D targetBounds) {
 				if (link.getTargetActivityRef().getActivity().getStartTime().isBefore(link.getSourceActivityRef().getActivity().getEndTime())) {
-					setStrokeColor(Color.ORANGE);
+					setStrokeColor(Color.CRIMSON);
+					setArrowHeadColor(Color.CRIMSON);
 				} else {
-					setStrokeColor(Color.ROSYBROWN);
+					setStrokeColor(Color.SLATEGRAY);
+					setArrowHeadColor(Color.SLATEGRAY);
 				}
 
 				super.draw(link, gc, sourceBounds, targetBounds);

@@ -5,21 +5,24 @@
  */
 package com.flexganttfx.msproject.view;
 
+import com.flexganttfx.model.Row;
 import com.flexganttfx.model.layout.GanttLayout;
 import com.flexganttfx.msproject.model.MSProjectGanttChartModel;
 import com.flexganttfx.msproject.model.MSProjectTaskActivity;
 import com.flexganttfx.msproject.model.MSProjectTaskRow;
 import com.flexganttfx.view.GanttChart;
 import com.flexganttfx.view.timeline.Timeline;
-import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import net.sf.mpxj.ProjectFile;
 import net.sf.mpxj.reader.ProjectReader;
 import net.sf.mpxj.reader.ProjectReaderUtility;
+import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -43,30 +46,20 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
     public MSProjectGanttChart() {
         super();
 
-        // setFixedCellSize(Row.DEFAULT_ROW_HEIGHT);
+        setFixedCellSize(Row.DEFAULT_ROW_HEIGHT);
+        getStylesheets().add(MSProjectGanttChart.class.getResource("msproject.css").toExternalForm());
 
-        getStylesheets().add(
-                MSProjectGanttChart.class.getResource("msproject.css")
-                        .toExternalForm());
-
-        getGraphics().setActivityRenderer(MSProjectTaskActivity.class,
-                GanttLayout.class,
-                new MSProjectTaskActivityRenderer(getGraphics()));
+        getGraphics().setActivityRenderer(MSProjectTaskActivity.class, GanttLayout.class, new MSProjectTaskActivityRenderer(getGraphics()));
 
         getTreeTable().setShowRoot(false);
 
-        List<TreeTableColumn<MSProjectTaskRow, ?>> columns = new ArrayList<TreeTableColumn<MSProjectTaskRow, ?>>();
+        List<TreeTableColumn<MSProjectTaskRow, ?>> columns = new ArrayList<>();
 
-        TreeTableColumn<MSProjectTaskRow, String> nameColumn = new TreeTableColumn<MSProjectTaskRow, String>(
-                "Name");
-        TreeTableColumn<MSProjectTaskRow, Instant> startColumn = new TreeTableColumn<MSProjectTaskRow, Instant>(
-                "Start");
-        TreeTableColumn<MSProjectTaskRow, Instant> finishColumn = new TreeTableColumn<MSProjectTaskRow, Instant>(
-                "Finish");
-        TreeTableColumn<MSProjectTaskRow, Double> percentageCompleteColumn = new TreeTableColumn<MSProjectTaskRow, Double>(
-                "%");
-        TreeTableColumn<MSProjectTaskRow, Double> percentageCompleteVisualColumn = new TreeTableColumn<MSProjectTaskRow, Double>(
-                "Complete");
+        TreeTableColumn<MSProjectTaskRow, String> nameColumn = new TreeTableColumn<>("Name");
+        TreeTableColumn<MSProjectTaskRow, Instant> startColumn = new TreeTableColumn<>("Start");
+        TreeTableColumn<MSProjectTaskRow, Instant> finishColumn = new TreeTableColumn<>("Finish");
+        TreeTableColumn<MSProjectTaskRow, Double> percentageCompleteColumn = new TreeTableColumn<>("%");
+        TreeTableColumn<MSProjectTaskRow, Double> percentageCompleteVisualColumn = new TreeTableColumn<>("Complete");
 
         nameColumn.setPrefWidth(250);
         startColumn.setPrefWidth(100);
@@ -74,40 +67,26 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
         percentageCompleteColumn.setPrefWidth(40);
         percentageCompleteVisualColumn.setPrefWidth(100);
 
-        nameColumn
-                .setCellValueFactory(new TreeItemPropertyValueFactory<MSProjectTaskRow, String>(
-                        "name"));
-        startColumn
-                .setCellValueFactory(new TreeItemPropertyValueFactory<MSProjectTaskRow, Instant>(
-                        "startTime"));
-        finishColumn
-                .setCellValueFactory(new TreeItemPropertyValueFactory<MSProjectTaskRow, Instant>(
-                        "finishTime"));
-        percentageCompleteColumn
-                .setCellValueFactory(new TreeItemPropertyValueFactory<MSProjectTaskRow, Double>(
-                        "percentageComplete"));
+        nameColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("name"));
+        startColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("startTime"));
+        finishColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("finishTime"));
+        percentageCompleteColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("percentageComplete"));
 
-        percentageCompleteVisualColumn
-                .setCellValueFactory(new TreeItemPropertyValueFactory<MSProjectTaskRow, Double>(
-                        "percentageComplete"));
+        percentageCompleteVisualColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("percentageComplete"));
 
-        Callback<TreeTableColumn<MSProjectTaskRow, String>, TreeTableCell<MSProjectTaskRow, String>> nameCellFactory = param -> new TreeTableCell<MSProjectTaskRow, String>() {
-            private Label parentImage;
-            private Label childImage;
+        Callback<TreeTableColumn<MSProjectTaskRow, String>, TreeTableCell<MSProjectTaskRow, String>> nameCellFactory = param -> new TreeTableCell<>() {
+
+            private FontIcon parentImage = new FontIcon(MaterialDesign.MDI_CHECKBOX_MULTIPLE_MARKED);
+            private FontIcon childImage = new FontIcon(MaterialDesign.MDI_CHECKBOX_MARKED);
+
+            {
+                parentImage.setIconColor(Color.CADETBLUE);
+                childImage.setIconColor(Color.CORAL);
+            }
 
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
-
-                if (parentImage == null) {
-                    parentImage = new Label();
-                    parentImage.setContentDisplay(GRAPHIC_ONLY);
-                    parentImage.getStyleClass().add("parent-task-image");
-
-                    childImage = new Label();
-                    childImage.setContentDisplay(GRAPHIC_ONLY);
-                    childImage.getStyleClass().add("child-task-image");
-                }
 
                 if (item == null) {
                     setText(null);
@@ -129,8 +108,8 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
         nameColumn.setCellFactory(nameCellFactory);
 
         Callback<TreeTableColumn<MSProjectTaskRow, Instant>, TreeTableCell<MSProjectTaskRow, Instant>> dateTimeCellFactory = new Callback<TreeTableColumn<MSProjectTaskRow, Instant>, TreeTableCell<MSProjectTaskRow, Instant>>() {
-            private DateTimeFormatter formatter = DateTimeFormatter
-                    .ofLocalizedDateTime(FormatStyle.SHORT);
+
+            private DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT);
 
             @Override
             public TreeTableCell<MSProjectTaskRow, Instant> call(
@@ -139,8 +118,7 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
                     @Override
                     protected void updateItem(Instant item, boolean empty) {
                         if (item != null) {
-                            setText(formatter.format(ZonedDateTime.ofInstant(
-                                    item, ZoneId.systemDefault())));
+                            setText(formatter.format(ZonedDateTime.ofInstant(item, ZoneId.systemDefault())));
                         } else {
                             setText(null);
                         }
@@ -193,8 +171,7 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
             }
         };
 
-        percentageCompleteVisualColumn
-                .setCellFactory(percentageVisualCellFactory);
+        percentageCompleteVisualColumn.setCellFactory(percentageVisualCellFactory);
 
         columns.add(nameColumn);
         columns.add(percentageCompleteColumn);
@@ -210,12 +187,10 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
 
     public final void load(String fileName, InputStream stream) {
         try {
-            ProjectReader reader = ProjectReaderUtility
-                    .getProjectReader(fileName);
+            ProjectReader reader = ProjectReaderUtility.getProjectReader(fileName);
             ProjectFile projectFile = reader.read(stream);
 
-            MSProjectGanttChartModel model = new MSProjectGanttChartModel(
-                    projectFile);
+            MSProjectGanttChartModel model = new MSProjectGanttChartModel(projectFile);
 
             setRoot(model.getRoot());
             getLayers().setAll(model.getLayers());

@@ -6,10 +6,8 @@
 package com.flexganttfx.extras;
 
 import com.flexganttfx.model.Row;
-import com.flexganttfx.view.util.FlexGanttFXControl;
-import com.flexganttfx.view.GanttChart;
 import com.flexganttfx.view.graphics.GraphicsBase;
-
+import com.flexganttfx.view.util.FlexGanttFXControl;
 import impl.com.flexganttfx.extras.skin.LayersViewSkin;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -33,13 +31,7 @@ public class LayersView<R extends Row<?, ?, ?>> extends FlexGanttFXControl {
 	 * Constructs a new layer view.
 	 */
 	public LayersView() {
-		getStylesheets().add(
-				LayersView.class.getResource("layers-view.css")
-						.toExternalForm());
-
-		getStylesheets().add(
-				GanttChart.class.getResource("icons16/icons.css")
-						.toExternalForm());
+		getStylesheets().add(LayersView.class.getResource("layers-view.css").toExternalForm());
 	}
 
 	@Override
@@ -47,8 +39,7 @@ public class LayersView<R extends Row<?, ?, ?>> extends FlexGanttFXControl {
 		return new LayersViewSkin<>(this);
 	}
 
-	private final ObjectProperty<GraphicsBase<R>> graphics = new SimpleObjectProperty<>(
-			this, "graphics");
+	private final ObjectProperty<GraphicsBase<R>> graphics = new SimpleObjectProperty<>(this, "graphics");
 
 	/**
 	 * A property used to store a reference to the graphics view for which the

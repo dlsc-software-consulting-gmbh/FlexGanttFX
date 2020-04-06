@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package impl.com.flexganttfx.extras.skin;
@@ -10,12 +10,9 @@ import com.flexganttfx.extras.util.Messages;
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.view.graphics.GraphicsBase;
-
 import javafx.beans.InvalidationListener;
 import javafx.beans.WeakInvalidationListener;
 import javafx.beans.binding.Bindings;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -30,210 +27,198 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
 public class LayersViewSkin<R extends Row<?, ?, ?>> extends
-		SkinBase<LayersView<R>> {
+        SkinBase<LayersView<R>> {
 
-	private GridPane gridPane;
+    private GridPane gridPane;
 
-	private final InvalidationListener rebuildListener = observable -> buildControls();
+    private final InvalidationListener rebuildListener = observable -> buildControls();
 
-	private final WeakInvalidationListener weakRebuildListener = new WeakInvalidationListener(rebuildListener);
+    private final WeakInvalidationListener weakRebuildListener = new WeakInvalidationListener(rebuildListener);
 
-	public LayersViewSkin(LayersView<R> view) {
-		super(view);
+    public LayersViewSkin(LayersView<R> view) {
+        super(view);
 
-		gridPane = new GridPane();
-		gridPane.setAlignment(Pos.TOP_CENTER);
-		gridPane.getStyleClass().add("layer-controls");
-		gridPane.setHgap(10);
-		gridPane.setVgap(10);
+        gridPane = new GridPane();
+        gridPane.setAlignment(Pos.TOP_CENTER);
+        gridPane.getStyleClass().add("layer-controls");
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
 
-		buildControls();
+        buildControls();
 
-		view.graphicsProperty().addListener(
-				new ChangeListener<GraphicsBase<R>>() {
-					@Override
-					public void changed(
-							ObservableValue<? extends GraphicsBase<R>> observable,
-							GraphicsBase<R> oldGraphics,
-							GraphicsBase<R> newGraphics) {
-						if (oldGraphics != null) {
-							oldGraphics.getLayers().removeListener(
-									weakRebuildListener);
-						}
+        view.graphicsProperty().addListener((observable, oldGraphics, newGraphics) -> {
+            if (oldGraphics != null) {
+                oldGraphics.getLayers().removeListener(weakRebuildListener);
+            }
 
-						if (newGraphics != null) {
-							newGraphics.getLayers()
-									.addListener(weakRebuildListener);
-						}
+            if (newGraphics != null) {
+                newGraphics.getLayers().addListener(weakRebuildListener);
+            }
 
-						buildControls();
-					}
-				});
+            buildControls();
+        });
 
-		GraphicsBase<R> graphics = view.getGraphics();
-		if (graphics != null) {
-			graphics.getLayers().addListener(weakRebuildListener);
-		}
+        GraphicsBase<R> graphics = view.getGraphics();
+        if (graphics != null) {
+            graphics.getLayers().addListener(weakRebuildListener);
+        }
 
-		getChildren().add(gridPane);
-	}
+        getChildren().add(gridPane);
+    }
 
-	private void buildControls() {
-		gridPane.getChildren().clear();
+    private void buildControls() {
+        gridPane.getChildren().clear();
 
-		GraphicsBase<R> graphics = getSkinnable().getGraphics();
-		if (graphics != null) {
-			final ObservableList<Layer> modelLayers = graphics.getLayers();
-			int row = modelLayers.size();
+        GraphicsBase<R> graphics = getSkinnable().getGraphics();
+        if (graphics != null) {
+            final ObservableList<Layer> modelLayers = graphics.getLayers();
+            int row = modelLayers.size();
 
-			for (int i = 0; i < modelLayers.size(); i++) {
-				final Layer layer = modelLayers.get(i);
-				CheckBox checkBox = new CheckBox();
-				Slider slider = new Slider();
-				checkBox = new CheckBox();
-				slider = new Slider(0, 1, 1);
+            for (int i = 0; i < modelLayers.size(); i++) {
+                final Layer layer = modelLayers.get(i);
+                final CheckBox checkBox = new CheckBox();
+                final Slider slider = new Slider(0, 1, 1);
 
-				GridPane.setHgrow(slider, Priority.ALWAYS);
+                GridPane.setHgrow(slider, Priority.ALWAYS);
 
-				checkBox.setText(layer.getName());
-				checkBox.setSelected(layer.isVisible());
-				slider.setValue(layer.getOpacity());
+                checkBox.setText(layer.getName());
+                checkBox.setSelected(layer.isVisible());
+                slider.setValue(layer.getOpacity());
 
-				Button moveToFront = new Button();
-				Button moveToBack = new Button();
-				Button moveForward = new Button();
-				Button moveBackward = new Button();
-				Button delete = new Button();
+                Button moveToFront = new Button();
+                Button moveToBack = new Button();
+                Button moveForward = new Button();
+                Button moveBackward = new Button();
+                Button delete = new Button();
 
-				gridPane.add(checkBox, 0, row);
-				gridPane.add(slider, 1, row);
+                gridPane.add(checkBox, 0, row);
+                gridPane.add(slider, 1, row);
 
-				if (i < modelLayers.size() - 1) {
-					gridPane.add(moveToFront, 2, row);
-					gridPane.add(moveForward, 3, row);
-				}
+                if (i < modelLayers.size() - 1) {
+                    gridPane.add(moveToFront, 2, row);
+                    gridPane.add(moveForward, 3, row);
+                }
 
-				if (i > 0) {
-					gridPane.add(moveBackward, 4, row);
-					gridPane.add(moveToBack, 5, row);
-				}
+                if (i > 0) {
+                    gridPane.add(moveBackward, 4, row);
+                    gridPane.add(moveToBack, 5, row);
+                }
 
-				gridPane.add(delete, 6, row);
+                gridPane.add(delete, 6, row);
 
-				moveToFront.getStyleClass().addAll("navigate-button",
-						"navigate-up2-16");
-				moveToBack.getStyleClass().addAll("navigate-button",
-						"navigate-down2-16");
-				moveForward.getStyleClass().addAll("navigate-button",
-						"navigate-up-16");
-				moveBackward.getStyleClass().addAll("navigate-button",
-						"navigate-down-16");
-				delete.getStyleClass().addAll("layers-navigate-button", "delete-16");
+                moveToFront.getStyleClass().addAll("layers-navigate-button", "move-to-front");
+                moveToBack.getStyleClass().addAll("layers-navigate-button", "move-to-back");
+                moveForward.getStyleClass().addAll("layers-navigate-button", "move-forward");
+                moveBackward.getStyleClass().addAll("layers-navigate-button", "move-backward");
+                delete.getStyleClass().addAll("layers-navigate-button", "delete");
 
-				moveToFront.setTooltip(new Tooltip(Messages.getString("LayersViewSkin.TOOLTIP_MOVE_LAYER_TO_FRONT")));
-				moveToBack.setTooltip(new Tooltip(Messages.getString("LayersViewSkin.TOOLTIP_MOVE_LAYER_TO_BACK")));
-				moveForward.setTooltip(new Tooltip(
-						Messages.getString("LayersViewSkin.TOOLTIP_MOVE_LAYER_FORWARD")));
-				moveBackward.setTooltip(new Tooltip(
-						Messages.getString("LayersViewSkin.TOOLTIP_MOVE_LAYER_BACK")));
-				delete.setTooltip(new Tooltip(Messages.getString("LayersViewSkin.TOOLTIP_DELETE_LAYER")));
+                moveToFront.setGraphic(new FontIcon(MaterialDesign.MDI_CHEVRON_DOUBLE_UP));
+                moveToBack.setGraphic(new FontIcon(MaterialDesign.MDI_CHEVRON_DOUBLE_DOWN));
+                moveForward.setGraphic(new FontIcon(MaterialDesign.MDI_CHEVRON_UP));
+                moveBackward.setGraphic(new FontIcon(MaterialDesign.MDI_CHEVRON_DOWN));
+                delete.setGraphic(new FontIcon(MaterialDesign.MDI_DELETE));
 
-				moveToFront.setOnAction(moveToFront(layer));
-				moveToBack.setOnAction(moveToBack(layer));
-				moveForward.setOnAction(moveForward(layer));
-				moveBackward.setOnAction(moveBackward(layer));
-				delete.setOnAction(delete(layer));
+                moveToFront.setTooltip(new Tooltip(Messages.getString("LayersViewSkin.TOOLTIP_MOVE_LAYER_TO_FRONT")));
+                moveToBack.setTooltip(new Tooltip(Messages.getString("LayersViewSkin.TOOLTIP_MOVE_LAYER_TO_BACK")));
+                moveForward.setTooltip(new Tooltip(Messages.getString("LayersViewSkin.TOOLTIP_MOVE_LAYER_FORWARD")));
+                moveBackward.setTooltip(new Tooltip(Messages.getString("LayersViewSkin.TOOLTIP_MOVE_LAYER_BACK")));
+                delete.setTooltip(new Tooltip(Messages.getString("LayersViewSkin.TOOLTIP_DELETE_LAYER")));
 
-				Bindings.bindBidirectional(checkBox.selectedProperty(),
-						layer.visibleProperty());
-				Bindings.bindBidirectional(checkBox.textProperty(),
-						layer.nameProperty());
-				Bindings.bindBidirectional(slider.valueProperty(),
-						layer.opacityProperty());
+                moveToFront.setOnAction(moveToFront(layer));
+                moveToBack.setOnAction(moveToBack(layer));
+                moveForward.setOnAction(moveForward(layer));
+                moveBackward.setOnAction(moveBackward(layer));
+                delete.setOnAction(delete(layer));
 
-				delete.visibleProperty().bind(layer.deletableProperty());
+                Bindings.bindBidirectional(checkBox.selectedProperty(), layer.visibleProperty());
+                Bindings.bindBidirectional(checkBox.textProperty(), layer.nameProperty());
+                Bindings.bindBidirectional(slider.valueProperty(), layer.opacityProperty());
 
-				row--;
-			}
+                delete.visibleProperty().bind(layer.deletableProperty());
 
-			HBox hBox = new HBox();
-			hBox.setSpacing(10);
-			hBox.setAlignment(Pos.CENTER_RIGHT);
+                row--;
+            }
 
-			Button showAll = new Button(Messages.getString("LayersViewSkin.BUTTON_SHOW_ALL"));
-			Button hideAll = new Button(Messages.getString("LayersViewSkin.BUTTON_HIDE_ALL"));
+            HBox hBox = new HBox();
+            hBox.setSpacing(10);
+            hBox.setAlignment(Pos.CENTER_RIGHT);
 
-			hBox.getChildren().add(hideAll);
-			hBox.getChildren().add(showAll);
+            Button showAll = new Button(Messages.getString("LayersViewSkin.BUTTON_SHOW_ALL"));
+            Button hideAll = new Button(Messages.getString("LayersViewSkin.BUTTON_HIDE_ALL"));
 
-			gridPane.add(hBox, 0, modelLayers.size() + 1, 7, 1);
+            hBox.getChildren().add(hideAll);
+            hBox.getChildren().add(showAll);
 
-			GridPane.setMargin(hBox, new Insets(20, 0, 0, 0));
+            gridPane.add(hBox, 0, modelLayers.size() + 1, 7, 1);
 
-			showAll.setOnAction(showAll(modelLayers));
-			hideAll.setOnAction(hideAll(modelLayers));
-		}
+            GridPane.setMargin(hBox, new Insets(20, 0, 0, 0));
 
-		Label headerName = new Label(Messages.getString("LayersViewSkin.HEADER_LAYER_NAME"));
-		Label headerOpacity = new Label(Messages.getString("LayersViewSkin.HEADER_OPACITY"));
-		Label headerOrder = new Label(Messages.getString("LayersViewSkin.HEADER_ORDER"));
+            showAll.setOnAction(showAll(modelLayers));
+            hideAll.setOnAction(hideAll(modelLayers));
+        }
 
-		headerName.setMaxWidth(Double.MAX_VALUE);
-		headerOpacity.setMaxWidth(Double.MAX_VALUE);
-		headerOrder.setMaxWidth(Double.MAX_VALUE);
+        Label headerName = new Label(Messages.getString("LayersViewSkin.HEADER_LAYER_NAME"));
+        Label headerOpacity = new Label(Messages.getString("LayersViewSkin.HEADER_OPACITY"));
+        Label headerOrder = new Label(Messages.getString("LayersViewSkin.HEADER_ORDER"));
 
-		headerName.getStyleClass().add("layers-table-header");
-		headerOpacity.getStyleClass().add("layers-table-header");
-		headerOrder.getStyleClass().add("layers-table-header");
+        headerName.setMaxWidth(Double.MAX_VALUE);
+        headerOpacity.setMaxWidth(Double.MAX_VALUE);
+        headerOrder.setMaxWidth(Double.MAX_VALUE);
 
-		GridPane.setHgrow(headerOpacity, Priority.ALWAYS);
+        headerName.getStyleClass().add("layers-table-header");
+        headerOpacity.getStyleClass().add("layers-table-header");
+        headerOrder.getStyleClass().add("layers-table-header");
 
-		GridPane.setFillWidth(headerName, true);
-		GridPane.setFillWidth(headerOpacity, true);
-		GridPane.setFillWidth(headerOrder, true);
+        GridPane.setHgrow(headerOpacity, Priority.ALWAYS);
 
-		gridPane.add(headerName, 0, 0);
-		gridPane.add(headerOpacity, 1, 0);
-		gridPane.add(headerOrder, 2, 0, 4, 1);
-	}
+        GridPane.setFillWidth(headerName, true);
+        GridPane.setFillWidth(headerOpacity, true);
+        GridPane.setFillWidth(headerOrder, true);
 
-	private EventHandler<ActionEvent> hideAll(
-			final ObservableList<Layer> modelLayers) {
-		return event -> {
-			for (Layer layer : modelLayers) {
-				layer.setVisible(false);
-			}
-		};
-	}
+        gridPane.add(headerName, 0, 0);
+        gridPane.add(headerOpacity, 1, 0);
+        gridPane.add(headerOrder, 2, 0, 4, 1);
+    }
 
-	private EventHandler<ActionEvent> showAll(
-			final ObservableList<Layer> modelLayers) {
-		return event -> {
-			for (Layer layer : modelLayers) {
-				layer.setVisible(true);
-			}
-		};
-	}
+    private EventHandler<ActionEvent> hideAll(
+            final ObservableList<Layer> modelLayers) {
+        return event -> {
+            for (Layer layer : modelLayers) {
+                layer.setVisible(false);
+            }
+        };
+    }
 
-	private EventHandler<ActionEvent> delete(final Layer layer) {
-		return evt -> getSkinnable().getGraphics().getLayers().remove(layer);
-	}
+    private EventHandler<ActionEvent> showAll(
+            final ObservableList<Layer> modelLayers) {
+        return event -> {
+            for (Layer layer : modelLayers) {
+                layer.setVisible(true);
+            }
+        };
+    }
 
-	private EventHandler<ActionEvent> moveBackward(final Layer layer) {
-		return evt -> getSkinnable().getGraphics().moveLayerBackward(layer);
-	}
+    private EventHandler<ActionEvent> delete(final Layer layer) {
+        return evt -> getSkinnable().getGraphics().getLayers().remove(layer);
+    }
 
-	private EventHandler<ActionEvent> moveForward(final Layer layer) {
-		return evt -> getSkinnable().getGraphics().moveLayerForward(layer);
-	}
+    private EventHandler<ActionEvent> moveBackward(final Layer layer) {
+        return evt -> getSkinnable().getGraphics().moveLayerBackward(layer);
+    }
 
-	private EventHandler<ActionEvent> moveToBack(final Layer layer) {
-		return evt -> getSkinnable().getGraphics().moveLayerToBack(layer);
-	}
+    private EventHandler<ActionEvent> moveForward(final Layer layer) {
+        return evt -> getSkinnable().getGraphics().moveLayerForward(layer);
+    }
 
-	private EventHandler<ActionEvent> moveToFront(final Layer layer) {
-		return evt -> getSkinnable().getGraphics().moveLayerToFront(layer);
-	}
+    private EventHandler<ActionEvent> moveToBack(final Layer layer) {
+        return evt -> getSkinnable().getGraphics().moveLayerToBack(layer);
+    }
+
+    private EventHandler<ActionEvent> moveToFront(final Layer layer) {
+        return evt -> getSkinnable().getGraphics().moveLayerToFront(layer);
+    }
 }

@@ -26,9 +26,6 @@ module com.flexganttfx.view {
 
     opens com.flexganttfx.view;
     opens com.flexganttfx.view.graphics;
-    opens com.flexganttfx.view.icons16;
-    opens com.flexganttfx.view.icons24;
-    opens com.flexganttfx.view.icons32;
     opens com.flexganttfx.view.timeline;
     opens com.flexganttfx.view.util;
 }

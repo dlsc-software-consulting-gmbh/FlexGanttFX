@@ -4,7 +4,8 @@
 module com.flexganttfx.extras {
 
     requires transitive com.flexganttfx.view;
-
+    requires org.kordamp.ikonli.javafx;
+    requires org.kordamp.ikonli.materialdesign;
     exports com.flexganttfx.extras;
     exports com.flexganttfx.extras.properties;
     exports com.flexganttfx.extras.properties.layer;

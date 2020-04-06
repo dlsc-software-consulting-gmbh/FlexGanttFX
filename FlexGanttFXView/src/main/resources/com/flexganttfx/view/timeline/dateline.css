@@ -6,13 +6,14 @@
 
 .dateline {
     -fx-background-color: transparent;
-    -fx-pref-height: 4em;
+    -fx-pref-height: 3em;
 }
 
 .dateline-content {
 }
 
 .dateline-cell {
+    -fx-font-size: .8em;
     -fx-padding: 0 2 0 3;
     -fx-background-color: -fx-box-border, -fx-inner-border, -fx-body-color;
     -fx-background-insets: 0, 0 1 1 0, 1 2 2 1;
@@ -44,13 +45,6 @@
 
 .dateline-cell.dst-start,
 .dateline-cell.dst-end {
-}
-
-.calendar-info {
-    -fx-background-size: 8;
-    -fx-background-image: url("calendar.png");
-    -fx-background-position: right top;
-    -fx-background-repeat: no-repeat;
 }
 
 .dateline-cell-last {

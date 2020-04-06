@@ -161,7 +161,7 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
         }
 
         if (graphics != null) {
-            graphics.redraw();
+            graphics.redraw("redraw listener in GanttChartBase fired");
         }
     };
 

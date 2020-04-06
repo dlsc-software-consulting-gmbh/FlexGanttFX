@@ -63,7 +63,7 @@
 
 .gantt-tree-table-view .column-header,
 .gantt-tree-table-view-first .column-header {
-	-fx-pref-height: 6em;
+	-fx-pref-height: 4.5em;
 }
 
 /*
@@ -226,8 +226,4 @@
 .time-slider > * > .adjust-minus {
 	-fx-pref-width: 0;
 	-fx-shape: null;
-}
-
-.search-field {
-	-fx-background-radius: 1000;
 }

@@ -11,7 +11,7 @@
 .eventline {
     -fx-background-color: -fx-box-border, -fx-inner-border, -fx-body-color;
     -fx-background-insets: 0, 0 1 1 0, 1 2 2 1;
-    -fx-pref-height: 2em;
+    -fx-pref-height: 1.5em;
 }
 
 .dst-marker {
@@ -29,6 +29,7 @@
  * mouse cursor location.
  */
 .time-cursor {
+    -fx-font-size: .8em;
     -fx-control-inner-background: -fx-accent;
     -fx-font-weight: bold;
     -fx-text-fill: -fx-text-inner-color;
@@ -42,6 +43,7 @@
  * of the currently edited activity.
  */
 .marked-time {
+    -fx-font-size: .8em;
     -fx-control-inner-background: -fx-accent;
     -fx-font-weight: bold;
     -fx-text-fill: -fx-text-inner-color;

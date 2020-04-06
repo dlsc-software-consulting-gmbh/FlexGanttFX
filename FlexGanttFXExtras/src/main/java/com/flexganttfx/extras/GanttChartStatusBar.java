@@ -10,7 +10,6 @@ import com.flexganttfx.model.Activity;
 import com.flexganttfx.model.ActivityRef;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.model.dateline.VirtualGrid;
-import com.flexganttfx.view.GanttChart;
 import com.flexganttfx.view.GanttChartBase;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import javafx.beans.InvalidationListener;
@@ -31,8 +30,7 @@ import static java.util.Objects.requireNonNull;
  * any kind of application. An entire framework could be written just for that
  * purpose.
  *
- * @param <R>
- *            the type of the rows in the Gantt chart
+ * @param <R> the type of the rows in the Gantt chart
  *
  * @since 1.0
  */
@@ -47,8 +45,7 @@ public class GanttChartStatusBar<R extends Row<?, ?, ?>> extends StatusBar {
      * @since 1.0
      */
     public GanttChartStatusBar() {
-        getStylesheets().add(GanttChartStatusBar.class
-                .getResource("statusbar.css").toExternalForm());
+        getStylesheets().add(GanttChartStatusBar.class.getResource("statusbar.css").toExternalForm());
 
         getStyleClass().add("gantt-chart-status-bar");
 
@@ -63,19 +60,15 @@ public class GanttChartStatusBar<R extends Row<?, ?, ?>> extends StatusBar {
 
             if (oldValue != null) {
                 GraphicsBase<?> graphicsView = oldValue.getGraphics();
-                graphicsView.hoverActivityProperty()
-                        .removeListener(weakFocusedActivityListener);
-                graphicsView.virtualGridProperty()
-                        .removeListener(weakVirtualGridListener);
+                graphicsView.hoverActivityProperty().removeListener(weakFocusedActivityListener);
+                graphicsView.virtualGridProperty().removeListener(weakVirtualGridListener);
 
             }
 
             if (newValue != null) {
                 GraphicsBase<?> graphicsView = newValue.getGraphics();
-                graphicsView.hoverActivityProperty()
-                        .addListener(weakFocusedActivityListener);
-                graphicsView.virtualGridProperty()
-                        .addListener(weakVirtualGridListener);
+                graphicsView.hoverActivityProperty().addListener(weakFocusedActivityListener);
+                graphicsView.virtualGridProperty().addListener(weakVirtualGridListener);
             }
 
             updateGridLabel();
@@ -104,13 +97,11 @@ public class GanttChartStatusBar<R extends Row<?, ?, ?>> extends StatusBar {
         }
     };
 
-    private WeakInvalidationListener weakFocusedActivityListener = new WeakInvalidationListener(
-            focusedActivityListener);
+    private WeakInvalidationListener weakFocusedActivityListener = new WeakInvalidationListener(focusedActivityListener);
 
     private final InvalidationListener virtualGridListener = observable -> updateGridLabel();
 
-    private final WeakInvalidationListener weakVirtualGridListener = new WeakInvalidationListener(
-            virtualGridListener);
+    private final WeakInvalidationListener weakVirtualGridListener = new WeakInvalidationListener(virtualGridListener);
 
     private void updateGridLabel() {
         GanttChartBase<R> gc = getGanttChart();
@@ -120,17 +111,13 @@ public class GanttChartStatusBar<R extends Row<?, ?, ?>> extends StatusBar {
         GraphicsBase<?> graphicsView = gc.getGraphics();
         VirtualGrid<?> grid = graphicsView.getVirtualGrid();
         if (grid != null) {
-            gridLabel.setText(MessageFormat.format(
-                    Messages.getString("GanttChartStatusBar.MESSAGE_GRID_NAME"),
-                    grid.getName()));
+            gridLabel.setText(MessageFormat.format(Messages.getString("GanttChartStatusBar.MESSAGE_GRID_NAME"), grid.getName()));
         } else {
-            gridLabel.setText(
-                    Messages.getString("GanttChartStatusBar.MESSAGE_GRID_OFF"));
+            gridLabel.setText(Messages.getString("GanttChartStatusBar.MESSAGE_GRID_OFF"));
         }
     }
 
-    private final ObjectProperty<GanttChartBase<R>> ganttChart = new SimpleObjectProperty<>(
-            this, "ganttChart");
+    private final ObjectProperty<GanttChartBase<R>> ganttChart = new SimpleObjectProperty<>(this, "ganttChart");
 
     /**
      * A property used to store the reference to the Gantt chart that will be

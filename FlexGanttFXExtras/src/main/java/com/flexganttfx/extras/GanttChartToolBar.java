@@ -16,10 +16,17 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.geometry.Point2D;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.Separator;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToolBar;
 import javafx.stage.PopupWindow.AnchorLocation;
 import org.controlsfx.control.PopOver;
 import org.controlsfx.control.textfield.CustomTextField;
+import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
 import java.text.MessageFormat;
 
@@ -47,21 +54,18 @@ public class GanttChartToolBar<R extends Row<?, ?, ?>> extends ToolBar {
 	 */
 	public GanttChartToolBar() {
 		setOrientation(Orientation.HORIZONTAL);
-		getStylesheets().add(GanttChart.class.getResource("gantt.css").toExternalForm());
-		getStylesheets().add(GanttChart.class.getResource("icons16/icons.css").toExternalForm());
+		getStylesheets().add(GanttChartToolBar.class.getResource("toolbar.css").toExternalForm());
 		ganttChartProperty().addListener(observable -> buildToolBar());
 	}
 
 	/**
 	 * Constructs a new toolbar control.
 	 *
-	 * @param ganttChart
-	 *            the Gantt chart for which the toolbar will be used
+	 * @param ganttChart the Gantt chart for which the toolbar will be used
 	 * @since 1.0
 	 */
 	public GanttChartToolBar(GanttChartBase<R> ganttChart) {
 		this();
-
 		setGanttChart(ganttChart);
 	}
 
@@ -112,63 +116,59 @@ public class GanttChartToolBar<R extends Row<?, ?, ?>> extends ToolBar {
 
 		if (ganttChart != null) {
 
-			ToggleButton detail = new ToggleButton(Messages.getString("GanttChartToolBar.BUTTON_DETAIL"));
-			detail.getStyleClass().add("gearwheel-icon-16");
-			detail.selectedProperty().bindBidirectional(ganttChart.showDetailProperty());
-			getItems().add(detail);
-
-			getItems().add(new Separator());
-
 			Button timeNow = new Button(Messages.getString("GanttChartToolBar.BUTTON_NOW"));
-			timeNow.getStyleClass().add("clock-icon-16");
+			timeNow.setGraphic(new FontIcon(MaterialDesign.MDI_DEBUG_STEP_INTO));
 			timeNow.setOnAction(showTimeNow());
 			getItems().add(timeNow);
 
 			Button earliest = new Button(Messages.getString("GanttChartToolBar.BUTTON_EARLIEST"));
-			earliest.getStyleClass().add("navigate-beginning-icon-16");
+			earliest.setGraphic(new FontIcon(MaterialDesign.MDI_PAGE_FIRST));
 			earliest.setOnAction(showEarliestActivities());
 			getItems().add(earliest);
 
 			Button latest = new Button(Messages.getString("GanttChartToolBar.BUTTON_LATEST"));
-			latest.getStyleClass().add("navigate-end-icon-16");
+			latest.setGraphic(new FontIcon(MaterialDesign.MDI_PAGE_LAST));
 			latest.setOnAction(showLatestActivities());
 			getItems().add(latest);
 
-			getItems().add(new Separator());
-
 			Button showAll = new Button(Messages.getString("GanttChartToolBar.BUTTON_ALL"));
-			showAll.getStyleClass().add("fit-to-width-icon-16");
+			showAll.setGraphic(new FontIcon(MaterialDesign.MDI_ARROW_COMPRESS_ALL));
 			showAll.setOnAction(showAllActivities());
 			getItems().add(showAll);
 
 			getItems().add(new Separator());
 
 			Button zoomIn = new Button(Messages.getString("GanttChartToolBar.BUTTON_ZOOM_IN"));
-			zoomIn.getStyleClass().add("zoom-in-icon-16");
+			zoomIn.setGraphic(new FontIcon(MaterialDesign.MDI_MAGNIFY_PLUS));
 			zoomIn.setOnAction(zoomIn());
 			getItems().add(zoomIn);
 
 			Button zoomOut = new Button(Messages.getString("GanttChartToolBar.BUTTON_ZOOM_OUT"));
-			zoomOut.getStyleClass().add("zoom-out-icon-16");
+			zoomOut.setGraphic(new FontIcon(MaterialDesign.MDI_MAGNIFY_MINUS));
 			zoomOut.setOnAction(zoomOut());
 			getItems().add(zoomOut);
 
 			getItems().add(new Separator());
 
+			ToggleButton links = new ToggleButton(Messages.getString("GanttChartToolBar.BUTTON_LINKS"));
+			links.setGraphic(new FontIcon(MaterialDesign.MDI_VECTOR_LINE));
+			links.selectedProperty().bindBidirectional(ganttChart.getGraphics().showLinksProperty());
+			getItems().add(links);
+
 			Button layers = new Button(Messages.getString("GanttChartToolBar.BUTTON_LAYERS"));
-			layers.getStyleClass().add("front-icon-16");
+			layers.setGraphic(new FontIcon(MaterialDesign.MDI_LAYERS));
 			layers.setOnAction(showLayerControls(layers));
 			getItems().add(layers);
 
 			Button radar = new Button(Messages.getString("GanttChartToolBar.BUTTON_RADAR"));
-			radar.getStyleClass().add("radar-icon-16");
+			radar.setGraphic(new FontIcon(MaterialDesign.MDI_RADAR));
 			radar.setOnAction(showRadarPopOver(radar));
 			getItems().add(radar);
 
 			if (ganttChart instanceof GanttChart) {
 				ToggleButton table = new ToggleButton(Messages.getString("GanttChartToolBar.BUTTON_TABLE"));
+				table.setGraphic(new FontIcon(MaterialDesign.MDI_TABLE));
 				table.selectedProperty().bindBidirectional(((GanttChart)ganttChart).showTreeTableProperty());
-				table.getStyleClass().add("close-treetable-icon-16");
 				getItems().add(table);
 			}
 
@@ -177,13 +177,15 @@ public class GanttChartToolBar<R extends Row<?, ?, ?>> extends ToolBar {
 			ListViewGraphics<R> graphics = ganttChart.getGraphics();
 
 			ToggleButton cursor = new ToggleButton(Messages.getString("GanttChartToolBar.BUTTON_CURSOR"));
-			cursor.getStyleClass().add("cursor-icon-16");
+			cursor.setGraphic(new FontIcon(MaterialDesign.MDI_CURSOR_TEXT));
 			cursor.selectedProperty().bindBidirectional(graphics.showVerticalCursorProperty());
 			getItems().add(cursor);
 
 			MenuButton gridLines = new MenuButton(Messages.getString("GanttChartToolBar.BUTTON_GRID"));
-			gridLines.getStyleClass().add("table-icon-16");
+			gridLines.setGraphic(new FontIcon(MaterialDesign.MDI_GRID));
+
 			MenuItem gridOff = new MenuItem(Messages.getString("GanttChartToolBar.MENU_ITEM_GRID_OFF"));
+			gridOff.setGraphic(new FontIcon(MaterialDesign.MDI_GRID_OFF));
 			gridOff.setOnAction(hideGridLines());
 			gridLines.getItems().add(gridOff);
 
@@ -196,12 +198,19 @@ public class GanttChartToolBar<R extends Row<?, ?, ?>> extends ToolBar {
 			getItems().add(gridLines);
 
 			ToggleButton calendars = new ToggleButton(Messages.getString("GanttChartToolBar.BUTTON_CALENDARS"));
+			calendars.setGraphic(new FontIcon(MaterialDesign.MDI_CALENDAR));
 			calendars.selectedProperty().bindBidirectional(graphics.showCalendarLayerProperty());
 			getItems().add(calendars);
 
 			ToggleButton nowLine = new ToggleButton(Messages.getString("GanttChartToolBar.BUTTON_NOW_LINE"));
+			nowLine.setGraphic(new FontIcon(MaterialDesign.MDI_CLOCK));
 			nowLine.selectedProperty().bindBidirectional(graphics.showNowLineLayerProperty());
 			getItems().add(nowLine);
+
+			ToggleButton detail = new ToggleButton(Messages.getString("GanttChartToolBar.BUTTON_DETAIL"));
+			detail.setGraphic(new FontIcon(MaterialDesign.MDI_BOOK_OPEN));
+			detail.selectedProperty().bindBidirectional(ganttChart.showDetailProperty());
+			getItems().add(detail);
 
 			getItems().add(new Separator());
 

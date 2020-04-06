@@ -13,7 +13,6 @@ import com.flexganttfx.model.util.IntervalTree;
 import com.flexganttfx.view.graphics.ActivityEvent;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.graphics.renderer.LinkRenderer;
-import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;
@@ -35,9 +34,6 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
          * Don't show links when a row editor is in use.
          */
         visibleProperty().bind(graphics.showLinksProperty().and(Bindings.isEmpty(graphics.getRowsEditing())));
-
-        widthProperty().addListener(it -> Platform.runLater(() -> draw("width changed")));
-        heightProperty().addListener(it -> Platform.runLater(() -> draw("height changed")));
 
         setMouseTransparent(true);
 
