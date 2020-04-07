@@ -395,7 +395,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         return null;
     }
 
-    protected final RowCanvas<R> getRowCanvas(ActivityRef<?> ref) {
+    public final RowCanvas<R> getRowCanvas(ActivityRef<?> ref) {
         RowPane<R> rowPane = getRowPane(ref);
         if (rowPane != null) {
             return rowPane.getCanvas();
@@ -404,7 +404,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         return null;
     }
 
-    protected final Rectangle2D getActivityBounds(ActivityRef<?> ref) {
+    public final Rectangle2D getActivityBounds(ActivityRef<?> ref) {
         RowCanvas<R> canvas = getRowCanvas(ref);
 
         double x = 0;

@@ -44,6 +44,7 @@ import com.flexganttfx.view.graphics.layer.GridLinesLayer;
 import com.flexganttfx.view.graphics.layer.HoverTimeIntervalLayer;
 import com.flexganttfx.view.graphics.layer.InnerLinesLayer;
 import com.flexganttfx.view.graphics.layer.LayoutLayer;
+import com.flexganttfx.view.graphics.layer.LinksLayer;
 import com.flexganttfx.view.graphics.layer.NowLineLayer;
 import com.flexganttfx.view.graphics.layer.RowLayer;
 import com.flexganttfx.view.graphics.layer.ScaleLayer;
@@ -308,7 +309,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
             }
         });
 
-        addEventFilter(MouseEvent.MOUSE_CLICKED, evt -> redraw("mouse clicked on graphics base"));
+//        addEventFilter(MouseEvent.MOUSE_CLICKED, evt -> redraw("mouse clicked on graphics base"));
         debugModeProperty().addListener(weakRedrawListener);
 
         selectionModeProperty().addListener(observable -> getSelectedActivities().clear());
@@ -373,6 +374,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         getBackgroundSystemLayers().add(new ZoomTimeIntervalLayer<>(this));
         getBackgroundSystemLayers().add(new GridLinesLayer<>(this));
         getBackgroundSystemLayers().add(new DSTLineLayer<>(this));
+        getBackgroundSystemLayers().add(new LinksLayer<>(this));
         getBackgroundSystemLayers().addListener(weakRedrawListener);
 
         getForegroundSystemLayers().add(new LayoutLayer<>(this));

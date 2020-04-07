@@ -1,64 +1,27 @@
-/**
- * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
- * <p>
- * This file is part of FlexGanttFX.
- */
-package impl.com.flexganttfx.skin.graphics;
+package com.flexganttfx.view.graphics.layer;
 
 import com.flexganttfx.core.LoggingDomain;
 import com.flexganttfx.model.ActivityLink;
 import com.flexganttfx.model.ActivityRef;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.model.util.IntervalTree;
-import com.flexganttfx.view.graphics.ActivityEvent;
 import com.flexganttfx.view.graphics.GraphicsBase;
-import com.flexganttfx.view.graphics.renderer.LinkRenderer;
-import javafx.beans.binding.Bindings;
+import impl.com.flexganttfx.skin.graphics.GraphicsBaseSkin;
+import impl.com.flexganttfx.skin.graphics.RowCanvas;
 import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
+import java.time.Instant;
 import java.util.Collection;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 
-public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
+public class LinksLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
-    private GraphicsBase<R> graphics;
-
-    public LinksCanvas(GraphicsBase<R> graphics) {
-        this.graphics = graphics;
-
-        /*
-         * Don't show links when a row editor is in use.
-         */
-        visibleProperty().bind(graphics.showLinksProperty().and(Bindings.isEmpty(graphics.getRowsEditing())));
-
-        setMouseTransparent(true);
-
-        graphics.addEventFilter(ActivityEvent.ACTIVITY_CHANGE, event -> draw("an activity changed"));
-
-        visibleProperty().addListener(it -> {
-            if (isVisible()) {
-                draw("visibility of links canvas changed to true");
-            }
-        });
-
-        sceneProperty().addListener(it -> {
-            Scene scene = getScene();
-            scene.addPostLayoutPulseListener(() -> {
-                if (dirty) {
-                    doDraw();
-                }
-            });
-        });
-    }
-
-    @Override
-    public boolean isResizable() {
-        return true;
+    public LinksLayer(GraphicsBase<R> graphicsView) {
+        super("Links", graphicsView);
     }
 
     private int counterTotal = 0;
@@ -66,23 +29,14 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
     private int counterAbove = 0;
     private int counterBelow = 0;
 
-    private boolean dirty;
-    private String reason;
-
-    public void draw(String reason) {
-        this.reason = reason;
-        this.dirty = true;
-    }
-
-    private void doDraw() {
-        dirty = false;
-
-        if (!isVisible()) {
+    @Override
+    public void drawLayer(RowCanvas<R> canvas, Instant startTime, Instant endTime) {
+        if (true) {
             return;
         }
 
         if (LoggingDomain.RENDERING.isLoggable(Level.FINE)) {
-            LoggingDomain.RENDERING.fine("redrawing links, reason: " + reason);
+            LoggingDomain.RENDERING.fine("drawing links layer in row " + canvas.getRow().getName());
         }
 
         counterDrawn = 0;
@@ -90,9 +44,9 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
         counterAbove = 0;
         counterBelow = 0;
 
-        final GraphicsContext gc = getGraphicsContext2D();
-        gc.clearRect(0, 0, getWidth(), getHeight());
+        final GraphicsContext gc = canvas.getGraphicsContext2D();
 
+        final GraphicsBase graphics = getGraphics();
         final IntervalTree<ActivityLink> links = graphics.getLinks();
 
         final Collection<ActivityLink> visibleLinks = links.getIntersectingObjects(
@@ -105,7 +59,7 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
             time = System.currentTimeMillis();
         }
 
-        visibleLinks.forEach(link -> drawLink(gc, link));
+        visibleLinks.forEach(link -> drawLink(canvas, graphics, gc, link));
 
         if (LoggingDomain.PERFORMANCE.isLoggable(Level.FINE)) {
             LoggingDomain.PERFORMANCE.fine(
@@ -113,17 +67,17 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
                             ", above: " + counterAbove +
                             ", below: " + counterBelow +
                             ", rendered: " + counterDrawn +
-                            ", time = " + (System.currentTimeMillis() - time));
+                            ", timex = " + (System.currentTimeMillis() - time));
         }
     }
 
-    private void drawLink(GraphicsContext gc, ActivityLink link) {
+    private void drawLink(RowCanvas<R> canvas, GraphicsBase graphics, GraphicsContext gc, ActivityLink link) {
         counterTotal++;
 
         ActivityRef<?> sourceRef = link.getSourceActivityRef();
         ActivityRef<?> targetRef = link.getTargetActivityRef();
 
-        if (!isShowing(sourceRef, targetRef)) {
+        if (!isShowing(graphics, sourceRef, targetRef)) {
             return;
         }
 
@@ -149,13 +103,15 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
                     targetBounds = new Rectangle2D(targetBounds.getMinX() - graphics.getCanvasBuffer() + targetCanvas.getTranslateX(), targetBounds.getMinY(), targetBounds.getWidth(), targetBounds.getHeight());
                 }
 
-                final LinkRenderer linkRenderer = graphics.getLinkRenderer(link.getClass());
-                linkRenderer.draw(link, gc, sourceBounds, targetBounds);
+                gc.setStroke(Color.BLACK);
+                gc.strokeLine(sourceBounds.getMaxX(), 0, sourceBounds.getMaxX(), canvas.getHeight());
+//                final LinkRenderer linkRenderer = graphics.getLinkRenderer(link.getClass());
+//                linkRenderer.draw(link, gc, sourceBounds, targetBounds);
             }
         }
     }
 
-    private boolean isShowing(ActivityRef<?> sourceRef, ActivityRef<?> targetRef) {
+    private boolean isShowing(GraphicsBase graphics, ActivityRef<?> sourceRef, ActivityRef<?> targetRef) {
 
         if (!(sourceRef.isPathExpanded() && targetRef.isPathExpanded())) {
             return false;
@@ -170,8 +126,8 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
         int firstIndex = 0;
         int lastIndex = rows.size() - 1;
 
-        R firstRow = graphics.getRowAt(5);
-        R lastRow = graphics.getRowAt(getHeight() - 5);
+        Row firstRow = graphics.getRowAt(5);
+        Row lastRow = graphics.getRowAt(graphics.getHeight() - 5);
 
         if (firstRow != null) {
             firstIndex = rows.indexOf(firstRow);

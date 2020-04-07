@@ -18,7 +18,6 @@ import javafx.event.EventType;
 import javafx.geometry.Bounds;
 import javafx.geometry.Orientation;
 import javafx.geometry.Point2D;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.ListView;
@@ -130,28 +129,8 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
         }
     }
 
-    private double sheetY;
-    private double sheetHeight;
-
     private VirtualFlow<?> getVirtualFlow() {
-        VirtualFlow<?> flow = (VirtualFlow<?>) getSkinnable().lookup("VirtualFlow");
-
-        /*
-         * SUPER IMPORTANT. We have to observe the group used by VirtualFlow to trigger
-         * an redrawing of the activity links / the LinksCanvas. Otherwise the links will
-         * always lack one redraw cycle behind.
-         */
-        Group group = (Group) flow.lookup(".sheet");
-        group.layoutBoundsProperty().addListener(it -> {
-            final Bounds layoutBounds = group.getLayoutBounds();
-            if (sheetY != layoutBounds.getMinY() || sheetHeight != layoutBounds.getHeight()) {
-                sheetY = layoutBounds.getMinY();
-                sheetHeight = layoutBounds.getHeight();
-                getSkinnable().drawLinks("sheet moved");
-            }
-        });
-
-        return flow;
+        return (VirtualFlow<?>) getSkinnable().lookup("VirtualFlow");
     }
 
     private Region getClippedContainer() {
@@ -465,9 +444,7 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
         ScrollBar scrollBar = findScrollBar(listView, Orientation.VERTICAL);
 
         if (scrollBar != null) {
-            scrollBar.valueProperty().addListener(it -> {
-                getSkinnable().drawLinks("scrolling down");
-            });
+            scrollBar.valueProperty().addListener(it -> getSkinnable().drawLinks("scrollbar value changed"));
         }
     }
 
