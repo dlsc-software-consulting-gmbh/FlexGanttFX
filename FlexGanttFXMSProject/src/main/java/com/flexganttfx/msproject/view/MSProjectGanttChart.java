@@ -16,7 +16,6 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
-import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import net.sf.mpxj.ProjectFile;
 import net.sf.mpxj.reader.ProjectReader;
@@ -80,8 +79,7 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
             private FontIcon childImage = new FontIcon(MaterialDesign.MDI_CHECKBOX_MARKED);
 
             {
-                parentImage.setIconColor(Color.CADETBLUE);
-                childImage.setIconColor(Color.CORAL);
+                getStyleClass().add("task-name-cell");
             }
 
             @Override
@@ -96,10 +94,14 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
 
                 setText(item);
 
+                getStyleClass().removeAll("parent", "child");
+
                 MSProjectTaskRow row = getTreeTableRow().getItem();
                 if (row != null && row.getChildren().size() > 0) {
+                    getStyleClass().add("parent");
                     setGraphic(parentImage);
                 } else {
+                    getStyleClass().add("child");
                     setGraphic(childImage);
                 }
             }
