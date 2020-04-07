@@ -10,7 +10,7 @@
  */
 .eventline {
     -fx-background-color: -fx-box-border, -fx-inner-border, -fx-body-color;
-    -fx-background-insets: 0, 0 1 1 0, 1 2 2 1;
+    -fx-background-insets: 0, 0 0 1 0, 1 0 2 0;
     -fx-pref-height: 1.5em;
 }
 
