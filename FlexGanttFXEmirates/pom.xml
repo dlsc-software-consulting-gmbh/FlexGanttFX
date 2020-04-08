@@ -37,6 +37,12 @@
 	<dependencies>
 
 		<dependency>
+			<groupId>com.sandec.jpro</groupId>
+			<artifactId>jpro-webapi</artifactId>
+			<version>${jpro.version}</version>
+		</dependency>
+		
+		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-swing</artifactId>
 			<version>${javafx.version}</version>

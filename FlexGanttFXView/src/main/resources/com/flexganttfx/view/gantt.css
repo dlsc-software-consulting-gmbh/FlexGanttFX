@@ -39,10 +39,6 @@
 	-fx-background-color: -fx-text-base-color;
 }
 
-.gantt-chart .column-header .text {
-	-fx-fill: -fx-text-base-color;
-}
-
 /*
  * The tree table header has to have the same height as the timeline.
  * The height can depend on the location of the Gantt chart if it is

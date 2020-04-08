@@ -20,7 +20,6 @@ import com.flexganttfx.view.graphics.renderer.WeekendCalendarActivityRenderer;
 import com.flexganttfx.view.timeline.Dateline;
 import com.flexganttfx.view.util.Position;
 import impl.com.flexganttfx.skin.graphics.RowCanvas;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -74,9 +73,6 @@ public class CalendarLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 		redrawObservable(calendarRendererMap);
 
 		fadeInOutObservable(graphics.showCalendarLayerProperty());
-
-		calendarRendererMap.addListener((Observable evt) -> graphics
-				.updatePropertySheet());
 	}
 
 	@Override

@@ -54,7 +54,7 @@
     -fx-icon-color: coral;
 }
 
-.tree-table-row-cell:selected .task-name-cell.parent .ikonli-font-icon,
-.tree-table-row-cell:selected .task-name-cell.child .ikonli-font-icon {
+.tree-table-view:focused .tree-table-row-cell:selected .task-name-cell.parent .ikonli-font-icon,
+.tree-table-view:focused .tree-table-row-cell:selected .task-name-cell.child .ikonli-font-icon {
     -fx-icon-color: white;
 }

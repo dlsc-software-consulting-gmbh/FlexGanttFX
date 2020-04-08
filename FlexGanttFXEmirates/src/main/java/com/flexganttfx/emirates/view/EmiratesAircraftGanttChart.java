@@ -21,19 +21,20 @@ import impl.com.flexganttfx.skin.graphics.DragCanvas;
 import impl.com.flexganttfx.skin.graphics.GraphicsBaseSkin;
 import javafx.event.EventHandler;
 
+import com.jpro.webapi.WebAPI;
+
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-public class EmiratesAircraftGanttChart extends
-        GanttChartLite<ModelObject<?, ?, ?>> {
+public class EmiratesAircraftGanttChart extends GanttChartLite<ModelObject<?, ?, ?>> {
 
 	public EmiratesAircraftGanttChart() {
 		Timeline timeline = getTimeline();
 		timeline.showTemporalUnit(ChronoUnit.HOURS, 50);
 
-		timeline.setMoveAnimated(false);
-		timeline.setZoomAnimated(false);
+		timeline.setMoveAnimated(!WebAPI.isBrowser());
+		timeline.setZoomAnimated(!WebAPI.isBrowser());
 
         getGraphics().getBackgroundSystemLayers().add(new GroupSystemLayer(getGraphics()));
 		getGraphics().setActivityRenderer(Flight.class, GanttLayout.class,new FlightRenderer(getGraphics()));

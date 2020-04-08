@@ -8,7 +8,6 @@ import com.flexganttfx.model.Row;
 import com.flexganttfx.model.activity.ActivityBase;
 import com.flexganttfx.model.activity.CompletableActivity;
 import com.flexganttfx.model.activity.MutableCompletableActivityBase;
-import com.flexganttfx.model.layout.GanttLayout;
 import com.flexganttfx.view.GanttChart;
 import com.flexganttfx.view.GanttChartBase;
 import com.flexganttfx.view.graphics.ActivityBounds;
@@ -17,6 +16,7 @@ import com.flexganttfx.view.graphics.ListViewGraphics;
 import com.flexganttfx.view.graphics.renderer.CompletableActivityRenderer;
 import com.flexganttfx.view.graphics.renderer.StraightLinkRenderer;
 import com.flexganttfx.view.util.Position;
+import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.scene.canvas.GraphicsContext;
@@ -41,16 +41,6 @@ public class HelloLinksStressTest extends FlexGanttFXSample {
     private final ArrayList<ActivityLink<?>> links = new ArrayList<>();
 
     public HelloLinksStressTest() {
-//        final GanttChartToolBar<?> bar = getToolbar();
-//        ToggleButton b = new ToggleButton("Show Links");
-//        b.selectedProperty().addListener(it -> {
-//            if (b.isSelected()) {
-//                getGanttChart().getLinks().setAll(links);
-//            } else {
-//                getGanttChart().getLinks().clear();
-//            }
-//        });
-//        bar.getItems().add(0, b);
     }
 
     @Override
@@ -58,7 +48,7 @@ public class HelloLinksStressTest extends FlexGanttFXSample {
         GanttChart<ActivityRow> gantt = new GanttChart();
         List<ActivityRow> roots = new ArrayList<>();
 
-        int TOTAL = 1000;
+        int TOTAL = 100;
 
         for (int i = 0; i < TOTAL; i++) {
             final ActivityRow row = new ActivityRow("row " + i, i);
@@ -81,7 +71,7 @@ public class HelloLinksStressTest extends FlexGanttFXSample {
             int s = -1, e = -1;
             while (s >= e) {
                 s = (int) (Math.random() * TOTAL);
-                e = Math.min(TOTAL - 1, s +  (int) (Math.random() * 5));
+                e = Math.min(TOTAL - 1, s + (int) (Math.random() * 5));
             }
 
             ActivityRow rsChild = roots.get(s);
@@ -90,22 +80,19 @@ public class HelloLinksStressTest extends FlexGanttFXSample {
             ActivityRow predecessor = rsChild.getChildren().get((int) (Math.random() * rsChild.getChildren().size()));
             ActivityRow successor = reChild.getChildren().get((int) (Math.random() * reChild.getChildren().size()));
 
-            //    if (!sourceSet.contains(predecessor)) {
-            sourceSet.add(predecessor);
-            links.add(new ActivityLink<>(
-                    new ActivityRef<>(predecessor, layer, predecessor.act),
-                    new ActivityRef<>(successor, layer, successor.act)
-            ));
+            if (!sourceSet.contains(predecessor)) {
+                sourceSet.add(predecessor);
+                links.add(new ActivityLink<>(
+                        new ActivityRef<>(predecessor, layer, predecessor.act),
+                        new ActivityRef<>(successor, layer, successor.act)
+                ));
 
-            predecessor.setLinksOut(predecessor.getLinksOut() + 1);
-            successor.setLinksIn(successor.getLinksOut() + 1);
-            //   }
+                predecessor.setLinksOut(predecessor.getLinksOut() + 1);
+                successor.setLinksIn(successor.getLinksOut() + 1);
+            }
         }
 
         ListViewGraphics graphics = gantt.getGraphics();
-        // Note default renderer will improve the performance however it's not a valid case as we MUST use the custom renderer
-//        graphics.setActivityRenderer(MutableCompletableActivityBase.class, GanttLayout.class, new CompletableActivityRenderer(graphics, "DEFAULT"));
-        graphics.setActivityRenderer(MutableCompletableActivityBase.class, GanttLayout.class, new CompletableActivityRendererBase(graphics, "DEFAULT"));
         graphics.setLinkRenderer(ActivityLink.class, new StraightLinkRenderer<>(graphics, "Straight Link Renderer"));
 
         TreeTableView<ActivityRow> table = gantt.getTreeTable();
@@ -140,6 +127,9 @@ public class HelloLinksStressTest extends FlexGanttFXSample {
         links.forEach(link -> gantt.getLinks().add(link));
 
         gantt.getGraphics().showEarliestActivities();
+
+        Platform.runLater(() -> gantt.getGraphics().showAllActivities());
+
         return gantt;
     }
 
@@ -159,6 +149,8 @@ public class HelloLinksStressTest extends FlexGanttFXSample {
     int shift = 1;
 
     class ActivityRow extends Row<ActivityRow, ActivityRow, ActivityBase<Data>> {
+        private int year = LocalDate.now().getYear();
+
         Data data;
         int linksIn;
         int linksOut;
@@ -167,8 +159,8 @@ public class HelloLinksStressTest extends FlexGanttFXSample {
 
         public ActivityRow(String name, int i) {
             data = new Data();
-            data.start = generateRandomInstant(2002 + (i * shift), 2004 + (i * shift));
-            data.end = generateRandomInstant(2006 + (i * shift), 2008 + (i * shift));
+            data.start = generateRandomInstant(year + (i * shift), year + 2 + (i * shift));
+            data.end = generateRandomInstant(year + 4 + (i * shift), year + 6 + (i * shift));
             data.name = name;
             setExpanded(true);
             if (data != null && name != null) {

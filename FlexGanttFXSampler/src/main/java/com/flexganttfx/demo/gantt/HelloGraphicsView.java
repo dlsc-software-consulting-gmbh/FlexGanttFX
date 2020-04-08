@@ -241,10 +241,7 @@ public class HelloGraphicsView extends FlexGanttFXSampleBase {
         borderPane.setCenter(vboxGraphics);
         borderPane.setStyle("-fx-background-color: gray;");
 
-        StackPane stackPane = new StackPane(borderPane);
-        stackPane.setStyle("-fx-padding: 200px");
-
-        return stackPane;
+        return borderPane;
     }
 
     private Region createGraphicsSplitPane() {

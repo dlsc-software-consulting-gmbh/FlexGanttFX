@@ -44,7 +44,6 @@ import com.flexganttfx.view.graphics.layer.GridLinesLayer;
 import com.flexganttfx.view.graphics.layer.HoverTimeIntervalLayer;
 import com.flexganttfx.view.graphics.layer.InnerLinesLayer;
 import com.flexganttfx.view.graphics.layer.LayoutLayer;
-import com.flexganttfx.view.graphics.layer.LinksLayer;
 import com.flexganttfx.view.graphics.layer.NowLineLayer;
 import com.flexganttfx.view.graphics.layer.RowLayer;
 import com.flexganttfx.view.graphics.layer.ScaleLayer;
@@ -239,6 +238,40 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     private Instant zoomTime;
 
+    private final InvalidationListener redrawListener = observable -> {
+        if (observable instanceof ReadOnlyProperty) {
+            if (LoggingDomain.RENDERING.isLoggable(Level.FINE)) {
+                LoggingDomain.RENDERING
+                        .fine("redraw because of property change, property = "
+                                + ((ReadOnlyProperty<?>) observable).getName());
+            }
+        }
+        redraw("property in GraphicsBase has changed");
+    };
+
+    private final WeakInvalidationListener weakRedrawListener = new WeakInvalidationListener(redrawListener);
+
+    private final ChangeListener<Instant> redrawNowListener = new ChangeListener<>() {
+        @Override
+        public void changed(ObservableValue<? extends Instant> observable, Instant oldNow, Instant newNow) {
+
+            Instant visibleStart = getTimeline().getVisibleStartTime();
+            Instant visibleEnd = getTimeline().getVisibleEndTime();
+
+            if (visibleStart != null && visibleEnd != null) {
+                if (inRange(oldNow, visibleStart, visibleEnd) || inRange(newNow, visibleStart, visibleEnd)) {
+                    redraw("'now' changed");
+                }
+            }
+        }
+
+        private boolean inRange(Instant time, Instant visibleStart, Instant visibleEnd) {
+            return visibleStart.equals(time) || visibleEnd.equals(time) || (visibleStart.isBefore(time) && visibleEnd.isAfter(time));
+        }
+    };
+
+    private final WeakChangeListener<Instant> weakRedrawNowListener = new WeakChangeListener<>(redrawNowListener);
+
     /**
      * Constructs a new graphics view and initializes the following:
      * <ul>
@@ -265,7 +298,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         grids.add(new ChronoUnitGrid(Messages.getString("GraphicsBase.GRID_MINUTES_30"), MINUTES, 30));
         grids.add(new ChronoUnitGrid(Messages.getString("GraphicsBase.GRID_MINUTES_60"), MINUTES, 60));
 
-        timeline.addListener(evt -> connectToTimeline());
+        timeline.addListener((obs, oldTimeline, newTimeline) -> timelineChanged(oldTimeline, newTimeline));
 
         // pinch zoom
 
@@ -361,7 +394,6 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         setRowDragAndDropCallback(Row.class, param -> true);
 
         rendererLayoutMap.addListener(weakRedrawListener);
-        rendererLayoutMap.addListener(weakUpdatePropertySheetListener);
 
         getBackgroundSystemLayers().add(new RowLayer<>(this));
         getBackgroundSystemLayers().add(new CalendarLayer<>(this));
@@ -374,25 +406,28 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         getBackgroundSystemLayers().add(new ZoomTimeIntervalLayer<>(this));
         getBackgroundSystemLayers().add(new GridLinesLayer<>(this));
         getBackgroundSystemLayers().add(new DSTLineLayer<>(this));
-        getBackgroundSystemLayers().add(new LinksLayer<>(this));
+
+        // TODO: put back in once ready to use
+//        getBackgroundSystemLayers().add(new LinksLayer<>(this));
+
         getBackgroundSystemLayers().addListener(weakRedrawListener);
 
         getForegroundSystemLayers().add(new LayoutLayer<>(this));
         getForegroundSystemLayers().add(new ScaleLayer<>(this));
         getForegroundSystemLayers().addListener(weakRedrawListener);
 
-        redrawObservable(showGridLineLayer);
-        redrawObservable(showNowLineLayer);
-        redrawObservable(showCalendarLayer);
-        redrawObservable(showInnerLinesLayer);
-        redrawObservable(showHoverTimeIntervalLayer);
-        redrawObservable(showSelectedTimeIntervalsLayer);
-        redrawObservable(showZoomTimeIntervalLayer);
-        redrawObservable(showAgendaLinesLayer);
-        redrawObservable(showChartLinesLayer);
-        redrawObservable(showScaleLayer);
-        redrawObservable(maxGridLevel);
-        redrawObservable(activityFilter);
+        addRedrawObservable(showGridLineLayer);
+        addRedrawObservable(showNowLineLayer);
+        addRedrawObservable(showCalendarLayer);
+        addRedrawObservable(showInnerLinesLayer);
+        addRedrawObservable(showHoverTimeIntervalLayer);
+        addRedrawObservable(showSelectedTimeIntervalsLayer);
+        addRedrawObservable(showZoomTimeIntervalLayer);
+        addRedrawObservable(showAgendaLinesLayer);
+        addRedrawObservable(showChartLinesLayer);
+        addRedrawObservable(showScaleLayer);
+        addRedrawObservable(maxGridLevel);
+        addRedrawObservable(activityFilter);
 
         rowEditingModeProperty().addListener(it -> {
             switch (getRowEditingMode()) {
@@ -412,7 +447,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
                         oldTimeline.getDateline().firstDayOfWeekProperty());
             }
             if (newTimeline != null) {
-                redrawObservable(
+                addRedrawObservable(
                         newTimeline.getDateline().firstDayOfWeekProperty());
             }
         });
@@ -478,6 +513,9 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         automaticRedraw.addListener(weakRedrawListener);
 
         layers.forEach(this::addListenersToLayer);
+
+        autoGridEnabled.addListener(it -> updateGridProperty());
+        virtualGrid.addListener(it -> updateGridProperty());
 
         /*
          * We are "abusing" the properties map to pass new values of read-only
@@ -780,77 +818,93 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         this.canvasBuffer.set(canvasBuffer);
     }
 
-    private void connectToTimeline() {
-        Timeline timeline = getTimeline();
+    private final ChangeListener<Instant> startTimeChangedListener = (obs, oldTime, newTime) -> redraw("start time changed", oldTime);
 
-        timeline.getModel().startTimeProperty().addListener((obs, oldTime, newTime) -> redraw("start time changed", oldTime));
+    private final WeakChangeListener weakStartTimeChangedListener = new WeakChangeListener(startTimeChangedListener);
 
-        redrawObservable(timeline.getModel().millisPerPixelProperty());
+    private final ChangeListener<Timeline> timelineChangeListener = (observable, oldTimeline, newTimeline) -> {
 
-        /*
-         * A special redraw calendarListListener for "time now".
-         */
-        timeline.getModel().nowProperty().addListener(weakRedrawNowListener);
+        if (oldTimeline != null) {
+            Dateline oldDateline = oldTimeline.getDateline();
+            removeRedrawObservable(oldDateline.primaryTemporalUnitProperty());
+            removeRedrawObservable(oldDateline.hoverTimeIntervalProperty());
+            oldDateline.getSelectedIntervals().removeListener(weakRedrawListener);
+            removeRedrawObservable(oldTimeline.getDateline().selectedTimeIntervalProperty());
+        }
 
-        timeline.modelProperty().addListener((observable, oldValue, newValue) -> {
+        if (newTimeline != null) {
+            Dateline newDateline = newTimeline.getDateline();
+            addRedrawObservable(newDateline.primaryTemporalUnitProperty());
+            addRedrawObservable(newDateline.hoverTimeIntervalProperty());
+            newDateline.getSelectedIntervals().addListener(weakRedrawListener);
+            addRedrawObservable(newTimeline.getDateline().selectedTimeIntervalProperty());
+        }
+    };
 
-            if (oldValue != null) {
-                // special "now redraw calendarListListener"
-                oldValue.nowProperty().removeListener(weakRedrawNowListener);
-                removeRedrawObservable(timeline.getModel().millisPerPixelProperty());
-            }
+    private final ChangeListener<TimelineModel<?>> timelineModelChangedListener = (observable, oldModel, newModel) -> {
 
-            if (newValue != null) {
-                // special "now redraw calendarListListener"
-                newValue.nowProperty().addListener(weakRedrawNowListener);
-                redrawObservable(timeline.getModel().millisPerPixelProperty());
-            }
-        });
+        if (oldModel != null) {
+            oldModel.nowProperty().removeListener(weakRedrawNowListener);
+            removeRedrawObservable(oldModel.millisPerPixelProperty());
+        }
 
-        // Dateline & Eventline
+        if (newModel != null) {
+            newModel.nowProperty().addListener(weakRedrawNowListener);
+            addRedrawObservable(newModel.millisPerPixelProperty());
+        }
+    };
+
+    private final WeakChangeListener<TimelineModel<?>> weakTimelineModelChangedListener = new WeakChangeListener<>(timelineModelChangedListener);
+
+    private void timelineChanged(Timeline oldTimeline, Timeline newTimeline) {
+        if (oldTimeline != null) {
+            disconnectFromTimeline(oldTimeline);
+        }
+
+        if (newTimeline != null) {
+            connectToTimeline(newTimeline);
+        }
+    }
+
+    private void disconnectFromTimeline(Timeline timeline) {
+        timeline.getModel().startTimeProperty().removeListener(weakStartTimeChangedListener);
+        timeline.getModel().nowProperty().removeListener(weakRedrawNowListener);
+        timeline.modelProperty().removeListener(weakTimelineModelChangedListener);
+
+        removeRedrawObservable(timeline.getModel().millisPerPixelProperty());
+
         Dateline dateline = timeline.getDateline();
-        redrawObservable(dateline.primaryTemporalUnitProperty());
-        redrawObservable(dateline.hoverTimeIntervalProperty());
-        redrawObservable(dateline.zoneIdProperty());
-        redrawObservable(dateline.selectedTimeIntervalProperty());
+        removeRedrawObservable(dateline.primaryTemporalUnitProperty());
+        removeRedrawObservable(dateline.hoverTimeIntervalProperty());
+        removeRedrawObservable(dateline.zoneIdProperty());
+        removeRedrawObservable(dateline.selectedTimeIntervalProperty());
+
+        dateline.getSelectedIntervals().removeListener(weakRedrawListener);
+
+        timelineProperty().removeListener(timelineChangeListener);
+    }
+
+    private void connectToTimeline(Timeline timeline) {
+        timeline.getModel().startTimeProperty().addListener(weakStartTimeChangedListener);
+        timeline.getModel().nowProperty().addListener(weakRedrawNowListener);
+        timeline.modelProperty().addListener(weakTimelineModelChangedListener);
+
+        addRedrawObservable(timeline.getModel().millisPerPixelProperty());
+
+        Dateline dateline = timeline.getDateline();
+        addRedrawObservable(dateline.primaryTemporalUnitProperty());
+        addRedrawObservable(dateline.hoverTimeIntervalProperty());
+        addRedrawObservable(dateline.zoneIdProperty());
+        addRedrawObservable(dateline.selectedTimeIntervalProperty());
 
         dateline.getSelectedIntervals().addListener(weakRedrawListener);
 
-        timelineProperty().addListener((observable, oldTimeline, newTimeline) -> {
-
-            if (oldTimeline != null) {
-                Dateline oldDateline = oldTimeline.getDateline();
-                removeRedrawObservable(oldDateline.primaryTemporalUnitProperty());
-                removeRedrawObservable(oldDateline.hoverTimeIntervalProperty());
-                oldDateline.getSelectedIntervals().removeListener(weakRedrawListener);
-                removeRedrawObservable(oldTimeline.getDateline().selectedTimeIntervalProperty());
-            }
-
-            if (newTimeline != null) {
-                Dateline newDateline = newTimeline.getDateline();
-                redrawObservable(newDateline.primaryTemporalUnitProperty());
-                redrawObservable(newDateline.hoverTimeIntervalProperty());
-                newDateline.getSelectedIntervals().addListener(weakRedrawListener);
-                redrawObservable(newTimeline.getDateline().selectedTimeIntervalProperty());
-            }
-        });
-
-        autoGridEnabled.addListener(it -> updateGridProperty());
-        virtualGrid.addListener(it -> updateGridProperty());
+        timelineProperty().addListener(timelineChangeListener);
     }
 
     private void updateGridProperty() {
         gridEnabled.set(isAutoGridEnabled() || getVirtualGrid() != null);
     }
-
-    public void updatePropertySheet() {
-        // TODO: put back in?
-    }
-
-    private final InvalidationListener updatePropertySheetListener = observable -> updatePropertySheet();
-
-    private final WeakInvalidationListener weakUpdatePropertySheetListener = new WeakInvalidationListener(
-            updatePropertySheetListener);
 
     private final EventHandler<RepositoryEvent> repositoryListener = evt -> {
         /*
@@ -865,47 +919,13 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     private final WeakEventHandler<RepositoryEvent> weakRepositoryListener = new WeakEventHandler<>(repositoryListener);
 
-    private final InvalidationListener redrawListener = observable -> {
-        if (observable instanceof ReadOnlyProperty) {
-            if (LoggingDomain.RENDERING.isLoggable(Level.FINE)) {
-                LoggingDomain.RENDERING
-                        .fine("redraw because of property change, property = "
-                                + ((ReadOnlyProperty<?>) observable).getName());
-            }
-        }
-        redraw("property in GraphicsBase has changed");
-    };
-
-    private final WeakInvalidationListener weakRedrawListener = new WeakInvalidationListener(redrawListener);
-
-    private void redrawObservable(Observable property) {
+    private void addRedrawObservable(Observable property) {
         property.addListener(weakRedrawListener);
     }
 
     private void removeRedrawObservable(Observable property) {
         property.removeListener(weakRedrawListener);
     }
-
-    private final ChangeListener<Instant> redrawNowListener = new ChangeListener<>() {
-        @Override
-        public void changed(ObservableValue<? extends Instant> observable, Instant oldNow, Instant newNow) {
-
-            Instant visibleStart = getTimeline().getVisibleStartTime();
-            Instant visibleEnd = getTimeline().getVisibleEndTime();
-
-            if (visibleStart != null && visibleEnd != null) {
-                if (inRange(oldNow, visibleStart, visibleEnd) || inRange(newNow, visibleStart, visibleEnd)) {
-                    redraw("'now' changed");
-                }
-            }
-        }
-
-        private boolean inRange(Instant time, Instant visibleStart, Instant visibleEnd) {
-            return visibleStart.equals(time) || visibleEnd.equals(time) || (visibleStart.isBefore(time) && visibleEnd.isAfter(time));
-        }
-    };
-
-    private final WeakChangeListener<Instant> weakRedrawNowListener = new WeakChangeListener<>(redrawNowListener);
 
     // Lasso active support.
 
@@ -1074,10 +1094,6 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
      * @since 1.0
      */
     public final ObjectProperty<Timeline> timelineProperty() {
-        /*
-         * TODO: verify if timeline reference is actully needed, controls should
-         * be independent of each other
-         */
         return timeline;
     }
 
@@ -3371,6 +3387,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         }
 
         if (LoggingDomain.PERFORMANCE.isLoggable(Level.FINE)) {
+
             Instant timeBefore = Instant.now();
 
             drawRows(reason, oldTime);
@@ -3379,6 +3396,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
             Instant timeAfter = Instant.now();
             java.time.Duration duration = java.time.Duration.between(timeBefore, timeAfter);
             LoggingDomain.PERFORMANCE.fine("redraw duration in millis: " + duration.toMillis());
+
         } else {
 
             drawRows(reason, oldTime);
@@ -3429,7 +3447,6 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
     private Map<Class<?>, ActivityRenderer<?>> getRendererMapForLayoutStrategy(Class<? extends Layout> layoutType) {
         return rendererLayoutMap.computeIfAbsent(layoutType, k -> {
             ObservableMap<Class<?>, ActivityRenderer<?>> map = FXCollections.observableHashMap();
-            map.addListener(weakUpdatePropertySheetListener);
             return map;
         });
     }

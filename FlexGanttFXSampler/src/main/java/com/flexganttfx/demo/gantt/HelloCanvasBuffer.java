@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.demo.gantt;
@@ -33,8 +33,11 @@ import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.TextAlignment;
@@ -49,18 +52,21 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class HelloRowCanvas extends FlexGanttFXSampleBase {
+public class HelloCanvasBuffer extends FlexGanttFXSampleBase {
 
-    private HelloRowCanvas.EventlineCalendar calendar = new HelloRowCanvas.EventlineCalendar();
+    private HelloCanvasBuffer.EventlineCalendar calendar = new HelloCanvasBuffer.EventlineCalendar();
     private Layer layer = new Layer("Default Layer");
     private PhaseRow frozenRow = new PhaseRow();
     private ChronoUnitGrid dayGrid = new ChronoUnitGrid("Day Grid", ChronoUnit.DAYS, 1);
-    private VBoxGraphics<HelloRow> vboxGraphics = new VBoxGraphics<>();
-    private Timeline timeline = new Timeline();
+    private VBoxGraphics<HelloRow> vboxGraphics;
+    private Timeline timeline;
 
     @Override
     public Node getPanel(Stage stage) {
         System.setProperty("timeline.no.clip", "true");
+        timeline = new Timeline();
+        vboxGraphics = new VBoxGraphics<>();
+
         timeline.getDateline().setDatelineBuffer(200);
 
         Eventline eventline = timeline.getEventline();
@@ -69,7 +75,6 @@ public class HelloRowCanvas extends FlexGanttFXSampleBase {
         eventline.getGraphics().getLayers().add(layer);
         eventline.getGraphics().setVirtualGrid(dayGrid);
 
-        vboxGraphics.setStyle("-fx-border-color: red; -fx-border-width: 3px;");
         vboxGraphics.setTimeline(timeline);
         vboxGraphics.setActivityRenderer(HelloActivity.class, GanttLayout.class, new ActivityBarRenderer<>(vboxGraphics, "HelloActivityRenderer"));
         vboxGraphics.getLayers().add(HelloRow.layer);
@@ -100,7 +105,6 @@ public class HelloRowCanvas extends FlexGanttFXSampleBase {
         addPhase("Implementation", Instant.now().plus(8, ChronoUnit.DAYS), Instant.now().plus(16, ChronoUnit.DAYS));
         addPhase("Testing", Instant.now().plus(19, ChronoUnit.DAYS), Instant.now().plus(25, ChronoUnit.DAYS));
 
-
         return stackPane;
     }
 
@@ -110,8 +114,35 @@ public class HelloRowCanvas extends FlexGanttFXSampleBase {
         debugMode.selectedProperty().addListener(it -> {
             vboxGraphics.setDebugMode(debugMode.isSelected());
             timeline.getEventline().getGraphics().setDebugMode(debugMode.isSelected());
+            if (debugMode.isSelected()) {
+                vboxGraphics.setStyle("-fx-border-color: red; -fx-border-width: 3px;");
+            } else {
+                vboxGraphics.setStyle("");
+            }
         });
-        return debugMode;
+
+        Label canvasBufferSizeLabel = new Label("Canvas Buffer:");
+        Slider canvasBufferSlider = new Slider(0,250,vboxGraphics.getCanvasBuffer());
+        canvasBufferSlider.valueProperty().bindBidirectional(vboxGraphics.canvasBufferProperty());
+
+        Label eventLineCanvasBufferSizeLabel = new Label("Eventline Canvas Buffer:");
+        Slider eventlineCanvasBufferSlider = new Slider(0,250,vboxGraphics.getCanvasBuffer());
+        eventlineCanvasBufferSlider.valueProperty().bindBidirectional(timeline.getEventline().getGraphics().canvasBufferProperty());
+
+        Label datelineBufferSizeLabel = new Label("Dateline Buffer:");
+        Slider datelineBufferSlider = new Slider(0,250,vboxGraphics.getCanvasBuffer());
+        datelineBufferSlider.valueProperty().bindBidirectional(timeline.getDateline().datelineBufferProperty());
+
+        VBox box = new VBox(10,
+                debugMode,
+                canvasBufferSizeLabel,
+                canvasBufferSlider,
+                datelineBufferSizeLabel,
+                datelineBufferSlider,
+                eventLineCanvasBufferSizeLabel,
+                eventlineCanvasBufferSlider);
+
+        return box;
     }
 
     private void addPhase(String title, Instant st, Instant et) {
@@ -206,7 +237,7 @@ public class HelloRowCanvas extends FlexGanttFXSampleBase {
 
     @Override
     public String getSampleDescription() {
-        return "This sample illustrates how the canvas buffer works.";
+        return "This sample illustrates how the canvas and dateline buffer work.";
     }
 
     @Override

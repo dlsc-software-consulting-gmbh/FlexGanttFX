@@ -31,6 +31,7 @@ public class LinksLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
     @Override
     public void drawLayer(RowCanvas<R> canvas, Instant startTime, Instant endTime) {
+        // TODO: this layer is still work in progress
         if (true) {
             return;
         }

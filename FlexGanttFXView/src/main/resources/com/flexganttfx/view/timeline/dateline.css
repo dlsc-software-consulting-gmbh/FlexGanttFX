@@ -123,8 +123,8 @@
     -fx-color: derive(-fx-base, -20%);
 }
 
-.saturday > .text,
-.sunday > .text {
+.scale-bottom > .saturday > .text,
+.scale-bottom > .sunday > .text {
     -fx-fill: white;
 }
 

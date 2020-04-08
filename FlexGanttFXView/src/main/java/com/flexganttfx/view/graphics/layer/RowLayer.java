@@ -10,7 +10,6 @@ import com.flexganttfx.model.Row;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.graphics.renderer.RowRenderer;
 import impl.com.flexganttfx.skin.graphics.RowCanvas;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import javafx.scene.canvas.GraphicsContext;
@@ -44,8 +43,6 @@ public class RowLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 		fadeInOutObservable(graphics.showRowLayerProperty());
 
 		redrawObservable(rowRendererMap);
-
-		rowRendererMap.addListener((Observable evt) -> graphics.updatePropertySheet());
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })

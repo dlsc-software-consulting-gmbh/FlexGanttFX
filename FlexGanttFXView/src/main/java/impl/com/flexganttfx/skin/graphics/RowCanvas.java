@@ -130,6 +130,23 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         graphics.canvasBufferProperty().addListener(it -> randomTranslateX(true));
         randomTranslateX(true);
+
+        final Runnable drawRunnable = () -> {
+            if (dirty) {
+                doDraw();
+                LoggingDomain.RENDERING.fine("calls to draw = " + drawCounter + ", actual draws = " + doDrawCounter + ", saved draws = " + (drawCounter - doDrawCounter));
+            }
+        };
+
+        sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (oldScene != null) {
+                oldScene.removePreLayoutPulseListener(drawRunnable);
+            }
+
+            if (newScene != null) {
+                newScene.addPreLayoutPulseListener(drawRunnable);
+            }
+        });
     }
 
     private void randomTranslateX(boolean scrollingRight) {
@@ -151,20 +168,6 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         if (Math.abs(newTranslateX) < graphics.getCanvasBuffer()) {
             setTranslateX(newTranslateX);
-
-//            Instant st = graphics.getTimeAt(0);
-//            Instant et = graphics.getTimeAt(graphics.getWidth());
-//
-//            boolean contained = false;
-//
-//            if (drawingStartTime != null && drawingEndTime != null) {
-//                contained = (st.equals(drawingStartTime) || st.isAfter(drawingStartTime)) && (et.equals(drawingEndTime) || et.isBefore(drawingEndTime));
-//            }
-//
-//            System.out.println(contained);
-//            if (!contained) {
-//             //   draw(reason);
-//            }
         } else {
             randomTranslateX((newTranslateX - getTranslateX()) < 0);
             draw(reason);
@@ -251,7 +254,34 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
     private boolean safeRendering;
 
+    private boolean dirty;
+    private String reason;
+
+    private static int drawCounter;
+    private static int doDrawCounter;
+
     public final void draw(String reason) {
+        this.reason = reason;
+        this.dirty = true;
+
+        if (drawCounter < Integer.MAX_VALUE) {
+            drawCounter++;
+        } else {
+            drawCounter = 1;
+            doDrawCounter = 1;
+        }
+    }
+
+    private void doDraw() {
+        if (doDrawCounter < Integer.MAX_VALUE) {
+            doDrawCounter++;
+        } else {
+            doDrawCounter = 1;
+            drawCounter = 1;
+        }
+
+        dirty = false;
+
         if (LoggingDomain.RENDERING.isLoggable(Level.FINEST)) {
             LoggingDomain.RENDERING.finest("drawing canvas of row " + getRow() + ", reason: " + reason);
         }

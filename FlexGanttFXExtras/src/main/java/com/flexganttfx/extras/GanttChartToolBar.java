@@ -10,6 +10,7 @@ import com.flexganttfx.model.Row;
 import com.flexganttfx.view.GanttChart;
 import com.flexganttfx.view.GanttChartBase;
 import com.flexganttfx.view.graphics.ListViewGraphics;
+import com.flexganttfx.view.timeline.Timeline.ZoomMode;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
@@ -17,12 +18,14 @@ import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Separator;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToolBar;
 import javafx.stage.PopupWindow.AnchorLocation;
+import javafx.util.StringConverter;
 import org.controlsfx.control.PopOver;
 import org.controlsfx.control.textfield.CustomTextField;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -148,6 +151,30 @@ public class GanttChartToolBar<R extends Row<?, ?, ?>> extends ToolBar {
 			zoomOut.setOnAction(zoomOut());
 			getItems().add(zoomOut);
 
+			ComboBox<ZoomMode> zoomModeBox = new ComboBox<>();
+			zoomModeBox.setConverter(new StringConverter<>() {
+				@Override
+				public String toString(ZoomMode mode) {
+					switch (mode) {
+						case CENTER:
+						default:
+							return "Keep Center";
+						case KEEP_START_TIME:
+							return "Keep Start";
+						case KEEP_END_TIME:
+							return "Keep End";
+					}
+				}
+
+				@Override
+				public ZoomMode fromString(String string) {
+					return null;
+				}
+			});
+			zoomModeBox.getItems().setAll(ZoomMode.values());
+			zoomModeBox.valueProperty().bindBidirectional(getGanttChart().getTimeline().zoomModeProperty());
+			getItems().add(zoomModeBox);
+
 			getItems().add(new Separator());
 
 			ToggleButton links = new ToggleButton(Messages.getString("GanttChartToolBar.BUTTON_LINKS"));
@@ -189,7 +216,7 @@ public class GanttChartToolBar<R extends Row<?, ?, ?>> extends ToolBar {
 			gridOff.setOnAction(hideGridLines());
 			gridLines.getItems().add(gridOff);
 
-			for (int i = 1; i <= 5; i++) {
+			for (int i = 1; i <= 2; i++) {
 				MenuItem gridOn = new MenuItem(MessageFormat.format(Messages.getString("GanttChartToolBar.MENU_ITEM_GRID_LEVELS"), i));
 				gridLines.getItems().add(gridOn);
 				gridOn.setOnAction(showGridLines(i));

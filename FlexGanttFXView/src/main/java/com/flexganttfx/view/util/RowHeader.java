@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.view.util;
@@ -15,7 +15,15 @@ import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.TreeTableCell;
+import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -54,8 +62,7 @@ public class RowHeader<R extends Row<?, ?, ?>> extends TreeTableColumn<R, R> {
 
     private final InvalidationListener columnListener = it -> updateColumnsMenu();
 
-    private final InvalidationListener tableMenuButtonListener = it -> cornerRegion
-            .setVisible(ganttChart.tableMenuButtonVisibleProperty().get());
+    private final InvalidationListener tableMenuButtonListener = it -> cornerRegion.setVisible(ganttChart.tableMenuButtonVisibleProperty().get());
 
     /**
      * Constructs a new row header.
@@ -82,39 +89,32 @@ public class RowHeader<R extends Row<?, ?, ?>> extends TreeTableColumn<R, R> {
 
         // build context menu
         ContextMenu contextMenu = new ContextMenu();
-        MenuItem resizeColums = new MenuItem(
-                Messages.getString("RowHeader.MENU_ITEM_FIT_COLUMNS"));
-        resizeColums.setOnAction(evt -> ganttChart.resizeColumns());
-        contextMenu.getItems().add(resizeColums);
+        MenuItem resizeColumns = new MenuItem(Messages.getString("RowHeader.MENU_ITEM_FIT_COLUMNS"));
+        resizeColumns.setOnAction(evt -> ganttChart.resizeColumns());
+        contextMenu.getItems().add(resizeColumns);
 
         columns = new Menu(Messages.getString("RowHeader.MENU_COLUMNS"));
         contextMenu.getItems().add(columns);
 
         contextMenu.getItems().add(new SeparatorMenuItem());
 
-        MenuItem expandAllItem = new MenuItem(
-                Messages.getString("RowHeader.MENU_ITEM_EXPAND_ALL"));
+        MenuItem expandAllItem = new MenuItem(Messages.getString("RowHeader.MENU_ITEM_EXPAND_ALL"));
         expandAllItem.setOnAction(evt -> ganttChart.expandRows());
         contextMenu.getItems().add(expandAllItem);
 
-        MenuItem expandOnce = new MenuItem(
-                Messages.getString("RowHeader.MENU_ITEM_EXPAND_ONCE"));
+        MenuItem expandOnce = new MenuItem(Messages.getString("RowHeader.MENU_ITEM_EXPAND_ONCE"));
         expandOnce.setOnAction(evt -> ganttChart.expandRowsByOneLevel());
         contextMenu.getItems().add(expandOnce);
 
-        MenuItem collapseAllItem = new MenuItem(
-                Messages.getString("RowHeader.MENU_ITEM_COLLAPSE_ALL"));
+        MenuItem collapseAllItem = new MenuItem(Messages.getString("RowHeader.MENU_ITEM_COLLAPSE_ALL"));
         collapseAllItem.setOnAction(evt -> ganttChart.collapseRows());
         contextMenu.getItems().add(collapseAllItem);
 
-        MenuItem collapseOnceItem = new MenuItem(
-                Messages.getString("RowHeader.MENU_ITEM_COLLAPSE_ONCE"));
-        collapseOnceItem
-                .setOnAction(evt -> ganttChart.collapseRowsByOneLevel());
+        MenuItem collapseOnceItem = new MenuItem(Messages.getString("RowHeader.MENU_ITEM_COLLAPSE_ONCE"));
+        collapseOnceItem.setOnAction(evt -> ganttChart.collapseRowsByOneLevel());
         contextMenu.getItems().add(collapseOnceItem);
 
-        ganttChart.getTreeTable().getColumns()
-                .addListener(new WeakInvalidationListener(columnListener));
+        ganttChart.getTreeTable().getColumns().addListener(new WeakInvalidationListener(columnListener));
 
         updateColumnsMenu();
 
@@ -125,24 +125,21 @@ public class RowHeader<R extends Row<?, ?, ?>> extends TreeTableColumn<R, R> {
         cornerRegion = new StackPane() {
             @Override
             protected void layoutChildren() {
-                double imageWidth = image.snappedLeftInset()
-                        + image.snappedRightInset();
-                double imageHeight = image.snappedTopInset()
-                        + image.snappedBottomInset();
+                double imageWidth = image.snappedLeftInset() + image.snappedRightInset();
+                double imageHeight = image.snappedTopInset() + image.snappedBottomInset();
 
                 image.resize(imageWidth, imageHeight);
-                positionInArea(image, 0, 0, getWidth(), getHeight() - 3, 0,
-                        HPos.CENTER, VPos.CENTER);
+                positionInArea(image, 0, 0, getWidth(), getHeight() - 3, 0, HPos.CENTER, VPos.CENTER);
             }
         };
 
-		/*
+        /*
          * We are using the tableMenuButtonVisible property of the gantt chart
-		 * control and not the property with the same name from the tree table,
-		 * because we only want OUR control to be visible, not the one that
-		 * ships by default with JavaFX. That one always needs to be hidden as
-		 * we have styled away the vertical scrollbars.
-		 */
+         * control and not the property with the same name from the tree table,
+         * because we only want OUR control to be visible, not the one that
+         * ships by default with JavaFX. That one always needs to be hidden as
+         * we have styled away the vertical scrollbars.
+         */
         cornerRegion.getStyleClass().setAll("show-hide-columns-button");
         cornerRegion.getChildren().addAll(image);
         cornerRegion
@@ -336,9 +333,9 @@ public class RowHeader<R extends Row<?, ?, ?>> extends TreeTableColumn<R, R> {
                 Bindings.bindBidirectional(this.row.heightProperty(),
                         prefHeightProperty());
             } else {
-				/*
-				 * Empty rows need to be cleaned up.
-				 */
+                /*
+                 * Empty rows need to be cleaned up.
+                 */
                 switch (ganttChart.getRowHeaderType()) {
                     case GRAPHIC_NODE:
                         setGraphic(null);

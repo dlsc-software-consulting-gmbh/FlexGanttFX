@@ -2,13 +2,27 @@
 Release: 11.11.0, April 2020 (Performance / StillCorona Release)
 ----------------------------------------------------------------
 
-** Fixed bug where grid lines were drawn from previous time unit after zoom operation
-** Fixed bug where calendar entries (e.g. weekend days) were still drawn even when
-   currently displayed primary time unit does not want to display them.
-** Stopped using PNG icon files. Replaced with Material Design Icons from Ikonli.
-** Added new method to show / hide links. Added new toolbar button to trigger it.
-** Changed default font size used in timeline and dateline.
-** Decreased default height of table header and timeline, now that we use smaller font.
+** CHANGES / NEW FEATURES
+
+	** Stopped using PNG icon files. Replaced with Material Design Icons from Ikonli.
+	** Added new method to show / hide links. Added new toolbar button to trigger it.
+	** Changed default font size used in timeline and dateline.
+	** Decreased default height of table header and timeline, now that we use smaller font.
+	** Added new "zoom mode" selector to toolbar
+
+** BUGS
+
+	** Fixed bug where grid lines were drawn from previous time unit after zoom operation
+	** Fixed bug where calendar entries (e.g. weekend days) were still drawn even when
+       currently displayed primary time unit does not want to display them.
+	** Fixed bug where too many listeners were added to the timeline when adding and
+       removing Gantt chart instances to a multi Gantt chart container.
+	** Minimized number of canvas redraws for RowCanvas and LinksCanvas by listing to
+       layout pulses from the scene and then drawing instead of immediately drawing all
+       the time. Very similar to "requestLayout" calls, that do not immediately lay out
+       controls but wait for a good point and time and batch multiple calls to one.
+    ** Fixed text color used inside the context menu in the upper left corner of the tree
+       table (used for showing / hiding columns, etc...).
 
 ----------------------------------------------------------
 Release: 11.10.0, March 2020 (Performance / Corona Release)

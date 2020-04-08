@@ -16,7 +16,6 @@ import com.flexganttfx.view.graphics.renderer.LinkRenderer;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -46,13 +45,21 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
             }
         });
 
-        sceneProperty().addListener(it -> {
-            Scene scene = getScene();
-            scene.addPostLayoutPulseListener(() -> {
-                if (dirty) {
-                    doDraw();
-                }
-            });
+        final Runnable drawRunnable = () -> {
+            if (dirty) {
+                doDraw();
+                LoggingDomain.RENDERING.fine("calls to draw links = " + drawCounter + ", actual draws = " + doDrawCounter + ", saved draws = " + (drawCounter - doDrawCounter));
+            }
+        };
+
+        sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (oldScene != null) {
+                oldScene.removePostLayoutPulseListener(drawRunnable);
+            }
+
+            if (newScene != null) {
+                newScene.addPostLayoutPulseListener(drawRunnable);
+            }
         });
     }
 
@@ -69,13 +76,30 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
     private boolean dirty;
     private String reason;
 
+    private static int drawCounter;
+    private static int doDrawCounter;
+
     public void draw(String reason) {
         this.reason = reason;
         this.dirty = true;
+
+        if (drawCounter < Integer.MAX_VALUE) {
+            drawCounter++;
+        } else {
+            drawCounter = 1;
+            doDrawCounter = 1;
+        }
     }
 
     private void doDraw() {
         dirty = false;
+
+        if (doDrawCounter < Integer.MAX_VALUE) {
+            doDrawCounter++;
+        } else {
+            doDrawCounter = 1;
+            drawCounter = 1;
+        }
 
         if (!isVisible()) {
             return;

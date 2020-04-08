@@ -74,8 +74,7 @@ public class HelloAgendaLayout extends FlexGanttFXSample {
 		return "Agenda";
 	}
 
-	class AgendaRow extends
-			Row<AgendaRow, AgendaRow, MutableActivityBase<String>> {
+	class AgendaRow extends Row<AgendaRow, AgendaRow, MutableActivityBase<String>> {
 		public AgendaRow(String name) {
 			super(name);
 		}
@@ -86,7 +85,6 @@ public class HelloAgendaLayout extends FlexGanttFXSample {
 		AgendaRow root = new AgendaRow("Root");
 
 		gc = new GanttChart<>(root);
-		gc.getGraphics().setCanvasBuffer(0);
 		gc.getTimeline().showTemporalUnit(ChronoUnit.DAYS, 100);
 		ListViewGraphics<AgendaRow> graphics = gc.getGraphics();
 
@@ -183,8 +181,7 @@ public class HelloAgendaLayout extends FlexGanttFXSample {
 		addActivity(date.plusDays(4), Type.BIOLOGY, 12, 30, 13, 15);
 	}
 
-	private void addActivity(LocalDate date, Type type, int startHour,
-			int startMinute, int endHour, int endMinute) {
+	private void addActivity(LocalDate date, Type type, int startHour, int startMinute, int endHour, int endMinute) {
 		Instant st = ZonedDateTime.of(date, LocalTime.of(startHour, startMinute), row.getZoneId()).toInstant();
 		Instant et = ZonedDateTime.of(date, LocalTime.of(endHour, endMinute), row.getZoneId()).toInstant();
 		AgendaActivity activity = new AgendaActivity(type);
