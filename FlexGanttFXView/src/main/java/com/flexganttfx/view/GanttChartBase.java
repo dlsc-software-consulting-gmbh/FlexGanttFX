@@ -33,6 +33,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TreeTableView;
+import javafx.util.Callback;
 import org.controlsfx.control.HiddenSidesPane;
 import org.controlsfx.control.MasterDetailPane;
 
@@ -73,18 +74,20 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
 
         /**
          * I do not know why but for some reason some of the styles inside gantt.css for
-         * controls like MasterDetailPane will only be applied if we add the stylehseet
+         * controls like MasterDetailPane will only be applied if we add the stylesheet
          * also like this.
          */
         getStylesheets().add(GanttChartBase.class.getResource("gantt.css").toExternalForm());
 
         // children controls
         timeline = createTimeline();
+        timeline.extraWidthProperty().bind(rowHeaderWidthProperty());
         setMasterTimeline(timeline);
 
         graphics = createGraphics();
         graphics.timelineProperty().bind(masterTimelineProperty());
         graphics.fixedCellSizeProperty().bind(fixedCellSizeProperty());
+        graphics.rowHeaderWidthProperty().bind(rowHeaderWidthProperty());
 
         timelineScrollBar = new TimelineScrollBar();
         timelineScrollBar.timelineProperty().bind(masterTimelineProperty());
@@ -96,9 +99,7 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
         graphicsMasterDetailPane = new MasterDetailPane(RIGHT);
         graphicsMasterDetailPane.setDividerPosition(.8);
         graphicsMasterDetailPane.setId("graphics-master-detail-pane");
-        Bindings.bindBidirectional(
-                graphicsMasterDetailPane.showDetailNodeProperty(),
-                showDetailProperty());
+        Bindings.bindBidirectional(graphicsMasterDetailPane.showDetailNodeProperty(), showDetailProperty());
 
         redrawObservable(masterTimeline);
 
@@ -109,6 +110,29 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
     @Override
     public String getUserAgentStylesheet() {
         return super.getUserAgentStylesheet(GanttChartBase.class, "gantt.css");
+    }
+
+    private final DoubleProperty rowHeaderWidth = new SimpleDoubleProperty(this, "rowHeaderWidth", 100);
+
+    /**
+     * Specifies the width of the so-called "row headers". inside the graphics area. These are custom
+     * nodes that can be placed in front of every row inside the graphics area. For proper layout the
+     * width of all row headers has to be the same.
+     *
+     * @see GraphicsBase#setRowHeaderFactory(Callback)
+     * @return the width in pixels used for all row headers
+     * @since 11.11.0
+     */
+    public final DoubleProperty rowHeaderWidthProperty() {
+        return rowHeaderWidth;
+    }
+
+    public final double getRowHeaderWidth() {
+        return rowHeaderWidth.get();
+    }
+
+    public final void setRowHeaderWidth(double rowHeaderWidth) {
+        this.rowHeaderWidth.set(rowHeaderWidth);
     }
 
     private final ObjectProperty<Predicate<R>> rowFilter = new SimpleObjectProperty<>(this, "rowFilter", row -> true);

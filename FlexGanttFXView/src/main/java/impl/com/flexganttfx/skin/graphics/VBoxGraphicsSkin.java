@@ -5,10 +5,10 @@
  */
 package impl.com.flexganttfx.skin.graphics;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
+import com.flexganttfx.model.ActivityRef;
+import com.flexganttfx.model.Row;
+import com.flexganttfx.view.graphics.ActivityBounds;
+import com.flexganttfx.view.graphics.VBoxGraphics;
 import javafx.beans.Observable;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -19,10 +19,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Callback;
 
-import com.flexganttfx.model.ActivityRef;
-import com.flexganttfx.model.Row;
-import com.flexganttfx.view.graphics.ActivityBounds;
-import com.flexganttfx.view.graphics.VBoxGraphics;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class VBoxGraphicsSkin<R extends Row<?, ?, ?>> extends
 		GraphicsBaseSkin<VBoxGraphics<R>, R> {
@@ -126,26 +125,23 @@ public class VBoxGraphicsSkin<R extends Row<?, ?, ?>> extends
 
 		for (Node node : vbox.getChildren()) {
 			if (node instanceof RowPane<?>) {
-				Bounds sceneNodeBounds = node.localToScene(node
-						.getBoundsInLocal());
+				Bounds sceneNodeBounds = node.localToScene(node.getBoundsInLocal());
 
 				if (sceneNodeBounds.intersects(sceneLassoBounds)) {
 					RowPane<R> rowPane = (RowPane<R>) node;
 					RowCanvas<R> rowCanvas = rowPane.getCanvas();
 
-					double x = localLassoBounds.getMinX();
-					double y = Math.max(0, sceneLassoBounds.getMinY()
-							- sceneNodeBounds.getMinY());
+					double x = localLassoBounds.getMinX() - getSkinnable().getRowHeaderWidth();
+					double y = Math.max(0, sceneLassoBounds.getMinY() - sceneNodeBounds.getMinY());
 
 					double w = localLassoBounds.getWidth();
 					double h = localLassoBounds.getHeight();
 
 					if (sceneNodeBounds.getMinY() > sceneLassoBounds.getMinY()) {
-						y -= (sceneNodeBounds.getMinY() - sceneLassoBounds
-								.getMinY());
+						y -= (sceneNodeBounds.getMinY() - sceneLassoBounds.getMinY());
 					}
-					List<ActivityBounds> activityBounds = rowCanvas
-							.getActivityBounds(x, y, w, h);
+
+					List<ActivityBounds> activityBounds = rowCanvas.getActivityBounds(x, y, w, h);
 
 					List<ActivityRef<?>> refs = activityBounds.stream().map(ActivityBounds::getActivityRef).collect(Collectors.toList());
 

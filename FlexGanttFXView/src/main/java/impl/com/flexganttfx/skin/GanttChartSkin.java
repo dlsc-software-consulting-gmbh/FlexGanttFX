@@ -9,7 +9,7 @@ import com.flexganttfx.core.LoggingDomain;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.view.GanttChart;
 import com.flexganttfx.view.graphics.ListViewGraphics;
-import com.flexganttfx.view.util.RowHeader;
+import com.flexganttfx.view.util.RowHeaderColumn;
 import impl.com.flexganttfx.skin.treetable.GanttChartTreeItem;
 import impl.com.flexganttfx.skin.treetable.GanttChartTreeTableRow;
 import javafx.beans.Observable;
@@ -34,7 +34,7 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends
 	private final MasterDetailPane treeTableMasterDetailPane;
 	private final MasterDetailPane graphicsMasterDetailPane;
 	private final Node detailNode;
-	private final RowHeader<R> rowHeader;
+	private final RowHeaderColumn<R> rowHeader;
 	private final HiddenSidesPane leftHandSide;
 	private final HiddenSidesPane rightHandSide;
 

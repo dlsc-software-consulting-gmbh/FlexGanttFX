@@ -46,7 +46,6 @@ import com.flexganttfx.view.graphics.layer.InnerLinesLayer;
 import com.flexganttfx.view.graphics.layer.LayoutLayer;
 import com.flexganttfx.view.graphics.layer.NowLineLayer;
 import com.flexganttfx.view.graphics.layer.RowLayer;
-import com.flexganttfx.view.graphics.layer.ScaleLayer;
 import com.flexganttfx.view.graphics.layer.SelectedTimeIntervalsLayer;
 import com.flexganttfx.view.graphics.layer.SystemLayer;
 import com.flexganttfx.view.graphics.layer.ZoomTimeIntervalLayer;
@@ -112,6 +111,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Control;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
@@ -231,8 +231,7 @@ import static java.util.Objects.requireNonNull;
  * @param <R> the type of the rows shown by the graphics
  * @since 1.0
  */
-public abstract class GraphicsBase<R extends Row<?, ?, ?>>
-        extends FlexGanttFXControl {
+public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXControl {
 
     private static final String DEFAULT_STYLE_CLASS = "graphics";
 
@@ -241,9 +240,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
     private final InvalidationListener redrawListener = observable -> {
         if (observable instanceof ReadOnlyProperty) {
             if (LoggingDomain.RENDERING.isLoggable(Level.FINE)) {
-                LoggingDomain.RENDERING
-                        .fine("redraw because of property change, property = "
-                                + ((ReadOnlyProperty<?>) observable).getName());
+                LoggingDomain.RENDERING.fine("redraw because of property change, property = " + ((ReadOnlyProperty<?>) observable).getName());
             }
         }
         redraw("property in GraphicsBase has changed");
@@ -406,14 +403,9 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         getBackgroundSystemLayers().add(new ZoomTimeIntervalLayer<>(this));
         getBackgroundSystemLayers().add(new GridLinesLayer<>(this));
         getBackgroundSystemLayers().add(new DSTLineLayer<>(this));
-
-        // TODO: put back in once ready to use
-//        getBackgroundSystemLayers().add(new LinksLayer<>(this));
-
         getBackgroundSystemLayers().addListener(weakRedrawListener);
 
         getForegroundSystemLayers().add(new LayoutLayer<>(this));
-        getForegroundSystemLayers().add(new ScaleLayer<>(this));
         getForegroundSystemLayers().addListener(weakRedrawListener);
 
         addRedrawObservable(showGridLineLayer);
@@ -425,7 +417,6 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         addRedrawObservable(showZoomTimeIntervalLayer);
         addRedrawObservable(showAgendaLinesLayer);
         addRedrawObservable(showChartLinesLayer);
-        addRedrawObservable(showScaleLayer);
         addRedrawObservable(maxGridLevel);
         addRedrawObservable(activityFilter);
 
@@ -529,8 +520,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
                 } else {
                     editMode.set(EditMode.NONE);
                 }
-            } else if (change.getKey()
-                    .equals("com.flexganttfx.currentlyeditedactivity")) {
+            } else if (change.getKey().equals("com.flexganttfx.currentlyeditedactivity")) {
                 Object valueAdded = change.getValueAdded();
                 if (valueAdded != null) {
                     if (valueAdded instanceof ActivityRef) {
@@ -618,7 +608,6 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         });
 
         addEventHandler(ActivityEvent.ACTIVITY_CHANGE, evt -> {
-            long time = System.currentTimeMillis();
             final ActivityRef<?> activityRef = evt.getActivityRef();
             if (evt.getOldTimeInterval() != null) {
                 final Collection<ActivityLink> links = getLinks().getIntersectingObjects(evt.getOldTimeInterval());
@@ -630,6 +619,8 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
                 }
             }
         });
+
+        setRowHeaderFactory(graphics -> new ScaleRowHeader<>(this));
     }
 
     @Override
@@ -803,10 +794,6 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
     /**
      * A canvas buffer size that is larger than zero increases the rendering performance
      * of the Gantt chart substantially as fewer repaints of each row's canvas are needed.
-     * Please be aware that certain system layers can not be used in combination with a
-     * positive value for canvas buffer. For example the {@link ScaleLayer} does not as it
-     * always draws the scale on the left-hand side of the canvas. But when using a buffer
-     * that left-hand side will keep moving out of the visible area.
      *
      * @return the canvas buffer size (default is 250 pixel)
      */
@@ -4142,25 +4129,6 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         return showRowLayerProperty().get();
     }
 
-    /*
-     * Support for showing scales (chart lines for chart layout, time of day for
-     * agenda layout).
-     */
-
-    private final BooleanProperty showScaleLayer = new SimpleBooleanProperty(this, "showScaleLayer", false);
-
-    public final BooleanProperty showScaleLayerProperty() {
-        return showScaleLayer;
-    }
-
-    public final void setShowScaleLayer(boolean show) {
-        showScaleLayerProperty().set(show);
-    }
-
-    public final boolean isShowScaleLayer() {
-        return showScaleLayerProperty().get();
-    }
-
     // Selected time intervals support.
 
     private final BooleanProperty showSelectedTimeIntervalsLayer = new SimpleBooleanProperty(this, "showSelectedTimeIntervals", true);
@@ -4328,15 +4296,13 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     // Row controls support.
 
-    private final ObjectProperty<Callback<RowControlsParameter<R>, Node>> rowControlsFactory = new SimpleObjectProperty<>(
-            this, "rowControls");
+    private final ObjectProperty<Callback<RowControlsParameter<R>, Node>> rowControlsFactory = new SimpleObjectProperty<>(this, "rowControls");
 
     public final ObjectProperty<Callback<RowControlsParameter<R>, Node>> rowControlsFactoryProperty() {
         return rowControlsFactory;
     }
 
-    public final void setRowControlsFactory(
-            Callback<RowControlsParameter<R>, Node> factory) {
+    public final void setRowControlsFactory(Callback<RowControlsParameter<R>, Node> factory) {
         rowControlsFactory.set(factory);
     }
 
@@ -4373,17 +4339,102 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         }
     }
 
+    // Row header support.
+
+    /**
+     * A row header is a node that can be displayed to the left of each row inside
+     * the graphics area. These headers can be used (for example) to display a scale
+     * for the information shown in the canvas area to the right.
+     *
+     * @param <R> the row type
+     */
+    public static class RowHeader<R extends Row<?, ?, ?>> extends Label {
+
+        public RowHeader() {
+            getStyleClass().add("row-header");
+        }
+
+        private final ObjectProperty<R> item = new SimpleObjectProperty<>(this, "item");
+
+        public final ObjectProperty<R> itemProperty() {
+            return item;
+        }
+
+        public final R getItem() {
+            return item.get();
+        }
+
+        public final void setItem(R item) {
+            this.item.set(item);
+        }
+    }
+
+    private final ObjectProperty<Callback<GraphicsBase<R>, RowHeader<R>>> rowHeaderFactory = new SimpleObjectProperty<>(this, "rowHeaderFactory");
+
+    /**
+     * A property used to store a callback for creating a node that will be
+     * placed to the left of each row in the graphics view.
+     *
+     * @return the row header node callback property
+     * @since 11.11.0
+     */
+    public final ObjectProperty<Callback<GraphicsBase<R>, RowHeader<R>>> rowHeaderFactoryProperty() {
+        return rowHeaderFactory;
+    }
+
+    /**
+     * Sets the value of {@link #rowHeaderFactoryProperty()}.
+     *
+     * @param factory the factory used for creating the row header nodes
+     * @since 11.11.0
+     */
+    public final void setRowHeaderFactory(Callback<GraphicsBase<R>, RowHeader<R>> factory) {
+        requireNonNull(factory);
+        rowHeaderFactory.set(factory);
+    }
+
+    /**
+     * Returns the value of {@link #rowHeaderFactoryProperty()}.
+     *
+     * @return the row header nodes factory
+     * @since 11.11.0
+     */
+    public final Callback<GraphicsBase<R>, RowHeader<R>> getRowHeaderFactory() {
+        return rowHeaderFactory.get();
+    }
+
+    private final DoubleProperty rowHeaderWidth = new SimpleDoubleProperty(this, "rowHeaderWidth", 100);
+
+    /**
+     * Specifies the width of the so-called "row headers". These are custom nodes that can be placed
+     * in front of every row inside the graphics area. For proper layout the width of all row headers
+     * has to be the same.
+     *
+     * @see #setRowHeaderFactory(Callback)
+     * @return the width in pixels used for all row headers
+     * @since 11.11.0
+     */
+    public final DoubleProperty rowHeaderWidthProperty() {
+        return rowHeaderWidth;
+    }
+
+    public final double getRowHeaderWidth() {
+        return rowHeaderWidth.get();
+    }
+
+    public final void setRowHeaderWidth(double rowHeaderWidth) {
+        this.rowHeaderWidth.set(rowHeaderWidth);
+    }
+
     // Row editor support.
 
-    private final ObjectProperty<Callback<RowEditorParameter<R>, Node>> rowEditorFactory = new SimpleObjectProperty<>(
-            this, "rowEditor", param -> null);
+    private final ObjectProperty<Callback<RowEditorParameter<R>, Node>> rowEditorFactory = new SimpleObjectProperty<>(this, "rowEditor", param -> null);
 
     public final ObjectProperty<Callback<RowEditorParameter<R>, Node>> rowEditorFactoryProperty() {
         return rowEditorFactory;
     }
 
-    public final void setRowEditorFactory(
-            Callback<RowEditorParameter<R>, Node> factory) {
+    public final void setRowEditorFactory(Callback<RowEditorParameter<R>, Node> factory) {
         requireNonNull(factory);
         rowEditorFactory.set(factory);
     }
@@ -4487,8 +4538,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
         });
     }
 
-    private final BooleanProperty animateRowEditor = new SimpleBooleanProperty(
-            this, "animateRowEditor", true);
+    private final BooleanProperty animateRowEditor = new SimpleBooleanProperty(this, "animateRowEditor", true);
 
     public final BooleanProperty animateRowEditorProperty() {
         return animateRowEditor;
@@ -4560,8 +4610,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
                     + activityType + ", callback = "
                     + callback.getClass().getName());
         } else {
-            LoggingDomain.CONFIG.fine("class = " + activityType
-                    + ", callback = null");
+            LoggingDomain.CONFIG.fine("class = " + activityType + ", callback = null");
         }
 
         ObservableMap<Class<?>, Callback<EditModeCallbackParameter, EditMode>> layoutMap = editModeCallbackMap.computeIfAbsent(layoutType, k -> FXCollections.observableHashMap());
@@ -4574,14 +4623,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
     private Callback<EditModeCallbackParameter, EditMode> doGetEditModeCallback(Class<?> activityType, Class<? extends Layout> layoutType) {
         if (activityType != null) {
-            ObservableMap<Class<?>, Callback<EditModeCallbackParameter, EditMode>> modeMap = editModeCallbackMap
-                    .get(layoutType);
+            ObservableMap<Class<?>, Callback<EditModeCallbackParameter, EditMode>> modeMap = editModeCallbackMap.get(layoutType);
             if (modeMap != null) {
-                Callback<EditModeCallbackParameter, EditMode> callback = modeMap
-                        .get(activityType);
+                Callback<EditModeCallbackParameter, EditMode> callback = modeMap.get(activityType);
                 if (callback == null) {
-                    return doGetEditModeCallback(activityType.getSuperclass(),
-                            layoutType);
+                    return doGetEditModeCallback(activityType.getSuperclass(), layoutType);
                 }
 
                 return callback;
@@ -4676,10 +4722,8 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
             ActivityBounds bounds = input.getActivityBounds();
             MouseEvent evt = input.getMouseEvent();
 
-            CompletableActivity completableActivity = (CompletableActivity) bounds
-                    .getActivity();
-            double xCompletion = bounds.getMinX() + (bounds.getWidth() / 100
-                    * completableActivity.getPercentageComplete());
+            CompletableActivity completableActivity = (CompletableActivity) bounds.getActivity();
+            double xCompletion = bounds.getMinX() + (bounds.getWidth() / 100 * completableActivity.getPercentageComplete());
 
             /*
              * The percentage complete value can only be changed if the activity
@@ -4705,13 +4749,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
             ChartActivity chartActivity = (ChartActivity) bounds.getActivity();
             if (chartActivity.getChartValue() >= 0) {
-                if (evt.getY() < bounds.getMinY() + 3
-                        && layout instanceof ChartLayout) {
+                if (evt.getY() < bounds.getMinY() + 3 && layout instanceof ChartLayout) {
                     return EditMode.CHART_VALUE_CHANGE;
                 }
             } else {
-                if (evt.getY() > bounds.getMinY() + bounds.getHeight() - 3
-                        && layout instanceof ChartLayout) {
+                if (evt.getY() > bounds.getMinY() + bounds.getHeight() - 3 && layout instanceof ChartLayout) {
                     return EditMode.CHART_VALUE_CHANGE;
                 }
             }
@@ -4728,13 +4770,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
             MouseEvent evt = input.getMouseEvent();
             Layout layout = bounds.getLayout();
 
-            if (evt.getY() < bounds.getMinY() + 3
-                    && layout instanceof ChartLayout) {
+            if (evt.getY() < bounds.getMinY() + 3 && layout instanceof ChartLayout) {
                 return EditMode.CHART_VALUE_HIGH_CHANGE;
             }
 
-            if (evt.getY() > bounds.getMinY() + bounds.getHeight() - 3
-                    && layout instanceof ChartLayout) {
+            if (evt.getY() > bounds.getMinY() + bounds.getHeight() - 3 && layout instanceof ChartLayout) {
                 return EditMode.CHART_VALUE_LOW_CHANGE;
             }
 
@@ -4748,8 +4788,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
 
         private final InvalidationListener calendarListListener = it -> buildMenu();
 
-        private final WeakInvalidationListener weakCalendarListListener = new WeakInvalidationListener(
-                calendarListListener);
+        private final WeakInvalidationListener weakCalendarListListener = new WeakInvalidationListener(calendarListListener);
 
         public CalendarMenu() {
         }
@@ -4760,8 +4799,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
             getItems().clear();
 
             this.calendars = calendars;
-            this.calendars.addListener(
-                    new WeakInvalidationListener(weakCalendarListListener));
+            this.calendars.addListener(new WeakInvalidationListener(weakCalendarListListener));
 
             buildMenu();
         }
@@ -4770,13 +4808,10 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>>
             getItems().clear();
 
             for (Calendar<?> calendar : calendars) {
-                final CheckMenuItem item = new CheckMenuItem(
-                        calendar.nameProperty().get());
+                final CheckMenuItem item = new CheckMenuItem(calendar.nameProperty().get());
                 item.setSelected(calendar.visibleProperty().get());
-                Bindings.bindBidirectional(item.textProperty(),
-                        calendar.nameProperty());
-                Bindings.bindBidirectional(calendar.visibleProperty(),
-                        item.selectedProperty());
+                Bindings.bindBidirectional(item.textProperty(), calendar.nameProperty());
+                Bindings.bindBidirectional(calendar.visibleProperty(), item.selectedProperty());
                 getItems().add(item);
             }
         }

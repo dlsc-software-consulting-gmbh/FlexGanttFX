@@ -8,11 +8,11 @@ package impl.com.flexganttfx.skin.timeline;
 import com.flexganttfx.view.timeline.Dateline;
 import com.flexganttfx.view.timeline.Eventline;
 import com.flexganttfx.view.timeline.Timeline;
-
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.SkinBase;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
@@ -22,7 +22,7 @@ public class TimelineSkin extends SkinBase<Timeline> {
 	private final Dateline dateline;
 	private final Eventline eventline;
 
-	private final VBox box;
+	private final VBox vbox;
 
 	public TimelineSkin(final Timeline timeline) {
 		super(timeline);
@@ -72,10 +72,10 @@ public class TimelineSkin extends SkinBase<Timeline> {
 		VBox.setVgrow(dateline, Priority.ALWAYS);
 		VBox.setVgrow(eventline, Priority.NEVER);
 
-		box = new VBox();
-		box.setAlignment(Pos.CENTER);
-		box.getStyleClass().add("dateline-eventline-wrapper");
-		box.setFillWidth(true);
+		vbox = new VBox();
+		vbox.setAlignment(Pos.CENTER);
+		vbox.getStyleClass().add("dateline-eventline-wrapper");
+		vbox.setFillWidth(true);
 
 		/*
 		 * Very important to set the pref and the min width here as otherwise the eventline
@@ -83,18 +83,24 @@ public class TimelineSkin extends SkinBase<Timeline> {
 		 * inside the eventline will use the dateline buffer AND the canvas buffer causing
 		 * activities to be drawn incorrectly. Run "HelloGlobalActivities" for an example.
 		 */
-		box.setPrefWidth(0);
-		box.setMinWidth(0);
+		vbox.setPrefWidth(0);
+		vbox.setMinWidth(0);
 
-		getChildren().add(box);
+		BorderPane.setAlignment(vbox, Pos.CENTER);
+		BorderPane borderPane = new BorderPane();
+		borderPane.setCenter(vbox);
+		borderPane.leftProperty().bind(timeline.extraProperty());
 
-		dateline.minWidthProperty().bind(timeline.widthProperty().add(dateline.datelineBufferProperty().multiply(2)));
+		getChildren().add(borderPane);
+
+		dateline.minWidthProperty().bind(vbox.widthProperty().add(dateline.datelineBufferProperty().multiply(2)));
 
 		final Rectangle clip = new Rectangle();
-		clip.widthProperty().bind(timeline.widthProperty());
-		clip.heightProperty().bind(timeline.heightProperty());
+		clip.widthProperty().bind(vbox.widthProperty());
+		clip.heightProperty().bind(vbox.heightProperty());
+
 		if (!Boolean.getBoolean("timeline.no.clip")) {
-			timeline.setClip(clip);
+			vbox.setClip(clip);
 		}
 
 		dateline.visibleProperty().addListener(it -> updateVisibilities());
@@ -104,14 +110,14 @@ public class TimelineSkin extends SkinBase<Timeline> {
 	}
 
 	private void updateVisibilities() {
-		box.getChildren().clear();
+		vbox.getChildren().clear();
 
 		if (dateline.isVisible()) {
-			box.getChildren().add(dateline);
+			vbox.getChildren().add(dateline);
 		}
 
 		if (eventline.isVisible()) {
-			box.getChildren().add(eventline);
+			vbox.getChildren().add(eventline);
 		}
 	}
 

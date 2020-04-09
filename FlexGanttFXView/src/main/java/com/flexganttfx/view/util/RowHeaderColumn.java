@@ -53,7 +53,7 @@ import static javafx.scene.control.ContentDisplay.TEXT_ONLY;
  * @see GanttChart#setRowHeaderNodeFactory(Callback)
  * @since 1.0
  */
-public class RowHeader<R extends Row<?, ?, ?>> extends TreeTableColumn<R, R> {
+public class RowHeaderColumn<R extends Row<?, ?, ?>> extends TreeTableColumn<R, R> {
 
     private TreeTableView<R> treeTable;
     private GanttChart<R> ganttChart;
@@ -70,7 +70,7 @@ public class RowHeader<R extends Row<?, ?, ?>> extends TreeTableColumn<R, R> {
      * @param ganttChart the chart for which the header will be used
      */
     @SuppressWarnings("deprecation")
-    public RowHeader(GanttChart<R> ganttChart) {
+    public RowHeaderColumn(GanttChart<R> ganttChart) {
         super();
 
         requireNonNull(ganttChart);
@@ -142,10 +142,8 @@ public class RowHeader<R extends Row<?, ?, ?>> extends TreeTableColumn<R, R> {
          */
         cornerRegion.getStyleClass().setAll("show-hide-columns-button");
         cornerRegion.getChildren().addAll(image);
-        cornerRegion
-                .setVisible(ganttChart.tableMenuButtonVisibleProperty().get());
-        ganttChart.tableMenuButtonVisibleProperty()
-                .addListener(new WeakInvalidationListener(tableMenuButtonListener));
+        cornerRegion.setVisible(ganttChart.tableMenuButtonVisibleProperty().get());
+        ganttChart.tableMenuButtonVisibleProperty().addListener(new WeakInvalidationListener(tableMenuButtonListener));
 
         setContextMenu(contextMenu);
 
@@ -156,15 +154,11 @@ public class RowHeader<R extends Row<?, ?, ?>> extends TreeTableColumn<R, R> {
 
     private void updateColumnsMenu() {
         List<MenuItem> items = new ArrayList<>();
-        ganttChart.getTreeTable()
-                .getColumns().stream().filter(column -> !(column instanceof RowHeader)).forEach(column -> {
-
+        ganttChart.getTreeTable().getColumns().stream().filter(column -> !(column instanceof RowHeaderColumn)).forEach(column -> {
             CheckMenuItem item = new CheckMenuItem();
             item.textProperty().bind(column.textProperty());
-            Bindings.bindBidirectional(item.selectedProperty(),
-                    column.visibleProperty());
+            Bindings.bindBidirectional(item.selectedProperty(), column.visibleProperty());
             items.add(item);
-
         });
 
         columns.getItems().setAll(items);
@@ -209,11 +203,8 @@ public class RowHeader<R extends Row<?, ?, ?>> extends TreeTableColumn<R, R> {
 
         public RowHeaderCell() {
 
-            ganttChart.rowHeaderTypeProperty()
-                    .addListener(new WeakInvalidationListener(typeListener));
-
-            ganttChart.rowHeaderNodeFactoryProperty().addListener(
-                    new WeakInvalidationListener(nodeFactoryListener));
+            ganttChart.rowHeaderTypeProperty().addListener(new WeakInvalidationListener(typeListener));
+            ganttChart.rowHeaderNodeFactoryProperty().addListener(new WeakInvalidationListener(nodeFactoryListener));
 
             getStyleClass().add(DEFAULT_STYLE_CLASS);
 
@@ -228,8 +219,7 @@ public class RowHeader<R extends Row<?, ?, ?>> extends TreeTableColumn<R, R> {
             });
 
             addEventHandler(MouseEvent.MOUSE_PRESSED, evt -> {
-                if (evt.getY() > getHeight() - 4
-                        && ganttChart.getFixedCellSize() == -1) {
+                if (evt.getY() > getHeight() - 4 && ganttChart.getFixedCellSize() == -1) {
                     startY = evt.getY();
                 } else {
                     startY = -1;
@@ -242,10 +232,7 @@ public class RowHeader<R extends Row<?, ?, ?>> extends TreeTableColumn<R, R> {
                     startY = evt.getY();
 
                     if (row != null) {
-                        row.setHeight(Math.min(
-                                Math.max(row.getHeight() + delta,
-                                        row.getMinHeight()),
-                                row.getMaxHeight()));
+                        row.setHeight(Math.min(Math.max(row.getHeight() + delta, row.getMinHeight()), row.getMaxHeight()));
                     }
                 }
             });
@@ -301,8 +288,7 @@ public class RowHeader<R extends Row<?, ?, ?>> extends TreeTableColumn<R, R> {
             this.empty = empty;
 
             if (this.row != null) {
-                Bindings.unbindBidirectional(this.row.heightProperty(),
-                        prefHeightProperty());
+                Bindings.unbindBidirectional(this.row.heightProperty(), prefHeightProperty());
             }
 
             this.row = getTreeTableRow().getItem();
@@ -310,16 +296,15 @@ public class RowHeader<R extends Row<?, ?, ?>> extends TreeTableColumn<R, R> {
             if (this.row != null) {
 
                 switch (ganttChart.getRowHeaderType()) {
+                    // TODO: we keep creating new nodes here ... better to re-use the same one (use same concept as Graphics?)
                     case GRAPHIC_NODE:
-                        Callback<R, Node> rowHeaderNodeFactory = ganttChart
-                                .getRowHeaderNodeFactory();
+                        Callback<R, Node> rowHeaderNodeFactory = ganttChart.getRowHeaderNodeFactory();
                         Node headerNode = rowHeaderNodeFactory.call(this.row);
                         setGraphic(headerNode);
                         setContentDisplay(GRAPHIC_ONLY);
                         break;
                     case LEVEL_NUMBER:
-                        GanttChartTreeItem<R> item = (GanttChartTreeItem<R>) getTreeTableRow()
-                                .getTreeItem();
+                        GanttChartTreeItem<R> item = (GanttChartTreeItem<R>) getTreeTableRow().getTreeItem();
                         setText(item.getLevelNumber());
                         setContentDisplay(TEXT_ONLY);
                         setAlignment(CENTER_LEFT);
@@ -330,8 +315,7 @@ public class RowHeader<R extends Row<?, ?, ?>> extends TreeTableColumn<R, R> {
 
                 setPrefHeight(this.row.getHeight());
 
-                Bindings.bindBidirectional(this.row.heightProperty(),
-                        prefHeightProperty());
+                Bindings.bindBidirectional(this.row.heightProperty(), prefHeightProperty());
             } else {
                 /*
                  * Empty rows need to be cleaned up.

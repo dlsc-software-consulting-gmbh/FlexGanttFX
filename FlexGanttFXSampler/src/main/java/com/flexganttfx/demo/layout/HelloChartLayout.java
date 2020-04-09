@@ -1,13 +1,17 @@
 /**
  * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.demo.layout;
 
 import com.flexganttfx.demo.FlexGanttFXSample;
 import com.flexganttfx.extras.RowControls;
-import com.flexganttfx.model.*;
+import com.flexganttfx.model.ActivityRef;
+import com.flexganttfx.model.Layer;
+import com.flexganttfx.model.Layout;
+import com.flexganttfx.model.LinesManager;
+import com.flexganttfx.model.Row;
 import com.flexganttfx.model.activity.MutableActivity;
 import com.flexganttfx.model.activity.MutableChartActivityBase;
 import com.flexganttfx.model.activity.MutableHighLowChartActivityBase;
@@ -16,7 +20,6 @@ import com.flexganttfx.view.GanttChart;
 import com.flexganttfx.view.graphics.ActivityBounds;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.graphics.GraphicsBase.RowEditingMode;
-import com.flexganttfx.view.graphics.layer.ScaleLayer;
 import com.flexganttfx.view.graphics.renderer.ActivityRenderer;
 import com.flexganttfx.view.util.Position;
 import com.opencsv.CSVReader;
@@ -27,7 +30,13 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TreeTableCell;
+import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.image.ImageView;
@@ -40,7 +49,11 @@ import javafx.scene.text.TextAlignment;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.time.*;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -51,7 +64,11 @@ import static java.time.format.DateTimeFormatter.ofPattern;
 
 public class HelloChartLayout extends FlexGanttFXSample {
 
-    private DateTimeFormatter formatter = ofPattern("yyyy-MM-dd");
+    private final DateTimeFormatter formatter = ofPattern("yyyy-MM-dd");
+
+    public static void main(String[] args) {
+        Application.launch(args);
+    }
 
     @SuppressWarnings("unchecked")
     @Override
@@ -157,138 +174,138 @@ public class HelloChartLayout extends FlexGanttFXSample {
         gc.getTreeTable().setShowRoot(false);
         gc.getTimeline().showTime(Instant.from(ZonedDateTime.of(earliestDate, LocalTime.MIN, ZoneId.systemDefault())));
         gc.getTimeline().showTemporalUnit(ChronoUnit.MONTHS, 80);
-        gc.getGraphics().getSystemLayer(ScaleLayer.class).setPrefWidth(70);
-        gc.getGraphics().setShowScaleLayer(true);
+        gc.getGraphics().setShowVerticalCursor(true);
+        gc.getGraphics().setShowHorizontalCursor(true);
         gc.getGraphics().setActivityRenderer(DailyTrading.class, ChartLayout.class, new DailyTradingRenderer(gc.getGraphics()));
-        gc.getGraphics()
-                .setRowEditorFactory(
-                        param -> {
-                            GridPane pane = new GridPane();
-                            pane.setPrefHeight(450);
-                            pane.setGridLinesVisible(false);
-                            pane.setStyle("-fx-background-color: white; -fx-border-color: transparent transparent lightgray transparent; -fx-border-width: .5;");
+        gc.getGraphics().setRowEditorFactory(param -> {
+            GridPane pane = new GridPane();
+            pane.setPrefHeight(450);
+            pane.setGridLinesVisible(false);
+            pane.setStyle("-fx-background-color: white; -fx-border-color: transparent transparent lightgray transparent; -fx-border-width: .5;");
 
-                            String fileName = null;
+            String fileName = null;
 
-                            switch (param.getRow().getName()) {
-                                case "AAPL":
-                                    fileName = "aapl.png";
-                                    break;
-                                case "ORCL":
-                                    fileName = "orcl.png";
-                                    break;
-                                case "MSFT":
-                                    fileName = "msft.png";
-                                    break;
-                                case "EBAY":
-                                    fileName = "ebay.jpg";
-                                    break;
-                                case "INTC":
-                                    fileName = "intc.jpeg";
-                                    break;
-                                case "AMZN":
-                                    fileName = "amzn.jpg";
-                                    break;
-                                case "YHOO":
-                                    fileName = "yhoo.jpeg";
-                                    break;
-                            }
+            switch (param.getRow().getName()) {
+                case "AAPL":
+                    fileName = "aapl.png";
+                    break;
+                case "ORCL":
+                    fileName = "orcl.png";
+                    break;
+                case "MSFT":
+                    fileName = "msft.png";
+                    break;
+                case "EBAY":
+                    fileName = "ebay.jpg";
+                    break;
+                case "INTC":
+                    fileName = "intc.jpeg";
+                    break;
+                case "AMZN":
+                    fileName = "amzn.jpg";
+                    break;
+                case "YHOO":
+                    fileName = "yhoo.jpeg";
+                    break;
+            }
 
-                            ImageView logo = new ImageView(
-                                    HelloChartLayout.class
-                                            .getResource(fileName)
-                                            .toExternalForm());
-                            logo.setSmooth(true);
-                            logo.setFitHeight(64);
+            ImageView logo = new ImageView(HelloChartLayout.class.getResource(fileName).toExternalForm());
+            logo.setSmooth(true);
+            logo.setFitHeight(64);
 
-                            if (param.getRow().getName().equals("ORCL")) {
-                                logo.setFitWidth(250);
-                            }
+            if (param.getRow().getName().equals("ORCL")) {
+                logo.setFitWidth(250);
+            }
 
-                            logo.setPreserveRatio(true);
+            logo.setPreserveRatio(true);
 
-                            Label companyLabel = new Label("", logo);
-                            companyLabel.setFont(Font.font(24));
-                            companyLabel.setPrefWidth(300);
-                            GridPane.setMargin(companyLabel, new Insets(10));
-                            pane.add(companyLabel, 0, 0);
+            Label companyLabel = new Label("", logo);
+            companyLabel.setFont(Font.font(24));
+            companyLabel.setPrefWidth(300);
+            GridPane.setMargin(companyLabel, new Insets(10));
+            pane.add(companyLabel, 0, 0);
 
-                            Text text = new Text(props.getProperty(param.getRow().getName().toLowerCase()));
-                            text.setWrappingWidth(300);
-                            GridPane.setMargin(text, new Insets(10));
-                            pane.add(text, 0, 1);
+            Text text = new Text(props.getProperty(param.getRow().getName().toLowerCase()));
+            text.setWrappingWidth(300);
+            GridPane.setMargin(text, new Insets(10));
+            pane.add(text, 0, 1);
 
-                            TableView<DailyTrading> table = new TableView<DailyTrading>();
+            TableView<DailyTrading> table = new TableView<DailyTrading>();
 
-                            TableColumn<DailyTrading, LocalDate> dateColumn = new TableColumn<DailyTrading, LocalDate>(
-                                    "Date");
-                            TableColumn<DailyTrading, Double> openColumn = new TableColumn<DailyTrading, Double>(
-                                    "Open");
-                            TableColumn<DailyTrading, Double> lowColumn = new TableColumn<DailyTrading, Double>(
-                                    "Low");
-                            TableColumn<DailyTrading, Double> highColumn = new TableColumn<DailyTrading, Double>(
-                                    "High");
-                            TableColumn<DailyTrading, Double> closeColumn = new TableColumn<DailyTrading, Double>(
-                                    "Close");
-                            TableColumn<DailyTrading, Integer> volumeColumn = new TableColumn<DailyTrading, Integer>(
-                                    "Volume");
-                            table.getColumns().addAll(dateColumn, openColumn,
-                                    lowColumn, highColumn, closeColumn,
-                                    volumeColumn);
+            TableColumn<DailyTrading, LocalDate> dateColumn = new TableColumn<DailyTrading, LocalDate>("Date");
+            TableColumn<DailyTrading, Double> openColumn = new TableColumn<DailyTrading, Double>("Open");
+            TableColumn<DailyTrading, Double> lowColumn = new TableColumn<DailyTrading, Double>("Low");
+            TableColumn<DailyTrading, Double> highColumn = new TableColumn<DailyTrading, Double>("High");
+            TableColumn<DailyTrading, Double> closeColumn = new TableColumn<DailyTrading, Double>("Close");
+            TableColumn<DailyTrading, Integer> volumeColumn = new TableColumn<DailyTrading, Integer>("Volume");
+            table.getColumns().addAll(dateColumn, openColumn,
+                    lowColumn, highColumn, closeColumn,
+                    volumeColumn);
 
-                            dateColumn
-                                    .setCellValueFactory(new PropertyValueFactory<DailyTrading, LocalDate>(
-                                            "date"));
-                            openColumn
-                                    .setCellValueFactory(new PropertyValueFactory<DailyTrading, Double>(
-                                            "stockOpen"));
-                            lowColumn
-                                    .setCellValueFactory(new PropertyValueFactory<DailyTrading, Double>(
-                                            "stockLow"));
-                            highColumn
-                                    .setCellValueFactory(new PropertyValueFactory<DailyTrading, Double>(
-                                            "stockHigh"));
-                            closeColumn
-                                    .setCellValueFactory(new PropertyValueFactory<DailyTrading, Double>(
-                                            "stockClose"));
-                            volumeColumn
-                                    .setCellValueFactory(new PropertyValueFactory<DailyTrading, Integer>(
-                                            "volume"));
+            dateColumn.setCellValueFactory(new PropertyValueFactory<DailyTrading, LocalDate>("date"));
+            openColumn.setCellValueFactory(new PropertyValueFactory<DailyTrading, Double>("stockOpen"));
+            lowColumn.setCellValueFactory(new PropertyValueFactory<DailyTrading, Double>("stockLow"));
+            highColumn.setCellValueFactory(new PropertyValueFactory<DailyTrading, Double>("stockHigh"));
+            closeColumn.setCellValueFactory(new PropertyValueFactory<DailyTrading, Double>("stockClose"));
+            volumeColumn.setCellValueFactory(new PropertyValueFactory<DailyTrading, Integer>("volume"));
 
-                            table.getItems().addAll(param.getRow().getTrades());
-                            GridPane.setHgrow(table, Priority.ALWAYS);
-                            GridPane.setVgrow(table, Priority.ALWAYS);
-                            GridPane.setMargin(table, new Insets(10));
-                            GridPane.setRowSpan(table, 3);
+            table.getItems().addAll(param.getRow().getTrades());
+            GridPane.setHgrow(table, Priority.ALWAYS);
+            GridPane.setVgrow(table, Priority.ALWAYS);
+            GridPane.setMargin(table, new Insets(10));
+            GridPane.setRowSpan(table, 3);
 
-                            pane.add(table, 1, 0);
+            pane.add(table, 1, 0);
 
-                            Button closeButton = new Button("Close Details");
-                            closeButton.setStyle("-fx-background-color: #ecebe9, rgba(0,0,0,0.05),linear-gradient(#dcca8a, #c7a740),linear-gradient(#f9f2d6 0%, #f4e5bc 20%, #e6c75d 80%, #e2c045 100%),linear-gradient(#f6ebbe, #e6c34d);-fx-background-insets: 0,9 9 8 9,9,10,11;-fx-background-radius: 50;-fx-padding: 15 30 15 30;-fx-font-family: Helvetica;-fx-font-size: 18px;-fx-text-fill: #311c09;-fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.1) , 2, 0.0 , 0 , 1);");
-                            closeButton.setOnAction(evt -> param.stopEditing());
-                            pane.add(closeButton, 0, 2);
-                            GridPane.setHalignment(closeButton, HPos.CENTER);
+            Button closeButton = new Button("Close Details");
+            closeButton.setStyle("-fx-background-color: #ecebe9, rgba(0,0,0,0.05),linear-gradient(#dcca8a, #c7a740),linear-gradient(#f9f2d6 0%, #f4e5bc 20%, #e6c75d 80%, #e2c045 100%),linear-gradient(#f6ebbe, #e6c34d);-fx-background-insets: 0,9 9 8 9,9,10,11;-fx-background-radius: 50;-fx-padding: 15 30 15 30;-fx-font-family: Helvetica;-fx-font-size: 18px;-fx-text-fill: #311c09;-fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.1) , 2, 0.0 , 0 , 1);");
+            closeButton.setOnAction(evt -> param.stopEditing());
+            pane.add(closeButton, 0, 2);
+            GridPane.setHalignment(closeButton, HPos.CENTER);
 
-                            return pane;
-                        });
+            return pane;
+        });
 
-        gc.getGraphics()
-                .setRowControlsFactory(
-                        param -> new RowControls<>(param.getGraphics(), param
-                                .getRow()));
+        gc.getGraphics().setRowControlsFactory(param -> new RowControls<>(param.getGraphics(), param.getRow()));
 
-        TreeTableColumn<Symbol, String> nameColumn = new TreeTableColumn<>(
-                "Name");
+        TreeTableColumn<Symbol, String> nameColumn = new TreeTableColumn<>("Name");
         nameColumn.setPrefWidth(150);
-        nameColumn
-                .setCellValueFactory(new TreeItemPropertyValueFactory<Symbol, String>(
-                        "name"));
+        nameColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("name"));
         nameColumn.setCellFactory(column -> new SymbolTreeTableCell());
 
         gc.getTreeTable().getColumns().clear();
         gc.getTreeTable().getColumns().add(nameColumn);
 
         return gc;
+    }
+
+    @Override
+    public String getSampleDescription() {
+        return "This sample highlights the High / Low charting capabilities and also the"
+                + " row editing and row controls feature. Each row can have its own hidden controls, which"
+                + " can be revealed with a nice flip animation. In most cases the editing will be started"
+                + " by pressing on a control provided by the row controls feature. This feature adds controls"
+                + " to a row when the mouse cursor hovers over it. Row editing can be restricted"
+                + " to one row at a time, multiple rows at the same time, or completely disabled.";
+    }
+
+    @Override
+    public Node getControlPanel() {
+        ComboBox<RowEditingMode> box = new ComboBox<>();
+        box.getItems().addAll(RowEditingMode.values());
+        box.setValue(getGanttChart().getGraphics().getRowEditingMode());
+        Bindings.bindBidirectional(box.valueProperty(), getGanttChart().getGraphics().rowEditingModeProperty());
+        return box;
+    }
+
+    @Override
+    public String getSampleName() {
+        return "Chart: High Low";
+    }
+
+    @Override
+    public String getJavaDocURL() {
+        return getJavaDocBase() + "com/flexganttfx/model/layout/ChartLayout.html";
     }
 
     class SymbolTreeTableCell extends TreeTableCell<Symbol, String> {
@@ -308,12 +325,12 @@ public class HelloChartLayout extends FlexGanttFXSample {
     class Symbol extends Row<Symbol, Symbol, MutableActivity> {
         private ChartLayout highLowLayout;
         private ChartLayout volumeLayout;
-        private List<DailyTrading> trades;
+        private final List<DailyTrading> trades;
 
         public Symbol(String symbol) {
             super(symbol);
 
-            trades = new ArrayList<DailyTrading>();
+            trades = new ArrayList<>();
 
             setLinesManager(new SymbolLinesManager(this));
             setLineCount(2);
@@ -324,26 +341,26 @@ public class HelloChartLayout extends FlexGanttFXSample {
             return trades;
         }
 
-        public void setHighLowLayout(ChartLayout highLowLayout) {
-            this.highLowLayout = highLowLayout;
-        }
-
         public ChartLayout getHighLowLayout() {
             return highLowLayout;
         }
 
-        public void setVolumeLayout(ChartLayout volumeLayout) {
-            this.volumeLayout = volumeLayout;
+        public void setHighLowLayout(ChartLayout highLowLayout) {
+            this.highLowLayout = highLowLayout;
         }
 
         public ChartLayout getVolumeLayout() {
             return volumeLayout;
         }
+
+        public void setVolumeLayout(ChartLayout volumeLayout) {
+            this.volumeLayout = volumeLayout;
+        }
     }
 
     class SymbolLinesManager implements LinesManager<MutableActivity> {
 
-        private Symbol symbol;
+        private final Symbol symbol;
 
         public SymbolLinesManager(Symbol symbol) {
             this.symbol = symbol;
@@ -396,23 +413,19 @@ public class HelloChartLayout extends FlexGanttFXSample {
 
     class Volume extends MutableChartActivityBase<Object> {
         public Volume(LocalDate date, int volume) {
-
             setChartValue(volume);
-
-            setStartTime(Instant.from(ZonedDateTime.of(date, LocalTime.MIN,
-                    ZoneId.systemDefault())));
-            setEndTime(Instant.from(ZonedDateTime.of(date, LocalTime.MAX,
-                    ZoneId.systemDefault())));
+            setStartTime(Instant.from(ZonedDateTime.of(date, LocalTime.MIN, ZoneId.systemDefault())));
+            setEndTime(Instant.from(ZonedDateTime.of(date, LocalTime.MAX, ZoneId.systemDefault())));
         }
     }
 
     public class DailyTrading extends MutableHighLowChartActivityBase<Object> {
-        private LocalDate date;
-        private double stockOpen;
-        private double stockClose;
-        private double stockLow;
-        private double stockHigh;
-        private int volume;
+        private final LocalDate date;
+        private final double stockOpen;
+        private final double stockClose;
+        private final double stockLow;
+        private final double stockHigh;
+        private final int volume;
 
         public DailyTrading(LocalDate date, double open, double low,
                             double high, double close, int volume) {
@@ -510,39 +523,5 @@ public class HelloChartLayout extends FlexGanttFXSample {
 
             return h - (value - trading.getStockLow()) * ppv;
         }
-    }
-
-    @Override
-    public String getSampleDescription() {
-        return "This sample highlights the High / Low charting capabilities and also the"
-                + " row editing and row controls feature. Each row can have its own hidden controls, which"
-                + " can be revealed with a nice flip animation. In most cases the editing will be started"
-                + " by pressing on a control provided by the row controls feature. This feature adds controls"
-                + " to a row when the mouse cursor hovers over it. Row editing can be restricted"
-                + " to one row at a time, multiple rows at the same time, or completely disabled.";
-    }
-
-    @Override
-    public Node getControlPanel() {
-        ComboBox<RowEditingMode> box = new ComboBox<>();
-        box.getItems().addAll(RowEditingMode.values());
-        box.setValue(getGanttChart().getGraphics().getRowEditingMode());
-        Bindings.bindBidirectional(box.valueProperty(), getGanttChart()
-                .getGraphics().rowEditingModeProperty());
-        return box;
-    }
-
-    @Override
-    public String getSampleName() {
-        return "Chart: High Low";
-    }
-
-    @Override
-    public String getJavaDocURL() {
-        return getJavaDocBase() + "com/flexganttfx/model/layout/ChartLayout.html";
-    }
-
-    public static void main(String[] args) {
-        Application.launch(args);
     }
 }

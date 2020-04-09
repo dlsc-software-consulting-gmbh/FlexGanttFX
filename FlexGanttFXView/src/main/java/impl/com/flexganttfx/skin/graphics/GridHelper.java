@@ -5,17 +5,17 @@
  */
 package impl.com.flexganttfx.skin.graphics;
 
-import java.time.DayOfWeek;
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalTime;
-import java.time.ZoneId;
-
 import com.flexganttfx.model.dateline.Resolution;
 import com.flexganttfx.model.dateline.VirtualGrid;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.timeline.Dateline;
 import com.flexganttfx.view.timeline.Timeline;
+
+import java.time.DayOfWeek;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalTime;
+import java.time.ZoneId;
 
 public final class GridHelper {
 
@@ -36,8 +36,7 @@ public final class GridHelper {
 		}
 	}
 
-	public static Instant grid(GraphicsBase<?> graphics, Instant time,
-			boolean roundUp) {
+	public static Instant grid(GraphicsBase<?> graphics, Instant time, boolean roundUp) {
 
 		VirtualGrid<?> grid;
 
@@ -61,9 +60,7 @@ public final class GridHelper {
 		return time;
 	}
 
-	public static LocalTime grid(GraphicsBase<?> graphics, LocalTime time,
-			boolean roundUp) {
-
+	public static LocalTime grid(GraphicsBase<?> graphics, LocalTime time, boolean roundUp) {
 		/*
 		 * There is no auto-grid for vertical local time calculations.
 		 */

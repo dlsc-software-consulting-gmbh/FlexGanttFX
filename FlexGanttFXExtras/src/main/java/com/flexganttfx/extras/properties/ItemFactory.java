@@ -13,7 +13,6 @@ import com.flexganttfx.extras.properties.layer.HoverTimeIntervalLayerItemProvide
 import com.flexganttfx.extras.properties.layer.InnerLinesLayerItemProvider;
 import com.flexganttfx.extras.properties.layer.LayoutLayerItemProvider;
 import com.flexganttfx.extras.properties.layer.NowLineLayerItemProvider;
-import com.flexganttfx.extras.properties.layer.ScaleLayerItemProvider;
 import com.flexganttfx.extras.properties.layer.SelectedTimeIntervalsLayerItemProvider;
 import com.flexganttfx.extras.properties.layer.SystemLayerItemProvider;
 import com.flexganttfx.extras.properties.layer.ZoomIntervalLayerItemProvider;
@@ -35,7 +34,6 @@ import com.flexganttfx.view.graphics.layer.HoverTimeIntervalLayer;
 import com.flexganttfx.view.graphics.layer.InnerLinesLayer;
 import com.flexganttfx.view.graphics.layer.LayoutLayer;
 import com.flexganttfx.view.graphics.layer.NowLineLayer;
-import com.flexganttfx.view.graphics.layer.ScaleLayer;
 import com.flexganttfx.view.graphics.layer.SelectedTimeIntervalsLayer;
 import com.flexganttfx.view.graphics.layer.SystemLayer;
 import com.flexganttfx.view.graphics.layer.ZoomTimeIntervalLayer;
@@ -103,7 +101,6 @@ public class ItemFactory {
         PROVIDER_MAP.put(InnerLinesLayer.class, new InnerLinesLayerItemProvider());
         PROVIDER_MAP.put(LayoutLayer.class, new LayoutLayerItemProvider());
         PROVIDER_MAP.put(NowLineLayer.class, new NowLineLayerItemProvider());
-        PROVIDER_MAP.put(ScaleLayer.class, new ScaleLayerItemProvider());
         PROVIDER_MAP.put(SelectedTimeIntervalsLayer.class, new SelectedTimeIntervalsLayerItemProvider());
         PROVIDER_MAP.put(SystemLayer.class, new SystemLayerItemProvider());
         PROVIDER_MAP.put(ZoomTimeIntervalLayer.class, new ZoomIntervalLayerItemProvider());

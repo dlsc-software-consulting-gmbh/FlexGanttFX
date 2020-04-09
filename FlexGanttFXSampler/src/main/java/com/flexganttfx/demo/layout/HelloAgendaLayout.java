@@ -118,7 +118,6 @@ public class HelloAgendaLayout extends FlexGanttFXSample {
 		graphics.setVirtualGrid(new ChronoUnitGrid("5 Minutes", ChronoUnit.MINUTES, 5));
 		graphics.setShowMarkedTimeInterval(false);
 		graphics.setShowVerticalCursor(false);
-		graphics.setShowScaleLayer(true);
 		graphics.setActivityRenderer(AgendaActivity.class, AgendaLayout.class, new AgendaActivityRenderer(graphics));
 		graphics.addEventFilter(MouseEvent.MOUSE_CLICKED, evt -> createActivity(evt));
 		graphics.setVirtualGrid(null);

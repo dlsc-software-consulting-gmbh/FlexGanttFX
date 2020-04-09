@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package impl.com.flexganttfx.skin.graphics;
@@ -10,6 +10,7 @@ import com.flexganttfx.model.Row;
 import com.flexganttfx.model.repository.RepositoryEvent;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.graphics.GraphicsBase.RowControlsParameter;
+import com.flexganttfx.view.graphics.GraphicsBase.RowHeader;
 import javafx.beans.InvalidationListener;
 import javafx.beans.WeakInvalidationListener;
 import javafx.beans.binding.Bindings;
@@ -24,8 +25,11 @@ import javafx.scene.Node;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Callback;
 
 import java.time.ZoneId;
@@ -37,241 +41,253 @@ import static javafx.scene.input.MouseEvent.MOUSE_EXITED;
 
 public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
 
-	private final RowCanvas<R> canvas;
+    private final RowCanvas<R> canvas;
 
-	private final FlipPane<R> flipPane;
+    private final FlipPane<R> flipPane;
 
-	private final Label zoneIdLabel;
+    private final Label zoneIdLabel;
 
-	private GraphicsBase<R> graphics;
+    private GraphicsBase<R> graphics;
 
-	public RowPane(GraphicsBase<R> graphics) {
-		this.graphics = graphics;
+    public RowPane(GraphicsBase<R> graphics) {
+        this.graphics = graphics;
 
-		getStyleClass().add("row-pane");
+        getStyleClass().add("row-pane");
 
-		setPrefWidth(0);
-		setMinWidth(0);
-		setPrefHeight(Row.DEFAULT_ROW_HEIGHT);
+        setPrefWidth(0);
+        setMinWidth(0);
+        setPrefHeight(Row.DEFAULT_ROW_HEIGHT);
 
-		canvas = new RowCanvas<>(graphics);
-		canvas.widthProperty().bind(widthProperty().add(graphics.canvasBufferProperty().multiply(2)));
-		canvas.heightProperty().bind(heightProperty());
-		canvas.rowProperty().bind(rowProperty());
-		StackPane.setAlignment(canvas, Pos.CENTER); // VERY IMPORTANT, we want buffer to the left AND the right
+        flipPane = new FlipPane<>(this);
 
-		zoneIdLabel = new Label("Zone ID");
-		zoneIdLabel.getStyleClass().add("zone-id-label");
-		zoneIdLabel.visibleProperty().bind(Bindings.and(Bindings.isNotNull(row), graphics.showZoneIdProperty()));
+        canvas = new RowCanvas<>(graphics);
+        canvas.widthProperty().bind(flipPane.widthProperty().add(graphics.canvasBufferProperty().multiply(2)));
+        canvas.heightProperty().bind(flipPane.heightProperty());
+        canvas.rowProperty().bind(rowProperty());
+        StackPane.setAlignment(canvas, Pos.CENTER); // VERY IMPORTANT, we want buffer to the left AND the right
 
-		flipPane = new FlipPane<>(this);
-		flipPane.getFront().getChildren().add(canvas);
-		flipPane.getFront().getChildren().add(zoneIdLabel);
-		StackPane.setAlignment(zoneIdLabel, Pos.TOP_RIGHT);
+        zoneIdLabel = new Label("Zone ID");
+        zoneIdLabel.getStyleClass().add("zone-id-label");
+        zoneIdLabel.visibleProperty().bind(Bindings.and(Bindings.isNotNull(row), graphics.showZoneIdProperty()));
 
-		InvalidationListener editorListener = evt -> {
-			if (flipPane.isBackVisible()) {
-				if (graphics.getRowsEditing().contains(getRow())) {
-					flipPane.setRow(getRow());
-				} else {
-					flipPane.flipToFrontImmediately();
-				}
-			} else {
-				if (graphics.getRowsEditing().contains(getRow())) {
-					flipPane.setRow(getRow());
-					flipPane.flipToBackImmediately();
-				}
-			}
-		};
+        flipPane.getFront().getChildren().add(canvas);
+        flipPane.getFront().getChildren().add(zoneIdLabel);
 
-		rowProperty().addListener(editorListener);
+        Rectangle clip = new Rectangle();
+        clip.widthProperty().bind(flipPane.widthProperty());
+        clip.heightProperty().bind(flipPane.heightProperty());
+        flipPane.setClip(clip);
 
-		final EventHandler<MouseEvent> mouseEntered = evt -> {
-			if (getRow() != null && !flipPane.isBackVisible()) {
-				Callback<RowControlsParameter<R>, Node> controlsFactory = graphics.getRowControlsFactory();
-				if (controlsFactory != null) {
-					RowControlsParameter<R> param = new RowControlsParameter<>(
-							graphics, getRow());
-					Node controlsNode = controlsFactory.call(param);
-					setControlsNode(controlsNode);
-				}
-			}
-		};
+        StackPane.setAlignment(zoneIdLabel, Pos.TOP_RIGHT);
 
-		final EventHandler<MouseEvent> mouseExited = evt -> {
-			if (getRow() != null) {
-				setControlsNode(null);
-			}
-		};
+        InvalidationListener editorListener = evt -> {
+            if (flipPane.isBackVisible()) {
+                if (graphics.getRowsEditing().contains(getRow())) {
+                    flipPane.setRow(getRow());
+                } else {
+                    flipPane.flipToFrontImmediately();
+                }
+            } else {
+                if (graphics.getRowsEditing().contains(getRow())) {
+                    flipPane.setRow(getRow());
+                    flipPane.flipToBackImmediately();
+                }
+            }
+        };
 
-		rowProperty().addListener(
-				(observable, oldRow, newRow) -> {
+        rowProperty().addListener(editorListener);
 
-					if (oldRow != null) {
-						oldRow.linesManagerProperty()
-								.removeListener(weakRedrawListener);
-						oldRow.lineCountProperty()
-								.removeListener(weakRedrawListener);
-						oldRow.layoutProperty()
-								.removeListener(weakRedrawListener);
-						oldRow.getRepository()
-								.removeEventHandler(weakRepositoryListener);
-						oldRow.repositoryProperty()
-								.removeListener(weakRepositoryReplacedListener);
-						oldRow.zoneIdProperty()
-								.removeListener(weakUpdateZoneIdListener);
-						oldRow.getProperties().put(
-								"com.flexganttfx.row.showing",
-								false);
+        final EventHandler<MouseEvent> mouseEntered = evt -> {
+            if (getRow() != null && !flipPane.isBackVisible()) {
+                Callback<RowControlsParameter<R>, Node> controlsFactory = graphics.getRowControlsFactory();
+                if (controlsFactory != null) {
+                    RowControlsParameter<R> param = new RowControlsParameter<>(
+                            graphics, getRow());
+                    Node controlsNode = controlsFactory.call(param);
+                    setControlsNode(controlsNode);
+                }
+            }
+        };
 
-						Bindings.unbindBidirectional(prefHeightProperty(),
-								oldRow.heightProperty());
-					}
+        final EventHandler<MouseEvent> mouseExited = evt -> {
+            if (getRow() != null) {
+                setControlsNode(null);
+            }
+        };
 
-					if (newRow != null) {
-						newRow.linesManagerProperty()
-								.addListener(weakRedrawListener);
-						newRow.lineCountProperty()
-								.addListener(weakRedrawListener);
-						newRow.layoutProperty().addListener(weakRedrawListener);
-						newRow.getRepository()
-								.addEventHandler(weakRepositoryListener);
-						newRow.repositoryProperty()
-								.addListener(weakRepositoryReplacedListener);
-						newRow.zoneIdProperty()
-								.addListener(weakUpdateZoneIdListener);
+        rowProperty().addListener((observable, oldRow, newRow) -> {
 
-						newRow.getProperties().put(
-								"com.flexganttfx.row.showing",
-								isVisible());
+            if (oldRow != null) {
+                oldRow.linesManagerProperty().removeListener(weakRedrawListener);
+                oldRow.lineCountProperty().removeListener(weakRedrawListener);
+                oldRow.layoutProperty().removeListener(weakRedrawListener);
+                oldRow.getRepository().removeEventHandler(weakRepositoryListener);
+                oldRow.repositoryProperty().removeListener(weakRepositoryReplacedListener);
+                oldRow.zoneIdProperty().removeListener(weakUpdateZoneIdListener);
+                oldRow.getProperties().put("com.flexganttfx.row.showing", false);
 
-						/*
-						 * Important call: first initialize the pref height with
-						 * the current height of the new row.
-						 */
-						setPrefHeight(newRow.getHeight());
-						Bindings.bindBidirectional(prefHeightProperty(),
-								newRow.heightProperty());
-					} else {
-						setPrefHeight(Row.DEFAULT_ROW_HEIGHT);
-					}
+                Bindings.unbindBidirectional(prefHeightProperty(), oldRow.heightProperty());
+            }
 
-					updateZoneIdLabel();
-				});
+            if (newRow != null) {
+                newRow.linesManagerProperty().addListener(weakRedrawListener);
+                newRow.lineCountProperty().addListener(weakRedrawListener);
+                newRow.layoutProperty().addListener(weakRedrawListener);
+                newRow.getRepository().addEventHandler(weakRepositoryListener);
+                newRow.repositoryProperty().addListener(weakRepositoryReplacedListener);
+                newRow.zoneIdProperty().addListener(weakUpdateZoneIdListener);
 
-		addEventHandler(MOUSE_ENTERED, mouseEntered);
-		addEventHandler(MOUSE_EXITED, mouseExited);
+                newRow.getProperties().put("com.flexganttfx.row.showing", isVisible());
 
-		getChildren().add(flipPane);
-	}
+                /*
+                 * Important call: first initialize the pref height with
+                 * the current height of the new row.
+                 */
+                setPrefHeight(newRow.getHeight());
+                Bindings.bindBidirectional(prefHeightProperty(), newRow.heightProperty());
+            } else {
+                setPrefHeight(Row.DEFAULT_ROW_HEIGHT);
+            }
 
-	public final GraphicsBase<R> getGraphics() {
-		return graphics;
-	}
+            updateZoneIdLabel();
+        });
 
-	private Node controlsNode;
+        addEventHandler(MOUSE_ENTERED, mouseEntered);
+        addEventHandler(MOUSE_EXITED, mouseExited);
 
-	private void setControlsNode(Node node) {
-		if (controlsNode != null) {
-			getChildren().remove(controlsNode);
-		}
+        RowHeader<R> rowHeader = null;
+        final Callback<GraphicsBase<R>, RowHeader<R>> rowHeaderFactory = graphics.getRowHeaderFactory();
+        if (rowHeaderFactory != null) {
+            rowHeader = rowHeaderFactory.call(graphics);
+            if (rowHeader != null) {
 
-		this.controlsNode = node;
+                // the width of the row header is determined by an outside property
+                rowHeader.prefWidthProperty().bind(graphics.rowHeaderWidthProperty());
+                rowHeader.setMinWidth(Region.USE_PREF_SIZE);
+                rowHeader.setMaxWidth(Region.USE_PREF_SIZE);
 
-		if (controlsNode != null) {
-			StackPane.setAlignment(controlsNode, Pos.TOP_RIGHT);
-			if (controlsNode instanceof Region) {
-				((Region) controlsNode).setMinSize(0, 0);
-			}
-			getChildren().add(controlsNode);
-		}
-	}
+                // the row header is always as high as the row
+                rowHeader.prefHeightProperty().bind(heightProperty());
+                rowHeader.setMinHeight(Region.USE_PREF_SIZE);
+                rowHeader.setMaxHeight(Region.USE_PREF_SIZE);
 
-	public final Node getControlsNode() {
-		return controlsNode;
-	}
+                // row header displays the same row as the row pane / canvas
+                rowHeader.itemProperty().bind(rowProperty());
+            }
+        }
 
-	private final ObjectProperty<R> row = new SimpleObjectProperty<>(this,
-			"row");
+        if (rowHeader != null) {
+            HBox box = new HBox(rowHeader, flipPane);
+            box.setFillHeight(true);
+            HBox.setHgrow(flipPane, Priority.ALWAYS);
+            getChildren().add(box);
+        } else {
+            getChildren().add(flipPane);
+        }
+    }
 
-	public final ObjectProperty<R> rowProperty() {
-		return row;
-	}
+    public final GraphicsBase<R> getGraphics() {
+        return graphics;
+    }
 
-	public final void setRow(R row) {
-		rowProperty().set(row);
-	}
+    private Node controlsNode;
 
-	public final R getRow() {
-		return rowProperty().get();
-	}
+    private void setControlsNode(Node node) {
+        if (controlsNode != null) {
+            getChildren().remove(controlsNode);
+        }
 
-	public final RowCanvas<R> getCanvas() {
-		return canvas;
-	}
+        this.controlsNode = node;
 
-	public final void startEditing() {
-		flipPane.setRow(getRow());
-		getScene().setCamera(new PerspectiveCamera());
-		if (graphics.isAnimateRowEditor()) {
-			flipPane.flipToBack();
-		} else {
-			flipPane.flipToBackImmediately();
-		}
-	}
+        if (controlsNode != null) {
+            StackPane.setAlignment(controlsNode, Pos.TOP_RIGHT);
+            if (controlsNode instanceof Region) {
+                ((Region) controlsNode).setMinSize(0, 0);
+            }
+            getChildren().add(controlsNode);
+        }
+    }
 
-	public final void stopEditing() {
-		if (graphics.isAnimateRowEditor()) {
-			flipPane.flipToFront();
-		} else {
-			flipPane.flipToFrontImmediately();
-		}
-	}
+    public final Node getControlsNode() {
+        return controlsNode;
+    }
 
-	private void updateZoneIdLabel() {
-		R row = getRow();
-		if (row != null) {
-			ZoneId zoneId = row.getZoneId();
-			zoneIdLabel.setText(zoneId.getDisplayName(TextStyle.FULL_STANDALONE,
-					Locale.getDefault()));
-		} else {
-			zoneIdLabel.setText("");
-		}
-	}
+    private final ObjectProperty<R> row = new SimpleObjectProperty<>(this, "row");
 
-	private final InvalidationListener redrawListener = it -> getCanvas().draw("row pane's redraw listener was called");
+    public final ObjectProperty<R> rowProperty() {
+        return row;
+    }
 
-	private final InvalidationListener weakRedrawListener = new WeakInvalidationListener(redrawListener);
+    public final void setRow(R row) {
+        rowProperty().set(row);
+    }
 
-	private final InvalidationListener updateZoneIdListener = evt -> updateZoneIdLabel();
+    public final R getRow() {
+        return rowProperty().get();
+    }
 
-	private final InvalidationListener weakUpdateZoneIdListener = new WeakInvalidationListener(updateZoneIdListener);
+    public final RowCanvas<R> getCanvas() {
+        return canvas;
+    }
 
-	private final EventHandler<RepositoryEvent> repositoryListener = evt -> {
-		/*
-		 * Do not redraw immediately after each repository event if automatic redraw
-		 * is set to false. Can be used to fine-tune application when adding a lot of data
-		 * in a batch.
-		 */
-		if (graphics.isAutomaticRedraw()) {
-			getCanvas().draw("row pane's repository listener fired");
-		}
-	};
+    public final void startEditing() {
+        flipPane.setRow(getRow());
+        getScene().setCamera(new PerspectiveCamera());
+        if (graphics.isAnimateRowEditor()) {
+            flipPane.flipToBack();
+        } else {
+            flipPane.flipToBackImmediately();
+        }
+    }
 
-	private final WeakEventHandler<RepositoryEvent> weakRepositoryListener = new WeakEventHandler<>(
-			repositoryListener);
+    public final void stopEditing() {
+        if (graphics.isAnimateRowEditor()) {
+            flipPane.flipToFront();
+        } else {
+            flipPane.flipToFrontImmediately();
+        }
+    }
 
-	private final ChangeListener<ActivityRepository<?>> repositoryReplacedListener = (
-			observable, oldRepository, newRepository) -> {
-		if (oldRepository != null) {
-			oldRepository.removeEventHandler(weakRepositoryListener);
-		}
-		if (newRepository != null) {
-			newRepository.addEventHandler(weakRepositoryListener);
-		}
-	};
+    private void updateZoneIdLabel() {
+        R row = getRow();
+        if (row != null) {
+            ZoneId zoneId = row.getZoneId();
+            zoneIdLabel.setText(zoneId.getDisplayName(TextStyle.FULL_STANDALONE, Locale.getDefault()));
+        } else {
+            zoneIdLabel.setText("");
+        }
+    }
 
-	private final WeakChangeListener<ActivityRepository<?>> weakRepositoryReplacedListener = new WeakChangeListener<>(
-			repositoryReplacedListener);
+    private final InvalidationListener redrawListener = it -> getCanvas().draw("row pane's redraw listener was called");
 
+    private final InvalidationListener weakRedrawListener = new WeakInvalidationListener(redrawListener);
+
+    private final InvalidationListener updateZoneIdListener = evt -> updateZoneIdLabel();
+
+    private final InvalidationListener weakUpdateZoneIdListener = new WeakInvalidationListener(updateZoneIdListener);
+
+    private final EventHandler<RepositoryEvent> repositoryListener = evt -> {
+        /*
+         * Do not redraw immediately after each repository event if automatic redraw
+         * is set to false. Can be used to fine-tune application when adding a lot of data
+         * in a batch.
+         */
+        if (graphics.isAutomaticRedraw()) {
+            getCanvas().draw("row pane's repository listener fired");
+        }
+    };
+
+    private final WeakEventHandler<RepositoryEvent> weakRepositoryListener = new WeakEventHandler<>(repositoryListener);
+
+    private final ChangeListener<ActivityRepository<?>> repositoryReplacedListener = (
+            observable, oldRepository, newRepository) -> {
+        if (oldRepository != null) {
+            oldRepository.removeEventHandler(weakRepositoryListener);
+        }
+        if (newRepository != null) {
+            newRepository.addEventHandler(weakRepositoryListener);
+        }
+    };
+
+    private final WeakChangeListener<ActivityRepository<?>> weakRepositoryReplacedListener = new WeakChangeListener<>(repositoryReplacedListener);
 }

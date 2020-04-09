@@ -5,6 +5,21 @@
  */
 package com.flexganttfx.editor;
 
+import com.flexganttfx.model.ActivityRef;
+import com.flexganttfx.model.Layer;
+import com.flexganttfx.model.dateline.VirtualGrid;
+import com.flexganttfx.model.layout.AgendaLayout;
+import com.flexganttfx.model.util.TimeInterval;
+import com.flexganttfx.view.GanttChart;
+import com.flexganttfx.view.graphics.GraphicsBase;
+import com.flexganttfx.view.timeline.Dateline;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.SimpleObjectProperty;
+
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.Instant;
@@ -16,35 +31,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.LongProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleLongProperty;
-import javafx.beans.property.SimpleObjectProperty;
-
-import com.flexganttfx.model.ActivityRef;
-import com.flexganttfx.model.Layer;
-import com.flexganttfx.model.dateline.VirtualGrid;
-import com.flexganttfx.model.layout.AgendaLayout;
-import com.flexganttfx.model.util.TimeInterval;
-import com.flexganttfx.view.GanttChart;
-import com.flexganttfx.view.graphics.GraphicsBase;
-import com.flexganttfx.view.timeline.Dateline;
-
 /**
  * A Gantt chart that implements the {@link AgendaEditorContext} interface. This
  * means that conflict resolution can be used by it.
  */
-public class AgendaGanttChart extends GanttChart<AgendaRow> implements
-		AgendaEditorContext<AgendaRow> {
+public class AgendaGanttChart extends GanttChart<AgendaRow> implements AgendaEditorContext<AgendaRow> {
 
 	public AgendaGanttChart() {
 		Layer layer = new Layer("Agenda Layer");
 		getLayers().add(layer);
 
-		AgendaController<AgendaRow> controller = new AgendaController<>(this,
-				layer);
+		AgendaController<AgendaRow> controller = new AgendaController<>(this, layer);
 
 		List<AgendaRow> rows = new ArrayList<>();
 		for (int i = 0; i < 100; i++) {
@@ -59,16 +56,9 @@ public class AgendaGanttChart extends GanttChart<AgendaRow> implements
 
 		getTreeTable().setShowRoot(false);
 
-		getGraphics().setActivityRenderer(AgendaEntryBase.class,
-				AgendaLayout.class, new AgendaEntryRenderer(getGraphics()));
-
-		getGraphics()
-				.setContextMenu(new AgendaEditorContextMenu(getGraphics()));
-
-		getGraphics().setShowScaleLayer(true);
-
-		getGraphics().getBackgroundSystemLayers().add(
-				new AgendaEditorBackgroundLayer<>(this, controller));
+		getGraphics().setActivityRenderer(AgendaEntryBase.class, AgendaLayout.class, new AgendaEntryRenderer(getGraphics()));
+		getGraphics().setContextMenu(new AgendaEditorContextMenu(getGraphics()));
+		getGraphics().getBackgroundSystemLayers().add(new AgendaEditorBackgroundLayer<>(this, controller));
 	}
 
 	private final LongProperty changeDelay = new SimpleLongProperty(this,

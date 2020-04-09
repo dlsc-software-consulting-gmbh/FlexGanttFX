@@ -165,3 +165,9 @@
     -fx-padding: .1em;
     -fx-font-size: .8em;
 }
+
+.row-header {
+    -fx-text-fill: white;
+    -fx-background-color: rgb(77, 112, 128);
+    -fx-font-size: .8em;
+}

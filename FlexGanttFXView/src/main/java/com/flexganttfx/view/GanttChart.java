@@ -15,7 +15,7 @@ import com.flexganttfx.view.timeline.Eventline;
 import com.flexganttfx.view.timeline.Timeline;
 import com.flexganttfx.view.util.Messages;
 import com.flexganttfx.view.util.Position;
-import com.flexganttfx.view.util.RowHeader;
+import com.flexganttfx.view.util.RowHeaderColumn;
 import impl.com.flexganttfx.skin.GanttChartSkin;
 import impl.com.flexganttfx.skin.treetable.GanttChartTreeItem;
 import javafx.beans.binding.Bindings;
@@ -189,7 +189,7 @@ public class GanttChart<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
     private static final String GRAPHICS_ONLY_DISPLAY_MODE_TREE_TABLE_VIEW = "tree-table-view-graphics-only-display-mode";
 
     private final TreeTableView<R> treeTableView;
-    private final RowHeader<R> rowHeader;
+    private final RowHeaderColumn<R> rowHeader;
     private final ScrollBar treeTableScrollBar;
     private final MasterDetailPane treeTableMasterDetailPane;
 
@@ -435,7 +435,7 @@ public class GanttChart<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
      *
      * @return the row header (column)
      */
-    public final RowHeader<R> getRowHeader() {
+    public final RowHeaderColumn<R> getRowHeader() {
         return rowHeader;
     }
 
@@ -446,8 +446,8 @@ public class GanttChart<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
      * @return the row header column
      * @since 1.0
      */
-    protected RowHeader<R> createRowHeader() {
-        return new RowHeader<>(this);
+    protected RowHeaderColumn<R> createRowHeader() {
+        return new RowHeaderColumn<>(this);
     }
 
     /**
@@ -529,7 +529,7 @@ public class GanttChart<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
      * An enum used to control the visuals of the cells in the row header
      * column.
      *
-     * @see RowHeader
+     * @see RowHeaderColumn
      * @see GanttChart#setRowHeaderType(RowHeaderType)
      * @see GanttChart#setRowHeaderNodeFactory(Callback)
      * @since 1.0

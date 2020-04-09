@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.extras.properties;
@@ -20,7 +20,7 @@ import java.util.Optional;
  *
  * @param <R> the row type
  */
-public class GraphicsBaseItemProvider<R extends Row<?,?,?>> implements ItemProvider<GraphicsBase<R>> {
+public class GraphicsBaseItemProvider<R extends Row<?, ?, ?>> implements ItemProvider<GraphicsBase<R>> {
 
     private static final String GRAPHICS_VIEW_PROPERTIES = "Control: Graphics";
 
@@ -934,44 +934,6 @@ public class GraphicsBaseItemProvider<R extends Row<?,?,?>> implements ItemProvi
             @Override
             public String getDescription() {
                 return "Enables / disables display of chart lines.";
-            }
-
-            @Override
-            public String getCategory() {
-                return GRAPHICS_VIEW_PROPERTIES;
-            }
-        });
-
-        items.add(new Item() {
-
-            @Override
-            public Optional<ObservableValue<?>> getObservableValue() {
-                return Optional.of(graphics.showScaleLayerProperty());
-            }
-
-            @Override
-            public void setValue(Object value) {
-                graphics.setShowScaleLayer((Boolean) value);
-            }
-
-            @Override
-            public Object getValue() {
-                return graphics.isShowScaleLayer();
-            }
-
-            @Override
-            public Class<?> getType() {
-                return Boolean.class;
-            }
-
-            @Override
-            public String getName() {
-                return "Show Scale";
-            }
-
-            @Override
-            public String getDescription() {
-                return "Enables / disables display of a scale (chart lines, time of day).";
             }
 
             @Override

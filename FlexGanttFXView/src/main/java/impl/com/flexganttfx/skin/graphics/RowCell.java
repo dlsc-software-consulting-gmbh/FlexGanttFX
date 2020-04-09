@@ -38,8 +38,7 @@ public class RowCell<R extends Row<?, ?, ?>> extends ListCell<R> {
          * The pref height of the row pane is bound to the height of the row. So
          * when the row pane grows the cell will also grow.
          */
-        Bindings.bindBidirectional(prefHeightProperty(),
-                rowPane.prefHeightProperty());
+        Bindings.bindBidirectional(prefHeightProperty(), rowPane.prefHeightProperty());
 
         /*
          * We might have to redraw activity links.
@@ -50,26 +49,21 @@ public class RowCell<R extends Row<?, ?, ?>> extends ListCell<R> {
         setGraphic(rowPane);
         setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
 
-        visibleProperty()
-                .addListener(
-                        observable -> {
+        visibleProperty().addListener(it -> {
+            boolean visible = isVisible();
 
-                            boolean visible = isVisible();
+            Row<?, ?, ?> row = getItem();
+            if (row != null) {
+                row.getProperties().put("com.flexganttfx.row.showing", visible);
+            }
 
-                            Row<?, ?, ?> row = getItem();
-                            if (row != null) {
-                                row.getProperties().put("com.flexganttfx.row.showing", visible);
-                            }
-
-                            if (visible) {
-                                if (LoggingDomain.RENDERING
-                                        .isLoggable(Level.FINE)) {
-                                    LoggingDomain.RENDERING
-                                            .fine("redrawing canvas because of row cell visibility changing to true");
-                                }
-                                rowPane.getCanvas().draw("row cell became visible");
-                            }
-                        });
+            if (visible) {
+                if (LoggingDomain.RENDERING.isLoggable(Level.FINE)) {
+                    LoggingDomain.RENDERING.fine("redrawing canvas because of row cell visibility changing to true");
+                }
+                rowPane.getCanvas().draw("row cell became visible");
+            }
+        });
     }
 
     @Override

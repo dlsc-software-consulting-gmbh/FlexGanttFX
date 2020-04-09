@@ -16,12 +16,12 @@ import com.flexganttfx.model.util.TimeInterval;
 import com.flexganttfx.view.GanttChartLite;
 import com.flexganttfx.view.graphics.ActivityEvent;
 import com.flexganttfx.view.graphics.GraphicsBase;
+import com.flexganttfx.view.graphics.GraphicsBase.RowHeader;
 import com.flexganttfx.view.timeline.Timeline;
+import com.jpro.webapi.WebAPI;
 import impl.com.flexganttfx.skin.graphics.DragCanvas;
 import impl.com.flexganttfx.skin.graphics.GraphicsBaseSkin;
 import javafx.event.EventHandler;
-
-import com.jpro.webapi.WebAPI;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -36,8 +36,23 @@ public class EmiratesAircraftGanttChart extends GanttChartLite<ModelObject<?, ?,
 		timeline.setMoveAnimated(!WebAPI.isBrowser());
 		timeline.setZoomAnimated(!WebAPI.isBrowser());
 
-        getGraphics().getBackgroundSystemLayers().add(new GroupSystemLayer(getGraphics()));
+		setRowHeaderWidth(80);
+
+		getGraphics().getBackgroundSystemLayers().add(new GroupSystemLayer(getGraphics()));
 		getGraphics().setActivityRenderer(Flight.class, GanttLayout.class,new FlightRenderer(getGraphics()));
+		getGraphics().setRowHeaderFactory(graphics -> new RowHeader<>() {
+			{
+				setStyle("-fx-padding: 10; -fx-background-color: gray, lightgray; -fx-background-insets: 0, 0 1 1 0");
+				itemProperty().addListener(it -> {
+					final ModelObject<?, ?, ?> item = getItem();
+					if (item != null && !(item instanceof Group)) {
+						setText(item.getName());
+					} else {
+						setText("");
+					}
+				});
+			}
+		});
 
 		EventHandler<ActivityEvent> updateListener = new EventHandler<>() {
 			@Override

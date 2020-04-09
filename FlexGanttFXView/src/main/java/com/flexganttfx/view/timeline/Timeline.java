@@ -26,9 +26,11 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
+import javafx.scene.Node;
 import javafx.scene.control.Skin;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.input.ZoomEvent;
+import javafx.scene.layout.Region;
 import javafx.util.Duration;
 
 import java.time.Instant;
@@ -100,7 +102,6 @@ public class Timeline extends FlexGanttFXControl {
      * @since 1.0
      */
     public Timeline() {
-
         setPrefWidth(0);
         setMinWidth(0);
 
@@ -159,6 +160,19 @@ public class Timeline extends FlexGanttFXControl {
 
         dateline = new Dateline(this);
         eventline = new Eventline(this);
+
+        extraProperty().addListener(it -> {
+            final Node extra = getExtra();
+            if (extra != null && extra instanceof Region) {
+                Region region = (Region) extra;
+                region.prefWidthProperty().bind(extraWidthProperty());
+                region.setMinWidth(Region.USE_PREF_SIZE);
+                region.setMaxWidth(Region.USE_PREF_SIZE);
+            }
+        });
+        Region extra = new Region();
+        extra.getStyleClass().add("extra");
+        setExtra(extra);
     }
 
     @Override
@@ -169,6 +183,49 @@ public class Timeline extends FlexGanttFXControl {
     @Override
     public String getUserAgentStylesheet() {
         return super.getUserAgentStylesheet(Timeline.class, "timeline.css");
+    }
+
+    private final ObjectProperty<Node> extra = new SimpleObjectProperty<>(this, "extra");
+
+    /**
+     * A node that will be shown to the left of the timeline to create some spacing, e.g.
+     * when the application wants to display row headers. Then this "spacer" is needed to
+     * keep the timeline aligned with the graphics area.
+     *
+     * @return a node shown to the left of the actual timeline
+     * @since 11.11.0
+     */
+    public final ObjectProperty<Node> extraProperty() {
+        return extra;
+    }
+
+    public final Node getExtra() {
+        return extra.get();
+    }
+
+    public final void setExtra(Node extra) {
+        this.extra.set(extra);
+    }
+
+    private final DoubleProperty extraWidth = new SimpleDoubleProperty(this, "cornerWidth", 100);
+
+    /**
+     * Determines the width of the "extra" node on the left-hand side of the timeline.
+     *
+     * @see #extraProperty()
+     * @return the extra width
+     * @since 11.11.0
+     */
+    public final DoubleProperty extraWidthProperty() {
+        return extraWidth;
+    }
+
+    public final double getExtraWidth() {
+        return extraWidth.get();
+    }
+
+    public final void setExtraWidth(double extraWidth) {
+        this.extraWidth.set(extraWidth);
     }
 
     /**

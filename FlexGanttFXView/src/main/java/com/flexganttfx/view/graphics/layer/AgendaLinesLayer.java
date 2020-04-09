@@ -178,19 +178,18 @@ public class AgendaLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 	}
 
 	@Override
-	public void drawLayer(RowCanvas<R> canvas, Instant startTime,
-			Instant endTime) {
-		double height = canvas.getHeight();
-		double width = canvas.getWidth();
+	public void drawLayer(RowCanvas<R> canvas, Instant startTime, Instant endTime) {
 
-		Row<?, ?, ?> row = canvas.getRow();
+		final double height = canvas.getHeight();
+		final double width = canvas.getWidth();
+
+		final Row<?, ?, ?> row = canvas.getRow();
+
 		if (row != null) {
-			double xOffset = calculateXOffset();
-
 			GraphicsContext gc = canvas.getGraphicsContext2D();
 			Layout layout = row.getLayout();
 			if (layout instanceof AgendaLayout) {
-				drawLines(xOffset, 0, height, width, gc, (AgendaLayout) layout);
+				drawLines(0, 0, height, width, gc, (AgendaLayout) layout);
 			}
 
 			int lineCount = row.getLineCount();
@@ -199,32 +198,18 @@ public class AgendaLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 				if (layout instanceof AgendaLayout) {
 					double lineLocation = row.getLineLocation(lineIndex);
 					double lineHeight = row.getLineHeight(lineIndex);
-					drawLines(xOffset, lineLocation, lineHeight, width, gc,
-							(AgendaLayout) layout);
+					drawLines(0, lineLocation, lineHeight, width, gc, (AgendaLayout) layout);
 				}
 			}
 		}
 	}
 
-	private double calculateXOffset() {
-		@SuppressWarnings("unchecked")
-		ScaleLayer<R> scaleLayer = getGraphics().getSystemLayer(
-				ScaleLayer.class);
-		if (scaleLayer != null && scaleLayer.isVisible()) {
-			return scaleLayer.getScaleWidth();
-		}
-
-		return 0;
-	}
-
-	private void drawLines(double xOffset, double yOffset, double height,
-			double width, GraphicsContext gc, AgendaLayout layout) {
+	private void drawLines(double xOffset, double yOffset, double height, double width, GraphicsContext gc, AgendaLayout layout) {
 
 		yOffset += layout.getPadding();
 		height -= (2 * layout.getPadding());
 
-		List<AgendaLineLocation> locations = AgendaHelper.getLineLocations(
-				layout, yOffset, height);
+		List<AgendaLineLocation> locations = AgendaHelper.getLineLocations(layout, yOffset, height);
 
 		for (AgendaLineLocation loc : locations) {
 

@@ -18,6 +18,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 import java.util.Collection;
 import java.util.function.Predicate;
@@ -138,6 +139,11 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
                             ", below: " + counterBelow +
                             ", rendered: " + counterDrawn +
                             ", time = " + (System.currentTimeMillis() - time));
+        }
+
+        if (graphics.isDebugMode()) {
+            gc.setStroke(Color.RED);
+            gc.strokeRect(0, 0, getWidth(), getHeight());
         }
     }
 

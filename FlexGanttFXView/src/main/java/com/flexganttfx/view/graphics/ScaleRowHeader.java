@@ -3,42 +3,33 @@
  * <p>
  * This file is part of FlexGanttFX.
  */
-package com.flexganttfx.view.graphics.layer;
+package com.flexganttfx.view.graphics;
 
 import com.flexganttfx.model.Layout;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.model.layout.AgendaLayout;
 import com.flexganttfx.model.layout.ChartLayout;
 import com.flexganttfx.model.layout.GanttLayout;
-import com.flexganttfx.view.graphics.GraphicsBase;
-import impl.com.flexganttfx.skin.graphics.RowCanvas;
+import com.flexganttfx.view.graphics.GraphicsBase.RowHeader;
 import impl.com.flexganttfx.skin.util.AgendaHelper;
 import impl.com.flexganttfx.skin.util.AgendaHelper.AgendaLineLocation;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
-import javafx.scene.SnapshotParameters;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.effect.BoxBlur;
-import javafx.scene.image.WritableImage;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
-import javafx.util.Duration;
 
 import java.text.NumberFormat;
-import java.time.Instant;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -56,27 +47,78 @@ import static javafx.scene.text.TextAlignment.RIGHT;
  * layout displays a time scale (8am, 9am, 10am, .....). The labels and dashes
  * in the scale layer have to align perfectly with the lines drawn by the agenda
  * lines layer and the chart lines layer.
- * <p>
- *     Important: this layer can only be used if the graphics buffer size is
- *     equal to zero. See also {@link GraphicsBase#setCanvasBuffer(double)}.
- * </p>
  *
  * @param <R> the type of the rows
- *
- * @see GraphicsBase#getForegroundSystemLayers()
- * @see GraphicsBase#getBackgroundSystemLayers()
- * @see GraphicsBase#getForegroundSystemLayer(Class)
- * @see GraphicsBase#getBackgroundSystemLayer(Class)
- *
  * @since 1.0
  */
-public class ScaleLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
+public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
 
-    public ScaleLayer(GraphicsBase<R> graphics) {
-        super("Scale", graphics);
+    private final GraphicsBase<R> graphics;
+    private final Canvas canvas;
+    private final ObjectProperty<Paint> dividerLineStroke = new SimpleObjectProperty<>(this, "dividerLineStroke");
+    private final InvalidationListener redrawListener = observable -> draw();
+    private final BooleanProperty majorChartLabelsVisible = new SimpleBooleanProperty(this, "majorChartLabelsVisible", true);
+    private final BooleanProperty minorChartLabelsVisible = new SimpleBooleanProperty(this, "minorChartLabelsVisible", true);
+    private final BooleanProperty majorChartLinesVisible = new SimpleBooleanProperty(this, "majorChartLinesVisible", true);
+    private final ObjectProperty<Paint> majorChartLinesStroke = new SimpleObjectProperty<>(this, "majorChartLinesStroke");
+    private final ObjectProperty<Paint> majorChartLabelsFill = new SimpleObjectProperty<>(this, "majorChartLabelsFill");
+    private final ObjectProperty<Paint> minorChartLabelsFill = new SimpleObjectProperty<>(this, "minorChartLabelsFill");
+    private final DoubleProperty majorChartLinesLineWidth = new SimpleDoubleProperty(this, "majorChartLinesLineWidth");
+    private final DoubleProperty majorChartLinesSize = new SimpleDoubleProperty(this, "majorChartLinesSize");
+    private final BooleanProperty minorChartLinesVisible = new SimpleBooleanProperty(this, "minorChartLinesVisible", true);
+    private final ObjectProperty<Paint> minorChartLinesStroke = new SimpleObjectProperty<>(this, "minorChartLinesStroke");
+    private final DoubleProperty minorChartLinesLineWidth = new SimpleDoubleProperty(this, "minorChartLinesLineWidth");
+    private final DoubleProperty minorChartLinesSize = new SimpleDoubleProperty(this, "minorChartLinesSize");
+    private final BooleanProperty agendaLabelsVisible = new SimpleBooleanProperty(this, "agendaLabelsVisible", true);
+    private final DoubleProperty agendaLinesLineWidth = new SimpleDoubleProperty(this, "agendaLinesLineWidth");
+    private final DoubleProperty agendaLinesSize = new SimpleDoubleProperty(this, "agendaLinesSize");
+    private final ObjectProperty<Paint> agendaLinesStroke = new SimpleObjectProperty<>(
+            this, "agendaLinesStroke");
+    private final ObjectProperty<Paint> agendaLabelsFill = new SimpleObjectProperty<>(this, "agendaLabelsFill");
+    private final BooleanProperty agendaLinesVisible = new SimpleBooleanProperty(this, "agendaLinesVisible", true);
+    private final ObjectProperty<DateTimeFormatter> dateTimeFormatter = new SimpleObjectProperty<>(this, "dateTimeFormatter", DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT));
+    private final ObjectProperty<NumberFormat> numberFormat = new SimpleObjectProperty<NumberFormat>(this, "numberFormat") {
+
+        @Override
+        public void set(NumberFormat newValue) {
+            if (newValue == null) {
+                throw new IllegalArgumentException("number format can not be null");
+            }
+            super.set(newValue);
+        }
+
+    };
+
+    public ScaleRowHeader(GraphicsBase<R> graphics) {
+        this.graphics = Objects.requireNonNull(graphics);
+        this.canvas = new Canvas() {
+
+            @Override
+            public boolean isResizable() {
+                return true;
+            }
+
+            @Override
+            public double prefWidth(double height) {
+                return getWidth();
+            }
+
+            @Override
+            public double prefHeight(double width) {
+                return getHeight();
+            }
+        };
+
+        canvas.widthProperty().bind(widthProperty());
+        canvas.heightProperty().bind(heightProperty());
+
+        canvas.widthProperty().addListener(it -> draw());
+        canvas.heightProperty().addListener(it -> draw());
+
+        setGraphic(canvas);
+        setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
 
         setNumberFormat(NumberFormat.getIntegerInstance());
-        setBackgroundFill(Color.rgb(77, 112, 128, .9));
         setDividerLineStroke(Color.rgb(255, 255, 255, .5));
 
         // major chart lines and labels
@@ -103,11 +145,6 @@ public class ScaleLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         setAgendaLabelsFill(Color.WHITE);
         setAgendaLabelsVisible(true);
 
-        redrawObservable(backgroundFill);
-        redrawObservable(bluredBackground);
-        redrawObservable(prefWidth);
-        redrawObservable(scaleWidth);
-        redrawObservable(font);
         redrawObservable(dividerLineStroke);
         redrawObservable(dateTimeFormatter);
         redrawObservable(numberFormat);
@@ -136,93 +173,60 @@ public class ScaleLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         redrawObservable(agendaLabelsFill);
         redrawObservable(agendaLabelsVisible);
 
-        fadeInOutObservable(graphics.showScaleLayerProperty());
-
-        graphics.showScaleLayerProperty().addListener(observable -> {
-            if (getGraphics().isShowScaleLayer()) {
-                slide(getPrefWidth());
-            } else {
-                slide(0);
-            }
-        });
-
-        if (graphics.isShowScaleLayer()) {
-            scaleWidth.set(getPrefWidth());
-        }
+        itemProperty().addListener(it -> draw());
     }
 
-    private void slide(double targetWidth) {
-        if (getGraphics().isFadeInOutVisibilityChanges()) {
-            KeyValue keyValue = new KeyValue(scaleWidth, targetWidth);
-            KeyFrame keyFrame = new KeyFrame(Duration.millis(333), keyValue);
-            Timeline timeline = new Timeline(keyFrame);
-            timeline.play();
-        } else {
-            scaleWidth.set(targetWidth);
-        }
+    /**
+     * Registers the given observable as something that requires
+     * a redraw of the graphics area. E.g.: the stroke color has
+     * changed.
+     *
+     * @param observable the observable to monitor for changes
+     */
+    protected void redrawObservable(Observable observable) {
+        requireNonNull(observable);
+        observable.addListener(redrawListener);
     }
 
-    @Override
-    public void drawLayer(RowCanvas<R> canvas, Instant startTime,
-                          Instant endTime) {
+    private void draw() {
         double canvasHeight = canvas.getHeight();
 
-        double width = getScaleWidth();
+        double width = getWidth();
         if (width > 0) {
+
             GraphicsContext gc = canvas.getGraphicsContext2D();
             gc.setFont(getFont());
+            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-            if (isBluredBackground()) {
-                updateBackground(canvas);
-
-                if (image != null) {
-                    gc.setEffect(blur);
-                    gc.drawImage(image, 0, 0);
-                    gc.setEffect(null);
-                }
-            }
-
-            gc.setFill(getBackgroundFill());
-            gc.fillRect(0, 0, width, canvasHeight);
-
-            Row<?, ?, ?> row = canvas.getRow();
+            Row<?, ?, ?> row = getItem();
             if (row != null) {
                 double xOffset = 0;
-                xOffset = drawLayoutSpecificHeader(xOffset, 0, canvasHeight,
-                        canvas, row.getLayout());
+                xOffset = drawLayoutSpecificHeader(xOffset, 0, canvasHeight, row.getLayout());
 
-                for (int lineIndex = 0; lineIndex < row
-                        .getLineCount(); lineIndex++) {
+                for (int lineIndex = 0; lineIndex < row.getLineCount(); lineIndex++) {
                     Layout lineLayout = row.getLineLayout(lineIndex);
                     double lineOffset = row.getLineLocation(lineIndex);
                     double lineHeight = row.getLineHeight(lineIndex);
-                    drawLayoutSpecificHeader(xOffset, lineOffset, lineHeight,
-                            canvas, lineLayout);
+                    drawLayoutSpecificHeader(xOffset, lineOffset, lineHeight, lineLayout);
 
                     gc.setLineWidth(.5);
                     gc.setStroke(getDividerLineStroke());
-                    gc.strokeLine(0, ((int) lineOffset + lineHeight) - .5,
-                            getScaleWidth(),
-                            ((int) lineOffset + lineHeight) - .5);
+                    gc.strokeLine(0, ((int) lineOffset + lineHeight) - .5, getWidth(), ((int) lineOffset + lineHeight) - .5);
                 }
             }
 
             gc.setLineWidth(.5);
             gc.setStroke(getDividerLineStroke());
-            gc.strokeLine(0, ((int) canvasHeight) - .5, getScaleWidth(),
-                    ((int) canvasHeight) - .5);
+            gc.strokeLine(0, ((int) canvasHeight) - .5, getWidth(), ((int) canvasHeight) - .5);
         }
     }
 
-    private double drawLayoutSpecificHeader(double xOffset, double yOffset,
-                                            double height, RowCanvas<R> canvas, Layout layout) {
+    private double drawLayoutSpecificHeader(double xOffset, double yOffset, double height, Layout layout) {
 
         yOffset += layout.getPadding();
         height -= (layout.getPadding() * 2);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
-
-        final GraphicsBase graphics = getGraphics();
 
         try {
             if (graphics.isSafeRendering()) {
@@ -232,11 +236,9 @@ public class ScaleLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
             if (layout instanceof GanttLayout) {
                 return drawLayoutHeaderGantt();
             } else if (layout instanceof AgendaLayout) {
-                return drawLayoutHeaderAgenda(yOffset, height, canvas,
-                        (AgendaLayout) layout);
+                return drawLayoutHeaderAgenda(yOffset, height, (AgendaLayout) layout);
             } else if (layout instanceof ChartLayout) {
-                return drawLayoutHeaderChart(yOffset, height, canvas,
-                        (ChartLayout) layout);
+                return drawLayoutHeaderChart(yOffset, height, (ChartLayout) layout);
             }
         } finally {
             if (graphics.isSafeRendering()) {
@@ -247,13 +249,13 @@ public class ScaleLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         return xOffset;
     }
 
-    private double drawLayoutHeaderAgenda(double yOffset, double height, RowCanvas<R> canvas, AgendaLayout layout) {
+    private double drawLayoutHeaderAgenda(double yOffset, double height, AgendaLayout layout) {
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         DateTimeFormatter formatter = getDateTimeFormatter();
 
-        double width = getScaleWidth();
+        double width = getWidth();
 
         List<AgendaLineLocation> lines = AgendaHelper.getLineLocations(layout, yOffset, height);
 
@@ -278,19 +280,18 @@ public class ScaleLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
             }
         });
 
-        return getScaleWidth();
+        return getWidth();
     }
 
     private double drawLayoutHeaderGantt() {
-        return getScaleWidth();
+        return getWidth();
     }
 
-    private double drawLayoutHeaderChart(double yOffset,
-                                         double height, RowCanvas<R> canvas, ChartLayout layout) {
+    private double drawLayoutHeaderChart(double yOffset, double height, ChartLayout layout) {
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        double width = getScaleWidth();
+        double width = getWidth();
 
         // minor lines
 
@@ -300,8 +301,7 @@ public class ScaleLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
             gc.setLineWidth(getMinorChartLinesLineWidth());
 
             for (double value : layout.getMinorTicks()) {
-                double y = getChartValueLocation(value, yOffset, height,
-                        layout);
+                double y = getChartValueLocation(value, yOffset, height, layout);
                 gc.strokeLine(width - getMinorChartLinesSize(), y, width, y);
             }
         }
@@ -313,13 +313,11 @@ public class ScaleLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
             NumberFormat format = getNumberFormat();
 
             for (double value : layout.getMinorTicks()) {
-                double y = getChartValueLocation(value, yOffset, height,
-                        layout);
+                double y = getChartValueLocation(value, yOffset, height, layout);
                 gc.setTextAlign(RIGHT);
                 gc.setTextBaseline(CENTER);
                 gc.setFill(getMinorChartLabelsFill());
-                gc.fillText(format.format(value),
-                        width - getMinorChartLinesSize() - 3, y);
+                gc.fillText(format.format(value), width - getMinorChartLinesSize() - 3, y);
             }
 
         }
@@ -332,8 +330,7 @@ public class ScaleLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
             gc.setLineWidth(getMajorChartLinesLineWidth());
 
             for (double value : layout.getMajorTicks()) {
-                double y = getChartValueLocation(value, yOffset, height,
-                        layout);
+                double y = getChartValueLocation(value, yOffset, height, layout);
                 gc.strokeLine(width - getMajorChartLinesSize(), y, width, y);
             }
         }
@@ -345,18 +342,16 @@ public class ScaleLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
             NumberFormat format = getNumberFormat();
 
             for (double value : layout.getMajorTicks()) {
-                double y = getChartValueLocation(value, yOffset, height,
-                        layout);
+                double y = getChartValueLocation(value, yOffset, height, layout);
                 gc.setTextAlign(TextAlignment.RIGHT);
                 gc.setTextBaseline(VPos.CENTER);
                 gc.setFill(getMajorChartLabelsFill());
-                gc.fillText(format.format(value),
-                        width - getMajorChartLinesSize() - 3, y);
+                gc.fillText(format.format(value), width - getMajorChartLinesSize() - 3, y);
             }
 
         }
 
-        return getScaleWidth();
+        return getWidth();
     }
 
     private double getChartValueLocation(double value, double yOffset,
@@ -373,61 +368,6 @@ public class ScaleLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         return ((int) (zeroLineLocation - value * ppv)) + .5;
     }
 
-    // blur (milk glass effect)
-    private final BoxBlur blur = new BoxBlur();
-
-    // background image
-    private WritableImage image;
-
-    /**
-     * Updates the background. Create a snapshot of the circle container that
-     * fits exactly this pane's bounds and updates the background.
-     */
-    private void updateBackground(RowCanvas<R> canvas) {
-        int width = (int) getScaleWidth();
-        int height = (int) canvas.getHeight();
-
-        if (width <= 0 || height <= 0) {
-            return;
-        }
-
-        /*
-         * Creates a new writable image and update background if dimensions do
-         * not match
-         */
-        if (image == null || width != (int) image.getWidth()
-                || height != (int) image.getHeight()) {
-            image = new WritableImage(width, height);
-        }
-
-        // create the snapshot parameters (defines viewport)
-        SnapshotParameters sp = new SnapshotParameters();
-        Rectangle2D rect = new Rectangle2D(0, 0, width, height);
-        sp.setViewport(rect);
-
-        // create the snaphot
-        image = canvas.snapshot(sp, image);
-    }
-
-    private final ObjectProperty<Font> font = new SimpleObjectProperty<>(this, "font",
-            Font.font("System", 8));
-
-    public final ObjectProperty<Font> fontProperty() {
-        return font;
-    }
-
-    public final void setFont(Font font) {
-        Objects.requireNonNull(font);
-        fontProperty().set(font);
-    }
-
-    public final Font getFont() {
-        return fontProperty().get();
-    }
-
-    private final ObjectProperty<Paint> dividerLineStroke = new SimpleObjectProperty<>(
-            this, "dividerLineStroke");
-
     public final ObjectProperty<Paint> dividerLineStrokeProperty() {
         return dividerLineStroke;
     }
@@ -441,110 +381,41 @@ public class ScaleLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         dividerLineStrokeProperty().set(stroke);
     }
 
-    private final BooleanProperty bluredBackground = new SimpleBooleanProperty(this,
-            "bluredBackground", false);
-
-    public final BooleanProperty bluredBackgroundProperty() {
-        return bluredBackground;
-    }
-
-    public final boolean isBluredBackground() {
-        return bluredBackground.get();
-    }
-
-    public final void setBluredBackground(boolean blurred) {
-        bluredBackground.set(blurred);
-    }
-
-    private final ObjectProperty<Paint> backgroundFill = new SimpleObjectProperty<>(
-            this, "backgroundFill");
-
-    public final ObjectProperty<Paint> backgroundFillProperty() {
-        return backgroundFill;
-    }
-
-    public final Paint getBackgroundFill() {
-        return backgroundFillProperty().get();
-    }
-
-    public final void setBackgroundFill(Paint fill) {
-        Objects.requireNonNull(fill);
-        backgroundFillProperty().set(fill);
-    }
-
-    private final DoubleProperty prefWidth = new SimpleDoubleProperty(this,
-            "prefWidth", 60);
-
-    public final DoubleProperty prefWidthProperty() {
-        return prefWidth;
-    }
-
-    public final double getPrefWidth() {
-        return prefWidth.get();
-    }
-
-    public final void setPrefWidth(double width) {
-        this.prefWidth.set(width);
-    }
-
-    private final ReadOnlyDoubleWrapper scaleWidth = new ReadOnlyDoubleWrapper(this,
-            "width", 0);
-
-    public final ReadOnlyDoubleProperty scaleWidthProperty() {
-        return scaleWidth.getReadOnlyProperty();
-    }
-
-    public final double getScaleWidth() {
-        return scaleWidth.get();
-    }
-
-    private final BooleanProperty majorChartLabelsVisible = new SimpleBooleanProperty(
-            this, "majorChartLabelsVisible", true);
-
     public final BooleanProperty majorChartLabelsVisibleProperty() {
         return majorChartLabelsVisible;
-    }
-
-    public final void setMajorChartLabelsVisible(boolean visible) {
-        majorChartLabelsVisibleProperty().set(visible);
     }
 
     public final boolean isMajorChartLabelsVisible() {
         return majorChartLabelsVisibleProperty().get();
     }
 
-    private final BooleanProperty minorChartLabelsVisible = new SimpleBooleanProperty(
-            this, "minorChartLabelsVisible", true);
+    public final void setMajorChartLabelsVisible(boolean visible) {
+        majorChartLabelsVisibleProperty().set(visible);
+    }
 
     public final BooleanProperty minorChartLabelsVisibleProperty() {
         return minorChartLabelsVisible;
-    }
-
-    public final void setMinorChartLabelsVisible(boolean visible) {
-        minorChartLabelsVisibleProperty().set(visible);
     }
 
     public final boolean isMinorChartLabelsVisible() {
         return minorChartLabelsVisibleProperty().get();
     }
 
-    private final BooleanProperty majorChartLinesVisible = new SimpleBooleanProperty(
-            this, "majorChartLinesVisible", true);
+    public final void setMinorChartLabelsVisible(boolean visible) {
+        minorChartLabelsVisibleProperty().set(visible);
+    }
 
     public final BooleanProperty majorChartLinesVisibleProperty() {
         return majorChartLinesVisible;
-    }
-
-    public final void setMajorChartLinesVisible(boolean visible) {
-        majorChartLinesVisibleProperty().set(visible);
     }
 
     public final boolean isMajorChartLinesVisible() {
         return majorChartLinesVisibleProperty().get();
     }
 
-    private final ObjectProperty<Paint> majorChartLinesStroke = new SimpleObjectProperty<>(
-            this, "majorChartLinesStroke");
+    public final void setMajorChartLinesVisible(boolean visible) {
+        majorChartLinesVisibleProperty().set(visible);
+    }
 
     public final ObjectProperty<Paint> majorChartLinesStrokeProperty() {
         return majorChartLinesStroke;
@@ -559,9 +430,6 @@ public class ScaleLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         majorChartLinesStrokeProperty().set(stroke);
     }
 
-    private final ObjectProperty<Paint> majorChartLabelsFill = new SimpleObjectProperty<>(
-            this, "majorChartLabelsFill");
-
     public final ObjectProperty<Paint> majorChartLabelsFillProperty() {
         return majorChartLabelsFill;
     }
@@ -574,9 +442,6 @@ public class ScaleLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         requireNonNull(fill);
         majorChartLabelsFillProperty().set(fill);
     }
-
-    private final ObjectProperty<Paint> minorChartLabelsFill = new SimpleObjectProperty<>(
-            this, "minorChartLabelsFill");
 
     public final ObjectProperty<Paint> minorChartLabelsFillProperty() {
         return minorChartLabelsFill;
@@ -591,9 +456,6 @@ public class ScaleLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         minorChartLabelsFillProperty().set(fill);
     }
 
-    private final DoubleProperty majorChartLinesLineWidth = new SimpleDoubleProperty(
-            this, "majorChartLinesLineWidth");
-
     public final DoubleProperty majorChartLinesLineWidthProperty() {
         return majorChartLinesLineWidth;
     }
@@ -605,9 +467,6 @@ public class ScaleLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
     public final void setMajorChartLinesLineWidth(double lineWidth) {
         majorChartLinesLineWidthProperty().set(lineWidth);
     }
-
-    private final DoubleProperty majorChartLinesSize = new SimpleDoubleProperty(
-            this, "majorChartLinesSize");
 
     public final DoubleProperty majorChartLinesSizeProperty() {
         return majorChartLinesSize;
@@ -621,27 +480,23 @@ public class ScaleLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         majorChartLinesSizeProperty().set(size);
     }
 
-    private final BooleanProperty minorChartLinesVisible = new SimpleBooleanProperty(
-            this, "minorChartLinesVisible", true);
-
     public final BooleanProperty minorChartLinesVisibleProperty() {
         return minorChartLinesVisible;
-    }
-
-    public final void setMinorChartLinesVisible(boolean visible) {
-        minorChartLinesVisibleProperty().set(visible);
     }
 
     public final boolean isMinorChartLinesVisible() {
         return minorChartLinesVisibleProperty().get();
     }
 
-    private final ObjectProperty<Paint> minorChartLinesStroke = new SimpleObjectProperty<>(
-            this, "minorChartLinesStroke");
+    public final void setMinorChartLinesVisible(boolean visible) {
+        minorChartLinesVisibleProperty().set(visible);
+    }
 
     public final ObjectProperty<Paint> minorChartLinesStrokeProperty() {
         return minorChartLinesStroke;
     }
+
+    // Agenda settings.
 
     public final Paint getMinorChartLinesStroke() {
         return minorChartLinesStrokeProperty().get();
@@ -651,9 +506,6 @@ public class ScaleLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         requireNonNull(stroke);
         minorChartLinesStrokeProperty().set(stroke);
     }
-
-    private final DoubleProperty minorChartLinesLineWidth = new SimpleDoubleProperty(
-            this, "minorChartLinesLineWidth");
 
     public final DoubleProperty minorChartLinesLineWidthProperty() {
         return minorChartLinesLineWidth;
@@ -667,9 +519,6 @@ public class ScaleLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         minorChartLinesLineWidthProperty().set(lineWidth);
     }
 
-    private final DoubleProperty minorChartLinesSize = new SimpleDoubleProperty(
-            this, "minorChartLinesSize");
-
     public final DoubleProperty minorChartLinesSizeProperty() {
         return minorChartLinesSize;
     }
@@ -682,25 +531,17 @@ public class ScaleLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         minorChartLinesSizeProperty().set(size);
     }
 
-    // Agenda settings.
-
-    private final BooleanProperty agendaLabelsVisible = new SimpleBooleanProperty(
-            this, "agendaLabelsVisible", true);
-
     public final BooleanProperty agendaLabelsVisibleProperty() {
         return agendaLabelsVisible;
-    }
-
-    public final void setAgendaLabelsVisible(boolean visible) {
-        agendaLabelsVisibleProperty().set(visible);
     }
 
     public final boolean isAgendaLabelsVisible() {
         return agendaLabelsVisibleProperty().get();
     }
 
-    private final DoubleProperty agendaLinesLineWidth = new SimpleDoubleProperty(
-            this, "agendaLinesLineWidth");
+    public final void setAgendaLabelsVisible(boolean visible) {
+        agendaLabelsVisibleProperty().set(visible);
+    }
 
     public final DoubleProperty agendaLinesLineWidthProperty() {
         return agendaLinesLineWidth;
@@ -714,9 +555,6 @@ public class ScaleLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         agendaLinesLineWidthProperty().set(lineWidth);
     }
 
-    private final DoubleProperty agendaLinesSize = new SimpleDoubleProperty(
-            this, "agendaLinesSize");
-
     public final DoubleProperty agendaLinesSizeProperty() {
         return agendaLinesSize;
     }
@@ -728,9 +566,6 @@ public class ScaleLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
     public final void setAgendaLinesSize(double size) {
         agendaLinesSizeProperty().set(size);
     }
-
-    private final ObjectProperty<Paint> agendaLinesStroke = new SimpleObjectProperty<>(
-            this, "agendaLinesStroke");
 
     public final ObjectProperty<Paint> agendaLinesStrokeProperty() {
         return agendaLinesStroke;
@@ -745,9 +580,6 @@ public class ScaleLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         agendaLinesStrokeProperty().set(stroke);
     }
 
-    private final ObjectProperty<Paint> agendaLabelsFill = new SimpleObjectProperty<>(
-            this, "agendaLabelsFill");
-
     public final ObjectProperty<Paint> agendaLabelsFillProperty() {
         return agendaLabelsFill;
     }
@@ -761,33 +593,22 @@ public class ScaleLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         agendaLabelsFillProperty().set(fill);
     }
 
-    private final BooleanProperty agendaLinesVisible = new SimpleBooleanProperty(this,
-            "agendaLinesVisible", true);
-
     public final BooleanProperty agendaLinesVisibleProperty() {
         return agendaLinesVisible;
+    }
+
+    // Date formatter support.
+
+    public final boolean isAgendaLinesVisible() {
+        return agendaLinesVisibleProperty().get();
     }
 
     public final void setAgendaLinesVisible(boolean visible) {
         agendaLinesVisibleProperty().set(visible);
     }
 
-    public final boolean isAgendaLinesVisible() {
-        return agendaLinesVisibleProperty().get();
-    }
-
-    // Date formatter support.
-
-    private final ObjectProperty<DateTimeFormatter> dateTimeFormatter = new SimpleObjectProperty<>(
-            this, "dateTimeFormatter",
-            DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT));
-
     public final ObjectProperty<DateTimeFormatter> dateTimeFormatterProperty() {
         return dateTimeFormatter;
-    }
-
-    public final void setDateTimeFormatter(DateTimeFormatter formatter) {
-        dateTimeFormatterProperty().set(formatter);
     }
 
     public final DateTimeFormatter getDateTimeFormatter() {
@@ -796,18 +617,9 @@ public class ScaleLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
     // Number format support.
 
-    private final ObjectProperty<NumberFormat> numberFormat = new SimpleObjectProperty<NumberFormat>(
-            this, "numberFormat") {
-
-        @Override
-        public void set(NumberFormat newValue) {
-            if (newValue == null) {
-                throw new IllegalArgumentException("number format can not be null");
-            }
-            super.set(newValue);
-        }
-
-    };
+    public final void setDateTimeFormatter(DateTimeFormatter formatter) {
+        dateTimeFormatterProperty().set(formatter);
+    }
 
     /**
      * A property used to store a number format that will be used to format
@@ -821,23 +633,20 @@ public class ScaleLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
     }
 
     /**
-     * Returns the value of {@link #getNumberFormat()}.
-     *
-     * @since 1.4
-     * @param format
-     *            the number format to use for chart values
-     */
-    public final void setNumberFormat(NumberFormat format) {
-        numberFormatProperty().set(format);
-    }
-
-    /**
      * Returns the value of {@link #numberFormatProperty()}.
      *
-     * @since 1.4
      * @return the number format for chart values
      */
     public final NumberFormat getNumberFormat() {
         return numberFormatProperty().get();
+    }
+
+    /**
+     * Returns the value of {@link #getNumberFormat()}.
+     *
+     * @param format the number format to use for chart values
+     */
+    public final void setNumberFormat(NumberFormat format) {
+        numberFormatProperty().set(format);
     }
 }

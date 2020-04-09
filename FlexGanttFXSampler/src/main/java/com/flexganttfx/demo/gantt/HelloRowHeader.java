@@ -32,11 +32,9 @@ public class HelloRowHeader extends FlexGanttFXSample {
 	}
 
 	@Override
-	protected GanttChart<?> createGanttChart() throws Exception {
+	protected GanttChart<?> createGanttChart() {
 		gantt = new GanttChart<>();
-		gantt.getStylesheets().add(
-				HelloRowHeader.class.getResource("row-header.css")
-						.toExternalForm());
+		gantt.getStylesheets().add(HelloRowHeader.class.getResource("row-header.css").toExternalForm());
 
 		List<MyRow> rows = new ArrayList<>();
 		for (int i = 0; i < 10; i++) {

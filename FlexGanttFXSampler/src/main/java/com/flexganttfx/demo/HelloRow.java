@@ -5,11 +5,11 @@
  */
 package com.flexganttfx.demo;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.model.Row;
+
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 public class HelloRow extends Row<HelloRow, HelloRow, HelloActivity> {
 	public static final Layer layer = new Layer("Hello Layer");
@@ -24,7 +24,7 @@ public class HelloRow extends Row<HelloRow, HelloRow, HelloActivity> {
 			
 			Instant st = Instant.from(time);
 			Instant et = st.plus(days, ChronoUnit.DAYS);
-			
+
 			HelloActivity activity = new HelloActivity();
 			activity.setStartTime(st);
 			activity.setEndTime(et);

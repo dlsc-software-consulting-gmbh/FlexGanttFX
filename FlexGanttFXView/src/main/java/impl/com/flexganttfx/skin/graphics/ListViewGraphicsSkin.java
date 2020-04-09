@@ -288,7 +288,7 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
                 RowPane<R> pane = cell.getRowPane();
                 RowCanvas<R> canvas = pane.getCanvas();
 
-                List<ActivityBounds> selections = canvas.getActivityBounds(lasso.getBoundsInLocal().getMinX(),
+                List<ActivityBounds> selections = canvas.getActivityBounds(lasso.getBoundsInLocal().getMinX() - getSkinnable().getRowHeaderWidth(),
                         Math.max(0, lassoBounds.getMinY() - cellBounds.getMinY()),
                         lasso.getBoundsInLocal().getWidth(),
                         lasso.getBoundsInLocal().getHeight());

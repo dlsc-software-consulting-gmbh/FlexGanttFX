@@ -194,10 +194,9 @@ public class ChartLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 			 */
 			Layout layout = row.getLayout();
 			if (layout instanceof ChartLayout) {
-				double xOffset = calculateXOffset();
 				double height = canvas.getHeight();
 				double width = canvas.getWidth();
-				drawLines(xOffset, 0, height, width, gc, (ChartLayout) layout);
+				drawLines(0, 0, height, width, gc, (ChartLayout) layout);
 			}
 
 			int lineCount = row.getLineCount();
@@ -206,23 +205,11 @@ public class ChartLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 				if (layout instanceof ChartLayout) {
 					double lineLocation = row.getLineLocation(lineIndex);
 					double lineHeight = row.getLineHeight(lineIndex);
-					double xOffset = calculateXOffset();
-					double height = canvas.getHeight();
 					double width = canvas.getWidth();
-					drawLines(xOffset, lineLocation, lineHeight, width, gc, (ChartLayout) layout);
+					drawLines(0, lineLocation, lineHeight, width, gc, (ChartLayout) layout);
 				}
 			}
 		}
-	}
-
-	private double calculateXOffset() {
-		@SuppressWarnings("unchecked")
-		ScaleLayer<R> scaleLayer = getGraphics().getSystemLayer(ScaleLayer.class);
-		if (scaleLayer != null && scaleLayer.isVisible()) {
-			return scaleLayer.getScaleWidth();
-		}
-
-		return 0;
 	}
 
 	private void drawLines(double xOffset, double yOffset, double height,

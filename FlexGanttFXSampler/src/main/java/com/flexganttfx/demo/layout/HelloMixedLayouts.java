@@ -61,16 +61,13 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
 
     private GanttChart<CapacityRow> ganttChart;
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public String getSampleName() {
         return "Mixed";
-    }
-
-    private enum FilterMode {
-        NONE,
-        GANTT,
-        CAPACITY,
-        AGENDA
     }
 
     @Override
@@ -106,14 +103,9 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
     @Override
     protected GanttChart<?> createGanttChart() {
         ganttChart = new GanttChart<>(new CapacityRow(true));
-        ganttChart.getGraphics().setActivityRenderer(CapacityIndicator.class,
-                GanttLayout.class,
-                new CapacityIndicatorRenderer(ganttChart.getGraphics()));
+        ganttChart.getGraphics().setActivityRenderer(CapacityIndicator.class, GanttLayout.class, new CapacityIndicatorRenderer(ganttChart.getGraphics()));
         ganttChart.getTimeline().setZoomMode(ZoomMode.KEEP_START_TIME);
-        ganttChart.getGraphics().setShowScaleLayer(true);
-        ganttChart.getGraphics().setActivityRenderer(AgendaEntry.class,
-                AgendaLayout.class,
-                new AgendaEntryRenderer(ganttChart.getGraphics()));
+        ganttChart.getGraphics().setActivityRenderer(AgendaEntry.class, AgendaLayout.class, new AgendaEntryRenderer(ganttChart.getGraphics()));
 
         Layer capacitiesLayer = new Layer("Capacities");
         Layer agendaLayer = new Layer("Agenda");
@@ -152,14 +144,11 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
                     if (Math.random() > .8) {
                         int duration = (int) ((Math.random() * 3) + 1);
                         LocalTime localStartTime = LocalTime.of(hour, 0);
-                        LocalTime localEndTime = LocalTime.of(hour + duration,
-                                0);
+                        LocalTime localEndTime = LocalTime.of(hour + duration, 0);
 
                         AgendaEntry entry = new AgendaEntry();
-                        entry.setStartTime(Instant.from(zonedDateTime
-                                .with(localStartTime)));
-                        entry.setEndTime(Instant.from(zonedDateTime
-                                .with(localEndTime)));
+                        entry.setStartTime(Instant.from(zonedDateTime.with(localStartTime)));
+                        entry.setEndTime(Instant.from(zonedDateTime.with(localEndTime)));
 
                         childRow.addActivity(agendaLayer, entry);
 
@@ -208,10 +197,22 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
         return ganttChart;
     }
 
+    @Override
+    public String getJavaDocURL() {
+        return getJavaDocBase() + "com/flexganttfx/model/Layout.html";
+    }
+
+    private enum FilterMode {
+        NONE,
+        GANTT,
+        CAPACITY,
+        AGENDA
+    }
+
     class AgendaEntry extends MutableActivityBase<String> {
-        private int colorCode;
-        private boolean alarmSet;
-        private boolean recurring;
+        private final int colorCode;
+        private final boolean alarmSet;
+        private final boolean recurring;
 
         public AgendaEntry() {
             colorCode = (int) (Math.random() * 3);
@@ -233,19 +234,19 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
     }
 
     class AgendaEntryRenderer extends ActivityRenderer<AgendaEntry> {
-        private DateTimeFormatter dateFormatter = DateTimeFormatter
+        private final DateTimeFormatter dateFormatter = DateTimeFormatter
                 .ofLocalizedDate(FormatStyle.MEDIUM);
-        private DateTimeFormatter timeFormatter = DateTimeFormatter
+        private final DateTimeFormatter timeFormatter = DateTimeFormatter
                 .ofLocalizedTime(FormatStyle.SHORT);
 
-        private Map<Integer, Color> fillColorMap = new HashMap<>();
-        private Map<Integer, Color> strokeColorMap = new HashMap<>();
-        private Map<Integer, Color> textColorMap = new HashMap<>();
+        private final Map<Integer, Color> fillColorMap = new HashMap<>();
+        private final Map<Integer, Color> strokeColorMap = new HashMap<>();
+        private final Map<Integer, Color> textColorMap = new HashMap<>();
 
-        private Font font = Font.font("system", FontWeight.BOLD, 10);
+        private final Font font = Font.font("system", FontWeight.BOLD, 10);
 
-        private Image alarmImage;
-        private Image recurringImage;
+        private final Image alarmImage;
+        private final Image recurringImage;
 
         public AgendaEntryRenderer(GraphicsBase<?> graphics) {
             super(graphics, "Agenda Entries");
@@ -334,7 +335,7 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
                     switch (position) {
                         case FIRST:
                         case MIDDLE:
-						default:
+                        default:
                             break;
                         case LAST:
                         case ONLY:
@@ -366,7 +367,7 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
 
     class CapacityIndicator extends MutableActivityBase<Object> {
 
-        private ChartActivity capacity;
+        private final ChartActivity capacity;
 
         public CapacityIndicator(ChartActivity capacity) {
             this.capacity = capacity;
@@ -379,8 +380,8 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
 
     class CapacityIndicatorRenderer extends ActivityBarRenderer<CapacityIndicator> {
 
-        private Map<Integer, Paint> paintMap = new HashMap<>();
-        private Map<Integer, Paint> textFillMap = new HashMap<>();
+        private final Map<Integer, Paint> paintMap = new HashMap<>();
+        private final Map<Integer, Paint> textFillMap = new HashMap<>();
 
         public CapacityIndicatorRenderer(GraphicsBase<?> graphics) {
             super(graphics, "Capacity Indicator");
@@ -462,11 +463,11 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
 
     public class CapacityRowLineManager extends LinesManagerBase<Activity> {
 
-        private GanttLayout ganttLayout = new GanttLayout();
+        private final GanttLayout ganttLayout = new GanttLayout();
 
-        private ChartLayout capacityLayout = new ChartLayout();
+        private final ChartLayout capacityLayout = new ChartLayout();
 
-        private AgendaLayout agendaLayout = new AgendaLayout();
+        private final AgendaLayout agendaLayout = new AgendaLayout();
 
         public CapacityRowLineManager(CapacityRow row) {
             super(row);
@@ -532,14 +533,5 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
                     return agendaLayout;
             }
         }
-    }
-
-    @Override
-    public String getJavaDocURL() {
-        return getJavaDocBase() + "com/flexganttfx/model/Layout.html";
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }
