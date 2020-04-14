@@ -135,7 +135,7 @@ public class SplitPaneGraphicsSkin<R extends Row<?, ?, ?>> extends
 					RowPane<R> rowPane = (RowPane<R>) node;
 					RowCanvas<R> rowCanvas = rowPane.getCanvas();
 
-					double x = localLassoBounds.getMinX() - getSkinnable().getRowHeaderWidth();
+					double x = localLassoBounds.getMinX() - getRowHeaderWidth();
 					double y = Math.max(0, sceneLassoBounds.getMinY() - sceneNodeBounds.getMinY());
 
 					double w = localLassoBounds.getWidth();

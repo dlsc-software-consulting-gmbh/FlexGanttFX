@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.view.timeline;
@@ -10,6 +10,7 @@ import com.flexganttfx.model.timeline.ChronoUnitTimelineModel;
 import com.flexganttfx.model.timeline.TimelineModel;
 import com.flexganttfx.model.util.TimeInterval;
 import com.flexganttfx.view.GanttChart;
+import com.flexganttfx.view.GanttChartBase;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.util.FlexGanttFXControl;
 import impl.com.flexganttfx.skin.timeline.TimelineSkin;
@@ -102,6 +103,7 @@ public class Timeline extends FlexGanttFXControl {
      * @since 1.0
      */
     public Timeline() {
+
         setPrefWidth(0);
         setMinWidth(0);
 
@@ -163,13 +165,20 @@ public class Timeline extends FlexGanttFXControl {
 
         extraProperty().addListener(it -> {
             final Node extra = getExtra();
-            if (extra != null && extra instanceof Region) {
-                Region region = (Region) extra;
-                region.prefWidthProperty().bind(extraWidthProperty());
-                region.setMinWidth(Region.USE_PREF_SIZE);
-                region.setMaxWidth(Region.USE_PREF_SIZE);
+            if (extra != null) {
+
+                extra.visibleProperty().bind(showExtraProperty());
+                extra.managedProperty().bind(showExtraProperty());
+
+                if (extra instanceof Region) {
+                    Region region = (Region) extra;
+                    region.prefWidthProperty().bind(extraWidthProperty());
+                    region.setMinWidth(Region.USE_PREF_SIZE);
+                    region.setMaxWidth(Region.USE_PREF_SIZE);
+                }
             }
         });
+
         Region extra = new Region();
         extra.getStyleClass().add("extra");
         setExtra(extra);
@@ -180,10 +189,14 @@ public class Timeline extends FlexGanttFXControl {
         return new TimelineSkin(this);
     }
 
+    // Visible time range support.
+
     @Override
     public String getUserAgentStylesheet() {
         return super.getUserAgentStylesheet(Timeline.class, "timeline.css");
     }
+
+    // "Extra" node support
 
     private final ObjectProperty<Node> extra = new SimpleObjectProperty<>(this, "extra");
 
@@ -193,6 +206,7 @@ public class Timeline extends FlexGanttFXControl {
      * keep the timeline aligned with the graphics area.
      *
      * @return a node shown to the left of the actual timeline
+     *
      * @since 11.11.0
      */
     public final ObjectProperty<Node> extraProperty() {
@@ -205,6 +219,32 @@ public class Timeline extends FlexGanttFXControl {
 
     public final void setExtra(Node extra) {
         this.extra.set(extra);
+    }
+
+    private final BooleanProperty showExtra = new SimpleBooleanProperty(this, "showExtra", false);
+
+    /**
+     * Determines if the "extras" node will be shown on the left-hand side of the timeline.
+     * This is normally only the case if the Gantt chart wants to display the row headers.
+     *
+     * @see GanttChartBase#showRowHeadersProperty()
+     * @see GraphicsBase#showRowHeadersProperty()
+     * @see #extraProperty()
+     *
+     * @return true if the timeline should display the "extra" node spacer on the left-hand side
+     *
+     * @since 11.11.0
+     */
+    public final BooleanProperty showExtraProperty() {
+        return showExtra;
+    }
+
+    public final boolean isShowExtra() {
+        return showExtra.get();
+    }
+
+    public final void setShowExtra(boolean showExtra) {
+        this.showExtra.set(showExtra);
     }
 
     private final DoubleProperty extraWidth = new SimpleDoubleProperty(this, "cornerWidth", 100);
@@ -297,6 +337,8 @@ public class Timeline extends FlexGanttFXControl {
     public final boolean isScrollDragEnabled() {
         return scrollDragEnabled.get();
     }
+
+    // Move "animated" support.
 
     /**
      * Sets the value of {@link #scrollDragEnabledProperty}.
@@ -707,8 +749,7 @@ public class Timeline extends FlexGanttFXControl {
 
     // Zoom factor
 
-    private final DoubleProperty zoomFactor = new SimpleDoubleProperty(this,
-            "zoomFactor", .5) {
+    private final DoubleProperty zoomFactor = new SimpleDoubleProperty(this, "zoomFactor", .5) {
         @Override
         public void setValue(Number number) {
             if (number.doubleValue() <= 0) {

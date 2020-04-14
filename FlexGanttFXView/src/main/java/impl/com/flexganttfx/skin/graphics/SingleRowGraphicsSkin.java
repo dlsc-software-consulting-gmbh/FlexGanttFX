@@ -55,7 +55,7 @@ public class SingleRowGraphicsSkin<R extends Row<?, ?, ?>>
 		RowCanvas<R> canvas = rowPane.getCanvas();
 
 		List<ActivityBounds> selections = canvas.getActivityBounds(
-				lasso.getBoundsInLocal().getMinX() - getSkinnable().getRowHeaderWidth(),
+				lasso.getBoundsInLocal().getMinX() - getRowHeaderWidth(),
 				Math.max(0, lassoBounds.getMinY()),
 				lasso.getBoundsInLocal().getWidth(),
 				lasso.getBoundsInLocal().getHeight());

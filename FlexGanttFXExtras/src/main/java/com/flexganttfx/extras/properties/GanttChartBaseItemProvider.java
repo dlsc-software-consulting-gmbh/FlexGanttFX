@@ -39,7 +39,7 @@ public class GanttChartBaseItemProvider<R extends Row<?, ?, ?>> implements ItemP
 
             @Override
             public Optional<ObservableValue<?>> getObservableValue() {
-                return Optional.of(gc.rowHeaderWidthProperty());
+                return Optional.of(gc.rowHeadersWidthProperty());
             }
 
             @Override

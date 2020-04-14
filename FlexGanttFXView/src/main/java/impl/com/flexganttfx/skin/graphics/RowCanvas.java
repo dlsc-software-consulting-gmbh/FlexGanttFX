@@ -34,6 +34,7 @@ import com.flexganttfx.view.util.Position;
 import impl.com.flexganttfx.skin.util.Placement;
 import impl.com.flexganttfx.skin.util.Resolver;
 import impl.com.flexganttfx.skin.util.ResolverResult;
+import javafx.animation.AnimationTimer;
 import javafx.beans.InvalidationListener;
 import javafx.beans.WeakInvalidationListener;
 import javafx.beans.property.BooleanProperty;
@@ -93,10 +94,6 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
     private RowCanvasBehaviour<?> rowCanvasBehaviour;
 
-//    private Instant drawingStartTime;
-
-  //  private Instant drawingEndTime;
-
     public RowCanvas(GraphicsBase<R> graphics) {
         requireNonNull(graphics);
 
@@ -131,10 +128,25 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         graphics.canvasBufferProperty().addListener(it -> randomTranslateX(true));
         randomTranslateX(true);
 
+        AnimationTimer timer = new AnimationTimer() {
+            private long last = 0;
+
+            @Override
+            public void handle(long now) {
+                if (now - last > 34000000) { // 60 frames / second
+                    if (dirty) {
+                        last = now;
+                        doDraw(false);
+                    }
+                }
+            }
+        };
+
+        timer.start();
+
         final Runnable drawRunnable = () -> {
             if (dirty) {
-                doDraw();
-                LoggingDomain.RENDERING.fine("calls to draw = " + drawCounter + ", actual draws = " + doDrawCounter + ", saved draws = " + (drawCounter - doDrawCounter));
+                doDraw(true);
             }
         };
 
@@ -179,10 +191,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
             if (observable instanceof ReadOnlyProperty) {
                 if (LoggingDomain.RENDERING.isLoggable(Level.FINE)) {
-                    LoggingDomain.RENDERING.fine(
-                            "redraw because of property change, property = "
-                                    + ((ReadOnlyProperty<?>) observable)
-                                    .getName());
+                    LoggingDomain.RENDERING.fine("redraw because of property change, property = " + ((ReadOnlyProperty<?>) observable).getName());
                 }
             }
 
@@ -272,7 +281,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         }
     }
 
-    private void doDraw() {
+    private void doDraw(boolean pulse) {
         if (doDrawCounter < Integer.MAX_VALUE) {
             doDrawCounter++;
         } else {
@@ -283,7 +292,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         dirty = false;
 
         if (LoggingDomain.RENDERING.isLoggable(Level.FINEST)) {
-            LoggingDomain.RENDERING.finest("drawing canvas of row " + getRow() + ", reason: " + reason);
+            LoggingDomain.RENDERING.finest("drawing canvas of row " + getRow() + ", reason: " + reason + ", pulse: " + pulse);
         }
 
         activityBounds.clear();
@@ -367,6 +376,8 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
             gc.strokeLine(calculateLocation(drawingStartTime), 5, calculateLocation(drawingStartTime), getHeight() - 10);
             gc.strokeLine(calculateLocation(drawingEndTime) - 2, 5, calculateLocation(drawingEndTime) - 2, getHeight() - 10);
         }
+
+        LoggingDomain.RENDERING.fine("calls to draw = " + drawCounter + ", actual draws = " + doDrawCounter + ", saved draws = " + (drawCounter - doDrawCounter));
     }
 
     private void drawSystemLayer(SystemLayer<R> layer, GraphicsContext gc, Instant startTime, Instant endTime) {

@@ -4403,6 +4403,26 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         return rowHeaderFactory.get();
     }
 
+    private final BooleanProperty showRowHeaders = new SimpleBooleanProperty(this, "showRowHeaders", false);
+
+    /**
+     * Determines if the row headers will be shown to the user or not.
+     *
+     * @return true if the row headers will be visible
+     * @since 11.11.0
+     */
+    public final BooleanProperty showRowHeadersProperty() {
+        return showRowHeaders;
+    }
+
+    public final boolean isShowRowHeaders() {
+        return showRowHeaders.get();
+    }
+
+    public final void setShowRowHeaders(boolean showRowHeaders) {
+        this.showRowHeaders.set(showRowHeaders);
+    }
+
     private final DoubleProperty rowHeaderWidth = new SimpleDoubleProperty(this, "rowHeaderWidth", 100);
 
     /**
@@ -4570,8 +4590,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
          * @param activityBounds the activity / bounds for which to determine the edit mode
          * @param event          the mouse event triggering the edit mode lookup
          */
-        public EditModeCallbackParameter(ActivityBounds activityBounds,
-                                         MouseEvent event) {
+        public EditModeCallbackParameter(ActivityBounds activityBounds, MouseEvent event) {
             requireNonNull(activityBounds);
             requireNonNull(event);
 
@@ -4606,9 +4625,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
             Callback<EditModeCallbackParameter, EditMode> callback) {
 
         if (callback != null) {
-            LoggingDomain.CONFIG.fine("layout = " + layoutType + ", class = "
-                    + activityType + ", callback = "
-                    + callback.getClass().getName());
+            LoggingDomain.CONFIG.fine("layout = " + layoutType + ", class = " + activityType + ", callback = " + callback.getClass().getName());
         } else {
             LoggingDomain.CONFIG.fine("class = " + activityType + ", callback = null");
         }

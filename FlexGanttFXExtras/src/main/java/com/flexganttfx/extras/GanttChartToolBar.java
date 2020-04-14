@@ -182,6 +182,11 @@ public class GanttChartToolBar<R extends Row<?, ?, ?>> extends ToolBar {
 			links.selectedProperty().bindBidirectional(ganttChart.getGraphics().showLinksProperty());
 			getItems().add(links);
 
+			ToggleButton headers = new ToggleButton(Messages.getString("GanttChartToolBar.BUTTON_SCALE"));
+			headers.setGraphic(new FontIcon(MaterialDesign.MDI_RULER));
+			headers.selectedProperty().bindBidirectional(ganttChart.showRowHeadersProperty());
+			getItems().add(headers);
+
 			Button layers = new Button(Messages.getString("GanttChartToolBar.BUTTON_LAYERS"));
 			layers.setGraphic(new FontIcon(MaterialDesign.MDI_LAYERS));
 			layers.setOnAction(showLayerControls(layers));

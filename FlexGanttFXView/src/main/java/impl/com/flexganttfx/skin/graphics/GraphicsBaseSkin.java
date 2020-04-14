@@ -77,14 +77,16 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
     private final LinksCanvas<R> linksCanvas;
     private final DragCanvas<R> dragCanvas;
     private final Pane clippedContent;
+    private final InvalidationListener markedTimeIntervalListener = it -> updateMarkedTimeLines();
+
     private final ChangeListener<Number> cursorLocationListener = (value, oldLocation, newLocation) -> {
-        final double location = newLocation.doubleValue() + getSkinnable().getRowHeaderWidth();
+        final double location = newLocation.doubleValue() + getRowHeaderWidth();
         verticalCursorLine.setStartX(location);
         verticalCursorLine.setStartY(0);
         verticalCursorLine.setEndX(location);
         verticalCursorLine.setEndY(getSkinnable().getHeight());
     };
-    private final InvalidationListener markedTimeIntervalListener = it -> updateMarkedTimeLines();
+
     private StartLassoThread startLassoThread;
     private Instant lassoStartTime;
     private Instant lassoEndTime;
@@ -217,7 +219,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         horizontalCursorIndicator.getStyleClass().add("horizontal-cursor-indicator");
         horizontalCursorIndicator.setMouseTransparent(true);
         horizontalCursorIndicator.setManaged(false);
-        horizontalCursorIndicator.visibleProperty().bind(horizontalCursorVisible);
+        horizontalCursorIndicator.visibleProperty().bind(horizontalCursorVisible.and(graphics.showRowHeadersProperty()));
 
         markedStartTimeLine = new Line();
         markedStartTimeLine.setManaged(false);
@@ -601,11 +603,15 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         return null;
     }
 
+    protected double getRowHeaderWidth() {
+        return getSkinnable().isShowRowHeaders() ? getSkinnable().getRowHeaderWidth() : 0;
+    }
+
     @Override
     protected void layoutChildren(double contentX, double contentY, double contentWidth, double contentHeight) {
         super.layoutChildren(contentX, contentY, contentWidth, contentHeight);
 
-        final double rowHeaderWidth = getSkinnable().getRowHeaderWidth();
+        final double rowHeaderWidth = getRowHeaderWidth();
 
         linksCanvas.relocate(rowHeaderWidth, 0);
         linksCanvas.setWidth(contentWidth - rowHeaderWidth);
@@ -620,8 +626,8 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
             Timeline timeline = getTimeline();
             TimelineModel<?> model = timeline.getModel();
 
-            double x1 = model.calculateLocationForTime(lassoStartTime) + getSkinnable().getRowHeaderWidth();
-            double x2 = model.calculateLocationForTime(lassoEndTime) + getSkinnable().getRowHeaderWidth();
+            double x1 = model.calculateLocationForTime(lassoStartTime) + getRowHeaderWidth();
+            double x2 = model.calculateLocationForTime(lassoEndTime) + getRowHeaderWidth();
 
             lasso.setX(Math.min(x1, x2));
             lasso.setY(Math.min(lassoY1, lassoY2));
@@ -660,20 +666,20 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         });
 
         EventHandler<MouseEvent> updateHorizontalCursor = evt -> {
-            horizontalCursorLine.setStartX(getSkinnable().getRowHeaderWidth());
+            horizontalCursorLine.setStartX(getRowHeaderWidth());
             horizontalCursorLine.setEndX(getSkinnable().getWidth());
             horizontalCursorLine.setStartY(evt.getY());
             horizontalCursorLine.setEndY(evt.getY());
 
             double prefWidth = horizontalCursorIndicator.prefWidth(-1);
             double prefHeight = horizontalCursorIndicator.prefHeight(-1);
-            horizontalCursorIndicator.resizeRelocate(getSkinnable().getRowHeaderWidth() - prefWidth / 2, evt.getY() - prefHeight / 2, prefWidth, prefHeight);
+            horizontalCursorIndicator.resizeRelocate(getRowHeaderWidth() - prefWidth / 2, evt.getY() - prefHeight / 2, prefWidth, prefHeight);
         };
 
         node.addEventHandler(MouseEvent.MOUSE_MOVED, updateHorizontalCursor);
         node.addEventHandler(MouseEvent.MOUSE_DRAGGED, updateHorizontalCursor);
         node.addEventHandler(MouseEvent.MOUSE_DRAGGED, evt -> updateCursorLocation(-1));
-        node.addEventHandler(MouseEvent.MOUSE_MOVED, evt -> updateCursorLocation(evt.getX() - getSkinnable().getRowHeaderWidth()));
+        node.addEventHandler(MouseEvent.MOUSE_MOVED, evt -> updateCursorLocation(evt.getX() - getRowHeaderWidth()));
         node.addEventHandler(MouseEvent.MOUSE_EXITED, evt -> {
             updateCursorLocation(-1);
             getSkinnable().getProperties().put("com.flexganttfx.hover.activity", null);
@@ -753,7 +759,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
 
             if (getSkinnable().isLassoActive()) {
 
-                lassoEndTime = timelineModel.calculateTimeForLocation(evt.getX() - getSkinnable().getRowHeaderWidth());
+                lassoEndTime = timelineModel.calculateTimeForLocation(evt.getX() - getRowHeaderWidth());
 
                 if (getSkinnable().isLassoSnapsToGrid()) {
                     lassoEndTime = GridHelper.grid(getSkinnable(), lassoEndTime);
@@ -851,7 +857,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         Timeline timeline = getTimeline();
         TimelineModel<?> model = timeline.getModel();
 
-        lassoStartTime = model.calculateTimeForLocation(evt.getX() - getSkinnable().getRowHeaderWidth());
+        lassoStartTime = model.calculateTimeForLocation(evt.getX() - getRowHeaderWidth());
         if (graphics.isLassoSnapsToGrid()) {
             lassoStartTime = GridHelper.grid(graphics, lassoStartTime);
         }
@@ -904,8 +910,8 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         TimelineModel<?> model = timeline.getModel();
 
         if (newInterval != null) {
-            double x1 = model.calculateLocationForTime(newInterval.getStartTime()) + getSkinnable().getRowHeaderWidth();
-            double x2 = model.calculateLocationForTime(newInterval.getEndTime()) + getSkinnable().getRowHeaderWidth();
+            double x1 = model.calculateLocationForTime(newInterval.getStartTime()) + getRowHeaderWidth();
+            double x2 = model.calculateLocationForTime(newInterval.getEndTime()) + getRowHeaderWidth();
 
             markedStartTimeLine.setStartX(x1);
             markedStartTimeLine.setEndX(x1);

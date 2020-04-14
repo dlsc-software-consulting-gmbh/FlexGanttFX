@@ -36,6 +36,12 @@
 }
 
 .extra {
+	-fx-text-fill: white;
+	-fx-background-color: rgb(77, 112, 128);
+	-fx-font-size: .8em;
+}
+
+.extrax {
 	-fx-background-color: -fx-body-color;
 	-fx-border-color:
 			derive(-fx-base, 80%)

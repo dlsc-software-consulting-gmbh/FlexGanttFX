@@ -23,8 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class VBoxGraphicsSkin<R extends Row<?, ?, ?>> extends
-		GraphicsBaseSkin<VBoxGraphics<R>, R> {
+public class VBoxGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSkin<VBoxGraphics<R>, R> {
 
 	private VBox vbox;
 
@@ -131,7 +130,7 @@ public class VBoxGraphicsSkin<R extends Row<?, ?, ?>> extends
 					RowPane<R> rowPane = (RowPane<R>) node;
 					RowCanvas<R> rowCanvas = rowPane.getCanvas();
 
-					double x = localLassoBounds.getMinX() - getSkinnable().getRowHeaderWidth();
+					double x = localLassoBounds.getMinX() - getRowHeaderWidth();
 					double y = Math.max(0, sceneLassoBounds.getMinY() - sceneNodeBounds.getMinY());
 
 					double w = localLassoBounds.getWidth();

@@ -33,6 +33,82 @@ public class GraphicsBaseItemProvider<R extends Row<?, ?, ?>> implements ItemPro
 
             @Override
             public Optional<ObservableValue<?>> getObservableValue() {
+                return Optional.of(graphics.showRowHeadersProperty());
+            }
+
+            @Override
+            public void setValue(Object value) {
+                graphics.setShowRowHeaders((Boolean) value);
+            }
+
+            @Override
+            public Object getValue() {
+                return graphics.isShowRowHeaders();
+            }
+
+            @Override
+            public Class<?> getType() {
+                return Boolean.class;
+            }
+
+            @Override
+            public String getName() {
+                return "Show Row Headers";
+            }
+
+            @Override
+            public String getDescription() {
+                return "Show / hide row headers";
+            }
+
+            @Override
+            public String getCategory() {
+                return GRAPHICS_VIEW_PROPERTIES;
+            }
+        });
+
+        items.add(new Item() {
+
+            @Override
+            public Optional<ObservableValue<?>> getObservableValue() {
+                return Optional.of(graphics.rowHeaderWidthProperty());
+            }
+
+            @Override
+            public void setValue(Object value) {
+                graphics.setRowHeaderWidth((Double) value);
+            }
+
+            @Override
+            public Object getValue() {
+                return graphics.getRowHeaderWidth();
+            }
+
+            @Override
+            public Class<?> getType() {
+                return Double.class;
+            }
+
+            @Override
+            public String getName() {
+                return "Row Header Width";
+            }
+
+            @Override
+            public String getDescription() {
+                return "The width of the row headers";
+            }
+
+            @Override
+            public String getCategory() {
+                return GRAPHICS_VIEW_PROPERTIES;
+            }
+        });
+
+        items.add(new Item() {
+
+            @Override
+            public Optional<ObservableValue<?>> getObservableValue() {
                 return Optional.of(graphics.canvasBufferProperty());
             }
 

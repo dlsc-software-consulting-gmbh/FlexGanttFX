@@ -167,7 +167,8 @@
 }
 
 .row-header {
-    -fx-text-fill: white;
-    -fx-background-color: rgb(77, 112, 128);
+    -fx-text-fill: -fx-text-base-color;
+    -fx-background-color: -fx-box-border, derive(-fx-base, 25%);
+    -fx-background-insets: 0, 0 1 1 0;
     -fx-font-size: .8em;
 }

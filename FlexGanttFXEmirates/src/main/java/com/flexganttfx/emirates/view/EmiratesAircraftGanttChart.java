@@ -42,7 +42,6 @@ public class EmiratesAircraftGanttChart extends GanttChartLite<ModelObject<?, ?,
 		getGraphics().setActivityRenderer(Flight.class, GanttLayout.class,new FlightRenderer(getGraphics()));
 		getGraphics().setRowHeaderFactory(graphics -> new RowHeader<>() {
 			{
-				setStyle("-fx-padding: 10; -fx-background-color: gray, lightgray; -fx-background-insets: 0, 0 1 1 0");
 				itemProperty().addListener(it -> {
 					final ModelObject<?, ?, ?> item = getItem();
 					if (item != null && !(item instanceof Group)) {

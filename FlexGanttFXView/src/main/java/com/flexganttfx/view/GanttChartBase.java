@@ -81,13 +81,15 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
 
         // children controls
         timeline = createTimeline();
-        timeline.extraWidthProperty().bind(rowHeaderWidthProperty());
+        timeline.extraWidthProperty().bind(rowHeadersWidthProperty());
+        timeline.showExtraProperty().bind(showRowHeadersProperty());
         setMasterTimeline(timeline);
 
         graphics = createGraphics();
         graphics.timelineProperty().bind(masterTimelineProperty());
         graphics.fixedCellSizeProperty().bind(fixedCellSizeProperty());
-        graphics.rowHeaderWidthProperty().bind(rowHeaderWidthProperty());
+        graphics.rowHeaderWidthProperty().bind(rowHeadersWidthProperty());
+        graphics.showRowHeadersProperty().bind(showRowHeadersProperty());
 
         timelineScrollBar = new TimelineScrollBar();
         timelineScrollBar.timelineProperty().bind(masterTimelineProperty());
@@ -112,6 +114,8 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
         return super.getUserAgentStylesheet(GanttChartBase.class, "gantt.css");
     }
 
+    // Row headers support
+
     private final DoubleProperty rowHeaderWidth = new SimpleDoubleProperty(this, "rowHeaderWidth", 100);
 
     /**
@@ -123,7 +127,7 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
      * @return the width in pixels used for all row headers
      * @since 11.11.0
      */
-    public final DoubleProperty rowHeaderWidthProperty() {
+    public final DoubleProperty rowHeadersWidthProperty() {
         return rowHeaderWidth;
     }
 
@@ -134,6 +138,28 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
     public final void setRowHeaderWidth(double rowHeaderWidth) {
         this.rowHeaderWidth.set(rowHeaderWidth);
     }
+
+    private final BooleanProperty showRowHeaders = new SimpleBooleanProperty(this, "showRowHeaders", false);
+
+    /**
+     * Determines if the row headers will be shown to the user or not.
+     *
+     * @return true if the row headers will be shown
+     * @since 11.11.0
+     */
+    public final BooleanProperty showRowHeadersProperty() {
+        return showRowHeaders;
+    }
+
+    public final boolean getShowRowHeaders() {
+        return showRowHeaders.get();
+    }
+
+    public final void setShowRowHeaders(boolean showRowHeaders) {
+        this.showRowHeaders.set(showRowHeaders);
+    }
+
+    // row filter support
 
     private final ObjectProperty<Predicate<R>> rowFilter = new SimpleObjectProperty<>(this, "rowFilter", row -> true);
 

@@ -72,8 +72,7 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
     private final BooleanProperty agendaLabelsVisible = new SimpleBooleanProperty(this, "agendaLabelsVisible", true);
     private final DoubleProperty agendaLinesLineWidth = new SimpleDoubleProperty(this, "agendaLinesLineWidth");
     private final DoubleProperty agendaLinesSize = new SimpleDoubleProperty(this, "agendaLinesSize");
-    private final ObjectProperty<Paint> agendaLinesStroke = new SimpleObjectProperty<>(
-            this, "agendaLinesStroke");
+    private final ObjectProperty<Paint> agendaLinesStroke = new SimpleObjectProperty<>(this, "agendaLinesStroke");
     private final ObjectProperty<Paint> agendaLabelsFill = new SimpleObjectProperty<>(this, "agendaLabelsFill");
     private final BooleanProperty agendaLinesVisible = new SimpleBooleanProperty(this, "agendaLinesVisible", true);
     private final ObjectProperty<DateTimeFormatter> dateTimeFormatter = new SimpleObjectProperty<>(this, "dateTimeFormatter", DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT));
@@ -119,14 +118,14 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
 
         setNumberFormat(NumberFormat.getIntegerInstance());
-        setDividerLineStroke(Color.rgb(255, 255, 255, .5));
+        setDividerLineStroke(new Color(0, 0, 0, .6));
 
         // major chart lines and labels
         setMajorChartLinesLineWidth(.5);
-        setMajorChartLinesStroke(Color.WHITE);
+        setMajorChartLinesStroke(Color.GRAY);
         setMajorChartLinesVisible(true);
         setMajorChartLinesSize(15);
-        setMajorChartLabelsFill(Color.WHITE);
+        setMajorChartLabelsFill(Color.GRAY);
         setMajorChartLabelsVisible(true);
 
         // minor chart lines and labels
@@ -139,10 +138,10 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
 
         // major agenda lines and labels
         setAgendaLinesLineWidth(.5);
-        setAgendaLinesStroke(Color.WHITE);
+        setAgendaLinesStroke(Color.GRAY);
         setAgendaLinesVisible(true);
         setAgendaLinesSize(15);
-        setAgendaLabelsFill(Color.WHITE);
+        setAgendaLabelsFill(Color.GRAY);
         setAgendaLabelsVisible(true);
 
         redrawObservable(dividerLineStroke);
@@ -191,8 +190,7 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
     private void draw() {
         double canvasHeight = canvas.getHeight();
 
-        double width = getWidth();
-        if (width > 0) {
+        if (getWidth() > 0) {
 
             GraphicsContext gc = canvas.getGraphicsContext2D();
             gc.setFont(getFont());
@@ -201,6 +199,7 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
             Row<?, ?, ?> row = getItem();
             if (row != null) {
                 double xOffset = 0;
+
                 xOffset = drawLayoutSpecificHeader(xOffset, 0, canvasHeight, row.getLayout());
 
                 for (int lineIndex = 0; lineIndex < row.getLineCount(); lineIndex++) {
@@ -209,15 +208,14 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
                     double lineHeight = row.getLineHeight(lineIndex);
                     drawLayoutSpecificHeader(xOffset, lineOffset, lineHeight, lineLayout);
 
-                    gc.setLineWidth(.5);
-                    gc.setStroke(getDividerLineStroke());
-                    gc.strokeLine(0, ((int) lineOffset + lineHeight) - .5, getWidth(), ((int) lineOffset + lineHeight) - .5);
+                    if (lineIndex < row.getLineCount() - 1) {
+                        gc.setLineWidth(.5);
+                        gc.setStroke(getDividerLineStroke());
+                        final double y = snapPositionY(((int) lineOffset + lineHeight) - .5);
+                        gc.strokeLine(getInsets().getLeft(), y, getWidth() - getInsets().getRight() - 1, y);
+                    }
                 }
             }
-
-            gc.setLineWidth(.5);
-            gc.setStroke(getDividerLineStroke());
-            gc.strokeLine(0, ((int) canvasHeight) - .5, getWidth(), ((int) canvasHeight) - .5);
         }
     }
 
@@ -255,7 +253,7 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
 
         DateTimeFormatter formatter = getDateTimeFormatter();
 
-        double width = getWidth();
+        double width = getWidth() - getInsets().getLeft() - getInsets().getRight();
 
         List<AgendaLineLocation> lines = AgendaHelper.getLineLocations(layout, yOffset, height);
 
@@ -291,7 +289,7 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        double width = getWidth();
+        double width = getWidth() - getInsets().getLeft() - getInsets().getRight();
 
         // minor lines
 

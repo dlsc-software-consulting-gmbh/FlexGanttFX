@@ -171,6 +171,9 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
                 rowHeader.setMinHeight(Region.USE_PREF_SIZE);
                 rowHeader.setMaxHeight(Region.USE_PREF_SIZE);
 
+                rowHeader.visibleProperty().bind(graphics.showRowHeadersProperty());
+                rowHeader.managedProperty().bind(graphics.showRowHeadersProperty());
+
                 // row header displays the same row as the row pane / canvas
                 rowHeader.itemProperty().bind(rowProperty());
             }
@@ -279,8 +282,7 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
 
     private final WeakEventHandler<RepositoryEvent> weakRepositoryListener = new WeakEventHandler<>(repositoryListener);
 
-    private final ChangeListener<ActivityRepository<?>> repositoryReplacedListener = (
-            observable, oldRepository, newRepository) -> {
+    private final ChangeListener<ActivityRepository<?>> repositoryReplacedListener = (observable, oldRepository, newRepository) -> {
         if (oldRepository != null) {
             oldRepository.removeEventHandler(weakRepositoryListener);
         }
