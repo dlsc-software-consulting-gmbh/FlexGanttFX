@@ -76,7 +76,10 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
         Rectangle clip = new Rectangle();
         clip.widthProperty().bind(flipPane.widthProperty());
         clip.heightProperty().bind(flipPane.heightProperty());
-        flipPane.setClip(clip);
+
+        if (!Boolean.getBoolean("rowpane.no.clip")) {
+            flipPane.setClip(clip);
+        }
 
         StackPane.setAlignment(zoneIdLabel, Pos.TOP_RIGHT);
 
@@ -162,7 +165,7 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
             if (rowHeader != null) {
 
                 // the width of the row header is determined by an outside property
-                rowHeader.prefWidthProperty().bind(graphics.rowHeaderWidthProperty());
+                rowHeader.prefWidthProperty().bind(graphics.rowHeadersWidthProperty());
                 rowHeader.setMinWidth(Region.USE_PREF_SIZE);
                 rowHeader.setMaxWidth(Region.USE_PREF_SIZE);
 

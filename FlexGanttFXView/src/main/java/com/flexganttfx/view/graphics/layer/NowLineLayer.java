@@ -43,7 +43,6 @@ public class NowLineLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
 		strokeProperty().bindBidirectional(graphics.timeNowColorProperty());
 
-		// TODO: add styleable property
 		setLineWidth(2.5);
 
 		redrawObservable(strokeProperty());
@@ -52,8 +51,7 @@ public class NowLineLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 		fadeInOutObservable(graphics.showNowLineLayerProperty());
 	}
 
-	private final ObjectProperty<Paint> stroke = new SimpleObjectProperty<>(
-			this, "stroke");
+	private final ObjectProperty<Paint> stroke = new SimpleObjectProperty<>(this, "stroke");
 
 	public final ObjectProperty<Paint> strokeProperty() {
 		return stroke;
@@ -68,8 +66,7 @@ public class NowLineLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 		strokeProperty().set(stroke);
 	}
 
-	private final DoubleProperty lineWidth = new SimpleDoubleProperty(this,
-			"lineWidth");
+	private final DoubleProperty lineWidth = new SimpleDoubleProperty(this, "lineWidth");
 
 	public final DoubleProperty lineWidthProperty() {
 		return lineWidth;

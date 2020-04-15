@@ -39,45 +39,6 @@ public class GanttChartBaseItemProvider<R extends Row<?, ?, ?>> implements ItemP
 
             @Override
             public Optional<ObservableValue<?>> getObservableValue() {
-                return Optional.of(gc.rowHeadersWidthProperty());
-            }
-
-            @Override
-            public void setValue(Object value) {
-                gc.setRowHeaderWidth((Double) value);
-            }
-
-            @Override
-            public Object getValue() {
-                return gc.getRowHeaderWidth();
-            }
-
-            @Override
-            public Class<?> getType() {
-                return Double.class;
-            }
-
-            @Override
-            public String getName() {
-                return "Row Header Width";
-            }
-
-            @Override
-            public String getDescription() {
-                return "The width of the row headers.";
-            }
-
-            @Override
-            public String getCategory() {
-                return GANTT_CHART_BASE_PROPERTIES_CATEGORY;
-            }
-        });
-
-
-        items.add(new Item() {
-
-            @Override
-            public Optional<ObservableValue<?>> getObservableValue() {
                 return Optional.of(gc.fixedCellSizeProperty());
             }
 

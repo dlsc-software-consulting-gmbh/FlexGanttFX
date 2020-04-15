@@ -86,12 +86,9 @@ final class DatelineScale extends Region {
                                 dateline.getSelectedIntervals().clear();
                             }
 
-                            if (cell.getStyleClass()
-                                    .contains(SELECTED_STYLE_CLASS)) {
-                                cell.getStyleClass()
-                                        .remove(SELECTED_STYLE_CLASS);
-                                dateline.getSelectedIntervals()
-                                        .remove(interval);
+                            if (cell.getStyleClass().contains(SELECTED_STYLE_CLASS)) {
+                                cell.getStyleClass().remove(SELECTED_STYLE_CLASS);
+                                dateline.getSelectedIntervals().remove(interval);
                             } else {
                                 cell.getStyleClass().add(SELECTED_STYLE_CLASS);
                                 dateline.getSelectedIntervals().add(interval);

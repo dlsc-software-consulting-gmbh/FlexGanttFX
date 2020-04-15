@@ -9,6 +9,7 @@ Release: 11.11.0, April 2020 (Performance / StillCorona Release)
 	** Changed default font size used in timeline and dateline.
 	** Decreased default height of table header and timeline, now that we use smaller font.
 	** Added new "zoom mode" selector to toolbar
+	** Added new "show / hide scale / row header" button to toolbar
 
 ** BUGS
 

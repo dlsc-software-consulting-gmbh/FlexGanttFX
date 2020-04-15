@@ -48,8 +48,7 @@ public class ZoomTimeIntervalLayer<R extends Row<?, ?, ?>> extends SystemLayer<R
 		fadeInOutObservable(graphics.showZoomTimeIntervalLayerProperty());
 	}
 
-	private final ObjectProperty<Paint> zoomTimeIntervalFill = new SimpleObjectProperty<>(
-			this, "zoomTimeIntervalFill");
+	private final ObjectProperty<Paint> zoomTimeIntervalFill = new SimpleObjectProperty<>(this, "zoomTimeIntervalFill");
 
 	public final ObjectProperty<Paint> zoomTimeIntervalFillProperty() {
 		return zoomTimeIntervalFill;
@@ -70,6 +69,7 @@ public class ZoomTimeIntervalLayer<R extends Row<?, ?, ?>> extends SystemLayer<R
 		Timeline timeline = graphics.getTimeline();
 		Dateline dateline = timeline.getDateline();
 		TimeInterval selectedTimeInterval = dateline.getSelectedTimeInterval();
+
 		if (selectedTimeInterval != null) {
 
 			GraphicsContext gc = canvas.getGraphicsContext2D();

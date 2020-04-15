@@ -88,10 +88,10 @@ public class EventlineSkin extends SkinBase<Eventline> {
         graphics.getForegroundSystemLayers().clear();
 
         if (!Boolean.getBoolean("timeline.no.clip")) {
-            Rectangle eventlineClip = new Rectangle();
-            eventlineClip.widthProperty().bind(getSkinnable().widthProperty());
-            eventlineClip.heightProperty().bind(getSkinnable().heightProperty());
-            graphics.setClip(eventlineClip);
+            Rectangle clip = new Rectangle();
+            clip.widthProperty().bind(getSkinnable().widthProperty());
+            clip.heightProperty().bind(getSkinnable().heightProperty());
+            graphics.setClip(clip);
         }
 
         eventline.frozenRowProperty().addListener(it -> updateRowList());
@@ -172,7 +172,7 @@ public class EventlineSkin extends SkinBase<Eventline> {
             final ZoneOffsetTransition transition = zoneId.getRules().nextTransition(startTime);
             if (transition != null) {
                 final double dstWidth = dst.prefWidth(-1);
-                double location = snapPosition(timeline.getModel().calculateLocationForTime(transition.getInstant())) - dstWidth / 2;
+                double location = snapPositionX(timeline.getModel().calculateLocationForTime(transition.getInstant())) - dstWidth / 2;
                 if (location < dateline.getWidth()) {
                     dst.resizeRelocate(location, contentY, dstWidth, contentHeight);
                     showDST = true;
@@ -183,44 +183,40 @@ public class EventlineSkin extends SkinBase<Eventline> {
         dst.setVisible(showDST && getSkinnable().isShowDSTMarker());
     }
 
+    /*
+     * Start time changes = scrolling.
+     */
+    final ChangeListener<Instant> instantChangedListener = (value, oldStartTime, newStartTime) -> getSkinnable().requestLayout();
+
+    /*
+     * MPP changes = zoom in / out.
+     */
+    final ChangeListener<Number> numberChangedListener = (value, oldWidth, newWidth) -> getSkinnable().requestLayout();
+
+    final WeakChangeListener<TimelineModel> weakTimelineListener = new WeakChangeListener<>((value, oldModel, newModel) -> {
+        if (oldModel != null) {
+            oldModel.startTimeProperty().removeListener(instantChangedListener);
+            oldModel.millisPerPixelProperty().removeListener(numberChangedListener);
+        }
+
+        if (newModel != null) {
+            newModel.startTimeProperty().addListener(instantChangedListener);
+            newModel.millisPerPixelProperty().addListener(numberChangedListener);
+        }
+
+        getSkinnable().requestLayout();
+    });
+
     private void registerListeners() {
+        final Eventline eventline = getSkinnable();
+        final Timeline timeline = eventline.getTimeline();
 
-		/*
-         * Start time changes = scrolling.
-		 */
-        final ChangeListener<Instant> instantChangedListener = (value,
-                                                                oldStartTime, newStartTime) -> getSkinnable().requestLayout();
-
-        Timeline timeline = getSkinnable().getTimeline();
-        timeline.getModel().startTimeProperty()
-                .addListener(instantChangedListener);
-
-		/*
-		 * MPP changes = zoom in / out.
-		 */
-        final ChangeListener<Number> numberChangedListener = (value, oldWidth,
-                                                              newWidth) -> getSkinnable().requestLayout();
-
-        getSkinnable().cursorLocationProperty().addListener(numberChangedListener);
-
-        getSkinnable().markedTimeIntervalProperty().addListener(observable -> getSkinnable().requestLayout());
-
+        timeline.getModel().startTimeProperty().addListener(instantChangedListener);
         timeline.getModel().millisPerPixelProperty().addListener(numberChangedListener);
 
-        // TODO: won't this get garbage collected?
-        timeline.modelProperty().addListener(
-                new WeakChangeListener<>((value, oldModel, newModel) -> {
-                    if (oldModel != null) {
-                        oldModel.startTimeProperty().removeListener(instantChangedListener);
-                        oldModel.millisPerPixelProperty().removeListener(numberChangedListener);
-                    }
+        timeline.modelProperty().addListener(weakTimelineListener);
 
-                    if (newModel != null) {
-                        newModel.startTimeProperty().addListener(instantChangedListener);
-                        newModel.millisPerPixelProperty().addListener(numberChangedListener);
-                    }
-
-                    getSkinnable().requestLayout();
-                }));
+        eventline.cursorLocationProperty().addListener(numberChangedListener);
+        eventline.markedTimeIntervalProperty().addListener(observable -> eventline.requestLayout());
     }
 }

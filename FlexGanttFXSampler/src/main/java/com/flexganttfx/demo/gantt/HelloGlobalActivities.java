@@ -62,7 +62,6 @@ public class HelloGlobalActivities extends FlexGanttFXSample {
         Timeline timeline = gc.getTimeline();
 
         Eventline eventline = timeline.getEventline();
-        eventline.setShowFrozenRow(true);
         eventline.setFrozenRow(frozenRow);
 
         gc.getGraphics().getCalendars().add(calendar);

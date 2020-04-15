@@ -26,6 +26,8 @@ import java.util.logging.Level;
  */
 public class TimelineScrollBar extends PlusMinusSlider {
 
+    private final ObjectProperty<Timeline> timeline = new SimpleObjectProperty<>(this, "timeline");
+
     /**
      * Constructs a new scrollbar.
      */
@@ -34,8 +36,7 @@ public class TimelineScrollBar extends PlusMinusSlider {
 
         getStylesheets().add(GanttChart.class.getResource("gantt.css").toExternalForm());
 
-        addEventHandler(
-                PlusMinusEvent.VALUE_CHANGED,
+        addEventHandler(PlusMinusEvent.VALUE_CHANGED,
                 evt -> {
                     long st = getTimeline().getVisibleStartTime().toEpochMilli();
                     long et = getTimeline().getVisibleEndTime().toEpochMilli();
@@ -47,8 +48,7 @@ public class TimelineScrollBar extends PlusMinusSlider {
                     long millis = (long) (value * delta) / 10;
 
                     TimelineModel<?> model = getTimeline().getModel();
-                    Instant time = model.getStartTime().plus(
-                            Duration.ofMillis(millis));
+                    Instant time = model.getStartTime().plus(Duration.ofMillis(millis));
 
                     if (LoggingDomain.NAVIGATION.isLoggable(Level.FINER)) {
                         LoggingDomain.NAVIGATION.finer("visible start time: " + st);
@@ -57,11 +57,13 @@ public class TimelineScrollBar extends PlusMinusSlider {
                         LoggingDomain.NAVIGATION.finer("setting new time on timeline model to " + time);
                     }
 
-                    model.setStartTime(time);
+                    double moveX = model.calculateLocationForTime(model.getStartTime()) - model.calculateLocationForTime(time);
+                    if (Math.abs(moveX) >= 1) {
+                        // performance tuning: no need to redraw subpixel changes
+                        model.setStartTime(time);
+                    }
                 });
     }
-
-    private final ObjectProperty<Timeline> timeline = new SimpleObjectProperty<>(this, "timeline");
 
     /**
      * Stores a reference to the timeline that will be controlled by this scrollbar.

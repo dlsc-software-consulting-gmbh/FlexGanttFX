@@ -12,7 +12,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.SkinBase;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
@@ -86,12 +85,7 @@ public class TimelineSkin extends SkinBase<Timeline> {
 		vbox.setPrefWidth(0);
 		vbox.setMinWidth(0);
 
-		BorderPane.setAlignment(vbox, Pos.CENTER);
-		BorderPane borderPane = new BorderPane();
-		borderPane.setCenter(vbox);
-		borderPane.leftProperty().bind(timeline.extraProperty());
-
-		getChildren().add(borderPane);
+		getChildren().add(vbox);
 
 		dateline.minWidthProperty().bind(vbox.widthProperty().add(dateline.datelineBufferProperty().multiply(2)));
 

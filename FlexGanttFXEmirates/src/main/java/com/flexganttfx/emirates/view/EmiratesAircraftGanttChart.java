@@ -22,6 +22,7 @@ import com.jpro.webapi.WebAPI;
 import impl.com.flexganttfx.skin.graphics.DragCanvas;
 import impl.com.flexganttfx.skin.graphics.GraphicsBaseSkin;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -32,16 +33,18 @@ public class EmiratesAircraftGanttChart extends GanttChartLite<ModelObject<?, ?,
 	public EmiratesAircraftGanttChart() {
 		Timeline timeline = getTimeline();
 		timeline.showTemporalUnit(ChronoUnit.HOURS, 50);
-
 		timeline.setMoveAnimated(!WebAPI.isBrowser());
 		timeline.setZoomAnimated(!WebAPI.isBrowser());
+		timeline.getEventline().setRowHeaderTitle("Aircraft");
 
-		setRowHeaderWidth(80);
+		getGraphics().setShowRowHeaders(true);
+		getGraphics().setRowHeadersWidth(80);
 
 		getGraphics().getBackgroundSystemLayers().add(new GroupSystemLayer(getGraphics()));
 		getGraphics().setActivityRenderer(Flight.class, GanttLayout.class,new FlightRenderer(getGraphics()));
 		getGraphics().setRowHeaderFactory(graphics -> new RowHeader<>() {
 			{
+				setAlignment(Pos.CENTER);
 				itemProperty().addListener(it -> {
 					final ModelObject<?, ?, ?> item = getItem();
 					if (item != null && !(item instanceof Group)) {

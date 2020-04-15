@@ -255,12 +255,12 @@ public abstract class RendererBase {
     protected final double getLocation(Instant time, Canvas canvas) {
         Timeline timeline = getGraphics().getTimeline();
         TimelineModel<?> timelineModel = timeline.getModel();
-        return snapPositionX(timelineModel.calculateLocationForTime(time) + getGraphics().getCanvasBuffer() - canvas.getTranslateX());
+        return snapPositionX(timelineModel.calculateLocationForTime(time) + getGraphics().getCanvasBuffer() - canvas.getTranslateX()) - timeline.getOffset();
     }
 
     /**
      * Calculates the time at the given x coordinate. This method only returns
-     * valid results when the renderers is used in a layout with horizontal
+     * valid results when the renderer is used in a layout with horizontal
      * orientation. It will not work in {@link AgendaLayout}.
      *
      * @param location
@@ -272,7 +272,7 @@ public abstract class RendererBase {
     protected final Instant getTimeAt(double location) {
         Timeline timeline = getGraphics().getTimeline();
         TimelineModel<?> timelineModel = timeline.getModel();
-        return timelineModel.calculateTimeForLocation(location);
+        return timelineModel.calculateTimeForLocation(location + timeline.getOffset());
     }
 
     // enabled

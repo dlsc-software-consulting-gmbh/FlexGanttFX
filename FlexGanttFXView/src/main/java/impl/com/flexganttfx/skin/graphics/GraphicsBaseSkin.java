@@ -54,6 +54,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Callback;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -80,7 +81,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
     private final InvalidationListener markedTimeIntervalListener = it -> updateMarkedTimeLines();
 
     private final ChangeListener<Number> cursorLocationListener = (value, oldLocation, newLocation) -> {
-        final double location = newLocation.doubleValue() + getRowHeaderWidth();
+        final double location = newLocation.doubleValue();
         verticalCursorLine.setStartX(location);
         verticalCursorLine.setStartY(0);
         verticalCursorLine.setEndX(location);
@@ -187,8 +188,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         BooleanBinding verticalCursorVisible = Bindings.createBooleanBinding(() -> graphics.getRowsEditing().isEmpty()
                         && graphics.isShowVerticalCursor()
                         && graphics.getPressedActivity() == null
-                        && graphics.getTimeline().getEventline()
-                        .getCursorTime() != null,
+                        && graphics.getTimeline().getEventline().getCursorTime() != null,
                 graphics.getRowsEditing(),
                 graphics.showVerticalCursorProperty(),
                 graphics.pressedActivityProperty(),
@@ -265,26 +265,25 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         graphics.timelineProperty().addListener((observable, oldTimeline, newTimeline) -> {
 
             if (oldTimeline != null) {
-                Eventline eventline1 = oldTimeline.getEventline();
-                eventline1.cursorLocationProperty().removeListener(cursorLocationListener);
-                eventline1.markedTimeIntervalProperty().removeListener(markedTimeIntervalListener);
+                Eventline eventline = oldTimeline.getEventline();
+                eventline.cursorLocationProperty().removeListener(cursorLocationListener);
+                eventline.markedTimeIntervalProperty().removeListener(markedTimeIntervalListener);
                 markedStartTimeLine.visibleProperty().unbind();
                 markedEndTimeLine.visibleProperty().unbind();
             }
 
             if (newTimeline != null) {
-                Eventline eventline2 = newTimeline.getEventline();
-                eventline2.cursorLocationProperty().addListener(cursorLocationListener);
-                eventline2.markedTimeIntervalProperty().addListener(markedTimeIntervalListener);
+                Eventline eventline = newTimeline.getEventline();
+                eventline.cursorLocationProperty().addListener(cursorLocationListener);
+                eventline.markedTimeIntervalProperty().addListener(markedTimeIntervalListener);
 
                 markedStartTimeLine.visibleProperty().bind(Bindings.and(
                         graphics.showMarkedTimeIntervalProperty(),
-                        Bindings.isNotNull(eventline2
-                                .markedTimeIntervalProperty())));
+                        Bindings.isNotNull(eventline.markedTimeIntervalProperty())));
+
                 markedEndTimeLine.visibleProperty().bind(Bindings.and(
                         graphics.showMarkedTimeIntervalProperty(),
-                        Bindings.isNotNull(eventline2
-                                .markedTimeIntervalProperty())));
+                        Bindings.isNotNull(eventline.markedTimeIntervalProperty())));
             }
 
         });
@@ -604,7 +603,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
     }
 
     protected double getRowHeaderWidth() {
-        return getSkinnable().isShowRowHeaders() ? getSkinnable().getRowHeaderWidth() : 0;
+        return getSkinnable().isShowRowHeaders() ? getSkinnable().getRowHeadersWidth() : 0;
     }
 
     @Override
@@ -626,8 +625,8 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
             Timeline timeline = getTimeline();
             TimelineModel<?> model = timeline.getModel();
 
-            double x1 = model.calculateLocationForTime(lassoStartTime) + getRowHeaderWidth();
-            double x2 = model.calculateLocationForTime(lassoEndTime) + getRowHeaderWidth();
+            double x1 = model.calculateLocationForTime(lassoStartTime);
+            double x2 = model.calculateLocationForTime(lassoEndTime);
 
             lasso.setX(Math.min(x1, x2));
             lasso.setY(Math.min(lassoY1, lassoY2));
@@ -654,7 +653,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
             double deltaX = evt.getDeltaX();
             if (deltaX != 0) {
                 TimelineModel<?> timelineModel = getTimeline().getModel();
-                Instant time = timelineModel.calculateTimeForLocation(-deltaX);
+                Instant time = timelineModel.calculateTimeForLocation(-deltaX + getRowHeaderWidth());
                 timelineModel.setStartTime(time);
             }
         });
@@ -679,7 +678,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         node.addEventHandler(MouseEvent.MOUSE_MOVED, updateHorizontalCursor);
         node.addEventHandler(MouseEvent.MOUSE_DRAGGED, updateHorizontalCursor);
         node.addEventHandler(MouseEvent.MOUSE_DRAGGED, evt -> updateCursorLocation(-1));
-        node.addEventHandler(MouseEvent.MOUSE_MOVED, evt -> updateCursorLocation(evt.getX() - getRowHeaderWidth()));
+        node.addEventHandler(MouseEvent.MOUSE_MOVED, evt -> updateCursorLocation(evt.getX()));
         node.addEventHandler(MouseEvent.MOUSE_EXITED, evt -> {
             updateCursorLocation(-1);
             getSkinnable().getProperties().put("com.flexganttfx.hover.activity", null);
@@ -759,7 +758,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
 
             if (getSkinnable().isLassoActive()) {
 
-                lassoEndTime = timelineModel.calculateTimeForLocation(evt.getX() - getRowHeaderWidth());
+                lassoEndTime = timelineModel.calculateTimeForLocation(evt.getX());
 
                 if (getSkinnable().isLassoSnapsToGrid()) {
                     lassoEndTime = GridHelper.grid(getSkinnable(), lassoEndTime);
@@ -787,6 +786,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
                 getSkinnable().fireEvent(event);
 
                 getSkinnable().requestLayout();
+
             } else if (getSkinnable().getEditMode().equals(EditMode.NONE) && getSkinnable().isHorizontalDragEnabled()) {
 
                 if (LoggingDomain.NAVIGATION.isLoggable(Level.FINE)) {
@@ -796,7 +796,10 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
                 double scrollX = evt.getScreenX();
                 double deltaX = mouseStartX - scrollX;
 
-                Instant newStartTime = timelineModel.calculateTimeForLocation(deltaX);
+                Instant timeA = timelineModel.calculateTimeForLocation(0);
+                Instant timeB = timelineModel.calculateTimeForLocation(deltaX);
+
+                Instant newStartTime = timelineModel.getStartTime().plus(Duration.between(timeA, timeB));
 
                 /*
                  * Hack for the case when the dateline displays SimpleUnit.ONE.
@@ -811,9 +814,13 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
                     }
                 }
 
-                timelineModel.setStartTime(newStartTime);
+                double moveX = timelineModel.calculateLocationForTime(timelineModel.getStartTime()) - timelineModel.calculateLocationForTime(newStartTime);
+                if (Math.abs(moveX) >= 1) {
+                    // performance tuning: no need to redraw because of a subpixel change
+                    timelineModel.setStartTime(newStartTime);
+                    mouseStartX = scrollX;
+                }
 
-                mouseStartX = scrollX;
             }
         });
 
@@ -857,7 +864,7 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         Timeline timeline = getTimeline();
         TimelineModel<?> model = timeline.getModel();
 
-        lassoStartTime = model.calculateTimeForLocation(evt.getX() - getRowHeaderWidth());
+        lassoStartTime = model.calculateTimeForLocation(evt.getX());
         if (graphics.isLassoSnapsToGrid()) {
             lassoStartTime = GridHelper.grid(graphics, lassoStartTime);
         }
@@ -910,8 +917,8 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         TimelineModel<?> model = timeline.getModel();
 
         if (newInterval != null) {
-            double x1 = model.calculateLocationForTime(newInterval.getStartTime()) + getRowHeaderWidth();
-            double x2 = model.calculateLocationForTime(newInterval.getEndTime()) + getRowHeaderWidth();
+            double x1 = model.calculateLocationForTime(newInterval.getStartTime());
+            double x2 = model.calculateLocationForTime(newInterval.getEndTime());
 
             markedStartTimeLine.setStartX(x1);
             markedStartTimeLine.setEndX(x1);

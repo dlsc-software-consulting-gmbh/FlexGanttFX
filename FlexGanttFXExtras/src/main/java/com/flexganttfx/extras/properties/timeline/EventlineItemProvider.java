@@ -59,44 +59,6 @@ public class EventlineItemProvider implements ItemProvider<Eventline> {
 
             @Override
             public Optional<ObservableValue<?>> getObservableValue() {
-                return Optional.of(target.showFrozenRowProperty());
-            }
-
-            @Override
-            public void setValue(Object value) {
-                target.setShowFrozenRow((Boolean) value);
-            }
-
-            @Override
-            public Object getValue() {
-                return target.isShowFrozenRow();
-            }
-
-            @Override
-            public Class<?> getType() {
-                return Boolean.class;
-            }
-
-            @Override
-            public String getName() {
-                return "Show Frozen Row";
-            }
-
-            @Override
-            public String getDescription() {
-                return "Enables / disables the use of a frozen row.";
-            }
-
-            @Override
-            public String getCategory() {
-                return EVENTLINE_PROPERTIES_CATEGORY;
-            }
-        });
-
-        items.add(new Item() {
-
-            @Override
-            public Optional<ObservableValue<?>> getObservableValue() {
                 return Optional.of(target.showMarkedTimeIntervalProperty());
             }
 

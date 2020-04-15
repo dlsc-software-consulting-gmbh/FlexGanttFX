@@ -106,6 +106,7 @@ import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.event.WeakEventHandler;
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.CheckMenuItem;
@@ -295,7 +296,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         grids.add(new ChronoUnitGrid(Messages.getString("GraphicsBase.GRID_MINUTES_30"), MINUTES, 30));
         grids.add(new ChronoUnitGrid(Messages.getString("GraphicsBase.GRID_MINUTES_60"), MINUTES, 60));
 
-        timeline.addListener((obs, oldTimeline, newTimeline) -> timelineChanged(oldTimeline, newTimeline));
+        timelineProperty().addListener((obs, oldTimeline, newTimeline) -> timelineChanged(oldTimeline, newTimeline));
 
         // pinch zoom
 
@@ -809,25 +810,6 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final WeakChangeListener weakStartTimeChangedListener = new WeakChangeListener(startTimeChangedListener);
 
-    private final ChangeListener<Timeline> timelineChangeListener = (observable, oldTimeline, newTimeline) -> {
-
-        if (oldTimeline != null) {
-            Dateline oldDateline = oldTimeline.getDateline();
-            removeRedrawObservable(oldDateline.primaryTemporalUnitProperty());
-            removeRedrawObservable(oldDateline.hoverTimeIntervalProperty());
-            oldDateline.getSelectedIntervals().removeListener(weakRedrawListener);
-            removeRedrawObservable(oldTimeline.getDateline().selectedTimeIntervalProperty());
-        }
-
-        if (newTimeline != null) {
-            Dateline newDateline = newTimeline.getDateline();
-            addRedrawObservable(newDateline.primaryTemporalUnitProperty());
-            addRedrawObservable(newDateline.hoverTimeIntervalProperty());
-            newDateline.getSelectedIntervals().addListener(weakRedrawListener);
-            addRedrawObservable(newTimeline.getDateline().selectedTimeIntervalProperty());
-        }
-    };
-
     private final ChangeListener<TimelineModel<?>> timelineModelChangedListener = (observable, oldModel, newModel) -> {
 
         if (oldModel != null) {
@@ -857,8 +839,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         timeline.getModel().startTimeProperty().removeListener(weakStartTimeChangedListener);
         timeline.getModel().nowProperty().removeListener(weakRedrawNowListener);
         timeline.modelProperty().removeListener(weakTimelineModelChangedListener);
+        timeline.offsetProperty().unbind();
 
         removeRedrawObservable(timeline.getModel().millisPerPixelProperty());
+
+        // dateline (un)listening
 
         Dateline dateline = timeline.getDateline();
         removeRedrawObservable(dateline.primaryTemporalUnitProperty());
@@ -868,17 +853,25 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
         dateline.getSelectedIntervals().removeListener(weakRedrawListener);
 
-        timelineProperty().removeListener(timelineChangeListener);
+        // eventline (un)listening
+
+        Eventline eventline = timeline.getEventline();
+        final SingleRowGraphics<Row<?, ?, ?>> eventlineGraphics = eventline.getGraphics();
+        eventlineGraphics.rowHeadersWidthProperty().unbind();
+        eventlineGraphics.showRowHeadersProperty().unbind();
     }
 
     private void connectToTimeline(Timeline timeline) {
         timeline.getModel().startTimeProperty().addListener(weakStartTimeChangedListener);
         timeline.getModel().nowProperty().addListener(weakRedrawNowListener);
         timeline.modelProperty().addListener(weakTimelineModelChangedListener);
+        timeline.offsetProperty().bind(Bindings.createDoubleBinding(() -> isShowRowHeaders() ? getRowHeadersWidth() : 0, rowHeadersWidthProperty(), showRowHeadersProperty()));
 
         addRedrawObservable(timeline.getModel().millisPerPixelProperty());
 
-        Dateline dateline = timeline.getDateline();
+        // dateline listening
+
+        final Dateline dateline = timeline.getDateline();
         addRedrawObservable(dateline.primaryTemporalUnitProperty());
         addRedrawObservable(dateline.hoverTimeIntervalProperty());
         addRedrawObservable(dateline.zoneIdProperty());
@@ -886,7 +879,14 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
         dateline.getSelectedIntervals().addListener(weakRedrawListener);
 
-        timelineProperty().addListener(timelineChangeListener);
+        // eventline listening
+
+        final Eventline eventline = timeline.getEventline();
+        final SingleRowGraphics<Row<?, ?, ?>> eventlineGraphics = eventline.getGraphics();
+        if (eventlineGraphics != this) { // check, or we get a stack overflow
+            eventlineGraphics.rowHeadersWidthProperty().bind(rowHeadersWidthProperty());
+            eventlineGraphics.showRowHeadersProperty().bind(showRowHeadersProperty());
+        }
     }
 
     private void updateGridProperty() {
@@ -4351,6 +4351,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     public static class RowHeader<R extends Row<?, ?, ?>> extends Label {
 
         public RowHeader() {
+            setAlignment(Pos.CENTER);
             getStyleClass().add("row-header");
         }
 
@@ -4423,7 +4424,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         this.showRowHeaders.set(showRowHeaders);
     }
 
-    private final DoubleProperty rowHeaderWidth = new SimpleDoubleProperty(this, "rowHeaderWidth", 100);
+    private final DoubleProperty rowHeadersWidth = new SimpleDoubleProperty(this, "rowHeaderWidths", 60);
 
     /**
      * Specifies the width of the so-called "row headers". These are custom nodes that can be placed
@@ -4434,16 +4435,16 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
      * @return the width in pixels used for all row headers
      * @since 11.11.0
      */
-    public final DoubleProperty rowHeaderWidthProperty() {
-        return rowHeaderWidth;
+    public final DoubleProperty rowHeadersWidthProperty() {
+        return rowHeadersWidth;
     }
 
-    public final double getRowHeaderWidth() {
-        return rowHeaderWidth.get();
+    public final double getRowHeadersWidth() {
+        return rowHeadersWidth.get();
     }
 
-    public final void setRowHeaderWidth(double rowHeaderWidth) {
-        this.rowHeaderWidth.set(rowHeaderWidth);
+    public final void setRowHeadersWidth(double rowHeadersWidth) {
+        this.rowHeadersWidth.set(rowHeadersWidth);
     }
 
     // Row editor support.

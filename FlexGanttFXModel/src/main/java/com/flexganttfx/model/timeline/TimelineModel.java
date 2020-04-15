@@ -53,6 +53,22 @@ public abstract class TimelineModel<T extends TemporalUnit> {
         nowLocation.set(calculateLocationForTime(getNow()));
     }
 
+    // Offset support
+
+    private final DoubleProperty offset = new SimpleDoubleProperty(this, "offset");
+
+    public final double getOffset() {
+        return offset.get();
+    }
+
+    public final DoubleProperty offsetProperty() {
+        return offset;
+    }
+
+    public final void setOffset(double offset) {
+        this.offset.set(offset);
+    }
+
     // Horizon support
 
     private Instant _horizonStartTime;
@@ -497,7 +513,7 @@ public abstract class TimelineModel<T extends TemporalUnit> {
         long timeMillis = time.toEpochMilli();
         long millisDifference = timeMillis - startTimeMillis;
 
-        return millisDifference / getMillisPerPixel();
+        return millisDifference / getMillisPerPixel() + getOffset();
     }
 
     /**
@@ -509,7 +525,7 @@ public abstract class TimelineModel<T extends TemporalUnit> {
      */
     public final Instant calculateTimeForLocation(double location) {
 
-        long millis = (long) ((location) * getMillisPerPixel());
+        long millis = (long) ((location - getOffset()) * getMillisPerPixel());
 
         Instant startTime = getStartTime();
 

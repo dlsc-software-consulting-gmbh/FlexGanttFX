@@ -61,8 +61,6 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
     private final BooleanProperty minorChartLabelsVisible = new SimpleBooleanProperty(this, "minorChartLabelsVisible", true);
     private final BooleanProperty majorChartLinesVisible = new SimpleBooleanProperty(this, "majorChartLinesVisible", true);
     private final ObjectProperty<Paint> majorChartLinesStroke = new SimpleObjectProperty<>(this, "majorChartLinesStroke");
-    private final ObjectProperty<Paint> majorChartLabelsFill = new SimpleObjectProperty<>(this, "majorChartLabelsFill");
-    private final ObjectProperty<Paint> minorChartLabelsFill = new SimpleObjectProperty<>(this, "minorChartLabelsFill");
     private final DoubleProperty majorChartLinesLineWidth = new SimpleDoubleProperty(this, "majorChartLinesLineWidth");
     private final DoubleProperty majorChartLinesSize = new SimpleDoubleProperty(this, "majorChartLinesSize");
     private final BooleanProperty minorChartLinesVisible = new SimpleBooleanProperty(this, "minorChartLinesVisible", true);
@@ -73,7 +71,6 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
     private final DoubleProperty agendaLinesLineWidth = new SimpleDoubleProperty(this, "agendaLinesLineWidth");
     private final DoubleProperty agendaLinesSize = new SimpleDoubleProperty(this, "agendaLinesSize");
     private final ObjectProperty<Paint> agendaLinesStroke = new SimpleObjectProperty<>(this, "agendaLinesStroke");
-    private final ObjectProperty<Paint> agendaLabelsFill = new SimpleObjectProperty<>(this, "agendaLabelsFill");
     private final BooleanProperty agendaLinesVisible = new SimpleBooleanProperty(this, "agendaLinesVisible", true);
     private final ObjectProperty<DateTimeFormatter> dateTimeFormatter = new SimpleObjectProperty<>(this, "dateTimeFormatter", DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT));
     private final ObjectProperty<NumberFormat> numberFormat = new SimpleObjectProperty<NumberFormat>(this, "numberFormat") {
@@ -125,7 +122,6 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         setMajorChartLinesStroke(Color.GRAY);
         setMajorChartLinesVisible(true);
         setMajorChartLinesSize(15);
-        setMajorChartLabelsFill(Color.GRAY);
         setMajorChartLabelsVisible(true);
 
         // minor chart lines and labels
@@ -133,7 +129,6 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         setMinorChartLinesStroke(Color.LIGHTGRAY);
         setMinorChartLinesVisible(true);
         setMinorChartLinesSize(8);
-        setMinorChartLabelsFill(Color.LIGHTGRAY);
         setMinorChartLabelsVisible(false);
 
         // major agenda lines and labels
@@ -141,7 +136,6 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         setAgendaLinesStroke(Color.GRAY);
         setAgendaLinesVisible(true);
         setAgendaLinesSize(15);
-        setAgendaLabelsFill(Color.GRAY);
         setAgendaLabelsVisible(true);
 
         redrawObservable(dividerLineStroke);
@@ -154,7 +148,6 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         redrawObservable(majorChartLinesStroke);
         redrawObservable(majorChartLinesVisible);
         redrawObservable(majorChartLabelsVisible);
-        redrawObservable(majorChartLabelsFill);
 
         // minor chart properties
         redrawObservable(minorChartLinesVisible);
@@ -162,14 +155,12 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         redrawObservable(minorChartLinesLineWidth);
         redrawObservable(minorChartLinesStroke);
         redrawObservable(minorChartLabelsVisible);
-        redrawObservable(minorChartLabelsFill);
 
         // major agenda properties
         redrawObservable(agendaLinesLineWidth);
         redrawObservable(agendaLinesSize);
         redrawObservable(agendaLinesStroke);
         redrawObservable(agendaLinesVisible);
-        redrawObservable(agendaLabelsFill);
         redrawObservable(agendaLabelsVisible);
 
         itemProperty().addListener(it -> draw());
@@ -271,7 +262,7 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
                     time = LocalTime.MIDNIGHT; // will look prettier than 23:59
                 }
 
-                gc.setFill(getAgendaLabelsFill());
+                gc.setFill(getTextFill());
                 gc.setTextAlign(RIGHT);
                 gc.setTextBaseline(CENTER);
                 gc.fillText(formatter.format(time), width - getAgendaLinesSize() - 3, loc.getLocation());
@@ -314,7 +305,7 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
                 double y = getChartValueLocation(value, yOffset, height, layout);
                 gc.setTextAlign(RIGHT);
                 gc.setTextBaseline(CENTER);
-                gc.setFill(getMinorChartLabelsFill());
+                gc.setFill(getTextFill());
                 gc.fillText(format.format(value), width - getMinorChartLinesSize() - 3, y);
             }
 
@@ -343,7 +334,7 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
                 double y = getChartValueLocation(value, yOffset, height, layout);
                 gc.setTextAlign(TextAlignment.RIGHT);
                 gc.setTextBaseline(VPos.CENTER);
-                gc.setFill(getMajorChartLabelsFill());
+                gc.setFill(getTextFill());
                 gc.fillText(format.format(value), width - getMajorChartLinesSize() - 3, y);
             }
 
@@ -352,9 +343,7 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         return getWidth();
     }
 
-    private double getChartValueLocation(double value, double yOffset,
-                                         double height, ChartLayout layout) {
-
+    private double getChartValueLocation(double value, double yOffset, double height, ChartLayout layout) {
         double minChart = layout.getMinValue();
         double maxChart = layout.getMaxValue();
 
@@ -426,32 +415,6 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
     public final void setMajorChartLinesStroke(Paint stroke) {
         requireNonNull(stroke);
         majorChartLinesStrokeProperty().set(stroke);
-    }
-
-    public final ObjectProperty<Paint> majorChartLabelsFillProperty() {
-        return majorChartLabelsFill;
-    }
-
-    public final Paint getMajorChartLabelsFill() {
-        return majorChartLabelsFillProperty().get();
-    }
-
-    public final void setMajorChartLabelsFill(Paint fill) {
-        requireNonNull(fill);
-        majorChartLabelsFillProperty().set(fill);
-    }
-
-    public final ObjectProperty<Paint> minorChartLabelsFillProperty() {
-        return minorChartLabelsFill;
-    }
-
-    public final Paint getMinorChartLabelsFill() {
-        return minorChartLabelsFillProperty().get();
-    }
-
-    public final void setMinorChartLabelsFill(Paint fill) {
-        requireNonNull(fill);
-        minorChartLabelsFillProperty().set(fill);
     }
 
     public final DoubleProperty majorChartLinesLineWidthProperty() {
@@ -576,19 +539,6 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
     public final void setAgendaLinesStroke(Paint stroke) {
         requireNonNull(stroke);
         agendaLinesStrokeProperty().set(stroke);
-    }
-
-    public final ObjectProperty<Paint> agendaLabelsFillProperty() {
-        return agendaLabelsFill;
-    }
-
-    public final Paint getAgendaLabelsFill() {
-        return agendaLabelsFillProperty().get();
-    }
-
-    public final void setAgendaLabelsFill(Paint fill) {
-        requireNonNull(fill);
-        agendaLabelsFillProperty().set(fill);
     }
 
     public final BooleanProperty agendaLinesVisibleProperty() {

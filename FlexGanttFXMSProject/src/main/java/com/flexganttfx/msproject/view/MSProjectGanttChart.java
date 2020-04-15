@@ -5,6 +5,7 @@
  */
 package com.flexganttfx.msproject.view;
 
+import com.flexganttfx.model.Row;
 import com.flexganttfx.model.layout.GanttLayout;
 import com.flexganttfx.msproject.model.MSProjectGanttChartModel;
 import com.flexganttfx.msproject.model.MSProjectTaskActivity;
@@ -44,7 +45,7 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
     public MSProjectGanttChart() {
         super();
 
- //       setFixedCellSize(Row.DEFAULT_ROW_HEIGHT);
+        setFixedCellSize(Row.DEFAULT_ROW_HEIGHT);
         getStylesheets().add(MSProjectGanttChart.class.getResource("msproject.css").toExternalForm());
 
         getGraphics().setActivityRenderer(MSProjectTaskActivity.class, GanttLayout.class, new MSProjectTaskActivityRenderer(getGraphics()));

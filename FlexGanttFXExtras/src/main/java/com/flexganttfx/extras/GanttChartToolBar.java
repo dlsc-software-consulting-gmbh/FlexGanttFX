@@ -184,7 +184,7 @@ public class GanttChartToolBar<R extends Row<?, ?, ?>> extends ToolBar {
 
 			ToggleButton headers = new ToggleButton(Messages.getString("GanttChartToolBar.BUTTON_SCALE"));
 			headers.setGraphic(new FontIcon(MaterialDesign.MDI_RULER));
-			headers.selectedProperty().bindBidirectional(ganttChart.showRowHeadersProperty());
+			headers.selectedProperty().bindBidirectional(ganttChart.getGraphics().showRowHeadersProperty());
 			getItems().add(headers);
 
 			Button layers = new Button(Messages.getString("GanttChartToolBar.BUTTON_LAYERS"));

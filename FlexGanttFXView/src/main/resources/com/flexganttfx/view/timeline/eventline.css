@@ -34,7 +34,7 @@
     -fx-font-weight: bold;
     -fx-text-fill: -fx-text-inner-color;
     -fx-background-color: -fx-control-inner-background;
-    -fx-background-insets: .5 0 .5 0;
+    -fx-background-insets: 1 0 1 0;
     -fx-padding: 0 .25em 0 .25em;
 }
 
@@ -48,7 +48,7 @@
     -fx-font-weight: bold;
     -fx-text-fill: -fx-text-inner-color;
     -fx-background-color: -fx-control-inner-background;
-    -fx-background-insets: .5 0 .5 0;
+    -fx-background-insets: 1 0 1 0;
     -fx-padding: 0 .25em 0 .25em;
 }
 

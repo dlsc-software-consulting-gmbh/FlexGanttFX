@@ -133,7 +133,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
             @Override
             public void handle(long now) {
-                if (now - last > 34000000) { // 60 frames / second
+                if (now - last > 17000000) { // 60 frames / second
                     if (dirty) {
                         last = now;
                         doDraw(false);
@@ -174,14 +174,17 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
     public void draw(String reason, Instant oldTime) {
         final Timeline timeline = graphics.getTimeline();
-        double x = timeline.getModel().calculateLocationForTime(oldTime);
 
-        double newTranslateX = getTranslateX() + x;
+        final double rowHeadersWidth = graphics.isShowRowHeaders() ? graphics.getRowHeadersWidth() : 0;
+        final double x = timeline.getModel().calculateLocationForTime(oldTime) - rowHeadersWidth;
+        final double newTranslateX = getTranslateX() + x;
 
         if (Math.abs(newTranslateX) < graphics.getCanvasBuffer()) {
             setTranslateX(newTranslateX);
         } else {
-            randomTranslateX((newTranslateX - getTranslateX()) < 0);
+            if (graphics.getCanvasBuffer() > 0) {
+                randomTranslateX((newTranslateX - getTranslateX()) < 0);
+            }
             draw(reason);
         }
     }
@@ -310,8 +313,8 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         TimelineModel<?> timelineModel = getTimelineModel();
 
-        Instant drawingStartTime = timelineModel.calculateTimeForLocation(0 - graphics.getCanvasBuffer() + getTranslateX());
-        Instant drawingEndTime = timelineModel.calculateTimeForLocation(0 - graphics.getCanvasBuffer() + getTranslateX() + getWidth());
+        Instant drawingStartTime = timelineModel.calculateTimeForLocation(0 - graphics.getCanvasBuffer() + getTranslateX() + timelineModel.getOffset());
+        Instant drawingEndTime = timelineModel.calculateTimeForLocation(0 - graphics.getCanvasBuffer() + getTranslateX() + getWidth() + timelineModel.getOffset());
 
         safeRendering = getGraphics().isSafeRendering();
 
@@ -751,37 +754,28 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                             case PARALLEL:
                             case PARALLEL_OVERLAPPING:
                                 if (datePlacementsMap != null) {
-                                    LocalDate date = truncatedDateTime
-                                            .toLocalDate();
-                                    Map<Activity, Placement<Activity>> dateMap = datePlacementsMap
-                                            .get(date);
+
+                                    LocalDate date = truncatedDateTime.toLocalDate();
+                                    Map<Activity, Placement<Activity>> dateMap = datePlacementsMap.get(date);
 
                                     if (dateMap != null) {
                                         Placement placement = dateMap.get(activity);
 
                                         if (placement != null) {
-                                            columnWidth = columnWidth
-                                                    / placement.getColumnCount();
-                                            x1 += placement.getColumnIndex()
-                                                    * columnWidth;
 
-                                            if (layoutStrategy
-                                                    .equals(PARALLEL_OVERLAPPING)) {
+                                            columnWidth = columnWidth / placement.getColumnCount();
+                                            x1 += placement.getColumnIndex() * columnWidth;
 
-                                                double offset = Math.min(.5,
-                                                        agendaLayout
-                                                                .getOverlapOffset());
+                                            if (layoutStrategy.equals(PARALLEL_OVERLAPPING)) {
 
-                                                double extraWidth = columnWidth
-                                                        * offset / 2;
+                                                double offset = Math.min(.5, agendaLayout.getOverlapOffset());
+                                                double extraWidth = columnWidth * offset / 2;
 
-                                                if (placement
-                                                        .getColumnCount() > 1) {
+                                                if (placement.getColumnCount() > 1) {
                                                     columnWidth += extraWidth;
                                                 }
 
-                                                if (placement
-                                                        .getColumnIndex() > 0) {
+                                                if (placement.getColumnIndex() > 0) {
                                                     x1 -= (column + 1) * extraWidth;
                                                 }
                                             }
@@ -828,23 +822,28 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         } else if (layout instanceof ChartLayout) {
             if (activity instanceof ChartActivity) {
+
                 yOffset += calculateChartOffset((ChartActivity) activity, (ChartLayout) layout, availableHeight);
                 availableHeight = calculateChartActivityHeight((ChartActivity) activity, (ChartLayout) layout, availableHeight);
+
             } else if (activity instanceof HighLowChartActivity) {
+
                 HighLowChartActivity highLow = (HighLowChartActivity) activity;
                 double offsetHigh = calculateChartValueOffset(highLow.getHigh(), (ChartLayout) layout, availableHeight);
                 double offsetLow = calculateChartValueOffset(highLow.getLow(), (ChartLayout) layout, availableHeight);
                 yOffset += offsetHigh;
                 availableHeight = offsetLow - offsetHigh;
+
             }
 
             ActivityBounds bounds = renderer.draw(ref, ONLY, gc, x1 + .25,
                     yOffset + .5, x2 - x1, availableHeight - 1, selected,
                     focused, highlighted, pressed);
+
             if (bounds == null) {
-                throw new MissingActivityBoundsException(renderer, activity,
-                        row, lineIndex);
+                throw new MissingActivityBoundsException(renderer, activity, row, lineIndex);
             }
+
             bounds.setPosition(ONLY);
             bounds.setLayout(layout);
             boundsList.add(bounds);
@@ -858,7 +857,8 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
     }
 
     private double calculateLocation(Instant startTime) {
-        return getTimelineModel().calculateLocationForTime(startTime) + graphics.getCanvasBuffer() - getTranslateX();
+        double rowHeaderWidth = graphics.isShowRowHeaders() ? graphics.getRowHeadersWidth() : 0;
+        return getTimelineModel().calculateLocationForTime(startTime) + graphics.getCanvasBuffer() - getTranslateX() - rowHeaderWidth;
     }
 
     private double calculateChartValueOffset(double value, ChartLayout layout, double availableHeight) {

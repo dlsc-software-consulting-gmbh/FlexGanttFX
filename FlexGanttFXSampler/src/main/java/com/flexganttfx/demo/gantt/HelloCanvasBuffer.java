@@ -27,6 +27,7 @@ import com.flexganttfx.view.timeline.Eventline;
 import com.flexganttfx.view.timeline.Timeline;
 import com.flexganttfx.view.util.Position;
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.VPos;
@@ -36,6 +37,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -43,6 +46,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+import java.text.DecimalFormat;
 import java.time.DayOfWeek;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -64,13 +68,14 @@ public class HelloCanvasBuffer extends FlexGanttFXSampleBase {
     @Override
     public Node getPanel(Stage stage) {
         System.setProperty("timeline.no.clip", "true");
+        System.setProperty("rowpane.no.clip", "true");
+
         timeline = new Timeline();
         vboxGraphics = new VBoxGraphics<>();
 
         timeline.getDateline().setDatelineBuffer(200);
 
         Eventline eventline = timeline.getEventline();
-        eventline.setShowFrozenRow(true);
         eventline.setFrozenRow(frozenRow);
         eventline.getGraphics().getLayers().add(layer);
         eventline.getGraphics().setVirtualGrid(dayGrid);
@@ -121,26 +126,49 @@ public class HelloCanvasBuffer extends FlexGanttFXSampleBase {
             }
         });
 
+        CheckBox showScale = new CheckBox("Show Row Headers");
+        showScale.selectedProperty().bindBidirectional(vboxGraphics.showRowHeadersProperty());
+
+        // canvas buffer
         Label canvasBufferSizeLabel = new Label("Canvas Buffer:");
         Slider canvasBufferSlider = new Slider(0,250,vboxGraphics.getCanvasBuffer());
         canvasBufferSlider.valueProperty().bindBidirectional(vboxGraphics.canvasBufferProperty());
 
+        Label canvasBufferValueLabel = new Label();
+        canvasBufferValueLabel.setMinWidth(Region.USE_PREF_SIZE);
+        canvasBufferValueLabel.textProperty().bind(Bindings.createStringBinding(() -> DecimalFormat.getIntegerInstance().format(vboxGraphics.getCanvasBuffer()), vboxGraphics.canvasBufferProperty()));
+        HBox canvasBufferBox = new HBox(10, canvasBufferSlider, canvasBufferValueLabel);
+
+        // eventline canvas buffer
         Label eventLineCanvasBufferSizeLabel = new Label("Eventline Canvas Buffer:");
         Slider eventlineCanvasBufferSlider = new Slider(0,250,vboxGraphics.getCanvasBuffer());
         eventlineCanvasBufferSlider.valueProperty().bindBidirectional(timeline.getEventline().getGraphics().canvasBufferProperty());
 
+        Label eventlineCanvasBufferValueLabel = new Label();
+        eventlineCanvasBufferValueLabel.setMinWidth(Region.USE_PREF_SIZE);
+        eventlineCanvasBufferValueLabel.textProperty().bind(Bindings.createStringBinding(() -> DecimalFormat.getIntegerInstance().format(timeline.getEventline().getGraphics().getCanvasBuffer()), timeline.getEventline().getGraphics().canvasBufferProperty()));
+        HBox eventlineBufferBox = new HBox(10, eventlineCanvasBufferSlider, eventlineCanvasBufferValueLabel);
+
+        // dateline buffer
         Label datelineBufferSizeLabel = new Label("Dateline Buffer:");
         Slider datelineBufferSlider = new Slider(0,250,vboxGraphics.getCanvasBuffer());
         datelineBufferSlider.valueProperty().bindBidirectional(timeline.getDateline().datelineBufferProperty());
 
+        Label datelineBufferValueLabel = new Label();
+        datelineBufferValueLabel.setMinWidth(Region.USE_PREF_SIZE);
+        datelineBufferValueLabel.textProperty().bind(Bindings.createStringBinding(() -> DecimalFormat.getIntegerInstance().format(timeline.getDateline().getDatelineBuffer()), timeline.getDateline().datelineBufferProperty()));
+        HBox datelineBufferBox = new HBox(10, datelineBufferSlider, datelineBufferValueLabel);
+
+
         VBox box = new VBox(10,
                 debugMode,
+                showScale,
                 canvasBufferSizeLabel,
-                canvasBufferSlider,
+                canvasBufferBox,
                 datelineBufferSizeLabel,
-                datelineBufferSlider,
+                datelineBufferBox,
                 eventLineCanvasBufferSizeLabel,
-                eventlineCanvasBufferSlider);
+                eventlineBufferBox);
 
         return box;
     }

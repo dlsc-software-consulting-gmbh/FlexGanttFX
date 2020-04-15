@@ -996,7 +996,8 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
     }
 
     private Instant calculateTimeForLocation(double x) {
-        return canvas.getTimelineModel().calculateTimeForLocation(x - canvas.getGraphics().getCanvasBuffer() + canvas.getTranslateX());
+        final TimelineModel<?> timelineModel = canvas.getTimelineModel();
+        return timelineModel.calculateTimeForLocation(x - canvas.getGraphics().getCanvasBuffer() + canvas.getTranslateX() + timelineModel.getOffset());
     }
 
     private void changeEndTime(MouseEvent event) {

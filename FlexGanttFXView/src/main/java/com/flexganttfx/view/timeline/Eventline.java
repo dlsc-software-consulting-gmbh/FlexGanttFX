@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.view.timeline;
@@ -14,6 +14,7 @@ import com.flexganttfx.model.layout.GanttLayout;
 import com.flexganttfx.model.timeline.TimelineModel;
 import com.flexganttfx.model.util.TimeInterval;
 import com.flexganttfx.view.graphics.GraphicsBase;
+import com.flexganttfx.view.graphics.GraphicsBase.RowHeader;
 import com.flexganttfx.view.graphics.SingleRowGraphics;
 import com.flexganttfx.view.graphics.renderer.ActivityRenderer;
 import com.flexganttfx.view.util.FlexGanttFXControl;
@@ -26,9 +27,13 @@ import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
+import javafx.geometry.Pos;
 import javafx.scene.control.Skin;
 import javafx.scene.paint.Color;
+import javafx.util.Callback;
 
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
@@ -53,8 +58,9 @@ public class Eventline extends FlexGanttFXControl {
     private static final String DEFAULT_STYLE_CLASS = "eventline";
 
     private final Timeline timeline;
-
     private final SingleRowGraphics<Row<?, ?, ?>> graphics;
+    private final ReadOnlyDoubleWrapper cursorLocation = new ReadOnlyDoubleWrapper(this, "cursorLocation", 100);
+    private final ReadOnlyObjectWrapper<Instant> cursorTime = new ReadOnlyObjectWrapper<>(this, "cursorTime");
 
     /**
      * Constructs a new eventline.
@@ -68,13 +74,19 @@ public class Eventline extends FlexGanttFXControl {
         this.timeline = timeline;
         this.graphics = new SingleRowGraphics<>();
 
-        this.graphics.visibleProperty().bind(showFrozenRow);
-        this.graphics.managedProperty().bind(showFrozenRow);
-
         this.graphics.setActivityRenderer(ActivityBase.class, GanttLayout.class, new EventlineActivityRenderer(this.graphics, "Eventline Activity Renderer"));
         this.graphics.setActivityRenderer(MutableActivityBase.class, GanttLayout.class, new EventlineActivityRenderer(this.graphics, "Eventline Mutable Activity Renderer"));
         this.graphics.setActivityRenderer(CompletableActivityBase.class, GanttLayout.class, new EventlineActivityRenderer(this.graphics, "Eventline Completable Activity Renderer"));
         this.graphics.setActivityRenderer(MutableCompletableActivityBase.class, GanttLayout.class, new EventlineActivityRenderer(this.graphics, "Eventline Mutable Completable Activity Renderer"));
+        this.graphics.setShowMarkedTimeInterval(false);
+        this.graphics.setShowNowLineLayer(false);
+        this.graphics.setRowHeaderFactory(graphics -> new RowHeader<>() {
+            {
+                getStyleClass().add("eventline-row-header");
+                setAlignment(Pos.CENTER);
+                textProperty().bind(rowHeaderTitleProperty());
+            }
+        });
 
         registerListeners();
         setFocusTraversable(true);
@@ -89,16 +101,15 @@ public class Eventline extends FlexGanttFXControl {
          * We are "abusing" the properties map to pass new values of read-only
          * properties from the skin to the control.
          */
-        getProperties()
-                .addListener(
-                        (javafx.collections.MapChangeListener.Change<?, ?> change) -> {
-                            if (change.getKey().equals("com.flexganttfx.eventline.cursor.location")) {
-                                if (change.getValueAdded() != null) {
-                                    Double location = (Double) change.getValueAdded();
-                                    cursorLocation.set(location);
-                                }
-                            }
-                        });
+        getProperties().addListener(
+                (javafx.collections.MapChangeListener.Change<?, ?> change) -> {
+                    if (change.getKey().equals("com.flexganttfx.eventline.cursor.location")) {
+                        if (change.getValueAdded() != null) {
+                            Double location = (Double) change.getValueAdded();
+                            cursorLocation.set(location);
+                        }
+                    }
+                });
     }
 
     @Override
@@ -111,31 +122,37 @@ public class Eventline extends FlexGanttFXControl {
         return super.getUserAgentStylesheet(Eventline.class, "eventline.css");
     }
 
-    class EventlineActivityRenderer extends ActivityRenderer {
-
-        public EventlineActivityRenderer(GraphicsBase graphics, String name) {
-            super(graphics, name);
-            setStroke(Color.TRANSPARENT);
-        }
-    }
-
-    private final BooleanProperty showFrozenRow = new SimpleBooleanProperty(this, "showFrozenRow", false);
-
-    public final BooleanProperty showFrozenRowProperty() {
-        return showFrozenRow;
-    }
-
-    public final boolean isShowFrozenRow() {
-        return showFrozenRow.get();
-    }
-
-    public final void setShowFrozenRow(boolean showFrozenRow) {
-        this.showFrozenRow.set(showFrozenRow);
-    }
-
     public final SingleRowGraphics<Row<?, ?, ?>> getGraphics() {
         return graphics;
     }
+
+    // Row headers support
+
+    private final StringProperty rowHeaderTitle = new SimpleStringProperty(this, "rowHeaderTitle", "Scale");
+
+    /**
+     * Stores the title text used for the row header "column" on the right-hand
+     * side. The header can also be completely replaced by retrieving the graphics
+     * from the eventline and registering a new row header factory on it.
+     *
+     * @return the row header title
+     * @see Eventline#getGraphics()
+     * @see GraphicsBase#setRowHeaderFactory(Callback)
+     * @since 11.11.0
+     */
+    public final StringProperty rowHeaderTitleProperty() {
+        return rowHeaderTitle;
+    }
+
+    public final String getRowHeaderTitle() {
+        return rowHeaderTitle.get();
+    }
+
+    public final void setRowHeaderTitle(String rowHeaderTitle) {
+        this.rowHeaderTitle.set(rowHeaderTitle);
+    }
+
+    // Cursor time support.
 
     private void registerListeners() {
 
@@ -147,19 +164,17 @@ public class Eventline extends FlexGanttFXControl {
 
         getTimeline().getModel().millisPerPixelProperty().addListener(mppListener);
 
-        getTimeline().modelProperty().addListener(
-                (value, oldModel, newModel) -> {
+        getTimeline().modelProperty().addListener((value, oldModel, newModel) -> {
+            if (oldModel != null) {
+                oldModel.startTimeProperty().removeListener(startTimeListener);
+                oldModel.millisPerPixelProperty().removeListener(mppListener);
+            }
 
-                    if (oldModel != null) {
-                        oldModel.startTimeProperty().removeListener(startTimeListener);
-                        oldModel.millisPerPixelProperty().removeListener(mppListener);
-                    }
-
-                    if (newModel != null) {
-                        newModel.startTimeProperty().addListener(startTimeListener);
-                        newModel.millisPerPixelProperty().addListener(mppListener);
-                    }
-                });
+            if (newModel != null) {
+                newModel.startTimeProperty().addListener(startTimeListener);
+                newModel.millisPerPixelProperty().addListener(mppListener);
+            }
+        });
     }
 
     private void updateCursorTime() {
@@ -176,7 +191,7 @@ public class Eventline extends FlexGanttFXControl {
         return timeline;
     }
 
-    // Row support
+    // Frozen row support
     private final ObjectProperty<Row<?, ?, ?>> frozenRow = new SimpleObjectProperty<>(this, "frozenRow");
 
     public final ObjectProperty<Row<?, ?, ?>> frozenRowProperty() {
@@ -191,10 +206,6 @@ public class Eventline extends FlexGanttFXControl {
         this.frozenRow.set(frozenRow);
     }
 
-    // Cursor time support.
-
-    private final ReadOnlyDoubleWrapper cursorLocation = new ReadOnlyDoubleWrapper(this, "cursorLocation", 100);
-
     public final ReadOnlyDoubleProperty cursorLocationProperty() {
         return cursorLocation;
     }
@@ -203,8 +214,6 @@ public class Eventline extends FlexGanttFXControl {
         return cursorLocationProperty().get();
     }
 
-    private final ReadOnlyObjectWrapper<Instant> cursorTime = new ReadOnlyObjectWrapper<>(this, "cursorTime");
-
     public final ReadOnlyObjectProperty<Instant> cursorTimeProperty() {
         return cursorTime;
     }
@@ -212,6 +221,8 @@ public class Eventline extends FlexGanttFXControl {
     public final Instant getCursorTime() {
         return cursorTimeProperty().get();
     }
+
+    // Show time cursor support
 
     private final BooleanProperty showTimeCursor = new SimpleBooleanProperty(this, "showTimeCursor", true);
 
@@ -228,7 +239,6 @@ public class Eventline extends FlexGanttFXControl {
     }
 
     // DST marker support.
-
     private final BooleanProperty showDSTMarker = new SimpleBooleanProperty(this, "showDSTMarker", true);
 
     public final BooleanProperty showDSTMarkerProperty() {
@@ -244,23 +254,21 @@ public class Eventline extends FlexGanttFXControl {
     }
 
     // Date formatter support.
-
     private final ObjectProperty<DateTimeFormatter> dateTimeFormatter = new SimpleObjectProperty<>(this, "dateTimeFormatter", DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM));
 
     public final ObjectProperty<DateTimeFormatter> dateTimeFormatterProperty() {
         return dateTimeFormatter;
     }
 
-    public final void setDateTimeFormatter(DateTimeFormatter formatter) {
-        dateTimeFormatterProperty().set(formatter);
-    }
-
     public final DateTimeFormatter getDateTimeFormatter() {
         return dateTimeFormatter.get();
     }
 
-    // Marked time interval support.
+    public final void setDateTimeFormatter(DateTimeFormatter formatter) {
+        dateTimeFormatterProperty().set(formatter);
+    }
 
+    // Marked time interval support.
     private final BooleanProperty showMarkedTimeInterval = new SimpleBooleanProperty(this, "showMarkedTimeInterval", true);
 
     public final BooleanProperty showMarkedTimeIntervalProperty() {
@@ -281,11 +289,19 @@ public class Eventline extends FlexGanttFXControl {
         return markedTimeInterval;
     }
 
+    public final TimeInterval getMarkedTimeInterval() {
+        return markedTimeInterval.get();
+    }
+
     public final void setMarkedTimeInterval(TimeInterval timeInterval) {
         markedTimeInterval.set(timeInterval);
     }
 
-    public final TimeInterval getMarkedTimeInterval() {
-        return markedTimeInterval.get();
+    class EventlineActivityRenderer extends ActivityRenderer {
+
+        public EventlineActivityRenderer(GraphicsBase graphics, String name) {
+            super(graphics, name);
+            setStroke(Color.TRANSPARENT);
+        }
     }
 }

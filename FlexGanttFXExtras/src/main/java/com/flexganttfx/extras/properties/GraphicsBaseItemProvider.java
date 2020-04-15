@@ -71,17 +71,17 @@ public class GraphicsBaseItemProvider<R extends Row<?, ?, ?>> implements ItemPro
 
             @Override
             public Optional<ObservableValue<?>> getObservableValue() {
-                return Optional.of(graphics.rowHeaderWidthProperty());
+                return Optional.of(graphics.rowHeadersWidthProperty());
             }
 
             @Override
             public void setValue(Object value) {
-                graphics.setRowHeaderWidth((Double) value);
+                graphics.setRowHeadersWidth((Double) value);
             }
 
             @Override
             public Object getValue() {
-                return graphics.getRowHeaderWidth();
+                return graphics.getRowHeadersWidth();
             }
 
             @Override

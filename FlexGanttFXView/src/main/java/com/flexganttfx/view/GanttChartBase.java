@@ -26,14 +26,19 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.WeakInvalidationListener;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.*;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TreeTableView;
-import javafx.util.Callback;
 import org.controlsfx.control.HiddenSidesPane;
 import org.controlsfx.control.MasterDetailPane;
 
@@ -81,15 +86,15 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
 
         // children controls
         timeline = createTimeline();
-        timeline.extraWidthProperty().bind(rowHeadersWidthProperty());
-        timeline.showExtraProperty().bind(showRowHeadersProperty());
         setMasterTimeline(timeline);
 
-        graphics = createGraphics();
-        graphics.timelineProperty().bind(masterTimelineProperty());
-        graphics.fixedCellSizeProperty().bind(fixedCellSizeProperty());
-        graphics.rowHeaderWidthProperty().bind(rowHeadersWidthProperty());
-        graphics.showRowHeadersProperty().bind(showRowHeadersProperty());
+        final Eventline eventline = timeline.getEventline();
+        final SingleRowGraphics<Row<?, ?, ?>> eventlineGraphics = eventline.getGraphics();
+        eventlineGraphics.setOnActivityChange(evt -> getGraphics().redraw()); // yes, call draw on the "other" graphics node
+
+        this.graphics = createGraphics();
+        this.graphics.timelineProperty().bind(masterTimelineProperty());
+        this.graphics.fixedCellSizeProperty().bind(fixedCellSizeProperty());
 
         timelineScrollBar = new TimelineScrollBar();
         timelineScrollBar.timelineProperty().bind(masterTimelineProperty());
@@ -104,59 +109,11 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
         Bindings.bindBidirectional(graphicsMasterDetailPane.showDetailNodeProperty(), showDetailProperty());
 
         redrawObservable(masterTimeline);
-
-        final SingleRowGraphics<Row<?, ?, ?>> eventlineGraphics = timeline.getEventline().getGraphics();
-        eventlineGraphics.setOnActivityChange(evt -> getGraphics().redraw());
     }
 
     @Override
     public String getUserAgentStylesheet() {
         return super.getUserAgentStylesheet(GanttChartBase.class, "gantt.css");
-    }
-
-    // Row headers support
-
-    private final DoubleProperty rowHeaderWidth = new SimpleDoubleProperty(this, "rowHeaderWidth", 100);
-
-    /**
-     * Specifies the width of the so-called "row headers". inside the graphics area. These are custom
-     * nodes that can be placed in front of every row inside the graphics area. For proper layout the
-     * width of all row headers has to be the same.
-     *
-     * @see GraphicsBase#setRowHeaderFactory(Callback)
-     * @return the width in pixels used for all row headers
-     * @since 11.11.0
-     */
-    public final DoubleProperty rowHeadersWidthProperty() {
-        return rowHeaderWidth;
-    }
-
-    public final double getRowHeaderWidth() {
-        return rowHeaderWidth.get();
-    }
-
-    public final void setRowHeaderWidth(double rowHeaderWidth) {
-        this.rowHeaderWidth.set(rowHeaderWidth);
-    }
-
-    private final BooleanProperty showRowHeaders = new SimpleBooleanProperty(this, "showRowHeaders", false);
-
-    /**
-     * Determines if the row headers will be shown to the user or not.
-     *
-     * @return true if the row headers will be shown
-     * @since 11.11.0
-     */
-    public final BooleanProperty showRowHeadersProperty() {
-        return showRowHeaders;
-    }
-
-    public final boolean getShowRowHeaders() {
-        return showRowHeaders.get();
-    }
-
-    public final void setShowRowHeaders(boolean showRowHeaders) {
-        this.showRowHeaders.set(showRowHeaders);
     }
 
     // row filter support
@@ -217,8 +174,7 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
 
     // Timeline placeholder / graphics header support.
 
-    private final ObjectProperty<Node> graphicsHeader = new SimpleObjectProperty<>(
-            this, "graphicsHeader");
+    private final ObjectProperty<Node> graphicsHeader = new SimpleObjectProperty<>(this, "graphicsHeader");
 
     /**
      * A property used to store a node that will be placed above the graphics

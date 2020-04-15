@@ -629,7 +629,7 @@ public class Dateline extends FlexGanttFXControl {
         return selectionModeProperty().get();
     }
 
-    private final DoubleProperty datelineBuffer = new SimpleDoubleProperty(this, "datelineBuffer", 500);
+    private final DoubleProperty datelineBuffer = new SimpleDoubleProperty(this, "datelineBuffer", 250);
 
     public double getDatelineBuffer() {
         return datelineBuffer.get();
@@ -687,8 +687,7 @@ public class Dateline extends FlexGanttFXControl {
         CheckMenuItem showTimezoneItem = new CheckMenuItem(Messages.getString("Dateline.MENU_ITEM_SHOW_TIMEZONE"));
         showTimezoneItem.setSelected(isZoneIdVisible());
 
-        Bindings.bindBidirectional(zoneIdVisibleProperty(),
-                showTimezoneItem.selectedProperty());
+        Bindings.bindBidirectional(zoneIdVisibleProperty(), showTimezoneItem.selectedProperty());
 
         Menu unitsMenu = new Menu(Messages.getString("Dateline.MENU_TIME_UNIT"));
         Menu zoneIdMenu = new Menu(Messages.getString("Dateline.MENU_TIME_ZONE"));

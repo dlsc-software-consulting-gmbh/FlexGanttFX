@@ -51,6 +51,7 @@ public class VBoxGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSkin<V
 				Priority priority = priorityCallback.call(row);
 				VBox.setVgrow(rowPane, priority);
 			}
+
 			rowPane.setRow(row);
 			vbox.getChildren().add(rowPane);
 			graphics.getRowPanes().add(rowPane);
@@ -65,14 +66,12 @@ public class VBoxGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSkin<V
 		return vbox;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected RowPane<R> getRowPaneAt(double y) {
 		for (Node node : vbox.getChildren()) {
 			if (node instanceof RowPane<?>) {
 				Point2D point = vbox.localToScene(0, y);
-				Bounds sceneNodeBounds = node.localToScene(node
-						.getBoundsInLocal());
+				Bounds sceneNodeBounds = node.localToScene(node.getBoundsInLocal());
 				if (sceneNodeBounds.contains(point)) {
 					return (RowPane<R>) node;
 				}
@@ -87,7 +86,6 @@ public class VBoxGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSkin<V
 		return false;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected List<Row<?, ?, ?>> findLassoSelectedRows() {
 		List<Row<?, ?, ?>> rows = new ArrayList<>();
@@ -112,7 +110,6 @@ public class VBoxGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSkin<V
 		return rows;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected List<ActivityRef<?>> findLassoSelectedActivities() {
 		List<ActivityRef<?>> selection = new ArrayList<>();

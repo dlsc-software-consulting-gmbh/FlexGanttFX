@@ -36,8 +36,7 @@ import java.util.Objects;
  *
  * @since 1.0
  */
-public class SelectedTimeIntervalsLayer<R extends Row<?, ?, ?>> extends
-		SystemLayer<R> {
+public class SelectedTimeIntervalsLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
 	public SelectedTimeIntervalsLayer(GraphicsBase<R> graphics) {
 		super("Selected Time Intervals", graphics);
@@ -49,8 +48,7 @@ public class SelectedTimeIntervalsLayer<R extends Row<?, ?, ?>> extends
 		fadeInOutObservable(graphics.showSelectedTimeIntervalsLayerProperty());
 	}
 
-	private final ObjectProperty<Paint> selectedTimeIntervalFill = new SimpleObjectProperty<>(
-			this, "selectedTimeIntervalFill");
+	private final ObjectProperty<Paint> selectedTimeIntervalFill = new SimpleObjectProperty<>(this, "selectedTimeIntervalFill");
 
 	public final ObjectProperty<Paint> selectedTimeIntervalFillProperty() {
 		return selectedTimeIntervalFill;

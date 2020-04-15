@@ -46,10 +46,35 @@ import static java.time.format.TextStyle.FULL;
 
 public class DatelineSkin extends SkinBase<Dateline> {
 
+    protected final Region lasso;
     private final VBox scalesBox;
     private final Map<Integer, DatelineScale> rowScaleMap = new HashMap<>();
     private final Label zoneIdLabel;
-    protected final Region lasso;
+
+    private final ChangeListener<Instant> startTimeListener = (value, oldTime, newTime) -> {
+        final Dateline dateline = getSkinnable();
+
+        final double offset = getDateline().getTimeline().getModel().getOffset();
+        final double x = dateline.getTimeline().getModel().calculateLocationForTime(oldTime) - offset;
+        final double newTranslateX = dateline.getTranslateX() + x;
+
+        if (Math.abs(newTranslateX) < dateline.getDatelineBuffer()) {
+            dateline.setTranslateX(newTranslateX);
+        } else {
+            boolean scrollingRight = (newTranslateX - dateline.getTranslateX()) < 0;
+
+            if (scrollingRight) {
+                dateline.setTranslateX(Math.max(0, dateline.getDatelineBuffer()));
+            } else {
+                dateline.setTranslateX(Math.min(0, -dateline.getDatelineBuffer()));
+            }
+
+            updateDatelineCells();
+        }
+
+    };
+    private final WeakChangeListener weakStartTimeListener = new WeakChangeListener(startTimeListener);
+    private boolean initialSetup;
 
     public DatelineSkin(Dateline dateline) {
         super(dateline);
@@ -86,6 +111,7 @@ public class DatelineSkin extends SkinBase<Dateline> {
         clip.heightProperty().bind(dateline.heightProperty());
         dateline.setClip(clip);
 
+        dateline.getTimeline().offsetProperty().addListener(it -> updateDatelineCells());
         dateline.widthProperty().addListener(it -> updateDatelineCells());
 
         dateline.widthProperty().addListener((value, oldNumber, newNumber) -> fireScrollingEvent());
@@ -97,32 +123,6 @@ public class DatelineSkin extends SkinBase<Dateline> {
     private Dateline getDateline() {
         return getSkinnable();
     }
-
-    int count = 0;
-
-    private final ChangeListener<Instant> startTimeListener = (value, oldTime, newTime) -> {
-        final Dateline dateline = getSkinnable();
-
-        double x = dateline.getTimeline().getModel().calculateLocationForTime(oldTime);
-        double newTranslateX = dateline.getTranslateX() + x;
-
-        if (Math.abs(newTranslateX) < dateline.getDatelineBuffer()) {
-            dateline.setTranslateX(newTranslateX);
-        } else {
-            boolean scrollingRight = (newTranslateX - dateline.getTranslateX()) < 0;
-
-            if (scrollingRight) {
-                dateline.setTranslateX(Math.max(0, dateline.getDatelineBuffer()));
-            } else {
-                dateline.setTranslateX(Math.min(0, -dateline.getDatelineBuffer()));
-            }
-
-            updateDatelineCells();
-        }
-
-    };
-
-    private final WeakChangeListener weakStartTimeListener = new WeakChangeListener(startTimeListener);
 
     private void registerTimelineListeners(final Timeline timeline) {
 
@@ -185,6 +185,8 @@ public class DatelineSkin extends SkinBase<Dateline> {
     }
 
     private void registerDatelineListeners(Dateline dateline) {
+        dateline.datelineBufferProperty().addListener(it -> getSkinnable().requestLayout());
+
         dateline.zoneIdProperty().addListener(
                 (value, oldZoneId, newZoneId) -> {
                     dateline.getSelectedIntervals().clear();
@@ -207,30 +209,23 @@ public class DatelineSkin extends SkinBase<Dateline> {
 
         dateline.getModel().getResolutions().addListener(resolutionListener);
 
-        final ChangeListener<Number> scaleCountChangeListener = (value,
-                                                                 oldWidth, newWidth) -> {
+        final ChangeListener<Number> scaleCountChangeListener = (value, oldWidth, newWidth) -> {
             buildRows();
             getSkinnable().requestLayout();
         };
 
-        dateline.getModel().scaleCountProperty()
-                .addListener(scaleCountChangeListener);
+        dateline.getModel().scaleCountProperty().addListener(scaleCountChangeListener);
 
-        dateline.modelProperty().addListener(
-                (value, oldModel, newModel) -> {
-                    if (oldModel != null) {
-                        oldModel.getResolutions().removeListener(
-                                resolutionListener);
-                        oldModel.scaleCountProperty().removeListener(
-                                scaleCountChangeListener);
-                    }
-                    if (newModel != null) {
-                        newModel.getResolutions().addListener(
-                                resolutionListener);
-                        newModel.scaleCountProperty().addListener(
-                                scaleCountChangeListener);
-                    }
-                });
+        dateline.modelProperty().addListener((value, oldModel, newModel) -> {
+            if (oldModel != null) {
+                oldModel.getResolutions().removeListener(resolutionListener);
+                oldModel.scaleCountProperty().removeListener(scaleCountChangeListener);
+            }
+            if (newModel != null) {
+                newModel.getResolutions().addListener(resolutionListener);
+                newModel.scaleCountProperty().addListener(scaleCountChangeListener);
+            }
+        });
     }
 
     void buildRows() {
@@ -383,8 +378,6 @@ public class DatelineSkin extends SkinBase<Dateline> {
 
         dateline.requestLayout();
     }
-
-    private boolean initialSetup;
 
     @Override
     protected void layoutChildren(double x, double y, double width, double height) {

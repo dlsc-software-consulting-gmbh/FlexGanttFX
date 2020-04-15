@@ -10,7 +10,6 @@ import com.flexganttfx.model.timeline.ChronoUnitTimelineModel;
 import com.flexganttfx.model.timeline.TimelineModel;
 import com.flexganttfx.model.util.TimeInterval;
 import com.flexganttfx.view.GanttChart;
-import com.flexganttfx.view.GanttChartBase;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.util.FlexGanttFXControl;
 import impl.com.flexganttfx.skin.timeline.TimelineSkin;
@@ -27,11 +26,9 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
-import javafx.scene.Node;
 import javafx.scene.control.Skin;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.input.ZoomEvent;
-import javafx.scene.layout.Region;
 import javafx.util.Duration;
 
 import java.time.Instant;
@@ -114,6 +111,15 @@ public class Timeline extends FlexGanttFXControl {
         // register listeners first before setting the model
         registerListeners();
 
+        model.addListener((obs, oldModel, newModel) -> {
+            if (oldModel != null) {
+                oldModel.offsetProperty().unbind();
+            }
+            if (newModel != null) {
+                newModel.offsetProperty().bind(offsetProperty());
+            }
+        });
+
         setModel(new ChronoUnitTimelineModel());
 
         addEventHandler(ScrollEvent.SCROLL, evt -> {
@@ -162,26 +168,6 @@ public class Timeline extends FlexGanttFXControl {
 
         dateline = new Dateline(this);
         eventline = new Eventline(this);
-
-        extraProperty().addListener(it -> {
-            final Node extra = getExtra();
-            if (extra != null) {
-
-                extra.visibleProperty().bind(showExtraProperty());
-                extra.managedProperty().bind(showExtraProperty());
-
-                if (extra instanceof Region) {
-                    Region region = (Region) extra;
-                    region.prefWidthProperty().bind(extraWidthProperty());
-                    region.setMinWidth(Region.USE_PREF_SIZE);
-                    region.setMaxWidth(Region.USE_PREF_SIZE);
-                }
-            }
-        });
-
-        Region extra = new Region();
-        extra.getStyleClass().add("extra");
-        setExtra(extra);
     }
 
     @Override
@@ -196,76 +182,28 @@ public class Timeline extends FlexGanttFXControl {
         return super.getUserAgentStylesheet(Timeline.class, "timeline.css");
     }
 
-    // "Extra" node support
+    // "Offset" support
 
-    private final ObjectProperty<Node> extra = new SimpleObjectProperty<>(this, "extra");
-
-    /**
-     * A node that will be shown to the left of the timeline to create some spacing, e.g.
-     * when the application wants to display row headers. Then this "spacer" is needed to
-     * keep the timeline aligned with the graphics area.
-     *
-     * @return a node shown to the left of the actual timeline
-     *
-     * @since 11.11.0
-     */
-    public final ObjectProperty<Node> extraProperty() {
-        return extra;
-    }
-
-    public final Node getExtra() {
-        return extra.get();
-    }
-
-    public final void setExtra(Node extra) {
-        this.extra.set(extra);
-    }
-
-    private final BooleanProperty showExtra = new SimpleBooleanProperty(this, "showExtra", false);
+    private final DoubleProperty offset = new SimpleDoubleProperty(this, "offset");
 
     /**
-     * Determines if the "extras" node will be shown on the left-hand side of the timeline.
-     * This is normally only the case if the Gantt chart wants to display the row headers.
+     * Determines an optional offset added to time calculations and timeline layout that
+     * might be required if for example the graphics area below the timeline does not align
+     * properly with the timeline.
      *
-     * @see GanttChartBase#showRowHeadersProperty()
-     * @see GraphicsBase#showRowHeadersProperty()
-     * @see #extraProperty()
-     *
-     * @return true if the timeline should display the "extra" node spacer on the left-hand side
-     *
+     * @return the offset
      * @since 11.11.0
      */
-    public final BooleanProperty showExtraProperty() {
-        return showExtra;
+    public final DoubleProperty offsetProperty() {
+        return offset;
     }
 
-    public final boolean isShowExtra() {
-        return showExtra.get();
+    public final double getOffset() {
+        return offset.get();
     }
 
-    public final void setShowExtra(boolean showExtra) {
-        this.showExtra.set(showExtra);
-    }
-
-    private final DoubleProperty extraWidth = new SimpleDoubleProperty(this, "cornerWidth", 100);
-
-    /**
-     * Determines the width of the "extra" node on the left-hand side of the timeline.
-     *
-     * @see #extraProperty()
-     * @return the extra width
-     * @since 11.11.0
-     */
-    public final DoubleProperty extraWidthProperty() {
-        return extraWidth;
-    }
-
-    public final double getExtraWidth() {
-        return extraWidth.get();
-    }
-
-    public final void setExtraWidth(double extraWidth) {
-        this.extraWidth.set(extraWidth);
+    public final void setOffset(double offset) {
+        this.offset.set(offset);
     }
 
     /**
