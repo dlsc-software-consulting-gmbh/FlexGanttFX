@@ -1,15 +1,15 @@
 /**
  * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.emirates.model;
 
 import com.flexganttfx.emirates.EmiratesApp;
 import com.flexganttfx.emirates.model.Flight.ServiceType;
-import com.flexganttfx.extras.GanttChartStatusBar;
 import com.flexganttfx.model.Layer;
 import javafx.application.Platform;
+import javafx.beans.property.DoubleProperty;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -34,251 +34,227 @@ import java.util.zip.ZipInputStream;
 
 public class DataModel extends HashMap<Group, Map<String, Aircraft>> {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private static final Logger LOGGER = Logger.getLogger(DataModel.class
-			.getName());
+    private static final Logger LOGGER = Logger.getLogger(DataModel.class.getName());
+    private Instant start;
+    private Instant end;
+    private Layer capacityLayer = new Layer("Capacity");
+    private Map<ServiceType, Layer> layerMap = new HashMap<>();
+    private List<ModelObject<?, ?, ?>> rows = new ArrayList<>();
 
-	public enum DataSet {
-		SMALL("Small Data Set"), MEDIUM("Medium Data Set"), LARGE(
-				"Large Data Set");
+    public DataModel(DataSet dataSet, DoubleProperty progress) throws IOException {
+        switch (dataSet) {
+            case SMALL:
+                loadDataSet("flights-small.zip", 22235, progress);
+                break;
+            case MEDIUM:
+                loadDataSet("flights-medium.zip", 148208, progress);
+                break;
+            case LARGE:
+                loadDataSet("flights-large.zip", 313189, progress);
+                break;
+        }
 
-		private String displayName;
+        keySet().forEach(group -> {
+            rows.add(group);
+            rows.addAll(getAircrafts(group));
+        });
+    }
 
-		DataSet(String name) {
-			this.displayName = name;
-		}
+    public Collection<Layer> getLayers() {
+        return layerMap.values();
+    }
 
-		public String getDisplayName() {
-			return displayName;
-		}
-	}
+    private void loadDataSet(final String zipArchive, final int numberOfFlightsInFile, DoubleProperty progress) throws IOException {
+        ZipInputStream zin;
+        try {
+            zin = new ZipInputStream(EmiratesApp.class.getResourceAsStream(zipArchive));
 
-	private Instant start;
+            ZipEntry ze;
+            while ((ze = zin.getNextEntry()) != null) {
+                if (ze.getName().endsWith(".xml")) {
+                    File file = new File(System.getProperty("user.home"), ze.getName());
+                    if (!file.exists()) {
+                        LOGGER.info("Unzipping " + ze.getName());
 
-	private Instant end;
+                        System.out.println("Extracting data file " + ze.getName() + " into your home directory.<br>This might take a while");
 
-	private Layer capacityLayer = new Layer("Capacity");
+                        LOGGER.info("Unzipping to " + file.getAbsolutePath());
 
-	private Map<ServiceType, Layer> layerMap = new HashMap<>();
+                        FileOutputStream fout = new FileOutputStream(file);
 
-	private GanttChartStatusBar<?> statusBar;
+                        int size;
+                        byte[] buffer = new byte[2048];
 
-	private List<ModelObject<?,?,?>> rows = new ArrayList<>();
+                        BufferedOutputStream bos = new BufferedOutputStream(fout, buffer.length);
 
-	public DataModel(DataSet dataSet, GanttChartStatusBar<?> statusBar)
-			throws IOException {
-		this.statusBar = statusBar;
+                        while ((size = zin.read(buffer, 0, buffer.length)) != -1) {
+                            bos.write(buffer, 0, size);
+                        }
 
-		switch (dataSet) {
-		case SMALL:
-			loadDataSet("flights-small.zip", 17785);
-			break;
-		case MEDIUM:
-			loadDataSet("flights-medium.zip", 116423);
-			break;
-		case LARGE:
-			loadDataSet("flights-large.zip", 244373);
-			break;
-		}
+                        bos.flush();
+                        bos.close();
 
-		for (String s : Flight.serviceTypes) {
-			LOGGER.info("service type: " + s);
-		}
+                        zin.closeEntry();
+                        fout.close();
 
-		keySet().forEach(group -> {
-			rows.add(group);
-			rows.addAll(getAircrafts(group));
-		});
-	}
+                        LOGGER.info("Done unzipping!");
+                    } else {
+                        System.out.println("Data file exists, no need to extract from archive.");
+                    }
 
-	public Collection<Layer> getLayers() {
-		return layerMap.values();
-	}
+                    try {
+                        unmarshal(new FileReader(file), numberOfFlightsInFile + 100, progress); // 100 important
+                    } catch (Throwable t) {
+                        t.printStackTrace();
+                    }
 
-	private void loadDataSet(final String zipArchive, final int numberOfFlightsInFile) throws IOException {
-		ZipInputStream zin = null;
-		try {
-			zin = new ZipInputStream(
-					EmiratesApp.class.getResourceAsStream(zipArchive));
+                    LOGGER.info("returned from unmarshalling");
+                }
+            }
+            LOGGER.info("yahoo");
+        } catch (Exception e) {
+            LOGGER.info("exception");
+            e.printStackTrace();
+        }
 
-			ZipEntry ze = null;
-			while ((ze = zin.getNextEntry()) != null) {
-				if (ze.getName().endsWith(".xml")) {
-					File file = new File(System.getProperty("user.home"),
-							ze.getName());
-					if (!file.exists()) {
-						LOGGER.info("Unzipping " + ze.getName());
+        LOGGER.info("done unzipping and unmarshalling");
+    }
 
-						System.out
-								.println("Extracting data file "
-										+ ze.getName()
-										+ " into your home directory.<br>This might take a while");
+    private void unmarshal(FileReader reader, final int numberOfFlightsInFile, DoubleProperty progress) throws JAXBException, IOException {
 
-						LOGGER.info("Unzipping to " + file.getAbsolutePath());
+        JAXBContext context = JAXBContext.newInstance(ROWDATA.class);
+        Unmarshaller unmarshaller = context.createUnmarshaller();
 
-						FileOutputStream fout = new FileOutputStream(file);
+        final Map<String, List<Flight>> flights = new HashMap<>();
 
-						int size;
-						byte[] buffer = new byte[2048];
+        unmarshaller.setListener(new Unmarshaller.Listener() {
 
-						BufferedOutputStream bos = new BufferedOutputStream(
-								fout, buffer.length);
+            ZonedDateTime startTime = ZonedDateTime.now();
 
-						while ((size = zin.read(buffer, 0, buffer.length)) != -1) {
-							bos.write(buffer, 0, size);
-						}
+            int counter = 0;
 
-						bos.flush();
-						bos.close();
+            @Override
+            public void afterUnmarshal(Object target, Object parent) {
+                if (target instanceof ROW) {
+                    ROW row = (ROW) target;
+                    String resourceName = row.getResource();
+                    Group group = new Group(new StringTokenizer(resourceName, "-").nextToken());
+                    Map<String, Aircraft> aircraftMap = get(group);
+                    if (aircraftMap == null) {
+                        aircraftMap = new HashMap<>();
+                        put(group, aircraftMap);
+                    }
 
-						zin.closeEntry();
-						fout.close();
+                    Aircraft aircraftRow = aircraftMap.get(resourceName);
+                    if (aircraftRow == null) {
+                        aircraftRow = new Aircraft(row);
+                        aircraftMap.put(resourceName, aircraftRow);
+                    }
 
-						LOGGER.info("Done unzipping!");
-					} else {
-						System.out
-								.println("Data file exists, no need to extract from archive.");
-					}
+                    Flight flight = new Flight(row);
+                    List<Flight> flightList = flights.get(resourceName);
+                    if (flightList == null) {
+                        flightList = new ArrayList<>();
+                        flights.put(resourceName, flightList);
+                    }
 
-					try {
-						unmarshal(new FileReader(file), numberOfFlightsInFile);
-					} catch (Throwable t) {
-						t.printStackTrace();
-					}
+                    if (!flight.isInvalid()) {
+                        flightList.add(flight);
+                    }
 
-					LOGGER.info("returned from unmarshalling");
-				}
-			}
-			LOGGER.info("yahoo");
-		} catch (Exception e) {
-			LOGGER.info("exception");
-			e.printStackTrace();
-		}
+                    Instant startTime = flight.getStartTime();
+                    Instant endTime = flight.getStartTime();
 
-		LOGGER.info("done unzipping and unmarshalling");
-	}
+                    if (start == null || Instant.from(startTime).isBefore(start)) {
+                        start = Instant.from(startTime);
+                    }
 
-	private void unmarshal(FileReader reader, final int numberOfFlightsInFile)
-			throws JAXBException, IOException {
+                    if (end == null || Instant.from(endTime).isAfter(end)) {
+                        end = Instant.from(endTime);
+                    }
 
-		JAXBContext context = JAXBContext.newInstance(ROWDATA.class);
-		Unmarshaller unmarshaller = context.createUnmarshaller();
+                    counter++;
 
-		final Map<String, List<Flight>> flights = new HashMap<>();
+                } else if (target instanceof ROWDATA) {
+                    LOGGER.info("done parsing xml file");
+                    LOGGER.info("setting start time to " + startTime);
+                }
 
-		unmarshaller.setListener(new Unmarshaller.Listener() {
+                Platform.runLater(() -> {
+                    double v = (double) counter / (double) numberOfFlightsInFile;
+                    progress.set(v);
+                });
+            }
+        });
 
-			ZonedDateTime startTime = ZonedDateTime.now();
+        unmarshaller.unmarshal(reader);
+        reader.close();
 
-			int counter = 0;
+        LOGGER.info("horizon: " + start + " to " + end);
+        for (Group group : keySet()) {
+            Map<String, Aircraft> map = get(group);
+            for (Aircraft aircraft : map.values()) {
+                LOGGER.info("looking up flights for aircraft " + aircraft.getName());
+                List<Flight> flightList = flights.get(aircraft.getName());
+                if (flightList != null) {
+                    for (Flight flight : flightList) {
 
-			@Override
-			public void afterUnmarshal(Object target, Object parent) {
-				if (target instanceof ROW) {
-					ROW row = (ROW) target;
-					String resourceName = row.getResource();
-					Group group = new Group(new StringTokenizer(resourceName,
-							"-").nextToken());
-					Map<String, Aircraft> aircraftMap = get(group);
-					if (aircraftMap == null) {
-						aircraftMap = new HashMap<>();
-						put(group, aircraftMap);
-					}
+                        Layer layer = layerMap.get(flight.getServiceType());
+                        if (layer == null) {
+                            layer = new Layer(flight.getServiceType().toString());
+                            layerMap.put(flight.getServiceType(), layer);
+                        }
 
-					Aircraft aircraftRow = aircraftMap.get(resourceName);
-					if (aircraftRow == null) {
-						aircraftRow = new Aircraft(row);
-						aircraftMap.put(resourceName, aircraftRow);
-					}
+                        aircraft.addActivity(layer, flight);
+                    }
 
-					Flight flight = new Flight(row);
-					List<Flight> flightList = flights.get(resourceName);
-					if (flightList == null) {
-						flightList = new ArrayList<>();
-						flights.put(resourceName, flightList);
-					}
+                    aircraft.updateInnerLines();
+                }
+            }
+        }
 
-					if (!flight.isInvalid()) {
-						flightList.add(flight);
-					}
+        LOGGER.info("done unmarshalling");
+    }
 
-					Instant startTime = flight.getStartTime();
-					Instant endTime = flight.getStartTime();
+    public Set<Group> getGroups() {
+        return keySet();
+    }
 
-					if (start == null
-							|| Instant.from(startTime).isBefore(start)) {
-						start = Instant.from(startTime);
-					}
+    public List<ModelObject<?, ?, ?>> getRows() {
+        return rows;
+    }
 
-					if (end == null || Instant.from(endTime).isAfter(end)) {
-						end = Instant.from(endTime);
-					}
-				} else if (target instanceof ROWDATA) {
-					LOGGER.info("done parsing xml file");
-					LOGGER.info("setting start time to " + startTime);
-				}
+    public Collection<Aircraft> getAircrafts(Group group) {
+        Map<String, Aircraft> map = get(group);
+        return map.values();
+    }
 
-				counter++;
+    public Instant getStartTime() {
+        return start;
+    }
 
-				Platform.runLater(() -> statusBar.setProgress((double) counter
-						/ (double) numberOfFlightsInFile));
-			}
-		});
+    public Instant getEndTime() {
+        return end;
+    }
 
-		unmarshaller.unmarshal(reader);
-		reader.close();
+    public Layer getCapacityLayer() {
+        return capacityLayer;
+    }
 
-		LOGGER.info("horizon: " + start + " to " + end);
-		for (Group group : keySet()) {
-			Map<String, Aircraft> map = get(group);
-			for (Aircraft aircraft : map.values()) {
-				LOGGER.info("looking up flights for aircraft "
-						+ aircraft.getName());
-				List<Flight> flightList = flights.get(aircraft.getName());
-				if (flightList != null) {
-					for (Flight flight : flightList) {
+    public enum DataSet {
+        SMALL("Small Data Set"), MEDIUM("Medium Data Set"), LARGE(
+                "Large Data Set");
 
-						Layer layer = layerMap.get(flight.getServiceType());
-						if (layer == null) {
-							layer = new Layer(flight.getServiceType()
-									.toString());
-							layerMap.put(flight.getServiceType(), layer);
-						}
+        private String displayName;
 
-						aircraft.addActivity(layer, flight);
-					}
+        DataSet(String name) {
+            this.displayName = name;
+        }
 
-					aircraft.updateInnerLines();
-				}
-			}
-		}
-
-		LOGGER.info("done unmarshallling");
-	}
-
-	public Set<Group> getGroups() {
-		return keySet();
-	}
-
-	public List<ModelObject<?,?,?>> getRows() {
-		return rows;
-	}
-
-	public Collection<Aircraft> getAircrafts(Group group) {
-		Map<String, Aircraft> map = get(group);
-		return map.values();
-	}
-
-	public Instant getStartTime() {
-		return start;
-	}
-
-	public Instant getEndTime() {
-		return end;
-	}
-
-	public Layer getCapacityLayer() {
-		return capacityLayer;
-	}
+        public String getDisplayName() {
+            return displayName;
+        }
+    }
 }

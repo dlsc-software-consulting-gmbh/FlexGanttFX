@@ -5,29 +5,30 @@
  */
 package com.flexganttfx.emirates.view;
 
+import com.flexganttfx.core.FlexGanttFX;
+import com.flexganttfx.emirates.EmiratesApp;
+import com.flexganttfx.emirates.model.DataModel.DataSet;
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-
-import com.flexganttfx.core.FlexGanttFX;
-import com.flexganttfx.emirates.EmiratesApp;
-import com.flexganttfx.emirates.model.DataModel.DataSet;
 import javafx.util.Duration;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
 public class IntroPane extends VBox {
+
+	private final ScaleTransition scaleTransition = new ScaleTransition();
 
 	public IntroPane(final EmiratesApp app) {
 		getStyleClass().add("intro-pane");
@@ -87,7 +88,6 @@ public class IntroPane extends VBox {
 		promptLabel.setContentDisplay(ContentDisplay.RIGHT);
 		buttonBox.getChildren().add(promptLabel);
 
-		ScaleTransition scaleTransition = new ScaleTransition();
 		scaleTransition.setNode(promptLabel);
 		scaleTransition.setFromX(1);
 		scaleTransition.setToX(.8);
@@ -98,13 +98,14 @@ public class IntroPane extends VBox {
 		scaleTransition.setAutoReverse(true);
 		scaleTransition.play();
 
+		DoubleProperty progress = new SimpleDoubleProperty();
+
 		buttonBox.setAlignment(Pos.CENTER_LEFT);
 		buttonBox.getStyleClass().add("button-box");
 		for (final DataSet dataSet : DataSet.values()) {
 			final Button button = new Button(dataSet.getDisplayName());
 			button.setOnAction(event -> {
 				scaleTransition.stop();
-				button.setDisable(true);
 				button.setCursor(Cursor.WAIT);
 				IntroPane.this.setCursor(Cursor.WAIT);
 				Platform.runLater(() -> app.load(dataSet));
@@ -131,6 +132,9 @@ public class IntroPane extends VBox {
 		}
 
 		innerBox.getChildren().add(buttonBox);
-		setEffect(new DropShadow(20, Color.GRAY));
+	}
+
+	public ScaleTransition getScaleTransition() {
+		return scaleTransition;
 	}
 }
