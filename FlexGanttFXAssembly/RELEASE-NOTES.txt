@@ -10,6 +10,7 @@ Release: 11.11.0, April 2020 (Performance / StillCorona Release)
 	** Decreased default height of table header and timeline, now that we use smaller font.
 	** Added new "zoom mode" selector to toolbar
 	** Added new "show / hide scale / row header" button to toolbar
+	** New default value for "show hover interval" is "false"
 
 ** BUGS
 
@@ -24,6 +25,8 @@ Release: 11.11.0, April 2020 (Performance / StillCorona Release)
        controls but wait for a good point and time and batch multiple calls to one.
     ** Fixed text color used inside the context menu in the upper left corner of the tree
        table (used for showing / hiding columns, etc...).
+    ** Added missing support for alpha channel / opacity to LinksCanvas / links drawing.
+
 
 ----------------------------------------------------------
 Release: 11.10.0, March 2020 (Performance / Corona Release)
