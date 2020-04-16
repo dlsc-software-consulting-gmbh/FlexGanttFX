@@ -123,6 +123,7 @@
 	-fx-background-color: rgb(215,25,33);
 	-fx-text-fill: white;
 	-fx-font-size: 1.5em;
+	-fx-font-weight: bold;
 	-fx-graphic-text-gap: 10px;
 }
 

@@ -6,6 +6,7 @@
 package com.flexganttfx.emirates.view;
 
 import javafx.animation.FadeTransition;
+import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -66,7 +67,7 @@ public class IntroPane extends VBox {
 		title.setContentDisplay(ContentDisplay.RIGHT);
 		innerBox.getChildren().add(title);
 
-		Label subtitle = new Label("Aircraft Scheduling");
+		Label subtitle = new Label("Aircraft Scheduling (Proof of Concept)");
 		subtitle.getStyleClass().add("demo-subtitle");
 		subtitle.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 		subtitle.setAlignment(Pos.TOP_LEFT);
@@ -86,21 +87,23 @@ public class IntroPane extends VBox {
 		promptLabel.setContentDisplay(ContentDisplay.RIGHT);
 		buttonBox.getChildren().add(promptLabel);
 
-		FadeTransition fadeTransition = new FadeTransition();
-		fadeTransition.setNode(promptLabel);
-		fadeTransition.setFromValue(1);
-		fadeTransition.setToValue(.2);
-		fadeTransition.setCycleCount(FadeTransition.INDEFINITE);
-		fadeTransition.setDuration(Duration.millis(1000));
-		fadeTransition.setAutoReverse(true);
-		fadeTransition.play();
+		ScaleTransition scaleTransition = new ScaleTransition();
+		scaleTransition.setNode(promptLabel);
+		scaleTransition.setFromX(1);
+		scaleTransition.setToX(.8);
+		scaleTransition.setFromY(1);
+		scaleTransition.setToY(.8);
+		scaleTransition.setCycleCount(FadeTransition.INDEFINITE);
+		scaleTransition.setDuration(Duration.millis(1000));
+		scaleTransition.setAutoReverse(true);
+		scaleTransition.play();
 
 		buttonBox.setAlignment(Pos.CENTER_LEFT);
 		buttonBox.getStyleClass().add("button-box");
 		for (final DataSet dataSet : DataSet.values()) {
 			final Button button = new Button(dataSet.getDisplayName());
 			button.setOnAction(event -> {
-				fadeTransition.stop();
+				scaleTransition.stop();
 				button.setDisable(true);
 				button.setCursor(Cursor.WAIT);
 				IntroPane.this.setCursor(Cursor.WAIT);
