@@ -5,13 +5,14 @@
  */
 package com.flexganttfx.model;
 
-import static java.util.Objects.requireNonNull;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Layers are used to group activities together. Activities on the same layer
@@ -155,8 +156,7 @@ public class Layer {
 		return opacityProperty().get();
 	}
 
-	private DoubleProperty fadeInOutOpacity = new SimpleDoubleProperty(this,
-			"fadeInOutOpacity", 1);
+	private DoubleProperty fadeInOutOpacity = new SimpleDoubleProperty(this, "fadeInOutOpacity", 1);
 
 	/**
 	 * The property used to store the temporary opacity of the layer while the
