@@ -16,6 +16,8 @@ module com.flexganttfx.emirates {
 
     requires com.flexganttfx.view;
     requires com.flexganttfx.extras;
+    requires org.kordamp.ikonli.javafx;
+    requires org.kordamp.ikonli.materialdesign;
 
     exports com.flexganttfx.emirates;
 

@@ -9,9 +9,9 @@ import com.flexganttfx.core.FlexGanttFX;
 import com.flexganttfx.emirates.model.DataModel;
 import com.flexganttfx.emirates.model.DataModel.DataSet;
 import com.flexganttfx.emirates.view.EmiratesAircraftGanttChart;
+import com.flexganttfx.emirates.view.EmiratesToolBar;
 import com.flexganttfx.emirates.view.IntroPane;
 import com.flexganttfx.extras.GanttChartStatusBar;
-import com.flexganttfx.extras.GanttChartToolBar;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -110,6 +110,7 @@ public class EmiratesApp extends Application {
 
 	private Region createGanttChart() {
 		gantt = new EmiratesAircraftGanttChart();
+		gantt.getGraphics().setShowHoverTimeIntervalLayer(false);
 		gantt.setPrefSize(1300, 1100);
 		VBox.setVgrow(gantt, Priority.ALWAYS);
 
@@ -118,7 +119,7 @@ public class EmiratesApp extends Application {
 		MenuBar menuBar = createMenuBar();
 		vbox.getChildren().add(menuBar);
 
-		GanttChartToolBar<?> toolBar = new GanttChartToolBar<>(gantt);
+		EmiratesToolBar<?> toolBar = new EmiratesToolBar<>(gantt);
 		vbox.getChildren().add(toolBar);
 
 		vbox.getChildren().add(gantt);

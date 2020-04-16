@@ -13,4 +13,6 @@ module com.flexganttfx.extras {
     exports com.flexganttfx.extras.properties.view;
     exports com.flexganttfx.extras.util;
     exports impl.com.flexganttfx.extras.skin;
+    opens com.flexganttfx.extras;
+    opens com.flexganttfx.extras.util;
 }

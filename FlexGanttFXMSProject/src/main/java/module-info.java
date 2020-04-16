@@ -3,6 +3,8 @@ module com.flexganttfx.msproject {
     requires transitive mpxj;
     requires transitive com.flexganttfx.extras;
 
+    requires jpro.webapi;
+
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.materialdesign;
 

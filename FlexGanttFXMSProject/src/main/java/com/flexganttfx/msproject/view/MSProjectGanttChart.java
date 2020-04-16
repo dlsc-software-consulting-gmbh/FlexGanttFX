@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.msproject.view;
@@ -12,6 +12,7 @@ import com.flexganttfx.msproject.model.MSProjectTaskActivity;
 import com.flexganttfx.msproject.model.MSProjectTaskRow;
 import com.flexganttfx.view.GanttChart;
 import com.flexganttfx.view.timeline.Timeline;
+import com.jpro.webapi.WebAPI;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
@@ -55,23 +56,8 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
         List<TreeTableColumn<MSProjectTaskRow, ?>> columns = new ArrayList<>();
 
         TreeTableColumn<MSProjectTaskRow, String> nameColumn = new TreeTableColumn<>("Name");
-        TreeTableColumn<MSProjectTaskRow, Instant> startColumn = new TreeTableColumn<>("Start");
-        TreeTableColumn<MSProjectTaskRow, Instant> finishColumn = new TreeTableColumn<>("Finish");
-        TreeTableColumn<MSProjectTaskRow, Double> percentageCompleteColumn = new TreeTableColumn<>("%");
-        TreeTableColumn<MSProjectTaskRow, Double> percentageCompleteVisualColumn = new TreeTableColumn<>("Complete");
-
         nameColumn.setPrefWidth(250);
-        startColumn.setPrefWidth(100);
-        finishColumn.setPrefWidth(100);
-        percentageCompleteColumn.setPrefWidth(40);
-        percentageCompleteVisualColumn.setPrefWidth(100);
-
         nameColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("name"));
-        startColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("startTime"));
-        finishColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("finishTime"));
-        percentageCompleteColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("percentageComplete"));
-
-        percentageCompleteVisualColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("percentageComplete"));
 
         Callback<TreeTableColumn<MSProjectTaskRow, String>, TreeTableCell<MSProjectTaskRow, String>> nameCellFactory = param -> new TreeTableCell<>() {
 
@@ -129,60 +115,80 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
             }
         };
 
-        startColumn.setCellFactory(dateTimeCellFactory);
-        finishColumn.setCellFactory(dateTimeCellFactory);
-
-        Callback<TreeTableColumn<MSProjectTaskRow, Double>, TreeTableCell<MSProjectTaskRow, Double>> percentageCellFactory = new Callback<TreeTableColumn<MSProjectTaskRow, Double>, TreeTableCell<MSProjectTaskRow, Double>>() {
-            private NumberFormat formatter = DecimalFormat.getPercentInstance();
-
-            @Override
-            public TreeTableCell<MSProjectTaskRow, Double> call(
-                    TreeTableColumn<MSProjectTaskRow, Double> param) {
-                return new TreeTableCell<MSProjectTaskRow, Double>() {
-                    @Override
-                    protected void updateItem(Double item, boolean empty) {
-                        if (item != null) {
-                            setText(formatter.format(item.doubleValue() / 100));
-                        } else {
-                            setText(null);
-                        }
-                    }
-                };
-            }
-        };
-
-        percentageCompleteColumn.setCellFactory(percentageCellFactory);
-
-        Callback<TreeTableColumn<MSProjectTaskRow, Double>, TreeTableCell<MSProjectTaskRow, Double>> percentageVisualCellFactory = param -> new TreeTableCell<MSProjectTaskRow, Double>() {
-            private ProgressBar progressBar;
-
-            @Override
-            protected void updateItem(Double item, boolean empty) {
-
-                if (progressBar == null) {
-                    progressBar = new ProgressBar();
-                    setContentDisplay(GRAPHIC_ONLY);
-                }
-
-                if (item != null) {
-                    progressBar.setProgress(item / 100);
-                    setGraphic(progressBar);
-                } else {
-                    setGraphic(null);
-                }
-            }
-        };
-
-        percentageCompleteVisualColumn.setCellFactory(percentageVisualCellFactory);
-
         columns.add(nameColumn);
-        columns.add(percentageCompleteColumn);
-        columns.add(percentageCompleteVisualColumn);
-        columns.add(startColumn);
-        columns.add(finishColumn);
 
-        getTreeTable().setTreeColumn(nameColumn);
+        if (!WebAPI.isBrowser()) {
+
+            TreeTableColumn<MSProjectTaskRow, Instant> startColumn = new TreeTableColumn<>("Start");
+            TreeTableColumn<MSProjectTaskRow, Instant> finishColumn = new TreeTableColumn<>("Finish");
+            TreeTableColumn<MSProjectTaskRow, Double> percentageCompleteColumn = new TreeTableColumn<>("%");
+            TreeTableColumn<MSProjectTaskRow, Double> percentageCompleteVisualColumn = new TreeTableColumn<>("Complete");
+
+            startColumn.setPrefWidth(100);
+            finishColumn.setPrefWidth(100);
+            percentageCompleteColumn.setPrefWidth(40);
+            percentageCompleteVisualColumn.setPrefWidth(100);
+
+            startColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("startTime"));
+            finishColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("finishTime"));
+            percentageCompleteColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("percentageComplete"));
+
+            percentageCompleteVisualColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("percentageComplete"));
+
+            startColumn.setCellFactory(dateTimeCellFactory);
+            finishColumn.setCellFactory(dateTimeCellFactory);
+
+            Callback<TreeTableColumn<MSProjectTaskRow, Double>, TreeTableCell<MSProjectTaskRow, Double>> percentageCellFactory = new Callback<TreeTableColumn<MSProjectTaskRow, Double>, TreeTableCell<MSProjectTaskRow, Double>>() {
+                private NumberFormat formatter = DecimalFormat.getPercentInstance();
+
+                @Override
+                public TreeTableCell<MSProjectTaskRow, Double> call(
+                        TreeTableColumn<MSProjectTaskRow, Double> param) {
+                    return new TreeTableCell<MSProjectTaskRow, Double>() {
+                        @Override
+                        protected void updateItem(Double item, boolean empty) {
+                            if (item != null) {
+                                setText(formatter.format(item.doubleValue() / 100));
+                            } else {
+                                setText(null);
+                            }
+                        }
+                    };
+                }
+            };
+
+            percentageCompleteColumn.setCellFactory(percentageCellFactory);
+
+            Callback<TreeTableColumn<MSProjectTaskRow, Double>, TreeTableCell<MSProjectTaskRow, Double>> percentageVisualCellFactory = param -> new TreeTableCell<MSProjectTaskRow, Double>() {
+                private ProgressBar progressBar;
+
+                @Override
+                protected void updateItem(Double item, boolean empty) {
+
+                    if (progressBar == null) {
+                        progressBar = new ProgressBar();
+                        setContentDisplay(GRAPHIC_ONLY);
+                    }
+
+                    if (item != null) {
+                        progressBar.setProgress(item / 100);
+                        setGraphic(progressBar);
+                    } else {
+                        setGraphic(null);
+                    }
+                }
+            };
+
+            percentageCompleteVisualColumn.setCellFactory(percentageVisualCellFactory);
+
+            columns.add(percentageCompleteColumn);
+            columns.add(percentageCompleteVisualColumn);
+            columns.add(startColumn);
+            columns.add(finishColumn);
+        }
+
         getTreeTable().getColumns().setAll(columns);
+        getTreeTable().setTreeColumn(nameColumn);
 
         getGraphics().setRowEditorFactory(param -> new MSProjectTaskDetails(param.getGraphics(), param.getRow()));
     }
