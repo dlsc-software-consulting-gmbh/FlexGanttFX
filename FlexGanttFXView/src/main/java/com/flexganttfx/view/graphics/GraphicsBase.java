@@ -633,16 +633,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
             if (newScene != null) {
                 timer = new AnimationTimer() {
-                    private long last = 0;
 
                     @Override
                     public void handle(long now) {
-                        if (now - last > 17000000) { // 60 frames / second
-                            last = now;
-                            for (RowPane<R> pane : getRowPanes()) {
-                                if (pane.getCanvas().isDirty()) {
-                                    pane.getCanvas().draw();
-                                }
+                        for (RowPane<R> pane : getRowPanes()) {
+                            if (pane.getCanvas().isDirty()) {
+                                pane.getCanvas().draw();
                             }
                         }
                     }
