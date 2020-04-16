@@ -4049,8 +4049,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     // Hover time interval support.
 
-    private final BooleanProperty showHoverTimeIntervalLayer = new SimpleBooleanProperty(
-            this, "showHoverTimeIntervalLayer", true);
+    private final BooleanProperty showHoverTimeIntervalLayer = new SimpleBooleanProperty(this, "showHoverTimeIntervalLayer", false);
 
     public final BooleanProperty showHoverTimeIntervalLayerProperty() {
         return showHoverTimeIntervalLayer;
@@ -4066,8 +4065,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     // Support for showing inner lines
 
-    private final BooleanProperty showInnerLinesLayer = new SimpleBooleanProperty(
-            this, "showInnerLinesLayer", true);
+    private final BooleanProperty showInnerLinesLayer = new SimpleBooleanProperty(this, "showInnerLinesLayer", true);
 
     public final BooleanProperty showInnerLinesLayerProperty() {
         return showInnerLinesLayer;
