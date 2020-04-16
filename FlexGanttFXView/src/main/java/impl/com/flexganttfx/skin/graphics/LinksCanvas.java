@@ -179,8 +179,21 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
                     targetBounds = new Rectangle2D(targetBounds.getMinX() - graphics.getCanvasBuffer() + targetCanvas.getTranslateX(), targetBounds.getMinY(), targetBounds.getWidth(), targetBounds.getHeight());
                 }
 
-                final LinkRenderer linkRenderer = graphics.getLinkRenderer(link.getClass());
-                linkRenderer.draw(link, gc, sourceBounds, targetBounds);
+                if (graphics.isSafeRendering()) {
+                    gc.save();
+                }
+
+                try {
+                    double alpha = gc.getGlobalAlpha();
+                    gc.setGlobalAlpha(link.getSourceActivityRef().getLayer().getOpacity());
+                    final LinkRenderer linkRenderer = graphics.getLinkRenderer(link.getClass());
+                    linkRenderer.draw(link, gc, sourceBounds, targetBounds);
+                    gc.setGlobalAlpha(alpha);
+                } finally {
+                    if (graphics.isSafeRendering()) {
+                        gc.restore();
+                    }
+                }
             }
         }
     }
