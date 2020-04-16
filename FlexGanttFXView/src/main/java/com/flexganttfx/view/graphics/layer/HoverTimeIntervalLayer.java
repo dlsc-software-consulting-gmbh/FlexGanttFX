@@ -47,8 +47,7 @@ public class HoverTimeIntervalLayer<R extends Row<?, ?, ?>> extends SystemLayer<
         fadeInOutObservable(graphics.showHoverTimeIntervalLayerProperty());
     }
 
-    private final ObjectProperty<Paint> hoverTimeIntervalFill = new SimpleObjectProperty<>(
-            this, "hoverTimeIntervalFill");
+    private final ObjectProperty<Paint> hoverTimeIntervalFill = new SimpleObjectProperty<>(this, "hoverTimeIntervalFill");
 
     public final ObjectProperty<Paint> hoverTimeIntervalFillProperty() {
         return hoverTimeIntervalFill;
@@ -65,7 +64,6 @@ public class HoverTimeIntervalLayer<R extends Row<?, ?, ?>> extends SystemLayer<
 
     @Override
     public void drawLayer(RowCanvas<R> canvas, Instant startTime, Instant endTime) {
-
         GraphicsBase graphics = getGraphics();
         Timeline timeline = graphics.getTimeline();
         Dateline dateline = timeline.getDateline();
