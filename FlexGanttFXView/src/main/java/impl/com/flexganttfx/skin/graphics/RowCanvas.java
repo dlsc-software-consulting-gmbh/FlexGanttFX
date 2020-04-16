@@ -34,7 +34,6 @@ import com.flexganttfx.view.util.Position;
 import impl.com.flexganttfx.skin.util.Placement;
 import impl.com.flexganttfx.skin.util.Resolver;
 import impl.com.flexganttfx.skin.util.ResolverResult;
-import javafx.animation.AnimationTimer;
 import javafx.beans.InvalidationListener;
 import javafx.beans.WeakInvalidationListener;
 import javafx.beans.property.BooleanProperty;
@@ -128,24 +127,9 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         graphics.canvasBufferProperty().addListener(it -> randomTranslateX(true));
         randomTranslateX(true);
 
-        AnimationTimer timer = new AnimationTimer() {
-            private long last = 0;
-
-            @Override
-            public void handle(long now) {
-                if (now - last > 17000000) { // 60 frames / second
-                    if (dirty) {
-                        last = now;
-                        doDraw(false);
-                    }
-                }
-            }
-        };
-
-        timer.start();
-
         final Runnable drawRunnable = () -> {
             if (dirty) {
+                System.out.println("x " + System.currentTimeMillis());
                 doDraw(true);
             }
         };
@@ -272,6 +256,10 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
     private static int drawCounter;
     private static int doDrawCounter;
 
+    public boolean isDirty() {
+        return dirty;
+    }
+
     public final void draw(String reason) {
         this.reason = reason;
         this.dirty = true;
@@ -284,7 +272,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         }
     }
 
-    private void doDraw(boolean pulse) {
+    public void doDraw(boolean pulse) {
         if (doDrawCounter < Integer.MAX_VALUE) {
             doDrawCounter++;
         } else {

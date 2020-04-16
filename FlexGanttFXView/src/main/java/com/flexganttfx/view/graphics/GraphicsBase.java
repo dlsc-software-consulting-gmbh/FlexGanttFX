@@ -63,6 +63,7 @@ import com.flexganttfx.view.util.Position;
 import impl.com.flexganttfx.skin.graphics.GraphicsBaseSkin;
 import impl.com.flexganttfx.skin.graphics.LinksCanvas;
 import impl.com.flexganttfx.skin.graphics.RowPane;
+import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.application.Platform;
@@ -269,6 +270,8 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     };
 
     private final WeakChangeListener<Instant> weakRedrawNowListener = new WeakChangeListener<>(redrawNowListener);
+
+    private AnimationTimer timer;
 
     /**
      * Constructs a new graphics view and initializes the following:
@@ -622,6 +625,31 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         });
 
         setRowHeaderFactory(graphics -> new ScaleRowHeader<>(this));
+
+        sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (timer != null) {
+                timer.stop();
+            }
+
+            if (newScene != null) {
+                timer = new AnimationTimer() {
+                    private long last = 0;
+
+                    @Override
+                    public void handle(long now) {
+                        if (now - last > 17000000) { // 60 frames / second
+                            for (RowPane<R> pane : getRowPanes()) {
+                                if (pane.getCanvas().isDirty()) {
+                                    pane.getCanvas().doDraw(false);
+                                }
+                            }
+                        }
+                    }
+                };
+
+                timer.start();
+            }
+        });
     }
 
     @Override
