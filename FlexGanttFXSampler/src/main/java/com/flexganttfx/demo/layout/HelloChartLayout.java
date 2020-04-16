@@ -70,7 +70,6 @@ public class HelloChartLayout extends FlexGanttFXSample {
         Application.launch(args);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected GanttChart<?> createGanttChart() {
         Properties props = new Properties();
@@ -238,9 +237,7 @@ public class HelloChartLayout extends FlexGanttFXSample {
             TableColumn<DailyTrading, Double> highColumn = new TableColumn<DailyTrading, Double>("High");
             TableColumn<DailyTrading, Double> closeColumn = new TableColumn<DailyTrading, Double>("Close");
             TableColumn<DailyTrading, Integer> volumeColumn = new TableColumn<DailyTrading, Integer>("Volume");
-            table.getColumns().addAll(dateColumn, openColumn,
-                    lowColumn, highColumn, closeColumn,
-                    volumeColumn);
+            table.getColumns().addAll(dateColumn, openColumn, lowColumn, highColumn, closeColumn, volumeColumn);
 
             dateColumn.setCellValueFactory(new PropertyValueFactory<DailyTrading, LocalDate>("date"));
             openColumn.setCellValueFactory(new PropertyValueFactory<DailyTrading, Double>("stockOpen"));
@@ -433,10 +430,8 @@ public class HelloChartLayout extends FlexGanttFXSample {
 
             this.date = date;
 
-            setStartTime(Instant.from(ZonedDateTime.of(date, LocalTime.MIN,
-                    ZoneId.systemDefault())));
-            setEndTime(Instant.from(ZonedDateTime.of(date, LocalTime.MAX,
-                    ZoneId.systemDefault())));
+            setStartTime(Instant.from(ZonedDateTime.of(date, LocalTime.MIN, ZoneId.systemDefault())));
+            setEndTime(Instant.from(ZonedDateTime.of(date, LocalTime.MAX, ZoneId.systemDefault())));
 
             setLow(low);
             setHigh(high);

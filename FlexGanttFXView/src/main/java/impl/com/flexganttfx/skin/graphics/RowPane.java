@@ -73,11 +73,10 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
         flipPane.getFront().getChildren().add(canvas);
         flipPane.getFront().getChildren().add(zoneIdLabel);
 
-        Rectangle clip = new Rectangle();
-        clip.widthProperty().bind(flipPane.widthProperty());
-        clip.heightProperty().bind(flipPane.heightProperty());
-
         if (!Boolean.getBoolean("rowpane.no.clip")) {
+            Rectangle clip = new Rectangle();
+            clip.widthProperty().bind(flipPane.widthProperty());
+            clip.heightProperty().bind(flipPane.heightProperty());
             flipPane.setClip(clip);
         }
 
@@ -104,8 +103,7 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
             if (getRow() != null && !flipPane.isBackVisible()) {
                 Callback<RowControlsParameter<R>, Node> controlsFactory = graphics.getRowControlsFactory();
                 if (controlsFactory != null) {
-                    RowControlsParameter<R> param = new RowControlsParameter<>(
-                            graphics, getRow());
+                    RowControlsParameter<R> param = new RowControlsParameter<>(graphics, getRow());
                     Node controlsNode = controlsFactory.call(param);
                     setControlsNode(controlsNode);
                 }
@@ -238,8 +236,8 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
 
     public final void startEditing() {
         flipPane.setRow(getRow());
-        getScene().setCamera(new PerspectiveCamera());
         if (graphics.isAnimateRowEditor()) {
+            getScene().setCamera(new PerspectiveCamera());
             flipPane.flipToBack();
         } else {
             flipPane.flipToBackImmediately();
