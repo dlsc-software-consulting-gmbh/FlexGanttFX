@@ -5,6 +5,7 @@
  */
 package com.flexganttfx.emirates.view;
 
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -21,6 +22,9 @@ import javafx.scene.paint.Color;
 import com.flexganttfx.core.FlexGanttFX;
 import com.flexganttfx.emirates.EmiratesApp;
 import com.flexganttfx.emirates.model.DataModel.DataSet;
+import javafx.util.Duration;
+import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
 public class IntroPane extends VBox {
 
@@ -28,8 +32,7 @@ public class IntroPane extends VBox {
 		getStyleClass().add("intro-pane");
 
 		Label emiratesLogo = new Label();
-		emiratesLogo.setGraphic(new ImageView(EmiratesApp.class.getResource(
-				"logo-emirates.gif").toExternalForm()));
+		emiratesLogo.setGraphic(new ImageView(EmiratesApp.class.getResource("logo-emirates.gif").toExternalForm()));
 		emiratesLogo.getStyleClass().add("emirates-logo");
 		emiratesLogo.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
 		emiratesLogo.setAlignment(Pos.CENTER_RIGHT);
@@ -38,8 +41,11 @@ public class IntroPane extends VBox {
 		Label dlscLogo = new Label();
 		dlscLogo.getStyleClass().add("dlsc-logo");
 		dlscLogo.setMaxWidth(Double.MAX_VALUE);
-		dlscLogo.setGraphic(new ImageView(EmiratesApp.class.getResource(
-				"logo-dlsc.png").toExternalForm()));
+		final ImageView imageView = new ImageView(EmiratesApp.class.getResource("logo-dlsc.png").toExternalForm());
+		imageView.setFitHeight(70);
+		imageView.setPreserveRatio(true);
+
+		dlscLogo.setGraphic(imageView);
 		dlscLogo.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
 		dlscLogo.setAlignment(Pos.CENTER_RIGHT);
 
@@ -57,12 +63,10 @@ public class IntroPane extends VBox {
 
 		Label title = new Label("FlexGanttFX " + FlexGanttFX.getVersion());
 		title.getStyleClass().add("demo-title");
-//		title.setGraphic(new ImageView(EmiratesApp.class.getResource(
-//				"beta_icon_small.png").toExternalForm()));
 		title.setContentDisplay(ContentDisplay.RIGHT);
 		innerBox.getChildren().add(title);
 
-		Label subtitle = new Label("Proof of Concept, March 2014");
+		Label subtitle = new Label("Aircraft Scheduling");
 		subtitle.getStyleClass().add("demo-subtitle");
 		subtitle.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 		subtitle.setAlignment(Pos.TOP_LEFT);
@@ -75,10 +79,28 @@ public class IntroPane extends VBox {
 		HBox.setHgrow(label, Priority.ALWAYS);
 		buttonBox.getChildren().add(label);
 
+		Label promptLabel = new Label("Select a Dataset");
+		promptLabel.setAlignment(Pos.CENTER_RIGHT);
+		promptLabel.getStyleClass().add("prompt-label");
+		promptLabel.setGraphic(new FontIcon(MaterialDesign.MDI_ARROW_RIGHT));
+		promptLabel.setContentDisplay(ContentDisplay.RIGHT);
+		buttonBox.getChildren().add(promptLabel);
+
+		FadeTransition fadeTransition = new FadeTransition();
+		fadeTransition.setNode(promptLabel);
+		fadeTransition.setFromValue(1);
+		fadeTransition.setToValue(.2);
+		fadeTransition.setCycleCount(FadeTransition.INDEFINITE);
+		fadeTransition.setDuration(Duration.millis(1000));
+		fadeTransition.setAutoReverse(true);
+		fadeTransition.play();
+
+		buttonBox.setAlignment(Pos.CENTER_LEFT);
 		buttonBox.getStyleClass().add("button-box");
 		for (final DataSet dataSet : DataSet.values()) {
 			final Button button = new Button(dataSet.getDisplayName());
 			button.setOnAction(event -> {
+				fadeTransition.stop();
 				button.setDisable(true);
 				button.setCursor(Cursor.WAIT);
 				IntroPane.this.setCursor(Cursor.WAIT);

@@ -116,3 +116,16 @@
 .data-set-small {
 	-fx-graphic: url("data-small.png");
 }
+
+.prompt-label {
+	-fx-padding: 10px 20px;
+	-fx-background-radius: 4px;
+	-fx-background-color: rgb(215,25,33);
+	-fx-text-fill: white;
+	-fx-font-size: 1.5em;
+	-fx-graphic-text-gap: 10px;
+}
+
+.prompt-label .ikonli-font-icon {
+	-fx-icon-color: white;
+}
