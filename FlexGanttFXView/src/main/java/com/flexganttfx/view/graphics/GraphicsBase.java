@@ -638,9 +638,10 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
                     @Override
                     public void handle(long now) {
                         if (now - last > 17000000) { // 60 frames / second
+                            last = now;
                             for (RowPane<R> pane : getRowPanes()) {
                                 if (pane.getCanvas().isDirty()) {
-                                    pane.getCanvas().doDraw(false);
+                                    pane.getCanvas().draw();
                                 }
                             }
                         }
@@ -3427,7 +3428,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         }
 
         if (linksCanvas != null) {
-            linksCanvas.draw(reason);
+            linksCanvas.requestRedraw(reason);
         }
     }
 
@@ -3444,9 +3445,9 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
                     }
 
                     if (oldTime != null) {
-                        pane.getCanvas().draw(reason, oldTime);
+                        pane.getCanvas().requestRedraw(reason, oldTime);
                     } else {
-                        pane.getCanvas().draw(reason);
+                        pane.getCanvas().requestRedraw(reason);
                     }
                 }
             }

@@ -262,7 +262,7 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
         }
     }
 
-    private final InvalidationListener redrawListener = it -> getCanvas().draw("row pane's redraw listener was called");
+    private final InvalidationListener redrawListener = it -> getCanvas().requestRedraw("row pane's redraw listener was called");
 
     private final InvalidationListener weakRedrawListener = new WeakInvalidationListener(redrawListener);
 
@@ -277,7 +277,7 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
          * in a batch.
          */
         if (graphics.isAutomaticRedraw()) {
-            getCanvas().draw("row pane's repository listener fired");
+            getCanvas().requestRedraw("row pane's repository listener fired");
         }
     };
 

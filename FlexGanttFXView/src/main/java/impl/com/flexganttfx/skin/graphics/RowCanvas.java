@@ -105,7 +105,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         rowCanvasBehaviour = new RowCanvasBehaviour<>(this);
 
-        rowProperty().addListener(evt -> draw("row model object changed"));
+        rowProperty().addListener(evt -> requestRedraw("row model object changed"));
 
         ChangeListener<ActivityRef<?>> weakActivityRedrawListener = new WeakChangeListener<>(activityRedrawListener);
         graphics.editModeProperty().addListener(new WeakInvalidationListener(editModeListener));
@@ -113,7 +113,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         graphics.pressedActivityProperty().addListener(weakActivityRedrawListener);
         graphics.getSelectedActivities().addListener(new WeakListChangeListener<>(selectedActivitiesListener));
 
-        InvalidationListener pseudoStateRedrawListener = observable -> draw("pseudo state changed");
+        InvalidationListener pseudoStateRedrawListener = observable -> requestRedraw("pseudo state changed");
 
         hoverProperty().addListener(pseudoStateRedrawListener);
         pressedProperty().addListener(pseudoStateRedrawListener);
@@ -121,7 +121,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         graphics.canvasBufferProperty().addListener(it -> {
             setTranslateX(0);
-            draw("canvas buffer size changed");
+            requestRedraw("canvas buffer size changed");
         });
 
         graphics.canvasBufferProperty().addListener(it -> randomTranslateX(true));
@@ -129,8 +129,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         final Runnable drawRunnable = () -> {
             if (dirty) {
-                System.out.println("x " + System.currentTimeMillis());
-                doDraw(true);
+                draw();
             }
         };
 
@@ -156,7 +155,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         }
     }
 
-    public void draw(String reason, Instant oldTime) {
+    public void requestRedraw(String reason, Instant oldTime) {
         final Timeline timeline = graphics.getTimeline();
 
         final double rowHeadersWidth = graphics.isShowRowHeaders() ? graphics.getRowHeadersWidth() : 0;
@@ -169,7 +168,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
             if (graphics.getCanvasBuffer() > 0) {
                 randomTranslateX((newTranslateX - getTranslateX()) < 0);
             }
-            draw(reason);
+            requestRedraw(reason);
         }
     }
 
@@ -182,7 +181,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                 }
             }
 
-            draw("activity redraw listener fired");
+            requestRedraw("activity redraw listener fired");
         }
     };
 
@@ -196,13 +195,13 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         while (change.next()) {
             for (ActivityRef<?> ref : change.getAddedSubList()) {
                 if (ref.getRow() == getRow()) {
-                    draw("selected activities listener fired after activities were added");
+                    requestRedraw("selected activities listener fired after activities were added");
                     return;
                 }
             }
             for (ActivityRef<?> ref : change.getRemoved()) {
                 if (ref.getRow() == getRow()) {
-                    draw("selected activities listener fired after activities were removed");
+                    requestRedraw("selected activities listener fired after activities were removed");
                     return;
                 }
             }
@@ -213,7 +212,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         return graphics;
     }
 
-    private final ChangeListener<Number> redrawListener = (value, oldSize, newSize) -> draw("redraw listener fired");
+    private final ChangeListener<Number> redrawListener = (value, oldSize, newSize) -> requestRedraw("redraw listener fired");
 
     private final ObjectProperty<R> row = new SimpleObjectProperty<>(this, "row");
 
@@ -260,7 +259,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         return dirty;
     }
 
-    public final void draw(String reason) {
+    public final void requestRedraw(String reason) {
         this.reason = reason;
         this.dirty = true;
 
@@ -272,7 +271,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         }
     }
 
-    public void doDraw(boolean pulse) {
+    public final void draw() {
         if (doDrawCounter < Integer.MAX_VALUE) {
             doDrawCounter++;
         } else {
@@ -283,7 +282,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         dirty = false;
 
         if (LoggingDomain.RENDERING.isLoggable(Level.FINEST)) {
-            LoggingDomain.RENDERING.finest("drawing canvas of row " + getRow() + ", reason: " + reason + ", pulse: " + pulse);
+            LoggingDomain.RENDERING.finest("drawing canvas of row " + getRow() + ", reason: " + reason);
         }
 
         activityBounds.clear();
@@ -1069,7 +1068,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         if (graphics.isDebugMode()) {
             debugRectangle = bounds;
-            draw("layout bounds lookup in debug mode");
+            requestRedraw("layout bounds lookup in debug mode");
         }
 
         return bounds;

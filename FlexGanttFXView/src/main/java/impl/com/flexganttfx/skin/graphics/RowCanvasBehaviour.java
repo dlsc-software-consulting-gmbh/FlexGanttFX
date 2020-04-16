@@ -179,7 +179,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
     }
 
     private void draw() {
-        canvas.draw("row canvas behaviour call");
+        canvas.requestRedraw("row canvas behaviour call");
     }
 
     /**

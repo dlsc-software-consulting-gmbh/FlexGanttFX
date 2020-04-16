@@ -38,17 +38,17 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
         setMouseTransparent(true);
 
-        graphics.addEventFilter(ActivityEvent.ACTIVITY_CHANGE, event -> draw("an activity changed"));
+        graphics.addEventFilter(ActivityEvent.ACTIVITY_CHANGE, event -> requestRedraw("an activity changed"));
 
         visibleProperty().addListener(it -> {
             if (isVisible()) {
-                draw("visibility of links canvas changed to true");
+                requestRedraw("visibility of links canvas changed to true");
             }
         });
 
         final Runnable drawRunnable = () -> {
             if (dirty) {
-                doDraw();
+                draw();
                 LoggingDomain.RENDERING.fine("calls to draw links = " + drawCounter + ", actual draws = " + doDrawCounter + ", saved draws = " + (drawCounter - doDrawCounter));
             }
         };
@@ -80,7 +80,11 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
     private static int drawCounter;
     private static int doDrawCounter;
 
-    public void draw(String reason) {
+    public final boolean isDirty() {
+        return dirty;
+    }
+
+    public void requestRedraw(String reason) {
         this.reason = reason;
         this.dirty = true;
 
@@ -92,7 +96,7 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
         }
     }
 
-    private void doDraw() {
+    public final void draw() {
         dirty = false;
 
         if (doDrawCounter < Integer.MAX_VALUE) {

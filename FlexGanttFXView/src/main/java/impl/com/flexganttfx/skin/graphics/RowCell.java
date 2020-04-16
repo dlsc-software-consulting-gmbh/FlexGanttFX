@@ -43,7 +43,7 @@ public class RowCell<R extends Row<?, ?, ?>> extends ListCell<R> {
         /*
          * We might have to redraw activity links.
          */
-        heightProperty().addListener(it -> ((GraphicsBaseSkin<?, ?>) graphics.getSkin()).getLinksCanvas().draw("row height changed"));
+        heightProperty().addListener(it -> ((GraphicsBaseSkin<?, ?>) graphics.getSkin()).getLinksCanvas().requestRedraw("row height changed"));
 
         setPrefWidth(0);
         setGraphic(rowPane);
@@ -61,7 +61,7 @@ public class RowCell<R extends Row<?, ?, ?>> extends ListCell<R> {
                 if (LoggingDomain.RENDERING.isLoggable(Level.FINE)) {
                     LoggingDomain.RENDERING.fine("redrawing canvas because of row cell visibility changing to true");
                 }
-                rowPane.getCanvas().draw("row cell became visible");
+                rowPane.getCanvas().requestRedraw("row cell became visible");
             }
         });
     }
