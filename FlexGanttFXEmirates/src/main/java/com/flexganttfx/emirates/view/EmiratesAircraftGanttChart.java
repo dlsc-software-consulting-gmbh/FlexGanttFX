@@ -106,116 +106,119 @@ public class EmiratesAircraftGanttChart extends GanttChartLite<ModelObject<?, ?,
             canvas.setIncludeSelectedActivitiesInDrag(true);
         });
 
-        final Image a332 = new Image(EmiratesAircraftGanttChart.class.getResource("aircraft-332.jpg").toExternalForm());
-        final Image a343 = new Image(EmiratesAircraftGanttChart.class.getResource("aircraft-343.jpg").toExternalForm());
-        final Image a380 = new Image(EmiratesAircraftGanttChart.class.getResource("aircraft-380.jpg").toExternalForm());
-        final Image a772 = new Image(EmiratesAircraftGanttChart.class.getResource("aircraft-772.jpg").toExternalForm());
-        final Image a777 = new Image(EmiratesAircraftGanttChart.class.getResource("aircraft-777.jpg").toExternalForm());
 
-        graphics.setAnimateRowEditor(!WebAPI.isBrowser());
-        graphics.setRowEditorFactory(param -> {
-            GridPane pane = new GridPane();
+        if (!WebAPI.isBrowser()) {
+            final Image a332 = new Image(EmiratesAircraftGanttChart.class.getResource("aircraft-332.jpg").toExternalForm());
+            final Image a343 = new Image(EmiratesAircraftGanttChart.class.getResource("aircraft-343.jpg").toExternalForm());
+            final Image a380 = new Image(EmiratesAircraftGanttChart.class.getResource("aircraft-380.jpg").toExternalForm());
+            final Image a772 = new Image(EmiratesAircraftGanttChart.class.getResource("aircraft-772.jpg").toExternalForm());
+            final Image a777 = new Image(EmiratesAircraftGanttChart.class.getResource("aircraft-777.jpg").toExternalForm());
 
-            RowConstraints row1 = new RowConstraints();
-            RowConstraints row2 = new RowConstraints();
-            RowConstraints row3 = new RowConstraints();
-            RowConstraints row4 = new RowConstraints();
+            graphics.setAnimateRowEditor(!WebAPI.isBrowser());
+            graphics.setRowEditorFactory(param -> {
+                GridPane pane = new GridPane();
 
-            row1.setVgrow(Priority.ALWAYS);
-            row2.setVgrow(Priority.ALWAYS);
-            row3.setVgrow(Priority.ALWAYS);
-            row4.setVgrow(Priority.ALWAYS);
+                RowConstraints row1 = new RowConstraints();
+                RowConstraints row2 = new RowConstraints();
+                RowConstraints row3 = new RowConstraints();
+                RowConstraints row4 = new RowConstraints();
 
-            pane.getRowConstraints().setAll(row1, row2, row3, row4);
+                row1.setVgrow(Priority.ALWAYS);
+                row2.setVgrow(Priority.ALWAYS);
+                row3.setVgrow(Priority.ALWAYS);
+                row4.setVgrow(Priority.ALWAYS);
 
-            ColumnConstraints col1 = new ColumnConstraints();
-            ColumnConstraints col2 = new ColumnConstraints();
-            ColumnConstraints col3 = new ColumnConstraints();
-            ColumnConstraints col4 = new ColumnConstraints();
-            ColumnConstraints col5 = new ColumnConstraints();
+                pane.getRowConstraints().setAll(row1, row2, row3, row4);
 
-            col1.setHgrow(Priority.NEVER);
-            col2.setHgrow(Priority.NEVER);
-            col3.setHgrow(Priority.ALWAYS);
-            col4.setHgrow(Priority.NEVER);
-            col5.setHgrow(Priority.ALWAYS);
+                ColumnConstraints col1 = new ColumnConstraints();
+                ColumnConstraints col2 = new ColumnConstraints();
+                ColumnConstraints col3 = new ColumnConstraints();
+                ColumnConstraints col4 = new ColumnConstraints();
+                ColumnConstraints col5 = new ColumnConstraints();
 
-            pane.getColumnConstraints().setAll(col1, col2, col3, col4, col5);
+                col1.setHgrow(Priority.NEVER);
+                col2.setHgrow(Priority.NEVER);
+                col3.setHgrow(Priority.ALWAYS);
+                col4.setHgrow(Priority.NEVER);
+                col5.setHgrow(Priority.ALWAYS);
 
-            pane.setHgap(10);
-            pane.setVgap(10);
-            pane.setGridLinesVisible(true);
-            pane.setStyle("-fx-background-color: aliceblue;");
-            pane.setAlignment(Pos.CENTER_LEFT);
+                pane.getColumnConstraints().setAll(col1, col2, col3, col4, col5);
 
-            String name = param.getRow().getName();
+                pane.setHgap(10);
+                pane.setVgap(10);
+                pane.setGridLinesVisible(true);
+                pane.setStyle("-fx-background-color: aliceblue;");
+                pane.setAlignment(Pos.CENTER_LEFT);
 
-            ImageView imageView = new ImageView();
-            imageView.setFitHeight(150);
-            imageView.setPreserveRatio(true);
+                String name = param.getRow().getName();
 
-            if (name.startsWith("332")) {
-                imageView.setImage(a332);
-            } else if (name.startsWith("34") || name.startsWith("34")) {
-                imageView.setImage(a343);
-            } else if (name.startsWith("38")) {
-                imageView.setImage(a380);
-            } else if (name.startsWith("772") || name.startsWith("773")) {
-                imageView.setImage(a772);
-            } else if (name.startsWith("77")) {
-                imageView.setImage(a777);
-            }
+                ImageView imageView = new ImageView();
+                imageView.setFitHeight(150);
+                imageView.setPreserveRatio(true);
 
-            StackPane imageWrapper = new StackPane(imageView);
-            GridPane.setMargin(imageWrapper, new Insets(20));
+                if (name.startsWith("332")) {
+                    imageView.setImage(a332);
+                } else if (name.startsWith("34") || name.startsWith("34")) {
+                    imageView.setImage(a343);
+                } else if (name.startsWith("38")) {
+                    imageView.setImage(a380);
+                } else if (name.startsWith("772") || name.startsWith("773")) {
+                    imageView.setImage(a772);
+                } else if (name.startsWith("77")) {
+                    imageView.setImage(a777);
+                }
 
-            Label nameKey = new Label("Aircraft name");
-            Label numberKey = new Label("Number of flights:");
-            Label typeKey = new Label("Aircraft type:");
+                StackPane imageWrapper = new StackPane(imageView);
+                GridPane.setMargin(imageWrapper, new Insets(20));
 
-            Label nameValue = new Label(param.getRow().getName());
-            Label numberValue = new Label(Integer.toString(param.getRow().getFlights()));
-            Label typeValue = new Label("Unknown Type");
+                Label nameKey = new Label("Aircraft name");
+                Label numberKey = new Label("Number of flights:");
+                Label typeKey = new Label("Aircraft type:");
 
-            Label label1 = new Label("Key 1");
-            Label label2 = new Label("Key 2");
-            Label label3 = new Label("Key 3");
-            Label label4 = new Label("Key 4");
+                Label nameValue = new Label(param.getRow().getName());
+                Label numberValue = new Label(Integer.toString(param.getRow().getFlights()));
+                Label typeValue = new Label("Unknown Type");
 
-            Label value1 = new Label("Value 1");
-            Label value2 = new Label("Value 2");
-            Label value3 = new Label("Value 3");
-            Label value4 = new Label("Value 4");
+                Label label1 = new Label("Key 1");
+                Label label2 = new Label("Key 2");
+                Label label3 = new Label("Key 3");
+                Label label4 = new Label("Key 4");
 
-            GridPane.setRowSpan(imageWrapper, 4);
+                Label value1 = new Label("Value 1");
+                Label value2 = new Label("Value 2");
+                Label value3 = new Label("Value 3");
+                Label value4 = new Label("Value 4");
 
-            // column 1
-            pane.add(imageWrapper, 0, 0);
+                GridPane.setRowSpan(imageWrapper, 4);
 
-            // column 2 + 3
-            pane.add(nameKey, 1, 0);
-            pane.add(numberKey, 1, 1);
-            pane.add(typeKey, 1, 2);
+                // column 1
+                pane.add(imageWrapper, 0, 0);
 
-            pane.add(nameValue, 2, 0);
-            pane.add(numberValue, 2, 1);
-            pane.add(typeValue, 2, 2);
+                // column 2 + 3
+                pane.add(nameKey, 1, 0);
+                pane.add(numberKey, 1, 1);
+                pane.add(typeKey, 1, 2);
 
-            // column 4 + 5
-            pane.add(label1, 3, 0);
-            pane.add(label2, 3, 1);
-            pane.add(label3, 3, 2);
-            pane.add(label4, 3, 3);
+                pane.add(nameValue, 2, 0);
+                pane.add(numberValue, 2, 1);
+                pane.add(typeValue, 2, 2);
 
-            pane.add(value1, 4, 0);
-            pane.add(value2, 4, 1);
-            pane.add(value3, 4, 2);
-            pane.add(value4, 4, 3);
+                // column 4 + 5
+                pane.add(label1, 3, 0);
+                pane.add(label2, 3, 1);
+                pane.add(label3, 3, 2);
+                pane.add(label4, 3, 3);
 
-            pane.setPrefHeight(200);
-            return pane;
-        });
+                pane.add(value1, 4, 0);
+                pane.add(value2, 4, 1);
+                pane.add(value3, 4, 2);
+                pane.add(value4, 4, 3);
 
-        graphics.setRowControlsFactory(param -> new RowControls<>(param.getGraphics(), param.getRow()));
+                pane.setPrefHeight(200);
+                return pane;
+            });
+
+            graphics.setRowControlsFactory(param -> new RowControls<>(param.getGraphics(), param.getRow()));
+        }
     }
 }
