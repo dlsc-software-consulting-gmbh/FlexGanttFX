@@ -186,12 +186,16 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         verticalCursorLine.setManaged(false);
 
         BooleanBinding verticalCursorVisible = Bindings.createBooleanBinding(() -> graphics.getRowsEditing().isEmpty()
+                        && verticalCursorLine.getStartX() > graphics.getRowHeadersWidth()
                         && graphics.isShowVerticalCursor()
                         && graphics.getPressedActivity() == null
                         && graphics.getTimeline().getEventline().getCursorTime() != null,
+                verticalCursorLine.startXProperty(),
                 graphics.getRowsEditing(),
                 graphics.showVerticalCursorProperty(),
                 graphics.pressedActivityProperty(),
+                graphics.showRowHeadersProperty(),
+                graphics.rowHeadersWidthProperty(),
                 graphics.getTimeline().getEventline().cursorTimeProperty());
 
         verticalCursorLine.visibleProperty().bind(verticalCursorVisible);

@@ -63,7 +63,6 @@ import com.flexganttfx.view.util.Position;
 import impl.com.flexganttfx.skin.graphics.GraphicsBaseSkin;
 import impl.com.flexganttfx.skin.graphics.LinksCanvas;
 import impl.com.flexganttfx.skin.graphics.RowPane;
-import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.application.Platform;
@@ -270,8 +269,6 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     };
 
     private final WeakChangeListener<Instant> weakRedrawNowListener = new WeakChangeListener<>(redrawNowListener);
-
-    private AnimationTimer timer;
 
     /**
      * Constructs a new graphics view and initializes the following:
@@ -626,25 +623,21 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
         setRowHeaderFactory(graphics -> new ScaleRowHeader<>(this));
 
+        final Runnable drawRunnable = () -> {
+            for (RowPane<R> pane : getRowPanes()) {
+                if (pane.getCanvas().isDirty()) {
+                    pane.getCanvas().draw();
+                }
+            }
+        };
+
         sceneProperty().addListener((obs, oldScene, newScene) -> {
-            if (timer != null) {
-                timer.stop();
+            if (oldScene != null) {
+                oldScene.removePreLayoutPulseListener(drawRunnable);
             }
 
             if (newScene != null) {
-                timer = new AnimationTimer() {
-
-                    @Override
-                    public void handle(long now) {
-                        for (RowPane<R> pane : getRowPanes()) {
-                            if (pane.getCanvas().isDirty()) {
-                                pane.getCanvas().draw();
-                            }
-                        }
-                    }
-                };
-
-                timer.start();
+                newScene.addPreLayoutPulseListener(drawRunnable);
             }
         });
     }

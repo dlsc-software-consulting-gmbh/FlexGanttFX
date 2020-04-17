@@ -843,6 +843,19 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
         double xOffset = 0;
 
+        /*
+        Fix autoscrolling ...
+
+                final GraphicsBase<R> graphics = canvas.getGraphics();
+                final double leftEdgeX = -canvas.getTranslateX() + graphics.getCanvasBuffer();
+
+                if (x < leftEdgeX) {
+                    xOffset = x;
+                } else if (x > leftEdgeX + graphics.getWidth() - getRowHeaderWidth()) {
+                     xOffset = x - graphics.getWidth();
+                }
+
+         */
         if (x < 0) {
             xOffset = x;
         } else if (x > canvas.getWidth()) {

@@ -94,6 +94,15 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
             drawCounter = 1;
             doDrawCounter = 1;
         }
+
+        //
+        // Super important to also request a layout because the actual drawing only
+        // happens after a layout pulse gets fired, which is not guaranteed if the
+        // only thing that changed is the content of the canvas.
+        //
+        if (getParent() != null) {
+            getParent().requestLayout();
+        }
     }
 
     public final void draw() {

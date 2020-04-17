@@ -120,28 +120,12 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         focusedProperty().addListener(pseudoStateRedrawListener);
 
         graphics.canvasBufferProperty().addListener(it -> {
-            setTranslateX(0);
+            randomTranslateX(true);
             requestRedraw("canvas buffer size changed");
         });
 
         graphics.canvasBufferProperty().addListener(it -> randomTranslateX(true));
         randomTranslateX(true);
-
-        final Runnable drawRunnable = () -> {
-            if (dirty) {
-                draw();
-            }
-        };
-
-        sceneProperty().addListener((obs, oldScene, newScene) -> {
-            if (oldScene != null) {
-                oldScene.removePreLayoutPulseListener(drawRunnable);
-            }
-
-            if (newScene != null) {
-                newScene.addPreLayoutPulseListener(drawRunnable);
-            }
-        });
     }
 
     private void randomTranslateX(boolean scrollingRight) {
@@ -268,6 +252,15 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         } else {
             drawCounter = 1;
             doDrawCounter = 1;
+        }
+
+        //
+        // Super important to also request a layout because the actual drawing only
+        // happens after a layout pulse gets fired, which is not guaranteed if the
+        // only thing that changed is the content of the canvas.
+        //
+        if (getParent() != null) {
+            getParent().requestLayout();
         }
     }
 

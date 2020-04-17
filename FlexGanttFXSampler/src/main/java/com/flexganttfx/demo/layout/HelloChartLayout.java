@@ -169,12 +169,15 @@ public class HelloChartLayout extends FlexGanttFXSample {
 
         root.setExpanded(true);
 
+        gc.setShowTreeTable(false);
         gc.getCalendars().clear();
         gc.getTreeTable().setShowRoot(false);
         gc.getTimeline().showTime(Instant.from(ZonedDateTime.of(earliestDate, LocalTime.MIN, ZoneId.systemDefault())));
         gc.getTimeline().showTemporalUnit(ChronoUnit.MONTHS, 80);
         gc.getGraphics().setShowVerticalCursor(true);
         gc.getGraphics().setShowHorizontalCursor(true);
+        gc.getGraphics().setShowRowHeaders(true);
+        gc.getGraphics().setRowHeadersWidth(100);
         gc.getGraphics().setActivityRenderer(DailyTrading.class, ChartLayout.class, new DailyTradingRenderer(gc.getGraphics()));
         gc.getGraphics().setRowEditorFactory(param -> {
             GridPane pane = new GridPane();
