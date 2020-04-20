@@ -47,7 +47,7 @@ public class EmiratesApp extends Application {
 
     @Override
     public void start(Stage stage) {
-        FlexGanttFX.setLicenseKey("LIC=SYSKRON;VEN=DLSC;VER=11;PRO=STANDARD;RUN=no;CTR=1;SignCode=3F;Signature=302C02147E12D2B805F802CB2D639934A1E7F757361A3CE3021424E1BBC023F20B6C29E8BDAEF61B7D9D95E5005F");
+        FlexGanttFX.setLicenseKey("LIC=CO_FLEXFX_998;VEN=ComponentSource;VER=STANDARD;PRO=11_11;RUN=no;CTR=0;SignCode=3F;Signature=302C0214449DB4F9A907EB223632AD6C99569CEAA48E0E4E021419258FED88B71303A9321E250A1A53ABAD140DFE");
 
         this.stage = stage;
         this.stage.setTitle("Emirates Aircraft Scheduling");

@@ -1,15 +1,19 @@
 /**
- * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
+ * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
  *
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.core;
 
 import com.smardec.license4j.License;
+import com.smardec.license4j.LicenseManager;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -30,8 +34,7 @@ public final class FlexGanttFX {
      */
     public static String getVersion() {
         if (version == null) {
-            InputStream stream = FlexGanttFX.class
-                    .getResourceAsStream("version.properties");
+            InputStream stream = FlexGanttFX.class.getResourceAsStream("version.properties");
             Properties props = new Properties();
             try {
                 props.load(stream);
@@ -51,6 +54,7 @@ public final class FlexGanttFX {
      * @since 1.0
      */
     public static final String FEATURE_LICENSEE = "LIC";
+
     /**
      * Represents the "Product" feature.
      *
@@ -83,7 +87,7 @@ public final class FlexGanttFX {
      * A flag that gets used to check whether a license key was set more than
      * once.
      */
-    private static boolean keySet = true;
+    private static boolean keySet;
 
     /*
      * Stores the license4j license object.
@@ -107,14 +111,14 @@ public final class FlexGanttFX {
     private static final int SYSTEM_EXIT_CODE = -1603;
 
     static {
-//        Properties props = new Properties();
-//        try {
-//            props.load(FlexGanttFX.class.getResourceAsStream("public_key.properties"));
-//        } catch (IOException e) {
-//            LOGGER.log(Level.SEVERE, "unable to process public key property file", e);
-//        }
-//        publicKey = props.getProperty("public");
-//        LicenseManager.setPublicKey(publicKey);
+        Properties props = new Properties();
+        try {
+            props.load(FlexGanttFX.class.getResourceAsStream("public_key.properties"));
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "unable to process public key property file", e);
+        }
+        publicKey = props.getProperty("public");
+        LicenseManager.setPublicKey(publicKey);
     }
 
     /**
@@ -200,7 +204,11 @@ public final class FlexGanttFX {
      * @since 1.0
      */
     public static boolean isRuntimeLicense() {
-        return true;
+        if (getLicense() != null) {
+            String runtime = (String) getLicense().getFeature(FEATURE_RUNTIME);
+            return runtime != null && runtime.equals("yes");
+        }
+        return false;
     }
 
     /**
@@ -210,7 +218,7 @@ public final class FlexGanttFX {
      * @since 1.0
      */
     public static boolean isTrialLicense() {
-        return false;
+        return getLicense() == null;
     }
 
     /**
@@ -220,7 +228,7 @@ public final class FlexGanttFX {
      * @since 1.0
      */
     public static boolean isLicenseKeySet() {
-        return true;
+        return keySet;
     }
 
     /**
@@ -234,37 +242,36 @@ public final class FlexGanttFX {
      * @since 1.0
      */
     public static void setLicenseKey(String key) {
-//        if (keySet) {
-//            throw new IllegalStateException("licensing key can only be set once");
-//        }
-//        keySet = true;
-//        LOGGER.fine("found properties file");
-//        try {
-//            key = key.replace(';', '\n');
-//            ByteArrayInputStream stream = new ByteArrayInputStream(
-//                    key.getBytes());
-//            license = LicenseManager.loadLicense(stream);
-//            if (!LicenseManager.isValid(license)) {
-//                System.err.println();
-//                System.err.println("#####################################");
-//                System.err.println("# Invalid FlexGanttFX license key!  #");
-//                System.err.println("# Exiting application...            #");
-//                System.err.println("#####################################");
-//                System.err.println();
-//                System.exit(SYSTEM_EXIT_CODE);
-//            }
-//            @SuppressWarnings("unchecked")
-//            List<String> featureNames = license.getFeatureList();
-//            LOGGER.fine("License Features:");
-//            for (String featureName : featureNames) {
-//                Object featureValue = license.getFeature(featureName);
-//                LOGGER.fine("   " + featureName + " = " + featureValue);
-//            }
-//        } catch (Exception e) {
-//            LOGGER.log(Level.SEVERE, "unable to process FlexGanttFX properties file", e);
-//            System.err.println("Unable to process FlexGanttFX license key, exiting application");
-//            System.exit(SYSTEM_EXIT_CODE);
-//        }
+        if (keySet) {
+            throw new IllegalStateException("licensing key can only be set once");
+        }
+        keySet = true;
+        LOGGER.fine("found properties file");
+        try {
+            key = key.replace(';', '\n');
+            ByteArrayInputStream stream = new ByteArrayInputStream(key.getBytes());
+            license = LicenseManager.loadLicense(stream);
+            if (!LicenseManager.isValid(license)) {
+                System.err.println();
+                System.err.println("#####################################");
+                System.err.println("# Invalid FlexGanttFX license key!  #");
+                System.err.println("# Exiting application...            #");
+                System.err.println("#####################################");
+                System.err.println();
+                System.exit(SYSTEM_EXIT_CODE);
+            }
+            @SuppressWarnings("unchecked")
+            List<String> featureNames = license.getFeatureList();
+            LOGGER.fine("License Features:");
+            for (String featureName : featureNames) {
+                Object featureValue = license.getFeature(featureName);
+                LOGGER.fine("   " + featureName + " = " + featureValue);
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "unable to process FlexGanttFX properties file", e);
+            System.err.println("Unable to process FlexGanttFX license key, exiting application");
+            System.exit(SYSTEM_EXIT_CODE);
+        }
     }
 
     public static License getLicense() {

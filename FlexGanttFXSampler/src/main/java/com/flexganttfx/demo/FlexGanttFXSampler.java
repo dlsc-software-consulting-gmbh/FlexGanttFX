@@ -11,7 +11,9 @@ import fxsampler.FXSampler;
 public class FlexGanttFXSampler extends FXSampler {
 
 	public static void main(String[] args) {
-		FlexGanttFX.setLicenseKey("LIC=DLSC;VEN=DLSC;VER=11;PRO=STANDARD;RUN=no;CTR=1;SignCode=3F;Signature=302D0215009651BAED65BD0B554000F4B355AF1F17D6D4D7A20214051C06EF255EB67663E3446294E8408B29F94E88");
+		if (!FlexGanttFX.isLicenseKeySet()) {
+			FlexGanttFX.setLicenseKey("LIC=CO_FLEXFX_998;VEN=ComponentSource;VER=STANDARD;PRO=11_11;RUN=no;CTR=0;SignCode=3F;Signature=302C0214449DB4F9A907EB223632AD6C99569CEAA48E0E4E021419258FED88B71303A9321E250A1A53ABAD140DFE");
+		}
 		FXSampler.main(args);
 	}
 }

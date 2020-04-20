@@ -22,8 +22,7 @@ public class LicensingHelper {
 
     public static void initPrivateKey(Version version) throws IOException {
         Properties props = new Properties();
-        props.load(LicensingHelper.class.getResourceAsStream(
-                "private_key_version" + version.getText() + ".properties"));
+        props.load(LicensingHelper.class.getResourceAsStream("private_key_version" + version.getText() + ".properties"));
         LicenseManager.setPrivateKey(props.getProperty("private"));
     }
 
@@ -40,22 +39,18 @@ public class LicensingHelper {
      * @param version
      *            the framework version
      */
-    public static void createLicenses(String vendor, String customerPrefix,
-            boolean runtime, Version version) {
-        File file = null;
+    public static void createLicenses(String vendor, String customerPrefix, boolean runtime, Version version) {
+        File file;
         if (runtime) {
-            file = new File("keys_runtime_" + vendor + "_version_"
-                    + version.getText() + ".txt");
+            file = new File("keys_runtime_" + vendor + "_version_" + version.getText() + ".txt");
         } else {
-            file = new File("keys_development_" + vendor + "_version_"
-                    + version.getText() + ".txt");
+            file = new File("keys_development_" + vendor + "_version_" + version.getText() + ".txt");
         }
         try {
             initPrivateKey(version);
             FileWriter fileWriter = new FileWriter(file);
             for (int i = 0; i < 999; i++) {
-                String license = createSingleLicense(customerPrefix + "_" + i,
-                        vendor, runtime, "STANDARD", version.getText(), 0);
+                String license = createSingleLicense(customerPrefix + "_" + i, vendor, runtime, "STANDARD", version.getText(), 0);
                 fileWriter.append(license);
                 fileWriter.append(System.getProperty("line.separator"));
             }
@@ -65,11 +60,7 @@ public class LicensingHelper {
         }
     }
 
-    public static String createSingleLicense(String licensee, String vendor,
-            boolean runtime, String version, String product, int count)
-                    throws IllegalArgumentException, GeneralSecurityException,
-                    IOException {
-
+    public static String createSingleLicense(String licensee, String vendor, boolean runtime, String version, String product, int count) throws IllegalArgumentException, GeneralSecurityException, IOException {
         License license = new License();
         license.addFeature(FlexGanttFX.FEATURE_LICENSEE, licensee);
         license.addFeature(FlexGanttFX.FEATURE_VENDOR, vendor);
@@ -102,6 +93,6 @@ public class LicensingHelper {
     }
 
     public static void main(String[] args) {
-        createVendorLicenseKeys(Version.VERSION_11);
+        createVendorLicenseKeys(Version.VERSION_11_11);
     }
 }
