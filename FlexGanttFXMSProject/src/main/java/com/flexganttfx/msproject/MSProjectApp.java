@@ -5,6 +5,7 @@
  */
 package com.flexganttfx.msproject;
 
+import com.flexganttfx.core.FlexGanttFX;
 import com.flexganttfx.extras.GanttChartStatusBar;
 import com.flexganttfx.extras.GanttChartToolBar;
 import com.flexganttfx.model.ActivityLink;
@@ -36,6 +37,10 @@ public class MSProjectApp extends Application {
 
 	@Override
 	public void start(Stage stage) {
+		if (!FlexGanttFX.isLicenseKeySet()) {
+			FlexGanttFX.setLicenseKey("LIC=CO_FLEXFX_998;VEN=ComponentSource;VER=STANDARD;PRO=11_11;RUN=no;CTR=0;SignCode=3F;Signature=302C0214449DB4F9A907EB223632AD6C99569CEAA48E0E4E021419258FED88B71303A9321E250A1A53ABAD140DFE");
+		}
+
 		this.stage = stage;
 		this.stage.setTitle(STAGE_TITLE);
 
