@@ -8,7 +8,8 @@ package com.flexganttfx.licensing;
 public enum Version {
 
 	VERSION_1("1"),
-	VERSION_11("11");
+	VERSION_11("11"),
+	VERSION_11_11("11_11");
 
 	String text;
 
