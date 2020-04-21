@@ -8,11 +8,11 @@ package com.flexganttfx.emirates.view;
 import com.flexganttfx.core.FlexGanttFX;
 import com.flexganttfx.emirates.EmiratesApp;
 import com.flexganttfx.emirates.model.DataModel.DataSet;
+import com.jpro.webapi.InstanceCloseListener;
+import com.jpro.webapi.WebAPI;
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
@@ -98,7 +98,24 @@ public class IntroPane extends VBox {
 		scaleTransition.setAutoReverse(true);
 		scaleTransition.play();
 
-		DoubleProperty progress = new SimpleDoubleProperty();
+		final InstanceCloseListener instanceCloseListener = () -> scaleTransition.stop();
+
+		sceneProperty().addListener((obs, oldScene, newScene) -> {
+			if (oldScene != null) {
+				if (WebAPI.isBrowser()) {
+					WebAPI.getWebAPI(oldScene).removeInstanceCloseListener(instanceCloseListener);
+				}
+			}
+
+			if (newScene != null) {
+				scaleTransition.play();
+				if (WebAPI.isBrowser()) {
+					WebAPI.getWebAPI(newScene).addInstanceCloseListener(instanceCloseListener);
+				}
+			} else {
+				scaleTransition.stop();
+			}
+		});
 
 		buttonBox.setAlignment(Pos.CENTER_LEFT);
 		buttonBox.getStyleClass().add("button-box");
