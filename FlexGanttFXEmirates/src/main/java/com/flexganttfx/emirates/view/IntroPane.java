@@ -8,10 +8,6 @@ package com.flexganttfx.emirates.view;
 import com.flexganttfx.core.FlexGanttFX;
 import com.flexganttfx.emirates.EmiratesApp;
 import com.flexganttfx.emirates.model.DataModel.DataSet;
-import com.jpro.webapi.InstanceCloseListener;
-import com.jpro.webapi.WebAPI;
-import javafx.animation.FadeTransition;
-import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -22,13 +18,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
 public class IntroPane extends VBox {
-
-	private final ScaleTransition scaleTransition = new ScaleTransition();
 
 	public IntroPane(final EmiratesApp app) {
 		getStyleClass().add("intro-pane");
@@ -88,41 +81,11 @@ public class IntroPane extends VBox {
 		promptLabel.setContentDisplay(ContentDisplay.RIGHT);
 		buttonBox.getChildren().add(promptLabel);
 
-		scaleTransition.setNode(promptLabel);
-		scaleTransition.setFromX(1);
-		scaleTransition.setToX(.8);
-		scaleTransition.setFromY(1);
-		scaleTransition.setToY(.8);
-		scaleTransition.setCycleCount(FadeTransition.INDEFINITE);
-		scaleTransition.setDuration(Duration.millis(1000));
-		scaleTransition.setAutoReverse(true);
-		scaleTransition.play();
-
-		final InstanceCloseListener instanceCloseListener = () -> scaleTransition.stop();
-
-		sceneProperty().addListener((obs, oldScene, newScene) -> {
-			if (oldScene != null) {
-				if (WebAPI.isBrowser()) {
-					WebAPI.getWebAPI(oldScene).removeInstanceCloseListener(instanceCloseListener);
-				}
-			}
-
-			if (newScene != null) {
-				scaleTransition.play();
-				if (WebAPI.isBrowser()) {
-					WebAPI.getWebAPI(newScene).addInstanceCloseListener(instanceCloseListener);
-				}
-			} else {
-				scaleTransition.stop();
-			}
-		});
-
 		buttonBox.setAlignment(Pos.CENTER_LEFT);
 		buttonBox.getStyleClass().add("button-box");
 		for (final DataSet dataSet : DataSet.values()) {
 			final Button button = new Button(dataSet.getDisplayName());
 			button.setOnAction(event -> {
-				scaleTransition.stop();
 				button.setCursor(Cursor.WAIT);
 				IntroPane.this.setCursor(Cursor.WAIT);
 				Platform.runLater(() -> app.load(dataSet));
@@ -149,9 +112,5 @@ public class IntroPane extends VBox {
 		}
 
 		innerBox.getChildren().add(buttonBox);
-	}
-
-	public ScaleTransition getScaleTransition() {
-		return scaleTransition;
 	}
 }

@@ -175,10 +175,7 @@ public class EmiratesApp extends Application {
         fileMenu.getItems().add(safeItem);
 
         MenuItem exit = new MenuItem("Exit");
-        exit.setOnAction(evt -> {
-            introNode.toFront();
-            introPane.getScaleTransition().play();
-        });
+        exit.setOnAction(evt -> introNode.toFront());
         fileMenu.getItems().add(exit);
 
         menuBar.getMenus().add(fileMenu);
