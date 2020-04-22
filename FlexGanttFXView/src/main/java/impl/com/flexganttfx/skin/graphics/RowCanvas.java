@@ -161,7 +161,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
             if (observable instanceof ReadOnlyProperty) {
                 if (LoggingDomain.RENDERING.isLoggable(Level.FINE)) {
-                    LoggingDomain.RENDERING.fine("redraw because of property change, property = " + ((ReadOnlyProperty<?>) observable).getName());
+                    LoggingDomain.RENDERING.fine("redraw because of property change, property = " + ((ReadOnlyProperty<?>) observable).getName() + ", row = " + (getRow() != null ? getRow().getName() : "(empty row)"));
                 }
             }
 

@@ -43,7 +43,7 @@ public class RowCell<R extends Row<?, ?, ?>> extends ListCell<R> {
         /*
          * We might have to redraw activity links.
          */
-        heightProperty().addListener(it -> ((GraphicsBaseSkin<?, ?>) graphics.getSkin()).getLinksCanvas().requestRedraw("row height changed"));
+        heightProperty().addListener((obs, oldHeight, newHeight) -> ((GraphicsBaseSkin<?, ?>) graphics.getSkin()).getLinksCanvas().requestRedraw("height of row " + (getItem() != null ? getItem().getName() : "(empty row)") + " changed from " + oldHeight + " to " + newHeight));
 
         setPrefWidth(0);
         setGraphic(rowPane);

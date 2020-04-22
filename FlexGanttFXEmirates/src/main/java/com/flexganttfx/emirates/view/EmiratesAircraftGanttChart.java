@@ -5,17 +5,12 @@
  */
 package com.flexganttfx.emirates.view;
 
-import com.flexganttfx.emirates.model.Aircraft;
 import com.flexganttfx.emirates.model.Flight;
 import com.flexganttfx.emirates.model.Group;
 import com.flexganttfx.emirates.model.ModelObject;
 import com.flexganttfx.extras.RowControls;
-import com.flexganttfx.model.Layer;
-import com.flexganttfx.model.Row;
 import com.flexganttfx.model.layout.GanttLayout;
-import com.flexganttfx.model.util.TimeInterval;
 import com.flexganttfx.view.GanttChartLite;
-import com.flexganttfx.view.graphics.ActivityEvent;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.graphics.GraphicsBase.RowHeader;
 import com.flexganttfx.view.graphics.ListViewGraphics;
@@ -23,7 +18,6 @@ import com.flexganttfx.view.timeline.Timeline;
 import com.jpro.webapi.WebAPI;
 import impl.com.flexganttfx.skin.graphics.DragCanvas;
 import impl.com.flexganttfx.skin.graphics.GraphicsBaseSkin;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -35,9 +29,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 
-import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 
 public class EmiratesAircraftGanttChart extends GanttChartLite<ModelObject<?, ?, ?>> {
 
@@ -67,35 +59,6 @@ public class EmiratesAircraftGanttChart extends GanttChartLite<ModelObject<?, ?,
                 });
             }
         });
-
-        EventHandler<ActivityEvent> updateListener = new EventHandler<>() {
-            @Override
-            public void handle(ActivityEvent event) {
-                updateRow(event.getActivityRef().getRow());
-                updateRow(event.getOldRow());
-            }
-
-            private void updateRow(Row<?, ?, ?> row) {
-                if (row != null && row instanceof Aircraft) {
-                    Aircraft aircraft = (Aircraft) row;
-                    aircraft.updateInnerLines();
-
-                    Group group = (Group) row.getParent();
-                    List<Layer> layers = getLayers();
-
-                    Instant st = aircraft.getEarliestTimeUsed();
-                    Instant et = aircraft.getLatestTimeUsed();
-
-                    group.updateUsageProfile(new TimeInterval(st, et), layers.get(layers.size() - 1), layers);
-                }
-
-            }
-        };
-
-        graphics.addEventHandler(ActivityEvent.START_TIME_CHANGE_FINISHED, updateListener);
-        graphics.addEventHandler(ActivityEvent.END_TIME_CHANGE_FINISHED, updateListener);
-        graphics.addEventHandler(ActivityEvent.DRAG_FINISHED, updateListener);
-        graphics.addEventHandler(ActivityEvent.HORIZONTAL_DRAG_FINISHED, updateListener);
 
         graphics.setEditModeCallback(Flight.class, GanttLayout.class, param -> GraphicsBase.EditMode.DRAGGING_VERTICAL);
         graphics.setActivityEditingCallback(Flight.class, param -> param.getEditMode().equals(GraphicsBase.EditMode.DRAGGING_VERTICAL));

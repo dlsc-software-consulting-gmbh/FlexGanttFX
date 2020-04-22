@@ -19,8 +19,9 @@
         <controlsfx.version>11.0.1</controlsfx.version>
         <ikonli.version>11.3.5</ikonli.version>
         <maven.javadoc.skip>false</maven.javadoc.skip>
-        <jpro.version>2019.2.3-SNAPSHOT</jpro.version>
+        <jpro.version>2019.2.3</jpro.version>
         <apache.felix.version>4.2.1</apache.felix.version>
+        <client.plugin.version>0.1.20</client.plugin.version>
     </properties>
 
     <modules>

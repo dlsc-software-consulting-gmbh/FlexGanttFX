@@ -3269,8 +3269,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     // Hover row support.
 
-    private final ReadOnlyObjectWrapper<R> hoverRow = new ReadOnlyObjectWrapper<>(
-            this, "hoverRow");
+    private final ReadOnlyObjectWrapper<R> hoverRow = new ReadOnlyObjectWrapper<>(this, "hoverRow");
 
     public final ReadOnlyObjectProperty<R> hoverRowProperty() {
         return hoverRow;
@@ -3282,8 +3281,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     // Hover layout support.
 
-    private final ReadOnlyObjectWrapper<Layout> hoverLayout = new ReadOnlyObjectWrapper<>(
-            this, "hoverLayout");
+    private final ReadOnlyObjectWrapper<Layout> hoverLayout = new ReadOnlyObjectWrapper<>(this, "hoverLayout");
 
     public final ReadOnlyObjectProperty<Layout> hoverLayoutProperty() {
         return hoverLayout;
@@ -3295,8 +3293,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     // Edited activity support.
 
-    private final ReadOnlyObjectWrapper<ActivityRef<?>> editedActivity = new ReadOnlyObjectWrapper<>(
-            this, "editedActivity");
+    private final ReadOnlyObjectWrapper<ActivityRef<?>> editedActivity = new ReadOnlyObjectWrapper<>(this, "editedActivity");
 
     public final ReadOnlyObjectProperty<ActivityRef<?>> editedActivityProperty() {
         return editedActivity.getReadOnlyProperty();
@@ -3308,8 +3305,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     // Pressed activity support.
 
-    private final ReadOnlyObjectWrapper<ActivityRef<?>> pressedActivity = new ReadOnlyObjectWrapper<>(
-            this, "pressedActivity");
+    private final ReadOnlyObjectWrapper<ActivityRef<?>> pressedActivity = new ReadOnlyObjectWrapper<>(this, "pressedActivity");
 
     public final ReadOnlyObjectProperty<ActivityRef<?>> pressedActivityProperty() {
         return pressedActivity;
@@ -3321,8 +3317,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     // Grid support.
 
-    private final ObjectProperty<VirtualGrid<?>> virtualGrid = new SimpleObjectProperty<>(
-            this, "virtualGrid");
+    private final ObjectProperty<VirtualGrid<?>> virtualGrid = new SimpleObjectProperty<>(this, "virtualGrid");
 
     public final ObjectProperty<VirtualGrid<?>> virtualGridProperty() {
         return virtualGrid;
@@ -3345,8 +3340,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     // Placeholder support.
 
-    private final ObjectProperty<Node> placeholder = new SimpleObjectProperty<>(this,
-            "node");
+    private final ObjectProperty<Node> placeholder = new SimpleObjectProperty<>(this, "node");
 
     public final ObjectProperty<Node> placeholderProperty() {
         return placeholder;
@@ -3367,8 +3361,6 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     }
 
     private LinksCanvas<R> linksCanvas;
-
-    private int redrawCounter;
 
     /**
      * Performs a redraw of the displayed activities. Also lays out the links
