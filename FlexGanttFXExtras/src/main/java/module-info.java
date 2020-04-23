@@ -1,4 +1,9 @@
 /**
+ * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
+ *
+ * This file is part of FlexGanttFX.
+ */
+/**
  * A couple of non-essential custom controls designed to work with the Gantt charts.
  */
 module com.flexganttfx.extras {

@@ -1,4 +1,9 @@
 /**
+ * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
+ *
+ * This file is part of FlexGanttFX.
+ */
+/**
  * The view layer containing the various custom controls for creating Gantt charts.
  */
 module com.flexganttfx.view {

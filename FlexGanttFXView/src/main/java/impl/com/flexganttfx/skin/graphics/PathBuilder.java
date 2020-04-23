@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
+ * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
  *
  * This file is part of FlexGanttFX.
  */

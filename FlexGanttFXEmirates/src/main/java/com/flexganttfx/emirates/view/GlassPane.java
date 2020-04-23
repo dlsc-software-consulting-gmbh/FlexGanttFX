@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
+ *
+ * This file is part of FlexGanttFX.
+ */
 package com.flexganttfx.emirates.view;
 
 import javafx.beans.property.DoubleProperty;

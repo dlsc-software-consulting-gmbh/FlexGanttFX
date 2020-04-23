@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
+ * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
  *
  * This file is part of FlexGanttFX.
  */
@@ -78,6 +78,7 @@ import java.util.Map;
  *     <li>CompletableActivityRenderer</li>
  *     <li>Renderer</li>
  * </ul>
+ * Custom item providers can be registered via {@link #registerItemProvider(Class, ItemProvider)}.
  * </p>
  */
 public class ItemFactory {
@@ -126,6 +127,10 @@ public class ItemFactory {
         } else {
             return provider.getPropertySheetItems(object);
         }
+    }
+
+    public static <T> void registerItemProvider(Class<T> clazz, ItemProvider<T> itemProvider) {
+        PROVIDER_MAP.put(clazz, itemProvider);
     }
 
     private ItemProvider<Object> findItemProvider(Object object) {

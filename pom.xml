@@ -60,7 +60,7 @@
                 <artifactId>maven-license-plugin</artifactId>
                 <version>1.4.0</version>
                 <configuration>
-                    <header>${project.basedir}/license-header.txt</header>
+                    <header>license-header.txt</header>
                     <includes>
                         <include>**/*.java</include>
                     </includes>

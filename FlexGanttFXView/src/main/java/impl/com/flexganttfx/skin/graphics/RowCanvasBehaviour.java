@@ -1,6 +1,6 @@
 /**
- * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
- * <p>
+ * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
+ *
  * This file is part of FlexGanttFX.
  */
 package impl.com.flexganttfx.skin.graphics;
@@ -464,8 +464,6 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
         if (dragInfo.getEditMode().equals(EditMode.DRAGGING)) {
 
-            Timeline timeline = graphics.getTimeline();
-
             Duration duration = Duration.between(activity.getStartTime(), activity.getEndTime());
             Instant newStartTime = calculateTimeForLocation(evt.getX() - dragInfo.getOffset());
             Instant newEndTime = newStartTime.plus(duration);
@@ -478,12 +476,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
                         Instant newStartTime2 = GridHelper.grid(graphics, newStartTime, true);
 
                         // durations can be negative, let's use abs
-                        if (Math.abs(Duration.between(newStartTime, newStartTime1)
-                                .toMillis()) < Math
-                                .abs(Duration
-                                        .between(newStartTime,
-                                                newStartTime2)
-                                        .toMillis())) {
+                        if (Math.abs(Duration.between(newStartTime, newStartTime1).toMillis()) < Math.abs(Duration.between(newStartTime, newStartTime2).toMillis())) {
                             newStartTime = newStartTime1;
                         } else {
                             newStartTime = newStartTime2;
@@ -574,13 +567,11 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
             Layer newLayer = layerProvider.call(dragAndDropInfo);
 
             if (newLayer == null) {
-                throw new IllegalArgumentException(
-                        "the drop layer provider has returned no layer for the dropped activity");
+                throw new IllegalArgumentException("the drop layer provider has returned no layer for the dropped activity");
             }
 
             if (!graphics.getLayers().contains(newLayer)) {
-                throw new IllegalArgumentException(
-                        "the drop layer provider has returned a layer that does not exist in the Gantt chart");
+                throw new IllegalArgumentException("the drop layer provider has returned a layer that does not exist in the Gantt chart");
             }
 
             newRow.addActivity(newLayer, activity);
@@ -774,6 +765,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         }
 
         private void scrollX() {
+            System.out.println(xOffset);
             TimelineModel<?> model = canvas.getTimelineModel();
             Instant targetTime = calculateTimeForLocation(xOffset);
             Instant oldStartTime = model.getStartTime();
@@ -834,6 +826,10 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
             scrollThread.stopRunning();
             scrollThread = null;
         }
+    }
+
+    private double getRowHeaderWidth() {
+        return canvas.getGraphics().isShowRowHeaders() ? canvas.getGraphics().getRowHeadersWidth() : 0;
     }
 
     private void startAutoscrollIfNeeded(MouseEvent evt) {

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
+ * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
  *
  * This file is part of FlexGanttFX.
  */
@@ -97,7 +97,7 @@ public abstract class FlexGanttFXControl extends Control {
 				System.out.println("Development License (do not use in production systems)");
 			}
 
-			System.out.println("(c) 2013-2019 Dirk Lemmermann Software & Consulting");
+			System.out.println("(c) 2013-2020 DLSC Software & Consulting GmbH");
 			System.out.println("http://www.dlsc.com");
 		}
 	}

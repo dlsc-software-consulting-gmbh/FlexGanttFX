@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 - 2019 DLSC Software & Consulting GmbH (dlsc.com)
+ * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
  *
  * This file is part of FlexGanttFX.
  */
@@ -45,6 +45,7 @@ public class MSProjectApp extends Application {
 		this.stage.setTitle(STAGE_TITLE);
 
 		gantt = new MSProjectGanttChart();
+		gantt.getGraphics().setCanvasBuffer(0);
 		gantt.getGraphics().setLinkRenderer(ActivityLink.class, new CurvedLinkRenderer<>(gantt.getGraphics(), "Custom Link Renderer") {
 			@Override
 			public void draw(ActivityLink<?> link, GraphicsContext gc, Rectangle2D sourceBounds, Rectangle2D targetBounds) {
