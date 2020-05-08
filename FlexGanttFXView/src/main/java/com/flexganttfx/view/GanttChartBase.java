@@ -161,9 +161,7 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
     private final InvalidationListener redrawListener = observable -> {
         if (observable instanceof ReadOnlyProperty) {
             if (LoggingDomain.RENDERING.isLoggable(Level.FINE)) {
-                LoggingDomain.RENDERING
-                        .fine("redraw because of property change, property = "
-                                + ((ReadOnlyProperty<?>) observable).getName());
+                LoggingDomain.RENDERING.fine("redraw because of property change, property = " + ((ReadOnlyProperty<?>) observable).getName());
             }
         }
 
@@ -212,8 +210,7 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
         graphicsHeaderProperty().set(node);
     }
 
-    private final InvalidationListener weakRedrawListener = new WeakInvalidationListener(
-            redrawListener);
+    private final InvalidationListener weakRedrawListener = new WeakInvalidationListener(redrawListener);
 
     protected void redrawObservable(Observable property) {
         property.addListener(weakRedrawListener);
@@ -224,8 +221,7 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
 	 * chart use.
 	 */
 
-    private final ObjectProperty<Position> position = new SimpleObjectProperty<>(
-            this, "position", Position.ONLY);
+    private final ObjectProperty<Position> position = new SimpleObjectProperty<>(this, "position", Position.ONLY);
 
     /**
      * A property used to store the position of the Gantt chart in a multi Gantt
@@ -262,8 +258,7 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
         positionProperty().set(position);
     }
 
-    private final ObjectProperty<Timeline> masterTimeline = new SimpleObjectProperty<>(
-            this, "masterTimeline");
+    private final ObjectProperty<Timeline> masterTimeline = new SimpleObjectProperty<>(this, "masterTimeline");
 
     /**
      * A property used to store a reference to the timeline that is being
@@ -404,8 +399,7 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
 
     // Fixed cell size support.
 
-    private final DoubleProperty fixedCellSize = new SimpleDoubleProperty(this,
-            "fixedCellSize", -1);
+    private final DoubleProperty fixedCellSize = new SimpleDoubleProperty(this, "fixedCellSize", -1);
 
     /**
      * A property used to set a fixed cell size for the rows shown in the table
@@ -442,8 +436,7 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
 
     // Detail support (by default contains the property sheet).
 
-    private final BooleanProperty showDetail = new SimpleBooleanProperty(this,
-            "showDetail", false);
+    private final BooleanProperty showDetail = new SimpleBooleanProperty(this, "showDetail", false);
 
     /**
      * A property used to control whether the "details" node will be shown or
