@@ -95,7 +95,6 @@ public class DragCanvas<R extends Row<?, ?, ?>> extends Canvas {
             startTime = startTime.plus(duration);
         }
 
-        // TODO: translate?
         double x = timeline.getModel().calculateLocationForTime(startTime);
 
         double y = evt.getSceneY() - localToScene(0, 0).getY() - info.getOffset().getY();

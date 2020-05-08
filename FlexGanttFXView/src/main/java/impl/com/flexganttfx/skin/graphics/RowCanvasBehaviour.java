@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package impl.com.flexganttfx.skin.graphics;
@@ -337,7 +337,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
             DND.fine("drag over: " + evt);
         }
 
-        Point2D dragLocation = new Point2D(evt.getX(), evt.getY());
+        Point2D dragLocation = new Point2D(getGraphicsX(evt), evt.getY());
 
         if (lastDragLocation != null && lastDragLocation.equals(dragLocation)) {
             if (DND.isLoggable(Level.FINE)) {
@@ -465,7 +465,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         if (dragInfo.getEditMode().equals(EditMode.DRAGGING)) {
 
             Duration duration = Duration.between(activity.getStartTime(), activity.getEndTime());
-            Instant newStartTime = calculateTimeForLocation(evt.getX() - dragInfo.getOffset());
+            Instant newStartTime = calculateTimeForLocation(getGraphicsX(evt) - dragInfo.getOffset());
             Instant newEndTime = newStartTime.plus(duration);
 
             switch (graphics.getDragAndDropFeedback()) {
@@ -765,7 +765,6 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         }
 
         private void scrollX() {
-            System.out.println(xOffset);
             TimelineModel<?> model = canvas.getTimelineModel();
             Instant targetTime = calculateTimeForLocation(xOffset);
             Instant oldStartTime = model.getStartTime();
@@ -828,39 +827,26 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         }
     }
 
-    private double getRowHeaderWidth() {
-        return canvas.getGraphics().isShowRowHeaders() ? canvas.getGraphics().getRowHeadersWidth() : 0;
-    }
-
     private void startAutoscrollIfNeeded(MouseEvent evt) {
 
-        double x = evt.getX();
+        final GraphicsBase<?> graphics = canvas.getGraphics();
+
+        double x = getGraphicsX(evt);
+
         double sceneY = evt.getSceneY();
 
         double xOffset = 0;
 
-        /*
-        Fix autoscrolling ...
-
-                final GraphicsBase<R> graphics = canvas.getGraphics();
-                final double leftEdgeX = -canvas.getTranslateX() + graphics.getCanvasBuffer();
-
-                if (x < leftEdgeX) {
-                    xOffset = x;
-                } else if (x > leftEdgeX + graphics.getWidth() - getRowHeaderWidth()) {
-                     xOffset = x - graphics.getWidth();
-                }
-
-         */
         if (x < 0) {
             xOffset = x;
-        } else if (x > canvas.getWidth()) {
-            xOffset = x - canvas.getWidth();
+        } else {
+            final double visibleCanvasSize = graphics.getWidth() - getRowHeadersWidth();
+            if (x > visibleCanvasSize) {
+                xOffset = x - visibleCanvasSize;
+            }
         }
 
         double yOffset = 0;
-
-        GraphicsBase<?> graphics = canvas.getGraphics();
 
         /*
          * We only perform autoscroll in y direction if the graphics view is
@@ -880,6 +866,24 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         } else {
             autoscroll(xOffset, yOffset, evt);
         }
+    }
+
+    private double getRowHeadersWidth() {
+        return canvas.getGraphics().isShowRowHeaders() ? canvas.getGraphics().getRowHeadersWidth() : 0;
+    }
+
+    private double getGraphicsX(MouseEvent evt) {
+        return getGraphicsX(evt.getSceneX());
+    }
+
+    private double getGraphicsX(DragEvent evt) {
+        return getGraphicsX(evt.getSceneX());
+    }
+
+    private double getGraphicsX(double evtX) {
+        final GraphicsBase<?> graphics = canvas.getGraphics();
+        double x = graphics.sceneToLocal(new Point2D(evtX, 0)).getX();
+        return x - getRowHeadersWidth();
     }
 
     private void mouseDragged(MouseEvent event) {
@@ -1001,12 +1005,12 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
     }
 
     private Instant calculateTimeForLocation(MouseEvent event) {
-        return calculateTimeForLocation(event.getX());
+        return calculateTimeForLocation(getGraphicsX(event));
     }
 
     private Instant calculateTimeForLocation(double x) {
         final TimelineModel<?> timelineModel = canvas.getTimelineModel();
-        return timelineModel.calculateTimeForLocation(x - canvas.getGraphics().getCanvasBuffer() + canvas.getTranslateX() + timelineModel.getOffset());
+        return timelineModel.calculateTimeForLocation(x + timelineModel.getOffset());
     }
 
     private void changeEndTime(MouseEvent event) {
@@ -1033,7 +1037,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
             Duration deltaTime = Duration.between(timeA, timeB);
             activity.setStartTime(activity.getStartTime().plus(deltaTime));
             activity.setEndTime(activity.getEndTime().plus(deltaTime));
-            editStartX = event.getX();
+            editStartX = getGraphicsX(event);
         }
 
         updateMarkedTimeInterval(new TimeInterval(activity.getStartTime(), activity.getEndTime()));
@@ -1147,7 +1151,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
             draw();
 
             editStartY = event.getY();
-            editStartX = event.getX();
+            editStartX = getGraphicsX(event);
         }
     }
 
@@ -1157,7 +1161,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         AgendaLayout layout = (AgendaLayout) activityBounds.getLayout();
         LocalTime timeAt = timeAt(layout, event.getY());
 
-        ZonedDateTime dateAndTimeAt = ZonedDateTime.ofInstant(calculateTimeForLocation(event.getX()), rowZoneId);
+        ZonedDateTime dateAndTimeAt = ZonedDateTime.ofInstant(calculateTimeForLocation(event), rowZoneId);
 
         LocalDate dateAt = dateAndTimeAt.toLocalDate();
 
@@ -1182,7 +1186,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         AgendaLayout layout = (AgendaLayout) activityBounds.getLayout();
         LocalTime timeAt = timeAt(layout, event.getY());
 
-        ZonedDateTime dateAndTimeAt = ZonedDateTime.ofInstant(calculateTimeForLocation(event.getX()), rowZoneId);
+        ZonedDateTime dateAndTimeAt = ZonedDateTime.ofInstant(calculateTimeForLocation(event), rowZoneId);
 
         LocalDate dateAt = dateAndTimeAt.toLocalDate();
 
@@ -1239,7 +1243,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
         handleSelection(event);
 
-        editStartX = event.getX();
+        editStartX = getGraphicsX(event);
         editStartY = event.getY();
 
         EDITING.finest("editing start x: " + editStartX);
