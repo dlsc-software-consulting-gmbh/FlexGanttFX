@@ -35,6 +35,7 @@ public class HelloDualGanttChartContainer extends FlexGanttFXSampleBase {
         gc2.setRoot(new HelloRow("Root"));
 
         dual = new DualGanttChartContainer(gc1, gc2);
+        dual.getPrimaryGanttChart().getGraphics().setShowRowHeaders(true);
 
         BorderPane borderPane = new BorderPane();
         borderPane.setCenter(dual);

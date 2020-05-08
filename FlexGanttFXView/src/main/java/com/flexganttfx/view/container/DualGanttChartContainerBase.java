@@ -124,8 +124,7 @@ public abstract class DualGanttChartContainerBase<T extends GanttChartBase<?>> e
 
     // Primary Gantt chart support.
 
-    private final ObjectProperty<T> primaryGanttChart = new SimpleObjectProperty<>(
-            this, "primaryGanttChart");
+    private final ObjectProperty<T> primaryGanttChart = new SimpleObjectProperty<>(this, "primaryGanttChart");
 
     /**
      * A property used to store the reference to the Gantt chart control that is
@@ -160,8 +159,7 @@ public abstract class DualGanttChartContainerBase<T extends GanttChartBase<?>> e
 
     // Primary header support.
 
-    private final ObjectProperty<Node> primaryHeader = new SimpleObjectProperty<>(
-            this, "primaryHeader");
+    private final ObjectProperty<Node> primaryHeader = new SimpleObjectProperty<>(this, "primaryHeader");
 
     /**
      * A property used to store the reference to a control that will be serving
@@ -197,8 +195,7 @@ public abstract class DualGanttChartContainerBase<T extends GanttChartBase<?>> e
 
     // Primary footer support.
 
-    private final ObjectProperty<Node> primaryFooter = new SimpleObjectProperty<>(
-            this, "primaryFooter");
+    private final ObjectProperty<Node> primaryFooter = new SimpleObjectProperty<>(this, "primaryFooter");
 
     /**
      * A property used to store the reference to a node that will be displayed
@@ -241,8 +238,7 @@ public abstract class DualGanttChartContainerBase<T extends GanttChartBase<?>> e
      *
      * @since 1.6
      */
-    private final ObjectProperty<Node> secondaryHeader = new SimpleObjectProperty<>(
-            this, "secondaryHeader");
+    private final ObjectProperty<Node> secondaryHeader = new SimpleObjectProperty<>(this, "secondaryHeader");
 
     /**
      * A property used to store the reference to a control that will be serving
@@ -278,8 +274,7 @@ public abstract class DualGanttChartContainerBase<T extends GanttChartBase<?>> e
 
     // Primary header support.
 
-    private final ObjectProperty<Node> secondaryFooter = new SimpleObjectProperty<>(
-            this, "secondaryFooter");
+    private final ObjectProperty<Node> secondaryFooter = new SimpleObjectProperty<>(this, "secondaryFooter");
 
     /**
      * A property used to store the reference to a node that will be used in the
@@ -315,8 +310,7 @@ public abstract class DualGanttChartContainerBase<T extends GanttChartBase<?>> e
 
     // Secondary Gantt chart support.
 
-    private final ObjectProperty<T> secondaryGanttChart = new SimpleObjectProperty<>(
-            this, "secondaryGanttChart");
+    private final ObjectProperty<T> secondaryGanttChart = new SimpleObjectProperty<>(this, "secondaryGanttChart");
 
     /**
      * A property used to store the reference to the secondary Gantt chart.
@@ -349,8 +343,7 @@ public abstract class DualGanttChartContainerBase<T extends GanttChartBase<?>> e
 
     // Expanded state support support.
 
-    private final BooleanProperty showSecondary = new SimpleBooleanProperty(this,
-            "showSecondary", true);
+    private final BooleanProperty showSecondary = new SimpleBooleanProperty(this, "showSecondary", true);
 
     /**
      * A property used to toggle the visibility of the secondary Gantt chart.

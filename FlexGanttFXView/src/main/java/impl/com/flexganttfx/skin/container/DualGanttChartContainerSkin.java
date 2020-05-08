@@ -12,8 +12,7 @@ import javafx.beans.binding.Bindings;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.BorderPane;
 
-public class DualGanttChartContainerSkin extends
-		MultiGanttChartContainerSkinBase<DualGanttChartContainerBase> {
+public class DualGanttChartContainerSkin extends MultiGanttChartContainerSkinBase<DualGanttChartContainerBase> {
 
 	public DualGanttChartContainerSkin(DualGanttChartContainerBase container) {
 		super(container);

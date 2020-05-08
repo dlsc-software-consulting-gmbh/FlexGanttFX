@@ -5,18 +5,15 @@
  */
 package impl.com.flexganttfx.skin.container;
 
-import java.util.List;
-
 import com.flexganttfx.view.GanttChart;
 import com.flexganttfx.view.GanttChartBase;
 import com.flexganttfx.view.container.ContainerBase;
 import com.flexganttfx.view.timeline.Timeline;
 import com.flexganttfx.view.util.Position;
-
 import impl.com.flexganttfx.skin.util.Binder;
 import javafx.beans.Observable;
-import javafx.beans.binding.Bindings;
-import javafx.scene.control.SkinBase;
+
+import java.util.List;
 
 public abstract class MultiGanttChartContainerSkinBase<T extends ContainerBase>
         extends ContainerSkinBase<T> {
@@ -57,12 +54,9 @@ public abstract class MultiGanttChartContainerSkinBase<T extends ContainerBase>
             ganttChart.setMasterTimeline(masterTimeline);
 
             if (ganttChart instanceof GanttChart) {
-                ((GanttChart) ganttChart).getTreeTable().getStyleClass()
-                        .remove(GANTT_TREE_TABLE_VIEW_FIRST);
-                ((GanttChart) ganttChart).getTreeTable().getStyleClass()
-                        .remove(GANTT_TREE_TABLE_VIEW_MIDDLE);
-                ((GanttChart) ganttChart).getTreeTable().getStyleClass()
-                        .remove(GANTT_TREE_TABLE_VIEW_LAST);
+                ((GanttChart) ganttChart).getTreeTable().getStyleClass().remove(GANTT_TREE_TABLE_VIEW_FIRST);
+                ((GanttChart) ganttChart).getTreeTable().getStyleClass().remove(GANTT_TREE_TABLE_VIEW_MIDDLE);
+                ((GanttChart) ganttChart).getTreeTable().getStyleClass().remove(GANTT_TREE_TABLE_VIEW_LAST);
             }
 
             ganttChart.getTimeline().getStyleClass().remove(TIMELINE_FIRST);
@@ -72,24 +66,21 @@ public abstract class MultiGanttChartContainerSkinBase<T extends ContainerBase>
             if (i == 0) {
                 ganttChart.setPosition(Position.FIRST);
                 if (ganttChart instanceof GanttChart) {
-                    ((GanttChart) ganttChart).getTreeTable().getStyleClass()
-                            .add(GANTT_TREE_TABLE_VIEW_FIRST);
+                    ((GanttChart) ganttChart).getTreeTable().getStyleClass().add(GANTT_TREE_TABLE_VIEW_FIRST);
                 }
                 ganttChart.getTimeline().getStyleClass().add(TIMELINE_FIRST);
             } else if (i == size - 1) {
                 ganttChart.setPosition(Position.LAST);
                 Binder.bind(primaryGantt, ganttChart, getSkinnable().isAutoBinding());
                 if (ganttChart instanceof GanttChart) {
-                    ((GanttChart) ganttChart).getTreeTable().getStyleClass()
-                            .add(GANTT_TREE_TABLE_VIEW_LAST);
+                    ((GanttChart) ganttChart).getTreeTable().getStyleClass().add(GANTT_TREE_TABLE_VIEW_LAST);
                 }
                 ganttChart.getTimeline().getStyleClass().add(TIMELINE_LAST);
             } else {
                 ganttChart.setPosition(Position.MIDDLE);
                 Binder.bind(primaryGantt, ganttChart, getSkinnable().isAutoBinding());
                 if (ganttChart instanceof GanttChart) {
-                    ((GanttChart) ganttChart).getTreeTable().getStyleClass()
-                            .add(GANTT_TREE_TABLE_VIEW_MIDDLE);
+                    ((GanttChart) ganttChart).getTreeTable().getStyleClass().add(GANTT_TREE_TABLE_VIEW_MIDDLE);
                 }
                 ganttChart.getTimeline().getStyleClass().add(TIMELINE_MIDDLE);
             }

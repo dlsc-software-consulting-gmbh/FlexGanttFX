@@ -28,6 +28,8 @@ public class HelloQuadGanttChartContainer extends FlexGanttFXSampleBase {
     @Override
     public Node getPanel(Stage panel) {
         quad = new QuadGanttChartContainer();
+        quad.getUpperLeftGanttChart().getGraphics().setShowRowHeaders(true);
+        quad.getUpperLeftGanttChart().getGraphics().setRowHeadersWidth(200);
 
         return quad;
     }
@@ -57,8 +59,7 @@ public class HelloQuadGanttChartContainer extends FlexGanttFXSampleBase {
         allFour.setOnAction(evt -> quad.showAllFour(true));
         vbox.getChildren().add(allFour);
 
-        PropertySheet propertySheet = new PropertySheet(FXCollections.observableArrayList(quad
-                .getPropertySheetItems()));
+        PropertySheet propertySheet = new PropertySheet(FXCollections.observableArrayList(quad.getPropertySheetItems()));
         VBox.setVgrow(propertySheet, Priority.ALWAYS);
 
         vbox.getChildren().add(propertySheet);

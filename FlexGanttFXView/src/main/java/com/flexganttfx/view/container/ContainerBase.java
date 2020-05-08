@@ -33,8 +33,7 @@ public abstract class ContainerBase<T extends GanttChartBase<?>> extends FlexGan
 	 *
 	 * @since 1.6
 	 */
-	protected ContainerBase(boolean autoBinding,
-							T... ganttCharts) {
+	protected ContainerBase(boolean autoBinding, T... ganttCharts) {
 
 		this.autoBinding = autoBinding;
 
@@ -94,8 +93,7 @@ public abstract class ContainerBase<T extends GanttChartBase<?>> extends FlexGan
 		return autoBinding;
 	}
 
-	private final ObservableList<T> ganttCharts = FXCollections
-			.observableArrayList();
+	private final ObservableList<T> ganttCharts = FXCollections.observableArrayList();
 
 	/**
 	 * Returns the list of Gantt charts that are being managed by the container.
