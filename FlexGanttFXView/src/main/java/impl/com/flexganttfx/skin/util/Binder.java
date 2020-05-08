@@ -16,17 +16,14 @@ public class Binder {
 
     public static void bind(GanttChartBase<?> primary, GanttChartBase<?> gantt, boolean autoBinding) {
         // synch timeline model
-        Bindings.bindBidirectional(gantt.getTimeline().modelProperty(), primary
-                .getTimeline().modelProperty());
+        Bindings.bindBidirectional(gantt.getTimeline().modelProperty(), primary.getTimeline().modelProperty());
 
         if (gantt instanceof GanttChart) {
             // synch display mode
-            Bindings.bindBidirectional(((GanttChart) gantt).displayModeProperty(),
-                    ((GanttChart) primary).displayModeProperty());
+            Bindings.bindBidirectional(((GanttChart) gantt).displayModeProperty(), ((GanttChart) primary).displayModeProperty());
 
             // synch tree tables
-            Bindings.bindBidirectional(((GanttChart) gantt).showTreeTableProperty(),
-                    ((GanttChart) primary).showTreeTableProperty());
+            Bindings.bindBidirectional(((GanttChart) gantt).showTreeTableProperty(), ((GanttChart) primary).showTreeTableProperty());
             Bindings.bindBidirectional(((GanttChart) gantt).getTreeTableMasterDetailPane()
                     .dividerPositionProperty(), ((GanttChart) primary).getTreeTableMasterDetailPane()
                     .dividerPositionProperty());
@@ -48,6 +45,14 @@ public class Binder {
         Bindings.bindContent(gantt.getTimeline().getEventline()
                 .getProperties(), primary.getTimeline().getEventline()
                 .getProperties());
+
+        Bindings.bindBidirectional(gantt.getGraphics()
+                .showRowHeadersProperty(), primary.getGraphics()
+                .showRowHeadersProperty());
+
+        Bindings.bindBidirectional(gantt.getGraphics()
+                .rowHeadersWidthProperty(), primary.getGraphics()
+                .rowHeadersWidthProperty());
 
         if (autoBinding) {
             // synch layers
