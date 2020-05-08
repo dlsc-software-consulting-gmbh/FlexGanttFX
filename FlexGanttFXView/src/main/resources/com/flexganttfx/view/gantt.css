@@ -87,6 +87,7 @@
 .tree-table-view-standard-display-mode > .virtual-flow > .scroll-bar:vertical .decrement-arrow ,  
 .tree-table-view-standard-display-mode > .virtual-flow > .scroll-bar:vertical .increment-arrow {
 	-fx-pref-width: 0.0;
+	-fx-opacity: 0;
 }
 
  /*
@@ -101,6 +102,7 @@
 .gantt-tree-table-view > .virtual-flow > .scroll-bar:horizontal .decrement-arrow ,  
 .gantt-tree-table-view > .virtual-flow > .scroll-bar:horizontal .increment-arrow {
 	-fx-pref-height: 0.0;
+	-fx-opacity: 0;
 }
 
 /*
