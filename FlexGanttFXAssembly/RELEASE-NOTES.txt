@@ -1,6 +1,9 @@
 ----------------------------------------------------------------
-Release: 11.11.0, April 2020 (Performance / StillCorona Release)
+Release: 11.11.0, May 2020 (Performance / StillCorona Release)
 ----------------------------------------------------------------
+
+>>> THIS IS A MAJOR RELEASE: YOU HAVE TO PURCHASE A NEW LICENSE
+>>> IF YOU HAVEN'T SUBSCRIBED TO THE MAINTENANCE PLAN.
 
 ** CHANGES / NEW FEATURES
 
@@ -11,6 +14,7 @@ Release: 11.11.0, April 2020 (Performance / StillCorona Release)
 	** Added new "zoom mode" selector to toolbar
 	** Added new "show / hide scale / row header" button to toolbar
 	** New default value for "show hover interval" is "false"
+	** Added new RowHeader concept to replace things like the ScaleLayer.
 
 ** BUGS
 
