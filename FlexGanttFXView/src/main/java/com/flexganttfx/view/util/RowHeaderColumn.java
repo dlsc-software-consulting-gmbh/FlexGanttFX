@@ -89,6 +89,7 @@ public class RowHeaderColumn<R extends Row<?, ?, ?>> extends TreeTableColumn<R, 
 
         // build context menu
         ContextMenu contextMenu = new ContextMenu();
+
         MenuItem resizeColumns = new MenuItem(Messages.getString("RowHeader.MENU_ITEM_FIT_COLUMNS"));
         resizeColumns.setOnAction(evt -> ganttChart.resizeColumns());
         contextMenu.getItems().add(resizeColumns);
