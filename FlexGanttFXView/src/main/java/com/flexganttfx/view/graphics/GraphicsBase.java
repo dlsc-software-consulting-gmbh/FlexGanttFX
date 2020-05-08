@@ -340,7 +340,6 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
             }
         });
 
-//        addEventFilter(MouseEvent.MOUSE_CLICKED, evt -> redraw("mouse clicked on graphics base"));
         debugModeProperty().addListener(weakRedrawListener);
 
         selectionModeProperty().addListener(observable -> getSelectedActivities().clear());
