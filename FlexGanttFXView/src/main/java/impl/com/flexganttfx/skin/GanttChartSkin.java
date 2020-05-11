@@ -50,7 +50,7 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends
 
 		ganttChart.rootProperty().addListener(observable -> updateRoot());
 
-		rowHeader = ganttChart.getRowHeader();
+		rowHeader = ganttChart.getRowHeaderColumn();
 
 		ListViewGraphics<R> graphics = ganttChart.getGraphics();
 

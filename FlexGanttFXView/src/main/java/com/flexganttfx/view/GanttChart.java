@@ -230,7 +230,7 @@ public class GanttChart<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
 
         redrawObservable(rootProperty());
 
-        rowHeader = createRowHeader();
+        rowHeader = createRowHeaderColumn();
 
         TreeTableColumn<R, String> nameColumn = new TreeTableColumn<>(Messages.getString("GanttChart.NAME_COLUMN"));
         nameColumn.setPrefWidth(200);
@@ -435,7 +435,7 @@ public class GanttChart<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
      *
      * @return the row header (column)
      */
-    public final RowHeaderColumn<R> getRowHeader() {
+    public final RowHeaderColumn<R> getRowHeaderColumn() {
         return rowHeader;
     }
 
@@ -446,7 +446,7 @@ public class GanttChart<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
      * @return the row header column
      * @since 1.0
      */
-    protected RowHeaderColumn<R> createRowHeader() {
+    protected RowHeaderColumn<R> createRowHeaderColumn() {
         return new RowHeaderColumn<>(this);
     }
 

@@ -23,18 +23,19 @@ import javafx.util.Callback;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HelloRowHeader extends FlexGanttFXSample {
+public class HelloRowHeaderColumn extends FlexGanttFXSample {
+
 	private GanttChart<MyRow> gantt;
 
 	@Override
 	public String getSampleName() {
-		return "Row Header";
+		return "Row Header Column";
 	}
 
 	@Override
 	protected GanttChart<?> createGanttChart() {
 		gantt = new GanttChart<>();
-		gantt.getStylesheets().add(HelloRowHeader.class.getResource("row-header.css").toExternalForm());
+		gantt.getStylesheets().add(HelloRowHeaderColumn.class.getResource("row-header.css").toExternalForm());
 
 		List<MyRow> rows = new ArrayList<>();
 		for (int i = 0; i < 10; i++) {
@@ -71,10 +72,10 @@ public class HelloRowHeader extends FlexGanttFXSample {
 		gantt.rowHeaderTypeProperty().addListener(evt -> {
 			switch (gantt.getRowHeaderType()) {
 			case ROW_NUMBER:
-				gantt.getRowHeader().setPrefWidth(30);
+				gantt.getRowHeaderColumn().setPrefWidth(30);
 				break;
 			case LEVEL_NUMBER:
-				gantt.getRowHeader().setPrefWidth(50);
+				gantt.getRowHeaderColumn().setPrefWidth(50);
 				break;
 			case GRAPHIC_NODE:
 				break;
@@ -85,8 +86,7 @@ public class HelloRowHeader extends FlexGanttFXSample {
 		ComboBox<RowHeaderType> contentTypeBox = new ComboBox<>();
 		contentTypeBox.getItems().addAll(RowHeaderType.values());
 		contentTypeBox.setValue(gantt.getRowHeaderType());
-		gantt.rowHeaderTypeProperty().bind(
-				contentTypeBox.valueProperty());
+		gantt.rowHeaderTypeProperty().bind(contentTypeBox.valueProperty());
 		controlPane.getChildren().add(contentTypeBox);
 
 		// radio button group
@@ -96,7 +96,7 @@ public class HelloRowHeader extends FlexGanttFXSample {
 		colorCallback.setToggleGroup(group);
 		colorCallback.setOnAction(evt -> {
 			gantt.setRowHeaderNodeFactory(new ColorCallback());
-			gantt.getRowHeader().setPrefWidth(24);
+			gantt.getRowHeaderColumn().setPrefWidth(24);
 		});
 		colorCallback.disableProperty().bind(
 				Bindings.notEqual(RowHeaderType.GRAPHIC_NODE,
@@ -107,7 +107,7 @@ public class HelloRowHeader extends FlexGanttFXSample {
 		statusCallback.setToggleGroup(group);
 		statusCallback.setOnAction(evt -> {
 			gantt.setRowHeaderNodeFactory(new StatusCallback());
-			gantt.getRowHeader().setPrefWidth(30);
+			gantt.getRowHeaderColumn().setPrefWidth(30);
 		});
 		statusCallback.disableProperty().bind(
 				Bindings.notEqual(RowHeaderType.GRAPHIC_NODE,
@@ -118,7 +118,7 @@ public class HelloRowHeader extends FlexGanttFXSample {
 		controlCallback.setToggleGroup(group);
 		controlCallback.setOnAction(evt -> {
 			gantt.setRowHeaderNodeFactory(new ControlCallback());
-			gantt.getRowHeader().setPrefWidth(40);
+			gantt.getRowHeaderColumn().setPrefWidth(40);
 		});
 		controlCallback.disableProperty().bind(
 				Bindings.notEqual(RowHeaderType.GRAPHIC_NODE,
@@ -231,7 +231,7 @@ public class HelloRowHeader extends FlexGanttFXSample {
 
 	@Override
 	public String getJavaDocURL() {
-		return getJavaDocBase() + "com/flexganttfx/view/util/RowHeader.html";
+		return getJavaDocBase() + "com/flexganttfx/view/util/RowHeaderColumn.html";
 	}
 
 	public static void main(String[] args) {
