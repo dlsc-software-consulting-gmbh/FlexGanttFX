@@ -417,7 +417,9 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         addRedrawObservable(showZoomTimeIntervalLayer);
         addRedrawObservable(showAgendaLinesLayer);
         addRedrawObservable(showChartLinesLayer);
+        addRedrawObservable(showRowHeaders);
         addRedrawObservable(maxGridLevel);
+        addRedrawObservable(rowHeadersWidth);
         addRedrawObservable(activityFilter);
 
         rowEditingModeProperty().addListener(it -> {
