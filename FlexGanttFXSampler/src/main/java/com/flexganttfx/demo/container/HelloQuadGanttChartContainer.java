@@ -6,6 +6,7 @@
 package com.flexganttfx.demo.container;
 
 import com.flexganttfx.demo.FlexGanttFXSampleBase;
+import com.flexganttfx.extras.properties.QuadGanttChartContainerBaseItemProvider;
 import com.flexganttfx.view.container.QuadGanttChartContainer;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -59,7 +60,8 @@ public class HelloQuadGanttChartContainer extends FlexGanttFXSampleBase {
         allFour.setOnAction(evt -> quad.showAllFour(true));
         vbox.getChildren().add(allFour);
 
-        PropertySheet propertySheet = new PropertySheet(FXCollections.observableArrayList(quad.getPropertySheetItems()));
+        QuadGanttChartContainerBaseItemProvider provider = new QuadGanttChartContainerBaseItemProvider();
+        PropertySheet propertySheet = new PropertySheet(FXCollections.observableArrayList(provider.getPropertySheetItems(quad)));
         VBox.setVgrow(propertySheet, Priority.ALWAYS);
 
         vbox.getChildren().add(propertySheet);

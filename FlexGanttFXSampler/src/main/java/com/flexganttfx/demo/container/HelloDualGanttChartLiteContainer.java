@@ -7,6 +7,7 @@ package com.flexganttfx.demo.container;
 
 import com.flexganttfx.demo.FlexGanttFXSampleBase;
 import com.flexganttfx.demo.HelloRow;
+import com.flexganttfx.extras.properties.DualGanttChartContainerBaseItemProvider;
 import com.flexganttfx.view.container.DualGanttChartLiteContainer;
 import com.flexganttfx.view.GanttChartLite;
 import javafx.application.Application;
@@ -43,8 +44,8 @@ public class HelloDualGanttChartLiteContainer extends FlexGanttFXSampleBase {
 
 	@Override
 	public Node getControlPanel() {
-		return new PropertySheet(FXCollections.observableArrayList(dual
-				.getPropertySheetItems()));
+		DualGanttChartContainerBaseItemProvider provider = new DualGanttChartContainerBaseItemProvider();
+		return new PropertySheet(FXCollections.observableArrayList(provider.getPropertySheetItems(dual)));
 	}
 
 	@Override

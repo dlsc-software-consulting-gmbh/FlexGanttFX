@@ -24,27 +24,12 @@ public abstract class FlexGanttFXSample extends FlexGanttFXSampleBase {
 	private GanttChartToolBar<?> toolbar;
 	private GanttChartStatusBar<?> statusbar;
 	private DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT);
-	private boolean visible = true;
-	private BorderPane ganttPane;
 
 	protected FlexGanttFXSample() {
 	}
 
-	public final void setVisible(boolean visible) {
-		this.visible = visible;
-	}
-
-	@Override
-	public final boolean isVisible() {
-		return visible;
-	}
-
 	@Override
 	public final Node getPanel(Stage stage) {
-		if (ganttPane != null) {
-			return ganttPane;
-		}
-
 		try {
 			ganttChart = createGanttChart();
 
@@ -55,13 +40,12 @@ public abstract class FlexGanttFXSample extends FlexGanttFXSampleBase {
 			});
 		} catch (Exception e) {
 			e.printStackTrace();
-			visible = false;
 		}
 
 		toolbar = new GanttChartToolBar<>(ganttChart);
 		statusbar = new GanttChartStatusBar<>(ganttChart);
 
-		ganttPane = new BorderPane();
+		BorderPane ganttPane = new BorderPane();
 		BorderPane.setMargin(ganttChart, new Insets(10));
 		ganttPane.setTop(toolbar);
 		ganttPane.setCenter(ganttChart);

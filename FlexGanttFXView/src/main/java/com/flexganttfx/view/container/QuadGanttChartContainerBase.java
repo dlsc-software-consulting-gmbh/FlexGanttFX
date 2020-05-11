@@ -13,16 +13,10 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.Skin;
 import org.controlsfx.control.MasterDetailPane;
-import org.controlsfx.control.PropertySheet.Item;
-
-import java.util.Optional;
 
 /**
  * A specialization of {@link ContainerBase} capable of displaying
@@ -743,94 +737,5 @@ public abstract class QuadGanttChartContainerBase<T extends GanttChartBase<?>> e
         }
         setShowLower(true);
         getUpperMasterDetailPane().setShowDetailNode(true);
-    }
-
-    private static final String QUAD_GANTT_CHART_CONTAINER_PROPERTIES_CATEGORY = "Control: Quad Gantt Chart Container";
-
-    /**
-     * Returns property sheet items.
-     *
-     * @return property sheet items
-     */
-    public final ObservableList<Item> getPropertySheetItems() {
-        ObservableList<Item> items = FXCollections.observableArrayList();
-
-        items.add(new Item() {
-
-            @Override
-            public Optional<ObservableValue<?>> getObservableValue() {
-                return Optional.of(showLowerProperty());
-            }
-
-            @Override
-            public void setValue(Object value) {
-                setShowLower((boolean) value);
-            }
-
-            @Override
-            public Object getValue() {
-                return isShowLower();
-            }
-
-            @Override
-            public Class<?> getType() {
-                return Boolean.class;
-            }
-
-            @Override
-            public String getName() {
-                return "Show Lower";
-            }
-
-            @Override
-            public String getDescription() {
-                return "Show lower charts";
-            }
-
-            @Override
-            public String getCategory() {
-                return QUAD_GANTT_CHART_CONTAINER_PROPERTIES_CATEGORY;
-            }
-        });
-
-        items.add(new Item() {
-
-            @Override
-            public Optional<ObservableValue<?>> getObservableValue() {
-                return Optional.of(animatedProperty());
-            }
-
-            @Override
-            public void setValue(Object value) {
-                setAnimated((boolean) value);
-            }
-
-            @Override
-            public Object getValue() {
-                return isAnimated();
-            }
-
-            @Override
-            public Class<?> getType() {
-                return Boolean.class;
-            }
-
-            @Override
-            public String getName() {
-                return "Animated";
-            }
-
-            @Override
-            public String getDescription() {
-                return "Open / close animations";
-            }
-
-            @Override
-            public String getCategory() {
-                return QUAD_GANTT_CHART_CONTAINER_PROPERTIES_CATEGORY;
-            }
-        });
-
-        return items;
     }
 }

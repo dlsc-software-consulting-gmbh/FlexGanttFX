@@ -7,6 +7,7 @@ package com.flexganttfx.demo.container;
 
 import com.flexganttfx.demo.FlexGanttFXSampleBase;
 import com.flexganttfx.demo.HelloRow;
+import com.flexganttfx.extras.properties.QuadGanttChartContainerBaseItemProvider;
 import com.flexganttfx.view.GanttChartLite;
 import com.flexganttfx.view.container.QuadGanttChartLiteContainer;
 import javafx.application.Application;
@@ -89,8 +90,9 @@ public class HelloQuadGanttChartLiteContainer extends FlexGanttFXSampleBase {
         replaceLowerRight.setOnAction(evt -> replace(Corner.LOWER_RIGHT));
         vbox.getChildren().add(replaceLowerRight);
 
-        PropertySheet propertySheet = new PropertySheet(FXCollections.observableArrayList(quad
-                .getPropertySheetItems()));
+        QuadGanttChartContainerBaseItemProvider provider = new QuadGanttChartContainerBaseItemProvider();
+        PropertySheet propertySheet = new PropertySheet(FXCollections.observableArrayList(provider.getPropertySheetItems(quad)));
+
         VBox.setVgrow(propertySheet, Priority.ALWAYS);
 
         vbox.getChildren().add(propertySheet);
