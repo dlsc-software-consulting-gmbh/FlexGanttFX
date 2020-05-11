@@ -15,15 +15,13 @@ import javafx.beans.Observable;
 
 import java.util.List;
 
-public abstract class MultiGanttChartContainerSkinBase<T extends ContainerBase>
-        extends ContainerSkinBase<T> {
+public abstract class MultiGanttChartContainerSkinBase<T extends ContainerBase> extends ContainerSkinBase<T> {
 
     public MultiGanttChartContainerSkinBase(T container) {
         super(container);
 
         updatePositions();
-        getSkinnable().getGanttCharts().addListener(
-                (Observable observable) -> updatePositions());
+        getSkinnable().getGanttCharts().addListener((Observable observable) -> updatePositions());
     }
 
     private void updatePositions() {

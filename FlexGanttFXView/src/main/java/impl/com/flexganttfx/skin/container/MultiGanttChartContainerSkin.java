@@ -10,17 +10,12 @@ import javafx.scene.control.SplitPane;
 
 import com.flexganttfx.view.container.MultiGanttChartContainerBase;
 
-public class MultiGanttChartContainerSkin extends
-		MultiGanttChartContainerSkinBase<MultiGanttChartContainerBase> {
+public class MultiGanttChartContainerSkin extends MultiGanttChartContainerSkinBase<MultiGanttChartContainerBase> {
 
 	public MultiGanttChartContainerSkin(MultiGanttChartContainerBase container) {
 		super(container);
-
 		SplitPane splitPane = container.getSplitPane();
-
 		getChildren().add(splitPane);
-
-		Bindings.bindContent(splitPane.getItems(), getSkinnable()
-				.getGanttCharts());
+		Bindings.bindContent(splitPane.getItems(), getSkinnable().getGanttCharts());
 	}
 }
