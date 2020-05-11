@@ -1,99 +1,67 @@
 /**
  * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package impl.com.flexganttfx.skin.util;
 
 import com.flexganttfx.view.GanttChart;
 import com.flexganttfx.view.GanttChartBase;
+import com.flexganttfx.view.graphics.ListViewGraphics;
+import com.flexganttfx.view.timeline.Timeline;
 import javafx.beans.binding.Bindings;
 
-/**
- * Created by dirk on 11/07/16.
- */
 public class Binder {
 
-    public static void bind(GanttChartBase<?> primary, GanttChartBase<?> gantt, boolean autoBinding) {
-        // synch timeline model
-        Bindings.bindBidirectional(gantt.getTimeline().modelProperty(), primary.getTimeline().modelProperty());
+    public static void bind(GanttChartBase<?> gantt1, GanttChartBase<?> gantt2, boolean autoBinding) {
+        // sync timeline model
+        final Timeline timeline2 = gantt2.getTimeline();
+        final Timeline timeline1 = gantt1.getTimeline();
 
-        if (gantt instanceof GanttChart) {
-            // synch display mode
-            Bindings.bindBidirectional(((GanttChart) gantt).displayModeProperty(), ((GanttChart) primary).displayModeProperty());
+        Bindings.bindBidirectional(timeline2.modelProperty(), timeline1.modelProperty());
 
-            // synch tree tables
-            Bindings.bindBidirectional(((GanttChart) gantt).showTreeTableProperty(), ((GanttChart) primary).showTreeTableProperty());
-            Bindings.bindBidirectional(((GanttChart) gantt).getTreeTableMasterDetailPane()
-                    .dividerPositionProperty(), ((GanttChart) primary).getTreeTableMasterDetailPane()
-                    .dividerPositionProperty());
+        if (gantt2 instanceof GanttChart) {
+            // sync display mode
+            Bindings.bindBidirectional(((GanttChart) gantt2).displayModeProperty(), ((GanttChart) gantt1).displayModeProperty());
+
+            // sync tree tables
+            Bindings.bindBidirectional(((GanttChart) gantt2).showTreeTableProperty(), ((GanttChart) gantt1).showTreeTableProperty());
+            Bindings.bindBidirectional(((GanttChart) gantt2).getTreeTableMasterDetailPane().dividerPositionProperty(), ((GanttChart) gantt1).getTreeTableMasterDetailPane().dividerPositionProperty());
         }
 
-        // synch details node
-        Bindings.bindBidirectional(gantt.showDetailProperty(),
-                primary.showDetailProperty());
-        Bindings.bindBidirectional(gantt.getGraphicsMasterDetailPane()
-                .dividerPositionProperty(), primary
-                .getGraphicsMasterDetailPane().dividerPositionProperty());
+        // sync details node
+        Bindings.bindBidirectional(gantt2.showDetailProperty(), gantt1.showDetailProperty());
+        Bindings.bindBidirectional(gantt2.getGraphicsMasterDetailPane().dividerPositionProperty(), gantt1.getGraphicsMasterDetailPane().dividerPositionProperty());
 
-        // synch cursor line
-        Bindings.bindBidirectional(gantt.getGraphics()
-                .showVerticalCursorProperty(), primary.getGraphics()
-                .showVerticalCursorProperty());
+        // sync cursor line
+        final ListViewGraphics<?> graphics2 = gantt2.getGraphics();
+        final ListViewGraphics<?> graphics1 = gantt1.getGraphics();
+
+        Bindings.bindBidirectional(graphics2.showVerticalCursorProperty(), graphics1.showVerticalCursorProperty());
 
         // we are also passing read-only properties via the properties maps
-        Bindings.bindContent(gantt.getTimeline().getEventline()
-                .getProperties(), primary.getTimeline().getEventline()
-                .getProperties());
+        Bindings.bindContent(timeline2.getEventline().getProperties(), timeline1.getEventline().getProperties());
 
-        Bindings.bindBidirectional(gantt.getGraphics()
-                .showRowHeadersProperty(), primary.getGraphics()
-                .showRowHeadersProperty());
-
-        Bindings.bindBidirectional(gantt.getGraphics()
-                .rowHeadersWidthProperty(), primary.getGraphics()
-                .rowHeadersWidthProperty());
+        Bindings.bindBidirectional(graphics2.showRowHeadersProperty(), graphics1.showRowHeadersProperty());
+        Bindings.bindBidirectional(graphics2.rowHeadersWidthProperty(), graphics1.rowHeadersWidthProperty());
+        Bindings.bindBidirectional(graphics2.canvasBufferProperty(), graphics1.canvasBufferProperty());
 
         if (autoBinding) {
-            // synch layers
-            Bindings.bindBidirectional(gantt.getGraphics()
-                    .maxGridLevelProperty(), primary.getGraphics()
-                    .maxGridLevelProperty());
-            Bindings.bindBidirectional(gantt.getGraphics()
-                    .showGridLineLayerProperty(), primary.getGraphics()
-                    .showGridLineLayerProperty());
-            Bindings.bindBidirectional(gantt.getGraphics()
-                    .showInnerLinesLayerProperty(), primary.getGraphics()
-                    .showInnerLinesLayerProperty());
-            Bindings.bindBidirectional(gantt.getGraphics()
-                    .showRowLayerProperty(), primary.getGraphics()
-                    .showRowLayerProperty());
-            Bindings.bindBidirectional(gantt.getGraphics()
-                    .showCalendarLayerProperty(), primary.getGraphics()
-                    .showCalendarLayerProperty());
-            Bindings.bindBidirectional(gantt.getGraphics()
-                    .showNowLineLayerProperty(), primary.getGraphics()
-                    .showNowLineLayerProperty());
+            // sync layers
+            Bindings.bindBidirectional(graphics2.maxGridLevelProperty(), graphics1.maxGridLevelProperty());
+            Bindings.bindBidirectional(graphics2.showGridLineLayerProperty(), graphics1.showGridLineLayerProperty());
+            Bindings.bindBidirectional(graphics2.showInnerLinesLayerProperty(), graphics1.showInnerLinesLayerProperty());
+            Bindings.bindBidirectional(graphics2.showRowLayerProperty(), graphics1.showRowLayerProperty());
+            Bindings.bindBidirectional(graphics2.showCalendarLayerProperty(), graphics1.showCalendarLayerProperty());
+            Bindings.bindBidirectional(graphics2.showNowLineLayerProperty(), graphics1.showNowLineLayerProperty());
 
-            // synch dateline / timeline time intervals (hover, selection, zoom)
-            Bindings.bindBidirectional(gantt.getGraphics()
-                    .showZoomTimeIntervalLayerProperty(), primary.getGraphics()
-                    .showZoomTimeIntervalLayerProperty());
-            Bindings.bindBidirectional(gantt.getGraphics()
-                    .showSelectedTimeIntervalsLayerProperty(), primary
-                    .getGraphics().showSelectedTimeIntervalsLayerProperty());
-            Bindings.bindBidirectional(gantt.getGraphics()
-                    .showHoverTimeIntervalLayerProperty(), primary.getGraphics()
-                    .showHoverTimeIntervalLayerProperty());
-
+            // sync dateline / timeline time intervals (hover, selection, zoom)
+            Bindings.bindBidirectional(graphics2.showZoomTimeIntervalLayerProperty(), graphics1.showZoomTimeIntervalLayerProperty());
+            Bindings.bindBidirectional(graphics2.showSelectedTimeIntervalsLayerProperty(), graphics1.showSelectedTimeIntervalsLayerProperty());
+            Bindings.bindBidirectional(graphics2.showHoverTimeIntervalLayerProperty(), graphics1.showHoverTimeIntervalLayerProperty());
         }
 
         // read only property support
-
-        gantt.getGraphics().editedActivityProperty()
-                .addListener((observable, oldValue, newValue) -> {
-                    primary.getGraphics().getProperties()
-                            .put("currentlyeditedactivity", newValue);
-                });
+        graphics2.editedActivityProperty().addListener((observable, oldValue, newValue) -> graphics1.getProperties().put("currentlyeditedactivity", newValue));
     }
 }
