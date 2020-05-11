@@ -14,8 +14,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <javafx.version>14</javafx.version>
-        <javafx.maven.plugin.version>0.0.3</javafx.maven.plugin.version>
+        <javafx.version>14.0.1</javafx.version>
+        <javafx.maven.plugin.version>0.0.4</javafx.maven.plugin.version>
         <controlsfx.version>11.0.1</controlsfx.version>
         <ikonli.version>11.3.5</ikonli.version>
         <maven.javadoc.skip>false</maven.javadoc.skip>
