@@ -5,13 +5,13 @@
  */
 package com.flexganttfx.demo.model;
 
-import java.io.FileNotFoundException;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
+import com.flexganttfx.demo.FlexGanttFXSample;
+import com.flexganttfx.demo.HelloActivity;
+import com.flexganttfx.model.Layer;
+import com.flexganttfx.model.Row;
+import com.flexganttfx.model.repository.MutableActivityRepositoryBase;
+import com.flexganttfx.view.GanttChart;
+import com.flexganttfx.view.GanttChart.RowHeaderType;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
@@ -23,13 +23,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.VBox;
 
-import com.flexganttfx.demo.FlexGanttFXSample;
-import com.flexganttfx.demo.HelloActivity;
-import com.flexganttfx.model.Layer;
-import com.flexganttfx.model.Row;
-import com.flexganttfx.model.repository.MutableActivityRepositoryBase;
-import com.flexganttfx.view.GanttChart;
-import com.flexganttfx.view.GanttChart.RowHeaderType;
+import java.io.FileNotFoundException;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class HelloLazyLoading extends FlexGanttFXSample {
 
@@ -41,7 +40,7 @@ public class HelloLazyLoading extends FlexGanttFXSample {
 	protected GanttChart<?> createGanttChart() throws FileNotFoundException {
 		gantt = new GanttChart<>();
 		gantt.setRowHeaderType(RowHeaderType.LEVEL_NUMBER);
-		gantt.getRowHeader().setPrefWidth(60);
+		gantt.getRowHeaderColumn().setPrefWidth(60);
 
 		gantt.getLayers().add(layer);
 
