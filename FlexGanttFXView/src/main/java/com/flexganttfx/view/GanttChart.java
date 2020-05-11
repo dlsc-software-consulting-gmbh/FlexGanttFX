@@ -744,8 +744,7 @@ public class GanttChart<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
         }
     }
 
-    private void closeItem(Row<?, ?, ?> item, boolean all, int depth,
-                           int closeLevel) {
+    private void closeItem(Row<?, ?, ?> item, boolean all, int depth, int closeLevel) {
         if (item != null) {
             for (Row<?, ?, ?> child : item.getChildren()) {
                 closeItem(child, all, depth + 1, closeLevel);
@@ -818,7 +817,6 @@ public class GanttChart<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
      * @see #resizeColumn(TreeTableColumn, int)
      * @since 1.3
      */
-    @SuppressWarnings({"rawtypes", "deprecation", "unchecked"})
     public final void resizeColumn(TreeTableColumn tc, int maxRows) {
         List<?> items = getGraphics().getRows();
         if (items == null || items.isEmpty()) {
