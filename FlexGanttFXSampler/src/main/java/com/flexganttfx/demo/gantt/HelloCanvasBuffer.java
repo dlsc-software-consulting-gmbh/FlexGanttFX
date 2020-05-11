@@ -273,16 +273,6 @@ public class HelloCanvasBuffer extends FlexGanttFXSampleBase {
         return "Canvas Buffer";
     }
 
-    @Override
-    public String getControlStylesheetURL() {
-        return "/" + GraphicsBase.class.getPackage().getName().replace('.', '/') + "/graphics.css";
-    }
-
-    @Override
-    public String getJavaDocURL() {
-        return getJavaDocBase() + "com/flexganttfx/view/graphics/GraphicsBase.html";
-    }
-
     public static void main(String[] args) {
         Application.launch(args);
     }

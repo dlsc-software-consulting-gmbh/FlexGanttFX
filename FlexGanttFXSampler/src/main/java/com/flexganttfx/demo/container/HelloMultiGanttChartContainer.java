@@ -129,11 +129,6 @@ public class HelloMultiGanttChartContainer extends FlexGanttFXSampleBase {
                 + "the Gantt chart container";
     }
 
-    @Override
-    public String getJavaDocURL() {
-        return getJavaDocBase() + "com/flexganttfx/view/container/MultiGanttChartContainer.html";
-    }
-
     public static void main(String[] args) {
         Application.launch(args);
     }

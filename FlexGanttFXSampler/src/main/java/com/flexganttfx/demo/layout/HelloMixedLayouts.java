@@ -197,11 +197,6 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
         return ganttChart;
     }
 
-    @Override
-    public String getJavaDocURL() {
-        return getJavaDocBase() + "com/flexganttfx/model/Layout.html";
-    }
-
     private enum FilterMode {
         NONE,
         GANTT,

@@ -10,7 +10,6 @@ import com.flexganttfx.demo.HelloActivity;
 import com.flexganttfx.demo.HelloRow;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.model.layout.GanttLayout;
-import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.graphics.ListViewGraphics;
 import com.flexganttfx.view.graphics.SingleRowGraphics;
 import com.flexganttfx.view.graphics.SplitPaneGraphics;
@@ -283,17 +282,7 @@ public class HelloGraphicsView extends FlexGanttFXSampleBase {
     public String getSampleName() {
         return "Graphics View";
     }
-
-    @Override
-    public String getControlStylesheetURL() {
-        return "/" + GraphicsBase.class.getPackage().getName().replace('.', '/') + "/graphics.css";
-    }
-
-    @Override
-    public String getJavaDocURL() {
-        return getJavaDocBase() + "com/flexganttfx/view/graphics/GraphicsBase.html";
-    }
-
+    
     public static void main(String[] args) {
         Application.launch(args);
     }

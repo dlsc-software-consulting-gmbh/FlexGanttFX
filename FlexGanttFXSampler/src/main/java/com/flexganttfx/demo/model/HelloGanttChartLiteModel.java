@@ -164,13 +164,8 @@ public class HelloGanttChartLiteModel extends FlexGanttFXSample {
                 topLevelRow.getChildren().add(child);
             }
         }
-        long time = System.currentTimeMillis();
-        gantt.getRows().setAll(topLevelRows);
-    }
 
-    @Override
-    public String getJavaDocURL() {
-        return super.getJavaDocBase() + "com/flexganttfx/model/package-summary.html";
+        gantt.getRows().setAll(topLevelRows);
     }
 
     @Override

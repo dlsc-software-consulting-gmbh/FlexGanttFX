@@ -61,11 +61,6 @@ public class HelloDualGanttChartContainer extends FlexGanttFXSampleBase {
                 + "of the two Gantt charts can have its own header and footer.";
     }
 
-    @Override
-    public String getJavaDocURL() {
-        return getJavaDocBase() + "com/flexganttfx/view/container/DualGanttChartContainer.html";
-    }
-
     public static void main(String[] args) {
         Application.launch(args);
     }

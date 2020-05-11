@@ -140,11 +140,6 @@ public class HelloSystemLayers extends FlexGanttFXSample {
     }
 
     @Override
-    public String getJavaDocURL() {
-        return getJavaDocBase() + "com/flexganttfx/view/graphics/layer/SystemLayer.html";
-    }
-
-    @Override
     public String getSampleDescription() {
         return "This sample shows how to create a custom system layer for drawing "
                 + "connecting lines between activities.";

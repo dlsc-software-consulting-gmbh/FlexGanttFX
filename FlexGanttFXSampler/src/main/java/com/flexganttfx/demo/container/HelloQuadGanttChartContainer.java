@@ -75,11 +75,6 @@ public class HelloQuadGanttChartContainer extends FlexGanttFXSampleBase {
                 + "synch.";
     }
 
-    @Override
-    public String getJavaDocURL() {
-        return getJavaDocBase() + "com/flexganttfx/view/container/QuadGanttChartContainer.html";
-    }
-
     public static void main(String[] args) {
         Application.launch(args);
     }

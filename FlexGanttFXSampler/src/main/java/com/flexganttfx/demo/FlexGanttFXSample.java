@@ -5,7 +5,6 @@
  */
 package com.flexganttfx.demo;
 
-import com.flexganttfx.core.FlexGanttFX;
 import com.flexganttfx.extras.GanttChartStatusBar;
 import com.flexganttfx.extras.GanttChartToolBar;
 import com.flexganttfx.view.GanttChartBase;
@@ -84,14 +83,4 @@ public abstract class FlexGanttFXSample extends FlexGanttFXSampleBase {
 	}
 
 	protected abstract GanttChartBase<?> createGanttChart() throws Exception;
-
-	@Override
-	public final String getProjectName() {
-		return "FlexGanttFX";
-	}
-
-	@Override
-	public final String getProjectVersion() {
-		return FlexGanttFX.getVersion();
-	}
 }

@@ -37,11 +37,6 @@ public class HelloGanttChartLite extends FlexGanttFXSample {
     }
 
     @Override
-    public String getJavaDocURL() {
-        return getJavaDocBase() + "com/flexganttfx/view/GanttChartLite.html";
-    }
-
-    @Override
     public Node getControlPanel() {
         return new GanttChartPropertySheet<>(ganttChartLite);
     }

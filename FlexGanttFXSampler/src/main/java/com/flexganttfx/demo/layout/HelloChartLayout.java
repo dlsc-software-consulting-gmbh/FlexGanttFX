@@ -303,11 +303,6 @@ public class HelloChartLayout extends FlexGanttFXSample {
         return "Chart: High Low";
     }
 
-    @Override
-    public String getJavaDocURL() {
-        return getJavaDocBase() + "com/flexganttfx/model/layout/ChartLayout.html";
-    }
-
     class SymbolTreeTableCell extends TreeTableCell<Symbol, String> {
         public SymbolTreeTableCell() {
             setStyle("-fx-font-size: 32;");

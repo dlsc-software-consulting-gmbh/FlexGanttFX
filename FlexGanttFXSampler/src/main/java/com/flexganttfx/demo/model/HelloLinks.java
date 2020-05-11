@@ -111,11 +111,6 @@ public class HelloLinks extends FlexGanttFXSample {
 	    return "A sample to test the four different link types (E->S, S->E, E->E, S->S)";
 	}
 
-	@Override
-	public String getJavaDocURL() {
-		return super.getJavaDocBase() + "com/flexganttfx/model/ActivityLink.html";
-	}
-
 	public static void main(String[] args) {
 		launch(args);
 	}

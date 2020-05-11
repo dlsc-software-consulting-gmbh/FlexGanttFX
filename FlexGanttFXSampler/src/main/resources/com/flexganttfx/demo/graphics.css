@@ -1,0 +1,174 @@
+/*
+ * graphics.css file of FlexGanttFX
+ * 
+ * Copyright 2019 DLSC Software & Consulting GmbH
+ */
+
+.graphics {
+    -fx-grid-line-color1: derive(-fx-box-border, +60%);
+    -fx-grid-line-color2: -fx-box-border;
+    -fx-grid-line-color3: derive(-fx-box-border, -60%);
+
+    -fx-weekend-color: rgba(0, 0, 0, .04);
+    -fx-time-now-color: -fx-accent;
+    -fx-inner-lines-color: -fx-box-border;
+}
+
+/*
+ * We need to adjust the list view so it stays in synch with the tree
+ * table view. We also have to remove all padding from the list cells
+ * and assign a default row height that is equal to the default row
+ * height defined in Row.java. Also remove padding from list view itself
+ * so that the focus border will not show up.
+ */
+.graphics-list-view {
+    -fx-padding: 0;
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+}
+
+.graphics-list-view:focused {
+    -fx-padding: 0;
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+}
+
+.row-cell {
+    -fx-padding: 0 !important;
+    -fx-background-insets: 0 !important;
+    -fx-border-width: 0 !important;
+    -fx-pref-height: 24px;
+}
+
+.row-cell:focused,
+.row-cell:selected {
+}
+
+.row-cell > .row-pane {
+    -fx-background-color: transparent;
+}
+
+/*
+ * The single row pane, vbox row pane, and the splitpane row pane all have
+ * to set a background color. The list view version doesn't need to as it uses
+ * the colors of the rows.
+ */
+.single-row-pane,
+.vbox-row-pane,
+.splitpane-row-pane {
+    -fx-background-color: -fx-control-inner-background;
+}
+
+.eventline .single-row-pane {
+    -fx-background-color: transparent;
+}
+
+.vbox-row-pane {
+    -fx-border-color: transparent transparent, -fx-outer-border, transparent;
+    -fx-border-width: .25px;
+}
+
+/*
+ * The lasso is used to select multiple activities at once.
+ */
+.activities-lasso {
+    -fx-stroke: -fx-accent;
+    -fx-fill: ladder(#aaa, -fx-accent 0%, transparent 100%);
+}
+
+/*
+ * The cursor lines.
+ */
+.horizontal-cursor,
+.vertical-cursor {
+    -fx-stroke: -fx-accent;
+    -fx-stroke-width: 1.5;
+}
+
+.horizontal-cursor-indicator {
+    -fx-background-color: -fx-accent, white;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+    -fx-pref-width: 8;
+    -fx-pref-height: 8;
+}
+
+/*
+ * Marked Time Interval
+ */
+.marked-time-line {
+    -fx-stroke-width: 1.5px;
+    -fx-stroke: -fx-accent;
+    -fx-stroke-dash-array: 4 3;
+}
+
+.marked-start-time-line {
+}
+
+.marked-end-time-line {
+}
+
+/*
+ * Row controls button are shown when the mouse hovers over a row that can be
+ * edited (flipped around).
+ */
+
+.row-controls-button {
+    -fx-padding: 5 9 7 7;
+    -fx-background-insets: 0 4 2 2;
+    -fx-background-color: rgba(0, 0, 0, .5);
+    -fx-background-radius: 0;
+    -fx-text-fill: white;
+    -fx-font-size: 8;
+    -fx-font-weight: bold;
+}
+
+.row-controls-button:hover,
+.row-controls-button:focused {
+    -fx-padding: 5 9 7 7;
+    -fx-background-insets: 0 4 2 2;
+    -fx-background-color: rgba(0, 0, 0, .6);
+    -fx-background-radius: 0;
+    -fx-text-fill: white;
+    -fx-font-size: 8;
+    -fx-font-weight: bold;
+}
+
+.row-controls-button:pressed,
+.row-controls-button:selected {
+    -fx-background-color: rgba(0, 0, 0, .7);
+}
+
+/*
+ * The lens for the graphics area. Experimental. Feature planned for 1.2 release earliest.
+ */
+.graphics-lens {
+    -fx-effect: innershadow(gaussian, gray, 10, .1, 0, 0);
+    -fx-border-color: gray;
+    -fx-border-insets: 8px;
+}
+
+.graphics-lens-popover {
+    -fx-border-color: red;
+}
+
+/*
+ * The styling of the labels showing the zone ID of a row.
+ */
+
+.zone-id-label {
+    -fx-control-inner-background: -fx-accent;
+    -fx-text-fill: -fx-text-inner-color;
+    -fx-background-color: -fx-control-inner-background;
+    -fx-background-insets: 0, 0 1 1 0, 1 2 2 1;
+    -fx-padding: .1em;
+    -fx-font-size: .8em;
+}
+
+.row-header {
+    -fx-text-fill: -fx-text-base-color;
+    -fx-background-color: -fx-box-border, derive(-fx-base, 25%);
+    -fx-background-insets: 0, 0 1 1 0;
+    -fx-font-size: .8em;
+}

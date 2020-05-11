@@ -45,7 +45,7 @@ public class HelloGanttChartModel extends FlexGanttFXSample {
 	}
 
 	@Override
-	protected GanttChart<?> createGanttChart() throws Exception {
+	protected GanttChart<?> createGanttChart() {
 		gantt = new GanttChart<>(root);
 		gantt.getLayers().add(layer);
 		gantt.getTreeTable().getSelectionModel().setSelectionMode(MULTIPLE);
@@ -190,13 +190,8 @@ public class HelloGanttChartModel extends FlexGanttFXSample {
 				topLevelRow.getChildren().add(child);
 			}
 		}
-		long time = System.currentTimeMillis();
-		gantt.getRoot().getChildren().setAll(topLevelRows);
-	}
 
-	@Override
-	public String getJavaDocURL() {
-		return super.getJavaDocBase() + "com/flexganttfx/model/package-summary.html";
+		gantt.getRoot().getChildren().setAll(topLevelRows);
 	}
 
 	@Override

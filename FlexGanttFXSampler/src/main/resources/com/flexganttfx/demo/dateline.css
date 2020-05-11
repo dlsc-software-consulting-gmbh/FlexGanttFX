@@ -1,0 +1,190 @@
+/*
+ * dateline.css file of FlexGanttFX
+ * 
+ * Copyright 2019 DLSC Software & Consulting GmbH
+ */
+
+.dateline {
+    -fx-background-color: transparent;
+    -fx-pref-height: 3em;
+}
+
+.dateline-content {
+}
+
+.dateline-cell {
+    -fx-font-size: .8em;
+    -fx-padding: 0 2 0 3;
+    -fx-background-color: -fx-box-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0, 0 1 1 0, 1 2 2 1;
+}
+
+.dateline-cell:hover {
+    -fx-background-color: rgba(255.0, 255.0, 255.0, 1.0);
+    -fx-effect: innershadow(three-pass-box, rgba(0.0, 0.0, 0.0, 0.6), 5.0, 0.0, 0.0, 1.0);
+}
+
+.dateline-cell:pressed {
+    -fx-background-color: rgba(255.0, 255.0, 255.0, 0.8);
+}
+
+.dateline-cell > .text {
+    -fx-fill: -fx-text-base-color;
+}
+
+.dateline-cell > .text:hover {
+}
+
+.dateline-cell-simple > .text {
+    -fx-alignment: baseline-left;
+}
+
+.dateline-cell-selected {
+    -fx-background-color: -fx-box-border, -fx-inner-border, -fx-selection-bar;
+}
+
+.dateline-cell.dst-start,
+.dateline-cell.dst-end {
+}
+
+.dateline-cell-last {
+    -fx-background-color: -fx-box-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0, 0 1 1 0, 1 2 2 1;
+}
+
+.dateline-cell-first {
+}
+
+.scale {
+    -fx-background-color: transparent;
+    -fx-cell-padding: 5px;
+}
+
+.scale-top,
+.scale-middle {
+}
+
+.scale-bottom {
+}
+
+.scale-only {
+}
+
+.centuries {
+}
+
+.days {
+}
+
+.decades {
+}
+
+.half_days {
+}
+
+.hours {
+}
+
+.months {
+}
+
+.micros {
+}
+
+.millenia {
+}
+
+.millis {
+}
+
+.minutes {
+}
+
+.nanos {
+}
+
+.seconds {
+}
+
+.weeks {
+}
+
+.years {
+}
+
+.scale-bottom > .saturday,
+.scale-bottom > .sunday {
+    -weekend-color: -fx-accent;
+    -fx-color: ladder(-fx-base, -weekend-color 50%, -weekend-color 50%);
+}
+
+.scale-bottom > .saturday:hover,
+.scale-bottom > .sunday:hover {
+    -fx-color: derive(-fx-base, -20%);
+}
+
+.scale-bottom > .saturday > .text,
+.scale-bottom > .sunday > .text {
+    -fx-fill: white;
+}
+
+.january {
+}
+
+.february {
+}
+
+.march {
+}
+
+.april {
+}
+
+.may {
+}
+
+.june {
+}
+
+.july {
+}
+
+.august {
+}
+
+.september {
+}
+
+.october {
+}
+
+.november {
+}
+
+.december {
+}
+
+.am {
+}
+
+.pm {
+    -fx-background-color: rgba(255.0, 255.0, 255.0, 0.2);
+}
+
+.zone-id-label {
+    -fx-control-inner-background: -fx-accent;
+    -fx-text-fill: -fx-text-inner-color;
+    -fx-background-color: -fx-control-inner-background;
+    -fx-background-insets: 0, 0 1 1 0, 1 2 2 1;
+    -fx-padding: .5em;
+    -fx-effect: dropshadow(gaussian, rgba(0.0, 0.0, 0.0, 0.5), 3.0, 0.5, 1.0, 1.0);
+}
+
+/*
+ * The lasso used for zooming in and out.
+ */
+.zoom-lasso {
+    /* semi-transparent rectangle, blue by default (modena.css) */
+    -fx-opacity: 60%;
+    -fx-background-color: -fx-accent;
+}

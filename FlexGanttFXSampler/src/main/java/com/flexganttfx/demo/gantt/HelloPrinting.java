@@ -5,8 +5,8 @@
  */
 package com.flexganttfx.demo.gantt;
 
-import java.io.FileNotFoundException;
-
+import com.flexganttfx.demo.FlexGanttFXSample;
+import com.flexganttfx.view.GanttChart;
 import javafx.application.Application;
 import javafx.print.PageLayout;
 import javafx.print.PageOrientation;
@@ -21,8 +21,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.VBox;
 import javafx.scene.transform.Scale;
 
-import com.flexganttfx.demo.FlexGanttFXSample;
-import com.flexganttfx.view.GanttChart;
+import java.io.FileNotFoundException;
 
 public class HelloPrinting extends FlexGanttFXSample {
 
@@ -37,11 +36,6 @@ public class HelloPrinting extends FlexGanttFXSample {
 	@Override
 	public String getSampleName() {
 		return "Printing";
-	}
-
-	@Override
-	public String getJavaDocURL() {
-		return getJavaDocBase() + "com/flexganttfx/view/GanttChart.html";
 	}
 
 	@Override

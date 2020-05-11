@@ -81,7 +81,7 @@ public class HelloAgendaLayout extends FlexGanttFXSample {
 	}
 
 	@Override
-	protected GanttChart<?> createGanttChart() throws Exception {
+	protected GanttChart<?> createGanttChart() {
 		AgendaRow root = new AgendaRow("Root");
 
 		gc = new GanttChart<>(root);
@@ -571,11 +571,6 @@ public class HelloAgendaLayout extends FlexGanttFXSample {
 
 			return bounds;
 		}
-	}
-
-	@Override
-	public String getJavaDocURL() {
-		return getJavaDocBase() + "com/flexganttfx/model/layout/AgendaLayout.html";
 	}
 
 	public static void main(String[] args) {

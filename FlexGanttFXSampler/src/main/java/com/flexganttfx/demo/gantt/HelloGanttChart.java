@@ -49,11 +49,6 @@ public class HelloGanttChart extends FlexGanttFXSample {
     }
 
     @Override
-    public String getJavaDocURL() {
-        return getJavaDocBase() + "com/flexganttfx/view/GanttChart.html";
-    }
-
-    @Override
     public Node getControlPanel() {
         return new GanttChartConfigurationView(gc);
     }

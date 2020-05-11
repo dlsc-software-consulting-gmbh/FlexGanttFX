@@ -229,11 +229,6 @@ public class HelloRowHeaderColumn extends FlexGanttFXSample {
 
 	}
 
-	@Override
-	public String getJavaDocURL() {
-		return getJavaDocBase() + "com/flexganttfx/view/util/RowHeaderColumn.html";
-	}
-
 	public static void main(String[] args) {
 		launch(args);
 	}

@@ -198,11 +198,6 @@ public class HelloGlobalActivities extends FlexGanttFXSample {
     }
 
     @Override
-    public String getJavaDocURL() {
-        return getJavaDocBase() + "com/flexganttfx/view/timeline/Eventline.html";
-    }
-
-    @Override
     public String getSampleDescription() {
         return "This demo shows how the graphics node inside the eventline can be used to display global events. To add your own event, simply use the lasso inside the eventline (press and wait or SHIFT and drag).";
     }

@@ -8,7 +8,6 @@ package com.flexganttfx.demo.timeline;
 import com.flexganttfx.demo.FlexGanttFXSampleBase;
 import com.flexganttfx.model.dateline.SimpleUnitDatelineModel;
 import com.flexganttfx.model.timeline.SimpleUnitTimelineModel;
-import com.flexganttfx.view.timeline.Dateline;
 import com.flexganttfx.view.timeline.Timeline;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -74,17 +73,6 @@ public class HelloSimpleUnitTimeline extends FlexGanttFXSampleBase {
 	@Override
 	public String getSampleName() {
 		return "Simple Unit";
-	}
-
-	@Override
-	public String getControlStylesheetURL() {
-		return "/" + Dateline.class.getPackage().getName().replace('.', '/')
-				+ "/dateline.css";
-	}
-
-	@Override
-	public String getJavaDocURL() {
-		return getJavaDocBase() + "com/flexganttfx/view/timeline/Timeline.html";
 	}
 
 	public static void main(String[] args) {

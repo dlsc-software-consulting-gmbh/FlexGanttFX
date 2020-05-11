@@ -6,7 +6,6 @@
 package com.flexganttfx.demo.timeline;
 
 import com.flexganttfx.demo.FlexGanttFXSampleBase;
-import com.flexganttfx.view.timeline.Dateline;
 import com.flexganttfx.view.timeline.Timeline;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -66,17 +65,6 @@ public class HelloChronoUnitTimeline extends FlexGanttFXSampleBase {
 	@Override
 	public String getSampleName() {
 		return "Chrono Unit";
-	}
-
-	@Override
-	public String getControlStylesheetURL() {
-		return "/" + Dateline.class.getPackage().getName().replace('.', '/')
-				+ "/dateline.css";
-	}
-
-	@Override
-	public String getJavaDocURL() {
-		return getJavaDocBase() + "com/flexganttfx/view/timeline/Timeline.html";
 	}
 
 	public static void main(String[] args) {

@@ -6,8 +6,6 @@
 package com.flexganttfx.demo;
 
 import com.flexganttfx.core.FlexGanttFX;
-import com.flexganttfx.view.GanttChart;
-
 import fxsampler.SampleBase;
 
 public abstract class FlexGanttFXSampleBase extends SampleBase {
@@ -16,10 +14,6 @@ public abstract class FlexGanttFXSampleBase extends SampleBase {
         if (!FlexGanttFX.isLicenseKeySet()) {
             FlexGanttFX.setLicenseKey("LIC=CO_FLEXFX_998;VEN=ComponentSource;VER=STANDARD;PRO=11_11;RUN=no;CTR=0;SignCode=3F;Signature=302C0214449DB4F9A907EB223632AD6C99569CEAA48E0E4E021419258FED88B71303A9321E250A1A53ABAD140DFE");
         }
-    }
-
-    protected String getJavaDocBase() {
-        return "https://dlsc.com/wp-content/html/flexganttfx/apidocs/";
     }
 
     @Override
@@ -32,23 +26,23 @@ public abstract class FlexGanttFXSampleBase extends SampleBase {
     }
 
     @Override
-    public String getJavaDocURL() {
-        return getJavaDocBase() + "index.html?sampler=true";
+    public final String getJavaDocURL() {
+        return "https://www.dlsc.com";
     }
 
     @Override
-    public String getProjectName() {
+    public final String getProjectName() {
         return "FlexGanttFX";
     }
 
     @Override
-    public String getProjectVersion() {
+    public final String getProjectVersion() {
         return FlexGanttFX.getVersion();
     }
 
     @Override
-    public String getControlStylesheetURL() {
-        return "/" + GanttChart.class.getPackage().getName().replace('.', '/') + "/gantt.css";
+    public final String getControlStylesheetURL() {
+        return null;
     }
 
     @Override
