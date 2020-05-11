@@ -40,8 +40,7 @@ public class DualGanttChartContainer extends DualGanttChartContainerBase<GanttCh
 	 *            the secondary Gantt chart shown in the bottom position
 	 * @since 1.0
 	 */
-	public DualGanttChartContainer(boolean autoBinding,
-			GanttChart<?> primaryGanttChart, GanttChart<?> secondaryGanttChart) {
+	public DualGanttChartContainer(boolean autoBinding, GanttChart<?> primaryGanttChart, GanttChart<?> secondaryGanttChart) {
 		super(autoBinding, primaryGanttChart, secondaryGanttChart);
 	}
 
@@ -56,15 +55,14 @@ public class DualGanttChartContainer extends DualGanttChartContainerBase<GanttCh
 	 *            the secondary Gantt chart shown in the bottom position
 	 * @since 1.0
 	 */
-	public DualGanttChartContainer(GanttChart<?> primaryGanttChart,
-			GanttChart<?> secondaryGanttChart) {
+	public DualGanttChartContainer(GanttChart<?> primaryGanttChart, GanttChart<?> secondaryGanttChart) {
 		this(true, primaryGanttChart, secondaryGanttChart);
 	}
 
 	/**
 	 * Constructs a new container. Gantt charts must be added by calling
-	 * {@link #setPrimaryGanttChart(GanttChartBase)} and
-	 * {@link #setSecondaryGanttChart(GanttChartBase)}.
+	 * {@link DualGanttChartContainerBase#setPrimaryGanttChart(GanttChartBase)} and
+	 * {@link DualGanttChartContainerBase#setSecondaryGanttChart(GanttChartBase)}.
 	 *
 	 * @param autoBinding
 	 *            if true many properties of the secondary Gantt chart will be
@@ -78,8 +76,8 @@ public class DualGanttChartContainer extends DualGanttChartContainerBase<GanttCh
 
 	/**
 	 * Constructs a new container. Gantt charts must be added by calling
-	 * {@link #setPrimaryGanttChart(GanttChartBase)} and
-	 * {@link #setSecondaryGanttChart(GanttChartBase)}. The properties of the
+	 * {@link DualGanttChartContainerBase#setPrimaryGanttChart(GanttChartBase)} and
+	 * {@link DualGanttChartContainerBase#setSecondaryGanttChart(GanttChartBase)}. The properties of the
 	 * secondary Gantt chart will be bound to their equivalent of the primary
 	 * Gantt chart.
 	 *

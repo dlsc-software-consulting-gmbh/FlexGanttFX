@@ -49,10 +49,10 @@ public class QuadGanttChartContainer extends QuadGanttChartContainerBase<GanttCh
 
     /**
      * Constructs a new container. Gantt charts must be added by calling
-     * {@link #setUpperLeftGanttChart(GanttChartBase)} and
-     * {@link #setUpperRightGanttChart(GanttChartBase)} and
-     * {@link #setLowerLeftGanttChart(GanttChartBase)} and
-     * {@link #setLowerRightGanttChart(GanttChartBase)}.
+     * {@link QuadGanttChartContainerBase#setUpperLeftGanttChart(GanttChartBase)} and
+     * {@link QuadGanttChartContainerBase#setUpperRightGanttChart(GanttChartBase)} and
+     * {@link QuadGanttChartContainerBase#setLowerLeftGanttChart(GanttChartBase)} and
+     * {@link QuadGanttChartContainerBase#setLowerRightGanttChart(GanttChartBase)}.
      *
      * @since 1.6
      */

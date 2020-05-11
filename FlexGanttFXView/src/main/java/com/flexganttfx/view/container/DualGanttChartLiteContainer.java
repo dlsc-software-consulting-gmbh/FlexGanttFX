@@ -25,8 +25,6 @@ import org.controlsfx.control.MasterDetailPane;
  */
 public class DualGanttChartLiteContainer extends DualGanttChartContainerBase<GanttChartLite<?>> {
 
-    // TODO: javadocs -> add screenshot, copy from comment in MultiGanttChartContainerBase
-
     /**
      * Constructs a new container with the given graphics controls.
      *
@@ -55,8 +53,8 @@ public class DualGanttChartLiteContainer extends DualGanttChartContainerBase<Gan
 
     /**
      * Constructs a new container. GanttChartLite must be added by calling
-     * {@link #setPrimaryGanttChart(GanttChartBase)} and
-     * {@link #setSecondaryGanttChart(GanttChartBase)}.
+     * {@link DualGanttChartContainerBase#setPrimaryGanttChart(GanttChartBase)} and
+     * {@link DualGanttChartContainerBase#setSecondaryGanttChart(GanttChartBase)}.
      *
      * @param autoBinding if true many properties of the secondary graphics will be
      *                    bound to their equivalent of the primary graphics
@@ -68,8 +66,8 @@ public class DualGanttChartLiteContainer extends DualGanttChartContainerBase<Gan
 
     /**
      * Constructs a new container. GanttChartLite must be added by calling
-     * {@link #setPrimaryGanttChart(GanttChartBase)} and
-     * {@link #setSecondaryGanttChart(GanttChartBase)}. The properties of the
+     * {@link DualGanttChartContainerBase#setPrimaryGanttChart(GanttChartBase)} and
+     * {@link DualGanttChartContainerBase#setSecondaryGanttChart(GanttChartBase)}. The properties of the
      * secondary graphics will be bound to their equivalent of the primary
      * graphics.
      *

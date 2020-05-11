@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package impl.com.flexganttfx.skin.container;
@@ -43,8 +43,8 @@ public class QuadGanttChartContainerSkin extends ContainerSkinBase<QuadGanttChar
         masterDetailPane.setMasterNode(upperPane);
         masterDetailPane.setDetailNode(lowerPane);
         masterDetailPane.setShowDetailNode(container.isShowLower());
-        Bindings.bindBidirectional(container.showLowerProperty(),
-                masterDetailPane.showDetailNodeProperty());
+
+        Bindings.bindBidirectional(container.showLowerProperty(), masterDetailPane.showDetailNodeProperty());
 
         getChildren().add(masterDetailPane);
 
@@ -75,23 +75,19 @@ public class QuadGanttChartContainerSkin extends ContainerSkinBase<QuadGanttChar
         lowerRight.setPosition(Position.LAST);
 
         if (upperLeft instanceof GanttChart) {
-            ((GanttChart) upperLeft).getTreeTable().getStyleClass()
-                    .add(GANTT_TREE_TABLE_VIEW_FIRST);
+            ((GanttChart) upperLeft).getTreeTable().getStyleClass().add(GANTT_TREE_TABLE_VIEW_FIRST);
         }
 
         if (upperRight instanceof GanttChart) {
-            ((GanttChart) upperRight).getTreeTable().getStyleClass()
-                    .add(GANTT_TREE_TABLE_VIEW_FIRST);
+            ((GanttChart) upperRight).getTreeTable().getStyleClass().add(GANTT_TREE_TABLE_VIEW_FIRST);
         }
 
         if (lowerLeft instanceof GanttChart) {
-            ((GanttChart) lowerLeft).getTreeTable().getStyleClass()
-                    .add(GANTT_TREE_TABLE_VIEW_LAST);
+            ((GanttChart) lowerLeft).getTreeTable().getStyleClass().add(GANTT_TREE_TABLE_VIEW_LAST);
         }
 
         if (lowerRight instanceof GanttChart) {
-            ((GanttChart) lowerRight).getTreeTable().getStyleClass()
-                    .add(GANTT_TREE_TABLE_VIEW_LAST);
+            ((GanttChart) lowerRight).getTreeTable().getStyleClass().add(GANTT_TREE_TABLE_VIEW_LAST);
         }
 
         upperLeft.getTimeline().getStyleClass().add(TIMELINE_FIRST);
@@ -108,12 +104,9 @@ public class QuadGanttChartContainerSkin extends ContainerSkinBase<QuadGanttChar
 
     private void clearStyles(GanttChartBase<?> ganttChart) {
         if (ganttChart instanceof GanttChart) {
-            ((GanttChart) ganttChart).getTreeTable().getStyleClass()
-                    .remove(GANTT_TREE_TABLE_VIEW_FIRST);
-            ((GanttChart) ganttChart).getTreeTable().getStyleClass()
-                    .remove(GANTT_TREE_TABLE_VIEW_MIDDLE);
-            ((GanttChart) ganttChart).getTreeTable().getStyleClass()
-                    .remove(GANTT_TREE_TABLE_VIEW_LAST);
+            ((GanttChart) ganttChart).getTreeTable().getStyleClass().remove(GANTT_TREE_TABLE_VIEW_FIRST);
+            ((GanttChart) ganttChart).getTreeTable().getStyleClass().remove(GANTT_TREE_TABLE_VIEW_MIDDLE);
+            ((GanttChart) ganttChart).getTreeTable().getStyleClass().remove(GANTT_TREE_TABLE_VIEW_LAST);
         }
 
         ganttChart.getTimeline().getStyleClass().remove(TIMELINE_FIRST);
@@ -127,41 +120,25 @@ public class QuadGanttChartContainerSkin extends ContainerSkinBase<QuadGanttChar
             switch (corner) {
                 case UPPER_LEFT:
                     topProperty().bind(getSkinnable().upperLeftHeaderProperty());
-                    centerProperty().bind(
-                            getSkinnable().upperLeftGanttChartProperty());
+                    centerProperty().bind(getSkinnable().upperLeftGanttChartProperty());
                     bottomProperty().bind(getSkinnable().upperLeftFooterProperty());
                     break;
                 case UPPER_RIGHT:
                     topProperty().bind(getSkinnable().upperRightHeaderProperty());
-                    centerProperty().bind(
-                            getSkinnable().upperRightGanttChartProperty());
+                    centerProperty().bind(getSkinnable().upperRightGanttChartProperty());
                     bottomProperty().bind(getSkinnable().upperRightFooterProperty());
-
-                    getSkinnable().upperRightGanttChartProperty()
-                            .addListener(
-                                    observable -> SplitPane
-                                            .setResizableWithParent(getSkinnable()
-                                                            .getUpperRightGanttChart(),
-                                                    false));
+                    getSkinnable().upperRightGanttChartProperty().addListener(observable -> SplitPane.setResizableWithParent(getSkinnable().getUpperRightGanttChart(), false));
                     break;
                 case LOWER_LEFT:
                     topProperty().bind(getSkinnable().lowerLeftHeaderProperty());
-                    centerProperty().bind(
-                            getSkinnable().lowerLeftGanttChartProperty());
+                    centerProperty().bind(getSkinnable().lowerLeftGanttChartProperty());
                     bottomProperty().bind(getSkinnable().lowerLeftFooterProperty());
                     break;
                 case LOWER_RIGHT:
                     topProperty().bind(getSkinnable().lowerRightHeaderProperty());
-                    centerProperty().bind(
-                            getSkinnable().lowerRightGanttChartProperty());
+                    centerProperty().bind(getSkinnable().lowerRightGanttChartProperty());
                     bottomProperty().bind(getSkinnable().lowerRightFooterProperty());
-
-                    getSkinnable().lowerRightGanttChartProperty()
-                            .addListener(
-                                    observable -> SplitPane
-                                            .setResizableWithParent(getSkinnable()
-                                                            .getLowerRightGanttChart(),
-                                                    false));
+                    getSkinnable().lowerRightGanttChartProperty().addListener(observable -> SplitPane.setResizableWithParent(getSkinnable().getLowerRightGanttChart(), false));
                     break;
             }
         }
