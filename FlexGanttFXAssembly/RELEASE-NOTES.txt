@@ -14,7 +14,8 @@ Release: 11.11.0, May 2020 (Performance / StillCorona Release)
 	** Added new "zoom mode" selector to toolbar
 	** Added new "show / hide scale / row header" button to toolbar
 	** New default value for "show hover interval" is "false"
-	** Added new RowHeader concept to replace things like the ScaleLayer.
+	** Added new RowHeader concept to replace things like the ScaleLayer. Renamed previous
+	   RowHeader class to RowHeaderColumn.
 
 ** BUGS
 
