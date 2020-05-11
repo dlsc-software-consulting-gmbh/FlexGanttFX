@@ -150,7 +150,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
             setTranslateX(newTranslateX);
         } else {
             if (graphics.getCanvasBuffer() > 0) {
-                randomTranslateX((newTranslateX - getTranslateX()) < 0);
+                randomTranslateX(newTranslateX - getTranslateX() < 0);
             }
             requestRedraw(reason);
         }
