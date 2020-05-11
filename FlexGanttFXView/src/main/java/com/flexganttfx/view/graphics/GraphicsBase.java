@@ -858,7 +858,9 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         timeline.getModel().startTimeProperty().removeListener(weakStartTimeChangedListener);
         timeline.getModel().nowProperty().removeListener(weakRedrawNowListener);
         timeline.modelProperty().removeListener(weakTimelineModelChangedListener);
-        timeline.offsetProperty().unbind();
+
+        // IMPORTANT: do not "unbind" the offset() property as this disconnects the timeline's
+        // offset property from the timeline model's offset property.
 
         removeRedrawObservable(timeline.getModel().millisPerPixelProperty());
 
