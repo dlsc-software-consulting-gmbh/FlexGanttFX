@@ -55,41 +55,15 @@ public class Timeline extends FlexGanttFXControl {
     private static final String DEFAULT_STYLE_CLASS = "timeline";
     private final Dateline dateline;
     private final Eventline eventline;
-    private final DoubleProperty offset = new SimpleDoubleProperty(this, "offset");
-    private final BooleanProperty scrollDragEnabled = new SimpleBooleanProperty(this, "scrollDragEnabled", false);
-    private final ReadOnlyObjectWrapper<Instant> visibleStartTime = new ReadOnlyObjectWrapper<>(this, "visibleStartTime", Instant.now());
-    private final ReadOnlyObjectWrapper<Instant> visibleEndTime = new ReadOnlyObjectWrapper<>(this, "visibleEndTime", Instant.now());
 
-    // Visible time range support.
-    private final ObjectProperty<Duration> moveDuration = new SimpleObjectProperty<>(this, "moveDuration", Duration.seconds(.33));
-
-    // "Offset" support
-    private final BooleanProperty moveAnimated = new SimpleBooleanProperty(this, "moveAnimated", true);
-    private final ObjectProperty<TimelineModel<?>> model = new SimpleObjectProperty<>(this, "model");
-    private final ObjectProperty<Duration> zoomDuration = new SimpleObjectProperty<>(this, "zoomDuration", Duration.seconds(.2));
-    private final BooleanProperty zoomAnimated = new SimpleBooleanProperty(this, "zoomAnimated", true);
-    private final ObjectProperty<ZoomMode> zoomMode = new SimpleObjectProperty<>(this, "zoomMode", ZoomMode.KEEP_START_TIME);
-    private final DoubleProperty zoomFactor = new SimpleDoubleProperty(this, "zoomFactor", .5) {
-        @Override
-        public void setValue(Number number) {
-            if (number.doubleValue() <= 0) {
-                throw new IllegalArgumentException("zoom factor must be larger than 0");
-            }
-
-            super.setValue(number);
-        }
-    };
     private final int SLOW_SPEED_PERCENTAGE = 20;
-
-    // Scroll drag
     private final int HIGH_SPEED_PERCENTAGE = 40;
+
     private Instant zoomTime;
     private Instant requestedTime;
 
-    // Move "animated" support.
     private boolean requestedTimeCenter;
 
-    // Visible time range support.
     private TimeInterval requestedInterval;
 
     /**
@@ -179,6 +153,10 @@ public class Timeline extends FlexGanttFXControl {
         return super.getUserAgentStylesheet(Timeline.class, "timeline.css");
     }
 
+    // offset support
+
+    private final DoubleProperty offset = new SimpleDoubleProperty(this, "offset");
+
     /**
      * Determines an optional offset added to time calculations and timeline layout that
      * might be required if for example the graphics area below the timeline does not align
@@ -209,8 +187,6 @@ public class Timeline extends FlexGanttFXControl {
     public final Dateline getDateline() {
         return dateline;
     }
-
-    // Moving support
 
     /**
      * Returns the eventline contained within the timeline. The timeline is a container that
@@ -245,6 +221,10 @@ public class Timeline extends FlexGanttFXControl {
         });
     }
 
+    // scroll drag support
+
+    private final BooleanProperty scrollDragEnabled = new SimpleBooleanProperty(this, "scrollDragEnabled", false);
+
     /**
      * A property used to control whether the user is allowed to perform a horizontal scroll
      * by dragging the timeline. Normally a drag gesture triggers the selection of a time interval used
@@ -267,8 +247,6 @@ public class Timeline extends FlexGanttFXControl {
         return scrollDragEnabled.get();
     }
 
-    // Move "animated" support.
-
     /**
      * Sets the value of {@link #scrollDragEnabledProperty}.
      *
@@ -278,6 +256,10 @@ public class Timeline extends FlexGanttFXControl {
     public final void setScrollDragEnabled(boolean enabled) {
         scrollDragEnabled.set(enabled);
     }
+
+    // visible start time support
+
+    private final ReadOnlyObjectWrapper<Instant> visibleStartTime = new ReadOnlyObjectWrapper<>(this, "visibleStartTime", Instant.now());
 
     /**
      * A read-only object property storing an {@link Instant} that represents the first visible time
@@ -300,6 +282,10 @@ public class Timeline extends FlexGanttFXControl {
         return visibleStartTimeProperty().get();
     }
 
+    // visible end time support
+
+    private final ReadOnlyObjectWrapper<Instant> visibleEndTime = new ReadOnlyObjectWrapper<>(this, "visibleEndTime", Instant.now());
+
     /**
      * A read-only object property storing an {@link Instant} that represents the last visible time
      * point (on the right edge) inside the timeline.
@@ -310,8 +296,6 @@ public class Timeline extends FlexGanttFXControl {
     public final ReadOnlyObjectProperty<Instant> visibleEndTimeProperty() {
         return visibleEndTime.getReadOnlyProperty();
     }
-
-    // "Show" support (show now, show time)
 
     /**
      * Returns the value of {@link #visibleEndTimeProperty()}.
@@ -342,6 +326,10 @@ public class Timeline extends FlexGanttFXControl {
             visibleEndTime.set(timelineModel.calculateTimeForLocation(getWidth()));
         }
     }
+
+    // move duration support
+
+    private final ObjectProperty<Duration> moveDuration = new SimpleObjectProperty<>(this, "moveDuration", Duration.seconds(.33));
 
     /**
      * An object property used to store the duration used for the animation of a
@@ -378,6 +366,10 @@ public class Timeline extends FlexGanttFXControl {
         moveDurationProperty().set(duration);
     }
 
+    // move animated support
+
+    private final BooleanProperty moveAnimated = new SimpleBooleanProperty(this, "moveAnimated", true);
+
     /**
      * A boolean property used to control whether moving from one time to another
      * will happen animated or not.
@@ -388,8 +380,6 @@ public class Timeline extends FlexGanttFXControl {
     public final BooleanProperty moveAnimatedProperty() {
         return moveAnimated;
     }
-
-    // Timeline model support.
 
     /**
      * Returns the value of {@link #moveAnimatedProperty()}.
@@ -435,8 +425,6 @@ public class Timeline extends FlexGanttFXControl {
     public final void showNow(boolean center) {
         showTime(getModel().getNow(), center);
     }
-
-    // Zoom Duration
 
     /**
      * Makes the timeline scroll to the time point passed to the method. This
@@ -506,14 +494,17 @@ public class Timeline extends FlexGanttFXControl {
     public final void showTemporalUnit(TemporalUnit temporalUnit, double width) {
         requireNonNull(temporalUnit);
         if (width < 10) {
-            throw new IllegalArgumentException(
-                    "requested with / temporal unit must be equal to or larger than 10");
+            throw new IllegalArgumentException("requested with / temporal unit must be equal to or larger than 10");
         }
 
         long requestedMillis = temporalUnit.getDuration().toMillis();
         TimelineModel<?> model = getModel();
         model.setMillisPerPixel(requestedMillis / width);
     }
+
+    // model support
+
+    private final ObjectProperty<TimelineModel<?>> model = new SimpleObjectProperty<>(this, "model");
 
     /**
      * Stores the timeline model to be used by the timeline.
@@ -548,6 +539,10 @@ public class Timeline extends FlexGanttFXControl {
         this.model.set(model);
     }
 
+    // zoom duration support
+
+    private final ObjectProperty<Duration> zoomDuration = new SimpleObjectProperty<>(this, "zoomDuration", Duration.seconds(.2));
+
     /**
      * An object property used to store the duration used for the animation of a
      * "zoom" inside the timeline. Zooming means that the timeline changes the currently
@@ -572,8 +567,6 @@ public class Timeline extends FlexGanttFXControl {
         return zoomDurationProperty().get();
     }
 
-    // Zoom mode
-
     /**
      * Sets the value of {@link #zoomDurationProperty()}.
      *
@@ -583,6 +576,10 @@ public class Timeline extends FlexGanttFXControl {
     public final void setZoomDuration(Duration duration) {
         zoomDurationProperty().set(duration);
     }
+
+    // zoom animated support
+
+    private final BooleanProperty zoomAnimated = new SimpleBooleanProperty(this, "zoomAnimated", true);
 
     /**
      * A property used to determine if any zoom operation should be done in an
@@ -617,7 +614,9 @@ public class Timeline extends FlexGanttFXControl {
         zoomAnimatedProperty().set(animated);
     }
 
-    // Zoom factor
+    // zoom mode support
+
+    private final ObjectProperty<ZoomMode> zoomMode = new SimpleObjectProperty<>(this, "zoomMode", ZoomMode.KEEP_START_TIME);
 
     /**
      * Stores the way a zoom in or out will be executed. Zooming can keep the current start time,
@@ -652,6 +651,19 @@ public class Timeline extends FlexGanttFXControl {
     public final void setZoomMode(ZoomMode mode) {
         zoomModeProperty().set(mode);
     }
+
+    // zoom factor support
+
+    private final DoubleProperty zoomFactor = new SimpleDoubleProperty(this, "zoomFactor", .5) {
+        @Override
+        public void setValue(Number number) {
+            if (number.doubleValue() <= 0) {
+                throw new IllegalArgumentException("zoom factor must be larger than 0");
+            }
+
+            super.setValue(number);
+        }
+    };
 
     /**
      * A property used to store the zoom factor that will be applied every time the user
@@ -770,6 +782,7 @@ public class Timeline extends FlexGanttFXControl {
                 Instant adjustedStartTime = startTime.minusMillis(deltaMillis);
                 model.setStartTime(adjustedStartTime);
             }
+
         } else {
 
             switch (getZoomMode()) {
