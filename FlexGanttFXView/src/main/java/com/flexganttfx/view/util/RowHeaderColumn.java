@@ -69,7 +69,6 @@ public class RowHeaderColumn<R extends Row<?, ?, ?>> extends TreeTableColumn<R, 
      *
      * @param ganttChart the chart for which the header will be used
      */
-    @SuppressWarnings("deprecation")
     public RowHeaderColumn(GanttChart<R> ganttChart) {
         super();
 
@@ -269,7 +268,7 @@ public class RowHeaderColumn<R extends Row<?, ?, ?>> extends TreeTableColumn<R, 
 
             switch (ganttChart.getRowHeaderType()) {
                 case ROW_NUMBER:
-                    if (getRow() != null) {
+                    if (getTreeTableRow().getTreeItem() != null) {
                         setContentDisplay(TEXT_ONLY);
                         setText(Integer.toString(i + 1));
                         setAlignment(CENTER_RIGHT);
