@@ -5,15 +5,14 @@
  */
 package impl.com.flexganttfx.skin.util;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import com.flexganttfx.model.layout.AgendaLayout;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalTime;
 
-import org.junit.Test;
-
-import com.flexganttfx.model.layout.AgendaLayout;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 
 public class AgendaHelperTest {
 

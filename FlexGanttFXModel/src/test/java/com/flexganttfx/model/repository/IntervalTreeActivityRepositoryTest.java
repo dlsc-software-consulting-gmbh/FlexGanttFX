@@ -11,11 +11,14 @@ import com.flexganttfx.model.Layer;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.model.activity.ActivityBase;
 import javafx.event.EventHandler;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 
 public class IntervalTreeActivityRepositoryTest implements
 		EventHandler<RepositoryEvent> {
@@ -26,7 +29,7 @@ public class IntervalTreeActivityRepositoryTest implements
 
 	private RepositoryEvent event;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		repository = new IntervalTreeActivityRepository<>();
 		repository.addEventHandler(this);
@@ -47,8 +50,7 @@ public class IntervalTreeActivityRepositoryTest implements
 
 		// then
 		assertThat(event, is(notNullValue()));
-		assertThat(event.getEventType(),
-				is(equalTo(RepositoryEvent.ACTIVITY_ADDED)));
+		assertThat(event.getEventType(), is(equalTo(RepositoryEvent.ACTIVITY_ADDED)));
 		assertThat(event.getActivityRef(), is(equalTo(activityRef)));
 		assertThat(event.getRepository(), is(equalTo(repository)));
 	}

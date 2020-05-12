@@ -7,7 +7,7 @@ package com.flexganttfx.model.repository;
 
 import com.flexganttfx.model.activity.MutableActivityBase;
 import com.flexganttfx.model.repository.ListActivityRepository.LinearSearchActivityIterator;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -15,9 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.time.temporal.ChronoUnit.DAYS;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 public class LinearSearchActivityIteratorTest {
 
@@ -29,8 +29,7 @@ public class LinearSearchActivityIteratorTest {
 		Instant time = Instant.now();
 
 		// when
-		LinearSearchActivityIterator<MutableActivityBase<String>> iterator = new LinearSearchActivityIterator<>(
-				activities, time, time.plus(Duration.ofDays(10)));
+		LinearSearchActivityIterator<MutableActivityBase<String>> iterator = new LinearSearchActivityIterator<>(activities, time, time.plus(Duration.ofDays(10)));
 
 		// then
 		assertThat(iterator.hasNext(), is(false));
@@ -42,16 +41,11 @@ public class LinearSearchActivityIteratorTest {
 		// given
 		List<MutableActivityBase<String>> activities = new ArrayList<>();
 
-		MutableActivityBase<String> activity1 = new MutableActivityBase<>(
-				"Activity1");
-		MutableActivityBase<String> activity2 = new MutableActivityBase<>(
-				"Activity2");
-		MutableActivityBase<String> activity3 = new MutableActivityBase<>(
-				"Activity3");
-		MutableActivityBase<String> activity4 = new MutableActivityBase<>(
-				"Activity4");
-		MutableActivityBase<String> activity5 = new MutableActivityBase<>(
-				"Activity5");
+		MutableActivityBase<String> activity1 = new MutableActivityBase<>("Activity1");
+		MutableActivityBase<String> activity2 = new MutableActivityBase<>("Activity2");
+		MutableActivityBase<String> activity3 = new MutableActivityBase<>("Activity3");
+		MutableActivityBase<String> activity4 = new MutableActivityBase<>("Activity4");
+		MutableActivityBase<String> activity5 = new MutableActivityBase<>("Activity5");
 
 		Instant time = Instant.now();
 		activity1.setStartTime(time);
@@ -90,16 +84,11 @@ public class LinearSearchActivityIteratorTest {
 		// given
 		List<MutableActivityBase<String>> activities = new ArrayList<>();
 
-		MutableActivityBase<String> activity1 = new MutableActivityBase<>(
-				"Activity1");
-		MutableActivityBase<String> activity2 = new MutableActivityBase<>(
-				"Activity2");
-		MutableActivityBase<String> activity3 = new MutableActivityBase<>(
-				"Activity3");
-		MutableActivityBase<String> activity4 = new MutableActivityBase<>(
-				"Activity4");
-		MutableActivityBase<String> activity5 = new MutableActivityBase<>(
-				"Activity5");
+		MutableActivityBase<String> activity1 = new MutableActivityBase<>("Activity1");
+		MutableActivityBase<String> activity2 = new MutableActivityBase<>("Activity2");
+		MutableActivityBase<String> activity3 = new MutableActivityBase<>("Activity3");
+		MutableActivityBase<String> activity4 = new MutableActivityBase<>("Activity4");
+		MutableActivityBase<String> activity5 = new MutableActivityBase<>("Activity5");
 
 		Instant time = Instant.now().truncatedTo(DAYS);
 
@@ -122,8 +111,7 @@ public class LinearSearchActivityIteratorTest {
 		activity5.setDuration(Duration.ofHours(1));
 
 		// when
-		LinearSearchActivityIterator<MutableActivityBase<String>> iterator = new LinearSearchActivityIterator<>(
-				activities, time, time.plus(Duration.ofDays(3)));
+		LinearSearchActivityIterator<MutableActivityBase<String>> iterator = new LinearSearchActivityIterator<>(activities, time, time.plus(Duration.ofDays(3)));
 
 		// then
 		assertThat(iterator.hasNext(), is(true));
@@ -141,16 +129,11 @@ public class LinearSearchActivityIteratorTest {
 		// given
 		List<MutableActivityBase<String>> activities = new ArrayList<>();
 
-		MutableActivityBase<String> activity1 = new MutableActivityBase<>(
-				"Activity1");
-		MutableActivityBase<String> activity2 = new MutableActivityBase<>(
-				"Activity2");
-		MutableActivityBase<String> activity3 = new MutableActivityBase<>(
-				"Activity3");
-		MutableActivityBase<String> activity4 = new MutableActivityBase<>(
-				"Activity4");
-		MutableActivityBase<String> activity5 = new MutableActivityBase<>(
-				"Activity5");
+		MutableActivityBase<String> activity1 = new MutableActivityBase<>("Activity1");
+		MutableActivityBase<String> activity2 = new MutableActivityBase<>("Activity2");
+		MutableActivityBase<String> activity3 = new MutableActivityBase<>("Activity3");
+		MutableActivityBase<String> activity4 = new MutableActivityBase<>("Activity4");
+		MutableActivityBase<String> activity5 = new MutableActivityBase<>("Activity5");
 
 		Instant time = Instant.now().truncatedTo(DAYS);
 
@@ -193,16 +176,11 @@ public class LinearSearchActivityIteratorTest {
 		// given
 		List<MutableActivityBase<String>> activities = new ArrayList<>();
 
-		MutableActivityBase<String> activity1 = new MutableActivityBase<>(
-				"Activity1");
-		MutableActivityBase<String> activity2 = new MutableActivityBase<>(
-				"Activity2");
-		MutableActivityBase<String> activity3 = new MutableActivityBase<>(
-				"Activity3");
-		MutableActivityBase<String> activity4 = new MutableActivityBase<>(
-				"Activity4");
-		MutableActivityBase<String> activity5 = new MutableActivityBase<>(
-				"Activity5");
+		MutableActivityBase<String> activity1 = new MutableActivityBase<>("Activity1");
+		MutableActivityBase<String> activity2 = new MutableActivityBase<>("Activity2");
+		MutableActivityBase<String> activity3 = new MutableActivityBase<>("Activity3");
+		MutableActivityBase<String> activity4 = new MutableActivityBase<>("Activity4");
+		MutableActivityBase<String> activity5 = new MutableActivityBase<>("Activity5");
 
 		Instant time = Instant.now().truncatedTo(DAYS);
 

@@ -5,9 +5,7 @@
  */
 package com.flexganttfx.model.dateline;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import org.junit.jupiter.api.Test;
 
 import java.time.DayOfWeek;
 import java.time.Instant;
@@ -18,8 +16,9 @@ import java.time.ZonedDateTime;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 
 public class ChronoUnitGridTest {
 
@@ -123,7 +122,6 @@ public class ChronoUnitGridTest {
 
 	// ROUND DOWN MONTHS
 
-	@Ignore
 	public void shouldRoundDownMonthsToTwo() {
 
 		// given

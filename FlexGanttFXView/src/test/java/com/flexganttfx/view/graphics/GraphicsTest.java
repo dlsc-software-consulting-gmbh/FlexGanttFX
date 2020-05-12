@@ -5,6 +5,7 @@
  */
 package com.flexganttfx.view.graphics;
 
+import com.flexganttfx.core.FlexGanttFX;
 import com.flexganttfx.model.Activity;
 import com.flexganttfx.model.ActivityRef;
 import com.flexganttfx.model.Layer;
@@ -14,19 +15,17 @@ import com.flexganttfx.view.GanttChart;
 import de.sandec.jmemorybuddy.JMemoryBuddy;
 import impl.com.flexganttfx.skin.graphics.RowCanvas;
 import javafx.event.EventHandler;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.testfx.framework.junit.ApplicationTest;
+import javafx.stage.Stage;
+import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import java.time.Instant;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.assertThat;
 
-@Ignore
 public class GraphicsTest extends ApplicationTest implements EventHandler<ActivityEvent> {
 
     private GraphicsBase<?> view;
@@ -35,13 +34,16 @@ public class GraphicsTest extends ApplicationTest implements EventHandler<Activi
     private ActivityRef<Activity> activityRef;
     private RowCanvas<?> canvas;
 
-    @Before
-    public void setup() {
+    @Override
+    public void start(Stage stage) throws Exception {
+        super.start(stage);
+
+        FlexGanttFX.setLicenseKey("LIC=;VEN=DLSC;VER=11_11;PRO=STANDARD;RUN=no;CTR=1;SignCode=3F;Signature=302C02144D3694C44BED5892BB980F53121FC3E9D83303AB0214572C7C38F1F389AEC0DE72D29796803364F4B217");
+
         GanttChart<?> gantt = new GanttChart<>();
         view = gantt.getGraphics();
         canvas = new RowCanvas<>(view);
-        Row<Row<?, ?, ?>, Row<?, ?, ?>, Activity> row = new Row<>() {
-        };
+        Row<Row<?, ?, ?>, Row<?, ?, ?>, Activity> row = new Row<>() {};
         Layer layer = new Layer("Layer");
         activityRef = new ActivityRef<>(row, layer, activity);
         event = null;
@@ -62,16 +64,14 @@ public class GraphicsTest extends ApplicationTest implements EventHandler<Activi
         view.setOnActivityChange(this);
 
         // when
-        view.fireEvent(new ActivityEvent(activityRef, canvas,
-                ActivityEvent.ACTIVITY_CHANGE));
+        view.fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.ACTIVITY_CHANGE));
 
         // then
         assertThat(event, is(notNullValue()));
         assertThat(event.getActivityRef(), is(equalTo(activityRef)));
         assertThat(event.getSource(), is(equalTo(view)));
         assertThat(event.getTarget(), is(equalTo(view)));
-        assertThat(event.getEventType(),
-                is(equalTo(ActivityEvent.ACTIVITY_CHANGE)));
+        assertThat(event.getEventType(), is(equalTo(ActivityEvent.ACTIVITY_CHANGE)));
     }
 
     @Test
@@ -82,16 +82,14 @@ public class GraphicsTest extends ApplicationTest implements EventHandler<Activi
         double value = 33.33;
 
         // when
-        view.fireEvent(new ActivityEvent(activityRef, canvas,
-                ActivityEvent.CHART_VALUE_CHANGE_FINISHED, value));
+        view.fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.CHART_VALUE_CHANGE_FINISHED, value));
 
         // then
         assertThat(event, is(notNullValue()));
         assertThat(event.getActivityRef(), is(equalTo(activityRef)));
         assertThat(event.getSource(), is(equalTo(view)));
         assertThat(event.getTarget(), is(equalTo(view)));
-        assertThat(event.getEventType(),
-                is(equalTo(ActivityEvent.CHART_VALUE_CHANGE_FINISHED)));
+        assertThat(event.getEventType(), is(equalTo(ActivityEvent.CHART_VALUE_CHANGE_FINISHED)));
         assertThat(event.getOldValue(), is(equalTo(value)));
     }
 
@@ -103,16 +101,14 @@ public class GraphicsTest extends ApplicationTest implements EventHandler<Activi
         double value = 33.33;
 
         // when
-        view.fireEvent(new ActivityEvent(activityRef, canvas,
-                ActivityEvent.CHART_VALUE_CHANGE_ONGOING, value));
+        view.fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.CHART_VALUE_CHANGE_ONGOING, value));
 
         // then
         assertThat(event, is(notNullValue()));
         assertThat(event.getActivityRef(), is(equalTo(activityRef)));
         assertThat(event.getSource(), is(equalTo(view)));
         assertThat(event.getTarget(), is(equalTo(view)));
-        assertThat(event.getEventType(),
-                is(equalTo(ActivityEvent.CHART_VALUE_CHANGE_ONGOING)));
+        assertThat(event.getEventType(), is(equalTo(ActivityEvent.CHART_VALUE_CHANGE_ONGOING)));
         assertThat(event.getOldValue(), is(equalTo(value)));
     }
 
@@ -124,16 +120,14 @@ public class GraphicsTest extends ApplicationTest implements EventHandler<Activi
         double value = 33.33;
 
         // when
-        view.fireEvent(new ActivityEvent(activityRef, canvas,
-                ActivityEvent.CHART_HIGH_VALUE_CHANGE_FINISHED, value));
+        view.fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.CHART_HIGH_VALUE_CHANGE_FINISHED, value));
 
         // then
         assertThat(event, is(notNullValue()));
         assertThat(event.getActivityRef(), is(equalTo(activityRef)));
         assertThat(event.getSource(), is(equalTo(view)));
         assertThat(event.getTarget(), is(equalTo(view)));
-        assertThat(event.getEventType(),
-                is(equalTo(ActivityEvent.CHART_HIGH_VALUE_CHANGE_FINISHED)));
+        assertThat(event.getEventType(), is(equalTo(ActivityEvent.CHART_HIGH_VALUE_CHANGE_FINISHED)));
         assertThat(event.getOldValue(), is(equalTo(value)));
     }
 
@@ -145,16 +139,14 @@ public class GraphicsTest extends ApplicationTest implements EventHandler<Activi
         double value = 33.33;
 
         // when
-        view.fireEvent(new ActivityEvent(activityRef, canvas,
-                ActivityEvent.CHART_HIGH_VALUE_CHANGE_ONGOING, value));
+        view.fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.CHART_HIGH_VALUE_CHANGE_ONGOING, value));
 
         // then
         assertThat(event, is(notNullValue()));
         assertThat(event.getActivityRef(), is(equalTo(activityRef)));
         assertThat(event.getSource(), is(equalTo(view)));
         assertThat(event.getTarget(), is(equalTo(view)));
-        assertThat(event.getEventType(),
-                is(equalTo(ActivityEvent.CHART_HIGH_VALUE_CHANGE_ONGOING)));
+        assertThat(event.getEventType(), is(equalTo(ActivityEvent.CHART_HIGH_VALUE_CHANGE_ONGOING)));
         assertThat(event.getOldValue(), is(equalTo(value)));
     }
 
@@ -166,16 +158,14 @@ public class GraphicsTest extends ApplicationTest implements EventHandler<Activi
         double value = 33.33;
 
         // when
-        view.fireEvent(new ActivityEvent(activityRef, canvas,
-                ActivityEvent.CHART_LOW_VALUE_CHANGE_FINISHED, value));
+        view.fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.CHART_LOW_VALUE_CHANGE_FINISHED, value));
 
         // then
         assertThat(event, is(notNullValue()));
         assertThat(event.getActivityRef(), is(equalTo(activityRef)));
         assertThat(event.getSource(), is(equalTo(view)));
         assertThat(event.getTarget(), is(equalTo(view)));
-        assertThat(event.getEventType(),
-                is(equalTo(ActivityEvent.CHART_LOW_VALUE_CHANGE_FINISHED)));
+        assertThat(event.getEventType(), is(equalTo(ActivityEvent.CHART_LOW_VALUE_CHANGE_FINISHED)));
         assertThat(event.getOldValue(), is(equalTo(value)));
     }
 
@@ -187,16 +177,14 @@ public class GraphicsTest extends ApplicationTest implements EventHandler<Activi
         double value = 33.33;
 
         // when
-        view.fireEvent(new ActivityEvent(activityRef, canvas,
-                ActivityEvent.CHART_LOW_VALUE_CHANGE_ONGOING, value));
+        view.fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.CHART_LOW_VALUE_CHANGE_ONGOING, value));
 
         // then
         assertThat(event, is(notNullValue()));
         assertThat(event.getActivityRef(), is(equalTo(activityRef)));
         assertThat(event.getSource(), is(equalTo(view)));
         assertThat(event.getTarget(), is(equalTo(view)));
-        assertThat(event.getEventType(),
-                is(equalTo(ActivityEvent.CHART_LOW_VALUE_CHANGE_ONGOING)));
+        assertThat(event.getEventType(), is(equalTo(ActivityEvent.CHART_LOW_VALUE_CHANGE_ONGOING)));
         assertThat(event.getOldValue(), is(equalTo(value)));
     }
 
@@ -207,16 +195,14 @@ public class GraphicsTest extends ApplicationTest implements EventHandler<Activi
         view.setOnActivityPercentageChangeFinished(this);
 
         // when
-        view.fireEvent(new ActivityEvent(activityRef, canvas,
-                ActivityEvent.PERCENTAGE_CHANGE_FINISHED));
+        view.fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.PERCENTAGE_CHANGE_FINISHED));
 
         // then
         assertThat(event, is(notNullValue()));
         assertThat(event.getActivityRef(), is(equalTo(activityRef)));
         assertThat(event.getSource(), is(equalTo(view)));
         assertThat(event.getTarget(), is(equalTo(view)));
-        assertThat(event.getEventType(),
-                is(equalTo(ActivityEvent.PERCENTAGE_CHANGE_FINISHED)));
+        assertThat(event.getEventType(), is(equalTo(ActivityEvent.PERCENTAGE_CHANGE_FINISHED)));
     }
 
     @Test
@@ -226,16 +212,14 @@ public class GraphicsTest extends ApplicationTest implements EventHandler<Activi
         view.setOnActivityPercentageChangeOngoing(this);
 
         // when
-        view.fireEvent(new ActivityEvent(activityRef, canvas,
-                ActivityEvent.PERCENTAGE_CHANGE_ONGOING));
+        view.fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.PERCENTAGE_CHANGE_ONGOING));
 
         // then
         assertThat(event, is(notNullValue()));
         assertThat(event.getActivityRef(), is(equalTo(activityRef)));
         assertThat(event.getSource(), is(equalTo(view)));
         assertThat(event.getTarget(), is(equalTo(view)));
-        assertThat(event.getEventType(),
-                is(equalTo(ActivityEvent.PERCENTAGE_CHANGE_ONGOING)));
+        assertThat(event.getEventType(), is(equalTo(ActivityEvent.PERCENTAGE_CHANGE_ONGOING)));
     }
 
     @Test
@@ -245,16 +229,14 @@ public class GraphicsTest extends ApplicationTest implements EventHandler<Activi
         view.setOnActivityDragFinished(this);
 
         // when
-        view.fireEvent(new ActivityEvent(activityRef, canvas,
-                ActivityEvent.DRAG_FINISHED));
+        view.fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.DRAG_FINISHED));
 
         // then
         assertThat(event, is(notNullValue()));
         assertThat(event.getActivityRef(), is(equalTo(activityRef)));
         assertThat(event.getSource(), is(equalTo(view)));
         assertThat(event.getTarget(), is(equalTo(view)));
-        assertThat(event.getEventType(),
-                is(equalTo(ActivityEvent.DRAG_FINISHED)));
+        assertThat(event.getEventType(), is(equalTo(ActivityEvent.DRAG_FINISHED)));
     }
 
     @Test
@@ -264,16 +246,14 @@ public class GraphicsTest extends ApplicationTest implements EventHandler<Activi
         view.setOnActivityDragOngoing(this);
 
         // when
-        view.fireEvent(new ActivityEvent(activityRef, canvas,
-                ActivityEvent.DRAG_ONGOING));
+        view.fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.DRAG_ONGOING));
 
         // then
         assertThat(event, is(notNullValue()));
         assertThat(event.getActivityRef(), is(equalTo(activityRef)));
         assertThat(event.getSource(), is(equalTo(view)));
         assertThat(event.getTarget(), is(equalTo(view)));
-        assertThat(event.getEventType(),
-                is(equalTo(ActivityEvent.DRAG_ONGOING)));
+        assertThat(event.getEventType(), is(equalTo(ActivityEvent.DRAG_ONGOING)));
     }
 
     @Test
@@ -283,16 +263,14 @@ public class GraphicsTest extends ApplicationTest implements EventHandler<Activi
         view.setOnActivityHorizontalDragFinished(this);
 
         // when
-        view.fireEvent(new ActivityEvent(activityRef, canvas,
-                ActivityEvent.HORIZONTAL_DRAG_FINISHED));
+        view.fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.HORIZONTAL_DRAG_FINISHED));
 
         // then
         assertThat(event, is(notNullValue()));
         assertThat(event.getActivityRef(), is(equalTo(activityRef)));
         assertThat(event.getSource(), is(equalTo(view)));
         assertThat(event.getTarget(), is(equalTo(view)));
-        assertThat(event.getEventType(),
-                is(equalTo(ActivityEvent.HORIZONTAL_DRAG_FINISHED)));
+        assertThat(event.getEventType(), is(equalTo(ActivityEvent.HORIZONTAL_DRAG_FINISHED)));
     }
 
     @Test
@@ -302,16 +280,14 @@ public class GraphicsTest extends ApplicationTest implements EventHandler<Activi
         view.setOnActivityHorizontalDragOngoing(this);
 
         // when
-        view.fireEvent(new ActivityEvent(activityRef, canvas,
-                ActivityEvent.HORIZONTAL_DRAG_ONGOING));
+        view.fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.HORIZONTAL_DRAG_ONGOING));
 
         // then
         assertThat(event, is(notNullValue()));
         assertThat(event.getActivityRef(), is(equalTo(activityRef)));
         assertThat(event.getSource(), is(equalTo(view)));
         assertThat(event.getTarget(), is(equalTo(view)));
-        assertThat(event.getEventType(),
-                is(equalTo(ActivityEvent.HORIZONTAL_DRAG_ONGOING)));
+        assertThat(event.getEventType(), is(equalTo(ActivityEvent.HORIZONTAL_DRAG_ONGOING)));
     }
 
     @Test
@@ -321,16 +297,14 @@ public class GraphicsTest extends ApplicationTest implements EventHandler<Activi
         view.setOnActivityVerticalDragFinished(this);
 
         // when
-        view.fireEvent(new ActivityEvent(activityRef, canvas,
-                ActivityEvent.VERTICAL_DRAG_FINISHED));
+        view.fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.VERTICAL_DRAG_FINISHED));
 
         // then
         assertThat(event, is(notNullValue()));
         assertThat(event.getActivityRef(), is(equalTo(activityRef)));
         assertThat(event.getSource(), is(equalTo(view)));
         assertThat(event.getTarget(), is(equalTo(view)));
-        assertThat(event.getEventType(),
-                is(equalTo(ActivityEvent.VERTICAL_DRAG_FINISHED)));
+        assertThat(event.getEventType(), is(equalTo(ActivityEvent.VERTICAL_DRAG_FINISHED)));
     }
 
     @Test
@@ -340,16 +314,14 @@ public class GraphicsTest extends ApplicationTest implements EventHandler<Activi
         view.setOnActivityVerticalDragOngoing(this);
 
         // when
-        view.fireEvent(new ActivityEvent(activityRef, canvas,
-                ActivityEvent.VERTICAL_DRAG_ONGOING));
+        view.fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.VERTICAL_DRAG_ONGOING));
 
         // then
         assertThat(event, is(notNullValue()));
         assertThat(event.getActivityRef(), is(equalTo(activityRef)));
         assertThat(event.getSource(), is(equalTo(view)));
         assertThat(event.getTarget(), is(equalTo(view)));
-        assertThat(event.getEventType(),
-                is(equalTo(ActivityEvent.VERTICAL_DRAG_ONGOING)));
+        assertThat(event.getEventType(), is(equalTo(ActivityEvent.VERTICAL_DRAG_ONGOING)));
     }
 
     @Test
@@ -360,16 +332,14 @@ public class GraphicsTest extends ApplicationTest implements EventHandler<Activi
         Instant startTime = Instant.now();
 
         // when
-        view.fireEvent(new ActivityEvent(activityRef, canvas,
-                ActivityEvent.START_TIME_CHANGE_FINISHED, startTime));
+        view.fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.START_TIME_CHANGE_FINISHED, startTime));
 
         // then
         assertThat(event, is(notNullValue()));
         assertThat(event.getActivityRef(), is(equalTo(activityRef)));
         assertThat(event.getSource(), is(equalTo(view)));
         assertThat(event.getTarget(), is(equalTo(view)));
-        assertThat(event.getEventType(),
-                is(equalTo(ActivityEvent.START_TIME_CHANGE_FINISHED)));
+        assertThat(event.getEventType(), is(equalTo(ActivityEvent.START_TIME_CHANGE_FINISHED)));
         assertThat(event.getOldTime(), is(equalTo(startTime)));
     }
 
@@ -381,16 +351,14 @@ public class GraphicsTest extends ApplicationTest implements EventHandler<Activi
         Instant startTime = Instant.now();
 
         // when
-        view.fireEvent(new ActivityEvent(activityRef, canvas,
-                ActivityEvent.START_TIME_CHANGE_ONGOING, startTime));
+        view.fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.START_TIME_CHANGE_ONGOING, startTime));
 
         // then
         assertThat(event, is(notNullValue()));
         assertThat(event.getActivityRef(), is(equalTo(activityRef)));
         assertThat(event.getSource(), is(equalTo(view)));
         assertThat(event.getTarget(), is(equalTo(view)));
-        assertThat(event.getEventType(),
-                is(equalTo(ActivityEvent.START_TIME_CHANGE_ONGOING)));
+        assertThat(event.getEventType(), is(equalTo(ActivityEvent.START_TIME_CHANGE_ONGOING)));
         assertThat(event.getOldTime(), is(equalTo(startTime)));
     }
 
@@ -402,16 +370,14 @@ public class GraphicsTest extends ApplicationTest implements EventHandler<Activi
         Instant endTime = Instant.now();
 
         // when
-        view.fireEvent(new ActivityEvent(activityRef, canvas,
-                ActivityEvent.END_TIME_CHANGE_FINISHED, endTime));
+        view.fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.END_TIME_CHANGE_FINISHED, endTime));
 
         // then
         assertThat(event, is(notNullValue()));
         assertThat(event.getActivityRef(), is(equalTo(activityRef)));
         assertThat(event.getSource(), is(equalTo(view)));
         assertThat(event.getTarget(), is(equalTo(view)));
-        assertThat(event.getEventType(),
-                is(equalTo(ActivityEvent.END_TIME_CHANGE_FINISHED)));
+        assertThat(event.getEventType(), is(equalTo(ActivityEvent.END_TIME_CHANGE_FINISHED)));
         assertThat(event.getOldTime(), is(equalTo(endTime)));
     }
 
@@ -423,16 +389,14 @@ public class GraphicsTest extends ApplicationTest implements EventHandler<Activi
         Instant endTime = Instant.now();
 
         // when
-        view.fireEvent(new ActivityEvent(activityRef, canvas,
-                ActivityEvent.END_TIME_CHANGE_ONGOING, endTime));
+        view.fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.END_TIME_CHANGE_ONGOING, endTime));
 
         // then
         assertThat(event, is(notNullValue()));
         assertThat(event.getActivityRef(), is(equalTo(activityRef)));
         assertThat(event.getSource(), is(equalTo(view)));
         assertThat(event.getTarget(), is(equalTo(view)));
-        assertThat(event.getEventType(),
-                is(equalTo(ActivityEvent.END_TIME_CHANGE_ONGOING)));
+        assertThat(event.getEventType(), is(equalTo(ActivityEvent.END_TIME_CHANGE_ONGOING)));
         assertThat(event.getOldTime(), is(equalTo(endTime)));
     }
 

@@ -5,14 +5,18 @@
  */
 package com.flexganttfx.model.util;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import java.time.*;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 public class ChronoUnitUtilsTest {
 

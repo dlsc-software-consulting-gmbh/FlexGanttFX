@@ -5,21 +5,21 @@
  */
 package com.flexganttfx.model.timeline;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 import java.time.Instant;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 public class ChronoUnitTimelineModelTest {
 
     private ChronoUnitTimelineModel timelineModel;
 
-    @Before
+    @BeforeEach
     public void setup() {
         timelineModel = new ChronoUnitTimelineModel();
     }
