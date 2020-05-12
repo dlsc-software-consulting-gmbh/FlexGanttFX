@@ -14,7 +14,7 @@ set JAVA_HOME=%JAVA_HOME%
 set PROJECT_VERSION=%PROJECT_VERSION%
 set APP_VERSION=%APP_VERSION%
 set APP_NAME=%APP_NAME%
-set MAIN_JAR=crm-desktop-ui-%PROJECT_VERSION%.jar
+set MAIN_JAR=emirates-%PROJECT_VERSION%.jar
 
 rem ------ SETUP DIRECTORIES AND FILES ----------------------------------------
 rem Remove previously generated java runtime and installers. Copy all required
@@ -37,7 +37,7 @@ echo detecting required modules
   --multi-release %JAVA_VERSION% ^
   --ignore-missing-deps ^
   --class-path "target\installer\input\libs\*" ^
-  --print-module-deps target\classes\uk\co\senapt\desktop\ui\CrmDesktopUI.class target\classes\uk\co\senapt\desktop\ui\SenaptApp.class target\classes\uk\co\senapt\desktop\ui\UIInstance.class > temp.txt
+  --print-module-deps target\classes\com\flexganttfx\emirates\EmiratesAppLauncher.class target\classes\com\flexganttfx\emirates\EmiratesApp.class > temp.txt
 
 set /p detected_modules=<temp.txt
 
@@ -71,26 +71,20 @@ call "%JAVA_HOME%\bin\jlink" ^
 
 rem ------ PACKAGING ----------------------------------------------------------
 
-echo "senapt.env=%SENAPT_ENV%"
-echo "cloud.instance.tld=%CLOUD_INSTANCE_TLD%"
-
 call "%JAVA_HOME%\bin\jpackage" ^
   --type msi ^
   --dest target/installer ^
   --input target/installer/input/libs ^
   --name "%APP_NAME%" ^
-  --main-class uk.co.senapt.desktop.ui.CrmDesktopUILauncher ^
+  --main-class com.flexganttfx.emirates.EmiratesAppLauncher ^
   --main-jar %MAIN_JAR% ^
-  --java-options -Xmx2048m ^
-  --java-options -Dcloud.instance.tld=%CLOUD_INSTANCE_TLD% ^
-  --java-options -Dsenapt.env=%SENAPT_ENV%  ^
-  --java-options -Dnet.fortuna.ical4j.timezone.cache.impl=net.fortuna.ical4j.util.MapTimeZoneCache  ^
+  --java-options -Xmx1048m ^
   --runtime-image target/java-runtime ^
-  --icon src/main/logo/windows/Senapt.ico ^
+  --icon ../dlsc-logo.ico ^
   --app-version %APP_VERSION% ^
   --win-shortcut ^
   --win-per-user-install ^
   --win-menu ^
   --win-dir-chooser ^
-  --vendor "Senapt, London, UK" ^
-  --copyright "Copyright © 2020 Senapt Ltd."
+  --vendor "DLSC Software & Consulting GmbH" ^
+  --copyright "Copyright © 2020 DLSC GmbH"
