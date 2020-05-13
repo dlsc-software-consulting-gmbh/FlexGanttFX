@@ -23,6 +23,7 @@ public class GlassPane extends StackPane {
         ProgressIndicator progressIndicator = new ProgressIndicator();
         progressIndicator.setPrefSize(100, 100);
         progressIndicator.setMinSize(100, 100);
+        progressIndicator.setMaxSize(100, 100);
         progressIndicator.progressProperty().bind(progressProperty());
         getChildren().add(progressIndicator);
 
