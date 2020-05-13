@@ -60,6 +60,9 @@ import com.flexganttfx.view.timeline.Timeline;
 import com.flexganttfx.view.util.FlexGanttFXControl;
 import com.flexganttfx.view.util.Messages;
 import com.flexganttfx.view.util.Position;
+import com.sun.javafx.css.converters.PaintConverter;
+import com.sun.javafx.tk.TKPulseListener;
+import com.sun.javafx.tk.Toolkit;
 import impl.com.flexganttfx.skin.graphics.GraphicsBaseSkin;
 import impl.com.flexganttfx.skin.graphics.LinksCanvas;
 import impl.com.flexganttfx.skin.graphics.RowPane;
@@ -100,7 +103,6 @@ import javafx.collections.ObservableSet;
 import javafx.css.CssMetaData;
 import javafx.css.Styleable;
 import javafx.css.StyleableObjectProperty;
-import javafx.css.converter.PaintConverter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -249,7 +251,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final WeakInvalidationListener weakRedrawListener = new WeakInvalidationListener(redrawListener);
 
-    private final ChangeListener<Instant> redrawNowListener = new ChangeListener<>() {
+    private final ChangeListener<Instant> redrawNowListener = new ChangeListener<Instant>() {
         @Override
         public void changed(ObservableValue<? extends Instant> observable, Instant oldNow, Instant newNow) {
 
@@ -632,13 +634,15 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
             }
         };
 
+        final TKPulseListener tkPulseListener = () -> drawRunnable.run();
+
         sceneProperty().addListener((obs, oldScene, newScene) -> {
             if (oldScene != null) {
-                oldScene.removePreLayoutPulseListener(drawRunnable);
+                Toolkit.getToolkit().removeSceneTkPulseListener(tkPulseListener);
             }
 
             if (newScene != null) {
-                newScene.addPreLayoutPulseListener(drawRunnable);
+                Toolkit.getToolkit().addSceneTkPulseListener(tkPulseListener);
             }
         });
     }

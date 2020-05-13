@@ -11,6 +11,7 @@ import com.flexganttfx.model.timeline.TimelineModel;
 import com.flexganttfx.view.graphics.ActivityBounds;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.graphics.ListViewGraphics;
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,7 +24,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.control.ScrollBar;
-import javafx.scene.control.skin.VirtualFlow;
 import javafx.scene.input.DragEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Rectangle;
@@ -195,7 +195,7 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
 
         private void scrollY() {
             VirtualFlow<?> flow = getVirtualFlow();
-            flow.scrollPixels(yOffset);
+            flow.adjustPixels(yOffset);
         }
 
         public void stopRunning() {

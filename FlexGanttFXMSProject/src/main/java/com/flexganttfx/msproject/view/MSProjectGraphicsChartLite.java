@@ -156,7 +156,7 @@ public class MSProjectGraphicsChartLite extends GanttChartLite<MSProjectTaskRow>
 			@Override
 			public TreeTableCell<MSProjectTaskRow, Double> call(
 					TreeTableColumn<MSProjectTaskRow, Double> param) {
-				return new TreeTableCell<>() {
+				return new TreeTableCell<MSProjectTaskRow, Double>() {
 					@Override
 					protected void updateItem(Double item, boolean empty) {
 						if (item != null) {

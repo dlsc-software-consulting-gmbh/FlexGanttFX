@@ -33,6 +33,7 @@ import com.flexganttfx.view.graphics.GraphicsBase.SelectionMode;
 import com.flexganttfx.view.graphics.ListViewGraphics;
 import com.flexganttfx.view.timeline.Eventline;
 import com.flexganttfx.view.timeline.Timeline;
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import impl.com.flexganttfx.skin.util.AgendaHelper;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -40,7 +41,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
 import javafx.scene.SnapshotParameters;
-import javafx.scene.control.skin.VirtualFlow;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.ClipboardContent;
@@ -785,7 +785,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
                 /*
                  * Flow only exists when using ListView.
                  */
-                flow.scrollPixels(yOffset);
+                flow.adjustPixels(yOffset);
                 doMouseDragged(evt);
             }
         }

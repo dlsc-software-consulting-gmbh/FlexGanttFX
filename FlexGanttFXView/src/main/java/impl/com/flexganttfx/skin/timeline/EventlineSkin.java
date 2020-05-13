@@ -172,7 +172,7 @@ public class EventlineSkin extends SkinBase<Eventline> {
             final ZoneOffsetTransition transition = zoneId.getRules().nextTransition(startTime);
             if (transition != null) {
                 final double dstWidth = dst.prefWidth(-1);
-                double location = snapPositionX(timeline.getModel().calculateLocationForTime(transition.getInstant())) - dstWidth / 2;
+                double location = snapPosition(timeline.getModel().calculateLocationForTime(transition.getInstant())) - dstWidth / 2;
                 if (location < dateline.getWidth()) {
                     dst.resizeRelocate(location, contentY, dstWidth, contentHeight);
                     showDST = true;

@@ -59,7 +59,7 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
         nameColumn.setPrefWidth(250);
         nameColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("name"));
 
-        Callback<TreeTableColumn<MSProjectTaskRow, String>, TreeTableCell<MSProjectTaskRow, String>> nameCellFactory = param -> new TreeTableCell<>() {
+        Callback<TreeTableColumn<MSProjectTaskRow, String>, TreeTableCell<MSProjectTaskRow, String>> nameCellFactory = param -> new TreeTableCell<MSProjectTaskRow, String>() {
 
             private FontIcon parentImage = new FontIcon(MaterialDesign.MDI_CHECKBOX_MULTIPLE_MARKED);
             private FontIcon childImage = new FontIcon(MaterialDesign.MDI_CHECKBOX_MARKED);

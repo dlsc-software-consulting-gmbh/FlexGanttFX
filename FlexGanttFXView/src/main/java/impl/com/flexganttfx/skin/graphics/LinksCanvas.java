@@ -13,6 +13,8 @@ import com.flexganttfx.model.util.IntervalTree;
 import com.flexganttfx.view.graphics.ActivityEvent;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.graphics.renderer.LinkRenderer;
+import com.sun.javafx.tk.TKPulseListener;
+import com.sun.javafx.tk.Toolkit;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;
@@ -53,13 +55,15 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
             }
         };
 
+        final TKPulseListener tkPulseListener = () -> drawRunnable.run();
+
         sceneProperty().addListener((obs, oldScene, newScene) -> {
             if (oldScene != null) {
-                oldScene.removePostLayoutPulseListener(drawRunnable);
+                Toolkit.getToolkit().removePostSceneTkPulseListener(tkPulseListener);
             }
 
             if (newScene != null) {
-                newScene.addPostLayoutPulseListener(drawRunnable);
+                Toolkit.getToolkit().addPostSceneTkPulseListener(tkPulseListener);
             }
         });
     }

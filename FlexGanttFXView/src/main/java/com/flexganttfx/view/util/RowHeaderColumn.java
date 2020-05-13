@@ -84,7 +84,7 @@ public class RowHeaderColumn<R extends Row<?, ?, ?>> extends TreeTableColumn<R, 
         setSortable(false);
         setEditable(false);
 
-        setReorderable(false);
+        impl_setReorderable(false);
 
         // build context menu
         ContextMenu contextMenu = new ContextMenu();

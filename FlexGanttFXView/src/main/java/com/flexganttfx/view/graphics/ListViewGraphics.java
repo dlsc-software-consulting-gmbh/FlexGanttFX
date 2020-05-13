@@ -6,12 +6,12 @@
 package com.flexganttfx.view.graphics;
 
 import com.flexganttfx.model.Row;
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import impl.com.flexganttfx.skin.graphics.ListViewGraphicsSkin;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Skin;
-import javafx.scene.control.skin.VirtualFlow;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -169,7 +169,7 @@ public class ListViewGraphics<R extends Row<?, ?, ?>> extends GraphicsBase<R> {
 	 * @since 1.3
 	 */
 	public final void scrollUp() {
-		getVirtualFlow().scrollPixels(-getScrollValue());
+		getVirtualFlow().adjustPixels(-getScrollValue());
 	}
 
 	/**
@@ -180,7 +180,7 @@ public class ListViewGraphics<R extends Row<?, ?, ?>> extends GraphicsBase<R> {
 	 * @since 1.3
 	 */
 	public final void scrollDown() {
-		getVirtualFlow().scrollPixels(getScrollValue());
+		getVirtualFlow().adjustPixels(getScrollValue());
 	}
 
 	private VirtualFlow<?> getVirtualFlow() {

@@ -17,7 +17,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.stage.Window;
 
 import java.time.Instant;
 import java.util.Objects;
@@ -116,17 +115,21 @@ public abstract class RendererBase {
     }
 
     private static double getSnapScaleXImpl(Scene scene) {
-        if (scene == null) return 1.0;
-        Window window = scene.getWindow();
-        if (window == null) return 1.0;
-        return window.getRenderScaleX();
+        return 1.0;
+        // TODO: migrate? The code below works for Java 11
+//        if (scene == null) return 1.0;
+//        Window window = scene.getWindow();
+//        if (window == null) return 1.0;
+//        return window.getRenderScaleX();
     }
 
     private static double getSnapScaleYImpl(Scene scene) {
-        if (scene == null) return 1.0;
-        Window window = scene.getWindow();
-        if (window == null) return 1.0;
-        return window.getRenderScaleY();
+        return 1.0;
+        // TODO: migrate? The code below works for Java 11
+//        if (scene == null) return 1.0;
+//        Window window = scene.getWindow();
+//        if (window == null) return 1.0;
+//        return window.getRenderScaleY();
     }
 
     private double getSnapScaleX() {

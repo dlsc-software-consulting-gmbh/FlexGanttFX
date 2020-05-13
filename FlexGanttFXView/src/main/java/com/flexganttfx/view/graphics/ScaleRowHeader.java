@@ -202,7 +202,7 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
                     if (lineIndex < row.getLineCount() - 1) {
                         gc.setLineWidth(.5);
                         gc.setStroke(getDividerLineStroke());
-                        final double y = snapPositionY(((int) lineOffset + lineHeight) - .5);
+                        final double y = snapPosition(((int) lineOffset + lineHeight) - .5);
                         gc.strokeLine(getInsets().getLeft(), y, getWidth() - getInsets().getRight() - 1, y);
                     }
                 }
