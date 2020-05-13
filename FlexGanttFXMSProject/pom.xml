@@ -10,7 +10,7 @@
     <parent>
         <groupId>com.flexganttfx</groupId>
         <artifactId>gantt</artifactId>
-        <version>11.11.0</version>
+        <version>8.11.0</version>
         <relativePath>..</relativePath>
     </parent>
 
@@ -86,15 +86,6 @@
         <plugins>
 
             <plugin>
-                <groupId>org.openjfx</groupId>
-                <artifactId>javafx-maven-plugin</artifactId>
-                <version>${javafx.maven.plugin.version}</version>
-                <configuration>
-                    <mainClass>com.flexganttfx.msproject.MSProjectApp</mainClass>
-                </configuration>
-            </plugin>
-
-            <plugin>
                 <groupId>com.sandec.jpro</groupId>
                 <artifactId>jpro-maven-plugin</artifactId>
                 <version>${jpro.version}</version>
@@ -104,17 +95,6 @@
                     <mainClassName>com.flexganttfx.msproject.MSProjectApp
                     </mainClassName>
                     <openingPath>/</openingPath>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>com.gluonhq</groupId>
-                <artifactId>client-maven-plugin</artifactId>
-                <version>${client.plugin.version}</version>
-                <configuration>
-                    <!-- Uncomment to run on iOS: -->
-                    <target>ios</target>
-                    <mainClass>com.flexganttfx.msproject.MSProjectApp</mainClass>
                 </configuration>
             </plugin>
 
