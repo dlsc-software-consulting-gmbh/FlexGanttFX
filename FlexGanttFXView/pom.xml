@@ -61,6 +61,10 @@
 					<groupId>org.openjfx</groupId>
 					<artifactId>javafx-web</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>org.openjfx</groupId>
+					<artifactId>javafx-swing</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 
