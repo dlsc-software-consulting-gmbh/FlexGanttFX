@@ -32,8 +32,7 @@ public class GanttLicensingApp extends JFrame {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
-		((JComponent) getContentPane()).setBorder(new EmptyBorder(20, 20, 20,
-				20));
+		((JComponent) getContentPane()).setBorder(new EmptyBorder(20, 20, 20, 20));
 		GridBagLayout gbl = new GridBagLayout();
 		setLayout(gbl);
 
