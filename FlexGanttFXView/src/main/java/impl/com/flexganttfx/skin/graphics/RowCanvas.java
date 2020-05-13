@@ -262,6 +262,8 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         if (getParent() != null) {
             getParent().requestLayout();
         }
+
+        draw();
     }
 
     public final void draw() {

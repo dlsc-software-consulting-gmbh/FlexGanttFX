@@ -61,8 +61,6 @@ import com.flexganttfx.view.util.FlexGanttFXControl;
 import com.flexganttfx.view.util.Messages;
 import com.flexganttfx.view.util.Position;
 import com.sun.javafx.css.converters.PaintConverter;
-import com.sun.javafx.tk.TKPulseListener;
-import com.sun.javafx.tk.Toolkit;
 import impl.com.flexganttfx.skin.graphics.GraphicsBaseSkin;
 import impl.com.flexganttfx.skin.graphics.LinksCanvas;
 import impl.com.flexganttfx.skin.graphics.RowPane;
@@ -626,25 +624,25 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
         setRowHeaderFactory(graphics -> new ScaleRowHeader<>(this));
 
-        final Runnable drawRunnable = () -> {
-            for (RowPane<R> pane : getRowPanes()) {
-                if (pane.getCanvas().isDirty()) {
-                    pane.getCanvas().draw();
-                }
-            }
-        };
-
-        final TKPulseListener tkPulseListener = () -> drawRunnable.run();
-
-        sceneProperty().addListener((obs, oldScene, newScene) -> {
-            if (oldScene != null) {
-                Toolkit.getToolkit().removeSceneTkPulseListener(tkPulseListener);
-            }
-
-            if (newScene != null) {
-                Toolkit.getToolkit().addSceneTkPulseListener(tkPulseListener);
-            }
-        });
+//        final Runnable drawRunnable = () -> {
+//            for (RowPane<R> pane : getRowPanes()) {
+//                if (pane.getCanvas().isDirty()) {
+//                    pane.getCanvas().draw();
+//                }
+//            }
+//        };
+//
+//        final TKPulseListener tkPulseListener = () -> drawRunnable.run();
+//
+//        sceneProperty().addListener((obs, oldScene, newScene) -> {
+//            if (oldScene != null) {
+//                Toolkit.getToolkit().removeSceneTkPulseListener(tkPulseListener);
+//            }
+//
+//            if (newScene != null) {
+//                Toolkit.getToolkit().addSceneTkPulseListener(tkPulseListener);
+//            }
+//        });
     }
 
     @Override
