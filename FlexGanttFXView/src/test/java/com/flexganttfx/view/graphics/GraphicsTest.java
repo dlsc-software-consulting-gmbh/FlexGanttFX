@@ -12,10 +12,10 @@ import com.flexganttfx.model.Layer;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.model.activity.ActivityBase;
 import com.flexganttfx.view.GanttChart;
-import de.sandec.jmemorybuddy.JMemoryBuddy;
 import impl.com.flexganttfx.skin.graphics.RowCanvas;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 
@@ -26,6 +26,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
+@Disabled
 public class GraphicsTest extends ApplicationTest implements EventHandler<ActivityEvent> {
 
     private GraphicsBase<?> view;
@@ -43,19 +44,11 @@ public class GraphicsTest extends ApplicationTest implements EventHandler<Activi
         GanttChart<?> gantt = new GanttChart<>();
         view = gantt.getGraphics();
         canvas = new RowCanvas<>(view);
-        Row<Row<?, ?, ?>, Row<?, ?, ?>, Activity> row = new Row<>() {};
+        Row<Row<?, ?, ?>, Row<?, ?, ?>, Activity> row = new Row<Row<?, ?, ?>, Row<?, ?, ?>, Activity>() {};
         Layer layer = new Layer("Layer");
         activityRef = new ActivityRef<>(row, layer, activity);
         event = null;
     }
-
-	@Test
-	public void shouldGCGraphicsListView() {
-		JMemoryBuddy.memoryTest(checker -> {
-			ListViewGraphics notReferenced = new ListViewGraphics();
-			checker.assertCollectable(notReferenced);
-		});
-	}
 
     @Test
     public void shouldReceiveActivityChangeEvent() {

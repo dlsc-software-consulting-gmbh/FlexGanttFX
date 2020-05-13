@@ -1,5 +1,5 @@
 ----------------------------------------------------------------
-Release: 11.11.0, May 2020 (Performance / StillCorona Release)
+Release: 8.11.0, May 2020 (Performance / StillCorona Release)
 ----------------------------------------------------------------
 
 >>> THIS IS A MAJOR RELEASE: YOU HAVE TO PURCHASE A NEW LICENSE
@@ -34,7 +34,7 @@ Release: 11.11.0, May 2020 (Performance / StillCorona Release)
 
 
 ----------------------------------------------------------
-Release: 11.10.0, March 2020 (Performance / Corona Release)
+Release: 8.10.0, March 2020 (Performance / Corona Release)
 ----------------------------------------------------------
 
 ** Replaced LinksPane with LinksCanvas. Links are now drawn via CanvasAPI (much faster).
@@ -43,23 +43,6 @@ Release: 11.10.0, March 2020 (Performance / Corona Release)
 ** Custom link renderers can be registered on GraphicsBase.
 ** Reworked layout code of DatelineScale to work properly with latest CSS changes in JavaFX.
 ** Introduced buffers for RowCanvas and DatelineScale to reduce repaints.
-
------------------------------------
-Release: 11.9.1, October 24th, 2019
------------------------------------
-
-** Bug fix: re-enabled drawing of activity links.
-** Re-added missing API docs / javadocs.
-
------------------------------------
-Release: 11.9.0, October 23rd, 2019
------------------------------------
-
-** See Release 8.9.0 plus modularity plus JavaFX 11+ support.
-
-** The demo folder and the applications inside of it were removed as building standalone
-   and executable JAR files have become quite difficult to do with the new module system and
-   the fact that JavaFX is now an external dependency.
 
 ----------------------------------
 Release: 8.9.0, April 8th, 2019

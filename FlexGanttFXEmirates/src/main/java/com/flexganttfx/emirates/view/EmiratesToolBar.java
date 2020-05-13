@@ -143,7 +143,7 @@ public class EmiratesToolBar<R extends Row<?, ?, ?>> extends ToolBar {
 			getItems().add(zoomOut);
 
 			ComboBox<ZoomMode> zoomModeBox = new ComboBox<>();
-			zoomModeBox.setConverter(new StringConverter<>() {
+			zoomModeBox.setConverter(new StringConverter<ZoomMode>() {
 				@Override
 				public String toString(ZoomMode mode) {
 					switch (mode) {

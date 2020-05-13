@@ -83,11 +83,11 @@ public class HelloMultiGanttChartLiteContainer extends FlexGanttFXSampleBase {
 	}
 
 	private Callback<ListView<Entry>, ListCell<Entry>> createCellFactory() {
-		return new Callback<>() {
+		return new Callback<ListView<Entry>, ListCell<Entry>>() {
 
 			@Override
 			public ListCell<Entry> call(ListView<Entry> param) {
-				ListCell<Entry> cell = new ListCell<>() {
+				ListCell<Entry> cell = new ListCell<Entry>() {
 
 					@Override
 					protected void updateItem(Entry item, boolean empty) {

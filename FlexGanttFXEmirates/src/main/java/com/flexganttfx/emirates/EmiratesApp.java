@@ -78,7 +78,7 @@ public class EmiratesApp extends Application {
 
         gantt.getTimeline().showTemporalUnit(ChronoUnit.DAYS, 25);
 
-        final Task<DataModel> task = new Task<>() {
+        final Task<DataModel> task = new Task<DataModel>() {
             @Override
             protected DataModel call() throws Exception {
                 return new DataModel(dataSet, glassPane.progressProperty());
