@@ -45,25 +45,6 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
                 requestRedraw("visibility of links canvas changed to true");
             }
         });
-
-//        final Runnable drawRunnable = () -> {
-//            if (dirty) {
-//                draw();
-//                LoggingDomain.RENDERING.fine("calls to draw links = " + drawCounter + ", actual draws = " + doDrawCounter + ", saved draws = " + (drawCounter - doDrawCounter));
-//            }
-//        };
-//
-//        final TKPulseListener tkPulseListener = () -> drawRunnable.run();
-//
-//        sceneProperty().addListener((obs, oldScene, newScene) -> {
-//            if (oldScene != null) {
-//                Toolkit.getToolkit().removePostSceneTkPulseListener(tkPulseListener);
-//            }
-//
-//            if (newScene != null) {
-//                Toolkit.getToolkit().addPostSceneTkPulseListener(tkPulseListener);
-//            }
-//        });
     }
 
     @Override
@@ -96,17 +77,6 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
             drawCounter = 1;
             doDrawCounter = 1;
         }
-
-        //
-        // Super important to also request a layout because the actual drawing only
-        // happens after a layout pulse gets fired, which is not guaranteed if the
-        // only thing that changed is the content of the canvas.
-        //
-//        if (getParent() != null) {
-//            getParent().requestLayout();
-//        }
-
-        draw();
     }
 
     public final void draw() {

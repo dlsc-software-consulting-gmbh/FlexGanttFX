@@ -64,6 +64,7 @@ import com.sun.javafx.css.converters.PaintConverter;
 import impl.com.flexganttfx.skin.graphics.GraphicsBaseSkin;
 import impl.com.flexganttfx.skin.graphics.LinksCanvas;
 import impl.com.flexganttfx.skin.graphics.RowPane;
+import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.application.Platform;
@@ -625,25 +626,22 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
         setRowHeaderFactory(graphics -> new ScaleRowHeader<>(this));
 
-//        final Runnable drawRunnable = () -> {
-//            for (RowPane<R> pane : getRowPanes()) {
-//                if (pane.getCanvas().isDirty()) {
-//                    pane.getCanvas().draw();
-//                }
-//            }
-//        };
-//
-//        final TKPulseListener tkPulseListener = () -> drawRunnable.run();
-//
-//        sceneProperty().addListener((obs, oldScene, newScene) -> {
-//            if (oldScene != null) {
-//                Toolkit.getToolkit().removeSceneTkPulseListener(tkPulseListener);
-//            }
-//
-//            if (newScene != null) {
-//                Toolkit.getToolkit().addSceneTkPulseListener(tkPulseListener);
-//            }
-//        });
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                getRowPanes().forEach(rowPane -> {
+                    if (rowPane.getCanvas().isDirty()) {
+                        rowPane.getCanvas().draw();
+                    }
+                });
+
+                if (linksCanvas != null && linksCanvas.isDirty()) {
+                    linksCanvas.draw();
+                }
+            }
+        };
+
+        timer.start();
     }
 
     @Override

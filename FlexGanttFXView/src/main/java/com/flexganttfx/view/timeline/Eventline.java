@@ -80,7 +80,7 @@ public class Eventline extends FlexGanttFXControl {
         this.graphics.setActivityRenderer(MutableCompletableActivityBase.class, GanttLayout.class, new EventlineActivityRenderer(this.graphics, "Eventline Mutable Completable Activity Renderer"));
         this.graphics.setShowMarkedTimeInterval(false);
         this.graphics.setShowNowLineLayer(false);
-        this.graphics.setRowHeaderFactory(graphics -> new RowHeader<>(this.graphics) {
+        this.graphics.setRowHeaderFactory(graphics -> new RowHeader<Row<?, ?, ?>>(this.graphics) {
             {
                 getStyleClass().add("eventline-row-header");
                 setAlignment(Pos.CENTER);

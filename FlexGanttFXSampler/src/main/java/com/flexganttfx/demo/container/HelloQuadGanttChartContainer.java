@@ -39,10 +39,10 @@ public class HelloQuadGanttChartContainer extends FlexGanttFXSampleBase {
         GanttChart gc3 = new GanttChart();
         GanttChart gc4 = new GanttChart();
 
-        gc1.setRoot(new Row<>() {});
-        gc2.setRoot(new Row<>() {});
-        gc3.setRoot(new Row<>() {});
-        gc4.setRoot(new Row<>() {});
+        gc1.setRoot(new Row<Row<?, ?, ?>, Row<?, ?, ?>, com.flexganttfx.model.Activity>() {});
+        gc2.setRoot(new Row<Row<?, ?, ?>, Row<?, ?, ?>, com.flexganttfx.model.Activity>() {});
+        gc3.setRoot(new Row<Row<?, ?, ?>, Row<?, ?, ?>, com.flexganttfx.model.Activity>() {});
+        gc4.setRoot(new Row<Row<?, ?, ?>, Row<?, ?, ?>, com.flexganttfx.model.Activity>() {});
 
         quad.setUpperLeftGanttChart(gc1);
         quad.setLowerLeftGanttChart(gc2);
