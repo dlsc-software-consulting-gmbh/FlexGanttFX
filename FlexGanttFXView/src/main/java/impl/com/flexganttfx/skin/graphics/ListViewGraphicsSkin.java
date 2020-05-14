@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package impl.com.flexganttfx.skin.graphics;
@@ -18,6 +18,7 @@ import javafx.event.EventType;
 import javafx.geometry.Bounds;
 import javafx.geometry.Orientation;
 import javafx.geometry.Point2D;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.ListView;
@@ -444,6 +445,14 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
         ScrollBar scrollBar = findScrollBar(listView, Orientation.VERTICAL);
 
         if (scrollBar != null) {
+
+            /*
+             Important to set the cursor explicitly on the scrollbar, otherwise the cursor shown while
+             hovering over the scrollbar will be the one currently set for the graphics area (the scrollbar
+             is a child of the graphics area and RowCanvasBehaviour sets the cursor on the whole area).
+             */
+            scrollBar.setCursor(Cursor.DEFAULT);
+
             scrollBar.valueProperty().addListener(it -> getSkinnable().drawLinks("scrollbar value changed"));
         }
     }
