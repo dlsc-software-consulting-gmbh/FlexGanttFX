@@ -1,7 +1,14 @@
-.warning {
-	-fx-graphic: url("sign_warning.png");
+.warning .ikonli-font-icon {
+	-fx-icon-size: 16px;
+	-fx-icon-color: -fx-accent;
 }
 
-.error {
-	-fx-graphic: url("sign_stop.png");
+.error .ikonli-font-icon {
+	-fx-icon-size: 16px;
+	-fx-icon-color: -fx-accent;
+}
+
+.other .ikonli-font-icon {
+	-fx-icon-size: 16px;
+	-fx-icon-color: -fx-accent;
 }
