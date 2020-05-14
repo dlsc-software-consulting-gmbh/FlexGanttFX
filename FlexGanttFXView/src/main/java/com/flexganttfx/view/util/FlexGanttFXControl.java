@@ -98,7 +98,7 @@ public abstract class FlexGanttFXControl extends Control {
 			}
 
 			System.out.println("(c) 2013-2020 DLSC Software & Consulting GmbH");
-			System.out.println("http://www.dlsc.com");
+			System.out.println("https://www.dlsc.com");
 		}
 	}
 

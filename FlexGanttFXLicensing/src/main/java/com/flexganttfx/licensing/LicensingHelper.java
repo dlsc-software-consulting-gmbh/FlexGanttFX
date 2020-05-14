@@ -93,6 +93,6 @@ public class LicensingHelper {
     }
 
     public static void main(String[] args) {
-        createVendorLicenseKeys(Version.VERSION_11_11);
+        createVendorLicenseKeys(Version.VERSION_12);
     }
 }

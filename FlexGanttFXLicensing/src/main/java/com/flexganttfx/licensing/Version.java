@@ -9,7 +9,8 @@ public enum Version {
 
 	VERSION_1("1"),
 	VERSION_11("11"),
-	VERSION_11_11("11_11");
+	VERSION_11_11("11_11"),
+	VERSION_12("12");
 
 	String text;
 

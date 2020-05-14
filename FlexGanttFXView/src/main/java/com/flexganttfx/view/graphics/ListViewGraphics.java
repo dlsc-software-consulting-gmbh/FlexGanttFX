@@ -8,6 +8,7 @@ package com.flexganttfx.view.graphics;
 import com.flexganttfx.model.Row;
 import com.sun.javafx.scene.control.skin.VirtualFlow;
 import impl.com.flexganttfx.skin.graphics.ListViewGraphicsSkin;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.ListView;
@@ -43,6 +44,8 @@ public class ListViewGraphics<R extends Row<?, ?, ?>> extends GraphicsBase<R> {
 		});
 
 		setPrefSize(700, 350);
+
+		enableRowResizingProperty().bind(Bindings.createBooleanBinding(() -> getFixedCellSize() == -1, fixedCellSizeProperty()));
 	}
 
 	@Override

@@ -107,6 +107,7 @@ import javafx.event.EventType;
 import javafx.event.WeakEventHandler;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.CheckMenuItem;
@@ -4352,6 +4353,29 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         }
     }
 
+    // support for row resizing
+
+    private final BooleanProperty enableRowResizing = new SimpleBooleanProperty(this, "enableRowResizing", true);
+
+    /**
+     * Controls whether the view allows the user to interactively resize the row / change
+     * the row height.
+     *
+     * @return true if the rows can be resized
+     * @since 11.12.0
+     */
+    public final BooleanProperty enableRowResizingProperty() {
+        return enableRowResizing;
+    }
+
+    public final boolean isEnableRowResizing() {
+        return enableRowResizing.get();
+    }
+
+    public final void setEnableRowResizing(boolean enableRowResizing) {
+        this.enableRowResizing.set(enableRowResizing);
+    }
+
     // Row header support.
 
     /**
@@ -4363,9 +4387,78 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
      */
     public static class RowHeader<R extends Row<?, ?, ?>> extends Label {
 
-        public RowHeader() {
+        private final GraphicsBase<R> graphics;
+
+        private double startY;
+
+        public RowHeader(GraphicsBase<R> graphics) {
+            this.graphics = Objects.requireNonNull(graphics, "graphics can not be null");
+
             setAlignment(Pos.CENTER);
             getStyleClass().add("row-header");
+
+            addEventHandler(MouseEvent.MOUSE_MOVED, evt -> {
+                if (evt.getY() > getHeight() - 4 && getItem() != null) {
+                    if (graphics.isEnableRowResizing()) {
+                        setCursor(Cursor.V_RESIZE);
+                    }
+                } else {
+                    setCursor(Cursor.DEFAULT);
+                }
+
+                // do not consume ... horizontal cursor might need it
+            });
+
+            addEventHandler(MouseEvent.MOUSE_PRESSED, evt -> {
+                if (evt.getY() > getHeight() - 4 && graphics.isEnableRowResizing()) {
+                    startY = evt.getY();
+                } else {
+                    startY = -1;
+                }
+                evt.consume();
+            });
+
+            addEventHandler(MouseEvent.MOUSE_DRAGGED, evt -> {
+                if (startY != -1) {
+                    double delta = evt.getY() - startY;
+                    startY = evt.getY();
+
+                    final R row = getItem();
+
+                    if (row != null) {
+                        row.setHeight(Math.min(Math.max(row.getHeight() + delta, row.getMinHeight()), row.getMaxHeight()));
+                    }
+                }
+
+                // consume, or we start scrolling
+                evt.consume();
+            });
+
+            addEventHandler(MouseEvent.MOUSE_RELEASED, evt -> {
+                if (evt.isShiftDown() || evt.isShortcutDown()) {
+                    final R row = getItem();
+
+                    if (row != null) {
+                        double rowHeight = row.getHeight();
+
+                        graphics.getRows().forEach(r -> {
+                            if (rowHeight < r.getMinHeight()) {
+                                r.setHeight(r.getMinHeight());
+                            } else if (rowHeight > r.getMaxHeight()) {
+                                r.setHeight(r.getMaxHeight());
+                            } else {
+                                r.setHeight(rowHeight);
+                            }
+                        });
+
+                        evt.consume();
+                    }
+                }
+            });
+        }
+
+        public final GraphicsBase<R> getGraphics() {
+            return graphics;
         }
 
         private final ObjectProperty<R> item = new SimpleObjectProperty<>(this, "item");

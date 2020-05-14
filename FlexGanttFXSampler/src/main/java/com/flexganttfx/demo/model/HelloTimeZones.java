@@ -10,7 +10,6 @@ import com.flexganttfx.model.Activity;
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.model.activity.CompletableActivityBase;
-import com.flexganttfx.model.dateline.ChronoUnitGrid;
 import com.flexganttfx.view.GanttChart;
 
 import java.time.Instant;
@@ -48,7 +47,7 @@ public class HelloTimeZones extends FlexGanttFXSample {
             row.addActivity(layer, activity);
         }
 
-        gantt.getTimeline().getDateline().setZoneIdVisible(true);
+        gantt.getTimeline().setZoneIdVisible(true);
         gantt.getGraphics().setShowZoneId(true);
 
         gantt.getTimeline().getDateline().setZoneId(ZoneId.of("Europe/Helsinki"));

@@ -1,5 +1,22 @@
 ----------------------------------------------------------------
-Release: 8.11.0, May 2020 (Performance / StillCorona Release)
+Release: 11.12.0, May 14th, 2020
+----------------------------------------------------------------
+
+** CHANGES
+
+   ** Started using system cursors for editing operations in the graphics area. For example
+      Cursor.E_RESIZE to change the end time of an activity. "Old" cursors are still there
+      and can be enabled by calling RowCanvasBehaviour.useCustomCursors().
+   ** Added ability to resize a row / change a row height interactively via the row headers.
+      This gives the user the same ability for resizing as available in the row headers of
+      the tree table.
+   ** Consolidated license keys for Java 8 and Java 11+ version of FlexGanttFX. The versions
+      11.12.x and 8.12.x will now be usable with the same key.
+   ** Moved the timezone label from the dateline to the timeline, as it was not working
+      anymore in combination with a dateline buffer > 0.
+
+----------------------------------------------------------------
+Release: 11.11.0, May 2020 (Performance / StillCorona Release)
 ----------------------------------------------------------------
 
 >>> THIS IS A MAJOR RELEASE: YOU HAVE TO PURCHASE A NEW LICENSE
@@ -34,7 +51,7 @@ Release: 8.11.0, May 2020 (Performance / StillCorona Release)
 
 
 ----------------------------------------------------------
-Release: 8.10.0, March 2020 (Performance / Corona Release)
+Release: 11.10.0, March 2020 (Performance / Corona Release)
 ----------------------------------------------------------
 
 ** Replaced LinksPane with LinksCanvas. Links are now drawn via CanvasAPI (much faster).
@@ -43,6 +60,23 @@ Release: 8.10.0, March 2020 (Performance / Corona Release)
 ** Custom link renderers can be registered on GraphicsBase.
 ** Reworked layout code of DatelineScale to work properly with latest CSS changes in JavaFX.
 ** Introduced buffers for RowCanvas and DatelineScale to reduce repaints.
+
+-----------------------------------
+Release: 11.9.1, October 24th, 2019
+-----------------------------------
+
+** Bug fix: re-enabled drawing of activity links.
+** Re-added missing API docs / javadocs.
+
+-----------------------------------
+Release: 11.9.0, October 23rd, 2019
+-----------------------------------
+
+** See Release 8.9.0 plus modularity plus JavaFX 11+ support.
+
+** The demo folder and the applications inside of it were removed as building standalone
+   and executable JAR files have become quite difficult to do with the new module system and
+   the fact that JavaFX is now an external dependency.
 
 ----------------------------------
 Release: 8.9.0, April 8th, 2019

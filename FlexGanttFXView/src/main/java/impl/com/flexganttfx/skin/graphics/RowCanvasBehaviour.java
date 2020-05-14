@@ -86,51 +86,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
     private static final Map<EditMode, Cursor> cursorMap = new HashMap<>();
 
     static {
-        for (EditMode op : EditMode.values()) {
-            cursorMap.put(op, Cursor.DEFAULT);
-        }
-
-        cursorMap.put(EditMode.NONE, Cursor.DEFAULT);
-
-        Image percentageImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-percentage.gif"));
-        ImageCursor percentageCursor = new ImageCursor(percentageImage, percentageImage.getWidth(), percentageImage.getHeight() / 2);
-        cursorMap.put(EditMode.PERCENTAGE_COMPLETE_CHANGE, percentageCursor);
-
-        Image chartImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-chart-value.gif"));
-        ImageCursor chartValueCursor = new ImageCursor(chartImage, chartImage.getWidth() / 2, chartImage.getHeight() / 2);
-        cursorMap.put(EditMode.CHART_VALUE_CHANGE, chartValueCursor);
-
-        Image dragImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-move.gif"));
-        ImageCursor dragCursor = new ImageCursor(dragImage, dragImage.getWidth() / 2, dragImage.getHeight() / 2);
-        cursorMap.put(EditMode.DRAGGING, dragCursor);
-
-        Image dragHorizontalImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-move-horizontal.gif"));
-        ImageCursor dragHorizontalCursor = new ImageCursor(dragHorizontalImage, dragHorizontalImage.getWidth() / 2, dragHorizontalImage.getHeight() / 2);
-        cursorMap.put(EditMode.DRAGGING_HORIZONTAL, dragHorizontalCursor);
-
-        Image dragVerticalImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-move-vertical.gif"));
-        ImageCursor dragVerticalCursor = new ImageCursor(dragVerticalImage, dragVerticalImage.getWidth() / 2, dragVerticalImage.getHeight() / 2);
-        cursorMap.put(EditMode.DRAGGING_VERTICAL, dragVerticalCursor);
-
-        Image endTimeImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-end-time.gif"));
-        ImageCursor endTimeCursor = new ImageCursor(endTimeImage, endTimeImage.getWidth() / 2, endTimeImage.getHeight() / 2);
-        cursorMap.put(EditMode.END_TIME_CHANGE, endTimeCursor);
-
-        Image startTimeImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-start-time.gif"));
-        ImageCursor startTimeCursor = new ImageCursor(startTimeImage, startTimeImage.getWidth() / 2, startTimeImage.getHeight() / 2);
-        cursorMap.put(EditMode.START_TIME_CHANGE, startTimeCursor);
-
-        Image endTimeAgendaImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-end-time-agenda.gif"));
-        ImageCursor endTimeAgendaCursor = new ImageCursor(endTimeAgendaImage, endTimeAgendaImage.getWidth() / 2, endTimeAgendaImage.getHeight() / 2);
-        cursorMap.put(EditMode.AGENDA_END_TIME_CHANGE, endTimeAgendaCursor);
-
-        Image startTimeAgendaImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-start-time-agenda.gif"));
-        ImageCursor startTimeAgendaCursor = new ImageCursor(startTimeAgendaImage, startTimeAgendaImage.getWidth() / 2, startTimeAgendaImage.getHeight() / 2);
-        cursorMap.put(EditMode.AGENDA_START_TIME_CHANGE, startTimeAgendaCursor);
-
-        Image draggingAgendaImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-move-vertical.gif"));
-        ImageCursor draggingAgendaCursor = new ImageCursor(draggingAgendaImage, draggingAgendaImage.getWidth() / 2, draggingAgendaImage.getHeight() / 2);
-        cursorMap.put(EditMode.AGENDA_DRAGGING, draggingAgendaCursor);
+        useSystemCursors();
     }
 
     private static List<ActivityBounds> selectedBounds;
@@ -176,6 +132,112 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         canvas.addEventHandler(DragEvent.DRAG_DONE, this::dragDone);
 
         canvas.getGraphics().addEventFilter(KeyEvent.ANY, this::updateEditModeAfterKeyEvent);
+    }
+
+    /**
+     * Configures the framework to use the standard cursors provided by the
+     * operating system to indicate the editing operation, e.g. for changing
+     * the end time we wil use Cursor.E_REISZE.
+     *
+     * @see #useCustomCursors()
+     * @since 11.12.0
+     */
+    public static void useSystemCursors() {
+        for (EditMode editMode : EditMode.values()) {
+            Cursor cursor = Cursor.DEFAULT;
+            switch (editMode) {
+                default:
+                case NONE:
+                case DELETING:
+                    break;
+                case START_TIME_CHANGE:
+                    cursor = Cursor.W_RESIZE;
+                    break;
+                case END_TIME_CHANGE:
+                    cursor = Cursor.E_RESIZE;
+                    break;
+                case PERCENTAGE_COMPLETE_CHANGE:
+                    Image percentageImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-percentage.gif"));
+                    cursor = new ImageCursor(percentageImage, percentageImage.getWidth(), percentageImage.getHeight() / 2);
+                    break;
+                case DRAGGING_HORIZONTAL:
+                case AGENDA_DRAGGING:
+                    cursor = Cursor.DEFAULT;
+                    break;
+                case DRAGGING_VERTICAL:
+                case DRAGGING:
+                case CHART_VALUE_CHANGE:
+                    cursor = Cursor.OPEN_HAND;
+                    break;
+                case AGENDA_START_TIME_CHANGE:
+                case CHART_VALUE_HIGH_CHANGE:
+                    cursor = Cursor.N_RESIZE;
+                    break;
+                case AGENDA_END_TIME_CHANGE:
+                case CHART_VALUE_LOW_CHANGE:
+                    cursor = Cursor.S_RESIZE;
+                    break;
+                case AGENDA_ASSIGNING:
+                    break;
+            }
+            cursorMap.put(editMode, cursor);
+        }
+    }
+
+    /**
+     * Configures the framework to use a set of custom cursors provided by the
+     * framework to indicate the editing operation. These cursors ship with the
+     * framework as GIF files.
+     *
+     * @see #useSystemCursors()
+     * @since 11.12.0
+     */
+    public static void useCustomCursors() {
+        for (EditMode op : EditMode.values()) {
+            cursorMap.put(op, Cursor.DEFAULT);
+        }
+
+        cursorMap.put(EditMode.NONE, Cursor.DEFAULT);
+
+        Image percentageImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-percentage.gif"));
+        ImageCursor percentageCursor = new ImageCursor(percentageImage, percentageImage.getWidth(), percentageImage.getHeight() / 2);
+        cursorMap.put(EditMode.PERCENTAGE_COMPLETE_CHANGE, percentageCursor);
+
+        Image chartImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-chart-value.gif"));
+        ImageCursor chartValueCursor = new ImageCursor(chartImage, chartImage.getWidth() / 2, chartImage.getHeight() / 2);
+        cursorMap.put(EditMode.CHART_VALUE_CHANGE, chartValueCursor);
+
+        Image dragImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-move.gif"));
+        ImageCursor dragCursor = new ImageCursor(dragImage, dragImage.getWidth() / 2, dragImage.getHeight() / 2);
+        cursorMap.put(EditMode.DRAGGING, dragCursor);
+
+        Image dragHorizontalImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-move-horizontal.gif"));
+        ImageCursor dragHorizontalCursor = new ImageCursor(dragHorizontalImage, dragHorizontalImage.getWidth() / 2, dragHorizontalImage.getHeight() / 2);
+        cursorMap.put(EditMode.DRAGGING_HORIZONTAL, dragHorizontalCursor);
+
+        Image dragVerticalImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-move-vertical.gif"));
+        ImageCursor dragVerticalCursor = new ImageCursor(dragVerticalImage, dragVerticalImage.getWidth() / 2, dragVerticalImage.getHeight() / 2);
+        cursorMap.put(EditMode.DRAGGING_VERTICAL, dragVerticalCursor);
+
+        Image endTimeImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-end-time.gif"));
+        ImageCursor endTimeCursor = new ImageCursor(endTimeImage, endTimeImage.getWidth() / 2, endTimeImage.getHeight() / 2);
+        cursorMap.put(EditMode.END_TIME_CHANGE, endTimeCursor);
+
+        Image startTimeImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-start-time.gif"));
+        ImageCursor startTimeCursor = new ImageCursor(startTimeImage, startTimeImage.getWidth() / 2, startTimeImage.getHeight() / 2);
+        cursorMap.put(EditMode.START_TIME_CHANGE, startTimeCursor);
+
+        Image endTimeAgendaImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-end-time-agenda.gif"));
+        ImageCursor endTimeAgendaCursor = new ImageCursor(endTimeAgendaImage, endTimeAgendaImage.getWidth() / 2, endTimeAgendaImage.getHeight() / 2);
+        cursorMap.put(EditMode.AGENDA_END_TIME_CHANGE, endTimeAgendaCursor);
+
+        Image startTimeAgendaImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-start-time-agenda.gif"));
+        ImageCursor startTimeAgendaCursor = new ImageCursor(startTimeAgendaImage, startTimeAgendaImage.getWidth() / 2, startTimeAgendaImage.getHeight() / 2);
+        cursorMap.put(EditMode.AGENDA_START_TIME_CHANGE, startTimeAgendaCursor);
+
+        Image draggingAgendaImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-move-vertical.gif"));
+        ImageCursor draggingAgendaCursor = new ImageCursor(draggingAgendaImage, draggingAgendaImage.getWidth() / 2, draggingAgendaImage.getHeight() / 2);
+        cursorMap.put(EditMode.AGENDA_DRAGGING, draggingAgendaCursor);
     }
 
     private void draw() {

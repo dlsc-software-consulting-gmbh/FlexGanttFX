@@ -487,41 +487,6 @@ public class Dateline extends FlexGanttFXControl {
         zoneIdProperty().set(zoneId);
     }
 
-    // ZoneId visibility support.
-
-    private final BooleanProperty zoneIdVisible = new SimpleBooleanProperty(this, "zoneIdVisible", false);
-
-    /**
-     * A property used to control the visibility of the time zone name. The dateline is capable
-     * of displaying the time zone that it represents in its upper right corner.
-     *
-     * @return true if the time zone ID shall be visible
-     * @since 1.0
-     */
-    public final BooleanProperty zoneIdVisibleProperty() {
-        return zoneIdVisible;
-    }
-
-    /**
-     * Returns the value of the {@link #zoneIdVisibleProperty()}.
-     *
-     * @return true if the time zone ID shall be shown to the user
-     * @since 1.0
-     */
-    public final boolean isZoneIdVisible() {
-        return zoneIdVisibleProperty().get();
-    }
-
-    /**
-     * Sets the value of the {@link #zoneIdVisibleProperty()}.
-     *
-     * @param visible true if the time zone ID shall be shown to the user
-     * @since 1.0
-     */
-    public final void setZoneIdVisible(boolean visible) {
-        zoneIdVisibleProperty().set(visible);
-    }
-
     // Primary temporal unit support.
 
     private final ReadOnlyObjectWrapper<TemporalUnit> primaryTemporalUnit = new ReadOnlyObjectWrapper<>();
@@ -685,9 +650,9 @@ public class Dateline extends FlexGanttFXControl {
         contextMenu.getItems().clear();
 
         CheckMenuItem showTimezoneItem = new CheckMenuItem(Messages.getString("Dateline.MENU_ITEM_SHOW_TIMEZONE"));
-        showTimezoneItem.setSelected(isZoneIdVisible());
+        showTimezoneItem.setSelected(timeline.isZoneIdVisible());
 
-        Bindings.bindBidirectional(zoneIdVisibleProperty(), showTimezoneItem.selectedProperty());
+        Bindings.bindBidirectional(timeline.zoneIdVisibleProperty(), showTimezoneItem.selectedProperty());
 
         Menu unitsMenu = new Menu(Messages.getString("Dateline.MENU_TIME_UNIT"));
         Menu zoneIdMenu = new Menu(Messages.getString("Dateline.MENU_TIME_ZONE"));
