@@ -7,11 +7,11 @@ Release: 11.12.0, May 14th, 2020
    ** Started using system cursors for editing operations in the graphics area. For example
       Cursor.E_RESIZE to change the end time of an activity. "Old" cursors are still there
       and can be enabled by calling RowCanvasBehaviour.useCustomCursors().
+   ** Added ability to resize a row / change a row height interactively via the row headers.
+      This gives the user the same ability for resizing as available in the row headers of
+      the tree table.
    ** Consolidated license keys for Java 8 and Java 11+ version of FlexGanttFX. The versions
-      11.12.x and 8.12.x will not be usable with the same key.
-
-** BUG FIXES
-
+      11.12.x and 8.12.x will now be usable with the same key.
    ** Moved the timezone label from the dateline to the timeline, as it was not working
       anymore in combination with a dateline buffer > 0.
 

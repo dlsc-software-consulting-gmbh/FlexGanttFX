@@ -46,7 +46,7 @@ public class EmiratesAircraftGanttChart extends GanttChartLite<ModelObject<?, ?,
         graphics.setRowHeadersWidth(80);
         graphics.getBackgroundSystemLayers().add(new GroupSystemLayer(graphics));
         graphics.setActivityRenderer(Flight.class, GanttLayout.class, new FlightRenderer(graphics));
-        graphics.setRowHeaderFactory(g -> new RowHeader<>() {
+        graphics.setRowHeaderFactory(g -> new RowHeader<>(graphics) {
             {
                 setAlignment(Pos.CENTER);
                 itemProperty().addListener(it -> {

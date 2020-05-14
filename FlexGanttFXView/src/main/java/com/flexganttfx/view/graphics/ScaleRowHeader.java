@@ -34,7 +34,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.List;
-import java.util.Objects;
 
 import static java.util.Objects.requireNonNull;
 import static javafx.geometry.VPos.CENTER;
@@ -53,7 +52,6 @@ import static javafx.scene.text.TextAlignment.RIGHT;
  */
 public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
 
-    private final GraphicsBase<R> graphics;
     private final Canvas canvas;
     private final ObjectProperty<Paint> dividerLineStroke = new SimpleObjectProperty<>(this, "dividerLineStroke");
     private final InvalidationListener redrawListener = observable -> draw();
@@ -86,7 +84,8 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
     };
 
     public ScaleRowHeader(GraphicsBase<R> graphics) {
-        this.graphics = Objects.requireNonNull(graphics);
+        super(graphics);
+
         this.canvas = new Canvas() {
 
             @Override
@@ -218,7 +217,7 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         try {
-            if (graphics.isSafeRendering()) {
+            if (getGraphics().isSafeRendering()) {
                 gc.save();
             }
 
@@ -230,7 +229,7 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
                 return drawLayoutHeaderChart(yOffset, height, (ChartLayout) layout);
             }
         } finally {
-            if (graphics.isSafeRendering()) {
+            if (getGraphics().isSafeRendering()) {
                 gc.restore();
             }
         }

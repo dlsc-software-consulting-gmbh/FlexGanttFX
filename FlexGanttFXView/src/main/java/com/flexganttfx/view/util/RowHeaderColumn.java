@@ -77,7 +77,7 @@ public class RowHeaderColumn<R extends Row<?, ?, ?>> extends TreeTableColumn<R, 
         this.ganttChart = ganttChart;
         this.treeTable = ganttChart.getTreeTable();
 
-        setCellFactory(column -> new RowHeaderCell());
+        setCellFactory(column -> new RowHeaderColumnCell());
 
         setPrefWidth(30);
         setResizable(true);
@@ -182,7 +182,7 @@ public class RowHeaderColumn<R extends Row<?, ?, ?>> extends TreeTableColumn<R, 
         return ganttChart;
     }
 
-    class RowHeaderCell extends TreeTableCell<R, R> {
+    class RowHeaderColumnCell extends TreeTableCell<R, R> {
         private static final String DEFAULT_STYLE_CLASS = "row-header-cell";
 
         private R row;
@@ -201,7 +201,7 @@ public class RowHeaderColumn<R extends Row<?, ?, ?>> extends TreeTableColumn<R, 
             updateItem(row, empty);
         };
 
-        public RowHeaderCell() {
+        public RowHeaderColumnCell() {
 
             ganttChart.rowHeaderTypeProperty().addListener(new WeakInvalidationListener(typeListener));
             ganttChart.rowHeaderNodeFactoryProperty().addListener(new WeakInvalidationListener(nodeFactoryListener));
