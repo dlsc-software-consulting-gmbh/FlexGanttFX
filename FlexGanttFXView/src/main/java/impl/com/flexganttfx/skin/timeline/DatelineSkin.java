@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package impl.com.flexganttfx.skin.timeline;
@@ -13,43 +13,34 @@ import com.flexganttfx.model.util.TimeInterval;
 import com.flexganttfx.view.timeline.Dateline;
 import com.flexganttfx.view.timeline.DatelineScrollingEvent;
 import com.flexganttfx.view.timeline.Timeline;
-import javafx.animation.FadeTransition;
-import javafx.animation.ParallelTransition;
-import javafx.animation.SequentialTransition;
-import javafx.animation.TranslateTransition;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.WeakChangeListener;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
-import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
 
 import java.time.Instant;
 import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import static com.flexganttfx.model.dateline.Resolution.Position.BOTTOM;
 import static com.flexganttfx.model.dateline.Resolution.Position.MIDDLE;
 import static com.flexganttfx.model.dateline.Resolution.Position.ONLY;
 import static com.flexganttfx.model.dateline.Resolution.Position.TOP;
-import static java.time.format.TextStyle.FULL;
 
 public class DatelineSkin extends SkinBase<Dateline> {
 
     protected final Region lasso;
     private final VBox scalesBox;
     private final Map<Integer, DatelineScale> rowScaleMap = new HashMap<>();
-    private final Label zoneIdLabel;
 
     private final ChangeListener<Instant> startTimeListener = (value, oldTime, newTime) -> {
         final Dateline dateline = getSkinnable();
@@ -79,15 +70,6 @@ public class DatelineSkin extends SkinBase<Dateline> {
     public DatelineSkin(Dateline dateline) {
         super(dateline);
 
-        this.zoneIdLabel = new Label();
-        this.zoneIdLabel.getStyleClass().add("zone-id-label");
-        this.zoneIdLabel.setLayoutX(0);
-        this.zoneIdLabel.setLayoutY(0);
-        this.zoneIdLabel.setVisible(dateline.isZoneIdVisible());
-        this.zoneIdLabel.setManaged(false);
-
-        updateZoneIdLabel(false);
-
         this.lasso = new Region();
         this.lasso.setVisible(false);
         this.lasso.getStyleClass().add("zoom-lasso");
@@ -98,7 +80,7 @@ public class DatelineSkin extends SkinBase<Dateline> {
         scalesBox.setSnapToPixel(false); // important, otherwise we get gaps
         scalesBox.getStyleClass().add("dateline-content");
 
-        getChildren().addAll(scalesBox, zoneIdLabel, lasso);
+        getChildren().addAll(scalesBox, lasso);
 
         registerDatelineListeners(dateline);
         registerDatelineModelListeners(dateline);
@@ -187,21 +169,10 @@ public class DatelineSkin extends SkinBase<Dateline> {
     private void registerDatelineListeners(Dateline dateline) {
         dateline.datelineBufferProperty().addListener(it -> getSkinnable().requestLayout());
 
-        dateline.zoneIdProperty().addListener(
-                (value, oldZoneId, newZoneId) -> {
-                    dateline.getSelectedIntervals().clear();
-                    updateZoneIdLabel(true);
-                    getSkinnable().requestLayout();
-                });
-
-        dateline.zoneIdVisibleProperty().addListener(
-                (value, oldValue, newValue) -> {
-                    if (newValue) {
-                        showZoneIdLabel();
-                    } else {
-                        hideZoneIdLabel();
-                    }
-                });
+        dateline.zoneIdProperty().addListener((value, oldZoneId, newZoneId) -> {
+            dateline.getSelectedIntervals().clear();
+            getSkinnable().requestLayout();
+        });
     }
 
     private void registerDatelineModelListeners(Dateline dateline) {
@@ -299,59 +270,6 @@ public class DatelineSkin extends SkinBase<Dateline> {
         return null;
     }
 
-    private void showZoneIdLabel() {
-        zoneIdLabel.setOpacity(0);
-        zoneIdLabel.setVisible(true);
-        double labelHeight = zoneIdLabel.prefHeight(getDateline().getHeight());
-
-        TranslateTransition tt = new TranslateTransition(Duration.millis(500), zoneIdLabel);
-        tt.setFromY(-labelHeight);
-        tt.setToY(0);
-
-        FadeTransition fadeIn = new FadeTransition(Duration.seconds(.5), zoneIdLabel);
-        fadeIn.setFromValue(0);
-        fadeIn.setToValue(1);
-
-        ParallelTransition parallelTransition = new ParallelTransition(fadeIn, tt);
-        parallelTransition.play();
-    }
-
-    private void hideZoneIdLabel() {
-        double labelHeight = zoneIdLabel.prefHeight(getDateline().getWidth());
-        TranslateTransition tt = new TranslateTransition(Duration.millis(500), zoneIdLabel);
-        tt.setToY(-labelHeight);
-        tt.setFromY(zoneIdLabel.getLayoutY());
-
-        FadeTransition fadeOut = new FadeTransition(Duration.seconds(.5), zoneIdLabel);
-        fadeOut.setToValue(0);
-        fadeOut.setOnFinished(evt -> updateZoneIdText());
-
-        ParallelTransition parallelTransition = new ParallelTransition(tt, fadeOut);
-        parallelTransition.play();
-    }
-
-    private void updateZoneIdLabel(boolean animate) {
-        if (animate) {
-            FadeTransition fadeOut = new FadeTransition(Duration.seconds(.5), zoneIdLabel);
-            fadeOut.setToValue(.1);
-            fadeOut.setOnFinished(evt -> updateZoneIdText());
-
-            FadeTransition fadeIn = new FadeTransition(Duration.seconds(.5), zoneIdLabel);
-            fadeIn.setToValue(1);
-
-            SequentialTransition sequentialTransition = new SequentialTransition(fadeOut, fadeIn);
-            sequentialTransition.play();
-        } else {
-            updateZoneIdText();
-        }
-    }
-
-    private void updateZoneIdText() {
-        String text = getDateline().getZoneId().getDisplayName(FULL, Locale.getDefault());
-        zoneIdLabel.setText(text);
-        getDateline().requestLayout();
-    }
-
     private void updateLasso() {
         Dateline dateline = getSkinnable();
         TimeInterval selectedTimeInterval = dateline.getSelectedTimeInterval();
@@ -387,11 +305,6 @@ public class DatelineSkin extends SkinBase<Dateline> {
         }
 
         super.layoutChildren(x, y, width, height);
-
-        double w = Math.min(width, zoneIdLabel.prefWidth(height));
-        double h = zoneIdLabel.prefHeight(width);
-
-        zoneIdLabel.resizeRelocate(width - w - 10, zoneIdLabel.getLayoutY(), w, h);
 
         lasso.resizeRelocate(lasso.getLayoutX(), lasso.getLayoutY(), lasso.getPrefWidth(), lasso.getPrefHeight());
     }

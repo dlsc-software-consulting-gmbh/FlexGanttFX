@@ -153,6 +153,42 @@ public class Timeline extends FlexGanttFXControl {
         return super.getUserAgentStylesheet(Timeline.class, "timeline.css");
     }
 
+    // ZoneId visibility support.
+
+    private final BooleanProperty zoneIdVisible = new SimpleBooleanProperty(this, "zoneIdVisible", false);
+
+    /**
+     * A property used to control the visibility of the time zone name. The timeline is capable
+     * of displaying the time zone that it represented inside the {@link Dateline} in its upper
+     * right corner.
+     *
+     * @return true if the time zone ID shall be visible
+     * @since 1.0
+     */
+    public final BooleanProperty zoneIdVisibleProperty() {
+        return zoneIdVisible;
+    }
+
+    /**
+     * Returns the value of the {@link #zoneIdVisibleProperty()}.
+     *
+     * @return true if the time zone ID shall be shown to the user
+     * @since 1.0
+     */
+    public final boolean isZoneIdVisible() {
+        return zoneIdVisibleProperty().get();
+    }
+
+    /**
+     * Sets the value of the {@link #zoneIdVisibleProperty()}.
+     *
+     * @param visible true if the time zone ID shall be shown to the user
+     * @since 1.0
+     */
+    public final void setZoneIdVisible(boolean visible) {
+        zoneIdVisibleProperty().set(visible);
+    }
+
     // offset support
 
     private final DoubleProperty offset = new SimpleDoubleProperty(this, "offset");

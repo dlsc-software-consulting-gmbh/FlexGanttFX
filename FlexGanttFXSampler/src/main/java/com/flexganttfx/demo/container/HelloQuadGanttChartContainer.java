@@ -7,6 +7,8 @@ package com.flexganttfx.demo.container;
 
 import com.flexganttfx.demo.FlexGanttFXSampleBase;
 import com.flexganttfx.extras.properties.QuadGanttChartContainerBaseItemProvider;
+import com.flexganttfx.model.Row;
+import com.flexganttfx.view.GanttChart;
 import com.flexganttfx.view.container.QuadGanttChartContainer;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -31,6 +33,23 @@ public class HelloQuadGanttChartContainer extends FlexGanttFXSampleBase {
         quad = new QuadGanttChartContainer();
         quad.getUpperLeftGanttChart().getGraphics().setShowRowHeaders(true);
         quad.getUpperLeftGanttChart().getGraphics().setRowHeadersWidth(200);
+
+        GanttChart gc1 = new GanttChart();
+        GanttChart gc2 = new GanttChart();
+        GanttChart gc3 = new GanttChart();
+        GanttChart gc4 = new GanttChart();
+
+        gc1.setRoot(new Row<>() {});
+        gc2.setRoot(new Row<>() {});
+        gc3.setRoot(new Row<>() {});
+        gc4.setRoot(new Row<>() {});
+
+        quad.setUpperLeftGanttChart(gc1);
+        quad.setLowerLeftGanttChart(gc2);
+        quad.setUpperRightGanttChart(gc3);
+        quad.setLowerRightGanttChart(gc4);
+
+        quad.getUpperLeftGanttChart().getGraphics().setShowRowHeaders(true);
 
         return quad;
     }
