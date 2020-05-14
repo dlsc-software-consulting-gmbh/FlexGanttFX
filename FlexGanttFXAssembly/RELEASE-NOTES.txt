@@ -4,6 +4,9 @@ Release: 11.12.0, May 14th, 2020
 
 ** CHANGES
 
+   ** Started using system cursors for editing operations in the graphics area. For example
+      Cursor.E_RESIZE to change the end time of an activity. "Old" cursors are still there
+      and can be enabled by calling RowCanvasBehaviour.useCustomCursors().
    ** Consolidated license keys for Java 8 and Java 11+ version of FlexGanttFX. The versions
       11.12.x and 8.12.x will not be usable with the same key.
 
