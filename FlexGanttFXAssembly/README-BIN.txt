@@ -1,5 +1,3 @@
-Homepage: http://www.dlsc.com
-
 This is the FlexGanttFX distribution. It contains the following items:
 
 -- manual.pdf
