@@ -17,6 +17,7 @@ Release: 11.12.0, May 14th, 2020
    ** Removed support for dateline scrolling events. These events could not be produced
       correctly anymore after introducing the dateline buffer concept. Added new "visible
       time interval" read-only property on Timeline, which can be used instead.
+   ** Enhanced RadarView's performance. Also added auto-redraw upon activity changes.
 
 ----------------------------------------------------------------
 Release: 11.11.0, May 2020 (Performance / StillCorona Release)
