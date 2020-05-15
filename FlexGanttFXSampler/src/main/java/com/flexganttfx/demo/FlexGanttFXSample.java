@@ -7,8 +7,8 @@ package com.flexganttfx.demo;
 
 import com.flexganttfx.extras.GanttChartStatusBar;
 import com.flexganttfx.extras.GanttChartToolBar;
+import com.flexganttfx.model.util.TimeInterval;
 import com.flexganttfx.view.GanttChartBase;
-import com.flexganttfx.view.timeline.DatelineScrollingEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
@@ -24,18 +24,24 @@ public abstract class FlexGanttFXSample extends FlexGanttFXSampleBase {
 	private GanttChartToolBar<?> toolbar;
 	private GanttChartStatusBar<?> statusbar;
 	private DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT);
+	private BorderPane ganttPane;
 
 	protected FlexGanttFXSample() {
 	}
 
 	@Override
 	public final Node getPanel(Stage stage) {
+		if (ganttPane != null) {
+			return ganttPane;
+		}
+
 		try {
 			ganttChart = createGanttChart();
 
-			ganttChart.getTimeline().getDateline().addEventHandler(DatelineScrollingEvent.ANY_SCROLLING, evt -> {
-				ZonedDateTime st = ZonedDateTime.ofInstant(evt.getStartTime(), ZoneId.systemDefault());
-				ZonedDateTime et = ZonedDateTime.ofInstant(evt.getEndTime(), ZoneId.systemDefault());
+			ganttChart.getTimeline().visibleTimeIntervalProperty().addListener(it -> {
+				final TimeInterval interval = ganttChart.getTimeline().getVisibleTimeInterval();
+				ZonedDateTime st = ZonedDateTime.ofInstant(interval.getStartTime(), ZoneId.systemDefault());
+				ZonedDateTime et = ZonedDateTime.ofInstant(interval.getEndTime(), ZoneId.systemDefault());
 				getStatusbar().setText(formatter.format(st) + " - " + formatter.format(et));
 			});
 		} catch (Exception e) {
@@ -45,7 +51,7 @@ public abstract class FlexGanttFXSample extends FlexGanttFXSampleBase {
 		toolbar = new GanttChartToolBar<>(ganttChart);
 		statusbar = new GanttChartStatusBar<>(ganttChart);
 
-		BorderPane ganttPane = new BorderPane();
+		ganttPane = new BorderPane();
 		BorderPane.setMargin(ganttChart, new Insets(10));
 		ganttPane.setTop(toolbar);
 		ganttPane.setCenter(ganttChart);

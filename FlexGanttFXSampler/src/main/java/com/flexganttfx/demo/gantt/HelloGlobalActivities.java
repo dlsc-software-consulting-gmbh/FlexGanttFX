@@ -120,7 +120,7 @@ public class HelloGlobalActivities extends FlexGanttFXSample {
     class PhaseActivityRenderer extends ActivityRenderer {
 
         public PhaseActivityRenderer(GraphicsBase graphics) {
-            super(graphics, "Phase Activity Renderer");
+            super(graphics, "Phase Activity Renderer 2");
             fillProperty().bindBidirectional(phaseColor);
             setStroke(Color.TRANSPARENT);
         }

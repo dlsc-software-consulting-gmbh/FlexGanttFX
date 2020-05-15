@@ -39,11 +39,6 @@
 	<files>
 
 		<file>
-			<source>manual.pdf</source>
-			<outputDirectory>.</outputDirectory>
-		</file>
-
-		<file>
 			<source>RELEASE-NOTES.txt</source>
 			<outputDirectory>.</outputDirectory>
 		</file>

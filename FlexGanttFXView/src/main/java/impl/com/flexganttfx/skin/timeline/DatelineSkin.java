@@ -11,7 +11,6 @@ import com.flexganttfx.model.dateline.Resolution.Position;
 import com.flexganttfx.model.timeline.TimelineModel;
 import com.flexganttfx.model.util.TimeInterval;
 import com.flexganttfx.view.timeline.Dateline;
-import com.flexganttfx.view.timeline.DatelineScrollingEvent;
 import com.flexganttfx.view.timeline.Timeline;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -60,7 +59,7 @@ public class DatelineSkin extends SkinBase<Dateline> {
                 dateline.setTranslateX(Math.min(0, -dateline.getDatelineBuffer()));
             }
 
-            updateDatelineCells();
+            buildCells();
         }
 
     };
@@ -93,11 +92,8 @@ public class DatelineSkin extends SkinBase<Dateline> {
         clip.heightProperty().bind(dateline.heightProperty());
         dateline.setClip(clip);
 
-        dateline.getTimeline().offsetProperty().addListener(it -> updateDatelineCells());
-        dateline.widthProperty().addListener(it -> updateDatelineCells());
-
-        dateline.widthProperty().addListener((value, oldNumber, newNumber) -> fireScrollingEvent());
-        dateline.heightProperty().addListener((value, oldNumber, newNumber) -> fireScrollingEvent());
+        dateline.getTimeline().offsetProperty().addListener(it -> buildCells());
+        dateline.widthProperty().addListener(it -> buildCells());
 
         buildRows();
     }
@@ -124,7 +120,7 @@ public class DatelineSkin extends SkinBase<Dateline> {
                 scale.setResolution(null);
             }
 
-            updateDatelineCells();
+            buildCells();
         };
 
         timeline.getModel().millisPerPixelProperty().addListener(mppListener);
@@ -144,26 +140,6 @@ public class DatelineSkin extends SkinBase<Dateline> {
 
                     getSkinnable().requestLayout();
                 }));
-    }
-
-    private void updateDatelineCells() {
-        buildCells();
-        fireScrollingEvent();
-    }
-
-    private void fireScrollingEvent() {
-        Timeline timeline = getSkinnable().getTimeline();
-
-        Instant startTime = timeline.getModel().getStartTime();
-        Instant endTime = timeline.getModel().calculateTimeForLocation(
-                getSkinnable().getWidth());
-
-        DatelineScrollingEvent event = new DatelineScrollingEvent(
-                getSkinnable(), getSkinnable(),
-                DatelineScrollingEvent.VISIBLE_RANGE_CHANGED, startTime,
-                endTime, getSkinnable().getZoneId());
-
-        getSkinnable().fireEvent(event);
     }
 
     private void registerDatelineListeners(Dateline dateline) {

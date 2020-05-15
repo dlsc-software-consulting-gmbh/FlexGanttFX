@@ -106,6 +106,7 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
         ganttChart.getGraphics().setActivityRenderer(CapacityIndicator.class, GanttLayout.class, new CapacityIndicatorRenderer(ganttChart.getGraphics()));
         ganttChart.getTimeline().setZoomMode(ZoomMode.KEEP_START_TIME);
         ganttChart.getGraphics().setActivityRenderer(AgendaEntry.class, AgendaLayout.class, new AgendaEntryRenderer(ganttChart.getGraphics()));
+        ganttChart.getGraphics().setShowRowHeaders(true);
 
         Layer capacitiesLayer = new Layer("Capacities");
         Layer agendaLayer = new Layer("Agenda");

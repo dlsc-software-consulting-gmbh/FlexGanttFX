@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package impl.com.flexganttfx.extras.skin;
@@ -11,40 +11,41 @@ import com.flexganttfx.model.ActivityRepository;
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.model.timeline.TimelineModel;
+import com.flexganttfx.model.util.TimeInterval;
+import com.flexganttfx.view.graphics.ActivityEvent;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.timeline.Dateline;
-import com.flexganttfx.view.timeline.DatelineScrollingEvent;
 import com.flexganttfx.view.timeline.Timeline;
 import javafx.beans.InvalidationListener;
 import javafx.beans.WeakInvalidationListener;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
-import javafx.event.WeakEventHandler;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Cursor;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.SkinBase;
+import javafx.scene.input.InputEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.temporal.TemporalUnit;
 import java.util.Iterator;
 
-public class RadarViewSkin<R extends Row<?, ?, ?>>
-        extends SkinBase<RadarView<R>> {
+public class RadarViewSkin<R extends Row<?, ?, ?>> extends SkinBase<RadarView<R>> {
 
-    private Canvas canvas;
+    private final Canvas activitiesCanvas;
+    private final Canvas visibleTimeIntervalCanvas;
+
+    private final InvalidationListener redrawTimeIntervalListener = evt -> drawVisibleTimeInterval();
+    private final InvalidationListener weakRedrawTimeIntervalListener = new WeakInvalidationListener(redrawTimeIntervalListener);
+
     private Rectangle2D visibleBounds;
-
-    private EventHandler<DatelineScrollingEvent> scrollingListener = evt -> drawRadar();
-    private WeakEventHandler<DatelineScrollingEvent> weakScrollingListener = new WeakEventHandler<>(scrollingListener);
-
-    private InvalidationListener redrawListener = evt -> drawRadar();
-    private InvalidationListener weakRedrawListener = new WeakInvalidationListener(redrawListener);
 
     public RadarViewSkin(RadarView<R> view) {
         super(view);
@@ -52,74 +53,79 @@ public class RadarViewSkin<R extends Row<?, ?, ?>>
         StackPane stackPane = new StackPane();
         stackPane.getStyleClass().add("radar");
 
-        canvas = new Canvas();
-        canvas.widthProperty().bind(view.radarWidthProperty());
-        canvas.heightProperty().bind(view.radarHeightProperty());
-        stackPane.getChildren().add(canvas);
+        activitiesCanvas = new Canvas();
+        activitiesCanvas.widthProperty().bind(view.radarWidthProperty());
+        activitiesCanvas.heightProperty().bind(view.radarHeightProperty());
+        stackPane.getChildren().add(activitiesCanvas);
+
+        visibleTimeIntervalCanvas = new Canvas();
+        visibleTimeIntervalCanvas.widthProperty().bind(view.radarWidthProperty());
+        visibleTimeIntervalCanvas.heightProperty().bind(view.radarHeightProperty());
+        stackPane.getChildren().add(visibleTimeIntervalCanvas);
 
         getChildren().add(stackPane);
 
         GraphicsBase<?> graphics = view.getGraphics();
+        final EventHandler<InputEvent> activityEventHandler = evt -> drawActivities();
+
         if (graphics != null) {
-            graphics.getTimeline().getDateline().addEventHandler(DatelineScrollingEvent.ANY_SCROLLING, weakScrollingListener);
-            graphics.getRows().addListener(weakRedrawListener);
+            graphics.getTimeline().visibleTimeIntervalProperty().addListener(weakRedrawTimeIntervalListener);
+            graphics.getRows().addListener(weakRedrawTimeIntervalListener);
+            graphics.addEventHandler(ActivityEvent.ANY, activityEventHandler);
         }
 
         view.graphicsProperty().addListener((observable, oldGraphics, newGraphics) -> {
 
             if (oldGraphics != null) {
-                oldGraphics.getTimeline().getDateline().removeEventHandler(DatelineScrollingEvent.ANY_SCROLLING, weakScrollingListener);
-                oldGraphics.getRows().removeListener(weakRedrawListener);
+                graphics.getTimeline().visibleTimeIntervalProperty().removeListener(weakRedrawTimeIntervalListener);
+                oldGraphics.getRows().removeListener(weakRedrawTimeIntervalListener);
+                oldGraphics.removeEventHandler(ActivityEvent.ANY, activityEventHandler);
             }
 
             if (newGraphics != null) {
-                newGraphics.getTimeline().getDateline().addEventHandler(DatelineScrollingEvent.ANY_SCROLLING, weakScrollingListener);
-                newGraphics.getRows().addListener(weakRedrawListener);
+                graphics.getTimeline().visibleTimeIntervalProperty().addListener(weakRedrawTimeIntervalListener);
+                newGraphics.getRows().addListener(weakRedrawTimeIntervalListener);
+                newGraphics.addEventHandler(ActivityEvent.ANY, activityEventHandler);
             }
         });
 
-        drawRadar();
+        drawAll();
 
-        canvas.setOnMouseMoved(this::mouseMoved);
-        canvas.setOnMousePressed(this::mousePressed);
-        canvas.setOnMouseDragged(this::mouseDragged);
+        visibleTimeIntervalCanvas.setOnMousePressed(this::mousePressed);
+        visibleTimeIntervalCanvas.setOnMouseDragged(this::mouseDragged);
+        visibleTimeIntervalCanvas.setOnMouseClicked(this::mouseClicked);
     }
-
-    private void mouseMoved(MouseEvent e) {
-        if (visibleBounds != null && visibleBounds.contains(e.getX(), e.getY())) {
-            canvas.setCursor(Cursor.HAND);
-        }
-    }
-
-    private double dragStart;
 
     private void mousePressed(MouseEvent e) {
-        if (visibleBounds != null && visibleBounds.contains(e.getX(), e.getY())) {
-            canvas.setCursor(Cursor.CLOSED_HAND);
-            dragStart = e.getX();
-        }
     }
 
     private void mouseDragged(MouseEvent e) {
-        if (visibleBounds != null) {
-            double delta = e.getX() - dragStart;
-            dragStart = e.getX();
-
-            double location = Math.min(canvas.getWidth() - visibleBounds.getWidth(), Math.max(0, visibleBounds.getMinX() + delta));
-
-            Instant time = calculateTimeAt(location);
-
-            Timeline timeline = getSkinnable().getGraphics().getTimeline();
-            TimelineModel<?> timelineModel = timeline.getModel();
-            timelineModel.setStartTime(time);
-        }
+        showLocation(e.getX() - visibleBounds.getWidth() / 2);
     }
 
-    private void drawRadar() {
-        GraphicsContext gc = canvas.getGraphicsContext2D();
+    private void mouseClicked(MouseEvent e) {
+        showLocation(e.getX() - visibleBounds.getWidth() / 2);
+    }
 
-        double width = canvas.getWidth();
-        double height = canvas.getHeight();
+    private void showLocation(double location) {
+        final double x = Math.min(activitiesCanvas.getWidth() - visibleBounds.getWidth(), Math.max(0, location));
+        Instant time = calculateTimeAt(x);
+
+        Timeline timeline = getSkinnable().getGraphics().getTimeline();
+        TimelineModel<?> timelineModel = timeline.getModel();
+        timelineModel.setStartTime(time);
+    }
+
+    private void drawAll() {
+        drawActivities();
+        drawVisibleTimeInterval();
+    }
+
+    private void drawActivities() {
+        GraphicsContext gc = activitiesCanvas.getGraphicsContext2D();
+
+        double width = activitiesCanvas.getWidth();
+        double height = activitiesCanvas.getHeight();
 
         gc.clearRect(0, 0, width, height);
 
@@ -159,14 +165,31 @@ public class RadarViewSkin<R extends Row<?, ?, ?>>
 
                             gc.strokeLine(x1, y, x2, y);
                         }
-
                     }
                 }
             }
+        }
+    }
+
+    private void drawVisibleTimeInterval() {
+        GraphicsContext gc = visibleTimeIntervalCanvas.getGraphicsContext2D();
+
+        double width = visibleTimeIntervalCanvas.getWidth();
+        double height = visibleTimeIntervalCanvas.getHeight();
+
+        gc.clearRect(0, 0, width, height);
+
+        GraphicsBase<R> graphics = getSkinnable().getGraphics();
+
+        if (graphics != null) {
+            Instant earliestTimeUsed = graphics.getEarliestTimeUsed();
+            Instant latestTimeUsed = graphics.getLatestTimeUsed();
 
             Timeline timeline = graphics.getTimeline();
-            Instant visibleStartTime = timeline.getVisibleStartTime();
-            Instant visibleEndTime = timeline.getVisibleEndTime();
+            TimeInterval visibleTimeInterval = timeline.getVisibleTimeInterval();
+
+            Instant visibleStartTime = visibleTimeInterval.getStartTime();
+            Instant visibleEndTime = visibleTimeInterval.getEndTime();
 
             if (earliestTimeUsed != null && latestTimeUsed != null) {
 
@@ -181,7 +204,7 @@ public class RadarViewSkin<R extends Row<?, ?, ?>>
                 double x1 = calculateX(visibleStartTime, width, earliestTimeUsed, latestTimeUsed);
                 double x2 = calculateX(visibleEndTime, width, earliestTimeUsed, latestTimeUsed);
 
-                gc.setFill(Color.GREEN.deriveColor(0, 1, 1, .3));
+                gc.setFill(getVisibleTimeIntervalColor());
                 gc.fillRect(x1, 0, x2 - x1, height);
 
                 visibleBounds = new Rectangle2D(x1, 0, Math.max(0, x2 - x1), Math.max(0, height));
@@ -191,20 +214,40 @@ public class RadarViewSkin<R extends Row<?, ?, ?>>
         }
     }
 
+    private final ObjectProperty<Paint> visibleTimeIntervalColor = new SimpleObjectProperty<>(this, "visibleTimeIntervalColor", Color.GREEN.deriveColor(0, 1, 1, .3));
+
+    /**
+     * The color used to fill the rectangle that represents the currently visible time interval.
+     *
+     * @return the color used for the visible time interval
+     */
+    public final ObjectProperty<Paint> visibleTimeIntervalColorProperty() {
+        return visibleTimeIntervalColor;
+    }
+
+    public final Paint getVisibleTimeIntervalColor() {
+        return visibleTimeIntervalColor.get();
+    }
+
+    public final void setVisibleTimeIntervalColor(Paint visibleTimeIntervalColor) {
+        this.visibleTimeIntervalColor.set(visibleTimeIntervalColor);
+    }
+
     private double calculateY(int rowIndex, int totalNumberOfRows, double canvasHeight) {
         return ((int) ((canvasHeight / totalNumberOfRows) * rowIndex)) + .5;
     }
 
     private double calculateX(Instant time, double width, Instant earliestTimeUsed, Instant latestTimeUsed) {
-        double mpp = (latestTimeUsed.toEpochMilli() - earliestTimeUsed.toEpochMilli()) / width;
-        return (time.toEpochMilli() - earliestTimeUsed.toEpochMilli()) / mpp;
+        double mpp = (double) (latestTimeUsed.toEpochMilli() - earliestTimeUsed.toEpochMilli()) / width;
+        return ((double) (time.toEpochMilli() - earliestTimeUsed.toEpochMilli())) / mpp;
     }
 
     private Instant calculateTimeAt(double x) {
         GraphicsBase<R> graphics = getSkinnable().getGraphics();
         Instant earliestTimeUsed = graphics.getEarliestTimeUsed();
         Instant latestTimeUsed = graphics.getLatestTimeUsed();
-        double mpp = (latestTimeUsed.toEpochMilli() - earliestTimeUsed.toEpochMilli()) / canvas.getWidth();
+
+        double mpp = (latestTimeUsed.toEpochMilli() - earliestTimeUsed.toEpochMilli()) / activitiesCanvas.getWidth();
         long millis = (long) (mpp * x);
         return Instant.ofEpochMilli(earliestTimeUsed.toEpochMilli() + millis);
     }

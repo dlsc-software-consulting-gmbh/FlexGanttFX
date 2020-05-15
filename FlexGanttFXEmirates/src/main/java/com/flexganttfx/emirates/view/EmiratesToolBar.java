@@ -6,6 +6,7 @@
 package com.flexganttfx.emirates.view;
 
 import com.flexganttfx.extras.GanttChartToolBar;
+import com.flexganttfx.extras.RadarView;
 import com.flexganttfx.extras.util.Messages;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.view.GanttChartBase;
@@ -16,6 +17,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
+import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuButton;
@@ -23,7 +25,9 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Separator;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToolBar;
+import javafx.stage.PopupWindow.AnchorLocation;
 import javafx.util.StringConverter;
+import org.controlsfx.control.PopOver;
 import org.controlsfx.control.textfield.CustomTextField;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
@@ -31,6 +35,7 @@ import org.kordamp.ikonli.materialdesign.MaterialDesign;
 import java.text.MessageFormat;
 
 import static java.util.Objects.requireNonNull;
+import static org.controlsfx.control.PopOver.ArrowLocation.TOP_CENTER;
 
 /**
  * A toolbar implementation that can be used in combination with the Gantt chart
@@ -166,6 +171,11 @@ public class EmiratesToolBar<R extends Row<?, ?, ?>> extends ToolBar {
 			zoomModeBox.valueProperty().bindBidirectional(getGanttChart().getTimeline().zoomModeProperty());
 			getItems().add(zoomModeBox);
 
+			Button radar = new Button(Messages.getString("GanttChartToolBar.BUTTON_RADAR"));
+			radar.setGraphic(new FontIcon(MaterialDesign.MDI_RADAR));
+			radar.setOnAction(showRadarPopOver(radar));
+			getItems().add(radar);
+
 			getItems().add(new Separator());
 
 			ListViewGraphics<R> graphics = ganttChart.getGraphics();
@@ -223,6 +233,24 @@ public class EmiratesToolBar<R extends Row<?, ?, ?>> extends ToolBar {
 		} else {
 			getGanttChart().setRowFilter(row -> row.getName().toLowerCase().contains(txt.toLowerCase()));
 		}
+	}
+
+	private PopOver radarPopOver;
+
+	private EventHandler<ActionEvent> showRadarPopOver(Button button) {
+		return evt -> {
+			if (radarPopOver == null) {
+				RadarView<R> radarView = new RadarView<>();
+				radarView.setGraphics(getGanttChart().getGraphics());
+				radarPopOver = new PopOver(radarView);
+				radarPopOver.setTitle(Messages.getString("GanttChartToolBar.TITLE_RADAR"));
+				radarPopOver.setArrowLocation(TOP_CENTER);
+			}
+
+			Point2D localToScreen = button.localToScreen(0, 0);
+			radarPopOver.setAnchorLocation(AnchorLocation.WINDOW_TOP_LEFT);
+			radarPopOver.show(button, localToScreen.getX() + button.getWidth() / 2, localToScreen.getY() + button.getHeight() - 2);
+		};
 	}
 
 	private EventHandler<ActionEvent> showGridLines(final int level) {
