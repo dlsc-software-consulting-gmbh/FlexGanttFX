@@ -7,8 +7,8 @@ package com.flexganttfx.demo;
 
 import com.flexganttfx.extras.GanttChartStatusBar;
 import com.flexganttfx.extras.GanttChartToolBar;
+import com.flexganttfx.model.util.TimeInterval;
 import com.flexganttfx.view.GanttChartBase;
-import com.flexganttfx.view.timeline.DatelineScrollingEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
@@ -33,9 +33,10 @@ public abstract class FlexGanttFXSample extends FlexGanttFXSampleBase {
 		try {
 			ganttChart = createGanttChart();
 
-			ganttChart.getTimeline().getDateline().addEventHandler(DatelineScrollingEvent.ANY_SCROLLING, evt -> {
-				ZonedDateTime st = ZonedDateTime.ofInstant(evt.getStartTime(), ZoneId.systemDefault());
-				ZonedDateTime et = ZonedDateTime.ofInstant(evt.getEndTime(), ZoneId.systemDefault());
+			ganttChart.getTimeline().visibleTimeIntervalProperty().addListener(it -> {
+				final TimeInterval interval = ganttChart.getTimeline().getVisibleTimeInterval();
+				ZonedDateTime st = ZonedDateTime.ofInstant(interval.getStartTime(), ZoneId.systemDefault());
+				ZonedDateTime et = ZonedDateTime.ofInstant(interval.getEndTime(), ZoneId.systemDefault());
 				getStatusbar().setText(formatter.format(st) + " - " + formatter.format(et));
 			});
 		} catch (Exception e) {

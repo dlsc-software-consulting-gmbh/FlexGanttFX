@@ -21,7 +21,6 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ObjectPropertyBase;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -59,10 +58,8 @@ import static javafx.scene.control.SelectionMode.MULTIPLE;
 /**
  * The dateline is a control that displays the actual dates (Mo, Tu, We, ...) in
  * cells in one or more rows. The dateline is timezone aware (see
- * {@link #setZoneId(ZoneId)}), keeps track of currently selected time intervals
- * ({@link #getSelectedIntervals()}) and fires events of type
- * {@link DatelineScrollingEvent} whenever the visible time range changes (see
- * {@link #setOnVisibleRangeChanged(EventHandler)}). Furthermore the dateline
+ * {@link #setZoneId(ZoneId)}) and keeps track of currently selected time intervals
+ * ({@link #getSelectedIntervals()}). Furthermore the dateline
  * control constantly updates the {@link #hoverTimeIntervalProperty()} whenever
  * the mouse moves over it.
  * <p>&nbsp;</p>
@@ -315,59 +312,8 @@ public class Dateline extends FlexGanttFXControl {
      * @return the factory callback
      * @since 1.0
      */
-    @SuppressWarnings({"unchecked", "rawtypes"})
     public final Callback<TemporalUnit, DatelineCell> getCellFactory(Class<? extends TemporalUnit> temporalUnitType) {
         return (Callback<TemporalUnit, DatelineCell>) cellFactoryMap.get(temporalUnitType);
-    }
-
-    // Support for onVisibleRangeChanged
-
-    private final ObjectProperty<EventHandler<DatelineScrollingEvent>> onVisibleRangeChanged = new ObjectPropertyBase<EventHandler<DatelineScrollingEvent>>() {
-        @Override
-        protected void invalidated() {
-            setEventHandler(DatelineScrollingEvent.VISIBLE_RANGE_CHANGED, get());
-        }
-
-        @Override
-        public Object getBean() {
-            return Dateline.this;
-        }
-
-        @Override
-        public String getName() {
-            return "onVisibleRangeChanged";
-        }
-    };
-
-    /**
-     * A property used to register an event handler that will be invoked whenever the currently visible
-     * time range is changing inside the dateline.
-     *
-     * @return the event handler registered for range changes
-     * @since 1.0
-     */
-    public final ObjectProperty<EventHandler<DatelineScrollingEvent>> onVisibleRangeChangedProperty() {
-        return onVisibleRangeChanged;
-    }
-
-    /**
-     * Sets the value of {@link #onVisibleRangeChangedProperty()}.
-     *
-     * @param handler the event handler for time range changes
-     * @since 1.0
-     */
-    public final void setOnVisibleRangeChanged(EventHandler<DatelineScrollingEvent> handler) {
-        onVisibleRangeChangedProperty().set(handler);
-    }
-
-    /**
-     * Returns the value of {@link #onVisibleRangeChangedProperty()}.
-     *
-     * @return the event handler for time range changes
-     * @since 1.0
-     */
-    public final EventHandler<DatelineScrollingEvent> getOnVisibleRangeChanged() {
-        return onVisibleRangeChangedProperty().get();
     }
 
     /**

@@ -355,12 +355,31 @@ public class Timeline extends FlexGanttFXControl {
         return java.time.Duration.ofMillis(getVisibleEndTime().toEpochMilli() - getVisibleStartTime().toEpochMilli());
     }
 
+
     private void updateVisibleStartAndEndTime() {
         TimelineModel<?> timelineModel = getModel();
         if (timelineModel != null) {
             visibleStartTime.set(timelineModel.getStartTime());
             visibleEndTime.set(timelineModel.calculateTimeForLocation(getWidth()));
+            visibleTimeInterval.set(new TimeInterval(getVisibleStartTime(), getVisibleEndTime()));
         }
+    }
+
+    private final ReadOnlyObjectWrapper<TimeInterval> visibleTimeInterval = new ReadOnlyObjectWrapper<>(this, "visibleTimeInterval");
+
+    /**
+     * Stores the currently visible time interval. This is an important property if an application
+     * wants to implement a lazy loading strategy.
+     *
+     * @return the currently visible time interval
+     * @since 11.12.0
+     */
+    public ReadOnlyObjectProperty<TimeInterval> visibleTimeIntervalProperty() {
+        return visibleTimeInterval.getReadOnlyProperty();
+    }
+
+    public TimeInterval getVisibleTimeInterval() {
+        return visibleTimeInterval.get();
     }
 
     // move duration support
