@@ -156,7 +156,7 @@ public class DatelineSkin extends SkinBase<Dateline> {
 
         Instant startTime = timeline.getModel().getStartTime();
         Instant endTime = timeline.getModel().calculateTimeForLocation(
-                getSkinnable().getWidth());
+                getSkinnable().getTimeline().getWidth());
 
         DatelineScrollingEvent event = new DatelineScrollingEvent(
                 getSkinnable(), getSkinnable(),
