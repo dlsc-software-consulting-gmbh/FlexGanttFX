@@ -358,7 +358,7 @@ public class Timeline extends FlexGanttFXControl {
 
     private void updateVisibleStartAndEndTime() {
         TimelineModel<?> timelineModel = getModel();
-        if (timelineModel != null) {
+        if (timelineModel != null && getWidth() > 0) {
             visibleStartTime.set(timelineModel.getStartTime());
             visibleEndTime.set(timelineModel.calculateTimeForLocation(getWidth()));
             visibleTimeInterval.set(new TimeInterval(getVisibleStartTime(), getVisibleEndTime()));
@@ -374,11 +374,11 @@ public class Timeline extends FlexGanttFXControl {
      * @return the currently visible time interval
      * @since 11.12.0
      */
-    public ReadOnlyObjectProperty<TimeInterval> visibleTimeIntervalProperty() {
+    public final ReadOnlyObjectProperty<TimeInterval> visibleTimeIntervalProperty() {
         return visibleTimeInterval.getReadOnlyProperty();
     }
 
-    public TimeInterval getVisibleTimeInterval() {
+    public final TimeInterval getVisibleTimeInterval() {
         return visibleTimeInterval.get();
     }
 
