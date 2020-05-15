@@ -64,7 +64,6 @@ import com.sun.javafx.css.converters.PaintConverter;
 import impl.com.flexganttfx.skin.graphics.GraphicsBaseSkin;
 import impl.com.flexganttfx.skin.graphics.LinksCanvas;
 import impl.com.flexganttfx.skin.graphics.RowPane;
-import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.application.Platform;
@@ -625,23 +624,6 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         });
 
         setRowHeaderFactory(graphics -> new ScaleRowHeader<>(this));
-
-        AnimationTimer timer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                getRowPanes().forEach(rowPane -> {
-                    if (rowPane.getCanvas().isDirty()) {
-                        rowPane.getCanvas().draw();
-                    }
-                });
-
-                if (linksCanvas != null && linksCanvas.isDirty()) {
-                    linksCanvas.draw();
-                }
-            }
-        };
-
-        timer.start();
     }
 
     @Override

@@ -20,6 +20,7 @@ import javafx.geometry.Bounds;
 import javafx.geometry.Orientation;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.ListView;
@@ -130,8 +131,17 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
         }
     }
 
+    private boolean initialized;
+
     private VirtualFlow<?> getVirtualFlow() {
-        return (VirtualFlow<?>) getSkinnable().lookup("VirtualFlow");
+        final VirtualFlow<?> virtualFlow = (VirtualFlow<?>) getSkinnable().lookup("VirtualFlow");
+        if (virtualFlow != null && !initialized) {
+            initialized = true;
+            Group group = (Group) virtualFlow.lookup(".sheet");
+            group.boundsInLocalProperty().addListener((obs, oldV, newV) -> getSkinnable().drawLinks("sheet changed"));
+        }
+
+        return virtualFlow;
     }
 
     private Region getClippedContainer() {
@@ -324,7 +334,7 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
 
     @Override
     protected boolean isRowAboveViewport(R row) {
-        VirtualFlow<?> flow = (VirtualFlow<?>) listView.lookup("#virtual-flow");
+        VirtualFlow<?> flow = getVirtualFlow();
         @SuppressWarnings("unchecked")
         RowCell<R> rowCell = (RowCell<R>) flow.getFirstVisibleCell();
         if (rowCell == null) {
@@ -413,7 +423,7 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
         List<RowCell<R>> visibleRowCells = new ArrayList<>();
 
         if (flow == null) {
-            flow = (VirtualFlow<RowCell<R>>) listView.lookup("VirtualFlow");
+            flow = (VirtualFlow<RowCell<R>>) getVirtualFlow();
         }
 
         // flow could still be null

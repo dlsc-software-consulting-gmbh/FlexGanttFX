@@ -77,6 +77,9 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
             drawCounter = 1;
             doDrawCounter = 1;
         }
+
+        // In the Java 8 version we have to draw immediately
+        draw();
     }
 
     public final void draw() {
