@@ -12,6 +12,7 @@ import com.flexganttfx.model.ActivityLink;
 import com.flexganttfx.msproject.model.MSProjectTaskRow;
 import com.flexganttfx.msproject.view.MSProjectGanttChart;
 import com.flexganttfx.view.graphics.renderer.CurvedLinkRenderer;
+import com.jpro.webapi.WebAPI;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -68,10 +69,14 @@ public class MSProjectApp extends Application {
 		MenuBar menuBar = createMenuBar();
 		vbox.getChildren().add(menuBar);
 
-		GanttChartToolBar<MSProjectTaskRow> toolBar = new GanttChartToolBar<>(gantt);
 		GanttChartStatusBar<MSProjectTaskRow> statusBar = new GanttChartStatusBar<>(gantt);
 
-		vbox.getChildren().addAll(toolBar, gantt, statusBar);
+		if (WebAPI.isBrowser()) {
+			vbox.getChildren().addAll(gantt, statusBar);
+		} else {
+			GanttChartToolBar<MSProjectTaskRow> toolBar = new GanttChartToolBar<>(gantt);
+			vbox.getChildren().addAll(toolBar, gantt, statusBar);
+		}
 
 		Scene scene = new Scene(vbox);
 		stage.setScene(scene);
