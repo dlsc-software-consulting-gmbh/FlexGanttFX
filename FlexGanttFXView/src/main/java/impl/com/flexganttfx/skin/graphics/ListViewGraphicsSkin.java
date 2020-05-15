@@ -133,15 +133,30 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
 
     private boolean initialized;
 
+    private double lastMinY = -1;
+    private double lastMaxY = -1;
+
     private VirtualFlow<?> getVirtualFlow() {
         final VirtualFlow<?> virtualFlow = (VirtualFlow<?>) getSkinnable().lookup("VirtualFlow");
         if (virtualFlow != null && !initialized) {
             initialized = true;
             Group group = (Group) virtualFlow.lookup(".sheet");
-            group.boundsInLocalProperty().addListener((obs, oldV, newV) -> getSkinnable().drawLinks("sheet changed"));
+            group.boundsInLocalProperty().addListener((obs, oldV, newV) -> {
+                if (newV.getMinY() != lastMinY) {
+                    doDraw(newV, "minY changed");
+                } else if (newV.getMaxY() != lastMaxY) {
+                    doDraw(newV, "maxY changed");
+                }
+            });
         }
 
         return virtualFlow;
+    }
+
+    private void doDraw(Bounds newV, String s) {
+        lastMinY = newV.getMinY();
+        lastMaxY = newV.getMaxY();
+        getSkinnable().drawLinks(s);
     }
 
     private Region getClippedContainer() {
