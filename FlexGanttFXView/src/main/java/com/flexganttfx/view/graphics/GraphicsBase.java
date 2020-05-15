@@ -891,6 +891,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
             eventlineGraphics.rowHeadersWidthProperty().bind(rowHeadersWidthProperty());
             eventlineGraphics.showRowHeadersProperty().bind(showRowHeadersProperty());
         }
+
+        showRowHeadersProperty().addListener(it -> {
+            requestLayout();
+            Platform.runLater(() -> redraw("row header visibility changes"));
+        });
     }
 
     private void updateGridProperty() {
