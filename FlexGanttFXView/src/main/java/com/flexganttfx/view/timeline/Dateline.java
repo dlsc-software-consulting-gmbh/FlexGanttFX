@@ -135,7 +135,7 @@ public class Dateline extends FlexGanttFXControl {
 				 * them because otherwise the x-coordinate would be relative to
 				 * the cell and not relative to the timeline.
 				 */
-                if (isZoomLassoEnabled() && !timeline.isScrollDragEnabled() && evt.getSource().equals(Dateline.this)) {
+                if (isZoomLassoEnabled() && !timeline.isScrollDragEnabled() && evt.getSource().equals(Dateline.this) && selectionStart != null) {
                     TimelineModel<?> timelineModel = timeline.getModel();
                     selectionEnd = timelineModel.calculateTimeForLocation(evt.getX() - getDatelineBuffer() + getTranslateX());
 
