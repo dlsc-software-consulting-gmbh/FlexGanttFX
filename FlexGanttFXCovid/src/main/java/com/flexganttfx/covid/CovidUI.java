@@ -86,14 +86,17 @@ public class CovidUI {
     public CovidUI(Stage stage) throws Exception {
 
         boolean success = true;
+        boolean newFile = false;
+
         if (!file.exists()) {
             success = file.createNewFile();
+            newFile = true;
         }
 
         if (success) {
             final FileTime lastModifiedTime = Files.getLastModifiedTime(file.toPath(), LinkOption.NOFOLLOW_LINKS);
             final ZonedDateTime fileTimeStamp = ZonedDateTime.ofInstant(lastModifiedTime.toInstant(), ZoneId.systemDefault());
-            if (fileTimeStamp.toLocalDate().isBefore(ZonedDateTime.now().toLocalDate())) {
+            if (newFile || fileTimeStamp.toLocalDate().isBefore(ZonedDateTime.now().toLocalDate())) {
                 downloadFile(file);
             } else {
                 System.out.println("data file is up-to-date");
@@ -418,9 +421,11 @@ public class CovidUI {
         System.out.println("earliest date: " + earliestDate);
         System.out.println("latest date  : " + latestDate);
 
-        ganttChart.getTimeline().showRange(
-                ZonedDateTime.of(earliestDate, LocalTime.MIN, ZoneId.systemDefault()).toInstant(),
-                ZonedDateTime.of(latestDate.plusWeeks(1), LocalTime.MAX, ZoneId.systemDefault()).toInstant());
+        if (earliestDate != null && latestDate != null) {
+            ganttChart.getTimeline().showRange(
+                    ZonedDateTime.of(earliestDate, LocalTime.MIN, ZoneId.systemDefault()).toInstant(),
+                    ZonedDateTime.of(latestDate.plusWeeks(1), LocalTime.MAX, ZoneId.systemDefault()).toInstant());
+        }
 
         System.out.println("finished reading data file");
     }
