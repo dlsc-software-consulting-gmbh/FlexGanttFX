@@ -7,7 +7,11 @@ module com.flexganttfx.covid {
     requires commons.csv;
     requires org.apache.commons.text;
     requires org.controlsfx.controls;
-    requires cssfx;
+    requires fr.brouillard.oss.cssfx;
+    requires jpro.webapi;
     requires org.apache.commons.lang3;
+    requires org.kordamp.ikonli.javafx;
+    requires org.kordamp.ikonli.materialdesign;
+
     exports com.flexganttfx.covid;
 }

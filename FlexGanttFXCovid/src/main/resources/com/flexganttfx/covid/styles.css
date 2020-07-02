@@ -11,6 +11,29 @@
     -fx-focus-color: -green-color;
 }
 
+.glass-pane {
+    -fx-background-color: black;
+}
+
+.about-pane {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .26), 20, 0.19, -1, 6);
+}
+
+.about-pane .image-view {
+}
+
+.controls-panel {
+    -fx-padding: 5px;
+}
+
+.controls-panel .button {
+    -fx-background-color: orange;
+}
+
+.list-view {
+    -fx-background-color: -fx-background !important;
+}
+
 .settings-view {
     -fx-padding: 10px;
     -fx-spacing: 10px;

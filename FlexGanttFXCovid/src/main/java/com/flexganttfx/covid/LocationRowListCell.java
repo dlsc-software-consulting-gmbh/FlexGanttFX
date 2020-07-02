@@ -1,6 +1,5 @@
 package com.flexganttfx.covid;
 
-import com.flexganttfx.covid.CovidApp.LocationRow;
 import javafx.scene.control.ListCell;
 
 public class LocationRowListCell extends ListCell<LocationRow> {

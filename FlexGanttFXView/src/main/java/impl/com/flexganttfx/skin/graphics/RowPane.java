@@ -148,6 +148,7 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
                 Bindings.bindBidirectional(prefHeightProperty(), newRow.heightProperty());
             } else {
                 setPrefHeight(Row.DEFAULT_ROW_HEIGHT);
+                setControlsNode(null);
             }
 
             updateZoneIdLabel();
