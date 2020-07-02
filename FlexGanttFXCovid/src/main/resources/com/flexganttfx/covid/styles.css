@@ -1,0 +1,28 @@
+.root {
+    -fx-base: rgb(40,40,40);
+    -darkblue-color: rgb(128, 179, 27);
+    -green-color: rgb(128, 179, 27);
+    -orange-color: rgb(128, 179, 27);
+    -toolbar-text-color: rgb(216,216,216);
+    -toolbar-border-color: rgb(60,60,60);
+    -toolbar-border-active: rgb(128, 179, 27);
+    -black-color: rgb(40,40,40);
+    -fx-accent: -green-color;
+    -fx-focus-color: -green-color;
+}
+
+.settings-view {
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+}
+
+.title {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-max-width: infinity;
+    -fx-alignment: center;
+}
+
+.tool-bar .ikonli-font-icon {
+    -fx-icon-color: white;
+}

@@ -1,0 +1,13 @@
+module com.flexganttfx.covid {
+
+    requires javafx.base;
+    requires javafx.controls;
+    requires com.flexganttfx.view;
+    requires com.flexganttfx.extras;
+    requires commons.csv;
+    requires org.apache.commons.text;
+    requires org.controlsfx.controls;
+    requires cssfx;
+    requires org.apache.commons.lang3;
+    exports com.flexganttfx.covid;
+}
