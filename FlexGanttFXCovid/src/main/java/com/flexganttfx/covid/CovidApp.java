@@ -11,6 +11,7 @@ import com.flexganttfx.model.layout.ChartLayout;
 import com.flexganttfx.view.GanttChartLite;
 import com.flexganttfx.view.graphics.ActivityBounds;
 import com.flexganttfx.view.graphics.GraphicsBase;
+import com.flexganttfx.view.graphics.ListViewGraphics;
 import com.flexganttfx.view.graphics.ScaleRowHeader;
 import com.flexganttfx.view.graphics.renderer.ChartActivityRenderer;
 import com.flexganttfx.view.util.Position;
@@ -55,8 +56,17 @@ import java.util.Map;
 public class CovidApp extends Application {
 
     private static final Layer TOTAL_CASES_LAYER = new Layer("Total Cases");
+    private static final Layer TOTAL_CASES_PER_MILLION_LAYER = new Layer("Total Cases Per Million");
+
     private static final Layer NEW_CASES_LAYER = new Layer("New Cases");
+    private static final Layer NEW_CASES_PER_MILLION_LAYER = new Layer("New Cases Per Million");
+
     private static final Layer TOTAL_DEATHS_LAYER = new Layer("Total Deaths");
+    private static final Layer TOTAL_DEATHS_PER_MILLION_LAYER = new Layer("Total Deaths Per Million");
+
+    private static final Layer NEW_DEATHS_LAYER = new Layer("New Deaths");
+    private static final Layer NEW_DEATHS_PER_MILLION_LAYER = new Layer("New Deaths Per Million");
+
 
     private final Map<String, LocationRow> rowMap = new HashMap<>();
 
@@ -83,15 +93,29 @@ public class CovidApp extends Application {
             }
 
             GanttChartLite<LocationRow> ganttChart = new GanttChartLite<>();
-            ganttChart.getGraphics().setShowRowHeaders(true);
-            ganttChart.getGraphics().setRowHeaderFactory(graphics -> new ScaleRowHeader<>(ganttChart.getGraphics()));
+            final ListViewGraphics<LocationRow> graphics = ganttChart.getGraphics();
+            graphics.setCanvasBuffer(0);
+            graphics.getForegroundSystemLayers().add(new LocationLayer(graphics));
+            graphics.setShowRowHeaders(true);
+            graphics.setRowHeadersWidth(90);
+            graphics.setRowHeaderFactory(g -> {
+                ScaleRowHeader header = new ScaleRowHeader<>(g);
+                view.addListener(it -> header.draw());
+                return header;
+            });
 
-            ganttChart.getGraphics().setActivityRenderer(TotalCases.class, ChartLayout.class, new CasesRenderer(ganttChart.getGraphics(), "Total Cases", Color.CADETBLUE));
-            ganttChart.getGraphics().setActivityRenderer(NewCases.class, ChartLayout.class, new CasesRenderer(ganttChart.getGraphics(), "New Cases", Color.BLUE));
-            ganttChart.getGraphics().setActivityRenderer(TotalDeaths.class, ChartLayout.class, new CasesRenderer(ganttChart.getGraphics(), "Total Deaths", Color.BLACK));
+            graphics.setActivityRenderer(TotalCases.class, ChartLayout.class, new CasesRenderer(graphics, "Total Cases", Color.ORANGERED));
+            graphics.setActivityRenderer(NewCases.class, ChartLayout.class, new CasesRenderer(graphics, "New Cases", Color.rgb(128, 179, 27)));
+            graphics.setActivityRenderer(TotalDeaths.class, ChartLayout.class, new CasesRenderer(graphics, "Total Deaths", Color.rgb(50, 120, 200)));
+            graphics.setActivityRenderer(NewDeaths.class, ChartLayout.class, new CasesRenderer(graphics, "New Deaths", Color.rgb(20, 90, 160)));
 
-            ganttChart.getGraphics().setShowNowLineLayer(false);
-            ganttChart.getGraphics().setRowControlsFactory(row -> {
+            graphics.setActivityRenderer(TotalCasesPerMillion.class, ChartLayout.class, new CasesRenderer(graphics, "Total Cases Per Million", Color.ORANGERED));
+            graphics.setActivityRenderer(NewCasesPerMillion.class, ChartLayout.class, new CasesRenderer(graphics, "New Cases Per Million", Color.rgb(128, 179, 27)));
+            graphics.setActivityRenderer(TotalDeathsPerMillion.class, ChartLayout.class, new CasesRenderer(graphics, "Total Deaths Per Million", Color.rgb(50, 120, 200)));
+            graphics.setActivityRenderer(NewDeathsPerMillion.class, ChartLayout.class, new CasesRenderer(graphics, "New Deaths Per Million", Color.rgb(20, 90, 160)));
+
+            graphics.setShowNowLineLayer(false);
+            graphics.setRowControlsFactory(row -> {
                 Button remove = new Button("Remove");
                 remove.setOnAction(evt -> getSelectedLocations().remove(row));
                 return remove;
@@ -116,9 +140,24 @@ public class CovidApp extends Application {
                     case TOTAL_DEATHS:
                         ganttChart.getLayers().setAll(TOTAL_DEATHS_LAYER);
                         break;
+                    case NEW_DEATHS:
+                        ganttChart.getLayers().setAll(NEW_DEATHS_LAYER);
+                        break;
+                    case TOTAL_CASES_PER_MILLIONS:
+                        ganttChart.getLayers().setAll(TOTAL_CASES_PER_MILLION_LAYER);
+                        break;
+                    case NEW_CASES_PER_MILLIONS:
+                        ganttChart.getLayers().setAll(NEW_CASES_PER_MILLION_LAYER);
+                        break;
+                    case TOTAL_DEATHS_PER_MILLIONS:
+                        ganttChart.getLayers().setAll(TOTAL_DEATHS_PER_MILLION_LAYER);
+                        break;
+                    case NEW_DEATHS_PER_MILLIONS:
+                        ganttChart.getLayers().setAll(NEW_DEATHS_PER_MILLION_LAYER);
+                        break;
                 }
 
-                ganttChart.getGraphics().redraw();
+                graphics.redraw();
             });
 
             SettingsView settingsView = new SettingsView(this);
@@ -147,7 +186,7 @@ public class CovidApp extends Application {
                     e.printStackTrace();
                 }
                 setView(View.NEW_CASES);
-                ganttChart.getGraphics().showAllActivities();
+                graphics.showAllActivities();
             });
         } else {
             System.out.println("error when trying to create csv file in user's home director");
@@ -210,7 +249,14 @@ public class CovidApp extends Application {
          * iso_code,continent,
          * location,
          * date,total_cases,
-         * new_cases,total_deaths,new_deaths,total_cases_per_million,new_cases_per_million,total_deaths_per_million,new_deaths_per_million,total_tests,new_tests,total_tests_per_thousand,new_tests_per_thousand,new_tests_smoothed,new_tests_smoothed_per_thousand,tests_units,stringency_index,population,population_density,median_age,aged_65_older,aged_70_older,gdp_per_capita,extreme_poverty,cvd_death_rate,diabetes_prevalence,female_smokers,male_smokers,handwashing_facilities,hospital_beds_per_thousand,life_expectancy
+         * new_cases,total_deaths,new_deaths,
+         *
+         * total_cases_per_million,
+         * new_cases_per_million,
+         * total_deaths_per_million,
+         * new_deaths_per_million,
+         *
+         * total_tests,new_tests,total_tests_per_thousand,new_tests_per_thousand,new_tests_smoothed,new_tests_smoothed_per_thousand,tests_units,stringency_index,population,population_density,median_age,aged_65_older,aged_70_older,gdp_per_capita,extreme_poverty,cvd_death_rate,diabetes_prevalence,female_smokers,male_smokers,handwashing_facilities,hospital_beds_per_thousand,life_expectancy
          */
 
         rowMap.clear();
@@ -234,16 +280,38 @@ public class CovidApp extends Application {
             });
 
             TotalCases totalCases = new TotalCases(record);
-            NewCases newCases = new NewCases(record);
             TotalDeaths totalDeaths = new TotalDeaths(record);
+            NewCases newCases = new NewCases(record);
+            NewDeaths newDeaths = new NewDeaths(record);
 
-            row.setMaxTotalCases(Math.max(row.getMaxTotalCases(), totalCases.getChartValue()));
-            row.setMaxNewCases(Math.max(row.getMaxNewCases(), newCases.getChartValue()));
-            row.setMaxDeaths(Math.max(row.getMaxDeaths(), totalDeaths.getChartValue()));
+            TotalCasesPerMillion totalCasesPerMillion = new TotalCasesPerMillion(record);
+            TotalDeathsPerMillion totalDeathsPerMillion = new TotalDeathsPerMillion(record);
+            NewCasesPerMillion newCasesPerMillion = new NewCasesPerMillion(record);
+            NewDeathsPerMillion newDeathsPerMillion = new NewDeathsPerMillion(record);
+
+            row.setMax(View.TOTAL_DEATHS, Math.max(row.getMax(View.TOTAL_DEATHS), totalDeaths.getChartValue()));
+            row.setMax(View.TOTAL_DEATHS_PER_MILLIONS, Math.max(row.getMax(View.TOTAL_DEATHS_PER_MILLIONS), totalDeathsPerMillion.getChartValue()));
+
+            row.setMax(View.NEW_CASES, Math.max(row.getMax(View.NEW_CASES), newCases.getChartValue()));
+            row.setMax(View.NEW_CASES_PER_MILLIONS, Math.max(row.getMax(View.NEW_CASES_PER_MILLIONS), newCasesPerMillion.getChartValue()));
+
+            row.setMax(View.TOTAL_CASES, Math.max(row.getMax(View.TOTAL_CASES), totalCases.getChartValue()));
+            row.setMax(View.TOTAL_CASES_PER_MILLIONS, Math.max(row.getMax(View.TOTAL_CASES_PER_MILLIONS), totalCasesPerMillion.getChartValue()));
+
+            row.setMax(View.NEW_DEATHS, Math.max(row.getMax(View.NEW_DEATHS), newDeaths.getChartValue()));
+            row.setMax(View.NEW_DEATHS_PER_MILLIONS, Math.max(row.getMax(View.NEW_DEATHS_PER_MILLIONS), newDeathsPerMillion.getChartValue()));
+
+            row.addActivity(TOTAL_DEATHS_LAYER, totalDeaths);
+            row.addActivity(TOTAL_DEATHS_PER_MILLION_LAYER, totalDeathsPerMillion);
+
+            row.addActivity(NEW_DEATHS_LAYER, newDeaths);
+            row.addActivity(NEW_DEATHS_PER_MILLION_LAYER, newDeathsPerMillion);
 
             row.addActivity(TOTAL_CASES_LAYER, totalCases);
+            row.addActivity(TOTAL_CASES_PER_MILLION_LAYER, totalCasesPerMillion);
+
             row.addActivity(NEW_CASES_LAYER, newCases);
-            row.addActivity(TOTAL_DEATHS_LAYER, totalDeaths);
+            row.addActivity(NEW_CASES_PER_MILLION_LAYER, newCasesPerMillion);
         }
 
         System.out.println("finished reading data file");
@@ -251,9 +319,7 @@ public class CovidApp extends Application {
 
     class LocationRow extends Row<LocationRow, LocationRow, Cases> {
 
-        private double maxTotalCases;
-        private double maxNewCases;
-        private double maxDeaths;
+        private Map<View, Double> maxCases = new HashMap<>();
 
         private final ChartLayout chartLayout = new ChartLayout();
 
@@ -267,51 +333,18 @@ public class CovidApp extends Application {
             setLayout(chartLayout);
         }
 
-        private void updateMaxValue(View view) {
+        public void setMax(View view, Double cases) {
+            maxCases.put(view, cases);
+        }
+
+        public double getMax(View view) {
+            return maxCases.getOrDefault(view, 0.0);
+        }
+
+        public void updateMaxValue(View view) {
             final double max = getMax(view);
             chartLayout.setMaxValue(max * 1.25);
             chartLayout.getMajorTicks().setAll(max);
-        }
-
-        private double getMax(View view) {
-            if (view == null) {
-                return 0;
-            }
-
-            switch (view) {
-                case TOTAL_CASES:
-                    return maxTotalCases;
-                case NEW_CASES:
-                    return maxNewCases;
-                case TOTAL_DEATHS:
-                    return maxDeaths;
-                default:
-                    return 0;
-            }
-        }
-
-        public double getMaxTotalCases() {
-            return maxTotalCases;
-        }
-
-        public void setMaxTotalCases(double maxTotalCases) {
-            this.maxTotalCases = maxTotalCases;
-        }
-
-        public double getMaxNewCases() {
-            return maxNewCases;
-        }
-
-        public void setMaxNewCases(double maxNewCases) {
-            this.maxNewCases = maxNewCases;
-        }
-
-        public double getMaxDeaths() {
-            return maxDeaths;
-        }
-
-        public void setMaxDeaths(double maxDeaths) {
-            this.maxDeaths = maxDeaths;
         }
     }
 
@@ -344,11 +377,44 @@ public class CovidApp extends Application {
         }
     }
 
+    class NewDeaths extends Cases {
+        public NewDeaths(CSVRecord record) {
+            super(record, "new_deaths");
+        }
+    }
+
+    class TotalCasesPerMillion extends Cases {
+        public TotalCasesPerMillion(CSVRecord record) {
+            super(record, "total_cases_per_million");
+        }
+    }
+
+    class NewCasesPerMillion extends Cases {
+        public NewCasesPerMillion(CSVRecord record) {
+            super(record, "new_cases_per_million");
+        }
+    }
+
+    class TotalDeathsPerMillion extends Cases {
+        public TotalDeathsPerMillion(CSVRecord record) {
+            super(record, "total_deaths_per_million");
+        }
+    }
+
+    class NewDeathsPerMillion extends Cases {
+        public NewDeathsPerMillion(CSVRecord record) {
+            super(record, "new_deaths_per_million");
+        }
+    }
+
     class CasesRenderer extends ChartActivityRenderer<Cases> {
 
         public CasesRenderer(GraphicsBase<?> graphics, String name, Color color) {
             super(graphics, name);
             setFill(color);
+            setStroke(color.darker());
+            setLineWidth(1);
+            setAlpha(1);
         }
 
         @Override

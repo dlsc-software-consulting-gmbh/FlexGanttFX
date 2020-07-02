@@ -177,7 +177,7 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         observable.addListener(redrawListener);
     }
 
-    private void draw() {
+    public void draw() {
         double canvasHeight = canvas.getHeight();
 
         if (getWidth() > 0) {
