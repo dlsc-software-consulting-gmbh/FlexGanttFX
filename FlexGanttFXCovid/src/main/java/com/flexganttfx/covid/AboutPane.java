@@ -15,7 +15,7 @@ public class AboutPane extends StackPane {
         ImageView imageView = new ImageView();
         imageView.setPreserveRatio(true);
         imageView.setFitWidth(750);
-        imageView.setImage(new Image(AboutPane.class.getResource("about.png").toExternalForm()));
+        imageView.setImage(new Image(AboutPane.class.getResource("about.jpg").toExternalForm()));
         getChildren().add(imageView);
         imageView.setOnMouseClicked(evt -> ui.setShowAbout(false));
     }
