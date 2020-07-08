@@ -40,6 +40,7 @@ public class SettingsView extends VBox {
         ListView<LocationRow> countryListView = new ListView<>();
         countryListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         countryListView.setPrefHeight(210);
+        countryListView.setMinHeight(120);
         countryListView.setItems(filteredList);
         countryListView.setCellFactory(view -> new LocationRowListCell());
         countryListView.setOnMouseClicked(evt -> {

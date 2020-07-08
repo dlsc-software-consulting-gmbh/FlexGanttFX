@@ -32,6 +32,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -243,10 +245,17 @@ public class CovidUI {
             StatusBar statusBar = new StatusBar();
             statusBar.setText("Dataset file was updated on " + DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG).format(fileTimeStamp));
 
+            ScrollPane scrollPane = new ScrollPane(settingsView);
+            scrollPane.setPannable(true);
+            scrollPane.setFitToWidth(true);
+            scrollPane.setFitToHeight(true);
+            scrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+            scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
+
             BorderPane borderPane = new BorderPane();
             borderPane.setTop(headerBox);
             borderPane.setCenter(ganttChart);
-            borderPane.setRight(settingsView);
+            borderPane.setRight(scrollPane);
             borderPane.setBottom(statusBar);
 
             StackPane stackPane = new StackPane(borderPane, glassPane, aboutPane);
