@@ -13,7 +13,13 @@ public enum View {
     TOTAL_DEATHS_PER_MILLIONS,
 
     NEW_DEATHS,
-    NEW_DEATHS_PER_MILLIONS;
+    NEW_DEATHS_PER_MILLIONS,
+
+    NEW_TESTS,
+    NEW_TESTS_PER_THOUSAND,
+
+    TOTAL_TESTS,
+    TOTAL_TESTS_PER_THOUSAND;
 
     public String getDisplayName() {
         return WordUtils.capitalizeFully(name().toLowerCase().replace("_", " "));

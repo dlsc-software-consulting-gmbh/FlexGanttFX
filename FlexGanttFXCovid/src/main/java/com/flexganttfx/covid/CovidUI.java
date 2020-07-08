@@ -77,6 +77,11 @@ public class CovidUI {
     private static final Layer NEW_DEATHS_LAYER = new Layer("New Deaths");
     private static final Layer NEW_DEATHS_PER_MILLION_LAYER = new Layer("New Deaths Per Million");
 
+    private static final Layer NEW_TESTS_LAYER = new Layer("New Tests");
+    private static final Layer NEW_TESTS_PER_THOUSAND_LAYER = new Layer("New Tests Per Thousand");
+
+    private static final Layer TOTAL_TESTS_LAYER = new Layer("Total Tests");
+    private static final Layer TOTAL_TESTS_PER_THOUSAND_LAYER = new Layer("Total Tests Per Million");
 
     private final Map<String, LocationRow> rowMap = new HashMap<>();
 
@@ -116,15 +121,24 @@ public class CovidUI {
                 return header;
             });
 
-            graphics.setActivityRenderer(TotalCases.class, ChartLayout.class, new CasesRenderer(graphics, "Total Cases", Color.ORANGERED));
+            // cases
             graphics.setActivityRenderer(NewCases.class, ChartLayout.class, new CasesRenderer(graphics, "New Cases", Color.rgb(128, 179, 27)));
-            graphics.setActivityRenderer(TotalDeaths.class, ChartLayout.class, new CasesRenderer(graphics, "Total Deaths", Color.rgb(50, 120, 200)));
-            graphics.setActivityRenderer(NewDeaths.class, ChartLayout.class, new CasesRenderer(graphics, "New Deaths", Color.rgb(20, 90, 160)));
-
-            graphics.setActivityRenderer(TotalCasesPerMillion.class, ChartLayout.class, new CasesRenderer(graphics, "Total Cases Per Million", Color.ORANGERED));
             graphics.setActivityRenderer(NewCasesPerMillion.class, ChartLayout.class, new CasesRenderer(graphics, "New Cases Per Million", Color.rgb(128, 179, 27)));
-            graphics.setActivityRenderer(TotalDeathsPerMillion.class, ChartLayout.class, new CasesRenderer(graphics, "Total Deaths Per Million", Color.rgb(50, 120, 200)));
+            graphics.setActivityRenderer(TotalCases.class, ChartLayout.class, new CasesRenderer(graphics, "Total Cases", Color.rgb(128, 179, 27)));
+            graphics.setActivityRenderer(TotalCasesPerMillion.class, ChartLayout.class, new CasesRenderer(graphics, "Total Cases Per Million", Color.rgb(128, 179, 27)));
+
+            // deaths
+            graphics.setActivityRenderer(NewDeaths.class, ChartLayout.class, new CasesRenderer(graphics, "New Deaths", Color.rgb(20, 90, 160)));
             graphics.setActivityRenderer(NewDeathsPerMillion.class, ChartLayout.class, new CasesRenderer(graphics, "New Deaths Per Million", Color.rgb(20, 90, 160)));
+            graphics.setActivityRenderer(TotalDeaths.class, ChartLayout.class, new CasesRenderer(graphics, "Total Deaths", Color.rgb(20, 90, 160)));
+            graphics.setActivityRenderer(TotalDeathsPerMillion.class, ChartLayout.class, new CasesRenderer(graphics, "Total Deaths Per Million", Color.rgb(20, 90, 160)));
+
+            // tests
+            graphics.setActivityRenderer(NewTests.class, ChartLayout.class, new CasesRenderer(graphics, "New Tests", Color.BROWN));
+            graphics.setActivityRenderer(NewTestsPerThousand.class, ChartLayout.class, new CasesRenderer(graphics, "New Deaths Per Thousand", Color.BROWN));
+            graphics.setActivityRenderer(TotalTests.class, ChartLayout.class, new CasesRenderer(graphics, "Total Tests", Color.BROWN.darker()));
+            graphics.setActivityRenderer(TotalTestsPerThousand.class, ChartLayout.class, new CasesRenderer(graphics, "Total Tests Per Thousand", Color.BROWN.darker()));
+
 
             graphics.setShowNowLineLayer(false);
             graphics.setShowVerticalCursor(true);
@@ -171,6 +185,18 @@ public class CovidUI {
                         break;
                     case NEW_DEATHS_PER_MILLIONS:
                         ganttChart.getLayers().setAll(NEW_DEATHS_PER_MILLION_LAYER);
+                        break;
+                    case NEW_TESTS:
+                        ganttChart.getLayers().setAll(NEW_TESTS_LAYER);
+                        break;
+                    case NEW_TESTS_PER_THOUSAND:
+                        ganttChart.getLayers().setAll(NEW_TESTS_PER_THOUSAND_LAYER);
+                        break;
+                    case TOTAL_TESTS:
+                        ganttChart.getLayers().setAll(TOTAL_TESTS_LAYER);
+                        break;
+                    case TOTAL_TESTS_PER_THOUSAND:
+                        ganttChart.getLayers().setAll(TOTAL_TESTS_PER_THOUSAND_LAYER);
                         break;
                 }
 
@@ -377,13 +403,19 @@ public class CovidUI {
 
             TotalCases totalCases = new TotalCases(record);
             TotalDeaths totalDeaths = new TotalDeaths(record);
+            TotalTests totalTests = new TotalTests(record);
+
             NewCases newCases = new NewCases(record);
             NewDeaths newDeaths = new NewDeaths(record);
+            NewTests newTests = new NewTests(record);
 
             TotalCasesPerMillion totalCasesPerMillion = new TotalCasesPerMillion(record);
             TotalDeathsPerMillion totalDeathsPerMillion = new TotalDeathsPerMillion(record);
+            TotalTestsPerThousand totalTestsPerThousand = new TotalTestsPerThousand(record);
+
             NewCasesPerMillion newCasesPerMillion = new NewCasesPerMillion(record);
             NewDeathsPerMillion newDeathsPerMillion = new NewDeathsPerMillion(record);
+            NewTestsPerThousand newTestsPerThousand = new NewTestsPerThousand(record);
 
             row.setMax(View.TOTAL_DEATHS, Math.max(row.getMax(View.TOTAL_DEATHS), totalDeaths.getChartValue()));
             row.setMax(View.TOTAL_DEATHS_PER_MILLIONS, Math.max(row.getMax(View.TOTAL_DEATHS_PER_MILLIONS), totalDeathsPerMillion.getChartValue()));
@@ -397,6 +429,12 @@ public class CovidUI {
             row.setMax(View.NEW_DEATHS, Math.max(row.getMax(View.NEW_DEATHS), newDeaths.getChartValue()));
             row.setMax(View.NEW_DEATHS_PER_MILLIONS, Math.max(row.getMax(View.NEW_DEATHS_PER_MILLIONS), newDeathsPerMillion.getChartValue()));
 
+            row.setMax(View.NEW_TESTS, Math.max(row.getMax(View.NEW_TESTS), newTests.getChartValue()));
+            row.setMax(View.NEW_TESTS_PER_THOUSAND, Math.max(row.getMax(View.NEW_TESTS_PER_THOUSAND), newTestsPerThousand.getChartValue()));
+
+            row.setMax(View.TOTAL_TESTS, Math.max(row.getMax(View.TOTAL_TESTS), totalTests.getChartValue()));
+            row.setMax(View.TOTAL_TESTS_PER_THOUSAND, Math.max(row.getMax(View.TOTAL_TESTS_PER_THOUSAND), totalTestsPerThousand.getChartValue()));
+
             row.addActivity(TOTAL_DEATHS_LAYER, totalDeaths);
             row.addActivity(TOTAL_DEATHS_PER_MILLION_LAYER, totalDeathsPerMillion);
 
@@ -408,6 +446,12 @@ public class CovidUI {
 
             row.addActivity(NEW_CASES_LAYER, newCases);
             row.addActivity(NEW_CASES_PER_MILLION_LAYER, newCasesPerMillion);
+
+            row.addActivity(NEW_TESTS_LAYER, newTests);
+            row.addActivity(NEW_TESTS_PER_THOUSAND_LAYER, newTestsPerThousand);
+
+            row.addActivity(TOTAL_TESTS_LAYER, totalTests);
+            row.addActivity(TOTAL_TESTS_PER_THOUSAND_LAYER, totalTestsPerThousand);
 
             if (totalCases.getChartValue() > 0) {
                 LocalDate date = LocalDate.parse(record.get("date"));
@@ -505,6 +549,30 @@ public class CovidUI {
     class NewDeathsPerMillion extends Cases {
         public NewDeathsPerMillion(CSVRecord record) {
             super(record, "new_deaths_per_million");
+        }
+    }
+
+    class NewTests extends Cases {
+        public NewTests(CSVRecord record) {
+            super(record, "new_tests");
+        }
+    }
+
+    class NewTestsPerThousand extends Cases {
+        public NewTestsPerThousand(CSVRecord record) {
+            super(record, "new_tests_per_thousand");
+        }
+    }
+
+    class TotalTests extends Cases {
+        public TotalTests(CSVRecord record) {
+            super(record, "total_tests");
+        }
+    }
+
+    class TotalTestsPerThousand extends Cases {
+        public TotalTestsPerThousand(CSVRecord record) {
+            super(record, "total_tests_per_thousand");
         }
     }
 

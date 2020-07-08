@@ -27,7 +27,8 @@
 }
 
 .controls-panel .button {
-    -fx-background-color: orange;
+    -fx-background-color: darkred;
+    -fx-text-fill: white;
 }
 
 .list-view {
