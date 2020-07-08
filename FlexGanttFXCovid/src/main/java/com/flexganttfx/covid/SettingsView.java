@@ -1,6 +1,8 @@
 package com.flexganttfx.covid;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -16,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import org.apache.commons.csv.CSVRecord;
 
 import java.util.Comparator;
 
@@ -25,6 +28,7 @@ public class SettingsView extends VBox {
         getStyleClass().add("settings-view");
 
         setFillWidth(true);
+        setMinWidth(Region.USE_PREF_SIZE);
 
         Label titleLabel = new Label("Covid-19");
         titleLabel.getStyleClass().add("title");
@@ -80,10 +84,13 @@ public class SettingsView extends VBox {
 
         HBox buttonBox = new HBox(10, addButton, clearButton);
 
+        RecordView recordView = new RecordView();
+        recordView.recordProperty().bind(recordProperty());
+
         Region spacer = new Region();
         VBox.setVgrow(spacer, Priority.ALWAYS);
 
-        getChildren().setAll(titleLabel, searchField, countryListView, buttonBox, spacer, datasetButton);
+        getChildren().setAll(titleLabel, searchField, countryListView, buttonBox, recordView, spacer, datasetButton);
     }
 
     private void addSelectedCountries(CovidUI uiInstance, ListView<LocationRow> countryListView) {
@@ -95,4 +102,19 @@ public class SettingsView extends VBox {
 
         });
     }
+
+    private final ObjectProperty<CSVRecord> record = new SimpleObjectProperty<>(this, "record");
+
+    public CSVRecord getRecord() {
+        return record.get();
+    }
+
+    public ObjectProperty<CSVRecord> recordProperty() {
+        return record;
+    }
+
+    public void setRecord(CSVRecord record) {
+        this.record.set(record);
+    }
+
 }

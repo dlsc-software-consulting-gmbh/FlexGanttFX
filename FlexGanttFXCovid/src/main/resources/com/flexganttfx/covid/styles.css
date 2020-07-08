@@ -52,10 +52,6 @@
     -fx-icon-color: white;
 }
 
-
-
-
-
 .gantt-chart {
     -fx-padding: 0 !important;
 }
@@ -320,4 +316,29 @@
     -fx-background-color: #e5f4fb; /* cdedfc*/
     -fx-text-background-color: #505050;
     -fx-table-cell-border-color: #EAEAEA;
+}
+
+.record-view {
+    -fx-hgap: 5px;
+    -fx-vgap: 5px;
+}
+
+.cases-view {
+    -fx-padding: 5px;
+    -fx-background-color: rgba(255,255,255,.3);
+    -fx-background-radius: 2px;
+    -fx-alignment: top-left;
+    -fx-spacing: 5px;
+}
+
+.cases-view .name-label {
+    -fx-font-family: Monospaced;
+    -fx-text-fill: black;
+}
+
+.cases-view .value-label {
+    -fx-font-family: Monospaced;
+    -fx-text-fill: darkred;
+    -fx-font-size: 1.2em;
+    -fx-font-weight: bold;
 }

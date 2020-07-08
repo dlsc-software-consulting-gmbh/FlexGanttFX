@@ -1,6 +1,7 @@
 package com.flexganttfx.covid;
 
 import com.flexganttfx.core.StringUtils;
+import com.flexganttfx.model.Activity;
 import com.flexganttfx.model.ActivityRef;
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.model.activity.MutableChartActivityBase;
@@ -177,6 +178,16 @@ public class CovidUI {
             });
 
             SettingsView settingsView = new SettingsView(this);
+
+            graphics.hoverActivityProperty().addListener(it -> {
+                final ActivityRef<?> hoverActivity = graphics.getHoverActivity();
+                if (hoverActivity != null) {
+                    final Activity activity = hoverActivity.getActivity();
+                    if (activity instanceof Cases) {
+                        settingsView.setRecord(((Cases) activity).getRecord());
+                    }
+                }
+            });
 
             MenuBar menuBar = new MenuBar();
             Menu mainMenu = new Menu("Explorer");
@@ -432,12 +443,20 @@ public class CovidUI {
 
     class Cases extends MutableChartActivityBase<CSVRecord> {
 
+        private final CSVRecord record;
+
         public Cases(CSVRecord record, String column) {
             super(StringUtils.isNotBlank(record.get(column)) ? Double.parseDouble(record.get(column)) : 0.0);
+
+            this.record = record;
 
             LocalDate date = LocalDate.parse(record.get("date"));
             startTime = ZonedDateTime.of(date, LocalTime.MIN, ZoneId.systemDefault()).toInstant();
             endTime = ZonedDateTime.of(date, LocalTime.MAX, ZoneId.systemDefault()).toInstant();
+        }
+
+        public CSVRecord getRecord() {
+            return record;
         }
     }
 
