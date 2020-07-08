@@ -140,7 +140,7 @@ public class CovidUI {
 
             selectedLocations.addListener((Observable it) -> ganttChart.getRows().setAll(getSelectedLocations()));
 
-            CovidToolBar<LocationRow> toolBar = new CovidToolBar<>(ganttChart);
+            CovidToolBar<LocationRow> toolBar = new CovidToolBar<>(this, ganttChart);
 
             view.addListener(it -> {
 

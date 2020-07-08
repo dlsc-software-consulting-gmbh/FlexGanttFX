@@ -332,7 +332,6 @@
 }
 
 .cases-view .name-label {
-    -fx-font-family: Monospaced;
     -fx-text-fill: black;
 }
 
@@ -341,4 +340,8 @@
     -fx-text-fill: darkred;
     -fx-font-size: 1.2em;
     -fx-font-weight: bold;
+}
+
+.tool-bar .dataset-menu-button {
+    -fx-background-color: darkred;
 }

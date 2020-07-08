@@ -9,8 +9,6 @@ import javafx.collections.transformation.SortedList;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
@@ -32,17 +30,6 @@ public class SettingsView extends VBox {
 
         Label titleLabel = new Label("Covid-19");
         titleLabel.getStyleClass().add("title");
-
-        MenuButton datasetButton = new MenuButton("Select Dataset");
-        datasetButton.setMaxWidth(Double.MAX_VALUE);
-
-        for (View v : View.values()) {
-            MenuItem item = new MenuItem(v.getDisplayName());
-            item.setOnAction(evt -> uiInstance.setView(v));
-            datasetButton.getItems().add(item);
-        }
-
-        uiInstance.viewProperty().addListener(it -> datasetButton.setText(uiInstance.getView().getDisplayName()));
 
         // list data structure, sorted and filtered
         SortedList<LocationRow> sortedCountryList = new SortedList<>(uiInstance.getLocations());
@@ -87,10 +74,7 @@ public class SettingsView extends VBox {
         RecordView recordView = new RecordView();
         recordView.recordProperty().bind(recordProperty());
 
-        Region spacer = new Region();
-        VBox.setVgrow(spacer, Priority.ALWAYS);
-
-        getChildren().setAll(titleLabel, searchField, countryListView, buttonBox, recordView, spacer, datasetButton);
+        getChildren().setAll(titleLabel, searchField, countryListView, buttonBox, recordView);
     }
 
     private void addSelectedCountries(CovidUI uiInstance, ListView<LocationRow> countryListView) {

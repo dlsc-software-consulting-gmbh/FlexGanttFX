@@ -16,14 +16,19 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Separator;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToolBar;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.stage.PopupWindow.AnchorLocation;
 import org.controlsfx.control.PopOver;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -47,13 +52,16 @@ import static org.controlsfx.control.PopOver.ArrowLocation.TOP_CENTER;
  */
 public class CovidToolBar<R extends Row<?, ?, ?>> extends ToolBar {
 
+	private final CovidUI uiInstance;
+
 	/**
 	 * Constructs a new toolbar control. The Gantt chart has to be set later by
 	 * calling {@link #setGanttChart(GanttChartBase)}.
 	 *
 	 * @since 1.0
 	 */
-	public CovidToolBar() {
+	public CovidToolBar(CovidUI uiInstance) {
+		this.uiInstance = uiInstance;
 		setOrientation(Orientation.HORIZONTAL);
 		getStylesheets().add(GanttChartToolBar.class.getResource("toolbar.css").toExternalForm());
 		ganttChartProperty().addListener(observable -> buildToolBar());
@@ -65,8 +73,8 @@ public class CovidToolBar<R extends Row<?, ?, ?>> extends ToolBar {
 	 * @param ganttChart the Gantt chart for which the toolbar will be used
 	 * @since 1.0
 	 */
-	public CovidToolBar(GanttChartBase<R> ganttChart) {
-		this();
+	public CovidToolBar(CovidUI uiInstance, GanttChartBase<R> ganttChart) {
+		this(uiInstance);
 		setGanttChart(ganttChart);
 	}
 
@@ -173,6 +181,28 @@ public class CovidToolBar<R extends Row<?, ?, ?>> extends ToolBar {
 			}
 
 			getItems().add(gridLines);
+
+			Region spacer = new Region();
+			HBox.setHgrow(spacer, Priority.ALWAYS);
+			getItems().add(spacer);
+
+			Label prompt = new Label("Select Dataset:");
+			getItems().add(prompt);
+			HBox.setMargin(prompt, new Insets(0, 10, 0, 0));
+
+			MenuButton datasetButton = new MenuButton("Select Dataset");
+			datasetButton.getStyleClass().add("dataset-menu-button");
+			datasetButton.setMaxWidth(Double.MAX_VALUE);
+
+			for (View v : View.values()) {
+				MenuItem item = new MenuItem(v.getDisplayName());
+				item.setOnAction(evt -> uiInstance.setView(v));
+				datasetButton.getItems().add(item);
+			}
+
+			uiInstance.viewProperty().addListener(it -> datasetButton.setText(uiInstance.getView().getDisplayName()));
+
+			getItems().add(datasetButton);
 		}
 	}
 

@@ -2,6 +2,7 @@ package com.flexganttfx.covid;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -25,6 +26,14 @@ public class RecordView extends GridPane {
         add(title, 0, 0);
         GridPane.setColumnSpan(title, 2);
 
+        recordProperty().addListener(it -> {
+            final CSVRecord record = getRecord();
+            if (record != null) {
+                title.setText("Location: " + record.get("location"));
+            } else {
+                title.setText("");
+            }
+        });
         ColumnConstraints col1 = new ColumnConstraints();
         ColumnConstraints col2 = new ColumnConstraints();
 
@@ -38,23 +47,32 @@ public class RecordView extends GridPane {
 
         add(new CasesView("Date", "date", LocalDate.class), 0, 1);
 
-        add(new CasesView("New Cases", "new_cases", Integer.class), 0, 2);
-        add(new CasesView("Total Cases", "total_cases", Integer.class), 1, 2);
+        final Label newHeader = new Label("New");
+        final Label totalHeader = new Label("Totals");
 
-        add(new CasesView("New Deaths", "new_deaths", Integer.class), 0, 3);
-        add(new CasesView("Total Deaths", "total_deaths", Integer.class), 1, 3);
+        GridPane.setMargin(newHeader, new Insets(10, 0, 0, 0));
+        GridPane.setMargin(totalHeader, new Insets(10, 0, 0, 0));
 
-        add(new CasesView("Total Cases / Million", "total_cases_per_million", Integer.class), 0, 4);
-        add(new CasesView("New Cases / Million", "new_cases_per_million", Integer.class), 1, 4);
+        add(newHeader, 0, 2);
+        add(totalHeader, 1, 2);
 
-        add(new CasesView("Total Deaths / Million", "total_deaths_per_million", Integer.class), 0, 5);
-        add(new CasesView("New Deaths / Million", "new_deaths_per_million", Integer.class), 1, 5);
+        add(new CasesView("New Cases", "new_cases", Integer.class), 0, 3);
+        add(new CasesView("Total Cases", "total_cases", Integer.class), 1, 3);
 
-        add(new CasesView("Total Tests", "total_tests", Integer.class), 0, 6);
-        add(new CasesView("New Tests", "new_tests", Integer.class), 1, 6);
+        add(new CasesView("New Deaths", "new_deaths", Integer.class), 0, 4);
+        add(new CasesView("Total Deaths", "total_deaths", Integer.class), 1, 4);
 
-        add(new CasesView("Total Tests / Thousand", "total_tests_per_thousand", Integer.class), 0, 7);
-        add(new CasesView("New Tests / Thousand", "new_tests_per_thousand", Integer.class), 1, 7);
+        add(new CasesView("New Cases / Million", "new_cases_per_million", Integer.class), 0, 5);
+        add(new CasesView("Total Cases / Million", "total_cases_per_million", Integer.class), 1, 5);
+
+        add(new CasesView("New Deaths / Million", "new_deaths_per_million", Integer.class), 0, 6);
+        add(new CasesView("Total Deaths / Million", "total_deaths_per_million", Integer.class), 1, 6);
+
+        add(new CasesView("New Tests", "new_tests", Integer.class), 0, 7);
+        add(new CasesView("Total Tests", "total_tests", Integer.class), 1, 7);
+
+        add(new CasesView("New Tests / Thousand", "new_tests_per_thousand", Integer.class), 0, 8);
+        add(new CasesView("Total Tests / Thousand", "total_tests_per_thousand", Integer.class), 1, 8);
     }
 
     class CasesView extends VBox {
