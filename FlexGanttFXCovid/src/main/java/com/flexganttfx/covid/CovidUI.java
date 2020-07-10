@@ -25,6 +25,7 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
@@ -120,6 +121,7 @@ public class CovidUI {
             graphics.setRowHeaderFactory(g -> {
                 ScaleRowHeader header = new ScaleRowHeader<>(g);
                 view.addListener(it -> header.draw());
+                comparisonMode.addListener(it -> header.draw());
                 return header;
             });
 
@@ -141,11 +143,11 @@ public class CovidUI {
             graphics.setActivityRenderer(TotalTests.class, ChartLayout.class, new CasesRenderer(graphics, "Total Tests", Color.BROWN.darker()));
             graphics.setActivityRenderer(TotalTestsPerThousand.class, ChartLayout.class, new CasesRenderer(graphics, "Total Tests Per Thousand", Color.BROWN.darker()));
 
-
             graphics.setShowNowLineLayer(false);
             graphics.setShowVerticalCursor(true);
             graphics.setRowControlsFactory(param -> {
                 Button remove = new Button("Remove");
+                StackPane.setMargin(remove, new Insets(20, 0, 0, 0));
                 StackPane.setAlignment(remove, Pos.TOP_RIGHT);
                 remove.setOnAction(evt -> getSelectedLocations().remove(param.getRow()));
                 StackPane stackPane = new StackPane(remove);
@@ -161,7 +163,13 @@ public class CovidUI {
             view.addListener(it -> {
 
                 final View view = getView();
-                rowMap.values().forEach(row -> row.updateMaxValue(view));
+                rowMap.values().forEach(row -> {
+                    if (isComparisonMode()) {
+                        row.updateMaxValueGlobally(view);
+                    } else {
+                        row.updateMaxValue(view);
+                    }
+                });
 
                 switch (view) {
                     case TOTAL_CASES:
@@ -272,6 +280,20 @@ public class CovidUI {
             stage.setTitle("Covid-19 Data");
             stage.show();
 
+            selectedLocations.addListener((Observable it) -> updateGlobalMaxValues());
+
+            comparisonMode.addListener(it -> {
+                if (isComparisonMode()) {
+                    selectedLocations.forEach(row -> {
+                        row.updateMaxValueGlobally(getView());
+                        System.out.println("");
+                    });
+                } else {
+                    selectedLocations.forEach(row -> row.updateMaxValue(getView()));
+                }
+                graphics.redraw();
+            });
+
             Platform.runLater(() -> {
                 try {
                     readFile(file);
@@ -280,9 +302,39 @@ public class CovidUI {
                 }
                 setView(View.NEW_CASES_PER_MILLIONS);
             });
+
         } else {
             System.out.println("error when trying to create csv file in user's home director");
         }
+    }
+
+    private void updateGlobalMaxValues() {
+        Map<View, Double> maximumValuesMap = new HashMap<>();
+        for (View view : View.values()) {
+            for (LocationRow row : selectedLocations) {
+                maximumValuesMap.put(view, Math.max(row.getMax(view), maximumValuesMap.computeIfAbsent(view, key -> row.getMax(view))));
+            }
+        }
+
+        for (LocationRow row : selectedLocations) {
+            for (View view : View.values()) {
+                row.setMaxGlobally(view, maximumValuesMap.get(view));
+            }
+        }
+    }
+
+    private final BooleanProperty comparisonMode = new SimpleBooleanProperty(this, "comparisonMode", false);
+
+    public boolean isComparisonMode() {
+        return comparisonMode.get();
+    }
+
+    public BooleanProperty comparisonModeProperty() {
+        return comparisonMode;
+    }
+
+    public void setComparisonMode(boolean comparisonMode) {
+        this.comparisonMode.set(comparisonMode);
     }
 
     private final BooleanProperty showAbout = new SimpleBooleanProperty(this, "showAbout", true);
@@ -492,6 +544,8 @@ public class CovidUI {
         }
 
         System.out.println("finished reading data file");
+
+        updateGlobalMaxValues();
     }
 
     class Cases extends MutableChartActivityBase<CSVRecord> {

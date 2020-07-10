@@ -11,6 +11,8 @@ class LocationRow extends Row<LocationRow, LocationRow, Cases> {
 
     private Map<View, Double> maxCases = new HashMap<>();
 
+    private Map<View, Double> maxCasesGlobally = new HashMap<>();
+
     private final ChartLayout chartLayout = new ChartLayout();
 
     public LocationRow(String name) {
@@ -37,5 +39,18 @@ class LocationRow extends Row<LocationRow, LocationRow, Cases> {
         chartLayout.getMajorTicks().setAll(max);
     }
 
+    public void setMaxGlobally(View view, Double cases) {
+        maxCasesGlobally.put(view, cases);
+    }
+
+    public double getMaxGlobally(View view) {
+        return maxCasesGlobally.getOrDefault(view, 0.0);
+    }
+
+    public void updateMaxValueGlobally(View view) {
+        final double globalMax = getMaxGlobally(view);
+        chartLayout.setMaxValue(globalMax * 1.25);
+        chartLayout.getMajorTicks().setAll(globalMax);
+    }
 
 }

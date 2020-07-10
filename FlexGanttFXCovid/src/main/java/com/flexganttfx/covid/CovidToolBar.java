@@ -20,12 +20,14 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Separator;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToolBar;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -191,7 +193,7 @@ public class CovidToolBar<R extends Row<?, ?, ?>> extends ToolBar {
 			HBox.setMargin(prompt, new Insets(0, 10, 0, 0));
 
 			MenuButton datasetButton = new MenuButton("Select Dataset");
-			datasetButton.getStyleClass().add("dataset-menu-button");
+			datasetButton.setId("dataset-menu-button");
 			datasetButton.setMaxWidth(Double.MAX_VALUE);
 
 			for (View v : View.values()) {
@@ -203,6 +205,13 @@ public class CovidToolBar<R extends Row<?, ?, ?>> extends ToolBar {
 			uiInstance.viewProperty().addListener(it -> datasetButton.setText(uiInstance.getView().getDisplayName()));
 
 			getItems().add(datasetButton);
+
+			CheckBox comparisonButton = new CheckBox("Comparison Mode");
+			comparisonButton.setId("comparison-button");
+			comparisonButton.setTooltip(new Tooltip("Use same maximum value for all y-axis."));
+			comparisonButton.selectedProperty().bindBidirectional(uiInstance.comparisonModeProperty());
+			getItems().add(comparisonButton);
+			HBox.setMargin(comparisonButton, new Insets(0, 20, 0, 20));
 		}
 	}
 
