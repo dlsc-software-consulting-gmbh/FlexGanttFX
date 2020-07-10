@@ -15,6 +15,8 @@ class LocationRow extends Row<LocationRow, LocationRow, Cases> {
 
     private final ChartLayout chartLayout = new ChartLayout();
 
+    private String iso3CountryCode;
+
     public LocationRow(String name) {
         super(name);
 
@@ -25,6 +27,14 @@ class LocationRow extends Row<LocationRow, LocationRow, Cases> {
         setLayout(chartLayout);
     }
 
+    public String getIso3CountryCode() {
+        return iso3CountryCode;
+    }
+
+    public void setIso3CountryCode(String iso3CountryCode) {
+        this.iso3CountryCode = iso3CountryCode;
+    }
+
     public void setMax(View view, Double cases) {
         maxCases.put(view, cases);
     }
@@ -33,7 +43,7 @@ class LocationRow extends Row<LocationRow, LocationRow, Cases> {
         return maxCases.getOrDefault(view, 0.0);
     }
 
-    public void updateMaxValue(View view) {
+    public void updateMaxValueAndTickLine(View view) {
         final double max = getMax(view);
         chartLayout.setMaxValue(max * 1.25);
         chartLayout.getMajorTicks().setAll(max);
@@ -47,10 +57,9 @@ class LocationRow extends Row<LocationRow, LocationRow, Cases> {
         return maxCasesGlobally.getOrDefault(view, 0.0);
     }
 
-    public void updateMaxValueGlobally(View view) {
+    public void updateMaxValueGloballyAndTickLine(View view) {
         final double globalMax = getMaxGlobally(view);
         chartLayout.setMaxValue(globalMax * 1.25);
         chartLayout.getMajorTicks().setAll(globalMax);
     }
-
 }

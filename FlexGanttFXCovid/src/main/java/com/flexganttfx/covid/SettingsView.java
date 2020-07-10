@@ -1,5 +1,6 @@
 package com.flexganttfx.covid;
 
+import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -54,14 +55,21 @@ public class SettingsView extends VBox {
         searchField.textProperty().addListener(it -> filteredList.setPredicate(row -> row.getName().toLowerCase().contains(searchField.getText().toLowerCase())));
 
         // add button
-        Button addButton = new Button("Add Row");
+        Button addButton = new Button("Add Country");
+        countryListView.getSelectionModel().getSelectedItems().addListener((Observable it) -> {
+            if (countryListView.getSelectionModel().getSelectedItems().size() > 1) {
+                addButton.setText("Add Countries");
+            } else {
+                addButton.setText("Add Country");
+            }
+        });
         addButton.setMaxWidth(Double.MAX_VALUE);
         addButton.disableProperty().bind(countryListView.getSelectionModel().selectedItemProperty().isNull());
         addButton.setOnAction(evt -> addSelectedCountries(uiInstance, countryListView));
         addButton.setPrefWidth(1);
 
         // clear button
-        Button clearButton = new Button("Clear Rows");
+        Button clearButton = new Button("Remove Charts");
         clearButton.setMaxWidth(Double.MAX_VALUE);
         clearButton.disableProperty().bind(Bindings.createBooleanBinding(() -> uiInstance.getSelectedLocations().isEmpty(), uiInstance.getSelectedLocations()));
         clearButton.setOnAction(evt -> uiInstance.getSelectedLocations().clear());

@@ -112,6 +112,10 @@ public class CovidUI {
             }
 
             final ListViewGraphics<LocationRow> graphics = ganttChart.getGraphics();
+            getSelectedLocations().addListener((Observable it) -> {
+                graphics.requestLayout();
+                graphics.redraw();
+            });
             graphics.setActivityEditingCallback(Cases.class, param -> false);
             graphics.setCanvasBuffer(0);
             graphics.getForegroundSystemLayers().add(new LocationLayer(graphics));
@@ -165,9 +169,9 @@ public class CovidUI {
                 final View view = getView();
                 rowMap.values().forEach(row -> {
                     if (isComparisonMode()) {
-                        row.updateMaxValueGlobally(view);
+                        row.updateMaxValueGloballyAndTickLine(view);
                     } else {
-                        row.updateMaxValue(view);
+                        row.updateMaxValueAndTickLine(view);
                     }
                 });
 
@@ -271,7 +275,9 @@ public class CovidUI {
             Scene scene = new Scene(stackPane);
             scene.getStylesheets().add(CovidUI.class.getResource("styles.css").toExternalForm());
 
-            CSSFX.start(scene);
+            if (!WebAPI.isBrowser()) {
+                CSSFX.start(scene);
+            }
 
             stage.setWidth(1200);
             stage.setHeight(1000);
@@ -284,12 +290,9 @@ public class CovidUI {
 
             comparisonMode.addListener(it -> {
                 if (isComparisonMode()) {
-                    selectedLocations.forEach(row -> {
-                        row.updateMaxValueGlobally(getView());
-                        System.out.println("");
-                    });
+                    selectedLocations.forEach(row -> row.updateMaxValueGloballyAndTickLine(getView()));
                 } else {
-                    selectedLocations.forEach(row -> row.updateMaxValue(getView()));
+                    selectedLocations.forEach(row -> row.updateMaxValueAndTickLine(getView()));
                 }
                 graphics.redraw();
             });
@@ -319,6 +322,12 @@ public class CovidUI {
         for (LocationRow row : selectedLocations) {
             for (View view : View.values()) {
                 row.setMaxGlobally(view, maximumValuesMap.get(view));
+            }
+        }
+
+        for (LocationRow row : selectedLocations) {
+            if (isComparisonMode()) {
+                row.updateMaxValueGloballyAndTickLine(getView());
             }
         }
     }
@@ -447,12 +456,17 @@ public class CovidUI {
         for (CSVRecord record : records) {
             String location = record.get("location");
 
+            if (location.equals("World")) {
+                continue;
+            }
+
             /*
              * Use hashmap to ensure we are only creating one row per location.
              */
             LocationRow row = rowMap.computeIfAbsent(location, key -> {
                 LocationRow r = new LocationRow(record.get("location"));
-                r.updateMaxValue(getView());
+                r.setIso3CountryCode(record.get("iso_code"));
+                r.updateMaxValueAndTickLine(getView());
                 locations.add(r);
 
                 if ((r.getName().equals("United States") || r.getName().equals("Germany") || r.getName().equals("Switzerland")) && !getSelectedLocations().contains(r)) {

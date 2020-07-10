@@ -56,7 +56,7 @@ public class RecordView extends GridPane {
         GridPane.setMargin(populationLabel, new Insets(5, 0, 0, 0));
 
         add(new CasesView("Total", "population", Integer.class), 0, 3);
-        add(new CasesView("Density", "population_density", Integer.class), 1, 3);
+        add(new CasesView("Density", "population_density", Double.class), 1, 3);
 
         final Label casesHeader = new Label("Cases");
         add(casesHeader, 0, 4);
@@ -66,8 +66,8 @@ public class RecordView extends GridPane {
         add(new CasesView("New Cases", "new_cases", Integer.class), 0, 5);
         add(new CasesView("Total Cases", "total_cases", Integer.class), 1, 5);
 
-        add(new CasesView("New Cases / Million", "new_cases_per_million", Integer.class), 0, 6);
-        add(new CasesView("Total Cases / Million", "total_cases_per_million", Integer.class), 1, 6);
+        add(new CasesView("New Cases / Million", "new_cases_per_million", Double.class), 0, 6);
+        add(new CasesView("Total Cases / Million", "total_cases_per_million", Double.class), 1, 6);
 
         final Label deathsHeader = new Label("Deaths");
         add(deathsHeader, 0, 7);
@@ -77,8 +77,8 @@ public class RecordView extends GridPane {
         add(new CasesView("New Deaths", "new_deaths", Integer.class), 0, 8);
         add(new CasesView("Total Deaths", "total_deaths", Integer.class), 1, 8);
 
-        add(new CasesView("New Deaths / Million", "new_deaths_per_million", Integer.class), 0, 9);
-        add(new CasesView("Total Deaths / Million", "total_deaths_per_million", Integer.class), 1, 9);
+        add(new CasesView("New Deaths / Million", "new_deaths_per_million", Double.class), 0, 9);
+        add(new CasesView("Total Deaths / Million", "total_deaths_per_million", Double.class), 1, 9);
 
         final Label testsHeader = new Label("Tests");
         add(testsHeader, 0, 10);
@@ -88,8 +88,8 @@ public class RecordView extends GridPane {
         add(new CasesView("New Tests", "new_tests", Integer.class), 0, 11);
         add(new CasesView("Total Tests", "total_tests", Integer.class), 1, 11);
 
-        add(new CasesView("New Tests / Thousand", "new_tests_per_thousand", Integer.class), 0, 12);
-        add(new CasesView("Total Tests / Thousand", "total_tests_per_thousand", Integer.class), 1, 12);
+        add(new CasesView("New Tests / Thousand", "new_tests_per_thousand", Double.class), 0, 12);
+        add(new CasesView("Total Tests / Thousand", "total_tests_per_thousand", Double.class), 1, 12);
     }
 
     class CasesView extends VBox {
@@ -97,12 +97,14 @@ public class RecordView extends GridPane {
         private final Label nameLabel = new Label();
         private final Label valueLabel = new Label();
 
+        private final NumberFormat numberInstance = NumberFormat.getNumberInstance();
+
         public CasesView(String name, String value, Class type) {
+            numberInstance.setMaximumFractionDigits(2);
+
             getStyleClass().add("cases-view");
             setFillWidth(true);
             setMinWidth(Region.USE_PREF_SIZE);
-            // make sure they all get the same width
-            //setPrefWidth(1);
 
             nameLabel.getStyleClass().add("name-label");
             valueLabel.getStyleClass().add("value-label");
@@ -122,6 +124,8 @@ public class RecordView extends GridPane {
                     final String valueString = record.get(value);
                     if (type.equals(Integer.class) && StringUtils.isNotBlank(valueString)) {
                         valueLabel.setText(NumberFormat.getIntegerInstance().format(Double.parseDouble(valueString)));
+                    } else if (type.equals(Double.class) && StringUtils.isNotBlank(valueString)) {
+                        valueLabel.setText(numberInstance.format(Double.parseDouble(valueString)));
                     } else {
                         valueLabel.setText(valueString);
                     }

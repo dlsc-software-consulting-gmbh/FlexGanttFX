@@ -36,7 +36,7 @@
 }
 
 .settings-view {
-    -fx-padding: 10px;
+    -fx-padding: 20px;
     -fx-spacing: 10px;
     -fx-background-color: -fx-base, -fx-background;
     -fx-background-insets: 0, 0 0 0 2;
@@ -360,4 +360,10 @@
 }
 
 .tool-bar #comparison-button:selected {
+}
+
+.eventline-row-header {
+    -fx-background-color: -black-color, rgb(64,64,64) !important;
+    -fx-border-width: 0px;
+    -fx-background-insets: 0, 0 2 0 0 !important;
 }
