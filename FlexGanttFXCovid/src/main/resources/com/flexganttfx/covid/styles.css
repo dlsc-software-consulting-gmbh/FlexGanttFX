@@ -367,3 +367,8 @@
     -fx-border-width: 0px;
     -fx-background-insets: 0, 0 2 0 0 !important;
 }
+
+.location-title {
+    -fx-padding: 10px 0px;
+    -fx-font-size: 1.5em;
+}

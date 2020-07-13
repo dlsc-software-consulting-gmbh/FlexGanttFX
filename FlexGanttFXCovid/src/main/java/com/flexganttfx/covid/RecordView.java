@@ -2,13 +2,16 @@ package com.flexganttfx.covid;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.StringUtils;
@@ -35,20 +38,34 @@ public class RecordView extends GridPane {
         getColumnConstraints().setAll(col1, col2);
 
         Label title = new Label("");
+        title.getStyleClass().add("location-title");
         add(title, 0, 0);
         GridPane.setColumnSpan(title, 2);
+        GridPane.setHalignment(title, HPos.CENTER);
         GridPane.setMargin(title, new Insets(5, 0, 0, 0));
+
+        add(new CasesView("Date", "date", LocalDate.class), 0, 1);
+
+        ImageView flagImageView = new ImageView();
+        flagImageView.setFitHeight(52);
+        flagImageView.setPreserveRatio(true);
+
+        StackPane imageWrapper = new StackPane(flagImageView);
+        StackPane.setAlignment(flagImageView, Pos.CENTER);
+        GridPane.setFillHeight(imageWrapper, true);
+
+        add(imageWrapper, 1, 1);
 
         recordProperty().addListener(it -> {
             final CSVRecord record = getRecord();
             if (record != null) {
-                title.setText("Location: " + record.get("location"));
+                title.setText(record.get("location"));
+                flagImageView.setImage(Flags.getFlag(Iso.convertIso3CountryCodeToIso2CountryCode(record.get("iso_code"))));
             } else {
                 title.setText("");
+                flagImageView.setImage(null);
             }
         });
-
-        add(new CasesView("Date", "date", LocalDate.class), 0, 1);
 
         Label populationLabel = new Label("Population");
         add(populationLabel, 0, 2);
