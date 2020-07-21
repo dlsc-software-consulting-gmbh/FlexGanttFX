@@ -7,12 +7,10 @@ import com.flexganttfx.model.Layer;
 import com.flexganttfx.model.activity.MutableChartActivityBase;
 import com.flexganttfx.model.layout.ChartLayout;
 import com.flexganttfx.view.GanttChartLite;
-import com.flexganttfx.view.graphics.ActivityBounds;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.graphics.ListViewGraphics;
 import com.flexganttfx.view.graphics.ScaleRowHeader;
 import com.flexganttfx.view.graphics.renderer.ChartActivityRenderer;
-import com.flexganttfx.view.util.Position;
 import com.jpro.webapi.WebAPI;
 import fr.brouillard.oss.cssfx.CSSFX;
 import javafx.application.Platform;
@@ -28,7 +26,6 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -661,15 +658,6 @@ public class CovidUI {
             setStroke(color.darker());
             setLineWidth(1);
             setAlpha(1);
-        }
-
-        @Override
-        protected ActivityBounds drawActivity(ActivityRef<Cases> activityRef, Position position, GraphicsContext gc, double x, double y, double w, double h, boolean selected, boolean hover, boolean highlighted, boolean pressed) {
-            if (w >= 6) {
-                return super.drawActivity(activityRef, position, gc, x + (w - 4) / 2, y, w - 4, h, selected, hover, highlighted, pressed);
-            } else {
-                return super.drawActivity(activityRef, position, gc, x, y, w, h, selected, hover, highlighted, pressed);
-            }
         }
     }
 }
