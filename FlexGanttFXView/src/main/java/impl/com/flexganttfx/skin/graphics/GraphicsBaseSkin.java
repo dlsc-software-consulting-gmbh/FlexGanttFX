@@ -662,9 +662,9 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
             }
         });
 
-        node.addEventHandler(ContextMenuEvent.CONTEXT_MENU_REQUESTED, evt1 -> {
+        node.addEventHandler(ContextMenuEvent.CONTEXT_MENU_REQUESTED, evt -> {
             if (!lassoStarted) {
-                showContextMenu(evt1);
+                showContextMenu(evt);
             }
         });
 

@@ -2668,11 +2668,9 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
      * @param callback a callback for creating a parameterized context menu
      * @since 1.0
      */
-    public final void setContextMenuCallback(
-            Callback<ContextMenuParameter<R>, ContextMenu> callback) {
+    public final void setContextMenuCallback(Callback<ContextMenuParameter<R>, ContextMenu> callback) {
         if (callback != null) {
-            LoggingDomain.CONFIG.fine("callback class: "
-                    + callback.getClass().getName());
+            LoggingDomain.CONFIG.fine("callback class: " + callback.getClass().getName());
         } else {
             LoggingDomain.CONFIG.fine("callback: null");
         }
@@ -2692,8 +2690,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     // Marked interval support.
 
-    private final BooleanProperty autoMarkedTimeInterval = new SimpleBooleanProperty(
-            this, "autoMarkedTimeInterval", true);
+    private final BooleanProperty autoMarkedTimeInterval = new SimpleBooleanProperty(this, "autoMarkedTimeInterval", true);
 
     /**
      * Controls whether the marked time interval property of the
@@ -2728,8 +2725,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     // Support for grid levels.
 
-    private final IntegerProperty maxGridLevel = new SimpleIntegerProperty(this,
-            "maxGridLevel", 2);
+    private final IntegerProperty maxGridLevel = new SimpleIntegerProperty(this, "maxGridLevel", 2);
 
     /**
      * A property used to store the number of grid levels that the user wants to
@@ -2765,8 +2761,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
      */
     public final void setMaxGridLevel(int max) {
         if (max < 1 || max > 5) {
-            throw new IllegalArgumentException(
-                    "max grid level must be within [1, 5] but was " + max);
+            throw new IllegalArgumentException("max grid level must be within [1, 5] but was " + max);
         }
 
         maxGridLevelProperty().set(max);
@@ -2774,8 +2769,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     // Cursor support.
 
-    private final BooleanProperty showVerticalCursor = new SimpleBooleanProperty(this,
-            "showVerticalCursor", false);
+    private final BooleanProperty showVerticalCursor = new SimpleBooleanProperty(this, "showVerticalCursor", false);
 
     /**
      * A property used to control wether a vertical cursor line will be shown by
@@ -2810,8 +2804,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         showVerticalCursorProperty().set(show);
     }
 
-    private final BooleanProperty showHorizontalCursor = new SimpleBooleanProperty(
-            this, "showHorizontalCursor", false);
+    private final BooleanProperty showHorizontalCursor = new SimpleBooleanProperty(this, "showHorizontalCursor", false);
 
     /**
      * A property used to control wether a horizontal cursor line will be shown
@@ -5036,30 +5029,25 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
         }
 
-        private EventHandler<ActionEvent> highlightOff(
-                final ContextMenuParameter<R> input) {
+        private EventHandler<ActionEvent> highlightOff(final ContextMenuParameter<R> input) {
             return event -> {
                 GraphicsBase<R> view = input.getGraphics();
                 view.getHighlightedActivities().clear();
             };
         }
 
-        private EventHandler<ActionEvent> highlightOn(
-                final ContextMenuParameter<R> input) {
+        private EventHandler<ActionEvent> highlightOn(final ContextMenuParameter<R> input) {
             return event -> {
                 GraphicsBase<R> view = input.getGraphics();
                 view.getHighlightedActivities().clear();
-                view.getHighlightedActivities()
-                        .addAll(view.getSelectedActivities());
+                view.getHighlightedActivities().addAll(view.getSelectedActivities());
             };
         }
     }
 
     // Drop layer provider support.
 
-    private final ObjectProperty<Callback<DragAndDropInfo, Layer>> dropLayerProvider = new SimpleObjectProperty<>(
-            this, "dropLayerProvider",
-            info -> info.getActivityRef().getLayer());
+    private final ObjectProperty<Callback<DragAndDropInfo, Layer>> dropLayerProvider = new SimpleObjectProperty<>(this, "dropLayerProvider", info -> info.getActivityRef().getLayer());
 
     /**
      * A property used to store a callback that will return the layer on which a
