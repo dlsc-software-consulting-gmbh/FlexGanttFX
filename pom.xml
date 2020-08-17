@@ -30,7 +30,7 @@
         <module>FlexGanttFXModel</module>
         <module>FlexGanttFXView</module>
         <module>FlexGanttFXExtras</module>
-        <module>FlexGanttFXSampler</module>
+        <!--<module>FlexGanttFXSampler</module>
         <module>FlexGanttFXProject</module>
         <module>FlexGanttFXMSProject</module>
         <module>FlexGanttFXiCal</module>
@@ -38,9 +38,9 @@
         <module>FlexGanttFXLicensing</module>
         <module>FlexGanttFXEmirates</module>
         <module>FlexGanttFXTutorials</module>
-        <module>FlexGanttFXEditor</module>
+        <module>FlexGanttFXEditor</module> -->
         <module>FlexGanttFXAssembly</module>
-        <module>FlexGanttFXCovid</module>
+        <!-- <module>FlexGanttFXCovid</module> -->
     </modules>
 
     <build>
