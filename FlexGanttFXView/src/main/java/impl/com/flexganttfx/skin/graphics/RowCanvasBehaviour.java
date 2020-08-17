@@ -781,6 +781,11 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
         stopAutoScrollIfNeeded();
 
+        if (isWindows()) {
+            EDITING.fine("OS is Windows, handling selection upon mouse released");
+            handleSelection(event);
+        }
+
         GraphicsBase<R> graphics = canvas.getGraphics();
         graphics.getProperties().put("com.flexganttfx.pressed.activity", null);
 
@@ -796,6 +801,10 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
         mouseWasPressed = false;
         activityBounds = null;
+    }
+
+    private boolean isWindows() {
+        return System.getProperty("os.name").startsWith("Windows");
     }
 
     class ScrollThread extends Thread {
@@ -1303,7 +1312,10 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
         mouseWasPressed = true;
 
-        handleSelection(event);
+        if (!isWindows()) {
+            EDITING.fine("OS is not Windows, handling selection upon mouse pressed");
+            handleSelection(event);
+        }
 
         editStartX = getGraphicsX(event);
         editStartY = event.getY();
