@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.flexganttfx</groupId>
     <artifactId>gantt</artifactId>
-    <version>11.12.0</version>
+    <version>11.12.1</version>
     <packaging>pom</packaging>
     <name>FlexGanttFX</name>
     <description>The parent project for the various FlexGanttFX modules.</description>
@@ -202,5 +202,17 @@
         </dependency>
 
     </dependencies>
+    <distributionManagement>
+        <repository>
+            <id>artifactory-release</id>
+            <name>ext-release-local</name>
+            <url>http://192.168.36.5:8081/artifactory/ext-release-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>artifactory-snapshot</id>
+            <name>ext-snapshot-local</name>
+            <url>http://192.168.36.5:8081/artifactory/ext-snapshot-local</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 </project>

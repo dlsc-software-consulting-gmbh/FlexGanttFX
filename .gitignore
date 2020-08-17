@@ -1,3 +1,7 @@
 /target/
 /FlexGanttFXMSProject/logs/
 tmp/
+.idea/libraries
+*.iml
+.idea
+FlexGanttFXCovid/target
