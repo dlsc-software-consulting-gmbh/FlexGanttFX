@@ -232,22 +232,22 @@ public class HelloChartLayout extends FlexGanttFXSample {
             GridPane.setMargin(text, new Insets(10));
             pane.add(text, 0, 1);
 
-            TableView<DailyTrading> table = new TableView<DailyTrading>();
+            TableView<DailyTrading> table = new TableView<>();
 
-            TableColumn<DailyTrading, LocalDate> dateColumn = new TableColumn<DailyTrading, LocalDate>("Date");
-            TableColumn<DailyTrading, Double> openColumn = new TableColumn<DailyTrading, Double>("Open");
-            TableColumn<DailyTrading, Double> lowColumn = new TableColumn<DailyTrading, Double>("Low");
-            TableColumn<DailyTrading, Double> highColumn = new TableColumn<DailyTrading, Double>("High");
-            TableColumn<DailyTrading, Double> closeColumn = new TableColumn<DailyTrading, Double>("Close");
-            TableColumn<DailyTrading, Integer> volumeColumn = new TableColumn<DailyTrading, Integer>("Volume");
+            TableColumn<DailyTrading, LocalDate> dateColumn = new TableColumn<>("Date");
+            TableColumn<DailyTrading, Double> openColumn = new TableColumn<>("Open");
+            TableColumn<DailyTrading, Double> lowColumn = new TableColumn<>("Low");
+            TableColumn<DailyTrading, Double> highColumn = new TableColumn<>("High");
+            TableColumn<DailyTrading, Double> closeColumn = new TableColumn<>("Close");
+            TableColumn<DailyTrading, Integer> volumeColumn = new TableColumn<>("Volume");
             table.getColumns().addAll(dateColumn, openColumn, lowColumn, highColumn, closeColumn, volumeColumn);
 
-            dateColumn.setCellValueFactory(new PropertyValueFactory<DailyTrading, LocalDate>("date"));
-            openColumn.setCellValueFactory(new PropertyValueFactory<DailyTrading, Double>("stockOpen"));
-            lowColumn.setCellValueFactory(new PropertyValueFactory<DailyTrading, Double>("stockLow"));
-            highColumn.setCellValueFactory(new PropertyValueFactory<DailyTrading, Double>("stockHigh"));
-            closeColumn.setCellValueFactory(new PropertyValueFactory<DailyTrading, Double>("stockClose"));
-            volumeColumn.setCellValueFactory(new PropertyValueFactory<DailyTrading, Integer>("volume"));
+            dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+            openColumn.setCellValueFactory(new PropertyValueFactory<>("stockOpen"));
+            lowColumn.setCellValueFactory(new PropertyValueFactory<>("stockLow"));
+            highColumn.setCellValueFactory(new PropertyValueFactory<>("stockHigh"));
+            closeColumn.setCellValueFactory(new PropertyValueFactory<>("stockClose"));
+            volumeColumn.setCellValueFactory(new PropertyValueFactory<>("volume"));
 
             table.getItems().addAll(param.getRow().getTrades());
             GridPane.setHgrow(table, Priority.ALWAYS);
@@ -434,10 +434,10 @@ public class HelloChartLayout extends FlexGanttFXSample {
             setLow(low);
             setHigh(high);
 
-            this.stockLow = low;
-            this.stockHigh = high;
-            this.stockOpen = open;
-            this.stockClose = close;
+            stockLow = low;
+            stockHigh = high;
+            stockOpen = open;
+            stockClose = close;
             this.volume = volume;
         }
 

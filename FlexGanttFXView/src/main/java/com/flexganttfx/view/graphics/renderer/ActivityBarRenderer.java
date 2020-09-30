@@ -77,8 +77,7 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
         }
 
         if (isMilestone(activityRef)) {
-            return new ActivityBounds(activityRef, x - barHeight / 2, my,
-                    barHeight, barHeight);
+            return new ActivityBounds(activityRef, x - barHeight / 2, my, barHeight, barHeight);
         }
 
         return new ActivityBounds(activityRef, x, my, w, mh);
@@ -170,14 +169,11 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
         boolean glossy = isGlossy();
 
         double[] xx = new double[]{x, x + bh / 2, x, x - bh / 2, x};
-        double[] yy = new double[]{my, my + bh / 2, my + bh, my + bh / 2,
-                my};
+        double[] yy = new double[]{my, my + bh / 2, my + bh, my + bh / 2, my};
 
         if (selected) {
-            double[] xxSelected = new double[]{x, x + bh / 2 + 2, x,
-                    x - bh / 2 - 2, x};
-            double[] yySelected = new double[]{my - 2, my + bh / 2,
-                    my + bh + 2, my + bh / 2, my - 2};
+            double[] xxSelected = new double[]{x, x + bh / 2 + 2, x, x - bh / 2 - 2, x};
+            double[] yySelected = new double[]{my - 2, my + bh / 2, my + bh + 2, my + bh / 2, my - 2};
 
             gc.setStroke(getStrokeSelected());
             gc.strokePolygon(xxSelected, yySelected, 5);
@@ -199,11 +195,9 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
                               boolean pressed) {
 
         if (isMilestone(activityRef)) {
-            drawMilestoneBorder(activityRef, gc, x, y, w, h, selected, hover,
-                    highlighted, pressed);
+            drawMilestoneBorder(activityRef, gc, x, y, w, h, selected, hover, highlighted, pressed);
         } else {
-            drawActivityBorder(activityRef, gc, x, y, w, h, selected, hover,
-                    highlighted, pressed);
+            drawActivityBorder(activityRef, gc, x, y, w, h, selected, hover, highlighted, pressed);
         }
     }
 
@@ -248,8 +242,7 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
         }
 
         double[] xx = new double[]{x, x + bh / 2, x, x - bh / 2, x};
-        double[] yy = new double[]{my, my + bh / 2, my + bh, my + bh / 2,
-                my};
+        double[] yy = new double[]{my, my + bh / 2, my + bh, my + bh / 2, my};
 
         gc.strokePolygon(xx, yy, 5);
     }
@@ -267,13 +260,10 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
                 availableWidth = Double.MAX_VALUE;
                 break;
             case CENTER:
-                availableWidth = Math.max(0, Math.min((x < 0 ? w + x : w),
-                        gc.getCanvas().getWidth() - (x < 0 ? 0 : x)));
+                availableWidth = Math.max(0, Math.min((x < 0 ? w + x : w), gc.getCanvas().getWidth() - (x < 0 ? 0 : x)));
                 break;
             default:
-                availableWidth = Math.max(0,
-                        Math.min((x < 0 ? w + x : w) - 2 * getTextGap(),
-                                gc.getCanvas().getWidth() - (x < 0 ? 0 : x)));
+                availableWidth = Math.max(0, Math.min((x < 0 ? w + x : w) - 2 * getTextGap(), gc.getCanvas().getWidth() - (x < 0 ? 0 : x)));
                 break;
         }
 
@@ -295,8 +285,7 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
 
         double textX = 0;
         double textY = 0;
-        double textGap = isMilestone(activityRef) ? barHeight / 2 + getTextGap()
-                : getTextGap();
+        double textGap = isMilestone(activityRef) ? barHeight / 2 + getTextGap() : getTextGap();
 
         switch (position) {
             case LEADING:
@@ -411,15 +400,11 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
      * @return true if the text can be drawn
      * @since 1.5
      */
-    protected boolean isTextVisible(String text, TextPosition position,
-                                    double availableWidth) {
-        return !(availableWidth < 10) && text != null
-                && !(text.length() * 3 > availableWidth);
+    protected boolean isTextVisible(String text, TextPosition position, double availableWidth) {
+        return !(availableWidth < 10) && text != null && !(text.length() * 3 > availableWidth);
     }
 
-    protected Paint getTextFill(boolean selected, boolean hover,
-                                boolean highlighted, boolean pressed) {
-
+    protected Paint getTextFill(boolean selected, boolean hover, boolean highlighted, boolean pressed) {
         if (pressed) {
             return getTextFillPressed();
         } else if (highlighted) {
@@ -445,8 +430,7 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
     private final ObjectProperty<Paint> textFillSelected = new SimpleObjectProperty<>(this, "textFillSelected");
     private final ObjectProperty<Paint> textFillPressed = new SimpleObjectProperty<>(this, "textFillPressed");
 
-    private final ObjectProperty<Font> font = new SimpleObjectProperty<>(this,
-            "font", Font.font(10));
+    private final ObjectProperty<Font> font = new SimpleObjectProperty<>(this, "font", Font.font(10));
 
     // @formatter:on
 
