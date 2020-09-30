@@ -5,7 +5,7 @@
 		<groupId>com.flexganttfx</groupId>
 		<artifactId>gantt</artifactId>
 		<version>11.12.0</version>
-		<relativePath>..</relativePath>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>assembly</artifactId>
 	<packaging>pom</packaging>
