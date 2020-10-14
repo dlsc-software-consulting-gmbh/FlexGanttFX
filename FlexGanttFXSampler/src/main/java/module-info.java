@@ -1,8 +1,6 @@
-import fxsampler.Sample;
-
 /**
  * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 open module com.flexganttfx.sampler {

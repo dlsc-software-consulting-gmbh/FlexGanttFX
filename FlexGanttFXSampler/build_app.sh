@@ -55,7 +55,7 @@ echo "detected modules: ${detected_modules}"
 #
 # See: https://bugs.openjdk.java.net/browse/JDK-8221674
 
-manual_modules=jdk.crypto.ec,com.flexganttfx.model,com.flexganttfx.view,com.flexganttfx.sampler,com.flexganttfx.extras,com.flexganttfx.core
+manual_modules=jdk.crypto.ec
 echo "manual modules: ${manual_modules}"
 
 # ------ RUNTIME IMAGE ------------------------------------------------------
