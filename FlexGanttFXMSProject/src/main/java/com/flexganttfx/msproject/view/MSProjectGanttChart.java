@@ -46,7 +46,6 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
     public MSProjectGanttChart() {
         super();
 
-        setDisplayMode(DisplayMode.GRAPHICS_ONLY);
         setFixedCellSize(Row.DEFAULT_ROW_HEIGHT);
         getStylesheets().add(MSProjectGanttChart.class.getResource("msproject.css").toExternalForm());
 
