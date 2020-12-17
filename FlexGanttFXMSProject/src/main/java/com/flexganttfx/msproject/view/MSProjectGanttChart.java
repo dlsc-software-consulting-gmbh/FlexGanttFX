@@ -201,7 +201,7 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
             MSProjectGanttChartModel model = new MSProjectGanttChartModel(projectFile);
 
             setRoot(model.getRoot());
-            getLayers().setAll(model.getLayers());
+            //getLayers().setAll(model.getLayers());
             model.getLinks().forEach(link -> getLinks().add(link));
 
             model.getRoot().setExpanded(true);

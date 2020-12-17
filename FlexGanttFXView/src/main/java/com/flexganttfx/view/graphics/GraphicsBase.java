@@ -109,6 +109,7 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ContextMenu;
@@ -125,6 +126,7 @@ import javafx.scene.input.ZoomEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.stage.Window;
 import javafx.util.Callback;
 import javafx.util.Duration;
 
@@ -2490,6 +2492,16 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         }
     }
 
+    private boolean isShowing() {
+        final Scene scene = getScene();
+        if (scene != null) {
+            final Window window = scene.getWindow();
+            return window != null && window.isShowing();
+        }
+
+        return false;
+    }
+
     private class HighlightThread extends Thread {
 
         private boolean running = true;
@@ -2501,7 +2513,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
         @Override
         public final void run() {
-            while (running) {
+            while (running && isShowing()) {
                 highlight(!isHighlighted());
 
                 try {

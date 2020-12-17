@@ -46,6 +46,7 @@ public class MSProjectApp extends Application {
 		this.stage.setTitle(STAGE_TITLE);
 
 		gantt = new MSProjectGanttChart();
+		gantt.getGraphics().setShowLinks(false);
 		gantt.getGraphics().setLinkRenderer(ActivityLink.class, new CurvedLinkRenderer<>(gantt.getGraphics(), "Custom Link Renderer") {
 			@Override
 			public void draw(ActivityLink<?> link, GraphicsContext gc, Rectangle2D sourceBounds, Rectangle2D targetBounds) {

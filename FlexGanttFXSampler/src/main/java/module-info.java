@@ -1,11 +1,11 @@
 /**
  * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 open module com.flexganttfx.sampler {
 
-    requires fxsampler;
+    requires org.controlsfx.fxsampler;
     requires opencsv;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.materialdesign;
@@ -27,4 +27,6 @@ open module com.flexganttfx.sampler {
     exports com.flexganttfx.demo.timeline to org.controlsfx.fxsampler;
 
     provides fxsampler.FXSamplerProject with com.flexganttfx.demo.FlexGanttFXSamplerProject;
+
+    uses fxsampler.FXSamplerProject;
 }
