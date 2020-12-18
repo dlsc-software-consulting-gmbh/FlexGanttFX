@@ -27,6 +27,19 @@ import com.flexganttfx.view.graphics.LassoEvent.LassoInfo;
 import com.flexganttfx.view.timeline.Dateline;
 import com.flexganttfx.view.timeline.Eventline;
 import com.flexganttfx.view.timeline.Timeline;
+
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.temporal.TemporalUnit;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.stream.Collectors;
+
 import impl.com.flexganttfx.skin.util.AgendaHelper;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
@@ -53,18 +66,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Callback;
-
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.temporal.TemporalUnit;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.stream.Collectors;
 
 public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<?, ?, ?>> extends SkinBase<C> {
 
@@ -385,10 +386,10 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         List<ActivityRef<?>> activities = findLassoSelectedActivities();
 
         if (lassoStartTime.isBefore(lassoEndTime)) {
-            return new LassoInfo(evt, lassoStartTime, lassoEndTime, localStartTime, localEndTime, rows, activities);
+            return new LassoInfo(evt, lassoStartTime, lassoEndTime, localStartTime, localEndTime, rows, activities, false);
         }
 
-        return new LassoInfo(evt, lassoEndTime, lassoStartTime, localStartTime, localEndTime, rows, activities);
+        return new LassoInfo(evt, lassoEndTime, lassoStartTime, localStartTime, localEndTime, rows, activities, true);
     }
 
     protected final RowPane<R> getRowPane(ActivityRef<?> ref) {
