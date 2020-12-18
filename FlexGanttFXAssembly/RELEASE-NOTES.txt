@@ -1,4 +1,20 @@
 ----------------------------------------------------------------
+Release: 11.12.2, August 17th, 2020
+----------------------------------------------------------------
+
+** CHANGES
+
+   ** Added a flag called "inverse" to the LassoInfo class. The flag indicates whether
+      the lasso was created in inverse direction, meaning the end time of the lasso was
+      actually BEFORE the start time of the lasso when the user released the mouse.
+
+** BUGS
+
+    ** Fixed a styling issue that caused the graphics view header on the right-hand
+       side to become misaligned with the table header on the left-hand side. It was
+       two pixels less high.
+
+----------------------------------------------------------------
 Release: 11.12.1, August 17th, 2020
 ----------------------------------------------------------------
 
