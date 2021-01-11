@@ -27,7 +27,7 @@ dribble: "https://www.dribble.com"
 youtube: "https://www.youtube.com"
 
 ## Theme Options
-animated_header: "true"  #true
+animated_header: ""  #true
 twitter_username: dlemmermann
 github_username:  dlemmermann
 
