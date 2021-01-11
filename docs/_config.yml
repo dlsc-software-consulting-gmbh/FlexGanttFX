@@ -8,28 +8,28 @@
 ####################################################
 
 # Site settings
-title: "Doxy - Documentation Website"
-email: "themeix@gmail.com"
-description: "Doxy is a responsive Jekyll template for your documentation or knowledgebase website"
-keywords: "jekyll, minimal jekyll, jekyll theme, responsive jekyll, seo friendly blog, super fast blog, responsive"
+title: "FlexGanttFX for JavaFX"
+email: "dlemmermann@gmail.com"
+description: "FlexGanttFX is the most powerful framework for planning and scheduling applications using JavaFX"
+keywords: "FlexGanttFX, Java, JavaFX, UI, library, planning, scheduling, UX, ERP, MES, Manufacturing, Plannung, Logistik, Transportation"
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://jekyll-doxy.netlify.app/"
+url: "https://dlemmermann.github.io/FlexGanttFX/"
 cover_image: "https://themeix.com/wp-content/uploads/dooxy-responsive-html-template-preview.png" # Image will Display in Social Media When share the website
 facebook: "https://www.facebook.com"
-twitter: "https://www.twitter.com"
+twitter: "https://www.twitter.com/dlemmermann"
 instagram: "https://www.instagram.com"
-github: "https://www.github.com"
-linkedin: "https://www.linkedin.com"
+github: "https://github.com/dlemmermann"
+linkedin: "https://www.linkedin.com/in/dlemmermann/"
 behance: "https://www.behance.com"
 reddit: "https://www.reddit.com"
 vimeo: "https://www.vimeo.com"
 dribble: "https://www.dribble.com"
-youtube: "https://www.youtube.com"
+youtube: "https://www.youtube.com/channel/UCFyRQ_euxxPDwlqyhff-x0Q"
 
 ## Theme Options
 animated_header: ""  #true 
-twitter_username: jekyllrb
-github_username:  jekyll
+twitter_username: dlemmermann
+github_username:  dlemmermann
 
 toc:
   min_level: 1
