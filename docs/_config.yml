@@ -8,11 +8,11 @@
 ####################################################
 
 # Site settings
-title: "Doxy - Documentation Website"
-email: "themeix@gmail.com"
+title: "FlexGanttFX for JavaFX"
+email: "dlemmermann@gmail.com"
 description: "Doxy is a responsive Jekyll template for your documentation or knowledgebase website"
 keywords: "jekyll, minimal jekyll, jekyll theme, responsive jekyll, seo friendly blog, super fast blog, responsive"
-baseurl: "/gh-jekyll-doxy" # the subpath of your site, e.g. /blog
+baseurl: "/FlexGanttFX" # the subpath of your site, e.g. /blog
 url: " "
 cover_image: "https://themeix.com/wp-content/uploads/dooxy-responsive-html-template-preview.png" # Image will Display in Social Media When share the website
 facebook: "https://www.facebook.com"
@@ -28,8 +28,8 @@ youtube: "https://www.youtube.com"
 
 ## Theme Options
 animated_header: ""  #true 
-twitter_username: jekyllrb
-github_username:  jekyll
+twitter_username: dlemmermann
+github_username:  dlemmermann
 
 
 # Build settings
