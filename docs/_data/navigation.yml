@@ -11,8 +11,6 @@
     url: /blog-post-left-sidebar
   - text: Blog Post - Right Sidebar
     url: /blog-post-right-sidebar
-  - text: Tag - Education
-    url: /tag/education
 - text: Docs
   url: /explore-topics
   submenu:

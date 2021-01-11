@@ -1,6 +1,5 @@
 ---
 layout: default
-toc: true
 ---
 
 {% include header.html %}
@@ -68,8 +67,7 @@ toc: true
 		
         <div class="col-md-{{ col | plus: col1 | plus: col2 }}">
           <div class="tutorial-content mx-auto">
-            <div class="doc-content">
-		
+            <div class="doc-content">		
               {{content}}
             </div>
           </div>
@@ -81,7 +79,7 @@ toc: true
             <div>
               <div id="table-of-contents">
                <h5 class="px-3 pt-3">Table of Content</h5>
-				{% toc %}
+				 {% include toc.html html=content %}
               </div>
 
             </div>

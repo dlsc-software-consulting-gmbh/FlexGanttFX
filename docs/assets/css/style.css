@@ -372,10 +372,10 @@ h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover {
   background: transparent; }
 
 .bg-cover1 {
-  background: url(assets/images/bg-pattern.svg) 50% no-repeat, linear-gradient(60deg, #0D65B0, #3399f0); }
+  background: url(../images/bg-pattern.svg) 50% no-repeat, linear-gradient(60deg, #0D65B0, #3399f0); }
 
 .bg-cover2 {
-  background: url(assets/images/bg-pattern2.svg) 50% no-repeat, linear-gradient(0deg, #0D65B0, #062e51); }
+  background: url(../images/bg-pattern2.svg) 50% no-repeat, linear-gradient(0deg, #0D65B0, #062e51); }
 
 .overlay-color {
   background: #0D65B0;
@@ -1146,8 +1146,7 @@ h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover {
   margin-right: 20px; }
   .testimonial-slider .owl-prev:before, .testimonial-slider2 .owl-prev:before {
     content: "";
-    background-image: url(assets/images/testimonial-left.png);
-    -webkit-filter: grayscale(100%);
+    background-image: url(../images/testimonial-left.png);
     /* Safari 6.0 - 9.0 */
     filter: grayscale(100%);
     background-repeat: no-repeat;
@@ -1155,16 +1154,14 @@ h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover {
     height: 16px;
     display: block; }
   .testimonial-slider .owl-prev:hover:before, .testimonial-slider2 .owl-prev:hover:before {
-    -webkit-filter: none;
-            filter: none; }
+    filter: none; }
   .testimonial-slider .owl-prev span, .testimonial-slider2 .owl-prev span {
     display: none; }
 
 .testimonial-slider .owl-next:before, .testimonial-slider2 .owl-next:before {
   content: "";
   content: "";
-  background-image: url(assets/images/testimonial-right.png);
-  -webkit-filter: grayscale(100%);
+  background-image: url(../images/testimonial-right.png);
   /* Safari 6.0 - 9.0 */
   filter: grayscale(100%);
   background-repeat: no-repeat;
@@ -1173,8 +1170,7 @@ h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover {
   display: block; }
 
 .testimonial-slider .owl-next:hover:before, .testimonial-slider2 .owl-next:hover:before {
-  -webkit-filter: none;
-          filter: none; }
+  filter: none; }
 
 .testimonial-slider .owl-next span, .testimonial-slider2 .owl-next span {
   display: none; }
@@ -1426,7 +1422,7 @@ h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover {
       .changelog-service .changelog-tile p .changelog-date {
         width: 18px;
         height: 16px;
-        background-image: url(assets/images/changelog-date.png);
+        background-image: url(../images/changelog-date.png);
         background-position: center;
         display: block;
         float: left;
@@ -1437,7 +1433,7 @@ h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover {
     .changelog-service .changelog-list li .changelog-fix {
       width: 18px;
       height: 12px;
-      background-image: url(assets/images/changelog-fix.png);
+      background-image: url(../images/changelog-fix.png);
       background-position: center;
       display: block;
       float: left;
@@ -1446,7 +1442,7 @@ h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover {
     .changelog-service .changelog-list li .changelog-bug {
       width: 18px;
       height: 16px;
-      background-image: url(assets/images/changelog-bug.png);
+      background-image: url(../images/changelog-bug.png);
       background-position: center;
       display: block;
       float: left;

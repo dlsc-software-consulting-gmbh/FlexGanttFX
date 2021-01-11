@@ -199,7 +199,7 @@
     var sjs = SimpleJekyllSearch({
         searchInput: document.getElementById('search-input'),
         resultsContainer: document.getElementById('results-container'),
-        json: '/search.json',
+        json: 'https://themeix.github.io/gh-jekyll-doxy/search.json',
         searchResultTemplate: '<div class="search-results"><div class="search-content"><h3><a href="{url}">{title}</a></h3></div></div>'
     });
 

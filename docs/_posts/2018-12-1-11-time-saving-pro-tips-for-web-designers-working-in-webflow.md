@@ -107,3 +107,24 @@ Where you put HTML or Markdown files for pages depends on how you want the pages
 * Place pages inside folders and subfolders named whatever you want.
 
 Both methods work fine (and can be used in conjunction with each other), with the only real difference being the resulting URLs. By default, pages retain the same folder structure in `_site` as they do in the source directory.
+
+
+| Title | Description |
+| ----------- | ----------- |
+| ID | The column of your product backlog item |
+| Link (optional) | A URL of the product backlog item in your tracking software (if you have one) |
+| Title | The summary or title or name of the product backlog item |
+
+
+| ID | Title | Backlog | To Do | Development | Testing | Deployment | Done |
+| - | - | - | - | - | - | - | - |
+| 1  | Some name |  |  |  |  |  | |
+
+
+| Name | Description |
+| ----------- | ----------- |
+| State | To know which PBIs are done or in progress. |
+| Type | So you can have the opportunity to filter on a specific PBI type. |
+| Effort | If your Scrum team is pointing your stories, you can add the estimation value here. In another post, I will explain how to compare the effort versus the actual cycle time. |
+| Cycle time | We will calculate the cycle time in this column. For work in progress, this column will be blank. |
+| Age | For work in progress, we want to see their current age so you can track them. It will be blank for completed PBIs. |

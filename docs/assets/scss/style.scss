@@ -38,12 +38,12 @@ INDEX SASS
 
 --------------------------*/
 
-@import "assets/scss/base/variable";
-@import "assets/scss/base/prefix";
-@import "assets/scss/base/media_query";
-@import "assets/scss/base/base";
-@import "assets/scss/base/typography";
-@import "assets/scss/base/component";
+@import "base/variable";
+@import "base/prefix";
+@import "base/media_query";
+@import "base/base";
+@import "base/typography";
+@import "base/component";
   
 /**
 * ============================
@@ -888,7 +888,7 @@ transition:all 0.5s ease 0s;
        margin-right: 20px;
        &:before{
         content: "";
-        background-image: url(assets/images/testimonial-left.png);
+        background-image: url(../images/testimonial-left.png);
         -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
         filter: grayscale(100%);
         background-repeat: no-repeat;
@@ -909,7 +909,7 @@ transition:all 0.5s ease 0s;
     &:before{
         content:"";
         content: "";
-        background-image: url(assets/images/testimonial-right.png);
+        background-image: url(../images/testimonial-right.png);
         -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
         filter: grayscale(100%);
         background-repeat: no-repeat;
@@ -1236,7 +1236,7 @@ transition:all 0.5s ease 0s;
           .changelog-date{
             width: 18px;
             height: 16px;
-            background-image: url(assets/images/changelog-date.png);
+            background-image: url(../images/changelog-date.png);
             background-position: center;
             display: block;
             float: left;
@@ -1251,7 +1251,7 @@ transition:all 0.5s ease 0s;
                 .changelog-fix{
                     width: 18px;
                     height: 12px;
-                    background-image: url(assets/images/changelog-fix.png);
+                    background-image: url(../images/changelog-fix.png);
                     background-position: center;
                     display: block;
                     float: left;
@@ -1261,7 +1261,7 @@ transition:all 0.5s ease 0s;
                 .changelog-bug{
                     width: 18px;
                     height: 16px;
-                    background-image: url(assets/images/changelog-bug.png);
+                    background-image: url(../images/changelog-bug.png);
                     background-position: center;
                     display: block;
                     float: left;

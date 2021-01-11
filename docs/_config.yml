@@ -3,42 +3,33 @@
 # Welcome to Doxy Jekyll Template
 #
 # Product Link : https://themeix.com/product/doxy-documentation-website-jekyll-template/
-# Version : v4.1.0
+# Version : v4.2.0
 #
 ####################################################
 
 # Site settings
-title: "FlexGanttFX for JavaFX"
-email: "dlemmermann@gmail.com"
-description: "FlexGanttFX is the most powerful framework for planning and scheduling applications using JavaFX"
-keywords: "FlexGanttFX, Java, JavaFX, UI, library, planning, scheduling, UX, ERP, MES, Manufacturing, Plannung, Logistik, Transportation"
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://dlemmermann.github.io/FlexGanttFX/"
+title: "Doxy - Documentation Website"
+email: "themeix@gmail.com"
+description: "Doxy is a responsive Jekyll template for your documentation or knowledgebase website"
+keywords: "jekyll, minimal jekyll, jekyll theme, responsive jekyll, seo friendly blog, super fast blog, responsive"
+baseurl: "/gh-jekyll-doxy" # the subpath of your site, e.g. /blog
+url: " "
 cover_image: "https://themeix.com/wp-content/uploads/dooxy-responsive-html-template-preview.png" # Image will Display in Social Media When share the website
 facebook: "https://www.facebook.com"
-twitter: "https://www.twitter.com/dlemmermann"
+twitter: "https://www.twitter.com"
 instagram: "https://www.instagram.com"
-github: "https://github.com/dlemmermann"
-linkedin: "https://www.linkedin.com/in/dlemmermann/"
+github: "https://www.github.com"
+linkedin: "https://www.linkedin.com"
 behance: "https://www.behance.com"
 reddit: "https://www.reddit.com"
 vimeo: "https://www.vimeo.com"
 dribble: "https://www.dribble.com"
-youtube: "https://www.youtube.com/channel/UCFyRQ_euxxPDwlqyhff-x0Q"
+youtube: "https://www.youtube.com"
 
 ## Theme Options
 animated_header: ""  #true 
-twitter_username: dlemmermann
-github_username:  dlemmermann
-
-toc:
-  min_level: 1
-  max_level: 6
-  no_toc_section_class: no_toc_section
-  list_class: section-nav
-  sublist_class: ''
-  item_class: toc-entry
-  item_prefix: toc-
+twitter_username: jekyllrb
+github_username:  jekyll
 
 
 # Build settings
@@ -48,7 +39,6 @@ plugins:
   - jekyll-feed
   - jekyll-paginate-v2
   - jekyll-archives
-  - jekyll-toc
   - jekyll-seo-tag  
 
 collections:
