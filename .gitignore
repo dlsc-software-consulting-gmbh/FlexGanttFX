@@ -1,3 +1,4 @@
 /target/
 /FlexGanttFXMSProject/logs/
 tmp/
+/docs/_site/*
