@@ -1,18 +1,23 @@
 <!-- Start Slider  Area -->
 <section class="slider-area bg-cover1">
-    <div class="slider-wrapper full-padding" align="left">
+    <div class="slider-wrapper">
         <div class="container">
             <div class="row">
-                <div class="col-lg-9" align="left">
-                    <h1 class="heading-1" color="white">FlexGanttFX for JavaFX</h1>
-                    <img align="left" width="400" src="{{ '/assets/images/macbook-gantt.png' | relative_url }}"
+                <div class="col-lg-12 slider-content" align="center">
+                    <h1 class="heading-1" style="color:white;font-size: 64px;font-weight: bold;">FlexGanttFX for JavaFX</h1>
+                    <h3>Available for Java 8 & Java 11+</h3>
+                    <br/>
+                    <img class="wow backInDown"width="600" src="{{ '/assets/images/macbook-gantt.png' | relative_url }}"
                          alt="Gantt charts running on MacBook">
+                    <br/>
+                    <br/>
+                    <br/>
                 </div>
             </div>
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-lg-9" align="left">
+                <div class="col-lg-12" align="center">
                     <div class="slider-carousel owl-carousel">
                         {% assign data = site.data.slider %}
                         {% for slider in data %}
