@@ -6,8 +6,16 @@
   image: /assets/images/companies/nasa.png
   url: #
 
+- name: Kuehne & Navel
+  image: /assets/images/companies/kuehne-nagel.png
+  url: #
+
 - name: Boeing
   image: /assets/images/companies/boeing.png
+  url: #
+
+- name: General Dynamics
+  image: /assets/images/companies/general-dynamics.png
   url: #
 
 - name: Airbus
