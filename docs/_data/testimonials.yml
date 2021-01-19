@@ -1,23 +1,53 @@
-- name: Reanna Langosh
-  designation: ux/ui Designer
-  url: https://themeix.com
-  desc: Rhoncus odio proin mi hymenaeos, eget mauris facilisis, senectus id fusce quisque eu mauris laoreet, wisi nullam, dolor ac. Et nec urna, at aliquam vestibulum nunc tellus mollis ac, egestas mollis, vel vel wisi. Wisi aliquam, mi tellus ut feugiat auctor, quam amet lectus vel nulla ante
-  image_url: assets/images/testimonial-img.png
+- name: Martin Schelldorfer, e-Switch, Switzerland
+  designation: Sr. Software Developer
+  url: https://e-switch.ch/visual-planning-board/
+  desc: "We use a gantt-chart to display and plan service activities from ERP systems. With FlexGantt the dispatcher has a state-of-the-art tool to schedule his service activities with all comfortable features you can imagine. Although FlexGantt is a compact component, the well designed architecture gives you the possibility to control every pixel of this component. Our customers love the split screen feature, layer technology, print support, radar and the good performance. FlexGantt increases the gap between us and our competitors. Other standard tools in this business area are miles away from FlexGantt."
+  image_url: assets/images/martin-schelldorfer.jpg
 
-- name: Victoria Kurt
-  designation: Web Developer
-  url: https://themeix.com
-  desc: Rhoncus odio proin mi hymenaeos, eget mauris facilisis, senectus id fusce quisque eu mauris laoreet, wisi nullam, dolor ac. Et nec urna, at aliquam vestibulum nunc tellus mollis  quam amet lectus vel nulla.
-  image_url: assets/images/testimonial-img2.png
+- name: Aurelien Boulanger, PlanningForce, Belgium
+  designation: Software Engineer
+  url: aurelien.boulanger
+  desc: "We first had a bad experience with another Gantt library and were looking for a performing, customizable component allowing us to represent data through an attractive tool. When evaluating FlexGantt library, we have instantly been really impressed because it seemed to correspond to our main expectations and needs. Now, after a few months of use, we know that it will allow us to do almost everything we need thanks to its architecture which uses design patterns and also thanks to the continuous and reactive support provided."
+  image_url: assets/images/aurelien-boulanger.jpeg
 
-- name: Rahul Jai
-  designation: Marketer
-  url: https://themeix.com
+- name: Jesus Rueda
+  designation: Software Engineer, Mayasoft, Colombia
+  url: https://mintsoftwaresystems.com/tools/
+  desc: "I have used FlexGantt for one project where it was necessary to work with audits, absence, and all kinds of activities against time. Flexgantt has a big advantage over other applications with Gantt, it is possible to override all classes, thus developers can add new features to their projects. FlexGantt is very powerful and very fast, it is a great choice."
+  image_url: assets/images/mayasoft.jpeg
 
-  desc: Marketer Rhoncus odio proin mi hymenaeos, eget mauris facilisis, senectus id fusce quisque eu mauris laoreet, wisi nullam, dolor ac. Et nec urna, at aliquam vestibulum nunc tellus mollis  quam amet lectus vel nulla.
-  image_url: assets/images/testimonial-img2.png
-- name: Hasan Sass
-  designation: Runner
-  url: https://themeix.com
-  desc: Runner odio proin mi hymenaeos, eget mauris facilisis, senectus id fusce quisque eu mauris laoreet, wisi nullam, dolor ac. Et nec urna, at aliquam vestibulum nunc tellus mollis  quam amet lectus vel nulla.
-  image_url: assets/images/testimonial-img2.png
+- name: Daniel Wintschel, HumanDoing Software, Canada
+  designation: Software Developer
+  url: https://humandoing.net
+  desc: "I spent a significant amount of time looking for and evaluating Gantt chart packages and component libraries for use in a project, and they all paled in comparison to the kind of look and feel, features and flexibility offered by FlexGantt. With simple and straight-forward licensing, no ridiculous sales people to deal with, and backed by an excellent software developer - I would highly recommend FlexGantt for any and all of your Gantt charting needs within a Java-based desktop application."
+  image_url: assets/images/daniel-wintschel.jpeg
+
+- name: Dagmar Wolfram, Simcron, Germany
+  designation: Senior Consultant
+  url: https://www.simcron.de
+  desc: "We looked for a platform-independent solution for visualization of Gantt charts. FlexGantt impressed us because of it's wide range of functionalities, possibilities of customizing, performance, internationalization, documentation and examples. FlexGantt allows us to develop components with a lot of specified details: colors, fonts, movements of elements, relationships, ... In our opinion FlexGantt is the best library for our requirements."
+  image_url: assets/images/simcron.jpeg
+
+- name: Gerald Paintner, Industrie Informatik GmbH, Austria
+  designation: Development Manager
+  url: https://www.industrieinformatik.com
+  desc: "Our scheduling board is the central tool in a transparent and optimized production control system. We decided to use FlexGantt for our user interface because it is very flexible, powerful and fast. Very important for our decision was the possibility of integration into our Oracle Forms 10g environment as a JavaBean. I am sure we saved a lot of time and money by using FlexGantt."
+  image_url: assets/images/gerald-paintner.jpeg
+
+- name: Andy Czerwonka, 3esi Inc. (Aucerna), Canada
+  designation: Senior Consultant
+  url: https://aucerna.com
+  desc: "We were in search of a Gantt framework that we could integrate into our application. FlexGantt is clearly, in my mind, head and shoulders above anything else we looked at. Given that it is a second generation product; many of the kinks of the first gen product are no longer an issue. It's been a pleasure working with FlexGantt. We're lucky to have found such a wonderful product."
+  image_url: assets/images/andy-czerwonka.jpeg
+
+- name: Duy Vu, Qnamic AG, Switzerland
+  designation: Developer
+  url: https://qnamic.com
+  desc: "I have been involved in the integration and development tasks of FlexGantt to our projects in the last 12 months, and I am quite happy to work with this framework. Its well-designed MVC architecture allows us to easily integrate FlexGantt to the existing projects, and also easily extend, customize functionalities and to perform the maintenance task. FlexGantt's large feature set, its high performance, and its superb visualization capabilities bring a great value to our products."
+  image_url: assets/images/duy-vo.jpeg
+
+- name: Thomas Wittek, Alltrotec GmbH, Germany
+  designation: Development Manager
+  url: https://qnamic.com
+  desc: "I use FlexGantt to add project planning features to an Enterprise Ressource Planning Software System and it works really well. It is very easy to work with this framework and several really good information sources (like Google groups) help on implementing special features. It was one of my best choices to use FlexGantt for my project."
+  image_url: assets/images/thomas-wittek.jpeg
