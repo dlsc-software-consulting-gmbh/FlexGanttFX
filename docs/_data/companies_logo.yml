@@ -1,19 +1,91 @@
-- name: Company Name1
-  image: /assets/images/company-logo4.png
-  url: #
-  
-- name: Company Name2
-  image: /assets/images/company-logo3.png
+- name: Emirates
+  image: /assets/images/companies/emirates.png
   url: #
 
-- name: Company Name3
-  image: /assets/images/company-logo2.png
-  url: #  
+- name: NASA
+  image: /assets/images/companies/nasa.png
+  url: #
 
-- name: Company Name4
-  image: /assets/images/company-logo3.png
-  url: #  
+- name: Boeing
+  image: /assets/images/companies/boeing.png
+  url: #
 
-- name: Company Name5
-  image: /assets/images/company-logo5.png
-  url: #  
+- name: Airbus
+  image: /assets/images/companies/airbus.png
+  url: #
+
+- name: ESA
+  image: /assets/images/companies/esa.png
+  url: #
+
+- name: Jet Propulsion Laboratory
+  image: /assets/images/companies/jpl.png
+  url: #
+
+- name: Lockheed Martin
+  image: /assets/images/companies/lockheed-martin.png
+  url: #
+
+- name: British Telecom
+  image: /assets/images/companies/bt.png
+  url: #
+
+- name: Deutsche Bahn
+  image: /assets/images/companies/db.png
+  url: #
+
+- name: PSI
+  image: /assets/images/companies/psi.png
+  url: #
+
+- name: Adito
+  image: /assets/images/companies/adito.png
+  url: #
+
+- name: Alcatel
+  image: /assets/images/companies/alcatel.png
+  url: #
+
+- name: Australian DoD
+  image: /assets/images/companies/australian-dod.png
+  url: #
+
+- name: e-switch
+  image: /assets/images/companies/e-switch.png
+  url: #
+
+- name: Los Alamos Laboratory
+  image: /assets/images/companies/los-alamos.png
+  url: #
+
+- name: Mcdonnel Douglas
+  image: /assets/images/companies/mcdonnell-douglas.png
+  url: #
+
+- name: Mercatis
+  image: /assets/images/companies/mercatis.png
+  url: #
+
+- name: Raytheon
+  image: /assets/images/companies/raytheon.png
+  url: #
+
+- name: Sabre
+  image: /assets/images/companies/sabre.png
+  url: #
+
+- name: SAIC
+  image: /assets/images/companies/saic.png
+  url: #
+
+- name: Salt Solutions
+  image: /assets/images/companies/salt.png
+  url: #
+
+- name: Siemens
+  image: /assets/images/companies/siemens.png
+  url: #
+
+- name: Syskron
+  image: /assets/images/companies/syskron.png
+  url: #
