@@ -1,5 +1,5 @@
 ----------------------------------------------------------------
-Release: 11.12.2, August 17th, 2020
+Release: 11.12.2, Date: TBD
 ----------------------------------------------------------------
 
 ** CHANGES
@@ -71,7 +71,7 @@ Release: 11.11.0, May 2020 (Performance / StillCorona Release)
        currently displayed primary time unit does not want to display them.
 	** Fixed bug where too many listeners were added to the timeline when adding and
        removing Gantt chart instances to a multi Gantt chart container.
-	** Minimized number of canvas redraws for RowCanvas and LinksCanvas by listing to
+	** Minimized number of canvas redraws for RowCanvas and LinksCanvas by listening to
        layout pulses from the scene and then drawing instead of immediately drawing all
        the time. Very similar to "requestLayout" calls, that do not immediately lay out
        controls but wait for a good point and time and batch multiple calls to one.

@@ -15,7 +15,7 @@
   url: /explore-topics
   submenu:
   - text: Docs - Content Links
-    url: /docs/file-structure/
+    url: /docs/tutorial/
   - text: Docs - Only TOC
     url: /docs/cloud-flare/
   - text: Docs Fullwidth
