@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package impl.com.flexganttfx.skin;
@@ -11,13 +11,15 @@ import com.flexganttfx.view.graphics.ListViewGraphics;
 import com.flexganttfx.view.timeline.Timeline;
 import com.flexganttfx.view.util.Position;
 import com.flexganttfx.view.util.TimelineScrollBar;
+
+import org.controlsfx.control.HiddenSidesPane;
+import org.controlsfx.control.MasterDetailPane;
+
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.BorderPane;
-import org.controlsfx.control.HiddenSidesPane;
-import org.controlsfx.control.MasterDetailPane;
 
 public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends GanttChartBase<R>> extends
         SkinBase<C> {
@@ -101,4 +103,5 @@ public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends Gantt
             default:
                 break;
         }
-    }}
+    }
+}
