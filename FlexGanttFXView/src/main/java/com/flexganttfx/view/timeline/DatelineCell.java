@@ -106,10 +106,10 @@ public abstract class DatelineCell<T extends TemporalUnit> extends Region {
 		}
 
         // the "first cell" pushes the text to the right, so that it remains visible as long as possible
-        boolean firstCell = effectiveX < 0 && usableWidth > 0;
+        boolean firstCell = effectiveX < 0;
 
         if (firstCell) {
-            text.relocate(Math.min(w - usableWidth, w - prefWidth), h / 2 - prefHeight / 2);
+            text.relocate(Math.min(w - usableWidth, w - prefWidth) + insets.getLeft(), h / 2 - prefHeight / 2);
         } else {
             text.relocate(insets.getLeft(), h / 2 - prefHeight / 2);
         }
