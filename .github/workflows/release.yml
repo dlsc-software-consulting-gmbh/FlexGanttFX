@@ -11,8 +11,28 @@ jobs:
     name: Create Release
     runs-on: ubuntu-latest
     steps:
+      - name: Version
+        id: version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\/v/}
+
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Cache Maven packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Build with Maven
+        run: mvn -B install --file pom.xml
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -21,9 +41,16 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
-          body: |
-            Changes in this Release
-            - First Change
-            - Second Change
           draft: false
           prerelease: false
+
+      - name: Upload flexganttfx-view.jar file
+        id: upload-zip
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./FlexGanttFXView/target/view-${{ steps.version.outputs.VERSION }}.jar
+          asset_name: flexganttfx-view-${{ steps.version.outputs.VERSION }}.jar
+          asset_content_type: application/zip
