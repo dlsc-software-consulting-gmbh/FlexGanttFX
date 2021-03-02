@@ -333,7 +333,7 @@ final class DatelineScale extends Region {
 
                 DatelineCell cell = getOrCreateDatelineCell(temporalUnit, index++);
 
-                cell.getStyleClass().removeAll("dst-end", "dst-start", "dateline-cell-first", "dateline-cell-last", SELECTED_STYLE_CLASS);
+                cell.getStyleClass().removeAll("dst-end", "dst-start", SELECTED_STYLE_CLASS);
                 cell.update(startTime, endTime, resolution, dateline, getPosition());
 
                 double x2 = timelineModel.calculateLocationForTime(endTime) + dateline.getDatelineBuffer() - dateline.getTranslateX();

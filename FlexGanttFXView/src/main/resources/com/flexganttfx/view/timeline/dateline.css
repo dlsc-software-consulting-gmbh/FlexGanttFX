@@ -47,14 +47,6 @@
 .dateline-cell.dst-end {
 }
 
-.dateline-cell-last {
-    -fx-background-color: -fx-box-border, -fx-inner-border, -fx-body-color;
-    -fx-background-insets: 0, 0 1 1 0, 1 2 2 1;
-}
-
-.dateline-cell-first {
-}
-
 .scale {
     -fx-background-color: transparent;
     -fx-cell-padding: 5px;
