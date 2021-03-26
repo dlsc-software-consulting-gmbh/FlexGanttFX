@@ -40,8 +40,9 @@ public class EmiratesAircraftGanttChart extends GanttChartLite<ModelObject<?, ?,
         timeline.setZoomAnimated(!WebAPI.isBrowser());
         timeline.getEventline().setRowHeaderTitle("Aircraft");
 
-        final ListViewGraphics<ModelObject<?, ?, ?>> graphics = getGraphics();
+        ListViewGraphics<ModelObject<?, ?, ?>> graphics = getGraphics();
 
+        graphics.setShowVerticalCursor(true);
         graphics.setShowRowHeaders(true);
         graphics.setRowHeadersWidth(80);
         graphics.getBackgroundSystemLayers().add(new GroupSystemLayer(graphics));

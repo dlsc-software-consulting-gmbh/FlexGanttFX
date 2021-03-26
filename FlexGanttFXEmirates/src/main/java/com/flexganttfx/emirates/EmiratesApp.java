@@ -12,10 +12,7 @@ import com.flexganttfx.emirates.view.EmiratesAircraftGanttChart;
 import com.flexganttfx.emirates.view.EmiratesToolBar;
 import com.flexganttfx.emirates.view.GlassPane;
 import com.flexganttfx.emirates.view.IntroPane;
-
-import java.time.temporal.ChronoUnit;
-import java.util.concurrent.ExecutionException;
-
+import com.flexganttfx.view.GanttChartBase;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -26,12 +23,15 @@ import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.concurrent.ExecutionException;
 
 public class EmiratesApp extends Application {
 
@@ -91,6 +91,13 @@ public class EmiratesApp extends Application {
                 DataModel model = task.get();
                 gantt.getRows().setAll(model.getRows());
                 gantt.getLayers().setAll(model.getLayers());
+
+                gantt.getTimeline().getModel().setHorizonStartTime(ZonedDateTime.of(LocalDate.of(2010, 12, 27), LocalTime.MIN, ZoneId.systemDefault()).toInstant());
+                gantt.getTimeline().getModel().setHorizonEndTime(ZonedDateTime.of(LocalDate.of(2013, 1, 31), LocalTime.MIN, ZoneId.systemDefault()).toInstant());
+                gantt.getTimeline().getModel().setStartTime(gantt.getTimeline().getModel().getHorizonStartTime());
+
+                System.out.println("st: " + model.getStartTime() + ", et: " + model.getEndTime());
+
                 Platform.runLater(() -> {
                     introNode.toBack();
                     gantt.getGraphics().showEarliestActivities();
@@ -116,6 +123,7 @@ public class EmiratesApp extends Application {
 
     private Region createGanttChart() {
         gantt = new EmiratesAircraftGanttChart();
+        gantt.setScrollBarType(GanttChartBase.ScrollBarType.FIXED_HORIZON);
         gantt.setPrefSize(1300, 1100);
         VBox.setVgrow(gantt, Priority.ALWAYS);
 

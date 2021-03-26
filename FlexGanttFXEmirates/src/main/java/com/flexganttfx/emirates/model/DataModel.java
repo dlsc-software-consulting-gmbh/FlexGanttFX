@@ -165,14 +165,15 @@ public class DataModel extends HashMap<Group, Map<String, Aircraft>> {
                     }
 
                     Instant startTime = flight.getStartTime();
-                    Instant endTime = flight.getStartTime();
+                    Instant endTime = flight.getEndTime();
 
-                    if (start == null || Instant.from(startTime).isBefore(start)) {
+                    if (start == null || startTime.isBefore(start)) {
                         start = Instant.from(startTime);
                     }
 
-                    if (end == null || Instant.from(endTime).isAfter(end)) {
-                        end = Instant.from(endTime);
+                    if (end == null || endTime.isAfter(end)) {
+                        end = endTime;
+                        System.out.println("setting time to: " + end);
                     }
 
                     counter++;
