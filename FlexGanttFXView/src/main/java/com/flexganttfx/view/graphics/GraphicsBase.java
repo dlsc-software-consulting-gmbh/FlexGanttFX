@@ -3431,6 +3431,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         if (LoggingDomain.RENDERING.isLoggable(Level.FINE)) {
             LoggingDomain.RENDERING.fine("redrawing immediately");
         }
+
         getRowPanes().forEach(pane -> pane.getCanvas().draw());
 
         if (linksCanvas == null) {
@@ -3442,6 +3443,9 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         }
     }
 
+    /**
+     * Performs a redraw of the displayed links and logs the given reason.
+     */
     public void drawLinks(String reason) {
         if (linksCanvas == null) {
             linksCanvas = (LinksCanvas<R>) lookup("LinksCanvas");
