@@ -98,6 +98,8 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
         timelineScrollBar.timelineProperty().bind(masterTimelineProperty());
 
         horizonScrollBar = createHorizonScrollBar();
+        horizonScrollBar.visibleProperty().bind(scrollBarTypeProperty().isEqualTo(ScrollBarType.FIXED_HORIZON));
+        horizonScrollBar.managedProperty().bind(scrollBarTypeProperty().isEqualTo(ScrollBarType.FIXED_HORIZON));
 
         masterTimelineProperty().addListener((obs, oldTimeline, newTimeline) -> {
             if (oldTimeline != null) {

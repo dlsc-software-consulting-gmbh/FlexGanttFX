@@ -45,13 +45,13 @@
 
     <dependencies>
 
-        <dependency>
-            <groupId>scenicview</groupId>
-            <artifactId>scenicview</artifactId>
-            <version>1.0.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/scenicview.jar</systemPath>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>scenicview</groupId>-->
+<!--            <artifactId>scenicview</artifactId>-->
+<!--            <version>1.0.0</version>-->
+<!--            <scope>system</scope>-->
+<!--            <systemPath>${project.basedir}/lib/scenicview.jar</systemPath>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.openjfx</groupId>

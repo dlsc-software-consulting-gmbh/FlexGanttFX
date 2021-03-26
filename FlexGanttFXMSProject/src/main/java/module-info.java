@@ -7,7 +7,7 @@ module com.flexganttfx.msproject {
 
     requires transitive mpxj;
     requires transitive com.flexganttfx.extras;
-    requires org.scenicview.scenicview;
+//    requires org.scenicview.scenicview;
 
     requires jpro.webapi;
     requires javafx.web;

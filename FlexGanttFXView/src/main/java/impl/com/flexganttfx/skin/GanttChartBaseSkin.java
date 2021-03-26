@@ -73,8 +73,6 @@ public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends Gantt
     protected void configureMasterNode() {
         switch (getSkinnable().getScrollBarType()) {
             case NONE:
-                graphicsMasterDetailPane.setMasterNode(timelineGraphicsPane);
-                break;
             case FIXED_HORIZON:
                 VBox.setVgrow(timelineGraphicsPane, Priority.ALWAYS);
                 rightHandSideBox.getChildren().setAll(timelineGraphicsPane, horizonScrollBar);

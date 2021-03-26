@@ -223,6 +223,8 @@ public class GanttChart<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
 
         treeTableScrollBar = new ScrollBar();
         treeTableScrollBar.setOrientation(HORIZONTAL);
+        treeTableScrollBar.visibleProperty().bind(scrollBarTypeProperty().isNotEqualTo(ScrollBarType.NONE));
+        treeTableScrollBar.managedProperty().bind(scrollBarTypeProperty().isNotEqualTo(ScrollBarType.NONE));
 
         treeTableMasterDetailPane = new MasterDetailPane(LEFT);
         treeTableMasterDetailPane.setId("treetable-master-detail-pane");

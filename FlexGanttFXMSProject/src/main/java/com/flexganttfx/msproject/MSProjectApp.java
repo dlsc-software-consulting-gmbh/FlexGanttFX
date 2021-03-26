@@ -19,15 +19,15 @@ import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.kordamp.ikonli.javafx.FontIcon;
-import org.kordamp.ikonli.materialdesign.MaterialDesign;
-import org.scenicview.ScenicView;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -82,10 +82,10 @@ public class MSProjectApp extends Application {
 		} else {
 			GanttChartToolBar<MSProjectTaskRow> toolBar = new GanttChartToolBar<>(gantt);
 			vbox.getChildren().addAll(toolBar, gantt, statusBar);
-			Button scenicView = new Button();
-			scenicView.setGraphic(new FontIcon(MaterialDesign.MDI_INFORMATION));
-			scenicView.setOnAction(evt -> ScenicView.show(scene));
-			toolBar.getItems().add(0, scenicView);
+//			Button scenicView = new Button();
+//			scenicView.setGraphic(new FontIcon(MaterialDesign.MDI_INFORMATION));
+//			scenicView.setOnAction(evt -> ScenicView.show(scene));
+//			toolBar.getItems().add(0, scenicView);
 
 			ComboBox<GanttChartBase.ScrollBarType> box = new ComboBox<>();
 			box.getItems().setAll(GanttChartBase.ScrollBarType.values());
