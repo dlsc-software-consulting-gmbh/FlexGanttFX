@@ -11,7 +11,6 @@ public class Group extends ModelObject<Group, Aircraft, ChartActivity> {
 
 	public Group(String name) {
 		setName(name);
-//		setHeight(10);
 	}
 
 	@Override

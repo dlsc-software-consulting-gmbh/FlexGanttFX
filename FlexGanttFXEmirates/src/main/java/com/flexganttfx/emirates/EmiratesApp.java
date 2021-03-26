@@ -6,8 +6,8 @@
 package com.flexganttfx.emirates;
 
 import com.flexganttfx.core.FlexGanttFX;
-import com.flexganttfx.emirates.model.DataModel;
 import com.flexganttfx.emirates.model.DataModel.DataSet;
+import com.flexganttfx.emirates.model.DataModel;
 import com.flexganttfx.emirates.view.EmiratesAircraftGanttChart;
 import com.flexganttfx.emirates.view.EmiratesToolBar;
 import com.flexganttfx.emirates.view.GlassPane;
@@ -95,8 +95,6 @@ public class EmiratesApp extends Application {
                 gantt.getTimeline().getModel().setHorizonStartTime(ZonedDateTime.of(LocalDate.of(2010, 12, 27), LocalTime.MIN, ZoneId.systemDefault()).toInstant());
                 gantt.getTimeline().getModel().setHorizonEndTime(ZonedDateTime.of(LocalDate.of(2013, 1, 31), LocalTime.MIN, ZoneId.systemDefault()).toInstant());
                 gantt.getTimeline().getModel().setStartTime(gantt.getTimeline().getModel().getHorizonStartTime());
-
-                System.out.println("st: " + model.getStartTime() + ", et: " + model.getEndTime());
 
                 Platform.runLater(() -> {
                     introNode.toBack();

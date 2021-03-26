@@ -5,17 +5,17 @@
  */
 package com.flexganttfx.emirates.model;
 
-import java.util.List;
-
 import com.flexganttfx.model.Row;
 import com.flexganttfx.model.layout.EqualLinesManager;
 import com.flexganttfx.model.repository.IntervalTreeActivityRepository;
 import com.flexganttfx.model.util.ActivityHelper;
 
+import java.util.List;
+
 public class Aircraft extends ModelObject<Group, Row<?, ?, ?>, Flight> {
 
-	public Aircraft(ROW row) {
-		setName(row != null ? row.getResource() : "ROOT");
+	public Aircraft(String name) {
+		setName(name);
 		setLinesManager(new AircraftLineManager(this));
 	}
 

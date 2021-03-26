@@ -8,9 +8,7 @@ package com.flexganttfx.emirates.model;
 import com.flexganttfx.model.activity.MutableActivityBase;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
@@ -40,41 +38,9 @@ public class Flight extends MutableActivityBase<String> {
 
 	private int lineIndex = -1;
 
-	public Flight(ROW row) {
-		super(row.getFLIGHTNO());
-
-		try {
-			Date departureDate = dateFormat.parse(row.getORIGINDATE());
-			Date departureTime = timeFormat.parse(Short.toString(row
-					.getSTANDARDDEPTIME()));
-
-			Date arrivalDate = dateFormat.parse(row.getARRIVALDATE());
-			Date arrivalTime = timeFormat.parse(Short.toString(row
-					.getSTANDARDARRIVALTIME()));
-
-			departureDate = createCompleteDate(departureDate, departureTime);
-			arrivalDate = createCompleteDate(arrivalDate, arrivalTime);
-
-			setStartTime(departureDate.toInstant());
-			setDuration(Duration.between(departureDate.toInstant(),
-					arrivalDate.toInstant()));
-
-			String st = row.getSERVICETYPE();
-			serviceTypes.add(st);
-
-			serviceType = ServiceType.valueOf(st);
-
-			departureAirport = row.getDEPARTURESTATION();
-			arrivalAirport = row.getARRIVALSTATION();
-			flightNo = row.getFLIGHTNO();
-			aircraft = row.getResource();
-
-			// setTextDecorator(TextDecoratorPosition.LEFT, departureAirport);
-		} catch (ParseException e) { // $codepro.audit.disable logExceptions
-			invalid = true;
-		}
+	public Flight() {
 	}
-
+	
 	public boolean isInvalid() {
 		return invalid;
 	}
@@ -99,8 +65,7 @@ public class Flight extends MutableActivityBase<String> {
 		dateCalendar.setTime(date);
 		timeCalendar.setTime(time);
 
-		dateCalendar.set(Calendar.HOUR_OF_DAY,
-				timeCalendar.get(Calendar.HOUR_OF_DAY));
+		dateCalendar.set(Calendar.HOUR_OF_DAY, timeCalendar.get(Calendar.HOUR_OF_DAY));
 		dateCalendar.set(Calendar.MINUTE, timeCalendar.get(Calendar.MINUTE));
 
 		return dateCalendar.getTime();
@@ -116,5 +81,25 @@ public class Flight extends MutableActivityBase<String> {
 
 	public int getLineIndex() {
 		return lineIndex;
+	}
+
+	public void setDepartureAirport(String departureAirport) {
+		this.departureAirport = departureAirport;
+	}
+
+	public void setArrivalAirport(String arrivalAirport) {
+		this.arrivalAirport = arrivalAirport;
+	}
+
+	public void setFlightNo(String flightNo) {
+		this.flightNo = flightNo;
+	}
+
+	public void setAircraft(String aircraft) {
+		this.aircraft = aircraft;
+	}
+
+	public void setServiceType(ServiceType serviceType) {
+		this.serviceType = serviceType;
 	}
 }
