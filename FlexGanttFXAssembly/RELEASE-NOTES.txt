@@ -9,7 +9,7 @@ Release: 11.12.2, Date: March 2021
    ** Added an option to specify the scrollbar type to use for scrolling horizontally
       in time. So far the scrollbar allowed for infinite scrolling. This version adds
       a standard ("normal") scrollbar that allows the user to scroll within a given time
-      horizon.
+      horizon. Applications can also choose to completely remove the scrollbar.
 
 ** CHANGES
 

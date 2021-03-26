@@ -191,7 +191,7 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
      * max value of the scrollbar.
      *
      * @return the scrollbar used for scrolling across the horizon (almost poetic).
-     * @since 11.12.2
+     * @since 11.12.3
      */
     protected ScrollBar createHorizonScrollBar() {
         ScrollBar scrollBar = new ScrollBar();
@@ -449,7 +449,7 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
      * @see #scrollBarTypeProperty()
      * @see TimelineModel#horizonStartTimeProperty()
      * @see TimelineModel#horizonEndTimeProperty()
-     * @since 11.12.2
+     * @since 11.12.3
      */
     public final ScrollBar getHorizonScrollBar() {
         return horizonScrollBar;
@@ -459,7 +459,7 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
      * Defines the type of scrollbar to be used for scrolling horizontally.
      *
      * @see #scrollBarTypeProperty()
-     * @since 11.12.2
+     * @since 11.12.3
      */
     public enum ScrollBarType {
         /**
@@ -494,7 +494,7 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
      * or TreeView), a scrollbar for infinite scrolling, or no scrollbar at all.
      *
      * @return the scrollbar type supported by this Gantt chart, default is "infinite"
-     * @since 11.12.2
+     * @since 11.12.3
      */
     public final ObjectProperty<ScrollBarType> scrollBarTypeProperty() {
         return scrollBarType;

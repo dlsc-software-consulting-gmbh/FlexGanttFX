@@ -487,7 +487,7 @@ public class Timeline extends FlexGanttFXControl {
      *
      * @param date the date to scroll to
      * @see #showTime(Instant)
-     * @since 11.12.2
+     * @since 11.12.3
      */
     public final void showTime(LocalDate date) {
         showTime(date, false);
@@ -501,7 +501,7 @@ public class Timeline extends FlexGanttFXControl {
      * @param date the date to scroll to
      * @param center determines where to show the given date
      * @see #showTime(Instant)
-     * @since 11.12.2
+     * @since 11.12.3
      */
     public final void showTime(LocalDate date, boolean center) {
         showTime(ZonedDateTime.of(date, LocalTime.MIN, getDateline().getZoneId()), center);
@@ -513,7 +513,7 @@ public class Timeline extends FlexGanttFXControl {
      *
      * @param time the time to scroll to
      * @see #showTime(Instant)
-     * @since 11.12.2
+     * @since 11.12.3
      */
     public final void showTime(ZonedDateTime time) {
         showTime(time, false);
@@ -527,7 +527,7 @@ public class Timeline extends FlexGanttFXControl {
      * @param time the time to scroll to
      * @param center determines where to show the given time
      * @see #showTime(Instant)
-     * @since 11.12.2
+     * @since 11.12.3
      */
     public final void showTime(ZonedDateTime time, boolean center) {
         showTime(time.toInstant(), center);

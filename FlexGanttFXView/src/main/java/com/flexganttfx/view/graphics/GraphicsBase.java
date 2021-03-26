@@ -3425,13 +3425,21 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
      * Forces an immediate redraw of all rows.
      *
      * @see RowCanvas#draw()
-     * @since 11.12.2
+     * @since 11.12.3
      */
     public void redrawImmediately() {
         if (LoggingDomain.RENDERING.isLoggable(Level.FINE)) {
             LoggingDomain.RENDERING.fine("redrawing immediately");
         }
         getRowPanes().forEach(pane -> pane.getCanvas().draw());
+
+        if (linksCanvas == null) {
+            linksCanvas = (LinksCanvas<R>) lookup("LinksCanvas");
+        }
+
+        if (linksCanvas != null) {
+            linksCanvas.draw();
+        }
     }
 
     public void drawLinks(String reason) {

@@ -106,7 +106,7 @@ public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends Gantt
      * @see GanttChartBase#getTimelineScrollBar()
      *
      * @return the hidden sides pane
-     * @since 11.12.2
+     * @since 11.12.3
      */
     public HiddenSidesPane getRightHandSideHiddenSidesPane() {
         return rightHandSideHiddenSidesPane;
@@ -121,7 +121,7 @@ public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends Gantt
      * @see GanttChartBase#getHorizonScrollBar()
      *
      * @return the hidden sides pane
-     * @since 11.12.2
+     * @since 11.12.3
      */
     public VBox getRightHandSideBox() {
         return rightHandSideBox;
