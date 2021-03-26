@@ -62,6 +62,7 @@ import com.flexganttfx.view.util.Messages;
 import com.flexganttfx.view.util.Position;
 import impl.com.flexganttfx.skin.graphics.GraphicsBaseSkin;
 import impl.com.flexganttfx.skin.graphics.LinksCanvas;
+import impl.com.flexganttfx.skin.graphics.RowCanvas;
 import impl.com.flexganttfx.skin.graphics.RowPane;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -835,13 +836,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     private final ChangeListener<TimelineModel<?>> timelineModelChangedListener = (observable, oldModel, newModel) -> {
 
         if (oldModel != null) {
-            oldModel.nowProperty().removeListener(weakRedrawNowListener);
-            removeRedrawObservable(oldModel.millisPerPixelProperty());
+            disconnectFromTimelineModel(oldModel);
         }
 
         if (newModel != null) {
-            newModel.nowProperty().addListener(weakRedrawNowListener);
-            addRedrawObservable(newModel.millisPerPixelProperty());
+            connectToTimelineModel(newModel);
         }
     };
 
@@ -857,15 +856,46 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         }
     }
 
+    private void connectToTimeline(Timeline timeline) {
+        connectToTimelineModel(timeline.getModel());
+
+        timeline.modelProperty().addListener(weakTimelineModelChangedListener);
+        timeline.offsetProperty().bind(Bindings.createDoubleBinding(() -> isShowRowHeaders() ? getRowHeadersWidth() : 0, rowHeadersWidthProperty(), showRowHeadersProperty()));
+
+        // dateline listening
+
+        Dateline dateline = timeline.getDateline();
+        addRedrawObservable(dateline.primaryTemporalUnitProperty());
+        addRedrawObservable(dateline.hoverTimeIntervalProperty());
+        addRedrawObservable(dateline.zoneIdProperty());
+        addRedrawObservable(dateline.selectedTimeIntervalProperty());
+
+        dateline.getSelectedIntervals().addListener(weakRedrawListener);
+
+        // eventline listening
+
+        Eventline eventline = timeline.getEventline();
+        SingleRowGraphics<Row<?, ?, ?>> eventlineGraphics = eventline.getGraphics();
+
+        if (eventlineGraphics != this) { // check, or we get a stack overflow
+            eventlineGraphics.rowHeadersWidthProperty().bind(rowHeadersWidthProperty());
+            eventlineGraphics.showRowHeadersProperty().bind(showRowHeadersProperty());
+        }
+    }
+
+    private void connectToTimelineModel(TimelineModel model) {
+        model.startTimeProperty().addListener(weakStartTimeChangedListener);
+        model.nowProperty().addListener(weakRedrawNowListener);
+        addRedrawObservable(model.millisPerPixelProperty());
+    }
+
     private void disconnectFromTimeline(Timeline timeline) {
-        timeline.getModel().startTimeProperty().removeListener(weakStartTimeChangedListener);
-        timeline.getModel().nowProperty().removeListener(weakRedrawNowListener);
+        disconnectFromTimelineModel(timeline.getModel());
+
         timeline.modelProperty().removeListener(weakTimelineModelChangedListener);
 
         // IMPORTANT: do not "unbind" the offset() property as this disconnects the timeline's
         // offset property from the timeline model's offset property.
-
-        removeRedrawObservable(timeline.getModel().millisPerPixelProperty());
 
         // dateline (un)listening
 
@@ -880,37 +910,16 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         // eventline (un)listening
 
         Eventline eventline = timeline.getEventline();
-        final SingleRowGraphics<Row<?, ?, ?>> eventlineGraphics = eventline.getGraphics();
+
+        SingleRowGraphics<Row<?, ?, ?>> eventlineGraphics = eventline.getGraphics();
         eventlineGraphics.rowHeadersWidthProperty().unbind();
         eventlineGraphics.showRowHeadersProperty().unbind();
     }
 
-    private void connectToTimeline(Timeline timeline) {
-        timeline.getModel().startTimeProperty().addListener(weakStartTimeChangedListener);
-        timeline.getModel().nowProperty().addListener(weakRedrawNowListener);
-        timeline.modelProperty().addListener(weakTimelineModelChangedListener);
-        timeline.offsetProperty().bind(Bindings.createDoubleBinding(() -> isShowRowHeaders() ? getRowHeadersWidth() : 0, rowHeadersWidthProperty(), showRowHeadersProperty()));
-
-        addRedrawObservable(timeline.getModel().millisPerPixelProperty());
-
-        // dateline listening
-
-        final Dateline dateline = timeline.getDateline();
-        addRedrawObservable(dateline.primaryTemporalUnitProperty());
-        addRedrawObservable(dateline.hoverTimeIntervalProperty());
-        addRedrawObservable(dateline.zoneIdProperty());
-        addRedrawObservable(dateline.selectedTimeIntervalProperty());
-
-        dateline.getSelectedIntervals().addListener(weakRedrawListener);
-
-        // eventline listening
-
-        final Eventline eventline = timeline.getEventline();
-        final SingleRowGraphics<Row<?, ?, ?>> eventlineGraphics = eventline.getGraphics();
-        if (eventlineGraphics != this) { // check, or we get a stack overflow
-            eventlineGraphics.rowHeadersWidthProperty().bind(rowHeadersWidthProperty());
-            eventlineGraphics.showRowHeadersProperty().bind(showRowHeadersProperty());
-        }
+    private void disconnectFromTimelineModel(TimelineModel model) {
+        model.startTimeProperty().removeListener(weakStartTimeChangedListener);
+        model.nowProperty().removeListener(weakRedrawNowListener);
+        removeRedrawObservable(model.millisPerPixelProperty());
     }
 
     private void updateGridProperty() {
@@ -3410,6 +3419,19 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
         }
 
+    }
+
+    /**
+     * Forces an immediate redraw of all rows.
+     *
+     * @see RowCanvas#draw()
+     * @since 11.12.2
+     */
+    public void redrawImmediately() {
+        if (LoggingDomain.RENDERING.isLoggable(Level.FINE)) {
+            LoggingDomain.RENDERING.fine("redrawing immediately");
+        }
+        getRowPanes().forEach(pane -> pane.getCanvas().draw());
     }
 
     public void drawLinks(String reason) {

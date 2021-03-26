@@ -11,6 +11,7 @@ import com.flexganttfx.extras.properties.timeline.TimelineItemProvider;
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.view.GanttChartBase;
+import com.flexganttfx.view.GanttChartBase.ScrollBarType;
 import com.flexganttfx.view.graphics.ListViewGraphics;
 import com.flexganttfx.view.timeline.Timeline;
 import com.flexganttfx.view.util.Position;
@@ -34,6 +35,45 @@ public class GanttChartBaseItemProvider<R extends Row<?, ?, ?>> implements ItemP
     @Override
     public List<Item> getPropertySheetItems(GanttChartBase<R> gc) {
         ObservableList<Item> items = FXCollections.observableArrayList();
+
+        items.add(new Item() {
+
+            @Override
+            public Optional<ObservableValue<?>> getObservableValue() {
+                return Optional.of(gc.scrollBarTypeProperty());
+            }
+
+            @Override
+            public void setValue(Object value) {
+                gc.setScrollBarType((ScrollBarType) value);
+            }
+
+            @Override
+            public Object getValue() {
+                return gc.getScrollBarType();
+            }
+
+            @Override
+            public Class<?> getType() {
+                return ScrollBarType.class;
+            }
+
+            @Override
+            public String getName() {
+                return "Scroll Bar Type";
+            }
+
+            @Override
+            public String getDescription() {
+                return "Selects the type of scrollbar to use for scrolling in time.";
+            }
+
+            @Override
+            public String getCategory() {
+                return GANTT_CHART_BASE_PROPERTIES_CATEGORY;
+            }
+        });
+
 
         items.add(new Item() {
 

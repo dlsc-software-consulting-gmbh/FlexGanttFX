@@ -10,6 +10,7 @@ import com.flexganttfx.model.ActivityLink;
 import com.flexganttfx.model.Calendar;
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.model.Row;
+import com.flexganttfx.model.timeline.TimelineModel;
 import com.flexganttfx.model.util.IntervalTree;
 import com.flexganttfx.view.container.DualGanttChartContainer;
 import com.flexganttfx.view.container.MultiGanttChartContainerBase;
@@ -26,22 +27,18 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.WeakInvalidationListener;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
 import javafx.collections.ObservableList;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TreeTableView;
-import org.controlsfx.control.HiddenSidesPane;
 import org.controlsfx.control.MasterDetailPane;
 
+import java.time.Instant;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Level;
@@ -66,6 +63,7 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
 
     private final Timeline timeline;
     private final TimelineScrollBar timelineScrollBar;
+    private final ScrollBar horizonScrollBar;
     private final MasterDetailPane graphicsMasterDetailPane;
 
     /**
@@ -88,18 +86,37 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
         timeline = createTimeline();
         setMasterTimeline(timeline);
 
-        final Eventline eventline = timeline.getEventline();
-        final SingleRowGraphics<Row<?, ?, ?>> eventlineGraphics = eventline.getGraphics();
+        Eventline eventline = timeline.getEventline();
+        SingleRowGraphics<Row<?, ?, ?>> eventlineGraphics = eventline.getGraphics();
         eventlineGraphics.setOnActivityChange(evt -> getGraphics().redraw()); // yes, call draw on the "other" graphics node
 
-        this.graphics = createGraphics();
-        this.graphics.timelineProperty().bind(masterTimelineProperty());
-        this.graphics.fixedCellSizeProperty().bind(fixedCellSizeProperty());
+        graphics = createGraphics();
+        graphics.timelineProperty().bind(masterTimelineProperty());
+        graphics.fixedCellSizeProperty().bind(fixedCellSizeProperty());
 
-        timelineScrollBar = new TimelineScrollBar();
+        timelineScrollBar = createTimelineScrollBar();
         timelineScrollBar.timelineProperty().bind(masterTimelineProperty());
 
-        final Label noDetailsLabel = new Label("No Details");
+        horizonScrollBar = createHorizonScrollBar();
+
+        masterTimelineProperty().addListener((obs, oldTimeline, newTimeline) -> {
+            if (oldTimeline != null) {
+                disconnectHorizonScrollBarFromTimeline(oldTimeline);
+            }
+
+            if (newTimeline != null) {
+                connectHorizonScrollBarToTimeline(newTimeline);
+            }
+        });
+
+        connectHorizonScrollBarToTimeline(getMasterTimeline());
+
+        horizonScrollBar.valueProperty().addListener(it -> {
+            Long value = Double.valueOf(horizonScrollBar.getValue()).longValue();
+            getMasterTimeline().getModel().setStartTime(Instant.ofEpochMilli(value.longValue()));
+        });
+
+        Label noDetailsLabel = new Label("No Details");
         noDetailsLabel.setAlignment(Pos.CENTER);
         setDetail(noDetailsLabel);
 
@@ -109,6 +126,76 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
         Bindings.bindBidirectional(graphicsMasterDetailPane.showDetailNodeProperty(), showDetailProperty());
 
         redrawObservable(masterTimeline);
+    }
+
+    private final InvalidationListener timelineModelListener = it -> connectHorizonScrollBarToTimelineModel(getMasterTimeline().getModel());
+
+    private final WeakInvalidationListener weakTimelineModelListener = new WeakInvalidationListener(timelineModelListener);
+
+    private final InvalidationListener updateHorizonScrollBarListener = it -> {
+        ScrollBar scrollBar = getHorizonScrollBar();
+        Timeline timeline = getMasterTimeline();
+        TimelineModel<?> timelineModel = timeline.getModel();
+        scrollBar.setValue(timelineModel.getStartTime().toEpochMilli());
+
+        long visibleAmount = timeline.getVisibleEndTime().toEpochMilli() - timeline.getVisibleStartTime().toEpochMilli();
+        scrollBar.setVisibleAmount(visibleAmount);
+    };
+
+    private final WeakInvalidationListener weakUpdateHorizonScrollBarListener = new WeakInvalidationListener(updateHorizonScrollBarListener);
+
+    private void connectHorizonScrollBarToTimeline(Timeline timeline) {
+        connectHorizonScrollBarToTimelineModel(timeline.getModel());
+        timeline.modelProperty().addListener(weakTimelineModelListener);
+        timeline.visibleStartTimeProperty().addListener(weakUpdateHorizonScrollBarListener);
+        timeline.visibleEndTimeProperty().addListener(weakUpdateHorizonScrollBarListener);
+    }
+
+    private void disconnectHorizonScrollBarFromTimeline(Timeline timeline) {
+        disconnectHorizonScrollBarFromTimelineModel(timeline.getModel());
+        timeline.modelProperty().removeListener(weakTimelineModelListener);
+        timeline.visibleStartTimeProperty().removeListener(weakUpdateHorizonScrollBarListener);
+        timeline.visibleEndTimeProperty().removeListener(weakUpdateHorizonScrollBarListener);
+    }
+
+    private void connectHorizonScrollBarToTimelineModel(TimelineModel model) {
+        horizonScrollBar.minProperty().bind(Bindings.createDoubleBinding(() -> model.getHorizonStartTime() != null ? model.getHorizonStartTime().toEpochMilli() : 0d, model.horizonStartTimeProperty()));
+        horizonScrollBar.maxProperty().bind(Bindings.createDoubleBinding(() -> model.getHorizonEndTime() != null ? model.getHorizonEndTime().toEpochMilli() : 0d, model.horizonEndTimeProperty()));
+        model.startTimeProperty().addListener(weakUpdateHorizonScrollBarListener);
+    }
+
+    private void disconnectHorizonScrollBarFromTimelineModel(TimelineModel model) {
+        horizonScrollBar.minProperty().unbind();
+        horizonScrollBar.maxProperty().unbind();
+        model.startTimeProperty().removeListener(weakUpdateHorizonScrollBarListener);
+    }
+
+    /**
+     * Creates a custom scroll bar that will be used when the scrollbar type specified
+     * via {@link #scrollBarTypeProperty()} is set to {@link ScrollBarType#INFINITE}.
+     * The scroll bar UI is an instance of type {@link org.controlsfx.control.PlusMinusSlider}.
+     *
+     * @return the scrollbar used for scrolling infinitely into the past or future
+     */
+    protected TimelineScrollBar createTimelineScrollBar() {
+        return new TimelineScrollBar();
+    }
+
+    /**
+     * Creates a regular scroll bar that will be used when the scrollbar type specified
+     * via {@link #scrollBarTypeProperty()} is set to {@link ScrollBarType#FIXED_HORIZON}.
+     * In this case the properties {@link TimelineModel#horizonStartTimeProperty()} and
+     * {@link TimelineModel#horizonEndTimeProperty()} will be used to compute the min and
+     * max value of the scrollbar.
+     *
+     * @return the scrollbar used for scrolling across the horizon (almost poetic).
+     * @since 11.12.2
+     */
+    protected ScrollBar createHorizonScrollBar() {
+        ScrollBar scrollBar = new ScrollBar();
+        scrollBar.setOrientation(Orientation.HORIZONTAL);
+        scrollBar.getStyleClass().add("standard-timeline-scrollbar");
+        return scrollBar;
     }
 
     @Override
@@ -338,13 +425,85 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
      * Returns the specialized timeline scrollbar control used for scrolling
      * forward and back in time. The scrollbar becomes visible when the user
      * moves the mouse cursor close to the bottom edge of the graphics area.
+     * This scroll bar will be used when the scroll bar type is defined as
+     * {@link ScrollBarType#INFINITE}.
      *
      * @return the timeline scrollbar
-     * @see HiddenSidesPane
+     * @see #scrollBarTypeProperty()
      * @since 1.6
      */
     public final TimelineScrollBar getTimelineScrollBar() {
         return timelineScrollBar;
+    }
+
+    /**
+     * Returns the scroll bar that will be used when the scrollbar type specified
+     * via {@link #scrollBarTypeProperty()} is set to {@link ScrollBarType#FIXED_HORIZON}.
+     * In this case the properties {@link TimelineModel#horizonStartTimeProperty()} and
+     * {@link TimelineModel#horizonEndTimeProperty()} will be used to compute the min and
+     * max value of the scrollbar.
+     *
+     * @return the timeline scrollbar
+     * @see #scrollBarTypeProperty()
+     * @see TimelineModel#horizonStartTimeProperty()
+     * @see TimelineModel#horizonEndTimeProperty()
+     * @since 11.12.2
+     */
+    public final ScrollBar getHorizonScrollBar() {
+        return horizonScrollBar;
+    }
+
+    /**
+     * Defines the type of scrollbar to be used for scrolling horizontally.
+     *
+     * @see #scrollBarTypeProperty()
+     * @since 11.12.2
+     */
+    public enum ScrollBarType {
+        /**
+         * Do not display a scrollbar at all.
+         */
+        NONE,
+
+        /**
+         * Use the same scrollbar that is being used for the standard JavaFX
+         * controls such as ListView, TableView, or TreeView. The bounds of
+         * the scrollbar will be defined by the horizon start and end times
+         * defined inside the timeline model.
+         *
+         * @see TimelineModel#horizonStartTimeProperty()
+         * @see TimelineModel#horizonEndTimeProperty()
+         * @see #scrollBarTypeProperty()
+         */
+        FIXED_HORIZON,
+
+        /**
+         * Use a specialized scrollbar for infinite scrolling into the future
+         * and into the past.
+         * @see #scrollBarTypeProperty()
+         */
+        INFINITE
+    }
+
+    private final ObjectProperty<ScrollBarType> scrollBarType = new SimpleObjectProperty<>(this, "scrollBarType", ScrollBarType.INFINITE);
+
+    /**
+     * Determines whether the application should present a standard scrollbar (like ListView, TableView,
+     * or TreeView), a scrollbar for infinite scrolling, or no scrollbar at all.
+     *
+     * @return the scrollbar type supported by this Gantt chart, default is "infinite"
+     * @since 11.12.2
+     */
+    public final ObjectProperty<ScrollBarType> scrollBarTypeProperty() {
+        return scrollBarType;
+    }
+
+    public final ScrollBarType getScrollBarType() {
+        return scrollBarType.get();
+    }
+
+    public final void setScrollBarType(ScrollBarType scrollBarType) {
+        this.scrollBarType.set(scrollBarType);
     }
 
     /**

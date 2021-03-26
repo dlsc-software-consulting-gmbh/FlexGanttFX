@@ -31,7 +31,7 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.input.ZoomEvent;
 import javafx.util.Duration;
 
-import java.time.Instant;
+import java.time.*;
 import java.time.temporal.TemporalUnit;
 
 import static java.util.Objects.requireNonNull;
@@ -479,6 +479,58 @@ public class Timeline extends FlexGanttFXControl {
      */
     public final void showNow(boolean center) {
         showTime(getModel().getNow(), center);
+    }
+
+    /**
+     * Makes the timeline scroll to the beginning of the given date. The date will appear on the
+     * left-hand side of the timeline.
+     *
+     * @param date the date to scroll to
+     * @see #showTime(Instant)
+     * @since 11.12.2
+     */
+    public final void showTime(LocalDate date) {
+        showTime(date, false);
+    }
+
+    /**
+     * Makes the timeline scroll to the beginning of the given date. The date will appear on the
+     * left-hand side of the timeline or in the center depending on the value passed to the center
+     * argument.
+     *
+     * @param date the date to scroll to
+     * @param center determines where to show the given date
+     * @see #showTime(Instant)
+     * @since 11.12.2
+     */
+    public final void showTime(LocalDate date, boolean center) {
+        showTime(ZonedDateTime.of(date, LocalTime.MIN, getDateline().getZoneId()), center);
+    }
+
+    /**
+     * Makes the timeline scroll to the beginning of the given time. The date will appear on the
+     * left-hand side of the timeline.
+     *
+     * @param time the time to scroll to
+     * @see #showTime(Instant)
+     * @since 11.12.2
+     */
+    public final void showTime(ZonedDateTime time) {
+        showTime(time, false);
+    }
+
+    /**
+     * Makes the timeline scroll to the beginning of the given time. The time will appear on the
+     * left-hand side of the timeline or in the center depending on the value passed to the center
+     * argument.
+     *
+     * @param time the time to scroll to
+     * @param center determines where to show the given time
+     * @see #showTime(Instant)
+     * @since 11.12.2
+     */
+    public final void showTime(ZonedDateTime time, boolean center) {
+        showTime(time.toInstant(), center);
     }
 
     /**

@@ -7,6 +7,7 @@ package com.flexganttfx.msproject.view;
 
 import com.flexganttfx.model.Row;
 import com.flexganttfx.model.layout.GanttLayout;
+import com.flexganttfx.model.timeline.TimelineModel;
 import com.flexganttfx.msproject.model.MSProjectGanttChartModel;
 import com.flexganttfx.msproject.model.MSProjectTaskActivity;
 import com.flexganttfx.msproject.model.MSProjectTaskRow;
@@ -35,7 +36,6 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +47,8 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
         super();
 
         setFixedCellSize(Row.DEFAULT_ROW_HEIGHT);
+        setScrollBarType(ScrollBarType.FIXED_HORIZON);
+
         getStylesheets().add(MSProjectGanttChart.class.getResource("msproject.css").toExternalForm());
 
         getGraphics().setActivityRenderer(MSProjectTaskActivity.class, GanttLayout.class, new MSProjectTaskActivityRenderer(getGraphics()));
@@ -100,9 +102,8 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
             private DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT);
 
             @Override
-            public TreeTableCell<MSProjectTaskRow, Instant> call(
-                    TreeTableColumn<MSProjectTaskRow, Instant> param) {
-                return new TreeTableCell<MSProjectTaskRow, Instant>() {
+            public TreeTableCell<MSProjectTaskRow, Instant> call(TreeTableColumn<MSProjectTaskRow, Instant> param) {
+                return new TreeTableCell<>() {
                     @Override
                     protected void updateItem(Instant item, boolean empty) {
                         if (item != null) {
@@ -142,9 +143,8 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
                 private NumberFormat formatter = DecimalFormat.getPercentInstance();
 
                 @Override
-                public TreeTableCell<MSProjectTaskRow, Double> call(
-                        TreeTableColumn<MSProjectTaskRow, Double> param) {
-                    return new TreeTableCell<MSProjectTaskRow, Double>() {
+                public TreeTableCell<MSProjectTaskRow, Double> call(TreeTableColumn<MSProjectTaskRow, Double> param) {
+                    return new TreeTableCell<>() {
                         @Override
                         protected void updateItem(Double item, boolean empty) {
                             if (item != null) {
@@ -201,14 +201,16 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
             MSProjectGanttChartModel model = new MSProjectGanttChartModel(projectFile);
 
             setRoot(model.getRoot());
-            //getLayers().setAll(model.getLayers());
+            getLayers().setAll(model.getLayers());
             model.getLinks().forEach(link -> getLinks().add(link));
 
             model.getRoot().setExpanded(true);
 
             Timeline timeline = getTimeline();
-            timeline.showTime(projectFile.getStartDate().toInstant()
-                    .minus(3, ChronoUnit.DAYS));
+            TimelineModel<?> timelineModel = timeline.getModel();
+            timelineModel.setHorizonStartTime(ZonedDateTime.ofInstant(projectFile.getStartDate().toInstant(), ZoneId.systemDefault()).minusDays(2).toInstant());
+            timelineModel.setHorizonEndTime(ZonedDateTime.ofInstant(projectFile.getFinishDate().toInstant(), ZoneId.systemDefault()).plusDays(2).toInstant());
+            timelineModel.setStartTime(timelineModel.getHorizonStartTime());
         } catch (Exception e) {
             e.printStackTrace();
         }
