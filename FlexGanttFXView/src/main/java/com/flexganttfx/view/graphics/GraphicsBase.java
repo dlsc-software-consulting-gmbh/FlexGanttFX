@@ -639,10 +639,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         sceneProperty().addListener((obs, oldScene, newScene) -> {
             if (oldScene != null) {
                 oldScene.removePreLayoutPulseListener(drawRunnable);
+                oldScene.removePostLayoutPulseListener(drawRunnable);
             }
 
             if (newScene != null) {
                 newScene.addPreLayoutPulseListener(drawRunnable);
+                newScene.addPostLayoutPulseListener(drawRunnable);
             }
         });
     }
@@ -2793,7 +2795,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     private final BooleanProperty showVerticalCursor = new SimpleBooleanProperty(this, "showVerticalCursor", false);
 
     /**
-     * A property used to control wether a vertical cursor line will be shown by
+     * A property used to control whether a vertical cursor line will be shown by
      * the graphics view. The line will always follow the location of the mouse
      * cursor.
      *

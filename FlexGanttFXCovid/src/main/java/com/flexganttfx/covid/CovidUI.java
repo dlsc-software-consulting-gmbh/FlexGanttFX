@@ -15,28 +15,23 @@ import com.jpro.webapi.WebAPI;
 import fr.brouillard.oss.cssfx.CSSFX;
 import javafx.application.Platform;
 import javafx.beans.Observable;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.concurrent.Worker;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
@@ -60,8 +55,12 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class CovidUI {
 
@@ -82,12 +81,14 @@ public class CovidUI {
 
     private static final Layer TOTAL_TESTS_LAYER = new Layer("Total Tests");
     private static final Layer TOTAL_TESTS_PER_THOUSAND_LAYER = new Layer("Total Tests Per Million");
+    public static final ExecutorService EXECUTOR_SERVICE = Executors.newSingleThreadExecutor();
 
     private final Map<String, LocationRow> rowMap = new HashMap<>();
 
     private final GanttChartLite<LocationRow> ganttChart = new GanttChartLite<>();
 
     private final File file = new File(System.getProperty("user.home"), "covid.csv");
+    private final StatusBar statusBar = new StatusBar();
 
     public CovidUI(Stage stage) throws Exception {
 
@@ -100,14 +101,6 @@ public class CovidUI {
         }
 
         if (success) {
-            final FileTime lastModifiedTime = Files.getLastModifiedTime(file.toPath(), LinkOption.NOFOLLOW_LINKS);
-            final ZonedDateTime fileTimeStamp = ZonedDateTime.ofInstant(lastModifiedTime.toInstant(), ZoneId.systemDefault());
-            if (newFile || fileTimeStamp.toLocalDate().isBefore(ZonedDateTime.now().toLocalDate())) {
-                downloadFile(file);
-            } else {
-                System.out.println("data file is up-to-date");
-            }
-
             final ListViewGraphics<LocationRow> graphics = ganttChart.getGraphics();
             getSelectedLocations().addListener((Observable it) -> {
                 graphics.requestLayout();
@@ -251,9 +244,6 @@ public class CovidUI {
             aboutPane.visibleProperty().bind(showAboutProperty());
             aboutPane.managedProperty().bind(showAboutProperty());
 
-            StatusBar statusBar = new StatusBar();
-            statusBar.setText("Dataset file was updated on " + DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG).format(fileTimeStamp));
-
             ScrollPane scrollPane = new ScrollPane(settingsView);
             scrollPane.setPannable(true);
             scrollPane.setFitToWidth(true);
@@ -267,9 +257,43 @@ public class CovidUI {
             borderPane.setRight(scrollPane);
             borderPane.setBottom(statusBar);
 
-            StackPane stackPane = new StackPane(borderPane, glassPane, aboutPane);
+            ProgressIndicator progressIndicator = new ProgressIndicator();
+            progressIndicator.progressProperty().bind(Bindings.createDoubleBinding(() -> loading.get() || preparing.get() ? ProgressIndicator.INDETERMINATE_PROGRESS : 0, loading, preparing));
 
-            Scene scene = new Scene(stackPane);
+            Label label = new Label();
+            label.textProperty().bind(Bindings.createStringBinding(() -> {
+                if (loading.get()) {
+                    return "Downloading today's data file from 'Our World in Data'.\nThis can take a moment (up to several minutes.)\n\nhttps://covid.ourworldindata.org";
+                } else if (preparing.get()) {
+                    return "Preparing data for visualization in FlexGanttFX.";
+                }
+                return "";
+            }, loading, preparing));
+
+            label.setAlignment(Pos.CENTER);
+            label.setTextAlignment(TextAlignment.CENTER);
+
+            VBox loadingPane = new VBox(20, progressIndicator, label);
+            loadingPane.setAlignment(Pos.CENTER);
+            loadingPane.visibleProperty().bind(loading.or(preparing));
+
+            StackPane stackPane = new StackPane(borderPane, glassPane, aboutPane);
+            stackPane.visibleProperty().bind(loading.not().and(preparing.not()));
+
+            StackPane wrapper = new StackPane(stackPane, loadingPane);
+
+            FileTime lastModifiedTime = Files.getLastModifiedTime(file.toPath(), LinkOption.NOFOLLOW_LINKS);
+            ZonedDateTime fileTimeStamp = ZonedDateTime.ofInstant(lastModifiedTime.toInstant(), ZoneId.systemDefault());
+
+            if (newFile || fileTimeStamp.toLocalDate().isBefore(ZonedDateTime.now().toLocalDate())) {
+                downloadFile(file);
+            } else {
+                System.out.println("data file is up-to-date");
+                doReadFile();
+            }
+
+            Scene scene = new Scene(wrapper);
+            scene.setFill(Color.rgb(60, 60, 60));
             scene.getStylesheets().add(CovidUI.class.getResource("styles.css").toExternalForm());
 
             if (!WebAPI.isBrowser()) {
@@ -294,18 +318,20 @@ public class CovidUI {
                 graphics.redraw();
             });
 
-            Platform.runLater(() -> {
-                try {
-                    readFile(file);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                setView(View.NEW_CASES_PER_MILLIONS);
-            });
-
         } else {
             System.out.println("error when trying to create csv file in user's home director");
         }
+    }
+
+    private void doReadFile() {
+        Platform.runLater(() -> {
+            try {
+                readFile(file);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            setView(View.NEW_CASES_PER_MILLIONS);
+        });
     }
 
     private void updateGlobalMaxValues() {
@@ -391,172 +417,187 @@ public class CovidUI {
         this.view.set(view);
     }
 
-    private void downloadFile(File file) throws Exception {
-        System.out.println("downloading data file to " + file.getAbsolutePath());
-        URL url = new URL("https://covid.ourworldindata.org/data/owid-covid-data.csv");
-        ReadableByteChannel readableByteChannel = Channels.newChannel(url.openStream());
-        try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
-            FileChannel fileChannel = fileOutputStream.getChannel();
-            fileChannel.transferFrom(readableByteChannel, 0, Long.MAX_VALUE);
-        }
+    private final BooleanProperty loading = new SimpleBooleanProperty(this, "loading", false);
 
-        System.out.println("file size: " + NumberFormat.getIntegerInstance().format(file.length()) + " bytes");
+    private final BooleanProperty preparing = new SimpleBooleanProperty(this, "preparing", true);
+
+    private void downloadFile(File file) {
+        loading.set(true);
+
+        Task<Void> task = new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                Thread.sleep(5000);
+                System.out.println("downloading data file to " + file.getAbsolutePath());
+                URL url = new URL("https://covid.ourworldindata.org/data/owid-covid-data.csv");
+                ReadableByteChannel readableByteChannel = Channels.newChannel(url.openStream());
+                try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
+                    FileChannel fileChannel = fileOutputStream.getChannel();
+                    fileChannel.transferFrom(readableByteChannel, 0, Long.MAX_VALUE);
+                }
+
+                final FileTime lastModifiedTime = Files.getLastModifiedTime(file.toPath(), LinkOption.NOFOLLOW_LINKS);
+                final ZonedDateTime fileTimeStamp = ZonedDateTime.ofInstant(lastModifiedTime.toInstant(), ZoneId.systemDefault());
+
+                Platform.runLater(() -> statusBar.setText("Dataset file was updated on " + DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG).format(fileTimeStamp)));
+
+                System.out.println("file size: " + NumberFormat.getIntegerInstance().format(file.length()) + " bytes");
+
+                return null;
+            }
+        };
+
+        task.stateProperty().addListener(it -> {
+            if (task.getState().equals(Worker.State.SUCCEEDED)) {
+                Platform.runLater(() -> loading.set(false));
+                doReadFile();
+            }
+        });
+
+        EXECUTOR_SERVICE.submit(task);
     }
 
-    private void readFile(File file) throws Exception {
-        System.out.println("reading data file from " + file.getAbsolutePath());
+    private void readFile(File file) {
+        preparing.set(true);
 
-        Reader in = new FileReader(file);
-        Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
+        Task<List<LocationRow>> task = new Task<>() {
+            @Override
+            protected List<LocationRow> call() throws Exception {
+                System.out.println("reading data file from " + file.getAbsolutePath());
 
-        /*
-         * iso_code,continent,
-         * location,
-         * date,total_cases,
-         * new_cases,total_deaths,new_deaths,
-         *
-         * total_cases_per_million,
-         * new_cases_per_million,
-         * total_deaths_per_million,
-         * new_deaths_per_million,
-         *
-         * total_tests,
-         * new_tests,
-         * total_tests_per_thousand,
-         * new_tests_per_thousand,
-         * new_tests_smoothed,
-         * new_tests_smoothed_per_thousand,
-         * tests_units,
-         *
-         * stringency_index,
-         * population,
-         * population_density,
-         * median_age,
-         * aged_65_older,
-         * aged_70_older,
-         * gdp_per_capita,
-         * extreme_poverty,
-         * cvd_death_rate,
-         * diabetes_prevalence,
-         * female_smokers,
-         * male_smokers,
-         * handwashing_facilities,
-         * hospital_beds_per_thousand,
-         * life_expectancy
-         */
+                List<LocationRow> result = new ArrayList<>();
 
-        rowMap.clear();
+                Reader in = new FileReader(file);
+                Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
 
-        LocalDate earliestDate = null;
-        LocalDate latestDate = null;
+                rowMap.clear();
 
-        for (CSVRecord record : records) {
-            String location = record.get("location");
+                LocalDate earliestDate = null;
+                LocalDate latestDate = null;
 
-            if (location.equals("World")) {
-                continue;
+                for (CSVRecord record : records) {
+                    String location = record.get("location");
+
+                    if (location.equals("World")) {
+                        continue;
+                    }
+
+                    /*
+                     * Use hashmap to ensure we are only creating one row per location.
+                     */
+                    LocationRow row = rowMap.computeIfAbsent(location, key -> {
+                        LocationRow r = new LocationRow(record.get("location"));
+                        r.setIso3CountryCode(record.get("iso_code"));
+                        result.add(r);
+                        return r;
+                    });
+
+                    TotalCases totalCases = new TotalCases(record);
+                    TotalDeaths totalDeaths = new TotalDeaths(record);
+                    TotalTests totalTests = new TotalTests(record);
+
+                    NewCases newCases = new NewCases(record);
+                    NewDeaths newDeaths = new NewDeaths(record);
+                    NewTests newTests = new NewTests(record);
+
+                    TotalCasesPerMillion totalCasesPerMillion = new TotalCasesPerMillion(record);
+                    TotalDeathsPerMillion totalDeathsPerMillion = new TotalDeathsPerMillion(record);
+                    TotalTestsPerThousand totalTestsPerThousand = new TotalTestsPerThousand(record);
+
+                    NewCasesPerMillion newCasesPerMillion = new NewCasesPerMillion(record);
+                    NewDeathsPerMillion newDeathsPerMillion = new NewDeathsPerMillion(record);
+                    NewTestsPerThousand newTestsPerThousand = new NewTestsPerThousand(record);
+
+                    row.setMax(View.TOTAL_DEATHS, Math.max(row.getMax(View.TOTAL_DEATHS), totalDeaths.getChartValue()));
+                    row.setMax(View.TOTAL_DEATHS_PER_MILLIONS, Math.max(row.getMax(View.TOTAL_DEATHS_PER_MILLIONS), totalDeathsPerMillion.getChartValue()));
+
+                    row.setMax(View.NEW_CASES, Math.max(row.getMax(View.NEW_CASES), newCases.getChartValue()));
+                    row.setMax(View.NEW_CASES_PER_MILLIONS, Math.max(row.getMax(View.NEW_CASES_PER_MILLIONS), newCasesPerMillion.getChartValue()));
+
+                    row.setMax(View.TOTAL_CASES, Math.max(row.getMax(View.TOTAL_CASES), totalCases.getChartValue()));
+                    row.setMax(View.TOTAL_CASES_PER_MILLIONS, Math.max(row.getMax(View.TOTAL_CASES_PER_MILLIONS), totalCasesPerMillion.getChartValue()));
+
+                    row.setMax(View.NEW_DEATHS, Math.max(row.getMax(View.NEW_DEATHS), newDeaths.getChartValue()));
+                    row.setMax(View.NEW_DEATHS_PER_MILLIONS, Math.max(row.getMax(View.NEW_DEATHS_PER_MILLIONS), newDeathsPerMillion.getChartValue()));
+
+                    row.setMax(View.NEW_TESTS, Math.max(row.getMax(View.NEW_TESTS), newTests.getChartValue()));
+                    row.setMax(View.NEW_TESTS_PER_THOUSAND, Math.max(row.getMax(View.NEW_TESTS_PER_THOUSAND), newTestsPerThousand.getChartValue()));
+
+                    row.setMax(View.TOTAL_TESTS, Math.max(row.getMax(View.TOTAL_TESTS), totalTests.getChartValue()));
+                    row.setMax(View.TOTAL_TESTS_PER_THOUSAND, Math.max(row.getMax(View.TOTAL_TESTS_PER_THOUSAND), totalTestsPerThousand.getChartValue()));
+
+                    row.addActivity(TOTAL_DEATHS_LAYER, totalDeaths);
+                    row.addActivity(TOTAL_DEATHS_PER_MILLION_LAYER, totalDeathsPerMillion);
+
+                    row.addActivity(NEW_DEATHS_LAYER, newDeaths);
+                    row.addActivity(NEW_DEATHS_PER_MILLION_LAYER, newDeathsPerMillion);
+
+                    row.addActivity(TOTAL_CASES_LAYER, totalCases);
+                    row.addActivity(TOTAL_CASES_PER_MILLION_LAYER, totalCasesPerMillion);
+
+                    row.addActivity(NEW_CASES_LAYER, newCases);
+                    row.addActivity(NEW_CASES_PER_MILLION_LAYER, newCasesPerMillion);
+
+                    row.addActivity(NEW_TESTS_LAYER, newTests);
+                    row.addActivity(NEW_TESTS_PER_THOUSAND_LAYER, newTestsPerThousand);
+
+                    row.addActivity(TOTAL_TESTS_LAYER, totalTests);
+                    row.addActivity(TOTAL_TESTS_PER_THOUSAND_LAYER, totalTestsPerThousand);
+
+                    if (totalCases.getChartValue() > 0) {
+                        LocalDate date = LocalDate.parse(record.get("date"));
+                        if (earliestDate == null) {
+                            earliestDate = date;
+                        }
+
+                        if (date.isBefore(earliestDate)) {
+                            earliestDate = date;
+                        }
+
+                        if (latestDate == null) {
+                            latestDate = date;
+                        }
+
+                        if (date.isAfter(latestDate)) {
+                            latestDate = date;
+                        }
+                    }
+                }
+
+                System.out.println("earliest date: " + earliestDate);
+                System.out.println("latest date  : " + latestDate);
+
+                if (earliestDate != null && latestDate != null) {
+                    final LocalDate st = earliestDate;
+                    final LocalDate et = latestDate;
+
+                    Platform.runLater(() -> ganttChart.getTimeline().showRange(
+                            ZonedDateTime.of(st, LocalTime.MIN, ZoneId.systemDefault()).toInstant(),
+                            ZonedDateTime.of(et.plusWeeks(1), LocalTime.MAX, ZoneId.systemDefault()).toInstant()));
+                }
+
+                System.out.println("finished reading data file");
+
+                return result;
             }
+        };
 
-            /*
-             * Use hashmap to ensure we are only creating one row per location.
-             */
-            LocationRow row = rowMap.computeIfAbsent(location, key -> {
-                LocationRow r = new LocationRow(record.get("location"));
-                r.setIso3CountryCode(record.get("iso_code"));
+        task.setOnSucceeded(evt -> {
+            locations.setAll(task.getValue());
+
+            locations.forEach(r -> {
                 r.updateMaxValueAndTickLine(getView());
-                locations.add(r);
-
                 if ((r.getName().equals("United States") || r.getName().equals("Germany") || r.getName().equals("Switzerland")) && !getSelectedLocations().contains(r)) {
                     getSelectedLocations().add(r);
                 }
-
-                return r;
             });
 
-            TotalCases totalCases = new TotalCases(record);
-            TotalDeaths totalDeaths = new TotalDeaths(record);
-            TotalTests totalTests = new TotalTests(record);
+            updateGlobalMaxValues();
 
-            NewCases newCases = new NewCases(record);
-            NewDeaths newDeaths = new NewDeaths(record);
-            NewTests newTests = new NewTests(record);
+            preparing.set(false);
+        });
 
-            TotalCasesPerMillion totalCasesPerMillion = new TotalCasesPerMillion(record);
-            TotalDeathsPerMillion totalDeathsPerMillion = new TotalDeathsPerMillion(record);
-            TotalTestsPerThousand totalTestsPerThousand = new TotalTestsPerThousand(record);
-
-            NewCasesPerMillion newCasesPerMillion = new NewCasesPerMillion(record);
-            NewDeathsPerMillion newDeathsPerMillion = new NewDeathsPerMillion(record);
-            NewTestsPerThousand newTestsPerThousand = new NewTestsPerThousand(record);
-
-            row.setMax(View.TOTAL_DEATHS, Math.max(row.getMax(View.TOTAL_DEATHS), totalDeaths.getChartValue()));
-            row.setMax(View.TOTAL_DEATHS_PER_MILLIONS, Math.max(row.getMax(View.TOTAL_DEATHS_PER_MILLIONS), totalDeathsPerMillion.getChartValue()));
-
-            row.setMax(View.NEW_CASES, Math.max(row.getMax(View.NEW_CASES), newCases.getChartValue()));
-            row.setMax(View.NEW_CASES_PER_MILLIONS, Math.max(row.getMax(View.NEW_CASES_PER_MILLIONS), newCasesPerMillion.getChartValue()));
-
-            row.setMax(View.TOTAL_CASES, Math.max(row.getMax(View.TOTAL_CASES), totalCases.getChartValue()));
-            row.setMax(View.TOTAL_CASES_PER_MILLIONS, Math.max(row.getMax(View.TOTAL_CASES_PER_MILLIONS), totalCasesPerMillion.getChartValue()));
-
-            row.setMax(View.NEW_DEATHS, Math.max(row.getMax(View.NEW_DEATHS), newDeaths.getChartValue()));
-            row.setMax(View.NEW_DEATHS_PER_MILLIONS, Math.max(row.getMax(View.NEW_DEATHS_PER_MILLIONS), newDeathsPerMillion.getChartValue()));
-
-            row.setMax(View.NEW_TESTS, Math.max(row.getMax(View.NEW_TESTS), newTests.getChartValue()));
-            row.setMax(View.NEW_TESTS_PER_THOUSAND, Math.max(row.getMax(View.NEW_TESTS_PER_THOUSAND), newTestsPerThousand.getChartValue()));
-
-            row.setMax(View.TOTAL_TESTS, Math.max(row.getMax(View.TOTAL_TESTS), totalTests.getChartValue()));
-            row.setMax(View.TOTAL_TESTS_PER_THOUSAND, Math.max(row.getMax(View.TOTAL_TESTS_PER_THOUSAND), totalTestsPerThousand.getChartValue()));
-
-            row.addActivity(TOTAL_DEATHS_LAYER, totalDeaths);
-            row.addActivity(TOTAL_DEATHS_PER_MILLION_LAYER, totalDeathsPerMillion);
-
-            row.addActivity(NEW_DEATHS_LAYER, newDeaths);
-            row.addActivity(NEW_DEATHS_PER_MILLION_LAYER, newDeathsPerMillion);
-
-            row.addActivity(TOTAL_CASES_LAYER, totalCases);
-            row.addActivity(TOTAL_CASES_PER_MILLION_LAYER, totalCasesPerMillion);
-
-            row.addActivity(NEW_CASES_LAYER, newCases);
-            row.addActivity(NEW_CASES_PER_MILLION_LAYER, newCasesPerMillion);
-
-            row.addActivity(NEW_TESTS_LAYER, newTests);
-            row.addActivity(NEW_TESTS_PER_THOUSAND_LAYER, newTestsPerThousand);
-
-            row.addActivity(TOTAL_TESTS_LAYER, totalTests);
-            row.addActivity(TOTAL_TESTS_PER_THOUSAND_LAYER, totalTestsPerThousand);
-
-            if (totalCases.getChartValue() > 0) {
-                LocalDate date = LocalDate.parse(record.get("date"));
-                if (earliestDate == null) {
-                    earliestDate = date;
-                }
-
-                if (date.isBefore(earliestDate)) {
-                    earliestDate = date;
-                }
-
-                if (latestDate == null) {
-                    latestDate = date;
-                }
-
-                if (date.isAfter(latestDate)) {
-                    latestDate = date;
-                }
-            }
-        }
-
-        System.out.println("earliest date: " + earliestDate);
-        System.out.println("latest date  : " + latestDate);
-
-        if (earliestDate != null && latestDate != null) {
-            ganttChart.getTimeline().showRange(
-                    ZonedDateTime.of(earliestDate, LocalTime.MIN, ZoneId.systemDefault()).toInstant(),
-                    ZonedDateTime.of(latestDate.plusWeeks(1), LocalTime.MAX, ZoneId.systemDefault()).toInstant());
-        }
-
-        System.out.println("finished reading data file");
-
-        updateGlobalMaxValues();
+        EXECUTOR_SERVICE.submit(task);
     }
 
     class Cases extends MutableChartActivityBase<CSVRecord> {

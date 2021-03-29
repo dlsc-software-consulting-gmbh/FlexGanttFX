@@ -8,7 +8,6 @@ package impl.com.flexganttfx.skin;
 import com.flexganttfx.core.LoggingDomain;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.view.GanttChart;
-import com.flexganttfx.view.GanttChartBase;
 import com.flexganttfx.view.graphics.ListViewGraphics;
 import com.flexganttfx.view.util.RowHeaderColumn;
 import impl.com.flexganttfx.skin.treetable.GanttChartTreeItem;
@@ -84,6 +83,7 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
         InvalidationListener layoutListener = evt -> applyLayout();
         ganttChart.displayModeProperty().addListener(layoutListener);
         ganttChart.scrollBarTypeProperty().addListener(layoutListener);
+        ganttChart.autoHideScrollBarProperty().addListener(layoutListener);
 
         treeTable.getColumns().addListener((Observable e) -> updateColumns());
 
@@ -118,7 +118,7 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
     }
 
     private void applyLeftHandSideLayout() {
-        if (getSkinnable().getScrollBarType().equals(GanttChartBase.ScrollBarType.INFINITE)) {
+        if (getSkinnable().isAutoHideScrollBar()) {
             leftHandSideHiddenSidesPane.setContent(treeTable);
             leftHandSideHiddenSidesPane.setBottom(treeTableScrollBar);
         } else {
@@ -131,7 +131,12 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
         graphicsMasterDetailPane.setDetailNode(new Label("Placeholder"));
         graphicsMasterDetailPane.setMasterNode(new Label("Placeholder"));
 
-        graphicsMasterDetailPane.setMasterNode(leftHandSideHiddenSidesPane);
+        if (getSkinnable().isAutoHideScrollBar()) {
+            graphicsMasterDetailPane.setMasterNode(leftHandSideHiddenSidesPane);
+        } else {
+            graphicsMasterDetailPane.setMasterNode(leftHandSideBox);
+        }
+
         graphicsMasterDetailPane.setDetailNode(detailNode);
 
         getChildren().add(graphicsMasterDetailPane);
@@ -141,7 +146,7 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
         graphicsMasterDetailPane.setDetailNode(new Label("Placeholder"));
         graphicsMasterDetailPane.setMasterNode(new Label("Placeholder"));
 
-        if (getSkinnable().getScrollBarType().equals(GanttChartBase.ScrollBarType.INFINITE)) {
+        if (getSkinnable().isAutoHideScrollBar()) {
             graphicsMasterDetailPane.setMasterNode(getRightHandSideHiddenSidesPane());
         } else { // NONE or HORIZON
             graphicsMasterDetailPane.setMasterNode(getRightHandSideBox());
@@ -159,7 +164,7 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
         treeTableMasterDetailPane.setDetailNode(new Label("Placeholder"));
         treeTableMasterDetailPane.setMasterNode(new Label("Placeholder"));
 
-        if (getSkinnable().getScrollBarType().equals(GanttChartBase.ScrollBarType.INFINITE)) {
+        if (getSkinnable().isAutoHideScrollBar()) {
             treeTableMasterDetailPane.setDetailNode(leftHandSideHiddenSidesPane);
             treeTableMasterDetailPane.setMasterNode(getRightHandSideHiddenSidesPane());
         } else { // NONE or HORIZON

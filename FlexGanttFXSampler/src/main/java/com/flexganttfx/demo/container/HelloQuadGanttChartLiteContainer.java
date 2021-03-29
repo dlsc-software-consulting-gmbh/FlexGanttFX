@@ -8,6 +8,7 @@ package com.flexganttfx.demo.container;
 import com.flexganttfx.demo.FlexGanttFXSampleBase;
 import com.flexganttfx.demo.HelloRow;
 import com.flexganttfx.extras.properties.QuadGanttChartContainerBaseItemProvider;
+import com.flexganttfx.view.GanttChartBase;
 import com.flexganttfx.view.GanttChartLite;
 import com.flexganttfx.view.container.QuadGanttChartLiteContainer;
 import javafx.application.Application;
@@ -34,6 +35,16 @@ public class HelloQuadGanttChartLiteContainer extends FlexGanttFXSampleBase {
         GanttChartLite<HelloRow> chart2 = new GanttChartLite<>();
         GanttChartLite<HelloRow> chart3 = new GanttChartLite<>();
         GanttChartLite<HelloRow> chart4 = new GanttChartLite<>();
+
+        chart1.setAutoHideScrollBar(false);
+        chart2.setAutoHideScrollBar(false);
+        chart3.setAutoHideScrollBar(false);
+        chart4.setAutoHideScrollBar(false);
+
+        chart1.setScrollBarType(GanttChartBase.ScrollBarType.FIXED_HORIZON);
+        chart2.setScrollBarType(GanttChartBase.ScrollBarType.FIXED_HORIZON);
+        chart3.setScrollBarType(GanttChartBase.ScrollBarType.FIXED_HORIZON);
+        chart4.setScrollBarType(GanttChartBase.ScrollBarType.FIXED_HORIZON);
 
         chart1.getRows().add(new HelloRow("Row"));
         chart2.getRows().add(new HelloRow("Row"));
@@ -102,6 +113,8 @@ public class HelloQuadGanttChartLiteContainer extends FlexGanttFXSampleBase {
 
     private void replace(Corner corner) {
         GanttChartLite<HelloRow> replacement = new GanttChartLite<>();
+        replacement.setAutoHideScrollBar(false);
+        replacement.setScrollBarType(GanttChartBase.ScrollBarType.FIXED_HORIZON);
         replacement.getRows().add(new HelloRow("Row"));
 
         switch (corner) {
