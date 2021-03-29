@@ -1,0 +1,40 @@
+<!-- Start Slider  Area -->
+<section class="slider-area bg-cover2">
+    <div class="slider-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 slider-content" align="center">
+                    <h1 class="heading-1" style="color:white;font-size: 64px;font-weight: bold;">FlexGanttFX for JavaFX</h1>
+                    <h3>Available for Java 8 & Java 11+</h3>
+                    <br/>
+                    <img class="wow backInDown"width="600" src="{{ '/assets/images/macbook-demo.gif' | relative_url }}"
+                         alt="Gantt charts running on MacBook">
+                    <br/>
+                    <br/>
+                    <br/>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12" align="center">
+                    <div class="slider-carousel owl-carousel">
+                        {% assign data = site.data.slider %}
+                        {% for slider in data %}
+                        <div class="slider-content wow fadeIn" data-wow-duration="3s">
+                            <h1 class="heading-1">{{slider.title}}</h1>
+                            <p><a href="{{slider.button_link}}"
+                                  class="btn-style3 btn wow fadeInDown" data-wow-duration="500ms">{{slider.button_label}}</a>
+                            </p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Slider Area -->
+
+
+ 

@@ -12,6 +12,10 @@ import com.flexganttfx.emirates.view.EmiratesAircraftGanttChart;
 import com.flexganttfx.emirates.view.EmiratesToolBar;
 import com.flexganttfx.emirates.view.GlassPane;
 import com.flexganttfx.emirates.view.IntroPane;
+
+import java.time.temporal.ChronoUnit;
+import java.util.concurrent.ExecutionException;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -28,9 +32,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.time.temporal.ChronoUnit;
-import java.util.concurrent.ExecutionException;
 
 public class EmiratesApp extends Application {
 

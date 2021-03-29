@@ -8,15 +8,16 @@ package com.flexganttfx.view.graphics;
 import com.flexganttfx.model.ActivityRef;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.model.layout.AgendaLayout;
-import javafx.event.EventType;
-import javafx.scene.input.InputEvent;
-import javafx.scene.input.MouseEvent;
 
 import java.time.Instant;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+
+import javafx.event.EventType;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.MouseEvent;
 
 /**
  * Lasso events are being fired whenever the user uses the lasso tool to select
@@ -130,6 +131,7 @@ public class LassoEvent extends InputEvent {
 		private final List<Row<?, ?, ?>> rows;
 		private final List<ActivityRef<?>> activities;
 		private final MouseEvent mouseEvent;
+		private final boolean inverse;
 
 		/**
 		 * Constructs a new info object.
@@ -150,10 +152,12 @@ public class LassoEvent extends InputEvent {
 		 *            the rows that were selected
 		 * @param activities
 		 *            the activities inside the lasso
+		 * @param inverse
+		 * 			  determines if the lasso was created in inverse direction (end time before start time)
 		 */
 		public LassoInfo(MouseEvent mouseEvent, Instant startTime, Instant endTime,
 				LocalTime localStartTime, LocalTime localEndTime,
-				List<Row<?, ?, ?>> rows, List<ActivityRef<?>> activities) {
+				List<Row<?, ?, ?>> rows, List<ActivityRef<?>> activities, boolean inverse) {
 
 			this.mouseEvent = Objects.requireNonNull(mouseEvent);
 			this.startTime = Objects.requireNonNull(startTime);
@@ -162,7 +166,7 @@ public class LassoEvent extends InputEvent {
 			this.localEndTime = localEndTime;
 			this.rows = rows;
 			this.activities = activities;
-
+			this.inverse = inverse;
 		}
 
 		/**
@@ -230,6 +234,15 @@ public class LassoEvent extends InputEvent {
 			return activities;
 		}
 
+		/**
+		 * Determines if the lasso was created in inverse direction (end time before start time).
+		 *
+		 * @return true if the lasso was created from right to left (end time is before start time).
+		 */
+		public boolean isInverse() {
+			return inverse;
+		}
+
 		@Override
 		public String toString() {
 			StringBuilder sb = new StringBuilder();
@@ -243,6 +256,7 @@ public class LassoEvent extends InputEvent {
 			if (activities != null) {
 				sb.append(", activities = ").append(Arrays.toString(activities.toArray()));
 			}
+			sb.append(", inverse = ").append(inverse);
 
 			return sb.toString();
 		}

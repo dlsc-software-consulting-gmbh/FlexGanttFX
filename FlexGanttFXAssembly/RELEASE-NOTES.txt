@@ -1,4 +1,26 @@
 ----------------------------------------------------------------
+Release: 11.12.2, Date: March 2nd, 2021
+----------------------------------------------------------------
+
+** CHANGES
+
+   ** Added a flag called "inverse" to the LassoInfo class. The flag indicates whether
+      the lasso was created in inverse direction, meaning the end time of the lasso was
+      actually BEFORE the start time of the lasso when the user released the mouse.
+   ** The CSS styles .dateline-cell-first and .dateline-cell-last are no longer supported
+      due to the new buffer concepts.
+
+** BUGS
+
+    ** Fixed a styling issue that caused the graphics view header on the right-hand
+       side to become misaligned with the table header on the left-hand side. It was
+       two pixels less high.
+    ** Made sure the time label shown in the first dateline cell remains visible as
+       long as possible. A regression that was introduced with the new buffer concepts
+       caused the label to disappear very quickly and depending on the zoom level it
+       became hard to determine that start date of the dateline.
+
+----------------------------------------------------------------
 Release: 11.12.1, August 17th, 2020
 ----------------------------------------------------------------
 
@@ -55,7 +77,7 @@ Release: 11.11.0, May 2020 (Performance / StillCorona Release)
        currently displayed primary time unit does not want to display them.
 	** Fixed bug where too many listeners were added to the timeline when adding and
        removing Gantt chart instances to a multi Gantt chart container.
-	** Minimized number of canvas redraws for RowCanvas and LinksCanvas by listing to
+	** Minimized number of canvas redraws for RowCanvas and LinksCanvas by listening to
        layout pulses from the scene and then drawing instead of immediately drawing all
        the time. Very similar to "requestLayout" calls, that do not immediately lay out
        controls but wait for a good point and time and batch multiple calls to one.

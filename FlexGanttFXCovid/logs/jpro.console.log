@@ -1,0 +1,909 @@
+2020-08-27 17:04:01,179 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5860
+2020-08-27 17:04:01,192 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,192 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,192 [INFO] in scala-execution-context-global-84 - Unsupported Object: [D@250f9836
+2020-08-27 17:04:01,192 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,192 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,192 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28213
+2020-08-27 17:04:01,192 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77633575
+2020-08-27 17:04:01,192 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 536
+2020-08-27 17:04:01,192 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5588
+2020-08-27 17:04:01,192 [INFO] in scala-execution-context-global-84 - Unsupported Object: [D@66023b19
+2020-08-27 17:04:01,192 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,192 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,192 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,192 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,192 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28214
+2020-08-27 17:04:01,192 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77639911
+2020-08-27 17:04:01,192 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 729
+2020-08-27 17:04:01,193 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6336
+2020-08-27 17:04:01,193 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,193 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,196 [INFO] in scala-execution-context-global-84 - Unsupported Object: [D@22d4c270
+2020-08-27 17:04:01,196 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,196 [INFO] in scala-execution-context-global-84 - Unsupported Object: [D@7a89570c
+2020-08-27 17:04:01,196 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,196 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28215
+2020-08-27 17:04:01,196 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77645771
+2020-08-27 17:04:01,196 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 855
+2020-08-27 17:04:01,196 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5860
+2020-08-27 17:04:01,196 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,196 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,196 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,196 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28216
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77651971
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 787
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6200
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - Unsupported Object: [D@3cc670dd
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28217
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77658001
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 805
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6030
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - Unsupported Object: [D@799081ce
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-109 - Unsupported Object: [D@12987601
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28218
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77663827
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 809
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5826
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28219
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77669585
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 802
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5758
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-109 - Unsupported Object: [D@6709b36
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28220
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - Unsupported Object: [D@681eca14
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77675683
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2225
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6098
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28221
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - Unsupported Object: [D@67e02ffb
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77681883
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2170
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6200
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28222
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77688083
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2161
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6200
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - Unsupported Object: [D@5c27fb
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28223
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77694181
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2034
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6098
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - Unsupported Object: [D@4a6d7ba4
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28224
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77700381
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2216
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6200
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - Unsupported Object: [D@44319ed5
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28225
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77706581
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2299
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6200
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - Unsupported Object: [D@1ac8e01b
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,197 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-84 - Unsupported Object: [D@622d2ec1
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28226
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77711999
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2172
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5418
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28227
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77718199
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-92 - Unsupported Object: [D@77c219b
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 843
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6200
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28228
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77724399
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 848
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6200
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-92 - Unsupported Object: [D@20423e4a
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28229
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77730599
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 812
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6200
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-91 - Unsupported Object: [D@19695aaa
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28230
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77736595
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 566
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5996
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-92 - Unsupported Object: [D@723065b7
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28231
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77742795
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 525
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6200
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-84 - Unsupported Object: [D@31bd3943
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28232
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77748655
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-92 - Unsupported Object: [D@663edb82
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 568
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5860
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28233
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77754243
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 537
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5588
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-91 - Unsupported Object: [D@36b32a5d
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28234
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77760443
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 730
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6200
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,198 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,214 [INFO] in scala-execution-context-global-109 - Unsupported Object: [D@5857c26d
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28235
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77766303
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 856
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5860
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - Unsupported Object: [D@10fe7af3
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28236
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77772401
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 788
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6098
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - Unsupported Object: [D@5319a5c5
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28237
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - Unsupported Object: [D@3f7a72d3
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77778431
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 806
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6030
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28238
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77784257
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 810
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5826
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - Unsupported Object: [D@4a68d72d
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28239
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77790015
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - Unsupported Object: [D@6485d65c
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 803
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5758
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28240
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77796113
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2226
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6098
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - Unsupported Object: [D@69d0c2e2
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28241
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77802211
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2171
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6098
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - Unsupported Object: [D@126c8c6d
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28242
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77808309
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2162
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6098
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-84 - Unsupported Object: [D@6954548f
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28243
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-84 - Unsupported Object: [D@7a175f69
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77814407
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2035
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6098
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,215 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28244
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77820505
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2217
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6098
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - Unsupported Object: [D@403f045b
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28245
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77826603
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - Unsupported Object: [D@11a55ea
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2300
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6098
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28246
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77832021
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2173
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5418
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-66 - Unsupported Object: [D@43d9cda
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28247
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77838119
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 844
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6098
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - Unsupported Object: [D@628c1c31
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - Unsupported Object: [D@cfb3f0a
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28248
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77844217
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 849
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6098
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - Unsupported Object: [D@4b428ec
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28249
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77850315
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 813
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6098
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28250
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77856311
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 567
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5996
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - Unsupported Object: [D@1663a9a2
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28251
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77862409
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 526
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6098
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - Unsupported Object: [D@343527d9
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28252
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77868269
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 569
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5860
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - Unsupported Object: [D@779f32b4
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28253
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77873857
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - Unsupported Object: [D@32da607e
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 538
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5588
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28254
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77879955
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 731
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6098
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,216 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,232 [INFO] in scala-execution-context-global-109 - Unsupported Object: [D@43f51f3c
+2020-08-27 17:04:01,232 [INFO] in scala-execution-context-global-109 - Unsupported Object: [D@721e89a7
+2020-08-27 17:04:01,232 [INFO] in scala-execution-context-global-109 - Unsupported Object: [D@7c1cc1a9
+2020-08-27 17:04:01,232 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,232 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,232 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28255
+2020-08-27 17:04:01,232 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77885832
+2020-08-27 17:04:01,232 [INFO] in scala-execution-context-global-66 - Unsupported Object: [D@3658163d
+2020-08-27 17:04:01,232 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 857
+2020-08-27 17:04:01,232 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5877
+2020-08-27 17:04:01,232 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,232 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,232 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28256
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77891879
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 789
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6047
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28257
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77897926
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 807
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6047
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - Unsupported Object: [D@2e82561c
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28258
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77903769
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 811
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5843
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28259
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77909544
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 804
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5775
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - Unsupported Object: [D@34e1f3c0
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28260
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77915591
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2227
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6047
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - Unsupported Object: [D@1164bb84
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28261
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77921638
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2172
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-66 - Unsupported Object: [D@606445b7
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6047
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28262
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77927685
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2163
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6047
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-109 - Unsupported Object: [D@3eb2f31f
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-109 - Unsupported Object: [D@68d5092e
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28263
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77933732
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2036
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6047
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28264
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77939779
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2218
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6047
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-66 - Unsupported Object: [D@17f7aa8
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28265
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77945826
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2301
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6047
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - Unsupported Object: [D@282e8045
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,233 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28266
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77951261
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2174
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5435
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-84 - Unsupported Object: [D@5ceeda99
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28267
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77957308
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 845
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6047
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-109 - Unsupported Object: [D@5f055d7f
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28268
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77963355
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 850
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6047
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - Unsupported Object: [D@41795ded
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28269
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77969402
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-109 - Unsupported Object: [D@5fd8461b
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 814
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6047
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28270
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77975415
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 568
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-84 - Unsupported Object: [D@5797b6f5
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6013
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28271
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77981462
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-109 - Unsupported Object: [D@5c70f713
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 527
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6047
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28272
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77987339
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 570
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5877
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - Unsupported Object: [D@35ec5ff2
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28273
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77992944
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 539
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5605
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - Unsupported Object: [D@654ade27
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28274
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 77998991
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 732
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6047
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,234 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-66 - Unsupported Object: [D@43fd2799
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-66 - Unsupported Object: [D@5ec2b652
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28275
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78004868
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 858
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5877
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28276
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78010881
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-109 - Unsupported Object: [D@6ee3a521
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 790
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6013
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28277
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78016894
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 808
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6013
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-109 - Unsupported Object: [D@212b2103
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28278
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78022737
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 812
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5843
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-66 - Unsupported Object: [D@1c5b28b6
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28279
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78028512
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 805
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5775
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-66 - Unsupported Object: [D@765f8c0a
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-109 - Unsupported Object: [D@4ff6df33
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28280
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78034525
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2228
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6013
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-66 - Unsupported Object: [D@489806f4
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,253 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28281
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78040538
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2173
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6013
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - Unsupported Object: [D@20f65aa1
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28282
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78046551
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2164
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-91 - Unsupported Object: [D@4c04368c
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6013
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28283
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78052564
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2037
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6013
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-91 - Unsupported Object: [D@152d3158
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28284
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78058577
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2219
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6013
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28285
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78064590
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2302
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6013
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - Unsupported Object: [D@3c282d5f
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28286
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78070025
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2175
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5435
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - Unsupported Object: [D@3dccca3
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28287
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78076038
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 846
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6013
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - Unsupported Object: [D@39e59d63
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28288
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78082051
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 851
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - Unsupported Object: [D@5ca859db
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6013
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28289
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78088064
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - Unsupported Object: [D@46a957cd
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 815
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6013
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28290
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78094077
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 569
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6013
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - Unsupported Object: [D@56b922f8
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28291
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78100090
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 528
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6013
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-109 - Unsupported Object: [D@42f276fa
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,254 [INFO] in scala-execution-context-global-66 - Unsupported Object: [D@39e4a89d
+2020-08-27 17:04:01,255 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,255 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28292
+2020-08-27 17:04:01,255 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78105967
+2020-08-27 17:04:01,255 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 571
+2020-08-27 17:04:01,255 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5877
+2020-08-27 17:04:01,255 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,255 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,255 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,255 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,255 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28293
+2020-08-27 17:04:01,255 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78111572
+2020-08-27 17:04:01,255 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 540
+2020-08-27 17:04:01,255 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 5605
+2020-08-27 17:04:01,255 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,255 [INFO] in scala-execution-context-global-109 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,255 [INFO] in scala-execution-context-global-109 - Unsupported Object: [D@501ab9cd
+2020-08-27 17:04:01,255 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,255 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,255 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28294
+2020-08-27 17:04:01,255 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78117585
+2020-08-27 17:04:01,255 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 733
+2020-08-27 17:04:01,255 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6013
+2020-08-27 17:04:01,255 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,255 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:01,492 [INFO] in scala-execution-context-global-91 - Unsupported Object: [D@1dfa18be
+2020-08-27 17:04:01,492 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:01,492 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:01,492 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28295
+2020-08-27 17:04:01,492 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78123598
+2020-08-27 17:04:01,492 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2303
+2020-08-27 17:04:01,492 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6013
+2020-08-27 17:04:01,492 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:01,492 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:02,343 [INFO] in scala-execution-context-global-66 - Unsupported Object: [D@4d177711
+2020-08-27 17:04:02,343 [INFO] in scala-execution-context-global-66 - Unsupported Object: [D@2fbb9e62
+2020-08-27 17:04:02,343 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:02,343 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:02,343 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28296
+2020-08-27 17:04:02,343 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78129611
+2020-08-27 17:04:02,343 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 809
+2020-08-27 17:04:02,343 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6013
+2020-08-27 17:04:02,343 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:02,343 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:02,343 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:02,343 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:02,343 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28297
+2020-08-27 17:04:02,343 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78135624
+2020-08-27 17:04:02,343 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 2304
+2020-08-27 17:04:02,343 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6013
+2020-08-27 17:04:02,343 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:02,343 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:02,358 [INFO] in scala-execution-context-global-84 - Unsupported Object: [D@19969ab2
+2020-08-27 17:04:02,358 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:02,358 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:02,358 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28298
+2020-08-27 17:04:02,358 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78141641
+2020-08-27 17:04:02,358 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 810
+2020-08-27 17:04:02,358 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6017
+2020-08-27 17:04:02,358 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 22
+2020-08-27 17:04:02,358 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:02,377 [INFO] in scala-execution-context-global-91 - Unsupported Object: [D@11c67702
+2020-08-27 17:04:02,377 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:02,377 [INFO] in scala-execution-context-global-84 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:02,377 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28299
+2020-08-27 17:04:02,377 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78147654
+2020-08-27 17:04:02,377 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 811
+2020-08-27 17:04:02,377 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6013
+2020-08-27 17:04:02,377 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:02,377 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:02,397 [INFO] in scala-execution-context-global-91 - Unsupported Object: [D@7b2ae039
+2020-08-27 17:04:02,398 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:02,398 [INFO] in scala-execution-context-global-91 - Unsupported Object: [D@18e0bf2b
+2020-08-27 17:04:02,398 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:02,398 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28300
+2020-08-27 17:04:02,398 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78153667
+2020-08-27 17:04:02,398 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 812
+2020-08-27 17:04:02,398 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6013
+2020-08-27 17:04:02,398 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:02,398 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:02,398 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:02,398 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:02,398 [INFO] in scala-execution-context-global-91 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28301
+2020-08-27 17:04:02,398 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78159680
+2020-08-27 17:04:02,398 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 816
+2020-08-27 17:04:02,398 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6013
+2020-08-27 17:04:02,398 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:02,398 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:04:02,446 [INFO] in scala-execution-context-global-92 - Unsupported Object: [D@51bec6b9
+2020-08-27 17:04:02,446 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - 
+2020-08-27 17:04:02,446 [INFO] in scala-execution-context-global-92 - [[37minfo[0m] c.j.m.s.Util$ - Canvas, id: row-canvas classes: row-canvas
+2020-08-27 17:04:02,446 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall Frame counter: 28302
+2020-08-27 17:04:02,446 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas overall bytes: 78165693
+2020-08-27 17:04:02,446 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame counter: 817
+2020-08-27 17:04:02,446 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame byts: 6013
+2020-08-27 17:04:02,446 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame objs: 18
+2020-08-27 17:04:02,446 [INFO] in scala-execution-context-global-66 - [[37minfo[0m] c.j.m.s.Util$ - Canvas Frame count: 1
+2020-08-27 17:06:09,636 [INFO] in scala-execution-context-global-47 - [[37minfo[0m] c.j.i.s.Initializer$ - redirected OUT / ERR
+2020-08-27 17:06:09,636 [INFO] in scala-execution-context-global-60 - [[37minfo[0m] c.j.i.s.Initializer$ - installed SLF4JBridge
+2020-08-27 17:06:09,636 [INFO] in scala-execution-context-global-47 - [[37minfo[0m] c.j.i.s.MonocleInitializer$ - screen: null
+2020-08-27 17:06:09,636 [INFO] in scala-execution-context-global-47 - Warning: Quantum will not submit render jobs, nothing should draw
+2020-08-27 17:06:09,636 [INFO] in scala-execution-context-global-47 - [[37minfo[0m] c.j.i.s.Initializer$ - finished init!
+2020-08-27 17:06:09,637 [INFO] in scala-execution-context-global-47 - [[37minfo[0m] c.j.i.s.Initializer$ - JavaFX version: 11.0.3.5-jpro-SNAPSHOT+0-2020-08-27-152545
+2020-08-27 17:06:09,789 [INFO] in scala-execution-context-global-47 - [[37minfo[0m] c.j.i.c.m.ChartJSONImExporter - Imported chart data Thu Aug 27 17:06:09 CEST 2020
+2020-08-27 17:06:09,791 [INFO] in scala-execution-context-global-47 - [[37minfo[0m] c.j.i.c.m.DynamicDataModel - Started Monitoring chart data...
+2020-08-27 17:06:10,429 [INFO] in scala-execution-context-global-47 - [[37minfo[0m] c.jpro - application requested: 654240327!default
+2020-08-27 17:06:10,437 [INFO] in scala-execution-context-global-47 - [[37minfo[0m] c.jpro - Creating Application: 654240327!default
+2020-08-27 17:06:10,439 [INFO] in scala-execution-context-global-47 - [[37minfo[0m] c.jpro - remoteAddress 0:0:0:0:0:0:0:1
+2020-08-27 17:06:10,439 [INFO] in scala-execution-context-global-47 - [[37minfo[0m] c.jpro - host          localhost:8080
+2020-08-27 17:06:10,439 [INFO] in scala-execution-context-global-47 - [[37minfo[0m] c.jpro - uri           /app/654240327!default
+2020-08-27 17:06:10,617 [INFO] in scala-execution-context-global-47 - [[37minfo[0m] c.jpro - application requested: 0!default
+2020-08-27 17:06:10,617 [INFO] in scala-execution-context-global-47 - [[37minfo[0m] c.jpro - Creating Application: 0!default
+2020-08-27 17:06:10,617 [INFO] in scala-execution-context-global-47 - [[37minfo[0m] c.jpro - remoteAddress 0:0:0:0:0:0:0:1
+2020-08-27 17:06:10,618 [INFO] in scala-execution-context-global-47 - [[37minfo[0m] c.jpro - host          localhost:8080
+2020-08-27 17:06:10,618 [INFO] in scala-execution-context-global-60 - [[37minfo[0m] c.jpro - uri           /app/0!default
+2020-08-27 17:06:10,841 [INFO] in scala-execution-context-global-60 - [[37minfo[0m] c.j.i.s.ViewSerializerActor - appdef: AppByMain(default,com.flexganttfx.covid.CovidApp,None,NamedClassLoader(system),false) clientinfo: ClientInfo(http://localhost:8080/,http://localhost:8080/app/default,1549.0,1204.0,false,de,List(de),,Map(Host -> List(localhost:8080), Cookie -> List(Idea-45b73df=7adfedc7-bb08-4548-82f6-da962eaf6565; Idea-d7aa4878=79e8227e-d40e-428e-a769-81ea8b7e45b3; Idea-d7aa4877=df0a3985-8856-467c-aed2-9855f66d2a91; Idea-d7aa44b6=61b79cfb-775c-435f-b9f2-c30a257c8d0a; Idea-d7aa44b5=0304c245-e088-4881-b2b3-61ca9ae42b01; Idea-d7aa40f6=e11bfbe8-8c7d-4438-aeef-6c9fd65fca7a), Origin -> List(http://localhost:8080), Pragma -> List(no-cache), Upgrade -> List(websocket), Connection -> List(Upgrade), User-Agent -> List(Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.1 Safari/605.1.15), Cache-Control -> List(no-cache), Remote-Address -> List(0:0:0:0:0:0:0:1:57054), Timeout-Access -> List(<function1>), Raw-Request-URI -> List(/app/0!default), Tls-Session-Info -> List(Session(1598540768790|SSL_NULL_WITH_NULL_NULL)), Sec-WebSocket-Key -> List(GZGdoEW8CmpOYybUx9uzgg==), UpgradeToWebSocket -> List(), Sec-WebSocket-Version -> List(13), Sec-WebSocket-Extensions -> List(x-webkit-deflate-frame)))out: Actor[akka://application/system/Materializers/StreamSupervisor-0/$$h-actorRefSource#2044720957]
+2020-08-27 17:06:10,893 [INFO] in scala-execution-context-global-60 - [[37minfo[0m] c.f.config - FlexGanttFX Version: 11.12.0
+2020-08-27 17:06:10,893 [INFO] in scala-execution-context-global-47 - FlexGanttFX user interface framework for Java. Version 11.12.0
+2020-08-27 17:06:10,893 [INFO] in scala-execution-context-global-60 - Development License (do not use in production systems)
+2020-08-27 17:06:10,893 [INFO] in scala-execution-context-global-60 - (c) 2013-2020 DLSC Software & Consulting GmbH
+2020-08-27 17:06:10,893 [INFO] in scala-execution-context-global-60 - https://www.dlsc.com
+2020-08-27 17:06:11,044 [INFO] in scala-execution-context-global-60 - data file is up-to-date
+2020-08-27 17:06:12,296 [INFO] in scala-execution-context-global-60 - Layout root called! (widthSetByUser: Double,heightSetByUser: Double) = (1549.0,1204.0)
+2020-08-27 17:06:12,358 [ERROR] in scala-execution-context-global-60 - java.lang.reflect.InvocationTargetException
+2020-08-27 17:06:12,358 [ERROR] in scala-execution-context-global-47 - 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+2020-08-27 17:06:12,358 [ERROR] in scala-execution-context-global-47 - 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+2020-08-27 17:06:12,358 [ERROR] in scala-execution-context-global-47 - 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+2020-08-27 17:06:12,358 [ERROR] in scala-execution-context-global-47 - 	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+2020-08-27 17:06:12,358 [ERROR] in scala-execution-context-global-47 - 	at simplefx.util.ReflectionUtil$UseReflection.applyDynamic(ReflectionUtil.scala:21)
+2020-08-27 17:06:12,359 [ERROR] in scala-execution-context-global-47 - 	at com.jpro.meta.stream.Util$ExtScene.layoutRoot(Util.scala:555)
+2020-08-27 17:06:12,359 [ERROR] in scala-execution-context-global-47 - 	at com.jpro.meta.stream.Util$ExtScene.$anonfun$new$47(Util.scala:447)
+2020-08-27 17:06:12,359 [ERROR] in scala-execution-context-global-47 - 	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)
+2020-08-27 17:06:12,359 [ERROR] in scala-execution-context-global-60 - 	at simplefx.cores.standard.parts.CoreScheduler.$anonfun$updated$1(CoreScheduler.scala:96)
+2020-08-27 17:06:12,359 [ERROR] in scala-execution-context-global-47 - 	at simplefx.cores.standard.parts.CoreScheduler.runSchedulerImpl(CoreScheduler.scala:73)
+2020-08-27 17:06:12,359 [ERROR] in scala-execution-context-global-60 - 	at simplefx.cores.standard.parts.CoreScheduler.runSchedulerImpl$(CoreScheduler.scala:52)
+2020-08-27 17:06:12,359 [ERROR] in scala-execution-context-global-60 - 	at simplefx.cores.standard.Core.runSchedulerImpl(Core.scala:9)
+2020-08-27 17:06:12,359 [ERROR] in scala-execution-context-global-60 - 	at simplefx.cores.standard.parts.CoreScheduler.tryStartSchedulerStop(CoreScheduler.scala:44)
+2020-08-27 17:06:12,359 [ERROR] in scala-execution-context-global-60 - 	at simplefx.cores.standard.parts.CoreScheduler.tryStartSchedulerStop$(CoreScheduler.scala:42)
+2020-08-27 17:06:12,359 [ERROR] in scala-execution-context-global-60 - 	at simplefx.cores.standard.Core.tryStartSchedulerStop(Core.scala:9)
+2020-08-27 17:06:12,359 [ERROR] in scala-execution-context-global-60 - 	at com.jpro.internal.server.ViewSerializerActor$$anonfun$receive$1$$anonfun$applyOrElse$1.$anonfun$applyOrElse$2(ViewSerializerActor.scala:40)
+2020-08-27 17:06:12,359 [ERROR] in scala-execution-context-global-60 - 	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)
+2020-08-27 17:06:12,359 [ERROR] in scala-execution-context-global-60 - 	at simplefx.util.Predef$.$anonfun$runInAndBlock$1(Predef.scala:184)
+2020-08-27 17:06:12,359 [ERROR] in scala-execution-context-global-60 - 	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)
+2020-08-27 17:06:12,359 [ERROR] in scala-execution-context-global-60 - 	at simplefx.cores.standard.parts.CoreTimeEvent.$anonfun$runAsAnimation$1(CoreTimeEvent.scala:64)
+2020-08-27 17:06:12,359 [ERROR] in scala-execution-context-global-60 - 	at simplefx.cores.standard.parts.CoreTimeEvent$$anon$2.handle(CoreTimeEvent.scala:46)
+2020-08-27 17:06:12,359 [ERROR] in scala-execution-context-global-60 - 	at javafx.animation.AnimationTimer$AnimationTimerReceiver.lambda$handle$0(AnimationTimer.java:57)
+2020-08-27 17:06:12,359 [ERROR] in scala-execution-context-global-60 - 	at java.base/java.security.AccessController.doPrivileged(AccessController.java:391)
+2020-08-27 17:06:12,359 [ERROR] in scala-execution-context-global-60 - 	at javafx.animation.AnimationTimer$AnimationTimerReceiver.handle(AnimationTimer.java:56)
+2020-08-27 17:06:12,359 [ERROR] in scala-execution-context-global-60 - 	at com.sun.scenario.animation.AbstractMasterTimer.timePulseImpl(AbstractMasterTimer.java:357)
+2020-08-27 17:06:12,360 [ERROR] in scala-execution-context-global-60 - 	at com.sun.scenario.animation.AbstractMasterTimer$MainLoop.run(AbstractMasterTimer.java:267)
+2020-08-27 17:06:12,360 [ERROR] in scala-execution-context-global-47 - 	at com.sun.javafx.tk.quantum.QuantumToolkit.pulse(QuantumToolkit.java:525)
+2020-08-27 17:06:12,360 [ERROR] in scala-execution-context-global-47 - 	at com.sun.javafx.tk.quantum.QuantumToolkit.pulse(QuantumToolkit.java:509)
+2020-08-27 17:06:12,360 [ERROR] in scala-execution-context-global-81 - 	at com.sun.javafx.tk.quantum.QuantumToolkit.pulseFromQueue(QuantumToolkit.java:502)
+2020-08-27 17:06:12,360 [ERROR] in scala-execution-context-global-60 - 	at com.sun.javafx.tk.quantum.QuantumToolkit.lambda$runToolkit$12(QuantumToolkit.java:326)
+2020-08-27 17:06:12,360 [ERROR] in scala-execution-context-global-60 - 	at com.sun.glass.ui.monocle.RunnableProcessor.runLoop(RunnableProcessor.java:92)
+2020-08-27 17:06:12,360 [ERROR] in scala-execution-context-global-60 - 	at com.sun.glass.ui.monocle.RunnableProcessor.run(RunnableProcessor.java:51)
+2020-08-27 17:06:12,360 [ERROR] in scala-execution-context-global-81 - 	at java.base/java.lang.Thread.run(Thread.java:832)
+2020-08-27 17:06:12,360 [ERROR] in scala-execution-context-global-81 - Caused by: java.lang.AssertionError: assertion failed
+2020-08-27 17:06:12,360 [ERROR] in scala-execution-context-global-81 - 	at scala.Predef$.assert(Predef.scala:208)
+2020-08-27 17:06:12,360 [ERROR] in scala-execution-context-global-81 - 	at com.jpro.internal.communicator.ViewImpl.$anonfun$new$7(ViewImpl.scala:99)
+2020-08-27 17:06:12,361 [ERROR] in scala-execution-context-global-81 - 	at javafx.scene.Scene$ScenePulseListener.pulse(Scene.java:2559)
+2020-08-27 17:06:12,361 [ERROR] in scala-execution-context-global-81 - 	at com.sun.javafx.tk.Toolkit.lambda$runPulse$2(Toolkit.java:412)
+2020-08-27 17:06:12,361 [ERROR] in scala-execution-context-global-81 - 	at java.base/java.security.AccessController.doPrivileged(AccessController.java:391)
+2020-08-27 17:06:12,361 [ERROR] in scala-execution-context-global-81 - 	at com.sun.javafx.tk.Toolkit.runPulse(Toolkit.java:411)
+2020-08-27 17:06:12,361 [ERROR] in scala-execution-context-global-81 - 	at com.sun.javafx.tk.Toolkit.firePulse(Toolkit.java:438)
+2020-08-27 17:06:12,361 [ERROR] in scala-execution-context-global-81 - 	at com.sun.javafx.tk.quantum.QuantumToolkit.pulse(QuantumToolkit.java:529)
+2020-08-27 17:06:12,361 [ERROR] in scala-execution-context-global-81 - 	at com.sun.javafx.tk.quantum.PaintCollector.liveRepaintRenderJob(PaintCollector.java:320)
+2020-08-27 17:06:12,361 [ERROR] in scala-execution-context-global-81 - 	at com.sun.javafx.tk.quantum.GlassViewEventHandler$ViewEventNotification.run(GlassViewEventHandler.java:870)
+2020-08-27 17:06:12,361 [ERROR] in scala-execution-context-global-81 - 	at com.sun.javafx.tk.quantum.GlassViewEventHandler$ViewEventNotification.run(GlassViewEventHandler.java:830)
+2020-08-27 17:06:12,361 [ERROR] in scala-execution-context-global-81 - 	at java.base/java.security.AccessController.doPrivileged(AccessController.java:391)
+2020-08-27 17:06:12,361 [ERROR] in scala-execution-context-global-81 - 	at com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleViewEvent$15(GlassViewEventHandler.java:911)
+2020-08-27 17:06:12,361 [ERROR] in scala-execution-context-global-81 - 	at com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:396)
+2020-08-27 17:06:12,361 [ERROR] in scala-execution-context-global-81 - 	at com.sun.javafx.tk.quantum.GlassViewEventHandler.handleViewEvent(GlassViewEventHandler.java:910)
+2020-08-27 17:06:12,361 [ERROR] in scala-execution-context-global-81 - 	at com.sun.glass.ui.View.handleViewEvent(View.java:540)
+2020-08-27 17:06:12,361 [ERROR] in scala-execution-context-global-81 - 	at com.sun.glass.ui.View.notifyResize(View.java:880)
+2020-08-27 17:06:12,361 [ERROR] in scala-execution-context-global-81 - 	at com.sun.glass.ui.monocle.MonocleView.notifyResize(MonocleView.java:139)
+2020-08-27 17:06:12,361 [ERROR] in scala-execution-context-global-83 - 	at com.sun.glass.ui.monocle.MonocleWindow.notifyResizeAndMove(MonocleWindow.java:147)
+2020-08-27 17:06:12,361 [ERROR] in scala-execution-context-global-83 - 	at com.sun.glass.ui.monocle.MonocleWindow._setBounds(MonocleWindow.java:137)
+2020-08-27 17:06:12,361 [ERROR] in scala-execution-context-global-83 - 	at com.sun.glass.ui.Window.setBounds(Window.java:633)
+2020-08-27 17:06:12,361 [ERROR] in scala-execution-context-global-83 - 	at com.sun.javafx.tk.quantum.WindowStage.setBounds(WindowStage.java:336)
+2020-08-27 17:06:12,361 [ERROR] in scala-execution-context-global-83 - 	at javafx.stage.Window$TKBoundsConfigurator.apply(Window.java:1550)
+2020-08-27 17:06:12,361 [ERROR] in scala-execution-context-global-83 - 	at javafx.stage.Window.applyBounds(Window.java:1412)
+2020-08-27 17:06:12,361 [ERROR] in scala-execution-context-global-83 - 	at javafx.stage.Window.adjustSize(Window.java:316)
+2020-08-27 17:06:12,361 [ERROR] in scala-execution-context-global-83 - 	... 33 more
+2020-08-27 17:06:12,401 [INFO] in scala-execution-context-global-83 - [[33mwarn[0m] com.jpro.JS - received msg: Audio not supported on this client!
+2020-08-27 17:06:12,442 [INFO] in scala-execution-context-global-81 - reading data file from /Users/lemmi/covid.csv
+2020-08-27 17:06:13,452 [INFO] in scala-execution-context-global-83 - earliest date: 2019-12-31
+2020-08-27 17:06:13,452 [INFO] in scala-execution-context-global-83 - latest date  : 2020-08-27
+2020-08-27 17:06:13,453 [INFO] in scala-execution-context-global-83 - finished reading data file
+2020-08-27 17:06:13,509 [INFO] in scala-execution-context-global-83 - [[37minfo[0m] com.jpro.JS - received msg: new MainID: 8533 userid: 1482316269
+2020-08-27 17:06:13,903 [INFO] in scala-execution-context-global-83 - Unsupported Object: [D@534e3bd6
+2020-08-27 17:06:13,903 [INFO] in scala-execution-context-global-83 - Unsupported Object: [D@228bc38b
+2020-08-27 17:06:13,903 [INFO] in scala-execution-context-global-83 - Unsupported Object: [D@141f7b28

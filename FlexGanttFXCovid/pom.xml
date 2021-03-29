@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>gantt</artifactId>
         <groupId>com.flexganttfx</groupId>
-        <version>11.12.1</version>
+        <version>11.12.2</version>
     </parent>
 
     <name>FlexGanttFXCovid</name>
@@ -13,6 +13,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>covid</artifactId>
+
+    <properties>
+        <main.class>com.flexganttfx.covid.CovidApp</main.class>
+    </properties>
 
     <pluginRepositories>
 
@@ -36,13 +40,13 @@
         <dependency>
             <groupId>com.flexganttfx</groupId>
             <artifactId>view</artifactId>
-            <version>11.12.1</version>
+            <version>11.12.2</version>
         </dependency>
 
         <dependency>
             <groupId>com.flexganttfx</groupId>
             <artifactId>extras</artifactId>
-            <version>11.12.1</version>
+            <version>11.12.2</version>
         </dependency>
 
         <dependency>
@@ -114,7 +118,60 @@
                     <openingPath>/</openingPath>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>com.gluonhq</groupId>
+                <artifactId>client-maven-plugin</artifactId>
+                <version>${client.maven.plugin.version}</version>
+                <configuration>
+                    <target>${client.target}</target>
+                    <mainClass>${main.class}</mainClass>
+                    <nativeImageArgs>
+                        <nativeImageArg>
+                            -H:IncludeResourceBundles=com.flexganttfx.view.util.messages,com.flexganttfx.extras.util.messages
+                        </nativeImageArg>
+                        <nativeImageArg>--allow-incomplete-classpath</nativeImageArg>
+                        <nativeImageArg>
+                            --trace-class-initialization=sun.instrument.InstrumentationImpl
+                        </nativeImageArg>
+                        <nativeImageArg>
+                            --initialize-at-build-time=sun.instrument.InstrumentationImpl
+                        </nativeImageArg>
+                    </nativeImageArgs>
+                    <resourcesList>
+                        <list>.*\\.properties$</list>
+                        <list>.*\\.png$</list>
+                        <list>.*\\.jpg$</list>
+                        <list>.*\\.jpeg$</list>
+                        <list>.*\\.zip$</list>
+                    </resourcesList>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>desktop</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <client.target>host</client.target>
+            </properties>
+        </profile>
+        <profile>
+            <id>ios</id>
+            <properties>
+                <client.target>ios</client.target>
+            </properties>
+        </profile>
+        <profile>
+            <id>android</id>
+            <properties>
+                <client.target>android</client.target>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>

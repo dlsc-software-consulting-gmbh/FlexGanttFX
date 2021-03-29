@@ -44,12 +44,15 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "row" })
+@XmlType(name = "")
 @XmlRootElement(name = "ROWDATA")
 public class ROWDATA {
 
 	@XmlElement(name = "ROW", required = true)
 	protected List<ROW> row;
+
+	public ROWDATA() {
+	}
 
 	/**
 	 * Gets the value of the row property.
@@ -79,5 +82,4 @@ public class ROWDATA {
 		}
 		return this.row;
 	}
-
 }

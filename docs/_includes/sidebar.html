@@ -1,0 +1,19 @@
+<div class="sidebar-area sidebar-right">
+<h5 class="sub-title heading-5">Latest News</h5>
+<div class="recent-widget sidebar-widget">
+  {% for post in site.posts limit:8 %}
+   <div class="recent-wrapper">
+      <a class="recent-img">
+      <img src="{{post.post_image | relative_url}}" alt="{{post.title}}">
+      </a>
+      <div class="recent-details">
+         <h6 class="heading-6"> <a href="{{post.url | relative_url}}">{{post.title}}</a> </h6>
+         <ul class="recent-meta list-inline">
+            <li class="list-inline-item">{{post.date | date_to_long_string}}</li>
+         </ul>
+      </div>
+   </div>
+  {% endfor %}
+</div>
+ 
+</div>

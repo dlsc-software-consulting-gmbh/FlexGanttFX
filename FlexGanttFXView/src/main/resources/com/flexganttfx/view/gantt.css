@@ -175,7 +175,7 @@
         transparent -fx-box-border -fx-box-border transparent;
     -fx-border-insets: 0 1 1 0, 0 0 0 0;
     -fx-border-width: 0.083333em 0.083333em 0.083333em 0, 0.083333em 0.083333em 0.083333em;  
-    -fx-pref-height: 24px;
+    -fx-pref-height: 26px;
 }
 
 /*

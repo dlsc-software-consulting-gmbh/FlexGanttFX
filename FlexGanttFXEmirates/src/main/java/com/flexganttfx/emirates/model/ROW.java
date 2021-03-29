@@ -258,6 +258,9 @@ public class ROW implements Serializable {
 	@XmlElement(name = "SUBACSEQ")
 	protected short subacseq;
 
+	public ROW() {
+	}
+
 	/**
 	 * Gets the value of the flightid property.
 	 *

@@ -1,0 +1,15 @@
+- name: 11.12.0 - Polishing
+  date: May 2020
+  description: Use of system cursors, row header resizing, consolidated 8.x and 11.x license keys, improved RadarView performance
+  
+- name: 11.11.0 - Performance Release 2
+  date: Early May 2020
+  description: Redraws only after layout pulse (request redraw), new enhanced row header concept, removed PNG files, started using Ikonli (Material Design Icons)
+  
+- name: 11.10.0 - Performance Release
+  date: March 2020
+  description: Introduced buffers for row canvases, started drawing lines via Canvas API, much faster lookup of links that need redrawing
+  
+- name: 11.9.0 - Frozen rows, CSS
+  date: April 2019
+  description: Added support for frozen rows, moved control properties into separate module, enhanced CSS styling
