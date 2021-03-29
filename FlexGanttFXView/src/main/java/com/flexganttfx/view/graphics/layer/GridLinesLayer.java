@@ -1,11 +1,12 @@
 /**
  * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.view.graphics.layer;
 
 import com.flexganttfx.model.Row;
+import com.flexganttfx.model.dateline.ChronoUnitResolution;
 import com.flexganttfx.model.dateline.Resolution;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.timeline.Dateline;
@@ -20,6 +21,7 @@ import javafx.scene.paint.Paint;
 import java.time.DayOfWeek;
 import java.time.Instant;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 /**
@@ -85,8 +87,7 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         lineStroke1.set(stroke);
     }
 
-    private final ObjectProperty<Paint> lineStroke2 = new SimpleObjectProperty<>(
-            this, "lineStroke2");
+    private final ObjectProperty<Paint> lineStroke2 = new SimpleObjectProperty<>(this, "lineStroke2");
 
     public final ObjectProperty<Paint> lineStroke2Property() {
         return lineStroke2;
@@ -101,8 +102,7 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         lineStroke2.set(stroke);
     }
 
-    private final ObjectProperty<Paint> lineStroke3 = new SimpleObjectProperty<>(
-            this, "lineStroke3");
+    private final ObjectProperty<Paint> lineStroke3 = new SimpleObjectProperty<>(this, "lineStroke3");
 
     public final ObjectProperty<Paint> lineStroke3Property() {
         return lineStroke3;
@@ -117,8 +117,7 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         lineStroke3.set(stroke);
     }
 
-    private final DoubleProperty lineWidth1 = new SimpleDoubleProperty(this,
-            "lineWidth1");
+    private final DoubleProperty lineWidth1 = new SimpleDoubleProperty(this, "lineWidth1");
 
     public final DoubleProperty lineWidth1Property() {
         return lineWidth1;
@@ -147,8 +146,7 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         lineWidth2.set(width);
     }
 
-    private final DoubleProperty lineWidth3 = new SimpleDoubleProperty(this,
-            "lineWidth3");
+    private final DoubleProperty lineWidth3 = new SimpleDoubleProperty(this, "lineWidth3");
 
     public final DoubleProperty lineWidth3Property() {
         return lineWidth3;
@@ -207,9 +205,16 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
             do {
                 gc.strokeLine(x, 0, x, height);
                 time = resolution.increment(time, zoneId);
+                if (resolution instanceof ChronoUnitResolution) {
+                    ChronoUnitResolution chronoUnitResolution = (ChronoUnitResolution) resolution;
+                    if (chronoUnitResolution.isDSTStartIncrement()) {
+                        time = time.minus(1, ChronoUnit.HOURS);
+                    } else if (chronoUnitResolution.isDSTEndIncrement()) {
+                        time = time.plus(1, ChronoUnit.HOURS);
+                    }
+                }
                 x = getLocation(time, canvas);
             } while (x < width);
-
             counter++;
 
             if (counter >= maxGridLevel) {

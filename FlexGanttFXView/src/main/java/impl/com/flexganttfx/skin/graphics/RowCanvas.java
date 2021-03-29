@@ -1,17 +1,12 @@
 /**
  * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package impl.com.flexganttfx.skin.graphics;
 
 import com.flexganttfx.core.LoggingDomain;
-import com.flexganttfx.model.Activity;
-import com.flexganttfx.model.ActivityRef;
-import com.flexganttfx.model.ActivityRepository;
-import com.flexganttfx.model.Layer;
-import com.flexganttfx.model.Layout;
-import com.flexganttfx.model.Row;
+import com.flexganttfx.model.*;
 import com.flexganttfx.model.activity.ChartActivity;
 import com.flexganttfx.model.activity.HighLowChartActivity;
 import com.flexganttfx.model.exception.IllegalLineIndexException;
@@ -36,44 +31,30 @@ import impl.com.flexganttfx.skin.util.Resolver;
 import impl.com.flexganttfx.skin.util.ResolverResult;
 import javafx.beans.InvalidationListener;
 import javafx.beans.WeakInvalidationListener;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.WeakChangeListener;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ListChangeListener.Change;
 import javafx.collections.WeakListChangeListener;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.stage.Window;
 
 import java.text.MessageFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 
 import static com.flexganttfx.model.layout.AgendaLayout.LayoutStrategy.PARALLEL_OVERLAPPING;
-import static com.flexganttfx.view.util.Position.FIRST;
-import static com.flexganttfx.view.util.Position.LAST;
-import static com.flexganttfx.view.util.Position.MIDDLE;
-import static com.flexganttfx.view.util.Position.ONLY;
+import static com.flexganttfx.view.util.Position.*;
 import static java.time.temporal.ChronoUnit.DAYS;
 import static java.util.Objects.requireNonNull;
 
@@ -133,9 +114,9 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         final double offset = Math.random() * canvasBuffer / 4;
 
         if (scrollingRight) {
-            setTranslateX(snapPosition(canvasBuffer - offset));
+            setTranslateX(snapPositionX(canvasBuffer - offset));
         } else {
-            setTranslateX(snapPosition(-canvasBuffer + offset));
+            setTranslateX(snapPositionX(-canvasBuffer + offset));
         }
     }
 
@@ -769,9 +750,10 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                         }
 
                         bounds = renderer.draw(ref, position, gc,
-                                snapPosition(x1), snapPosition(yy1),
-                                snapPosition(columnWidth),
-                                Math.max(1, (snapPosition(yy2) - snapPosition(yy1) - 1)),
+                                snapPositionX(x1),
+                                snapPositionY(yy1),
+                                snapSizeX(columnWidth),
+                                Math.max(snapSizeX(1), snapSizeY(yy2 - yy1 - 1 - 1)),
                                 selected, focused, highlighted, pressed);
 
                         if (bounds == null) {
@@ -1068,7 +1050,13 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         return bounds;
     }
 
+    // snap to pixel
+
     private final BooleanProperty snapToPixel = new SimpleBooleanProperty(this, "snapToPixel", true);
+
+    public final BooleanProperty snapToPixelProperty() {
+        return snapToPixel;
+    }
 
     public final void setSnapToPixel(boolean snap) {
         snapToPixel.set(snap);
@@ -1078,51 +1066,151 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         return snapToPixel.get();
     }
 
-    protected double snapPosition(double value) {
-        return snapPosition(value, isSnapToPixel());
-    }
-
-    protected double snapSpace(double value) {
-        return snapSpace(value, isSnapToPixel());
-    }
-
-    protected double snapSize(double value) {
-        return snapSize(value, isSnapToPixel());
+    /**
+     * If this canvas' snapToPixel property is true, returns a value rounded
+     * to the nearest pixel in the horizontal direction, else returns the
+     * same value.
+     * @param value the space value to be snapped
+     * @return value rounded to nearest pixel
+     */
+    public double snapSpaceX(double value) {
+        return snapSpaceX(value, isSnapToPixel());
     }
 
     /**
-     * If snapToPixel is true, then the value is rounded using Math.round.
-     * Otherwise, the value is simply returned.
+     * If this canvas' snapToPixel property is true, returns a value rounded
+     * to the nearest pixel in the vertical direction, else returns the
+     * same value.
+     * @param value the space value to be snapped
+     * @return value rounded to nearest pixel
+     */
+    public double snapSpaceY(double value) {
+        return snapSpaceY(value, isSnapToPixel());
+    }
+
+    /**
+     * If this canvas' snapToPixel property is true, returns a value ceiled
+     * to the nearest pixel in the horizontal direction, else returns the
+     * same value.
+     * @param value the size value to be snapped
+     * @return value ceiled to nearest pixel
+     */
+    public double snapSizeX(double value) {
+        return snapSizeX(value, isSnapToPixel());
+    }
+
+    /**
+     * If this canvas' snapToPixel property is true, returns a value ceiled
+     * to the nearest pixel in the vertical direction, else returns the
+     * same value.
+     * @param value the size value to be snapped
+     * @return value ceiled to nearest pixel
+     */
+    public double snapSizeY(double value) {
+        return snapSizeY(value, isSnapToPixel());
+    }
+
+    /**
+     * If this canvas' snapToPixel property is true, returns a value rounded
+     * to the nearest pixel in the horizontal direction, else returns the
+     * same value.
+     * @param value the position value to be snapped
+     * @return value rounded to nearest pixel
+     */
+    public double snapPositionX(double value) {
+        return snapPositionX(value, isSnapToPixel());
+    }
+
+    /**
+     * If this canvas' snapToPixel property is true, returns a value rounded
+     * to the nearest pixel in the vertical direction, else returns the
+     * same value.
+     * @param value the position value to be snapped
+     * @return value rounded to nearest pixel
+     */
+    public double snapPositionY(double value) {
+        return snapPositionY(value, isSnapToPixel());
+    }
+
+    private static double getSnapScaleXImpl(Scene scene) {
+        if (scene == null) return 1.0;
+        Window window = scene.getWindow();
+        if (window == null) return 1.0;
+        return window.getRenderScaleX();
+    }
+
+    private static double getSnapScaleYImpl(Scene scene) {
+        if (scene == null) return 1.0;
+        Window window = scene.getWindow();
+        if (window == null) return 1.0;
+        return window.getRenderScaleY();
+    }
+
+    private double getSnapScaleX() {
+        return getSnapScaleXImpl(graphics.getScene());
+    }
+
+    private double getSnapScaleY() {
+        return getSnapScaleYImpl(graphics.getScene());
+    }
+
+    private double scaledRound(double value, double scale) {
+        return Math.round(value * scale) / scale;
+    }
+
+    private double scaledCeil(double value, double scale) {
+        return Math.ceil(value * scale) / scale;
+    }
+
+    /**
+     * If snapToPixel is true, then the value is rounded using Math.round. Otherwise,
+     * the value is simply returned. This method will surely be JIT'd under normal
+     * circumstances, however on an interpreter it would be better to inline this
+     * method. However the use of Math.round here, and Math.ceil in snapSize is
+     * not obvious, and so for code maintenance this logic is pulled out into
+     * a separate method.
      *
-     * @param value       The value that needs to be snapped
+     * @param value The value that needs to be snapped
      * @param snapToPixel Whether to snap to pixel
      * @return value either as passed in or rounded based on snapToPixel
      */
-    private double snapSpace(double value, boolean snapToPixel) {
-        return snapToPixel ? Math.round(value) : value;
+    private double snapSpaceX(double value, boolean snapToPixel) {
+        return snapToPixel ? scaledRound(value, getSnapScaleX()) : value;
+    }
+
+    private double snapSpaceY(double value, boolean snapToPixel) {
+        return snapToPixel ? scaledRound(value, getSnapScaleY()) : value;
     }
 
     /**
-     * If snapToPixel is true, then the value is ceil'd using Math.ceil.
-     * Otherwise, the value is simply returned.
+     * If snapToPixel is true, then the value is ceil'd using Math.ceil. Otherwise,
+     * the value is simply returned.
      *
-     * @param value       The value that needs to be snapped
+     * @param value The value that needs to be snapped
      * @param snapToPixel Whether to snap to pixel
      * @return value either as passed in or ceil'd based on snapToPixel
      */
-    private double snapSize(double value, boolean snapToPixel) {
-        return snapToPixel ? Math.ceil(value) : value;
+    private double snapSizeX(double value, boolean snapToPixel) {
+        return snapToPixel ? scaledCeil(value, getSnapScaleX()) : value;
+    }
+
+    private double snapSizeY(double value, boolean snapToPixel) {
+        return snapToPixel ? scaledCeil(value, getSnapScaleY()) : value;
     }
 
     /**
-     * If snapToPixel is true, then the value is rounded using Math.round.
-     * Otherwise, the value is simply returned.
+     * If snapToPixel is true, then the value is rounded using Math.round. Otherwise,
+     * the value is simply returned.
      *
-     * @param value       The value that needs to be snapped
+     * @param value The value that needs to be snapped
      * @param snapToPixel Whether to snap to pixel
      * @return value either as passed in or rounded based on snapToPixel
      */
-    private double snapPosition(double value, boolean snapToPixel) {
-        return snapToPixel ? Math.round(value) + .5 : value;
+    private double snapPositionX(double value, boolean snapToPixel) {
+        return snapToPixel ? scaledRound(value, getSnapScaleX()) : value;
+    }
+
+    private double snapPositionY(double value, boolean snapToPixel) {
+        return snapToPixel ? scaledRound(value, getSnapScaleY()) : value;
     }
 }
