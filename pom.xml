@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.flexganttfx</groupId>
     <artifactId>gantt</artifactId>
-    <version>11.12.2-SNAPSHOT</version>
+    <version>11.12.3-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>FlexGanttFX</name>
     <description>The parent project for the various FlexGanttFX modules.</description>
@@ -14,14 +14,14 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <javafx.version>15</javafx.version>
-        <controlsfx.version>11.0.1</controlsfx.version>
-        <ikonli.version>11.3.5</ikonli.version>
+        <javafx.version>16</javafx.version>
+        <controlsfx.version>11.0.3</controlsfx.version>
+        <ikonli.version>12.2.0</ikonli.version>
         <maven.javadoc.skip>false</maven.javadoc.skip>
-        <jpro.version>2020.1.0-SNAPSHOT</jpro.version>
+        <jpro.version>2020.1.5</jpro.version>
         <apache.felix.version>5.1.1</apache.felix.version>
-        <client.plugin.version>0.1.20</client.plugin.version>
-        <exec.maven.plugin.version>1.6.0</exec.maven.plugin.version>
+        <client.plugin.version>0.1.36</client.plugin.version>
+        <exec.maven.plugin.version>3.0.0</exec.maven.plugin.version>
         <javafx.maven.plugin.version>0.0.5</javafx.maven.plugin.version>
         <client.maven.plugin.version>0.1.36</client.maven.plugin.version>
     </properties>
@@ -31,17 +31,17 @@
         <module>FlexGanttFXModel</module>
         <module>FlexGanttFXView</module>
         <module>FlexGanttFXExtras</module>
-        <!--<module>FlexGanttFXSampler</module>
-        <module>FlexGanttFXProject</module>
-        <module>FlexGanttFXMSProject</module>
-        <module>FlexGanttFXiCal</module>
-        <module>FlexGanttFXExperimental</module>
+        <module>FlexGanttFXSampler</module>
+        <!-- module>FlexGanttFXProject</module -->
+        <!-- module>FlexGanttFXMSProject</module -->
+        <!-- module>FlexGanttFXiCal</module -->
+        <!-- module>FlexGanttFXExperimental</module -->
         <module>FlexGanttFXLicensing</module>
-        <module>FlexGanttFXEmirates</module>
-        <module>FlexGanttFXTutorials</module>
-        <module>FlexGanttFXEditor</module> -->
+        <!-- module>FlexGanttFXEmirates</module -->
+        <!-- module>FlexGanttFXTutorials</module -->
+        <module>FlexGanttFXEditor</module>
         <module>FlexGanttFXAssembly</module>
-        <!-- <module>FlexGanttFXCovid</module> -->
+        <!-- module>FlexGanttFXCovid</module -->
     </modules>
 
     <build>
@@ -151,12 +151,6 @@
     </build>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-deploy-plugin -->
-        <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-deploy-plugin</artifactId>
-            <version>3.0.0-M1</version>
-        </dependency>
         <!-- Test Dependencies -->
 
         <dependency>

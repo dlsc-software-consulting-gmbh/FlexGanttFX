@@ -1,6 +1,15 @@
 ----------------------------------------------------------------
-Release: 11.12.2, Date: March 2nd, 2021
+Release: 11.12.2, Date: March 2021
 ----------------------------------------------------------------
+
+** NEW
+
+   ** Added methods on Timeline for showing a given date or a given zoned date time.
+      Before it was only possible to pass an instant.
+   ** Added an option to specify the scrollbar type to use for scrolling horizontally
+      in time. So far the scrollbar allowed for infinite scrolling. This version adds
+      a standard ("normal") scrollbar that allows the user to scroll within a given time
+      horizon. Applications can also choose to completely remove the scrollbar.
 
 ** CHANGES
 

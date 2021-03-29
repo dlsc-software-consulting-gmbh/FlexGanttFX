@@ -28,6 +28,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.Region;
 import javafx.util.Callback;
+import org.controlsfx.control.HiddenSidesPane;
 import org.controlsfx.control.MasterDetailPane;
 
 import java.util.List;
@@ -223,6 +224,13 @@ public class GanttChart<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
 
         treeTableScrollBar = new ScrollBar();
         treeTableScrollBar.setOrientation(HORIZONTAL);
+
+        scrollBarTypeProperty().addListener(it -> {
+            if (!(treeTableScrollBar.getParent() instanceof HiddenSidesPane)) {
+                treeTableScrollBar.setVisible(getScrollBarType().equals(ScrollBarType.FIXED_HORIZON));
+                treeTableScrollBar.setManaged(getScrollBarType().equals(ScrollBarType.FIXED_HORIZON));
+            }
+        });
 
         treeTableMasterDetailPane = new MasterDetailPane(LEFT);
         treeTableMasterDetailPane.setId("treetable-master-detail-pane");

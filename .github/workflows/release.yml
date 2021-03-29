@@ -44,7 +44,7 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload Flexganttfx Binaries
+      - name: Upload Binaries
         id: upload-zip-binaries
         uses: actions/upload-release-asset@v1
         env:
@@ -55,7 +55,7 @@ jobs:
           asset_name: flexganttfx-${{ steps.version.outputs.VERSION }}-bin.zip
           asset_content_type: application/zip
 
-      - name: Upload Flexganttfx Source Code
+      - name: Upload Source Code
         id: upload-zip-source-code
         uses: actions/upload-release-asset@v1
         env:

@@ -12,12 +12,12 @@ open module com.flexganttfx.sampler {
 
     requires javafx.graphics;
     requires javafx.controls;
-    requires transitive javafx.web;
 
     requires org.controlsfx.controls;
 
     requires com.flexganttfx.view;
     requires com.flexganttfx.extras;
+    requires com.flexganttfx.msproject;
 
     exports com.flexganttfx.demo to org.controlsfx.fxsampler;
     exports com.flexganttfx.demo.container to org.controlsfx.fxsampler;

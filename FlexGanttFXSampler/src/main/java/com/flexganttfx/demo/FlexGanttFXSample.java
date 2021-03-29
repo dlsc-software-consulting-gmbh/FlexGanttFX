@@ -44,6 +44,7 @@ public abstract class FlexGanttFXSample extends FlexGanttFXSampleBase {
 		}
 
 		toolbar = new GanttChartToolBar<>(ganttChart);
+
 		statusbar = new GanttChartStatusBar<>(ganttChart);
 
 		BorderPane ganttPane = new BorderPane();

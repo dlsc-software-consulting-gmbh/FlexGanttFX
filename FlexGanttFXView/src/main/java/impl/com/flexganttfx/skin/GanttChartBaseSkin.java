@@ -7,19 +7,21 @@ package impl.com.flexganttfx.skin;
 
 import com.flexganttfx.model.Row;
 import com.flexganttfx.view.GanttChartBase;
+import com.flexganttfx.view.GanttChartBase.ScrollBarType;
 import com.flexganttfx.view.graphics.ListViewGraphics;
 import com.flexganttfx.view.timeline.Timeline;
 import com.flexganttfx.view.util.Position;
 import com.flexganttfx.view.util.TimelineScrollBar;
-
-import org.controlsfx.control.HiddenSidesPane;
-import org.controlsfx.control.MasterDetailPane;
-
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.SkinBase;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import org.controlsfx.control.HiddenSidesPane;
+import org.controlsfx.control.MasterDetailPane;
 
 public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends GanttChartBase<R>> extends
         SkinBase<C> {
@@ -28,8 +30,10 @@ public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends Gantt
     private Timeline timeline;
     private final MasterDetailPane graphicsMasterDetailPane;
     private final TimelineScrollBar timelineScrollBar;
+    private final ScrollBar horizonScrollBar;
     private final Node detailNode;
-    private final HiddenSidesPane hiddenSidesPane;
+    private final HiddenSidesPane rightHandSideHiddenSidesPane;
+    private final VBox rightHandSideBox;
 
     public GanttChartBaseSkin(C control) {
         super(control);
@@ -38,6 +42,7 @@ public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends Gantt
 
         timeline = control.getTimeline();
         timelineScrollBar = control.getTimelineScrollBar();
+        horizonScrollBar = control.getHorizonScrollBar();
         detailNode = control.getDetail();
 
         control.setMinSize(0, 0);
@@ -47,15 +52,15 @@ public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends Gantt
         timelineGraphicsPane.setTop(timeline);
         timelineGraphicsPane.setCenter(graphics);
 
-        hiddenSidesPane = new HiddenSidesPane();
-        hiddenSidesPane.setContent(timelineGraphicsPane);
-        hiddenSidesPane.setBottom(timelineScrollBar);
+        rightHandSideHiddenSidesPane = new HiddenSidesPane();
+        rightHandSideBox = new VBox();
+        graphicsMasterDetailPane = getSkinnable().getGraphicsMasterDetailPane();
 
-        graphicsMasterDetailPane = control.getGraphicsMasterDetailPane();
-        graphicsMasterDetailPane.setMasterNode(hiddenSidesPane);
+        configureMasterNode();
+        control.scrollBarTypeProperty().addListener(it -> configureMasterNode());
 
-        control.detailProperty().addListener(it -> configureDetailNode());
         configureDetailNode();
+        control.detailProperty().addListener(it -> configureDetailNode());
 
         getChildren().add(graphicsMasterDetailPane);
 
@@ -63,6 +68,22 @@ public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends Gantt
         control.graphicsHeaderProperty().addListener(it -> updatePosition());
 
         updatePosition();
+    }
+
+    protected void configureMasterNode() {
+        switch (getSkinnable().getScrollBarType()) {
+            case NONE:
+            case FIXED_HORIZON:
+                VBox.setVgrow(timelineGraphicsPane, Priority.ALWAYS);
+                rightHandSideBox.getChildren().setAll(timelineGraphicsPane, horizonScrollBar);
+                graphicsMasterDetailPane.setMasterNode(rightHandSideBox);
+                break;
+            case INFINITE:
+                rightHandSideHiddenSidesPane.setContent(timelineGraphicsPane);
+                rightHandSideHiddenSidesPane.setBottom(timelineScrollBar);
+                graphicsMasterDetailPane.setMasterNode(rightHandSideHiddenSidesPane);
+                break;
+        }
     }
 
     protected void configureDetailNode() {
@@ -75,8 +96,35 @@ public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends Gantt
         }
     }
 
-    public HiddenSidesPane getHiddenSidesPane() {
-        return hiddenSidesPane;
+    /**
+     * Returns the {@link HiddenSidesPane} instance that will be used if
+     * the scroll bar type is equal to {@link ScrollBarType#INFINITE}. In this
+     * case the hidden sides pane will hide the {@link TimelineScrollBar} in its
+     * bottom position.
+     *
+     * @see GanttChartBase#scrollBarTypeProperty()
+     * @see GanttChartBase#getTimelineScrollBar()
+     *
+     * @return the hidden sides pane
+     * @since 11.12.3
+     */
+    public HiddenSidesPane getRightHandSideHiddenSidesPane() {
+        return rightHandSideHiddenSidesPane;
+    }
+
+    /**
+     * Returns the {@link VBox} instance that will be used if
+     * the scroll bar type is equal to {@link ScrollBarType#FIXED_HORIZON}. In this
+     * case a standard scrollbar will be added at the bottom of the box.
+     *
+     * @see GanttChartBase#scrollBarTypeProperty()
+     * @see GanttChartBase#getHorizonScrollBar()
+     *
+     * @return the hidden sides pane
+     * @since 11.12.3
+     */
+    public VBox getRightHandSideBox() {
+        return rightHandSideBox;
     }
 
     protected final BorderPane getTimelineGraphicsPane() {

@@ -5,12 +5,12 @@
     <artifactId>emirates</artifactId>
     <name>FlexGanttFXEmirates</name>
     <description>Use case study for Emirates airlines</description>
-    <version>11.12.2</version>
+    <version>11.12.3-SNAPSHOT</version>
 
     <parent>
         <groupId>com.flexganttfx</groupId>
         <artifactId>gantt</artifactId>
-        <version>11.12.2</version>
+        <version>11.12.3-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -63,36 +63,6 @@
             <version>${project.parent.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.opencsv</groupId>
-            <artifactId>opencsv</artifactId>
-            <version>4.6</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.miglayout</groupId>
-            <artifactId>miglayout-swing</artifactId>
-            <version>5.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>2.4.0-b180830.0359</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.glassfish.jaxb</groupId>
-            <artifactId>jaxb-runtime</artifactId>
-            <version>2.4.0-b180830.0438</version>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.activation</groupId>
-            <artifactId>javax.activation-api</artifactId>
-            <version>1.2.0</version>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -118,10 +88,6 @@
                     </nativeImageArgs>
                     <reflectionList>
                         <list>javafx.scene.control.TableColumnBase</list>
-                        <list>javax.xml.bind.JAXBContextFactory</list>
-                        <list>com.sun.xml.bind.v2.ContextFactory</list>
-                        <list>com.sun.xml.bind.v2.model.nav.ReflectionNavigator</list>
-                        <list>javax.xml.bind.annotation.XmlType</list>
                     </reflectionList>
                     <resourcesList>
                         <list>.*\\.properties$</list>

@@ -245,7 +245,8 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
     public final void requestRedraw(String reason) {
         this.reason = reason;
-        this.dirty = true;
+
+        dirty = true;
 
         if (drawCounter < Integer.MAX_VALUE) {
             drawCounter++;

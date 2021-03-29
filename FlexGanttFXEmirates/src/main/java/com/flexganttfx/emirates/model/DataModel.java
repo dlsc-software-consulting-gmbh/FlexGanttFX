@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.emirates.model;
@@ -11,55 +11,35 @@ import com.flexganttfx.model.Layer;
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.time.Duration;
 import java.time.Instant;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.StringTokenizer;
+import java.util.*;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-public class DataModel extends HashMap<Group, Map<String, Aircraft>> {
+public class DataModel {
 
     private static final long serialVersionUID = 1L;
 
     private static final Logger LOGGER = Logger.getLogger(DataModel.class.getName());
-    private Instant start;
-    private Instant end;
     private Layer capacityLayer = new Layer("Capacity");
     private Map<ServiceType, Layer> layerMap = new HashMap<>();
     private List<ModelObject<?, ?, ?>> rows = new ArrayList<>();
 
-    public DataModel(DataSet dataSet, DoubleProperty progress) throws IOException {
+    public DataModel(DataModel.DataSet dataSet, DoubleProperty progress) throws IOException {
         switch (dataSet) {
             case SMALL:
-                loadDataSet("flights-small.zip", 22235, progress);
+                loadDataSet("data-small.zip", 22235, progress);
                 break;
             case MEDIUM:
-                loadDataSet("flights-medium.zip", 148208, progress);
+                loadDataSet("data-medium.zip", 148208, progress);
                 break;
             case LARGE:
-                loadDataSet("flights-large.zip", 313189, progress);
+                loadDataSet("data-large.zip", 313189, progress);
                 break;
         }
-
-        keySet().forEach(group -> {
-            rows.add(group);
-            rows.addAll(getAircrafts(group));
-        });
     }
 
     public Collection<Layer> getLayers() {
@@ -73,7 +53,7 @@ public class DataModel extends HashMap<Group, Map<String, Aircraft>> {
 
             ZipEntry ze;
             while ((ze = zin.getNextEntry()) != null) {
-                if (ze.getName().endsWith(".xml")) {
+                if (ze.getName().startsWith("data-") && ze.getName().endsWith(".txt")) {
                     File file = new File(System.getProperty("user.home"), ze.getName());
                     if (!file.exists()) {
                         LOGGER.info("Unzipping " + ze.getName());
@@ -122,121 +102,89 @@ public class DataModel extends HashMap<Group, Map<String, Aircraft>> {
         LOGGER.info("done unzipping and unmarshalling");
     }
 
-    private void unmarshal(FileReader reader, final int numberOfFlightsInFile, DoubleProperty progress) throws JAXBException, IOException {
+    private void unmarshal(FileReader reader, final int numberOfFlightsInFile, DoubleProperty progress) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(reader);
+        String line = bufferedReader.readLine();
 
-        JAXBContext context = JAXBContext.newInstance(ROWDATA.class);
-        Unmarshaller unmarshaller = context.createUnmarshaller();
+        int counter = 0;
+        double percentage = .1;
 
-        final Map<String, List<Flight>> flights = new HashMap<>();
+        while (line != null) {
+            counter++;
 
-        unmarshaller.setListener(new Unmarshaller.Listener() {
+            StringTokenizer st = new StringTokenizer(line, ",");
 
-            ZonedDateTime startTime = ZonedDateTime.now();
+            String groupName = st.nextToken();
+            String aircraftName = st.nextToken();
+            String flightNo = st.nextToken();
+            String serviceType = st.nextToken();
+            String departureAirport = st.nextToken();
+            String departureTime = st.nextToken();
+            String arrivalAirport = st.nextToken();
+            String arrivalTime = st.nextToken();
 
-            int counter = 0;
-
-            @Override
-            public void afterUnmarshal(Object target, Object parent) {
-                if (target instanceof ROW) {
-                    ROW row = (ROW) target;
-                    String resourceName = row.getResource();
-                    Group group = new Group(new StringTokenizer(resourceName, "-").nextToken());
-                    Map<String, Aircraft> aircraftMap = get(group);
-                    if (aircraftMap == null) {
-                        aircraftMap = new HashMap<>();
-                        put(group, aircraftMap);
-                    }
-
-                    Aircraft aircraftRow = aircraftMap.get(resourceName);
-                    if (aircraftRow == null) {
-                        aircraftRow = new Aircraft(row);
-                        aircraftMap.put(resourceName, aircraftRow);
-                    }
-
-                    Flight flight = new Flight(row);
-                    List<Flight> flightList = flights.get(resourceName);
-                    if (flightList == null) {
-                        flightList = new ArrayList<>();
-                        flights.put(resourceName, flightList);
-                    }
-
-                    if (!flight.isInvalid()) {
-                        flightList.add(flight);
-                    }
-
-                    Instant startTime = flight.getStartTime();
-                    Instant endTime = flight.getStartTime();
-
-                    if (start == null || Instant.from(startTime).isBefore(start)) {
-                        start = Instant.from(startTime);
-                    }
-
-                    if (end == null || Instant.from(endTime).isAfter(end)) {
-                        end = Instant.from(endTime);
-                    }
-
-                    counter++;
-
-                } else if (target instanceof ROWDATA) {
-                    LOGGER.info("done parsing xml file");
-                    LOGGER.info("setting start time to " + startTime);
-                }
-
-                Platform.runLater(() -> {
-                    double v = (double) counter / (double) numberOfFlightsInFile;
-                    progress.set(v);
-                });
+            if (!getGroupAircrafts().keySet().contains(groupName)) {
+                getGroupAircrafts().put(groupName, new HashMap<>());
+                Group groupRow = new Group(groupName);
+                getRows().add(groupRow);
             }
-        });
 
-        unmarshaller.unmarshal(reader);
-        reader.close();
+            Map<String, Aircraft> groupAircrafts = getGroupAircrafts().computeIfAbsent(groupName, key -> new HashMap<>());
+            Aircraft aircraft = groupAircrafts.computeIfAbsent(aircraftName, key -> {
+                Aircraft ac = new Aircraft(aircraftName);
+                getRows().add(ac);
+                return ac;
+            });
 
-        LOGGER.info("horizon: " + start + " to " + end);
-        for (Group group : keySet()) {
-            Map<String, Aircraft> map = get(group);
-            for (Aircraft aircraft : map.values()) {
-                LOGGER.info("looking up flights for aircraft " + aircraft.getName());
-                List<Flight> flightList = flights.get(aircraft.getName());
-                if (flightList != null) {
-                    for (Flight flight : flightList) {
+            Flight flight = new Flight();
+            flight.setFlightNo(flightNo);
+            flight.setAircraft(aircraftName);
+            flight.setArrivalAirport(arrivalAirport);
+            flight.setDepartureAirport(departureAirport);
+            flight.setStartTime(Instant.parse(departureTime));
+            flight.setEndTime(Instant.parse(arrivalTime));
+            flight.setDuration(Duration.between(flight.getStartTime(), flight.getEndTime()));
+            flight.setServiceType(ServiceType.valueOf(serviceType));
 
-                        Layer layer = layerMap.get(flight.getServiceType());
-                        if (layer == null) {
-                            layer = new Layer(flight.getServiceType().toString());
-                            layerMap.put(flight.getServiceType(), layer);
-                        }
+            Layer layer = layerMap.computeIfAbsent(flight.getServiceType(), key -> new Layer(flight.getServiceType().toString()));
 
-                        aircraft.addActivity(layer, flight);
-                    }
+            aircraft.addActivity(layer, flight);
 
-                    aircraft.updateInnerLines();
-                }
+            line = bufferedReader.readLine();
+
+            if ((double) counter / (double) numberOfFlightsInFile >= percentage) {
+                percentage += .1;
+                double fPercentage = percentage;
+                Platform.runLater(() -> progress.set(fPercentage));
             }
         }
 
-        LOGGER.info("done unmarshalling");
+        getGroupAircrafts().values().forEach(map -> map.values().forEach(aircraft -> aircraft.updateInnerLines()));
+
+        reader.close();
+
+        LOGGER.info("done reading");
     }
 
-    public Set<Group> getGroups() {
-        return keySet();
+    private final Map<String, Aircraft> aircrafts = new HashMap<>();
+
+    public Map<String, Aircraft> getAircrafts() {
+        return aircrafts;
+    }
+
+    private HashMap<String, Map<String, Aircraft>> groupAircrafts = new HashMap<>();
+
+    public HashMap<String, Map<String, Aircraft>> getGroupAircrafts() {
+        return groupAircrafts;
     }
 
     public List<ModelObject<?, ?, ?>> getRows() {
         return rows;
     }
 
-    public Collection<Aircraft> getAircrafts(Group group) {
-        Map<String, Aircraft> map = get(group);
+    public Collection<Aircraft> getAircrafts(String group) {
+        Map<String, Aircraft> map = getGroupAircrafts().get(group);
         return map.values();
-    }
-
-    public Instant getStartTime() {
-        return start;
-    }
-
-    public Instant getEndTime() {
-        return end;
     }
 
     public Layer getCapacityLayer() {

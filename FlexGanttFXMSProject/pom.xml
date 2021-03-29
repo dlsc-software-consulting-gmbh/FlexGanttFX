@@ -10,7 +10,7 @@
     <parent>
         <groupId>com.flexganttfx</groupId>
         <artifactId>gantt</artifactId>
-        <version>11.12.2</version>
+        <version>11.12.3-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -37,11 +37,6 @@
     <repositories>
 
         <repository>
-            <id>my-local-core-repo</id>
-            <url>file://${project.basedir}/repository</url>
-        </repository>
-
-        <repository>
             <id>jpro - sandec repository</id>
             <url>http://sandec.bintray.com/repo</url>
         </repository>
@@ -49,6 +44,32 @@
     </repositories>
 
     <dependencies>
+
+<!--        <dependency>-->
+<!--            <groupId>scenicview</groupId>-->
+<!--            <artifactId>scenicview</artifactId>-->
+<!--            <version>1.0.0</version>-->
+<!--            <scope>system</scope>-->
+<!--            <systemPath>${project.basedir}/lib/scenicview.jar</systemPath>-->
+<!--        </dependency>-->
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.kordamp.ikonli</groupId>

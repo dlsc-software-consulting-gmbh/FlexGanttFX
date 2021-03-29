@@ -8,15 +8,18 @@ package com.flexganttfx.msproject;
 import com.flexganttfx.core.FlexGanttFX;
 import com.flexganttfx.extras.GanttChartStatusBar;
 import com.flexganttfx.extras.GanttChartToolBar;
+import com.flexganttfx.extras.properties.view.GanttChartConfigurationView;
 import com.flexganttfx.model.ActivityLink;
 import com.flexganttfx.msproject.model.MSProjectTaskRow;
 import com.flexganttfx.msproject.view.MSProjectGanttChart;
+import com.flexganttfx.view.GanttChartBase;
 import com.flexganttfx.view.graphics.renderer.CurvedLinkRenderer;
 import com.jpro.webapi.WebAPI;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -46,7 +49,6 @@ public class MSProjectApp extends Application {
 		this.stage.setTitle(STAGE_TITLE);
 
 		gantt = new MSProjectGanttChart();
-		gantt.getGraphics().setShowLinks(false);
 		gantt.getGraphics().setLinkRenderer(ActivityLink.class, new CurvedLinkRenderer<>(gantt.getGraphics(), "Custom Link Renderer") {
 			@Override
 			public void draw(ActivityLink<?> link, GraphicsContext gc, Rectangle2D sourceBounds, Rectangle2D targetBounds) {
@@ -62,6 +64,7 @@ public class MSProjectApp extends Application {
 			}
 		});
 		gantt.load("com/flexganttfx/msproject/files/n0741.mpp", MSProjectApp.class.getResourceAsStream("/com/flexganttfx/msproject/files/n0741.mpp"));
+		gantt.setDetail(new GanttChartConfigurationView(gantt));
 
 		VBox.setVgrow(gantt, Priority.ALWAYS);
 
@@ -72,14 +75,24 @@ public class MSProjectApp extends Application {
 
 		GanttChartStatusBar<MSProjectTaskRow> statusBar = new GanttChartStatusBar<>(gantt);
 
+		Scene scene = new Scene(vbox);
+
 		if (WebAPI.isBrowser()) {
 			vbox.getChildren().addAll(gantt, statusBar);
 		} else {
 			GanttChartToolBar<MSProjectTaskRow> toolBar = new GanttChartToolBar<>(gantt);
 			vbox.getChildren().addAll(toolBar, gantt, statusBar);
+//			Button scenicView = new Button();
+//			scenicView.setGraphic(new FontIcon(MaterialDesign.MDI_INFORMATION));
+//			scenicView.setOnAction(evt -> ScenicView.show(scene));
+//			toolBar.getItems().add(0, scenicView);
+
+			ComboBox<GanttChartBase.ScrollBarType> box = new ComboBox<>();
+			box.getItems().setAll(GanttChartBase.ScrollBarType.values());
+			box.valueProperty().bindBidirectional(gantt.scrollBarTypeProperty());
+			toolBar.getItems().add(1, box);
 		}
 
-		Scene scene = new Scene(vbox);
 		stage.setScene(scene);
 		stage.sizeToScene();
 		stage.centerOnScreen();

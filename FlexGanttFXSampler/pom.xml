@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>com.flexganttfx</groupId>
 		<artifactId>gantt</artifactId>
-		<version>11.12.2</version>
+		<version>11.12.3-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -27,6 +27,17 @@
 			</snapshots>
 		</repository>
 	</repositories>
+
+	<pluginRepositories>
+
+		<pluginRepository>
+			<id>gluon-releases</id>
+			<url>
+				https://nexus.gluonhq.com/nexus/content/repositories/releases/
+			</url>
+		</pluginRepository>
+
+	</pluginRepositories>
 
 	<dependencies>
 
@@ -94,6 +105,44 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>com.gluonhq</groupId>
+				<artifactId>client-maven-plugin</artifactId>
+				<version>${client.maven.plugin.version}</version>
+				<configuration>
+					<mainClass>com.flexganttfx.demo.FlexGanttFXSampler</mainClass>
+					<nativeImageArgs>
+						<nativeImageArg>
+							-H:IncludeResourceBundles=com.flexganttfx.view.util.messages,com.flexganttfx.extras.util.messages
+						</nativeImageArg>
+						<nativeImageArg>
+							--no-fallback
+						</nativeImageArg>
+						<nativeImageArg>--allow-incomplete-classpath</nativeImageArg>
+						<nativeImageArg>
+							--trace-class-initialization=sun.instrument.InstrumentationImpl
+						</nativeImageArg>
+						<nativeImageArg>
+							--initialize-at-build-time=sun.instrument.InstrumentationImpl
+						</nativeImageArg>
+					</nativeImageArgs>
+					<reflectionList>
+						<list>javafx.scene.control.TableColumnBase</list>
+						<list>javax.xml.bind.JAXBContextFactory</list>
+						<list>com.sun.xml.bind.v2.ContextFactory</list>
+						<list>com.sun.xml.bind.v2.model.nav.ReflectionNavigator</list>
+						<list>javax.xml.bind.annotation.XmlType</list>
+					</reflectionList>
+					<resourcesList>
+						<list>.*\\.properties$</list>
+						<list>.*\\.png$</list>
+						<list>.*\\.jpg$</list>
+						<list>.*\\.jpeg$</list>
+						<list>.*\\.zip$</list>
+					</resourcesList>
+				</configuration>
+			</plugin>
+
 			<plugin>
 				<groupId>org.openjfx</groupId>
 				<artifactId>javafx-maven-plugin</artifactId>

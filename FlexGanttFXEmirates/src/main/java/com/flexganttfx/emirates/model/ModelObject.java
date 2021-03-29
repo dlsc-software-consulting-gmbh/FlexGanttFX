@@ -9,8 +9,7 @@ import com.flexganttfx.model.Activity;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.model.repository.IntervalTreeActivityRepository;
 
-public class ModelObject<Parent extends Row<?, ?, ?>, Child extends Row<?, ?, ?>, A extends Activity>
-		extends Row<Parent, Child, A> {
+public class ModelObject<Parent extends Row<?, ?, ?>, Child extends Row<?, ?, ?>, A extends Activity> extends Row<Parent, Child, A> {
 
 	public ModelObject() {
 	}
