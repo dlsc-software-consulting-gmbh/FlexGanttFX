@@ -44,11 +44,13 @@ public abstract class FlexGanttFXSample extends FlexGanttFXSampleBase {
             ganttChart = createGanttChart();
 
             ganttChart.getTimeline().visibleTimeIntervalProperty().addListener(it -> {
-                TimeInterval interval = ganttChart.getTimeline().getVisibleTimeInterval();
-                ZonedDateTime st = ZonedDateTime.ofInstant(interval.getStartTime(), ZoneId.systemDefault());
-                ZonedDateTime et = ZonedDateTime.ofInstant(interval.getEndTime(), ZoneId.systemDefault());
-				DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT);
-				getStatusbar().setText(formatter.format(st) + " - " + formatter.format(et));
+                if (ganttChart != null) {
+                    TimeInterval interval = ganttChart.getTimeline().getVisibleTimeInterval();
+                    ZonedDateTime st = ZonedDateTime.ofInstant(interval.getStartTime(), ZoneId.systemDefault());
+                    ZonedDateTime et = ZonedDateTime.ofInstant(interval.getEndTime(), ZoneId.systemDefault());
+                    DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT);
+                    getStatusbar().setText(formatter.format(st) + " - " + formatter.format(et));
+                }
             });
 
         } catch (Exception e) {

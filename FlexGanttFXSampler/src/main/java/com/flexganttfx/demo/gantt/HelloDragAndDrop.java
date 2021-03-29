@@ -66,33 +66,34 @@ import java.util.StringTokenizer;
 
 public class HelloDragAndDrop extends FlexGanttFXSampleBase {
 
-	private TableView<Order> orderTable = new TableView<>();
-	private TableView<Person> personTable = new TableView<>();
-	private GanttChart<Resource> gantt1 = new GanttChart<>();
-	private GanttChart<Resource> gantt2 = new GanttChart<>();
+	private TableView<Order> orderTable;
+	private TableView<Person> personTable;
+	private GanttChart<Resource> gantt1;
+	private GanttChart<Resource> gantt2;
 	private DualGanttChartContainer dualContainer;
-	private TextArea textDropArea = new TextArea();
-	private TextArea textEventsArea = new TextArea();
+	private TextArea textDropArea;
+	private TextArea textEventsArea;
 
-	private DragInfoPane dragInfoPane = new DragInfoPane();
+	private DragInfoPane dragInfoPane;
 
-	private Map<String, Order> orders = new HashMap<>();
-	private Map<String, Person> people = new HashMap<>();
-	private Layer layer = new Layer("Orders");
-
-	public HelloDragAndDrop() {
-		setupOrderTable();
-		setupPersonTable();
-		setupGantt();
-		setupTextDropArea();
-		setupTextEventsArea();
-	}
+	private Map<String, Order> orders;
+	private Map<String, Person> people;
+	private Layer layer;
 
 	@Override
 	public void dispose() {
 		super.dispose();
 		gantt1 = null;
 		gantt2 = null;
+		dualContainer = null;
+		orderTable = null;
+		personTable = null;
+		textDropArea = null;
+		textEventsArea = null;
+		dragInfoPane = null;
+		orders = null;
+		people = null;
+		layer = null;
 	}
 
 	@Override
@@ -386,6 +387,25 @@ public class HelloDragAndDrop extends FlexGanttFXSampleBase {
 
 	@Override
 	public Node getPanel(Stage stage) {
+		orderTable = new TableView<>();
+		personTable = new TableView<>();
+		gantt1 = new GanttChart<>();
+		gantt2 = new GanttChart<>();
+		textDropArea = new TextArea();
+		textEventsArea = new TextArea();
+
+		dragInfoPane = new DragInfoPane();
+
+		orders = new HashMap<>();
+		people = new HashMap<>();
+		layer = new Layer("Orders");
+
+		setupOrderTable();
+		setupPersonTable();
+		setupGantt();
+		setupTextDropArea();
+		setupTextEventsArea();
+
 		SplitPane horizontalSplit = new SplitPane();
 		horizontalSplit.setOrientation(Orientation.HORIZONTAL);
 		horizontalSplit.getItems().addAll(orderTable, personTable);

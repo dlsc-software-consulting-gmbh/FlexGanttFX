@@ -35,9 +35,9 @@ import java.util.Objects;
 
 public class HelloLazyLoading extends FlexGanttFXSample {
 
-    private static final Layer layer = new Layer("Default Layer");
+    private final Layer layer = new Layer("Default Layer");
 
-    private static GanttChart<HelloLazyRow> gantt;
+    private GanttChart<HelloLazyRow> gantt;
 
     @Override
     public void dispose() {
@@ -60,12 +60,14 @@ public class HelloLazyLoading extends FlexGanttFXSample {
 
         final Timeline timeline = gantt.getTimeline();
 
+        LazyLoadingManager lazyloadingManager = new LazyLoadingManager();
+
         timeline.visibleTimeIntervalProperty().addListener(it -> {
             final TimeInterval visibleTimeInterval = timeline.getVisibleTimeInterval();
-            LazyLoadingManager.getInstance().ensureData(visibleTimeInterval, false);
+            lazyloadingManager.ensureData(visibleTimeInterval, false);
         });
 
-        gantt.getTreeTable().rootProperty().addListener(it -> gantt.getTreeTable().getRoot().addEventHandler(TreeItem.branchExpandedEvent(), evt -> LazyLoadingManager.getInstance().ensureData(timeline.getVisibleTimeInterval(), true)));
+        gantt.getTreeTable().rootProperty().addListener(it -> gantt.getTreeTable().getRoot().addEventHandler(TreeItem.branchExpandedEvent(), evt -> lazyloadingManager.ensureData(timeline.getVisibleTimeInterval(), true)));
 
         Platform.runLater(() -> timeline.getModel().setStartTime(Instant.now().plusSeconds(1)));
 
@@ -77,9 +79,7 @@ public class HelloLazyLoading extends FlexGanttFXSample {
      * this class currently does not manage already loaded time intervals /
      * slices but always performs a server-side query.
      */
-    static class LazyLoadingManager {
-
-        private static LazyLoadingManager instance;
+    class LazyLoadingManager {
 
         private LazyLoadingService service;
 
@@ -118,14 +118,6 @@ public class HelloLazyLoading extends FlexGanttFXSample {
                 row.addActivity(layer, activity);
             }
         }
-
-        public static synchronized LazyLoadingManager getInstance() {
-            if (instance == null) {
-                instance = new LazyLoadingManager();
-            }
-
-            return instance;
-        }
     }
 
     /**
@@ -134,7 +126,7 @@ public class HelloLazyLoading extends FlexGanttFXSample {
      * background thread. If a service gets restarted before the task has
      * finished then the task will be cancelled.
      */
-    static class LazyLoadingService extends Service<List<HelloLazyLoadingActivity>> {
+    class LazyLoadingService extends Service<List<HelloLazyLoadingActivity>> {
 
         private TimeInterval timeInterval;
 
@@ -152,7 +144,7 @@ public class HelloLazyLoading extends FlexGanttFXSample {
      * This task is doing the actual work of looking up activities. Normally it
      * would call some kind of web service in its call() method.
      */
-    static class LazyLoadingTask extends Task<List<HelloLazyLoadingActivity>> {
+    class LazyLoadingTask extends Task<List<HelloLazyLoadingActivity>> {
 
         private TimeInterval timeInterval;
 
