@@ -107,7 +107,11 @@ public class DataModel {
         String line = bufferedReader.readLine();
 
         int counter = 0;
+        double percentage = .1;
+
         while (line != null) {
+            counter++;
+
             StringTokenizer st = new StringTokenizer(line, ",");
 
             String groupName = st.nextToken();
@@ -148,11 +152,11 @@ public class DataModel {
 
             line = bufferedReader.readLine();
 
-            final int fCounter = counter++;
-            Platform.runLater(() -> {
-                double v = (double) fCounter / (double) numberOfFlightsInFile;
-                progress.set(v);
-            });
+            if ((double) counter / (double) numberOfFlightsInFile >= percentage) {
+                percentage += .1;
+                double fPercentage = percentage;
+                Platform.runLater(() -> progress.set(fPercentage));
+            }
         }
 
         getGroupAircrafts().values().forEach(map -> map.values().forEach(aircraft -> aircraft.updateInnerLines()));
