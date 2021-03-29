@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.demo.gantt;
@@ -14,11 +14,17 @@ import javafx.scene.Node;
 
 public class HelloGanttChartEmpty extends FlexGanttFXSample {
 
-    private GanttChart<HelloRow> gc = new GanttChart<>();
+    private GanttChart<HelloRow> gc;
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        gc = null;
+    }
 
     @Override
     protected GanttChart<?> createGanttChart() {
-        return gc;
+        return gc = new GanttChart<>();
     }
 
     @Override

@@ -40,6 +40,12 @@ public class HelloLazyLoading extends FlexGanttFXSample {
     private static GanttChart<HelloLazyRow> gantt;
 
     @Override
+    public void dispose() {
+        super.dispose();
+        gantt = null;
+    }
+
+    @Override
     protected GanttChart<?> createGanttChart() throws FileNotFoundException {
         gantt = new GanttChart<>();
         gantt.setRowHeaderType(RowHeaderType.LEVEL_NUMBER);

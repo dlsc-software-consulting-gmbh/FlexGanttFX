@@ -21,8 +21,7 @@ import java.time.Instant;
 
 public class TimelineModelControlPanel extends VBox {
 
-	public TimelineModelControlPanel(final TimelineModel<?> timelineModel,
-			Instant startTime, Instant endTime) {
+	public TimelineModelControlPanel(final TimelineModel<?> timelineModel, Instant startTime, Instant endTime) {
 
 		setPadding(new Insets(10, 10, 10, 10));
 		setFillWidth(true);
@@ -51,16 +50,12 @@ public class TimelineModelControlPanel extends VBox {
 		getChildren().add(new Label("Millis Per Pixel"));
 
 		TextField temporalUnitWidthField = new TextField();
-		Bindings.bindBidirectional(temporalUnitWidthField.textProperty(),
-				timelineModel.millisPerPixelProperty(), format);
+		Bindings.bindBidirectional(temporalUnitWidthField.textProperty(), timelineModel.millisPerPixelProperty(), format);
 		getChildren().add(temporalUnitWidthField);
 
-		Slider unitWidthSlider = new Slider(1000, 96 * 60 * 60 * 1000,
-				24 * 60 * 60 * 1000);
-		Bindings.bindBidirectional(unitWidthSlider.valueProperty(),
-				timelineModel.millisPerPixelProperty());
-		Bindings.bindBidirectional(temporalUnitWidthField.textProperty(),
-				unitWidthSlider.valueProperty(), format);
+		Slider unitWidthSlider = new Slider(1000, 96 * 60 * 60 * 1000, 24 * 60 * 60 * 1000);
+		Bindings.bindBidirectional(unitWidthSlider.valueProperty(), timelineModel.millisPerPixelProperty());
+		Bindings.bindBidirectional(temporalUnitWidthField.textProperty(), unitWidthSlider.valueProperty(), format);
 		getChildren().add(unitWidthSlider);
 
 		// start time

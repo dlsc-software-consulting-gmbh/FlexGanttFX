@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.demo.gantt;
@@ -22,7 +22,13 @@ import java.time.*;
 
 public class HelloScrollBars extends FlexGanttFXSample {
 
-    private GanttChart<HelloRow> gc = new GanttChart<>();
+    private GanttChart<HelloRow> gc;
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        gc = null;
+    }
 
     @Override
     protected GanttChart<?> createGanttChart() {
@@ -30,6 +36,7 @@ public class HelloScrollBars extends FlexGanttFXSample {
 
         Layer layer = new Layer("layer");
 
+        gc = new GanttChart<>();
         gc.setScrollBarType(GanttChartBase.ScrollBarType.FIXED_HORIZON);
         gc.getLayers().add(layer);
         gc.getTimeline().getModel().setHorizonStartTime(ZonedDateTime.now().minusWeeks(1).toInstant());

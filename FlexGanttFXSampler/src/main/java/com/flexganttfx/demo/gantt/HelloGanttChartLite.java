@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.demo.gantt;
@@ -13,22 +13,25 @@ import com.flexganttfx.view.GanttChartLite;
 import javafx.application.Application;
 import javafx.scene.Node;
 
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-
 public class HelloGanttChartLite extends FlexGanttFXSample {
 
-    private GanttChartLite<HelloRow> ganttChartLite = new GanttChartLite<>();
-    private DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT);
+    private GanttChartLite<HelloRow> gc;
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        gc = null;
+    }
 
     @Override
     protected GanttChartBase<?> createGanttChart() {
-        for (int i=0; i<100; i++) {
+        gc = new GanttChartLite<>();
+        for (int i = 0; i < 100; i++) {
             HelloRow row = new HelloRow("Row " + i);
-            ganttChartLite.getRows().add(row);
+            gc.getRows().add(row);
         }
 
-        return ganttChartLite;
+        return gc;
     }
 
     @Override
@@ -38,7 +41,7 @@ public class HelloGanttChartLite extends FlexGanttFXSample {
 
     @Override
     public Node getControlPanel() {
-        return new GanttChartPropertySheet<>(ganttChartLite);
+        return new GanttChartPropertySheet<>(gc);
     }
 
     public static void main(String[] args) {

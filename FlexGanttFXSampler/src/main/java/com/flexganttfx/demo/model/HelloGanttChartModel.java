@@ -45,6 +45,12 @@ public class HelloGanttChartModel extends FlexGanttFXSample {
 	}
 
 	@Override
+	public void dispose() {
+		super.dispose();
+		gantt = null;
+	}
+
+	@Override
 	protected GanttChart<?> createGanttChart() {
 		gantt = new GanttChart<>(root);
 		gantt.getLayers().add(layer);

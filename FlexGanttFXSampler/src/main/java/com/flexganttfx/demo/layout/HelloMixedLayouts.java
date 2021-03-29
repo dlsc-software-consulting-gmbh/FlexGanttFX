@@ -66,6 +66,12 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
     }
 
     @Override
+    public void dispose() {
+        super.dispose();
+        ganttChart = null;
+    }
+
+    @Override
     public String getSampleName() {
         return "Mixed";
     }

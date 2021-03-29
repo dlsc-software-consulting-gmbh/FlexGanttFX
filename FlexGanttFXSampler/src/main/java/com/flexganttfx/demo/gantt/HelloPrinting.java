@@ -39,6 +39,12 @@ public class HelloPrinting extends FlexGanttFXSample {
     }
 
     @Override
+    public void dispose() {
+        super.dispose();
+        gc = null;
+    }
+
+    @Override
     public String getSampleName() {
         return "Printing";
     }

@@ -5,14 +5,6 @@
  */
 package com.flexganttfx.demo.gantt;
 
-import static org.controlsfx.control.PopOver.ArrowLocation.TOP_CENTER;
-
-import java.io.FileNotFoundException;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-
-import org.controlsfx.control.PopOver;
-
 import com.flexganttfx.demo.FlexGanttFXSample;
 import com.flexganttfx.demo.HelloActivity;
 import com.flexganttfx.demo.HelloRow;
@@ -20,16 +12,28 @@ import com.flexganttfx.model.ActivityRef;
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.view.GanttChart;
 import com.flexganttfx.view.graphics.ListViewGraphics;
-
 import javafx.application.Application;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import org.controlsfx.control.PopOver;
+
+import java.io.FileNotFoundException;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+
+import static org.controlsfx.control.PopOver.ArrowLocation.TOP_CENTER;
 
 public class HelloPopOver extends FlexGanttFXSample {
 
 	private static final Layer layer = new Layer("Flights");
 
 	private GanttChart<HelloRow> gc;
+
+	@Override
+	public void dispose() {
+		super.dispose();
+		gc = null;
+	}
 
 	@Override
 	protected GanttChart<?> createGanttChart() throws FileNotFoundException {

@@ -37,6 +37,12 @@ public class HelloSystemLayers extends FlexGanttFXSample {
     private GanttChart<HelloRow> gc;
 
     @Override
+    public void dispose() {
+        super.dispose();
+        gc = null;
+    }
+
+    @Override
     protected GanttChart<?> createGanttChart() throws FileNotFoundException {
         gc = new GanttChart<>();
 

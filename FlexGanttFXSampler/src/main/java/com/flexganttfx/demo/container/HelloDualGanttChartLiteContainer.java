@@ -43,6 +43,12 @@ public class HelloDualGanttChartLiteContainer extends FlexGanttFXSampleBase {
 	}
 
 	@Override
+	public void dispose() {
+		super.dispose();
+		dual = null;
+	}
+
+	@Override
 	public Node getControlPanel() {
 		DualGanttChartContainerBaseItemProvider provider = new DualGanttChartContainerBaseItemProvider();
 		return new PropertySheet(FXCollections.observableArrayList(provider.getPropertySheetItems(dual)));

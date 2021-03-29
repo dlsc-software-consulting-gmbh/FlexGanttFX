@@ -30,6 +30,12 @@ public class HelloQuadGanttChartLiteContainer extends FlexGanttFXSampleBase {
     }
 
     @Override
+    public void dispose() {
+        super.dispose();
+        quad = null;
+    }
+
+    @Override
     public Node getPanel(Stage panel) {
         GanttChartLite<HelloRow> chart1 = new GanttChartLite<>();
         GanttChartLite<HelloRow> chart2 = new GanttChartLite<>();

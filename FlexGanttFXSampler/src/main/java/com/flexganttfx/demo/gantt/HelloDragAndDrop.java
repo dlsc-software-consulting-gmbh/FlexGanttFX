@@ -89,6 +89,13 @@ public class HelloDragAndDrop extends FlexGanttFXSampleBase {
 	}
 
 	@Override
+	public void dispose() {
+		super.dispose();
+		gantt1 = null;
+		gantt2 = null;
+	}
+
+	@Override
 	public Node getControlPanel() {
 		VBox box = new VBox();
 		box.setSpacing(10);
@@ -148,15 +155,12 @@ public class HelloDragAndDrop extends FlexGanttFXSampleBase {
 		TableColumn<Order, String> nameColumn = new TableColumn<>("Order");
 		TableColumn<Order, LocalDate> startColumn = new TableColumn<>("Start");
 		TableColumn<Order, LocalDate> endColumn = new TableColumn<>("Finish");
-		TableColumn<Order, Priority> priorityColumn = new TableColumn<>(
-				"Priority");
+		TableColumn<Order, Priority> priorityColumn = new TableColumn<>("Priority");
 
 		nameColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
-		startColumn
-				.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+		startColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
 		endColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
-		priorityColumn.setCellValueFactory(new PropertyValueFactory<>(
-				"priority"));
+		priorityColumn.setCellValueFactory(new PropertyValueFactory<>("priority"));
 
 		nameColumn.setPrefWidth(200);
 		startColumn.setPrefWidth(100);
@@ -171,8 +175,7 @@ public class HelloDragAndDrop extends FlexGanttFXSampleBase {
 		List<Order> list = new ArrayList<>();
 		for (int i = 0; i < 40; i++) {
 			Order order = new Order("Order #" + (i + 1));
-			LocalDate start = LocalDate.now().plusDays(
-					2 + (int) (Math.random() * 10));
+			LocalDate start = LocalDate.now().plusDays(2 + (int) (Math.random() * 10));
 			LocalDate end = start.plusDays(5 + (int) (Math.random() * 10));
 
 			order.setStartDate(start);
@@ -213,8 +216,7 @@ public class HelloDragAndDrop extends FlexGanttFXSampleBase {
 	private void dragDetectedOrderTable(MouseEvent evt) {
 		Dragboard db = orderTable.startDragAndDrop(TransferMode.MOVE);
 		ClipboardContent content = new ClipboardContent();
-		content.putString("order:"
-				+ orderTable.getSelectionModel().getSelectedItem().getTitle());
+		content.putString("order:" + orderTable.getSelectionModel().getSelectedItem().getTitle());
 		db.setContent(content);
 	}
 
@@ -270,27 +272,20 @@ public class HelloDragAndDrop extends FlexGanttFXSampleBase {
 		gantt2.setRoot(root2);
 
 		GraphicsBase<Resource> graphics1 = gantt1.getGraphics();
-		graphics1
-				.setDragAndDropFeedback(DragAndDropFeedback.RENDERED_GRID_SNAPPED);
+		graphics1.setDragAndDropFeedback(DragAndDropFeedback.RENDERED_GRID_SNAPPED);
 		graphics1.setAutoGridEnabled(true);
 		graphics1.setOnDragOver(evt -> dragOver(evt));
 		graphics1.setOnDragDropped(evt -> dragDropped(evt));
-		graphics1.setActivityRenderer(OrderAssignment.class, GanttLayout.class,
-				new OrderAssignmentRenderer(graphics1));
-		graphics1.dragAndDropInfoProperty().addListener(
-				it -> updateDragAndDropInfo(graphics1.getDragAndDropInfo()));
-		graphics1.dragAndDropInfoProperty().addListener(
-				evt -> dragInfoPane.setInfo(graphics1.getDragAndDropInfo()));
+		graphics1.setActivityRenderer(OrderAssignment.class, GanttLayout.class, new OrderAssignmentRenderer(graphics1));
+		graphics1.dragAndDropInfoProperty().addListener(it -> updateDragAndDropInfo(graphics1.getDragAndDropInfo()));
+		graphics1.dragAndDropInfoProperty().addListener(evt -> dragInfoPane.setInfo(graphics1.getDragAndDropInfo()));
 
 		GraphicsBase<Resource> graphics2 = gantt2.getGraphics();
 		graphics2.setOnDragOver(evt -> dragOver(evt));
 		graphics2.setOnDragDropped(evt -> dragDropped(evt));
-		graphics2.setActivityRenderer(OrderAssignment.class, GanttLayout.class,
-				new OrderAssignmentRenderer(graphics1));
-		graphics2.dragAndDropInfoProperty().addListener(
-				it -> updateDragAndDropInfo(graphics2.getDragAndDropInfo()));
-		graphics2.dragAndDropInfoProperty().addListener(
-				evt -> dragInfoPane.setInfo(graphics2.getDragAndDropInfo()));
+		graphics2.setActivityRenderer(OrderAssignment.class, GanttLayout.class, new OrderAssignmentRenderer(graphics1));
+		graphics2.dragAndDropInfoProperty().addListener(it -> updateDragAndDropInfo(graphics2.getDragAndDropInfo()));
+		graphics2.dragAndDropInfoProperty().addListener(evt -> dragInfoPane.setInfo(graphics2.getDragAndDropInfo()));
 
 		dualContainer = new DualGanttChartContainer(gantt1, gantt2);
 	}
