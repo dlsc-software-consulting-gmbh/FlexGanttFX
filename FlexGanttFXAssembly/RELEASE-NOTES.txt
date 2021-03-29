@@ -1,5 +1,5 @@
 ----------------------------------------------------------------
-Release: 11.12.2, Date: March 2021
+Release: 11.12.3, Date: March 2021
 ----------------------------------------------------------------
 
 ** NEW
@@ -10,6 +10,14 @@ Release: 11.12.2, Date: March 2021
       in time. So far the scrollbar allowed for infinite scrolling. This version adds
       a standard ("normal") scrollbar that allows the user to scroll within a given time
       horizon. Applications can also choose to completely remove the scrollbar.
+   ** Added an option on GanttChart to specify whether the horizontal scrollbars on the
+      left-hand side and the right-hand side should auto-hide when not used. They will
+      appear again when the user moves the mouse cursor to the bottom edge of the tree
+      table view or the graphics area.
+
+----------------------------------------------------------------
+Release: 11.12.2, Date: March 3rd, 2021
+----------------------------------------------------------------
 
 ** CHANGES
 
@@ -28,6 +36,7 @@ Release: 11.12.2, Date: March 2021
        long as possible. A regression that was introduced with the new buffer concepts
        caused the label to disappear very quickly and depending on the zoom level it
        became hard to determine that start date of the dateline.
+
 
 ----------------------------------------------------------------
 Release: 11.12.1, August 17th, 2020

@@ -23,11 +23,10 @@ import javafx.scene.layout.VBox;
 import org.controlsfx.control.HiddenSidesPane;
 import org.controlsfx.control.MasterDetailPane;
 
-public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends GanttChartBase<R>> extends
-        SkinBase<C> {
+public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends GanttChartBase<R>> extends SkinBase<C> {
 
     private final BorderPane timelineGraphicsPane;
-    private Timeline timeline;
+    private final Timeline timeline;
     private final MasterDetailPane graphicsMasterDetailPane;
     private final TimelineScrollBar timelineScrollBar;
     private final ScrollBar horizonScrollBar;
@@ -58,6 +57,7 @@ public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends Gantt
 
         configureMasterNode();
         control.scrollBarTypeProperty().addListener(it -> configureMasterNode());
+        control.autoHideScrollBarProperty().addListener(it -> configureMasterNode());
 
         configureDetailNode();
         control.detailProperty().addListener(it -> configureDetailNode());
@@ -71,18 +71,37 @@ public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends Gantt
     }
 
     protected void configureMasterNode() {
-        switch (getSkinnable().getScrollBarType()) {
-            case NONE:
-            case FIXED_HORIZON:
-                VBox.setVgrow(timelineGraphicsPane, Priority.ALWAYS);
-                rightHandSideBox.getChildren().setAll(timelineGraphicsPane, horizonScrollBar);
-                graphicsMasterDetailPane.setMasterNode(rightHandSideBox);
-                break;
-            case INFINITE:
-                rightHandSideHiddenSidesPane.setContent(timelineGraphicsPane);
-                rightHandSideHiddenSidesPane.setBottom(timelineScrollBar);
-                graphicsMasterDetailPane.setMasterNode(rightHandSideHiddenSidesPane);
-                break;
+        if (getSkinnable().isAutoHideScrollBar()) {
+            rightHandSideHiddenSidesPane.setContent(timelineGraphicsPane);
+            graphicsMasterDetailPane.setMasterNode(rightHandSideHiddenSidesPane);
+
+            switch (getSkinnable().getScrollBarType()) {
+                case NONE:
+                    rightHandSideHiddenSidesPane.setBottom(null);
+                    break;
+                case FIXED_HORIZON:
+                    rightHandSideHiddenSidesPane.setBottom(horizonScrollBar);
+                    break;
+                case INFINITE:
+                    rightHandSideHiddenSidesPane.setBottom(timelineScrollBar);
+                    break;
+            }
+
+        } else {
+            VBox.setVgrow(timelineGraphicsPane, Priority.ALWAYS);
+            graphicsMasterDetailPane.setMasterNode(rightHandSideBox);
+
+            switch (getSkinnable().getScrollBarType()) {
+                case NONE:
+                    rightHandSideBox.getChildren().setAll(timelineGraphicsPane);
+                    break;
+                case FIXED_HORIZON:
+                    rightHandSideBox.getChildren().setAll(timelineGraphicsPane, horizonScrollBar);
+                    break;
+                case INFINITE:
+                    rightHandSideBox.getChildren().setAll(timelineGraphicsPane, timelineScrollBar);
+                    break;
+            }
         }
     }
 
@@ -141,12 +160,10 @@ public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends Gantt
             case FIRST:
             case ONLY:
                 getTimelineGraphicsPane().setTop(getSkinnable().getTimeline());
-                getTimelineScrollBar().toBack();
                 break;
             case LAST:
             case MIDDLE:
                 getTimelineGraphicsPane().setTop(getSkinnable().getGraphicsHeader());
-                getTimelineScrollBar().toFront();
                 break;
             default:
                 break;

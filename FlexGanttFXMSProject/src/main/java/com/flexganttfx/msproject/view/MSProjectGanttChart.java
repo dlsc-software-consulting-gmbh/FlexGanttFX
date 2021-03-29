@@ -48,6 +48,7 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
 
         setFixedCellSize(Row.DEFAULT_ROW_HEIGHT);
         setScrollBarType(ScrollBarType.FIXED_HORIZON);
+        setAutoHideScrollBar(false);
 
         getStylesheets().add(MSProjectGanttChart.class.getResource("msproject.css").toExternalForm());
 

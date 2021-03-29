@@ -36,6 +36,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TreeTableView;
+import org.controlsfx.control.HiddenSidesPane;
 import org.controlsfx.control.MasterDetailPane;
 
 import java.time.Instant;
@@ -98,8 +99,6 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
         timelineScrollBar.timelineProperty().bind(masterTimelineProperty());
 
         horizonScrollBar = createHorizonScrollBar();
-        horizonScrollBar.visibleProperty().bind(scrollBarTypeProperty().isEqualTo(ScrollBarType.FIXED_HORIZON));
-        horizonScrollBar.managedProperty().bind(scrollBarTypeProperty().isEqualTo(ScrollBarType.FIXED_HORIZON));
 
         masterTimelineProperty().addListener((obs, oldTimeline, newTimeline) -> {
             if (oldTimeline != null) {
@@ -482,9 +481,34 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
         /**
          * Use a specialized scrollbar for infinite scrolling into the future
          * and into the past.
+         *
          * @see #scrollBarTypeProperty()
          */
         INFINITE
+    }
+
+    private final BooleanProperty autoHideScrollBar = new SimpleBooleanProperty(this, "autoHideScrollBar", true);
+
+    public final boolean isAutoHideScrollBar() {
+        return autoHideScrollBar.get();
+    }
+
+    /**
+     * Determines if the scrollbar will automatically hide itself if no longer needed. The default is
+     * "true". If set to "true", the skin of the Gantt chart will use a {@link HiddenSidesPane} instance
+     * for the left- and right-hand side. This container support the sliding in and out of controls on
+     * the four sides.
+     *
+     * @return true if the scrollbars should automatically hide when not used
+     *
+     * @since 11.12.3
+     */
+    public final BooleanProperty autoHideScrollBarProperty() {
+        return autoHideScrollBar;
+    }
+
+    public final void setAutoHideScrollBar(boolean autoHideScrollBar) {
+        this.autoHideScrollBar.set(autoHideScrollBar);
     }
 
     private final ObjectProperty<ScrollBarType> scrollBarType = new SimpleObjectProperty<>(this, "scrollBarType", ScrollBarType.INFINITE);
