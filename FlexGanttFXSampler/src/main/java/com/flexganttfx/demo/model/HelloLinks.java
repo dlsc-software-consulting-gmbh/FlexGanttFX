@@ -30,6 +30,12 @@ public class HelloLinks extends FlexGanttFXSample {
 
 	private ActivityLink<HelloActivity> link;
 
+	@Override
+	public void dispose() {
+		super.dispose();
+		gantt = null;
+	}
+
 	class HelloRow extends Row<HelloRow, HelloRow, HelloActivity> {
 		public HelloRow(String name) {
 			super(name);

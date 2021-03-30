@@ -28,6 +28,12 @@ public class HelloSimpleUnitTimeline extends FlexGanttFXSampleBase {
 	private Timeline timeline;
 
 	@Override
+	public void dispose() {
+		super.dispose();
+		timeline = null;
+	}
+
+	@Override
 	public Node getPanel(Stage stage) {
 		GridPane gridPane = new GridPane();
 

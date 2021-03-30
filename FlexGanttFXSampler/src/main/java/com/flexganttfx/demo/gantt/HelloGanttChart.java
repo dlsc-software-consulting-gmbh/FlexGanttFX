@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.demo.gantt;
@@ -19,10 +19,18 @@ import java.time.Instant;
 
 public class HelloGanttChart extends FlexGanttFXSample {
 
-    private GanttChart<HelloRow> gc = new GanttChart<>();
+    private GanttChart<HelloRow> gc;
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        gc = null;
+    }
 
     @Override
     protected GanttChart<?> createGanttChart() {
+        gc = new GanttChart<>();
+
         HelloRow root = new HelloRow("root");
 
         Layer layer = new Layer("layer");

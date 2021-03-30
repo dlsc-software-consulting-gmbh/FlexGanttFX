@@ -5,10 +5,6 @@
  */
 package com.flexganttfx.demo.gantt;
 
-import java.io.FileNotFoundException;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-
 import com.flexganttfx.demo.FlexGanttFXSample;
 import com.flexganttfx.demo.HelloActivity;
 import com.flexganttfx.demo.HelloRow;
@@ -16,10 +12,13 @@ import com.flexganttfx.model.ActivityRef;
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.view.GanttChart;
 import com.flexganttfx.view.graphics.ListViewGraphics;
-
 import javafx.application.Application;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
+
+import java.io.FileNotFoundException;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 public class HelloToolTip extends FlexGanttFXSample {
 
@@ -28,6 +27,12 @@ public class HelloToolTip extends FlexGanttFXSample {
 	private GanttChart<HelloRow> gc;
 
 	private Tooltip tooltip;
+
+	@Override
+	public void dispose() {
+		super.dispose();
+		gc = null;
+	}
 
 	@Override
 	protected GanttChart<?> createGanttChart() throws FileNotFoundException {

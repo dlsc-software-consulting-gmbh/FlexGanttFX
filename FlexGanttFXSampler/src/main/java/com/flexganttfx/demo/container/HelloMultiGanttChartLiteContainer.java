@@ -38,6 +38,14 @@ public class HelloMultiGanttChartLiteContainer extends FlexGanttFXSampleBase {
 	private GanttChartLite<DemoRow> masterGC;
 
 	@Override
+	public void dispose() {
+		super.dispose();
+		multiGanttChart = null;
+		listView = null;
+		masterGC = null;
+	}
+
+	@Override
 	public Node getPanel(Stage stage) {
 		listView = new ListView<>();
 		listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);

@@ -34,6 +34,8 @@ import java.time.temporal.ChronoUnit;
 public class EmiratesAircraftGanttChart extends GanttChartLite<ModelObject<?, ?, ?>> {
 
     public EmiratesAircraftGanttChart() {
+        setAutoHideScrollBar(false);
+
         Timeline timeline = getTimeline();
         timeline.showTemporalUnit(ChronoUnit.HOURS, 50);
         timeline.setMoveAnimated(!WebAPI.isBrowser());

@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.demo;
@@ -20,53 +20,67 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
 public abstract class FlexGanttFXSample extends FlexGanttFXSampleBase {
-	private GanttChartBase<?> ganttChart;
-	private GanttChartToolBar<?> toolbar;
-	private GanttChartStatusBar<?> statusbar;
-	private DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT);
+    private GanttChartBase<?> ganttChart;
+    private GanttChartToolBar<?> toolbar;
+    private GanttChartStatusBar<?> statusbar;
+    private BorderPane ganttPane;
 
-	protected FlexGanttFXSample() {
+    protected FlexGanttFXSample() {
+    }
+
+	@Override
+	public void dispose() {
+		super.dispose();
+
+		ganttChart = null;
+		toolbar = null;
+		statusbar = null;
+		ganttPane = null;
 	}
 
 	@Override
-	public final Node getPanel(Stage stage) {
-		try {
-			ganttChart = createGanttChart();
+    public final Node getPanel(Stage stage) {
+        try {
+            ganttChart = createGanttChart();
 
-			ganttChart.getTimeline().visibleTimeIntervalProperty().addListener(it -> {
-				final TimeInterval interval = ganttChart.getTimeline().getVisibleTimeInterval();
-				ZonedDateTime st = ZonedDateTime.ofInstant(interval.getStartTime(), ZoneId.systemDefault());
-				ZonedDateTime et = ZonedDateTime.ofInstant(interval.getEndTime(), ZoneId.systemDefault());
-				getStatusbar().setText(formatter.format(st) + " - " + formatter.format(et));
-			});
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+            ganttChart.getTimeline().visibleTimeIntervalProperty().addListener(it -> {
+                if (ganttChart != null) {
+                    TimeInterval interval = ganttChart.getTimeline().getVisibleTimeInterval();
+                    ZonedDateTime st = ZonedDateTime.ofInstant(interval.getStartTime(), ZoneId.systemDefault());
+                    ZonedDateTime et = ZonedDateTime.ofInstant(interval.getEndTime(), ZoneId.systemDefault());
+                    DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT);
+                    getStatusbar().setText(formatter.format(st) + " - " + formatter.format(et));
+                }
+            });
 
-		toolbar = new GanttChartToolBar<>(ganttChart);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		statusbar = new GanttChartStatusBar<>(ganttChart);
+        toolbar = new GanttChartToolBar<>(ganttChart);
 
-		BorderPane ganttPane = new BorderPane();
-		BorderPane.setMargin(ganttChart, new Insets(10));
-		ganttPane.setTop(toolbar);
-		ganttPane.setCenter(ganttChart);
-		ganttPane.setBottom(statusbar);
+        statusbar = new GanttChartStatusBar<>(ganttChart);
 
-		return ganttPane;
-	}
+        ganttPane = new BorderPane();
+        BorderPane.setMargin(ganttChart, new Insets(10));
+        ganttPane.setTop(toolbar);
+        ganttPane.setCenter(ganttChart);
+        ganttPane.setBottom(statusbar);
 
-	protected final GanttChartBase<?> getGanttChart() {
-		return ganttChart;
-	}
+        return ganttPane;
+    }
 
-	protected final GanttChartToolBar<?> getToolbar() {
-		return toolbar;
-	}
+    protected final GanttChartBase<?> getGanttChart() {
+        return ganttChart;
+    }
 
-	protected final GanttChartStatusBar<?> getStatusbar() {
-		return statusbar;
-	}
+    protected final GanttChartToolBar<?> getToolbar() {
+        return toolbar;
+    }
 
-	protected abstract GanttChartBase<?> createGanttChart() throws Exception;
+    protected final GanttChartStatusBar<?> getStatusbar() {
+        return statusbar;
+    }
+
+    protected abstract GanttChartBase<?> createGanttChart() throws Exception;
 }

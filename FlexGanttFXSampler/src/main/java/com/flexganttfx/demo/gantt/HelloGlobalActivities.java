@@ -49,14 +49,21 @@ import java.util.Optional;
 
 public class HelloGlobalActivities extends FlexGanttFXSample {
 
-    private GanttChart<HelloRow> gc = new GanttChart<>();
+    private GanttChart<HelloRow> gc;
     private EventlineCalendar calendar = new EventlineCalendar();
     private Layer layer = new Layer("Default Layer");
     private PhaseRow frozenRow = new PhaseRow();
     private ChronoUnitGrid dayGrid = new ChronoUnitGrid("Day Grid", ChronoUnit.DAYS, 1);
 
     @Override
+    public void dispose() {
+        super.dispose();
+        gc = null;
+    }
+
+    @Override
     protected GanttChart<?> createGanttChart() {
+        gc = new GanttChart<>();
         gc.setRoot(new HelloRow("root"));
 
         Timeline timeline = gc.getTimeline();

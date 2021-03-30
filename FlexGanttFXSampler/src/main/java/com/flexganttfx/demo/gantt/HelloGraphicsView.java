@@ -55,6 +55,15 @@ public class HelloGraphicsView extends FlexGanttFXSampleBase {
     private TextArea textArea;
 
     @Override
+    public void dispose() {
+        super.dispose();
+        singleRowNode = null;
+        listViewNode = null;
+        vBoxNode = null;
+        splitPaneNode = null;
+    }
+
+    @Override
     public Node getControlPanel() {
         RadioButton singleRowButton = new RadioButton("Single Row");
         RadioButton listViewButton = new RadioButton("ListView");

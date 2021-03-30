@@ -66,6 +66,15 @@ public class HelloCanvasBuffer extends FlexGanttFXSampleBase {
     private Timeline timeline;
 
     @Override
+    public void dispose() {
+        super.dispose();
+        vboxGraphics = null;
+        timeline = null;
+        System.setProperty("timeline.no.clip", "false");
+        System.setProperty("rowpane.no.clip", "false");
+    }
+
+    @Override
     public Node getPanel(Stage stage) {
         System.setProperty("timeline.no.clip", "true");
         System.setProperty("rowpane.no.clip", "true");

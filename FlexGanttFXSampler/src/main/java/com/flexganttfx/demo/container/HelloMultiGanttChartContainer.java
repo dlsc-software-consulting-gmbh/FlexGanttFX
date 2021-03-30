@@ -70,6 +70,15 @@ public class HelloMultiGanttChartContainer extends FlexGanttFXSampleBase {
         return borderPane;
     }
 
+    @Override
+    public void dispose() {
+        super.dispose();
+        multiGanttChart = null;
+        listView = null;
+        masterGC = null;
+
+    }
+
     class Entry {
         String name;
         GanttChart<DemoRow> gc;

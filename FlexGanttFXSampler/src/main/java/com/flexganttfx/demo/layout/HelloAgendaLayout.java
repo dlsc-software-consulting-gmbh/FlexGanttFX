@@ -81,6 +81,12 @@ public class HelloAgendaLayout extends FlexGanttFXSample {
     }
 
     @Override
+    public void dispose() {
+        super.dispose();
+        gc = null;
+    }
+
+    @Override
     protected GanttChart<?> createGanttChart() {
         AgendaRow root = new AgendaRow("Root");
 

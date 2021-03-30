@@ -24,6 +24,12 @@ public class HelloStylesheets extends FlexGanttFXSample {
 	}
 
 	@Override
+	public void dispose() {
+		super.dispose();
+		gc = null;
+	}
+
+	@Override
 	protected GanttChart<?> createGanttChart() throws FileNotFoundException {
 		gc = new GanttChart<>();
 

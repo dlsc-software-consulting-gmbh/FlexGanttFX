@@ -29,6 +29,12 @@ public class HelloQuadGanttChartContainer extends FlexGanttFXSampleBase {
     }
 
     @Override
+    public void dispose() {
+        super.dispose();
+        quad = null;
+    }
+
+    @Override
     public Node getPanel(Stage panel) {
         quad = new QuadGanttChartContainer();
         quad.getUpperLeftGanttChart().getGraphics().setShowRowHeaders(true);

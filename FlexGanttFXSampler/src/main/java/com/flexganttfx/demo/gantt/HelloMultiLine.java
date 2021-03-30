@@ -50,7 +50,9 @@ public class HelloMultiLine extends FlexGanttFXSample {
     private HelloRow row;
 
     private EqualLinesManager<HelloRow, HelloActivity> equalLinesManager;
+
     private AutoLinesManager<HelloRow, HelloActivity> autoLinesManager;
+
     private RandomLinesManager randomLinesManager;
 
     private Layer layer;

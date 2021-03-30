@@ -28,6 +28,12 @@ public class HelloDualGanttChartContainer extends FlexGanttFXSampleBase {
     }
 
     @Override
+    public void dispose() {
+        super.dispose();
+        dual = null;
+    }
+
+    @Override
     public Node getPanel(Stage panel) {
         GanttChart<HelloRow> gc1 = new GanttChart<>();
         gc1.setRoot(new HelloRow("Root"));

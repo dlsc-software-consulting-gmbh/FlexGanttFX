@@ -44,6 +44,12 @@ public class HelloRowHeaderColumn extends FlexGanttFXSample {
     }
 
     @Override
+    public void dispose() {
+        super.dispose();
+        gantt = null;
+    }
+
+    @Override
     protected GanttChart<?> createGanttChart() {
         gantt = new GanttChart<>();
         gantt.getStylesheets().add(HelloRowHeaderColumn.class.getResource("row-header.css").toExternalForm());
