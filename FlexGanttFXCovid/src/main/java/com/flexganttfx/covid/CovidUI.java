@@ -6,11 +6,14 @@ import com.flexganttfx.model.ActivityRef;
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.model.activity.MutableChartActivityBase;
 import com.flexganttfx.model.layout.ChartLayout;
+import com.flexganttfx.model.timeline.TimelineModel;
+import com.flexganttfx.view.GanttChartBase;
 import com.flexganttfx.view.GanttChartLite;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.graphics.ListViewGraphics;
 import com.flexganttfx.view.graphics.ScaleRowHeader;
 import com.flexganttfx.view.graphics.renderer.ChartActivityRenderer;
+import com.flexganttfx.view.timeline.Timeline;
 import com.jpro.webapi.WebAPI;
 import fr.brouillard.oss.cssfx.CSSFX;
 import javafx.application.Platform;
@@ -49,10 +52,7 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.attribute.FileTime;
 import java.text.NumberFormat;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
@@ -101,13 +101,16 @@ public class CovidUI {
         }
 
         if (success) {
+            ganttChart.setAutoHideScrollBar(false);
+            ganttChart.setScrollBarType(GanttChartBase.ScrollBarType.FIXED_HORIZON);
+
             final ListViewGraphics<LocationRow> graphics = ganttChart.getGraphics();
             getSelectedLocations().addListener((Observable it) -> {
                 graphics.requestLayout();
                 graphics.redraw();
             });
             graphics.setActivityEditingCallback(Cases.class, param -> false);
-            graphics.setCanvasBuffer(0);
+            graphics.setCanvasBuffer(0); // because of the location layer, otherwise the text moves around
             graphics.getForegroundSystemLayers().add(new LocationLayer(graphics));
             graphics.setShowRowHeaders(true);
             graphics.setShowCalendarLayer(false);
@@ -571,9 +574,17 @@ public class CovidUI {
                     final LocalDate st = earliestDate;
                     final LocalDate et = latestDate;
 
-                    Platform.runLater(() -> ganttChart.getTimeline().showRange(
-                            ZonedDateTime.of(st, LocalTime.MIN, ZoneId.systemDefault()).toInstant(),
-                            ZonedDateTime.of(et.plusWeeks(1), LocalTime.MAX, ZoneId.systemDefault()).toInstant()));
+                    Platform.runLater(() -> {
+                        Instant horizonStartTime = ZonedDateTime.of(st, LocalTime.MIN, ZoneId.systemDefault()).toInstant();
+                        Instant horizonEndTime = ZonedDateTime.of(et.plusWeeks(1), LocalTime.MAX, ZoneId.systemDefault()).toInstant();
+
+                        Timeline timeline = ganttChart.getTimeline();
+                        TimelineModel<?> timelineModel = timeline.getModel();
+
+                        timelineModel.setHorizonStartTime(horizonStartTime);
+                        timelineModel.setHorizonEndTime(horizonEndTime);
+                        timeline.showRange(horizonStartTime, horizonEndTime);
+                    });
                 }
 
                 System.out.println("finished reading data file");

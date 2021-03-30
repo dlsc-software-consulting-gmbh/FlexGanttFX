@@ -18,7 +18,7 @@ Release: 11.12.3, Date: March 2021
 ** ENHANCEMENTS
 
     ** The RowCanvas class now has a full set of snapXYZ() methods and the alignment of the
-       canvas itself and of the activities shown by the canvas has been improved.
+       canvas itself and of the activities shown by the canvas have been improved.
 
 ** BUGS
 
@@ -26,6 +26,10 @@ Release: 11.12.3, Date: March 2021
        showing "hours" granularity with a step rate of 3 or 6 then the grid lines became
        misaligned. The GridLinesLayer now checks whether a DST was crossed while drawing the
        grid lines.
+    ** Row controls are now being recreated when the row model object changes so that the controls
+       will work for the new row instead of the old row.
+    ** Showing a row header UI could cause flickering when rows were added or removed. Setting
+       the min size of those header nodes to zero width and height fixed the issue.
 
 ----------------------------------------------------------------
 Release: 11.12.2, Date: March 3rd, 2021

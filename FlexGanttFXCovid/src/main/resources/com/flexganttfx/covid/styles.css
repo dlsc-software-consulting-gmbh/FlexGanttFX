@@ -11,6 +11,10 @@
     -fx-focus-color: -green-color;
 }
 
+.scroll-bar .thumb {
+    -fx-background-color: -fx-accent;
+}
+
 .glass-pane {
     -fx-background-color: black;
 }
