@@ -99,16 +99,7 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
 
         rowProperty().addListener(editorListener);
 
-        final EventHandler<MouseEvent> mouseEntered = evt -> {
-            if (getRow() != null && !flipPane.isBackVisible()) {
-                Callback<RowControlsParameter<R>, Node> controlsFactory = graphics.getRowControlsFactory();
-                if (controlsFactory != null) {
-                    RowControlsParameter<R> param = new RowControlsParameter<>(graphics, getRow());
-                    Node controlsNode = controlsFactory.call(param);
-                    setControlsNode(controlsNode);
-                }
-            }
-        };
+        final EventHandler<MouseEvent> mouseEntered = evt -> maybeShowRowControls();
 
         final EventHandler<MouseEvent> mouseExited = evt -> {
             if (getRow() != null) {
@@ -146,6 +137,11 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
                  */
                 setPrefHeight(newRow.getHeight());
                 Bindings.bindBidirectional(prefHeightProperty(), newRow.heightProperty());
+
+                if (getControlsNode() != null) {
+                    // we are currently showing row controls, let's recreate new ones so that they are valid for the new row
+                    maybeShowRowControls();
+                }
             } else {
                 setPrefHeight(Row.DEFAULT_ROW_HEIGHT);
                 setControlsNode(null);
@@ -184,10 +180,22 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
         if (rowHeader != null) {
             HBox box = new HBox(rowHeader, flipPane);
             box.setFillHeight(true);
+            box.setMinSize(0,0); // super important, otherwise we get flickering UI (see CovidApp)
             HBox.setHgrow(flipPane, Priority.ALWAYS);
             getChildren().add(box);
         } else {
             getChildren().add(flipPane);
+        }
+    }
+
+    private void maybeShowRowControls() {
+        if (getRow() != null && !flipPane.isBackVisible()) {
+            Callback<RowControlsParameter<R>, Node> controlsFactory = graphics.getRowControlsFactory();
+            if (controlsFactory != null) {
+                RowControlsParameter<R> param = new RowControlsParameter<>(graphics, getRow());
+                Node controlsNode = controlsFactory.call(param);
+                setControlsNode(controlsNode);
+            }
         }
     }
 

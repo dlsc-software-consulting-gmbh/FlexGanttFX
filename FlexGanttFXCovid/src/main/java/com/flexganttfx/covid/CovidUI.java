@@ -107,7 +107,7 @@ public class CovidUI {
                 graphics.redraw();
             });
             graphics.setActivityEditingCallback(Cases.class, param -> false);
-            graphics.setCanvasBuffer(0);
+            graphics.setCanvasBuffer(0); // because of the location layer, otherwise the text moves around
             graphics.getForegroundSystemLayers().add(new LocationLayer(graphics));
             graphics.setShowRowHeaders(true);
             graphics.setShowCalendarLayer(false);
