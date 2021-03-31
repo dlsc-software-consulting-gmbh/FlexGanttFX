@@ -1,16 +1,16 @@
 /**
- * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
+ * Copyright (C) 2014 - 2021 DLSC Software & Consulting GmbH (dlsc.com)
  *
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.editor;
 
-import static com.flexganttfx.model.layout.AgendaLayout.LayoutStrategy.OVERLAPPING;
+import com.flexganttfx.model.Row;
+import com.flexganttfx.model.layout.AgendaLayout;
 
 import java.time.LocalTime;
 
-import com.flexganttfx.model.Row;
-import com.flexganttfx.model.layout.AgendaLayout;
+import static com.flexganttfx.model.layout.AgendaLayout.LayoutStrategy.OVERLAPPING;
 
 public class AgendaRow extends Row<AgendaRow, AgendaRow, AgendaEntry> {
 

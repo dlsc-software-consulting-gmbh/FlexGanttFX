@@ -1,6 +1,6 @@
 /**
- * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
- * <p>
+ * Copyright (C) 2014 - 2021 DLSC Software & Consulting GmbH (dlsc.com)
+ *
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.view.graphics.layer;
@@ -206,11 +206,20 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
                 gc.strokeLine(x, 0, x, height);
                 time = resolution.increment(time, zoneId);
                 if (resolution instanceof ChronoUnitResolution) {
-                    ChronoUnitResolution chronoUnitResolution = (ChronoUnitResolution) resolution;
-                    if (chronoUnitResolution.isDSTStartIncrement()) {
-                        time = time.minus(1, ChronoUnit.HOURS);
-                    } else if (chronoUnitResolution.isDSTEndIncrement()) {
-                        time = time.plus(1, ChronoUnit.HOURS);
+                    ChronoUnitResolution chrono = (ChronoUnitResolution) resolution;
+
+                    /*
+                     * While displaying HOUR granularity we have to check whether a DST start or end
+                     * was crossed and we have to adjust the time accordingly so that the grid lines
+                     * will align with the dateline cells above. We do not perform this check if the
+                     * step rate is equal to 1 as then this would turn into an infinite loop.
+                     */
+                    if (chrono.getTemporalUnit().equals(ChronoUnit.HOURS) && chrono.getStepRate() > 1) {
+                        if (chrono.isDSTStartIncrement()) {
+                            time = time.minus(1, ChronoUnit.HOURS);
+                        } else if (chrono.isDSTEndIncrement()) {
+                            time = time.plus(1, ChronoUnit.HOURS);
+                        }
                     }
                 }
                 x = getLocation(time, canvas);

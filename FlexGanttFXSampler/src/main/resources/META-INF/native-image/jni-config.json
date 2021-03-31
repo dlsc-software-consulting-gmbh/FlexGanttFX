@@ -1,0 +1,574 @@
+[
+{
+  "name":"com.apple.eawt._AppMenuBarHandler",
+  "methods":[{"name":"initMenuStates","parameterTypes":["boolean","boolean","boolean","boolean"] }]
+},
+{
+  "name":"com.sun.glass.ui.Application",
+  "methods":[
+    {"name":"createPixels","parameterTypes":["int","int","int[]","float","float"] }, 
+    {"name":"enterNestedEventLoop","parameterTypes":[] }, 
+    {"name":"getScaleFactor","parameterTypes":["int","int","int","int"] }, 
+    {"name":"leaveNestedEventLoop","parameterTypes":["java.lang.Object"] }, 
+    {"name":"notifyDidBecomeActive","parameterTypes":[] }, 
+    {"name":"notifyDidFinishLaunching","parameterTypes":[] }, 
+    {"name":"notifyWillBecomeActive","parameterTypes":[] }, 
+    {"name":"notifyWillFinishLaunching","parameterTypes":[] }, 
+    {"name":"reportException","parameterTypes":["java.lang.Throwable"] }
+  ]
+},
+{
+  "name":"com.sun.glass.ui.Menu",
+  "methods":[
+    {"name":"notifyMenuClosed","parameterTypes":[] }, 
+    {"name":"notifyMenuOpening","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.sun.glass.ui.MenuItem$Callback",
+  "methods":[
+    {"name":"action","parameterTypes":[] }, 
+    {"name":"validate","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.sun.glass.ui.Pixels",
+  "methods":[{"name":"attachData","parameterTypes":["long"] }]
+},
+{
+  "name":"com.sun.glass.ui.Screen",
+  "methods":[{"name":"<init>","parameterTypes":["long","int","int","int","int","int","int","int","int","int","int","int","int","int","int","int","float","float","float","float"] }]
+},
+{
+  "name":"com.sun.glass.ui.Screen[]"
+},
+{
+  "name":"com.sun.glass.ui.Size",
+  "methods":[{"name":"<init>","parameterTypes":["int","int"] }]
+},
+{
+  "name":"com.sun.glass.ui.View",
+  "fields":[{"name":"ptr"}],
+  "methods":[
+    {"name":"getAccessible","parameterTypes":[] }, 
+    {"name":"notifyDragDrop","parameterTypes":["int","int","int","int","int"] }, 
+    {"name":"notifyDragEnd","parameterTypes":["int"] }, 
+    {"name":"notifyDragEnter","parameterTypes":["int","int","int","int","int"] }, 
+    {"name":"notifyDragLeave","parameterTypes":[] }, 
+    {"name":"notifyDragOver","parameterTypes":["int","int","int","int","int"] }, 
+    {"name":"notifyInputMethod","parameterTypes":["java.lang.String","int[]","int[]","byte[]","int","int","int"] }, 
+    {"name":"notifyInputMethodCandidatePosRequest","parameterTypes":["int"] }, 
+    {"name":"notifyKey","parameterTypes":["int","int","char[]","int"] }, 
+    {"name":"notifyMenu","parameterTypes":["int","int","int","int","boolean"] }, 
+    {"name":"notifyMouse","parameterTypes":["int","int","int","int","int","int","int","boolean","boolean"] }, 
+    {"name":"notifyRepaint","parameterTypes":["int","int","int","int"] }, 
+    {"name":"notifyResize","parameterTypes":["int","int"] }, 
+    {"name":"notifyView","parameterTypes":["int"] }
+  ]
+},
+{
+  "name":"com.sun.glass.ui.Window",
+  "methods":[
+    {"name":"notifyClose","parameterTypes":[] }, 
+    {"name":"notifyDelegatePtr","parameterTypes":["long"] }, 
+    {"name":"notifyDestroy","parameterTypes":[] }, 
+    {"name":"notifyFocus","parameterTypes":["int"] }, 
+    {"name":"notifyFocusDisabled","parameterTypes":[] }, 
+    {"name":"notifyFocusUngrab","parameterTypes":[] }, 
+    {"name":"notifyMoveToAnotherScreen","parameterTypes":["com.sun.glass.ui.Screen"] }, 
+    {"name":"notifyScaleChanged","parameterTypes":["float","float","float","float"] }
+  ]
+},
+{
+  "name":"com.sun.glass.ui.mac.MacApplication",
+  "methods":[
+    {"name":"notifyApplicationDidTerminate","parameterTypes":[] }, 
+    {"name":"setEventThread","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.sun.glass.ui.mac.MacMenuDelegate",
+  "fields":[{"name":"menu"}]
+},
+{
+  "name":"com.sun.glass.ui.mac.MacPixels"
+},
+{
+  "name":"com.sun.glass.ui.mac.MacView",
+  "methods":[{"name":"notifyInputMethodMac","parameterTypes":["java.lang.String","int","int","int","int","int"] }]
+},
+{
+  "name":"com.sun.glass.ui.mac.MacWindow",
+  "methods":[
+    {"name":"notifyMove","parameterTypes":["int","int","boolean"] }, 
+    {"name":"notifyResize","parameterTypes":["int","int","int"] }
+  ]
+},
+{
+  "name":"com.sun.javafx.font.coretext.CGAffineTransform",
+  "fields":[
+    {"name":"a"}, 
+    {"name":"b"}, 
+    {"name":"c"}, 
+    {"name":"d"}, 
+    {"name":"tx"}, 
+    {"name":"ty"}
+  ],
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.sun.javafx.font.coretext.CGPoint",
+  "fields":[
+    {"name":"x"}, 
+    {"name":"y"}
+  ],
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.sun.javafx.font.coretext.CGRect",
+  "fields":[
+    {"name":"origin"}, 
+    {"name":"size"}
+  ],
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.sun.javafx.font.coretext.CGSize",
+  "fields":[
+    {"name":"height"}, 
+    {"name":"width"}
+  ],
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.sun.webkit.MainThread",
+  "methods":[{"name":"fwkIsMainThread","parameterTypes":[] }]
+},
+{
+  "name":"com.sun.webkit.Timer",
+  "methods":[
+    {"name":"fwkSetFireTime","parameterTypes":["double"] }, 
+    {"name":"fwkStopTimer","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.sun.webkit.WCWidget",
+  "methods":[
+    {"name":"fwkDestroy","parameterTypes":[] }, 
+    {"name":"fwkRequestFocus","parameterTypes":[] }, 
+    {"name":"fwkSetBounds","parameterTypes":["int","int","int","int"] }, 
+    {"name":"fwkSetCursor","parameterTypes":["long"] }, 
+    {"name":"fwkSetVisible","parameterTypes":["boolean"] }
+  ]
+},
+{
+  "name":"com.sun.webkit.WebPage",
+  "methods":[
+    {"name":"fwkAddMessageToConsole","parameterTypes":["java.lang.String","int","java.lang.String"] }, 
+    {"name":"fwkAlert","parameterTypes":["java.lang.String"] }, 
+    {"name":"fwkCanRunBeforeUnloadConfirmPanel","parameterTypes":[] }, 
+    {"name":"fwkChooseFile","parameterTypes":["java.lang.String","boolean","java.lang.String"] }, 
+    {"name":"fwkCloseWindow","parameterTypes":[] }, 
+    {"name":"fwkConfirm","parameterTypes":["java.lang.String"] }, 
+    {"name":"fwkCreateWindow","parameterTypes":["boolean","boolean","boolean","boolean"] }, 
+    {"name":"fwkGetPageBounds","parameterTypes":[] }, 
+    {"name":"fwkGetWindowBounds","parameterTypes":[] }, 
+    {"name":"fwkPrompt","parameterTypes":["java.lang.String","java.lang.String"] }, 
+    {"name":"fwkRepaint","parameterTypes":["int","int","int","int"] }, 
+    {"name":"fwkRunBeforeUnloadConfirmPanel","parameterTypes":["java.lang.String"] }, 
+    {"name":"fwkScreenToWindow","parameterTypes":["com.sun.webkit.graphics.WCPoint"] }, 
+    {"name":"fwkSetCursor","parameterTypes":["long"] }, 
+    {"name":"fwkSetFocus","parameterTypes":["boolean"] }, 
+    {"name":"fwkSetScrollbarsVisible","parameterTypes":["boolean"] }, 
+    {"name":"fwkSetStatusbarText","parameterTypes":["java.lang.String"] }, 
+    {"name":"fwkSetTooltip","parameterTypes":["java.lang.String"] }, 
+    {"name":"fwkSetWindowBounds","parameterTypes":["int","int","int","int"] }, 
+    {"name":"fwkShowWindow","parameterTypes":[] }, 
+    {"name":"fwkTransferFocus","parameterTypes":["boolean"] }, 
+    {"name":"fwkWindowToScreen","parameterTypes":["com.sun.webkit.graphics.WCPoint"] }, 
+    {"name":"getHostWindow","parameterTypes":[] }, 
+    {"name":"getPage","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.sun.webkit.graphics.ScrollBarTheme",
+  "methods":[{"name":"getThickness","parameterTypes":[] }]
+},
+{
+  "name":"com.sun.webkit.graphics.WCFont",
+  "methods":[
+    {"name":"getAscent","parameterTypes":[] }, 
+    {"name":"getCapHeight","parameterTypes":[] }, 
+    {"name":"getDescent","parameterTypes":[] }, 
+    {"name":"getGlyphCodes","parameterTypes":["char[]"] }, 
+    {"name":"getGlyphWidth","parameterTypes":["int"] }, 
+    {"name":"getLineGap","parameterTypes":[] }, 
+    {"name":"getLineSpacing","parameterTypes":[] }, 
+    {"name":"getXHeight","parameterTypes":[] }, 
+    {"name":"hasUniformLineMetrics","parameterTypes":[] }, 
+    {"name":"hashCode","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.sun.webkit.graphics.WCGraphicsManager",
+  "methods":[
+    {"name":"getGraphicsManager","parameterTypes":[] }, 
+    {"name":"getWCFont","parameterTypes":["java.lang.String","boolean","boolean","float"] }
+  ]
+},
+{
+  "name":"com.sun.webkit.graphics.WCPoint",
+  "methods":[
+    {"name":"<init>","parameterTypes":["float","float"] }, 
+    {"name":"getX","parameterTypes":[] }, 
+    {"name":"getY","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.sun.webkit.graphics.WCRectangle",
+  "fields":[
+    {"name":"h"}, 
+    {"name":"w"}, 
+    {"name":"x"}, 
+    {"name":"y"}
+  ]
+},
+{
+  "name":"com.sun.webkit.network.NetworkContext",
+  "methods":[{"name":"fwkGetMaximumHTTPConnectionCountPerHost","parameterTypes":[] }]
+},
+{
+  "name":"java.awt.AlphaComposite",
+  "fields":[
+    {"name":"extraAlpha"}, 
+    {"name":"rule"}
+  ]
+},
+{
+  "name":"java.awt.Color",
+  "methods":[{"name":"getRGB","parameterTypes":[] }]
+},
+{
+  "name":"java.awt.event.InputEvent",
+  "methods":[{"name":"getButtonDownMasks","parameterTypes":[] }]
+},
+{
+  "name":"java.awt.geom.AffineTransform",
+  "fields":[
+    {"name":"m00"}, 
+    {"name":"m01"}, 
+    {"name":"m02"}, 
+    {"name":"m10"}, 
+    {"name":"m11"}, 
+    {"name":"m12"}
+  ]
+},
+{
+  "name":"java.awt.geom.Path2D",
+  "fields":[
+    {"name":"numTypes"}, 
+    {"name":"pointTypes"}, 
+    {"name":"windingRule"}
+  ]
+},
+{
+  "name":"java.awt.geom.Path2D$Float",
+  "fields":[{"name":"floatCoords"}]
+},
+{
+  "name":"java.awt.geom.Rectangle2D$Double",
+  "methods":[{"name":"<init>","parameterTypes":["double","double","double","double"] }]
+},
+{
+  "name":"java.awt.image.ColorModel",
+  "fields":[
+    {"name":"colorSpace"}, 
+    {"name":"colorSpaceType"}, 
+    {"name":"isAlphaPremultiplied"}, 
+    {"name":"is_sRGB"}, 
+    {"name":"nBits"}, 
+    {"name":"numComponents"}, 
+    {"name":"pData"}, 
+    {"name":"supportsAlpha"}, 
+    {"name":"transparency"}
+  ],
+  "methods":[{"name":"getRGBdefault","parameterTypes":[] }]
+},
+{
+  "name":"java.awt.image.IndexColorModel",
+  "fields":[
+    {"name":"allgrayopaque"}, 
+    {"name":"map_size"}, 
+    {"name":"rgb"}, 
+    {"name":"transparent_index"}
+  ]
+},
+{
+  "name":"java.lang.Boolean",
+  "methods":[{"name":"booleanValue","parameterTypes":[] }]
+},
+{
+  "name":"java.lang.Class",
+  "methods":[{"name":"forName","parameterTypes":["java.lang.String","boolean","java.lang.ClassLoader"] }]
+},
+{
+  "name":"java.lang.ClassLoader",
+  "methods":[
+    {"name":"getPlatformClassLoader","parameterTypes":[] }, 
+    {"name":"loadClass","parameterTypes":["java.lang.String"] }
+  ]
+},
+{
+  "name":"java.lang.Integer",
+  "methods":[
+    {"name":"<init>","parameterTypes":["int"] }, 
+    {"name":"intValue","parameterTypes":[] }
+  ]
+},
+{
+  "name":"java.lang.InternalError",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"java.lang.Long",
+  "methods":[{"name":"longValue","parameterTypes":[] }]
+},
+{
+  "name":"java.lang.NoSuchMethodError"
+},
+{
+  "name":"java.lang.Runnable",
+  "methods":[{"name":"run","parameterTypes":[] }]
+},
+{
+  "name":"java.lang.String"
+},
+{
+  "name":"java.lang.String[]"
+},
+{
+  "name":"java.lang.System",
+  "methods":[{"name":"getProperty","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"java.util.List",
+  "methods":[{"name":"add","parameterTypes":["java.lang.Object"] }]
+},
+{
+  "name":"java.util.Map",
+  "methods":[{"name":"get","parameterTypes":["java.lang.Object"] }]
+},
+{
+  "name":"jdk.internal.loader.ClassLoaders$PlatformClassLoader"
+},
+{
+  "name":"sun.awt.AWTAutoShutdown",
+  "methods":[{"name":"notifyToolkitThreadFree","parameterTypes":[] }]
+},
+{
+  "name":"sun.awt.SunHints",
+  "fields":[{"name":"INTVAL_STROKE_PURE"}]
+},
+{
+  "name":"sun.instrument.InstrumentationImpl",
+  "methods":[
+    {"name":"<init>","parameterTypes":["long","boolean","boolean"] }, 
+    {"name":"loadClassAndCallAgentmain","parameterTypes":["java.lang.String","java.lang.String"] }, 
+    {"name":"loadClassAndCallPremain","parameterTypes":["java.lang.String","java.lang.String"] }, 
+    {"name":"transform","parameterTypes":["java.lang.Module","java.lang.ClassLoader","java.lang.String","java.lang.Class","java.security.ProtectionDomain","byte[]","boolean"] }
+  ]
+},
+{
+  "name":"sun.java2d.Disposer",
+  "methods":[{"name":"addRecord","parameterTypes":["java.lang.Object","long","long"] }]
+},
+{
+  "name":"sun.java2d.InvalidPipeException"
+},
+{
+  "name":"sun.java2d.NullSurfaceData"
+},
+{
+  "name":"sun.java2d.SunGraphics2D",
+  "fields":[
+    {"name":"clipRegion"}, 
+    {"name":"composite"}, 
+    {"name":"eargb"}, 
+    {"name":"lcdTextContrast"}, 
+    {"name":"pixel"}, 
+    {"name":"strokeHint"}
+  ]
+},
+{
+  "name":"sun.java2d.SurfaceData",
+  "fields":[
+    {"name":"pData"}, 
+    {"name":"valid"}
+  ]
+},
+{
+  "name":"sun.java2d.loops.Blit",
+  "methods":[{"name":"<init>","parameterTypes":["long","sun.java2d.loops.SurfaceType","sun.java2d.loops.CompositeType","sun.java2d.loops.SurfaceType"] }]
+},
+{
+  "name":"sun.java2d.loops.BlitBg",
+  "methods":[{"name":"<init>","parameterTypes":["long","sun.java2d.loops.SurfaceType","sun.java2d.loops.CompositeType","sun.java2d.loops.SurfaceType"] }]
+},
+{
+  "name":"sun.java2d.loops.CompositeType",
+  "fields":[
+    {"name":"AnyAlpha"}, 
+    {"name":"Src"}, 
+    {"name":"SrcNoEa"}, 
+    {"name":"SrcOver"}, 
+    {"name":"SrcOverNoEa"}, 
+    {"name":"Xor"}
+  ]
+},
+{
+  "name":"sun.java2d.loops.DrawGlyphList",
+  "methods":[{"name":"<init>","parameterTypes":["long","sun.java2d.loops.SurfaceType","sun.java2d.loops.CompositeType","sun.java2d.loops.SurfaceType"] }]
+},
+{
+  "name":"sun.java2d.loops.DrawGlyphListAA",
+  "methods":[{"name":"<init>","parameterTypes":["long","sun.java2d.loops.SurfaceType","sun.java2d.loops.CompositeType","sun.java2d.loops.SurfaceType"] }]
+},
+{
+  "name":"sun.java2d.loops.DrawGlyphListLCD",
+  "methods":[{"name":"<init>","parameterTypes":["long","sun.java2d.loops.SurfaceType","sun.java2d.loops.CompositeType","sun.java2d.loops.SurfaceType"] }]
+},
+{
+  "name":"sun.java2d.loops.DrawLine",
+  "methods":[{"name":"<init>","parameterTypes":["long","sun.java2d.loops.SurfaceType","sun.java2d.loops.CompositeType","sun.java2d.loops.SurfaceType"] }]
+},
+{
+  "name":"sun.java2d.loops.DrawParallelogram",
+  "methods":[{"name":"<init>","parameterTypes":["long","sun.java2d.loops.SurfaceType","sun.java2d.loops.CompositeType","sun.java2d.loops.SurfaceType"] }]
+},
+{
+  "name":"sun.java2d.loops.DrawPath",
+  "methods":[{"name":"<init>","parameterTypes":["long","sun.java2d.loops.SurfaceType","sun.java2d.loops.CompositeType","sun.java2d.loops.SurfaceType"] }]
+},
+{
+  "name":"sun.java2d.loops.DrawPolygons",
+  "methods":[{"name":"<init>","parameterTypes":["long","sun.java2d.loops.SurfaceType","sun.java2d.loops.CompositeType","sun.java2d.loops.SurfaceType"] }]
+},
+{
+  "name":"sun.java2d.loops.DrawRect",
+  "methods":[{"name":"<init>","parameterTypes":["long","sun.java2d.loops.SurfaceType","sun.java2d.loops.CompositeType","sun.java2d.loops.SurfaceType"] }]
+},
+{
+  "name":"sun.java2d.loops.FillParallelogram",
+  "methods":[{"name":"<init>","parameterTypes":["long","sun.java2d.loops.SurfaceType","sun.java2d.loops.CompositeType","sun.java2d.loops.SurfaceType"] }]
+},
+{
+  "name":"sun.java2d.loops.FillPath",
+  "methods":[{"name":"<init>","parameterTypes":["long","sun.java2d.loops.SurfaceType","sun.java2d.loops.CompositeType","sun.java2d.loops.SurfaceType"] }]
+},
+{
+  "name":"sun.java2d.loops.FillRect",
+  "methods":[{"name":"<init>","parameterTypes":["long","sun.java2d.loops.SurfaceType","sun.java2d.loops.CompositeType","sun.java2d.loops.SurfaceType"] }]
+},
+{
+  "name":"sun.java2d.loops.FillSpans",
+  "methods":[{"name":"<init>","parameterTypes":["long","sun.java2d.loops.SurfaceType","sun.java2d.loops.CompositeType","sun.java2d.loops.SurfaceType"] }]
+},
+{
+  "name":"sun.java2d.loops.GraphicsPrimitive",
+  "fields":[{"name":"pNativePrim"}]
+},
+{
+  "name":"sun.java2d.loops.GraphicsPrimitiveMgr",
+  "methods":[{"name":"register","parameterTypes":["sun.java2d.loops.GraphicsPrimitive[]"] }]
+},
+{
+  "name":"sun.java2d.loops.GraphicsPrimitive[]"
+},
+{
+  "name":"sun.java2d.loops.MaskBlit",
+  "methods":[{"name":"<init>","parameterTypes":["long","sun.java2d.loops.SurfaceType","sun.java2d.loops.CompositeType","sun.java2d.loops.SurfaceType"] }]
+},
+{
+  "name":"sun.java2d.loops.MaskFill",
+  "methods":[{"name":"<init>","parameterTypes":["long","sun.java2d.loops.SurfaceType","sun.java2d.loops.CompositeType","sun.java2d.loops.SurfaceType"] }]
+},
+{
+  "name":"sun.java2d.loops.ScaledBlit",
+  "methods":[{"name":"<init>","parameterTypes":["long","sun.java2d.loops.SurfaceType","sun.java2d.loops.CompositeType","sun.java2d.loops.SurfaceType"] }]
+},
+{
+  "name":"sun.java2d.loops.SurfaceType",
+  "fields":[
+    {"name":"Any3Byte"}, 
+    {"name":"Any4Byte"}, 
+    {"name":"AnyByte"}, 
+    {"name":"AnyColor"}, 
+    {"name":"AnyInt"}, 
+    {"name":"AnyShort"}, 
+    {"name":"ByteBinary1Bit"}, 
+    {"name":"ByteBinary2Bit"}, 
+    {"name":"ByteBinary4Bit"}, 
+    {"name":"ByteGray"}, 
+    {"name":"ByteIndexed"}, 
+    {"name":"ByteIndexedBm"}, 
+    {"name":"FourByteAbgr"}, 
+    {"name":"FourByteAbgrPre"}, 
+    {"name":"Index12Gray"}, 
+    {"name":"Index8Gray"}, 
+    {"name":"IntArgb"}, 
+    {"name":"IntArgbBm"}, 
+    {"name":"IntArgbPre"}, 
+    {"name":"IntBgr"}, 
+    {"name":"IntRgb"}, 
+    {"name":"IntRgbx"}, 
+    {"name":"OpaqueColor"}, 
+    {"name":"ThreeByteBgr"}, 
+    {"name":"Ushort4444Argb"}, 
+    {"name":"Ushort555Rgb"}, 
+    {"name":"Ushort555Rgbx"}, 
+    {"name":"Ushort565Rgb"}, 
+    {"name":"UshortGray"}, 
+    {"name":"UshortIndexed"}
+  ]
+},
+{
+  "name":"sun.java2d.loops.TransformHelper",
+  "methods":[{"name":"<init>","parameterTypes":["long","sun.java2d.loops.SurfaceType","sun.java2d.loops.CompositeType","sun.java2d.loops.SurfaceType"] }]
+},
+{
+  "name":"sun.java2d.loops.XORComposite",
+  "fields":[
+    {"name":"alphaMask"}, 
+    {"name":"xorColor"}, 
+    {"name":"xorPixel"}
+  ]
+},
+{
+  "name":"sun.java2d.opengl.OGLSurfaceData",
+  "fields":[
+    {"name":"isBIOpShaderEnabled"}, 
+    {"name":"isFBObjectEnabled"}, 
+    {"name":"isGradShaderEnabled"}, 
+    {"name":"isLCDShaderEnabled"}
+  ]
+},
+{
+  "name":"sun.java2d.pipe.Region",
+  "fields":[
+    {"name":"bands"}, 
+    {"name":"endIndex"}, 
+    {"name":"hix"}, 
+    {"name":"hiy"}, 
+    {"name":"lox"}, 
+    {"name":"loy"}
+  ]
+},
+{
+  "name":"sun.java2d.pipe.RegionIterator",
+  "fields":[
+    {"name":"curIndex"}, 
+    {"name":"numXbands"}, 
+    {"name":"region"}
+  ]
+}
+]

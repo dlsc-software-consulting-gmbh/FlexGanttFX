@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2014 - 2021 DLSC Software & Consulting GmbH (dlsc.com)
+ *
+ * This file is part of FlexGanttFX.
+ */
 package com.flexganttfx.covid;
 
 import org.apache.commons.text.WordUtils;
