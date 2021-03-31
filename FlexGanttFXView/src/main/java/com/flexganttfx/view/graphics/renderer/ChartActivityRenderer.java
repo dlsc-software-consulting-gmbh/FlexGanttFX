@@ -1,15 +1,15 @@
 /**
- * Copyright (C) 2014 - 2020 DLSC Software & Consulting GmbH (dlsc.com)
+ * Copyright (C) 2014 - 2021 DLSC Software & Consulting GmbH (dlsc.com)
  *
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.view.graphics.renderer;
 
-import static javafx.scene.paint.Color.CADETBLUE;
-import static javafx.scene.paint.Color.TRANSPARENT;
-
 import com.flexganttfx.model.activity.ChartActivity;
 import com.flexganttfx.view.graphics.GraphicsBase;
+
+import static javafx.scene.paint.Color.CADETBLUE;
+import static javafx.scene.paint.Color.TRANSPARENT;
 
 public class ChartActivityRenderer<A extends ChartActivity> extends
 		ActivityRenderer<A> {
