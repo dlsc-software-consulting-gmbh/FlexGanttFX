@@ -1,29 +1,29 @@
 - title: Emirates Demo on iPad
   url: https://www.youtube.com/watch?v=v4GkjST64Hk
-  image: /assets/images/videos/emirates-ipad.jpg
+  image: assets/images/videos/emirates-ipad.jpg
   text: This video shows a proof of concept (POC) developed for Emirates Airlines running on an iPad. The application has been built natively for iOS via GraalVM and the Gluon plugin.
 
 - title: Demo on iPhone
   url: https://www.youtube.com/watch?v=9uL7jvuDRFw
-  image: /assets/images/videos/demo-iphone.jpg
+  image: assets/images/videos/demo-iphone.jpg
   text: This video shows a blank (no data) instance of the Gantt chart control running on an iPhone. The application has been built natively for iOS via GraalVM and the Gluon plugin.
 
 - title: Demo in Browser on iPad
   url: https://www.youtube.com/watch?v=ME47KzDGgEw
-  image: /assets/images/videos/demo-browser.jpg
+  image: assets/images/videos/demo-browser.jpg
   text: This video shows the Emirates POC running in Chrome on an iPad. This deployment is possible when using JPro. For more information visit the <u><a href="https://www.jpro.one">JPro website</a></u>.
 
 - title: Performance Enhancements
   url: https://www.youtube.com/watch?v=jzy4b5GxkRA
-  image: /assets/images/videos/demo-performance.jpg
+  image: assets/images/videos/demo-performance.jpg
   text: Recently various performance enhancements were implemented inside FlexGanttFX. This video shows how the "canvas buffer" works where the drawing canvas is bigger than the visible area and scrolling is performed by "moving" the canvas to the left or right.
 
 - title: Emirates Airlines
   url: https://www.youtube.com/watch?v=Qju5_JYR8nY&t=23s
-  image: /assets/images/videos/demo-emirates.jpg
+  image: assets/images/videos/demo-emirates.jpg
   text: Emirates Airlines implemented a scheduling solution for their fleet based on FlexGanttFX. This video shows how their dispatches use the application to process requests and reschedule their aircrafts.
 
 - title: European Broadcasting Union (EBU)
   url: https://www.youtube.com/watch?v=RN_Pcu8ssQc&t=13s
-  image: /assets/images/videos/demo-ebu.jpg
+  image: assets/images/videos/demo-ebu.jpg
   text: Around 150 dispatchers at EBU use an application built on top of FlexGanttFX to schedule resources required for transmitting TV and radio signals from one place to another. Resources include fibre networks, satellites, satellite dishes, etc...
