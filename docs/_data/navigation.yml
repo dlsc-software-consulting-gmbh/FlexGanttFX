@@ -10,6 +10,12 @@
   - text: Changelog
     url: /pages/changelog
   - text: Testimonials
-    url: /pages/testimonials    
+    url: /pages/testimonials
+- text: Downloads
+  submenu:
+    - text: Releases
+      url: /pages/download-releases
+    - text: Demos
+      url: /pages/download-demos
 - text: Contact
   url: /pages/contact

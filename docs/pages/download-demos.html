@@ -1,0 +1,38 @@
+---
+layout: page
+title: FlexGanttFX Demos
+add_to_menu: true
+description: "This page lists all demo downloads available for FlexGanttFX"
+keywords: "java,javafx,FlexGanttFX,gantt,chart,UI,download,release"
+---
+
+<!-- Start Changelog  Area -->
+<section class="changelog-area bg-color1">
+   <div class="changelog-wrapper inner-spacing">
+
+      <div class="container" data-wow-duration="2s">
+         <div class="section-title">
+            <h2 class="heading-2">Downloads</h2>
+            <p>Download these installers and execute them locally to run FlexGanttFX on your desktop.</p>
+         </div>
+
+         <div class="row">
+            {% for demo in site.data.demo-downloads %}
+            <div class="col-md-6 col-lg-12">
+               <div class="changelog-service wow fadeIn">
+                  <div class="changelog-tile">
+                     <h5 class="heading-5">{{demo.name}}</h5>
+                     <p><i class="changelog-date"></i> Updated :  {{demo.date}}</p>
+                  </div>
+                  <ul class="changelog-list list-inline">
+                     {{demo.text}} <p><a href="{{demo.url}}" class="btn btn-primary">Download Now!</a></p>
+                  </ul>
+               </div>
+            </div>
+            {% endfor %}
+         </div>
+      </div>
+   </div>
+</section>
+{% include call_to_action.html %}
+<!-- End Changelog Area -->

@@ -15,16 +15,16 @@ keywords: "JavaFX, Java, FlexGanttFX, Gantt, Chart, Gantt Chart, Planning, Sched
 baseurl: "/" # the subpath of your site, e.g. /blog
 url: " "
 cover_image: "https://themeix.com/wp-content/uploads/dooxy-responsive-html-template-preview.png" # Image will Display in Social Media When share the website
-facebook: "https://www.facebook.com"
-twitter: "https://www.twitter.com"
-instagram: "https://www.instagram.com"
-github: "https://www.github.com"
-linkedin: "https://www.linkedin.com"
-behance: "https://www.behance.com"
-reddit: "https://www.reddit.com"
-vimeo: "https://www.vimeo.com"
-dribble: "https://www.dribble.com"
-youtube: "https://www.youtube.com"
+facebook:
+twitter: "https://www.twitter.com/dlemmermann"
+instagram:
+github:
+linkedin: "https://www.linkedin.com/in/dlemmermann/"
+behance:
+reddit:
+vimeo:
+dribble:
+youtube: "https://www.youtube.com/channel/UCFyRQ_euxxPDwlqyhff-x0Q"
 
 ## Theme Options
 animated_header: ""  #true
