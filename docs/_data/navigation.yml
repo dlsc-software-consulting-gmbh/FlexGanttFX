@@ -2,24 +2,8 @@
 
 - text: Home
   url: /
-- text: Support
-  url: /pages/support
-- text: Blog
-  url: /blog
-  submenu:
-  - text: Blog Post - Left Sidebar
-    url: /blog-post-left-sidebar
-  - text: Blog Post - Right Sidebar
-    url: /blog-post-right-sidebar
 - text: Docs
-  url: /explore-topics
-  submenu:
-  - text: Docs - Content Links
-    url: /docs/tutorial/
-  - text: Docs - Only TOC
-    url: /docs/cloud-flare/
-  - text: Docs Fullwidth
-    url: /docs/client-editable-jekyll-sites/
+  url: https://flexgantt.atlassian.net/wiki/spaces/FFXMAN/overview
 - text: Pages
   url: /
   submenu:
@@ -27,11 +11,5 @@
     url: /pages/changelog
   - text: Testimonials
     url: /pages/testimonials    
-  - text: Privacy Policy
-    url: /pages/privacy-policy    
-  - text: FAQ
-    url: /pages/faq 
-  - text: Submit Ticket
-    url: /pages/submit-ticket
 - text: Contact
   url: /pages/contact

@@ -1,3 +1,7 @@
+- name: 11.12.3 - Scrollbar types. Bug Fixes.
+  date: April 2021
+  description: Option to work with different types of scrollbars. Option to always show or to auto-hide scrollbars. Bug fixes. "Inverse" flag on lasso info object.
+
 - name: 11.12.0 - Polishing
   date: May 2020
   description: Use of system cursors, row header resizing, consolidated 8.x and 11.x license keys, improved RadarView performance
