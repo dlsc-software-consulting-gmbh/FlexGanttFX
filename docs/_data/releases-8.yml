@@ -1,14 +1,14 @@
 - release: Release 8.12.0
   date: May 14th, 2020
-  url: downloads/flexganttfx-8.12.0-bin.zip
+  url: ../downloads/flexganttfx-8.12.0-bin.zip
   text: Replaced custom mouse cursors with standard system cursors. Row resizing via new row headers on right-hand side. Removed dateline scrolling events. Enhanced RadarView's rendering performance.
 
 - release: Release 8.10.0
   date: March 2020
-  url: downloads/flexganttfx-8.10.0-bin.zip
+  url: ../downloads/flexganttfx-8.10.0-bin.zip
   text: Replaced LinksPane with LinksCanvas. Links are now drawn via Canvas API. Replaced observable list of activity links with an IntervalTree for faster lookup. Customizable link renderers. Fixed CSS issue in Dateline layout code.
 
 - release: Release 8.9.0
   date: April 8th, 2019
-  url: downloads/flexganttfx-8.9.0-bin.zip
+  url: ../downloads/flexganttfx-8.9.0-bin.zip
   text: Added support for a "frozen" row inside the timeline. Various bug fies. Moved property support / property sheets into "extras" module.
