@@ -19,11 +19,11 @@
   text: Recently various performance enhancements were implemented inside FlexGanttFX. This video shows how the "canvas buffer" works where the drawing canvas is bigger than the visible area and scrolling is performed by "moving" the canvas to the left or right.
 
 - title: Emirates Airlines
-  url: https://www.youtube.com/watch?v=Qju5_JYR8nY&t=23s
+  url: https://www.youtube.com/watch?v=Qju5_JYR8nY
   image: assets/images/videos/demo-emirates.jpg
   text: Emirates Airlines implemented a scheduling solution for their fleet based on FlexGanttFX. This video shows how their dispatches use the application to process requests and reschedule their aircrafts.
 
 - title: European Broadcasting Union (EBU)
-  url: https://www.youtube.com/watch?v=RN_Pcu8ssQc&t=13s
+  url: https://www.youtube.com/watch?v=RN_Pcu8ssQc
   image: assets/images/videos/demo-ebu.jpg
   text: Around 150 dispatchers at EBU use an application built on top of FlexGanttFX to schedule resources required for transmitting TV and radio signals from one place to another. Resources include fibre networks, satellites, satellite dishes, etc...

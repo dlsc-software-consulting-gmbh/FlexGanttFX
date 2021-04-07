@@ -4,18 +4,9 @@
   url: /
 - text: Docs
   url: https://flexgantt.atlassian.net/wiki/spaces/FFXMAN/overview
-- text: Pages
-  url: /
-  submenu:
-  - text: Changelog
-    url: /pages/changelog
-  - text: Testimonials
-    url: /pages/testimonials
-- text: Downloads
-  submenu:
-    - text: Releases
-      url: /pages/download-releases
-    - text: Demos
-      url: /pages/download-demos
+- text: Releases
+  url: /pages/download-releases
+- text: Demos
+  url: /pages/download-demos
 - text: Contact
   url: /pages/contact
