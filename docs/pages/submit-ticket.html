@@ -18,15 +18,174 @@ keywords: "responsive,jekyll,minimal template"
                     <!DOCTYPE html>
                     <html>
                     <head>
-                        <style>.zsFormClass {
-                            background-color: #FFFFFF;
+                        <META HTTP-EQUIV='content-type' CONTENT='text/html; charset=UTF-8'>
+                        <style> #zohoSupportWebToCase textarea, #zohoSupportWebToCase input[type='text'], #zohoSupportWebToCase select, .wb_common {
+                            width: 280px;
+                        }
+
+                        #zohoSupportWebToCase td {
+                            padding: 11px 5px;
+                        }
+
+                        #zohoSupportWebToCase textarea, #zohoSupportWebToCase input[type='text'], #zohoSupportWebToCase select {
+                            border: 1px solid #ddd;
+                            padding: 3px 5px;
+                            border-radius: 3px;
+                        }
+
+                        #zohoSupportWebToCase select {
+                            box-sizing: unset
+                        }
+
+                        #zohoSupportWebToCase .wb_selectDate {
                             width: auto
                         }
 
-                        .color-white, .color-white:hover {
-                            color: white !important
+                        #zohoSupportWebToCase input.wb_cusInput {
+                            width: 108px
+                        }
+
+                        .wb_FtCon {
+                            display: flex;
+                            align-items: center;
+                            justify-content: flex-end;
+                            margin-top: 15px;
+                            padding-left: 10px
+                        }
+
+                        .wb_logoCon {
+                            display: flex;
+                            margin-left: 5px
+                        }
+
+                        .wb_logo {
+                            max-width: 16px;
+                            max-height: 16px;
+                        }
+
+                        .zsFormClass {
+                            background-color: #FFFFFF;
+                            width: 600px
+                        } </style>
+                        <style>.zsFontClass {
+                            color: #000000;
+                            font-family: Arial;
+                            font-size: 13px
                         }</style>
-                        <script src='https://d17nz991552y2g.cloudfront.net/app/js/jqueryandencoder.ffa5afd5124fbedceea9.js'></script>
+                        <style>.manfieldbdr {
+                            border-left: 1px solid #ff6448 !important
+                        }
+
+                        .hleft {
+                            text-align: left;
+                        }
+
+                        input[type=file]::-webkit-file-upload-button {
+                            cursor: pointer;
+                        }
+
+                        .wtcsepcode {
+                            margin: 0px 15px;
+                            color: #aaa;
+                            float: left;
+                        }
+
+                        .wtccloudattach {
+                            float: left;
+                            color: #00a3fe !important;
+                            cursor: pointer;
+                            text-decoration: none !important;
+                        }
+
+                        .wtccloudattach:hover {
+                            text-decoration: none !important;
+                        }
+
+                        .wtcuploadinput {
+                            cursor: pointer;
+                            float: left;
+                            width: 62px;
+                            margin-top: -20px;
+                            opacity: 0;
+                            clear: both;
+                        }
+
+                        .wtcuploadfile {
+                            float: left;
+                            color: #00a3fe;
+                        }
+
+                        .filenamecls {
+                            margin-right: 15px;
+                            float: left;
+                            margin-top: 5px;
+                        }
+
+                        .clboth {
+                            clear: both;
+                        }
+
+                        #zsFileBrowseAttachments {
+                            clear: both;
+                            margin: 5px 0px 10px;
+                        }
+
+                        .zsFontClass {
+                            vertical-align: top;
+                        }
+
+                        #tooltip-zc {
+                            font: normal 12px Arial, Helvetica, sans-serif;
+                            line-height: 18px;
+                            position: absolute;
+                            padding: 8px;
+                            margin: 20px 0 0;
+                            background: #fff;
+                            border: 1px solid #528dd1;
+                            -moz-border-radius: 5px;
+                            -webkit-border-radius: 5px;
+                            border-radius: 5px;
+                            color: #eee;
+                            -webkit-box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+                            -moz-box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+                            z-index: 10000;
+                            color: #777
+                        }
+
+                        .wtcmanfield {
+                            color: #f00;
+                            font-size: 16px;
+                            position: relative;
+                            top: 2px;
+                            left: 1px;
+                        }
+
+                        #zsCloudAttachmentIframe {
+                            width: 100%;
+                            height: 100%;
+                            z-index: 99999 !important;
+                            position: fixed;
+                            left: 0px;
+                            top: 0px;
+                            border-style: none;
+                            display: none;
+                            background-color: #fff;
+                        }
+
+                        .wtchelpinfo {
+                            background-position: -246px -485px;
+                            width: 15px;
+                            height: 15px;
+                            display: inline-block;
+                            position: relative;
+                            top: 2px;
+                            background-image: url('https://css.zohostatic.eu/support/3935983/images/zs-mpro.png');
+                        }
+
+                        .zsMaxSizeMessage {
+                            font-size: 13px;
+                        }</style>
+                        <script src='https://js.zohostatic.eu/support/app/js/jqueryandencoder.ffa5afd5124fbedceea9.js'></script>
                         <script>function trimBoth(str) {
                             return jQuery.trim(str);
                         }
@@ -36,7 +195,7 @@ keywords: "responsive,jekyll,minimal template"
                             if (mapDependancyLabels) {
                                 for (var i = 0; i < mapDependancyLabels.length; i++) {
                                     var label = mapDependancyLabels[i];
-                                    var obj = document.forms['zsWebToCase_214703000001372023'][label];
+                                    var obj = document.forms['zsWebToCase_67288000000117156'][label];
                                     if (obj) {
                                         setDependent(obj, true);
                                     }
@@ -77,7 +236,7 @@ keywords: "responsive,jekyll,minimal template"
                                         if (label.indexOf(".") > -1) {
                                             label = label.replace(/\./g, '___');
                                         }
-                                        var depObj = document.forms['zsWebToCase_214703000001372023'][label];
+                                        var depObj = document.forms['zsWebToCase_67288000000117156'][label];
                                         if (depObj && depObj.options) {
                                             var mapValues = "";
                                             var selected_val = depObj.value;
@@ -210,8 +369,8 @@ keywords: "responsive,jekyll,minimal template"
                                 }
                             };
                         }();
-                        var zsWebFormMandatoryFields = new Array("Contact Name", "Email", "Subject", "Description");
-                        var zsFieldsDisplayLabelArray = new Array("Last Name", "Email", "Subject", "Description");
+                        var zsWebFormMandatoryFields = new Array("Contact Name", "Email", "Subject");
+                        var zsFieldsDisplayLabelArray = new Array("Nachname", "E-Mail", "Betreff");
 
                         function zsValidateMandatoryFields() {
                             var name = '';
@@ -219,18 +378,18 @@ keywords: "responsive,jekyll,minimal template"
                             var isError = 0;
                             for (var index = 0; index < zsWebFormMandatoryFields.length; index++) {
                                 isError = 0;
-                                var fieldObject = document.forms['zsWebToCase_214703000001372023'][zsWebFormMandatoryFields[index]];
+                                var fieldObject = document.forms['zsWebToCase_67288000000117156'][zsWebFormMandatoryFields[index]];
                                 if (fieldObject) {
                                     if (((fieldObject.value).replace(/^\s+|\s+$/g, '')).length == 0) {
-                                        alert(zsFieldsDisplayLabelArray[index] + ' cannot be empty ');
+                                        alert(zsFieldsDisplayLabelArray[index] + ' darf nicht leer bleiben ');
                                         fieldObject.focus();
                                         isError = 1;
                                         return false;
                                     } else {
                                         if (fieldObject.name == 'Email') {
-                                            if (!fieldObject.value.match(/[A-Za-z0-9._%\-+]+@[A-Za-z0-9.\-]+\.[a-zA-Z]{2,22}/)) {
+                                            if (!fieldObject.value.match(/^([\w_][\w\-_.+\'&]*)@(?=.{4,256}$)(([\w]+)([\-_]*[\w])*[\.])+[a-zA-Z]{2,22}$/)) {
                                                 isError = 1;
-                                                alert('Enter a valid email-Id');
+                                                alert('Geben Sie eine gültige E-Mail-Adresse ein');
                                                 fieldObject.focus();
                                                 return false;
                                             }
@@ -238,7 +397,7 @@ keywords: "responsive,jekyll,minimal template"
                                     }
                                     if (fieldObject.nodeName == 'SELECT') {
                                         if (fieldObject.options[fieldObject.selectedIndex].value == '-None-') {
-                                            alert(zsFieldsDisplayLabelArray[index] + ' cannot be none');
+                                            alert(zsFieldsDisplayLabelArray[index] + ' kann nicht kein sein......');
                                             fieldObject.focus();
                                             isError = 1;
                                             return false;
@@ -246,7 +405,7 @@ keywords: "responsive,jekyll,minimal template"
                                     }
                                     if (fieldObject.type == 'checkbox') {
                                         if (fieldObject.checked == false) {
-                                            alert('Please accept ' + zsFieldsDisplayLabelArray[index]);
+                                            alert('Bitte annehmen ' + zsFieldsDisplayLabelArray[index]);
                                             fieldObject.focus();
                                             isError = 1;
                                             return false;
@@ -255,21 +414,21 @@ keywords: "responsive,jekyll,minimal template"
                                 }
                             }
                             if (isError == 0) {
-                                if (document.forms['zsWebToCase_214703000001372023']['zsWebFormCaptchaWord'].value.replace(/^\s+|\s+$/g, '').length == 0) {
-                                    alert('Please enter the captcha code.');
-                                    document.forms['zsWebToCase_214703000001372023']['zsWebFormCaptchaWord'].focus();
+                                if (document.forms['zsWebToCase_67288000000117156']['zsWebFormCaptchaWord'].value.replace(/^\s+|\s+$/g, '').length == 0) {
+                                    alert('Bitte geben Sie den Captcha-Begriff ein.');
+                                    document.forms['zsWebToCase_67288000000117156']['zsWebFormCaptchaWord'].focus();
                                     return false;
                                 }
                             }
                             if (isError == 0) {
-                                document.getElementById('zsSubmitButton_214703000001372023').setAttribute('disabled', 'disabled');
+                                document.getElementById('zsSubmitButton_67288000000117156').setAttribute('disabled', 'disabled');
                             }
                         }
 
                         function zsRegenerateCaptcha() {
                             var webFormxhr = {};
                             webFormxhr = new XMLHttpRequest();
-                            webFormxhr.open('GET', 'https://desk.zoho.com/support/GenerateCaptcha?action=getNewCaptcha', true);
+                            webFormxhr.open('GET', 'https://desk.zoho.eu/support/GenerateCaptcha?action=getNewCaptcha&_=' + new Date().getTime(), true);
                             webFormxhr.onreadystatechange = function () {
                                 if (webFormxhr.readyState === 4 && webFormxhr.status === 200) {
                                     try {
@@ -284,72 +443,65 @@ keywords: "responsive,jekyll,minimal template"
                         }
 
                         document.onreadystatechange = function () {
-                            if (window.zsRegenerateCaptcha) {
+                            if (document.readyState === 'complete' && window.zsRegenerateCaptcha) {
                                 zsRegenerateCaptcha();
                             }
                             setAllDependancyFieldsMapping();
-                            document.getElementById('zsSubmitButton_214703000001372023').removeAttribute('disabled');
+                            document.getElementById('zsSubmitButton_67288000000117156').removeAttribute('disabled');
                             zsAttachedAttachmentsCount = 0;
                             zsAttachmentFileBrowserIdsList = [1, 2, 3, 4, 5];
-                            document.forms['zsWebToCase_214703000001372023']['zsWebFormCaptchaWord'].value = '';
+                            document.forms['zsWebToCase_67288000000117156']['zsWebFormCaptchaWord'].value = '';
                         };
 
                         function zsResetWebForm(webFormId) {
                             document.forms['zsWebToCase_' + webFormId].reset();
-                            document.getElementById('zsSubmitButton_214703000001372023').removeAttribute('disabled');
+                            document.getElementById('zsSubmitButton_67288000000117156').removeAttribute('disabled');
                             setAllDependancyFieldsMapping();
                         } </script>
                     </head>
                     <div id='zohoSupportWebToCase' align='center'>
-                        <form class="form-action" name='zsWebToCase_214703000001372023'
-                              id='zsWebToCase_214703000001372023' action='https://support.themeix.com/support/WebToCase'
-                              method='POST' onSubmit='return zsValidateMandatoryFields()' enctype='multipart/form-data'>
-                            <input type='hidden' name='xnQsjsdp' value='lyT8rvL1bA2HvqOEPjOsyg$$'/> <input type='hidden'
-                                                                                                           name='xmIwtLD'
-                                                                                                           value='tt*L9VGvYnpmaSxj6KlB6*lHQBx3hY8-'/>
+                        <form name='zsWebToCase_67288000000117156' id='zsWebToCase_67288000000117156'
+                              action='https://desk.zoho.eu/support/WebToCase' method='POST'
+                              onSubmit='return zsValidateMandatoryFields()' enctype='multipart/form-data'><input
+                                type='hidden' name='xnQsjsdp' value='P3PFT0EKso3o3vRxii1AYg$$'/> <input type='hidden'
+                                                                                                        name='xmIwtLD'
+                                                                                                        value='GkUirL0MN9U6g0Zs6sxjvTD6URiqDetd'/>
                             <input type='hidden' name='xJdfEaS' value=''/> <input type='hidden' name='actionType'
                                                                                   value='Q2FzZXM='/> <input
-                                type="hidden" id="property(module)" value="Cases"/> <input type="hidden"
-                                                                                           id="dependent_field_values_Cases"
-                                                                                           value="&#x7b;&quot;JSON_VALUES&quot;&#x3a;&#x7b;&#x7d;,&quot;JSON_SELECT_VALUES&quot;&#x3a;&#x7b;&#x7d;,&quot;JSON_MAP_DEP_LABELS&quot;&#x3a;&#x5b;&#x5d;&#x7d;"/>
-                            <input type='hidden' name='returnURL' value='*'/>
-                            <table border='0' cellspacing='0' cellpadding='5' class='zsFormClass'>
+                                    type="hidden" id="property(module)" value="Cases"/> <input type="hidden"
+                                                                                               id="dependent_field_values_Cases"
+                                                                                               value="&#x7b;&quot;JSON_VALUES&quot;&#x3a;&#x7b;&#x7d;,&quot;JSON_SELECT_VALUES&quot;&#x3a;&#x7b;&#x7d;,&quot;JSON_MAP_DEP_LABELS&quot;&#x3a;&#x5b;&#x5d;&#x7d;"/>
+                            <input type='hidden' name='returnURL' value='&#x2a;'/>
+                            <table border='0' cellspacing='0' class='zsFormClass'>
                                 <tr>
-                                    <td colspan='2' class='zsFontClass'><strong> </strong></td>
+                                    <td colspan='2' class='zsFontClass'><strong>Support Ticket</strong></td>
                                 </tr>
                                 <br>
                                 <tr>
-                                    <td nowrap class='zsFontClass ' width='25%' align='left'>First Name&nbsp;&nbsp;</td>
-                                    <td align='left' width='75%'><input type='text' class='form-control' maxlength='120'
-                                                                        name='First Name' value=''/></td>
+                                    <td nowrap class='zsFontClass ' width='25%' align='left'>Vorname&nbsp;&nbsp;</td>
+                                    <td align='left' width='75%'><input type='text' maxlength='120' name='First Name'
+                                                                        value=''/></td>
                                 </tr>
                                 <tr>
-                                    <td nowrap class='zsFontClass ' width='25%' align='left'>Last Name&nbsp;&nbsp;</td>
+                                    <td nowrap class='zsFontClass ' width='25%' align='left'>Nachname&nbsp;&nbsp;</td>
                                     <td align='left' width='75%'><input type='text' maxlength='120' name='Contact Name'
-                                                                        class='manfieldbdr form-control'/></td>
+                                                                        class='manfieldbdr'/></td>
                                 </tr>
                                 <tr>
-                                    <td nowrap class='zsFontClass ' width='25%' align='left'>Email&nbsp;&nbsp;</td>
+                                    <td nowrap class='zsFontClass ' width='25%' align='left'>E-Mail&nbsp;&nbsp;</td>
                                     <td align='left' width='75%'><input type='text' maxlength='120' name='Email'
-                                                                        value='' class='manfieldbdr form-control'/></td>
+                                                                        value='' class='manfieldbdr'/></td>
                                 </tr>
                                 <tr>
-                                    <td nowrap class='zsFontClass ' width='25%' align='left'>Subject&nbsp;&nbsp;</td>
+                                    <td nowrap class='zsFontClass ' width='25%' align='left'>Betreff&nbsp;&nbsp;</td>
                                     <td align='left' width='75%'><input type='text' maxlength='255' name='Subject'
-                                                                        value='' class='form-control manfieldbdr'/></td>
+                                                                        value='' class='manfieldbdr'/></td>
                                 </tr>
                                 <tr>
-                                    <td nowrap class='zsFontClass ' width='25%' align='left'>Purchase Code&nbsp;&nbsp;
+                                    <td nowrap class='zsFontClass ' width='25%' align='left'>Priorit&auml;t
+                                        &nbsp;&nbsp;
                                     </td>
-                                    <td align='left' width='75%'><input type='text' maxlength='120' name='Purchase Code'
-                                                                        value='' class='form-control'/><i
-                                            onmouseout='zctt.hidett()'
-                                            onmouseover='zctt.showtt(&quot;If\x20you\x20purchase\x20the\x20theme\x20from\x20https\x3A\x2F\x2Fthemeix.com&quot;)'
-                                            class='wtchelpinfo' style='margin-left:10px;'></i></td>
-                                </tr>
-                                <tr>
-                                    <td nowrap class='zsFontClass ' width='25%' align='left'>Priority &nbsp;&nbsp;</td>
-                                    <td align='left' width='75%'><select class='form-control' name='Priority' value=''
+                                    <td align='left' width='75%'><select name='Priority' value=''
                                                                          onchange="setDependent(this, false)"
                                                                          id='Priority'>
                                         <option value=''>-None-</option>
@@ -359,28 +511,22 @@ keywords: "responsive,jekyll,minimal template"
                                     </select></td>
                                 </tr>
                                 <tr>
-                                    <td nowrap class='zsFontClass ' width='25%' align='left'>Ticket Type &nbsp;&nbsp;
-                                    </td>
-                                    <td align='left' width='75%'><select name='Classification' class='form-control'
-                                                                         value='' onchange="setDependent(this, false)"
+                                    <td nowrap class='zsFontClass ' width='25%' align='left'>Klassifizierungen &nbsp;&nbsp;</td>
+                                    <td align='left' width='75%'><select name='Classification' value=''
+                                                                         onchange="setDependent(this, false)"
                                                                          id='Classification'>
                                         <option value=''>-None-</option>
                                         <option value='Question'>Question</option>
                                         <option value='Problem'>Problem</option>
                                         <option value='Feature'>Feature</option>
-                                        <option value='Request'>Request</option>
                                         <option value='Others'>Others</option>
                                     </select></td>
                                 </tr>
                                 <tr>
-                                    <td nowrap class='zsFontClass ' width='25%' align='left'>Description &nbsp;&nbsp;
+                                    <td nowrap class='zsFontClass ' width='25%' align='left'>Beschreibung &nbsp;&nbsp;
                                     </td>
                                     <td align='left' width='75%'><textarea name='Description' maxlength='3000'
-                                                                           width='250' height='250'
-                                                                           class='manfieldbdr form-control'></textarea><i
-                                            onmouseout='zctt.hidett()'
-                                            onmouseover='zctt.showtt(&quot;Explain\x20your\x20problem\x20&quot;)'
-                                            class='wtchelpinfo' style='margin-left:10px;'></i></td>
+                                                                           width='250' height='250'></textarea></td>
                                 </tr>
                                 <tr>
                                     <td nowrap class='zsFontClass' width='25%' align='left'>Captcha&nbsp;</td>
@@ -388,21 +534,33 @@ keywords: "responsive,jekyll,minimal template"
                                         <div><img src='#' id='zsCaptchaUrl' name="zsCaptchaImage"><a href='javascript:;'
                                                                                                      style='color:#00a3fe; cursor:pointer; margin-left:10px; vertical-align:middle;text-decoration: none;'
                                                                                                      class='zsFontClass'
-                                                                                                     onclick='zsRegenerateCaptcha()'>Refresh</a>
+                                                                                                     onclick='zsRegenerateCaptcha()'>Aktualisieren</a>
                                         </div>
                                         <div><input type='text' name='zsWebFormCaptchaWord'/><input type='hidden'
                                                                                                     name='zsCaptchaSrc'
                                                                                                     value=''/></div>
                                     </td>
                                 <tr>
-                                    <td colspan='2' align='center' width='25%'><input type='submit'
-                                                                                      id="zsSubmitButton_214703000001372023"
-                                                                                      class='btn-style2 btn color-white'
-                                                                                      value='Submit'> &nbsp; &nbsp;
-                                        <input type='button' class='zsFontClass btn-style2 btn btn-primary color-white'
-                                               value='Reset' onclick="zsResetWebForm('214703000001372023')"></td>
+                                    <td style='padding: 11px 5px 0px 5px;' colspan='2' align='center' width='25%'><input
+                                            type='submit' id="zsSubmitButton_67288000000117156" class='zsFontClass'
+                                            value='Absenden'> &nbsp; &nbsp; <input type='button' class='zsFontClass'
+                                                                                   value='Zurücksetzen'
+                                                                                   onclick="zsResetWebForm('67288000000117156')">
+                                    </td>
                                 </tr>
-                                <br></table>
+                                <tr>
+                                    <td width='25%' align='left'></td>
+                                    <td style='padding: 0px 5px;' align='left' width='75%'>
+                                        <div class='wb_FtCon wb_common'><span>powered by  </span><a target='_blank'
+                                                                                                    rel='noopener noreferrer'
+                                                                                                    href='https://zoho.eu/desk'
+                                                                                                    class='wb_logoCon'><img
+                                                class='wb_logo'
+                                                src='https://img.zohostatic.eu/support/app/images/portalLogo.de847024ebc0131731a3.png'/></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
                         </form>
                     </div>
                     </html>
