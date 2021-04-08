@@ -2,6 +2,8 @@
 
 - text: Home
   url: /
+- text: FAQs
+  url: /pages/faq
 - text: Docs
   url: https://flexgantt.atlassian.net/wiki/spaces/FFXMAN/overview
 - text: Downloads
