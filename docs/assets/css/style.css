@@ -214,7 +214,7 @@ iframe {
   height: 40px;
   background-color: #0D65B0;
   position: fixed;
-  right: 30px;
+  left: 30px;
   bottom: 30px;
   font-size: 20px;
   color: #ffffff;
