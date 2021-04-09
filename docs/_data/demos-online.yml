@@ -12,3 +12,8 @@
   url: https://demos.jpro.one/msproject.html
   image: assets/images/online-demos/online-demo-msproject.jpg
   text: By using third-party libraries applications can import data from all kinds of sources and display them in a FlexGanttFX UI. In this demo the open source project MPXJ is used to read a Microsoft project data file.
+
+- title: FlexGanttFX Sampler
+  url: https://www.jfx-ensemble.com/?page=project/flexganttfx
+  image: assets/images/online-demos/online-demo-sampler.jpg
+  text: This is the online version of the FXSampler demo of FlexGanttFX. Here you can try out all individual samples of this application. Each sample focuses on one or two features built into FlexGanttFX.

@@ -1,5 +1,5 @@
 <!-- Start Pupolar Article  Area -->
-<section class="pupolar-article-area bg-color3">
+<section class="pupolar-article-area bg-color1">
     <div class="pupolar-article-wrapper  section-spacing bminus-30">
         <div class="container">
             <div class="section-title">
@@ -8,7 +8,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12 col-lg-12">
-                    <article class="pupolar-item bg-color1 wow fadeIn" data-wow-duration="3s">
+                    <article class="pupolar-item bg-color3 wow fadeIn" data-wow-duration="3s">
                         <header class="popular-item-top">
                             <div class="popular-top-logo">
                                 <div class="popular-logo-icon">
@@ -20,15 +20,15 @@
                             </div>
                         </header>
                         {% for video in site.data.videos %}
-                        <div class="row" style="padding: 0px 0px 20px 0px;">
-                            <div class="col-md-6 col-lg-3">
-                                <a href="{{video.url}}">
-                                    <img src="{{video.image}}" target="_blank" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/>
-                                </a>
-                            </div>
+                        <div class="row" style="padding: 0px 0px 40px 0px;">
                             <div class="col-md-6 col-lg-9">
                                 <b>{{video.title}} - </b>
-                                {{video.text}}
+                                {{video.text}} <p/><br/><a href="{{video.url}}" target="_blank" class="btn btn-style2" style="padding: 5px 15px;">Show Video</a>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <a href="{{video.url}}">
+                                    <img src="{{video.image}}" target="_blank" style="border: 5px solid #0D65B0; border-radius: 4px;"/>
+                                </a>
                             </div>
                         </div>
                         {% endfor %}
