@@ -14,6 +14,8 @@
       url: /api/index.html
     - text: Release Notes
       url: /pages/changelog
+    - text: Testimonials
+      url: /pages/testimonials
 - text: Support
   url: https://flexgantt.atlassian.net/wiki/spaces/FFXMAN/overview
   submenu:
