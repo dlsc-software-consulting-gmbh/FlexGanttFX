@@ -12,7 +12,8 @@
       target: _blank
     - text: Javadocs / API
       url: /api/index.html
-      target: _blank
+    - text: Release Notes
+      url: /pages/changelog
 - text: Support
   url: https://flexgantt.atlassian.net/wiki/spaces/FFXMAN/overview
   submenu:

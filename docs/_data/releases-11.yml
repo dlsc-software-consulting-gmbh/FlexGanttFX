@@ -1,3 +1,8 @@
+- release: Release 11.12.3
+  date: April 9th, 2021
+  url: ../../downloads/flexganttfx-11.12.3-bin.zip
+  text: Added support for a fixed horizon scrollbar. Added a flag for turning on/off auto-hiding the scrollbars. Fixed the drawing of grid lines when displaying hour granularity with a step rate larger than 1.
+
 - release: Release 11.12.0
   date: May 14th, 2020
   url: ../../downloads/flexganttfx-11.12.0-bin.zip
