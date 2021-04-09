@@ -6,6 +6,11 @@
   url: /pages/faq
 - text: Docs
   url: https://flexgantt.atlassian.net/wiki/spaces/FFXMAN/overview
+  submenu:
+    - text: Developer Manual
+      url: https://flexgantt.atlassian.net/wiki/spaces/FFXMAN/overview
+    - text: Javadocs / API
+      url: /api/index.html
 - text: Downloads
   url: /pages/download-releases
 - text: Demos
