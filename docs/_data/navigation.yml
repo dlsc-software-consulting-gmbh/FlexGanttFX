@@ -2,11 +2,11 @@
 
 - text: Home
   url: /
-- text: FAQs
-  url: /pages/faq
 - text: Docs
   url: https://flexgantt.atlassian.net/wiki/spaces/FFXMAN/overview
   submenu:
+    - text: FAQs
+      url: /pages/faq
     - text: Developer Manual
       url: https://flexgantt.atlassian.net/wiki/spaces/FFXMAN/overview
       target: _blank
@@ -19,10 +19,10 @@
 - text: Support
   url: https://flexgantt.atlassian.net/wiki/spaces/FFXMAN/overview
   submenu:
-    - text: Submit a Ticket
-      url: /pages/submit-ticket
     - text: Contact Us
       url: /pages/contact
+    - text: Submit a Ticket
+      url: /pages/submit-ticket
 - text: Downloads
   url: /pages/download-releases
   submenu:
