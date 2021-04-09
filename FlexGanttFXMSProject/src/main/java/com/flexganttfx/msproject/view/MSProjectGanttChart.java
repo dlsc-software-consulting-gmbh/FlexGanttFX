@@ -190,8 +190,6 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
 
         getTreeTable().getColumns().setAll(columns);
         getTreeTable().setTreeColumn(nameColumn);
-
-        getGraphics().setRowEditorFactory(param -> new MSProjectTaskDetails(param.getGraphics(), param.getRow()));
     }
 
     public final void load(String fileName, InputStream stream) {
