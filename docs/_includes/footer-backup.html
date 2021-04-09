@@ -36,12 +36,36 @@
                     <div class="footer-widget wow fadeIn" data-wow-duration="4s">
                         <h5 class="footer-title heading-5">Follow Us</h5>
                         <ul class="footer-socials list-inline">
+                            {% if site.behance %}
+                                <li class="list-inline-item"><a href="{{site.behance}}"><i class="fa fa-behance"></i></a></li>
+                            {% endif %}
+
                             {% if site.twitter %}
                                 <li class="list-inline-item"><a href="{{site.twitter}}"><i class="fa fa-twitter"></i></a></li>
                             {% endif %}
 
+                            {% if site.instagram %}
+                                <li class="list-inline-item"><a href="{{site.instagram}}"><i class="fa fa-instagram"></i></a></li>
+                            {% endif %}
+
                             {% if site.linkedin %}
                                 <li class="list-inline-item"><a href="{{site.linkedin}}"><i class="fa fa-linkedin"></i></a></li>
+                            {% endif %}
+
+                            {% if site.reddit %}
+                                <li class="list-inline-item"><a href="{{site.reddit}}"><i class="fa fa-reddit"></i></a></li>
+                             {% endif %}
+
+                            {% if site.vimeo %}
+                                <li class="list-inline-item"><a href="{{site.vimeo}}"><i class="fa fa-vimeo"></i></a></li>
+                            {% endif %}
+
+                            {% if site.dribbble %}
+                                 <li class="list-inline-item"><a href="{{site.dribbble}}"><i class="fa fa-dribbble"></i></a></li>
+                            {% endif %}
+
+                            {% if site.github %}
+                                <li class="list-inline-item"><a href="{{site.github}}"><i class="fa fa-github"></i></a></li>
                             {% endif %}
                         </ul>
                     </div>
