@@ -14,7 +14,7 @@ description: "FlexGanttFX is a JavaFX library for creating professional user int
 keywords: "JavaFX, Java, FlexGanttFX, Gantt, Chart, Gantt Chart, Planning, Scheduling, UI, User Interface, ERP, PPS, MES, Manufacturing, Logistics, Transportation"
 baseurl: "/" # the subpath of your site, e.g. /blog
 url: " "
-cover_image: "https://themeix.com/wp-content/uploads/dooxy-responsive-html-template-preview.png" # Image will Display in Social Media When share the website
+cover_image: "https://www.flexganttfx.com/assets/images/social-banner.png" # Image will Display in Social Media When share the website
 facebook:
 twitter: "https://www.twitter.com/dlemmermann"
 instagram:
