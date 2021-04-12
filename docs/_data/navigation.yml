@@ -30,5 +30,7 @@
       url: /pages/download-releases
     - text: Demos
       url: /pages/download-demos
+- text: Licensing
+  url: /pages/licensing
 - text: Contact
   url: /pages/contact
