@@ -1,4 +1,14 @@
 ----------------------------------------------------------------
+Release: 11.12.4, Date: April 21st 2021
+----------------------------------------------------------------
+
+** ENHANCEMENTS
+
+   ** The "horizon" scrollbar now ensures that the horizon end date will be shown on
+      the right edge of the graphics area. Before this change the user could scroll the
+      horizon end time to be on the left edge of the viewport.
+
+----------------------------------------------------------------
 Release: 11.12.3, Date: March 2021
 ----------------------------------------------------------------
 
