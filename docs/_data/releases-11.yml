@@ -1,3 +1,8 @@
+- release: Release 11.12.4
+  date: April 21, 2021
+  url: ../../downloads/flexganttfx-11.12.4-bin.zip
+  text: Enhanced the scrollbar behaviour for "fixed horizon" scrolling. The end date of the horizon will now remain on the right edge of the viewport.
+
 - release: Release 11.12.3
   date: April 9th, 2021
   url: ../../downloads/flexganttfx-11.12.3-bin.zip
