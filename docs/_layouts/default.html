@@ -26,11 +26,48 @@
 	{% if page.description %}<meta name="twitter:description" content="{{ page.description }}">{% else %}<meta name="twitter:description" content="{{ site.description }}">{% endif %}
 	{% if page.post_image %}<meta name="twitter:card"  content="summary_large_image"><meta name="twitter:image" content="{{ site.url }}{{ page.post_image }}">{% else %}<meta name="twitter:card"  content="summary"><meta name="twitter:image" content="{{ site.cover_image }}">{% endif %}
     <!-- Site Title -->
-    <title>{% if page.title %} {{page.title}} {% else %} {{site.title}} {% endif %}</title>
+    <title>{% if page.title %} FlexGanttFX - {{page.title}} {% else %} {{site.title}} {% endif %}</title>
     <!--  Add Favicon -->
-	
-    <link rel="shortcut icon" href="{{ '/assets/images/favicon.png' | relative_url }}" type="image/x-icon"/>
-    <link rel="icon" href="{{ '/assets/images/favicon.png' | relative_url }}" type="image/x-icon"/>
+
+	<!-- For old IEs -->
+	<link rel="shortcut icon" href="{{ '/assets/images/favicons/favicon.ico' | relative_url }}"/>
+
+	<!-- For new browsers - multi size ico  -->
+	<link rel="icon" type="image/x-icon" sizes="16x16 32x32" href="{{ '/assets/images/favicons/favicon.ico' | relative_url }}">
+
+	<!-- For iPad with high-resolution Retina display running iOS ≥ 7: -->
+	<link rel="apple-touch-icon" sizes="152x152" href="{{ '/assets/images/favicons/favicon-152-precomposed.png' | relative_url }}">
+
+	<!-- For iPad with high-resolution Retina display running iOS ≤ 6: -->
+	<link rel="apple-touch-icon" sizes="144x144" href="{{ '/assets/images/favicons/favicon-144-precomposed.png' | relative_url }}">
+
+	<!-- For iPhone with high-resolution Retina display running iOS ≥ 7: -->
+	<link rel="apple-touch-icon" sizes="120x120" href="{{ '/assets/images/favicons/favicon-120-precomposed.png' | relative_url }}">
+
+	<!-- For iPhone with high-resolution Retina display running iOS ≤ 6: -->
+	<link rel="apple-touch-icon" sizes="114x114" href="{{ '/assets/images/favicons/favicon-114-precomposed.png' | relative_url }}">
+
+	<!-- For iPhone 6+ -->
+	<link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/images/favicons/favicon-180-precomposed.png' | relative_url }}">
+
+	<!-- For first- and second-generation iPad: -->
+	<link rel="apple-touch-icon" sizes="72x72" href="{{ '/assets/images/favicons/favicon-72-precomposed.png' | relative_url }}">
+
+	<!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+	<link rel="apple-touch-icon" sizes="57x57" href="{{ '/assets/images/favicons/favicon-57.png' | relative_url }}">
+
+	<!-- For Old Chrome -->
+	<link rel="icon" sizes="32x32" href="{{ '/assets/images/favicons/favicon-32.png' | relative_url }}">
+
+	<!-- For IE10 Metro -->
+	<meta name="msapplication-TileColor" content="#FFFFFF">
+	<meta name="msapplication-TileImage" content="favicon-144.png">
+	<meta name="theme-color" content="#ffffff">
+
+	<!-- Chrome for Android -->
+	<link rel="manifest" href="{{ '/assets/images/favicons/manifest.json' | relative_url }}">
+	<link rel="icon" sizes="192x192" href="/assets/images/favicons/favicon-180-precomposed.png">
+
     <!-- Add CSS File -->
     <link rel="stylesheet" href="{{ '/assets/css/app.min.css' | relative_url }} "/>
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600" rel="stylesheet">
@@ -39,6 +76,7 @@
 
 <body>
    {{ content }}
+
     <!-- Add Javascript File -->
    <script src="{{ '/assets/js/build.min.js' | relative_url }}"></script>
    		<script>

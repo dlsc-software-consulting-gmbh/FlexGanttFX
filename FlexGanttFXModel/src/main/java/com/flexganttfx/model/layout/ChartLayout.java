@@ -144,8 +144,10 @@ public class ChartLayout extends Layout {
 
     /**
      * Returns the major ticks to be displayed in the row background and by the
-     * row scale. <img src="doc-files/scale-capacity.png" alt=
-     * "Chart Scale">
+     * row scale.
+     * <p>
+     *     <img src="doc-files/scale-capacity.png" alt="Chart Scale">
+     * </p>
      *
      * @return a list of major tick values
      * @since 1.0
@@ -162,8 +164,10 @@ public class ChartLayout extends Layout {
 
     /**
      * Returns the minor ticks to be displayed in the row background and by the
-     * row scale. <img src="doc-files/scale-capacity.png" alt=
-     * "Chart Scale">
+     * row scale.
+     * <p>
+     * <img src="doc-files/scale-capacity.png" alt="Chart Scale">
+     * </p>
      *
      * @return a list of minor tick values
      * @since 1.0

@@ -1,0 +1,72 @@
+---
+layout: page
+title: Releases
+add_to_menu: true
+description: "This page lists all releases currently available for FlexGanttFX"
+keywords: "java,javafx,FlexGanttFX,gantt,chart,UI,download,release"
+---
+
+<!-- Start Changelog  Area -->
+<section class="changelog-area bg-color1">
+    <div class="changelog-wrapper inner-spacing">
+
+        <div class="container">
+            <div class="section-title">
+                <h2 class="heading-2">Downloads for Java 11+</h2>
+                <p>This section lists the currently available releases for Java 11 and higher. Make sure to add the jar
+                    files found in the "libs" folder to your application's classpath. Also add the third-party jar files
+                    located in the "ext" folder.</p>
+            </div>
+
+            <div class="row bg-color3">
+                {% for release in site.data.releases-11 %}
+                <div class="col-md-6 col-lg-6">
+                    <div class="changelog-service">
+                        <div class="changelog-tile">
+                            <h5 class="heading-5">{{release.release}}</h5>
+                            <p><i class="changelog-date"></i> Updated : {{release.date}}</p>
+                        </div>
+                        <ul class="changelog-list list-inline">
+                            {{release.text}} <p><a href="{{release.url}}" class="btn btn-style2">Download Now!</a></p>
+                        </ul>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="changelog-area bg-color3">
+    <div class="changelog-wrapper inner-spacing">
+        <div class="container">
+            <div class="section-title" style="padding: 20px 0px 0px 0px">
+                <h2 class="heading-2">Downloads for Java 8</h2>
+                <p>This section lists the currently available releases for Java 8. Make sure to add the jar files found
+                    in
+                    the "libs"
+                    folder to your application's classpath. Also add the third-party jar files located in the "ext"
+                    folder.</p>
+            </div>
+
+            <div class="row bg-color1">
+                {% for release in site.data.releases-8 %}
+                <div class="col-md-6 col-lg-6">
+                    <div class="changelog-service">
+                        <div class="changelog-tile">
+                            <h5 class="heading-5">{{release.release}}</h5>
+                            <p><i class="changelog-date"></i> Updated : {{release.date}}</p>
+                        </div>
+                        <ul class="changelog-list list-inline">
+                            {{release.text}} <p><a href="{{release.url}}" class="btn btn-style2">Download Now!</a></p>
+                        </ul>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% include call_to_action.html %}
+
+<!-- End Changelog Area -->

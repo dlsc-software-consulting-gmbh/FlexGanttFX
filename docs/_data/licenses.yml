@@ -1,0 +1,11 @@
+- name: Development License
+  url: ../../assets/licenses/flexganttfx-development-license.pdf
+  text: A development license is required once the trial period of 30 days has expired. This license allows the licensee to continue working with FlexGanttFX. It does not allow the licensee to ship FlexGanttFX together with a product or project developed by the licensee. For that a runtime license is required. Setting a development license key will cause FlexGanttFX to print out a warning message that it is not fully licensed, yet, for production releases.
+
+- name: Runtime License
+  url: ../../assets/licenses/flexganttfx-enterprise-license.pdf
+  text: Any company that wants to release / ship / sell an application that has been built on top of FlexGanttFX has to purchase a runtime license first. This is independent of whether the application will be deployed in-house or shipped to a customer. A separate runtime license is required for each application / each project where FlexGanttFX will be used. Custom runtime licenses can be negotiated if the application does not clearly fit into the legal terms defined by the license.
+
+- name: Research License
+  url: ../../assets/licenses/flexganttfx-research-license.pdf
+  text: Research facilities such as universities can get free access to FlexGanttFX for non-commercial purposes via the research license.

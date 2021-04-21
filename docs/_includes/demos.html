@@ -1,0 +1,62 @@
+<!-- Start Pupolar Article  Area -->
+<section class="pupolar-article-area bg-color3" id="demos">
+    <div class="pupolar-article-wrapper  section-spacing bminus-30">
+        <div class="container">
+            <div class="section-title">
+                <h2 class="heading-2">Demos</h2>
+                <p>These demos highlight some of the many features built right into FlexGanttFX.</p>
+            </div>
+            <div class="alert alert-success" role="alert">
+                <div class="row">
+                    <div class="col-md-10 col-lg-10">
+                        <h4 class="alert-heading">JavaFX in Browsers?</h4>
+                        The demos on this website use JPro technology so that they can be run in browsers. You can find
+                        more information about this product <a class="alert-link" href="https://www.jpro.one" target="_blank">on
+                        the official JPRO website</a>.
+                        <hr/>
+                        Make sure to also <a class="alert-link" href="https://www.jpro.one/?page=demos" target="_blank">try the other demos</a> on their demo page. The examples include
+                        business applications, games, etc... Another great demo website for the JPRO technology is the
+                        online <a class="alert-link" href="https://www.jfx-ensemble.com" target="_blank">JFX Ensemble page</a>. It highlights controls from various open source and
+                        commercial frameworks.
+                        <hr/>
+                        When running the demos please be aware that their user experience has not been
+                        optimized for use in a browser.
+                    </div>
+                    <div class="col-md-2 col-lg-2">
+                        <img src="assets/images/jpro.png"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <article class="pupolar-item bg-color1 wow fadeIn bg-color1" data-wow-duration="3s">
+                        <header class="popular-item-top">
+                            <div class="popular-top-logo">
+                                <div class="popular-logo-icon">
+                                    <img src="{{ '/assets/images/popular-3.png' | relative_url }}" alt="service icon">
+                                </div>
+                            </div>
+                            <div class="popular-top-title">
+                                <h5 class="heading-5">Online Demos</a></h5>
+                            </div>
+                        </header>
+                        {% for demo in site.data.demos-online %}
+                        <div class="row" style="padding: 0px 0px 40px 0px;">
+                            <div class="col-md-6 col-lg-9">
+                                <b>{{demo.title}} - </b>
+                                {{demo.text}} <p/><br/><a href="{{demo.url}}" target="_blank" class="btn btn-style2" style="padding: 5px 15px;">Launch Demo</a>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <a href="{{demo.url}}" target="_blank">
+                                    <img src="{{demo.image}}" style="border: 5px solid #0D65B0; border-radius: 4px;"/>
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Pupolar Article Area -->

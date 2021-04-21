@@ -1,18 +1,18 @@
-- title: Knowledge Base
+- title: Consulting
   icon: /assets/images/service-icon2.png
-  description: psum is simply dummy text of the pritypesetting industry Lorem Ipsum has been the industry’s standard
-  button_label: Learn More
-  url: /pages/explore-topics/
-  
+  description: FlexGanttFX is supported by DLSC GmbH. We will help you get off the ground quickly.
+  button_label: Visit Site
+  url: https://www.dlsc.com
+
 - title: Question Answer
   icon: /assets/images/service-icon.png
-  description:  It has survived not only five centuries, but also the leap into electronic typesetting, remaining.
+  description:  Some questions just pop up over and over again. Check them out in our FAQ collection.
   button_label: Read FAQ
   url: /pages/faq/
   
 - title: Documentation
   icon: /assets/images/service-icon3.png
-  description:  The online developer manual covers all the important aspects of the framework.
+  description:  The extensive online developer manual covers all the important aspects of the framework.
   button_label: Read Docs
   url: https://flexgantt.atlassian.net/wiki/spaces/FFXMAN/overview
   

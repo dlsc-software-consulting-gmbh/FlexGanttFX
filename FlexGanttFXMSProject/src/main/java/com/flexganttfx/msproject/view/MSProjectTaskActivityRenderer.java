@@ -47,11 +47,4 @@ public class MSProjectTaskActivityRenderer extends CompletableActivityRenderer<M
 
 		return bounds;
 	}
-	
-	@Override
-	protected void drawBorder(ActivityRef<MSProjectTaskActivity> activityRef, Position position, GraphicsContext gc,
-			double x, double y, double w, double h, boolean selected, boolean hover, boolean highlighted,
-			boolean pressed) {
-		super.drawBorder(activityRef, position, gc, x, y, w, h, selected, hover, highlighted, pressed);
-	}
 }

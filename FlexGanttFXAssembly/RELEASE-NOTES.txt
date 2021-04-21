@@ -62,7 +62,7 @@ Release: 11.12.1, August 17th, 2020
 
    ** Fixed difference in selection behaviour between Mac and Windows in combination
       with context menu / popup trigger. Problem was: on Mac the mouse "pressed" event
-      gets marked as a popup trigger. On Windows is is the mouse "released" event.
+      gets marked as a popup trigger. On Windows it is the mouse "released" event.
 
 ----------------------------------------------------------------
 Release: 11.12.0, May 14th, 2020

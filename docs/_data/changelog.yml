@@ -1,61 +1,58 @@
-- product_name: Appix HTML V 2.0.1
-  updated_date: Jan 01 2018
-  changelog: <li><i class="changelog-fix"></i> BungListusing a hang when returning</li>
-             <li><i class="changelog-fix"></i>Adding Interactive Google Map</li>
-             <li><i class="changelog-bug"></i>Bootstrap Tab Panel</li>
-             <li><i class="changelog-fix"></i>Bootstrap Tab Panel</li>
-             <li><i class="changelog-bug"></i>BungListusing a hang when returning</li>
-             <li><i class="changelog-fix"></i>BungListusing a hang when returning</li>
+- product_name: Release 11.12.3
+  updated_date: April 2021
+  changelog: <li><i class="changelog-fix"></i>Added methods on Timeline for showing / scrolling to a given date or a given zoned date time. Before it was only possible to pass an instant.</li>
+             <li><i class="changelog-fix"></i>Added an option on GanttChartBase to specify the scrollbar type to use for scrolling horizontally in time. So far the scrollbar allowed for infinite scrolling. This version adds a standard ("normal") scrollbar that allows the user to scroll within a given time horizon. Applications can also choose to completely remove the scrollbar.</li>
+             <li><i class="changelog-fix"></i>Added an option on GanttChartBase to specify whether the horizontal scrollbars on the left-hand side and the right-hand side should auto-hide when not used. Auto-hiding was actually the behaviour all the time. Being able to specify that the scrollbars should "not" auto-hide is the new feature.</li>
+             <li><i class="changelog-fix"></i>The RowCanvas class now has a full set of snapXYZ() methods and the alignment of the canvas itself and of the activities shown by the canvas have been improved.</li>
+             <li><i class="changelog-bug"></i>Fixed an issue related to daylight saving time and grid lines. When the timeline was showing "hours" granularity with a step rate of 3 or 6 then the grid lines became misaligned. The GridLinesLayer now checks whether a DST was crossed while drawing the grid lines.</li>
+             <li><i class="changelog-bug"></i>Row controls are now being recreated when the row model object changes so that the controls will work for the new row instead of the old row.</li>
+             <li><i class="changelog-bug"></i>Showing a row header UI could cause flickering when rows were added or removed. Setting the min size of those header nodes to zero width and height fixed the issue.</li>
 
               
-- product_name: Etube 4.2.21
-  updated_date: Nov 03 2018
-  changelog:  <li><i class="changelog-bug"></i> BungListusing a hang when returning</li>
-              <li><i class="changelog-bug"></i>Adding Interactive Google Map</li>
-              <li><i class="changelog-bug"></i>Bootstrap Tab Panel</li>
-              <li><i class="changelog-fix"></i>Bootstrap Tab Panel</li>
-              <li><i class="changelog-bug"></i>BungListusing a hang when returning</li>
-              <li><i class="changelog-fix"></i>BungListusing a hang when returning</li>
+- product_name: Release 11.12.2 (Internal Release)
+  updated_date: March 3rd, 2021
+  changelog:  <li><i class="changelog-fix"></i>Added a flag called "inverse" to the LassoInfo class. The flag indicates whether the lasso was created in inverse direction, meaning the end time of the lasso was actually BEFORE the start time of the lasso when the user released the mouse.</li>
+              <li><i class="changelog-fix"></i>The CSS styles .dateline-cell-first and .dateline-cell-last are no longer supported due to the new buffer concepts.</li>
+              <li><i class="changelog-bug"></i>Fixed a styling issue that caused the graphics view header on the right-hand side to become misaligned with the table header on the left-hand side. It was two pixels less high.</li>
+              <li><i class="changelog-bug"></i>Made sure the time label shown in the first dateline cell remains visible as long as possible. A regression that was introduced with the new buffer concepts caused the label to disappear very quickly and depending on the zoom level it became hard to determine that start date of the dateline.</li>
 
               
-- product_name: Documenter 0.2.23
-  updated_date: Dec 12 2018
-  changelog:  <li><i class="changelog-fix"></i> BungListusing a hang when returning</li>
-              <li><i class="changelog-bug"></i>Adding Interactive Google Map</li>
-              <li><i class="changelog-bug"></i>Bootstrap Tab Panel</li>
-              <li><i class="changelog-bug"></i>Bootstrap Tab Panel</li>
-              <li><i class="changelog-bug"></i>BungListusing a hang when returning</li>
-              <li><i class="changelog-fix"></i>BungListusing a hang when returning</li>
+- product_name: Release 11.12.1 (Internal Release)
+  updated_date: August 17th, 2020
+  changelog:  <li><i class="changelog-bug"></i>Fixed difference in selection behaviour between Mac and Windows in combination with context menu / popup trigger. Problem was that on Mac the mouse "pressed" event gets marked as a popup trigger. On Windows it is the mouse "released" event.</li>
 
-              
-- product_name: Mytube 5.2.27
-  updated_date: Fab 10 2018
-  changelog:  <li><i class="changelog-fix"></i> BungListusing a hang when returning</li>
-              <li><i class="changelog-bug"></i>Adding Interactive Google Map</li>
-              <li><i class="changelog-bug"></i>Bootstrap Tab Panel</li>
-              <li><i class="changelog-fix"></i>Bootstrap Tab Panel</li>
-              <li><i class="changelog-fix"></i>BungListusing a hang when returning</li>
-              <li><i class="changelog-fix"></i>BungListusing a hang when returning</li>
+- product_name: Release 11.12.0
+  updated_date: May 14th, 2020
+  changelog:  <li><i class="changelog-fix"></i>Started using system cursors for editing operations in the graphics area. For example Cursor.E_RESIZE to change the end time of an activity. "Old" cursors are still there and can be enabled by calling RowCanvasBehaviour.useCustomCursors().</li>
+              <li><i class="changelog-fix"></i>Added ability to resize a row / change a row height interactively via the row headers. This gives the user the same ability for resizing as available in the row headers of the tree table.</li>
+              <li><i class="changelog-fix"></i>Consolidated license keys for Java 8 and Java 11+ version of FlexGanttFX. The versions 11.12.x and 8.12.x will now be usable with the same key.</li>
+              <li><i class="changelog-fix"></i>Moved the timezone label from the dateline to the timeline, as it was not working anymore in combination with a dateline buffer > 0.</li>
+              <li><i class="changelog-fix"></i>Removed support for dateline scrolling events. These events could not be produced correctly anymore after introducing the dateline buffer concept. Added new "visible time interval" read-only property on Timeline, which can be used instead.</li>
+              <li><i class="changelog-fix"></i>Enhanced RadarView's performance. Also added auto-redraw upon activity changes.</li>
 
-              
-              
-- product_name: Axobiz 4.2.15
-  updated_date: Sep 04 2018
-  changelog:  <li><i class="changelog-fix"></i> BungListusing a hang when returning</li>
-              <li><i class="changelog-fix"></i>Adding Interactive Google Map</li>
-              <li><i class="changelog-bug"></i>Bootstrap Tab Panel</li>
-              <li><i class="changelog-fix"></i>Bootstrap Tab Panel</li>
-              <li><i class="changelog-bug"></i>BungListusing a hang when returning</li>
-              <li><i class="changelog-fix"></i>BungListusing a hang when returning</li>
+- product_name: Release 11.11.0 (Major Release)
+  updated_date: May 2020
+  changelog:  <li><i class="changelog-fix"></i>Stopped using PNG icon files. Replaced with Material Design Icons from Ikonli.</li>
+              <li><i class="changelog-fix"></i>Added new method to show / hide links. Added new toolbar button to trigger it.</li>
+              <li><i class="changelog-fix"></i>Changed default font size used in timeline and dateline.</li>
+              <li><i class="changelog-fix"></i>Decreased default height of table header and timeline, now that we use smaller font.</li>
+              <li><i class="changelog-fix"></i>Added new "zoom mode" selector to toolbar</li>
+              <li><i class="changelog-fix"></i>Added new "show / hide scale / row header" button to toolbar</li>
+              <li><i class="changelog-fix"></i>New default value for "show hover interval" is "false"</li>
+              <li><i class="changelog-fix"></i>Added new RowHeader concept to replace things like the ScaleLayer. Renamed previous RowHeader class to RowHeaderColumn.</li>
+              <li><i class="changelog-fix"></i>Minimized number of canvas redraws for RowCanvas and LinksCanvas by listening to layout pulses from the scene and then drawing instead of immediately drawing all the time. Very similar to "requestLayout" calls, that do not immediately lay out controls but wait for a good point and time and batch multiple calls to one.</li>
+              <li><i class="changelog-bug"></i>Fixed bug where grid lines were drawn from previous time unit after zoom operation</li>
+              <li><i class="changelog-bug"></i>Fixed bug where calendar entries (e.g. weekend days) were still drawn even when currently displayed primary time unit does not want to display them.</li>
+              <li><i class="changelog-bug"></i>Fixed bug where too many listeners were added to the timeline when adding and removing Gantt chart instances to a multi Gantt chart container.</li>
+              <li><i class="changelog-bug"></i>Fixed text color used inside the context menu in the upper left corner of the tree table (used for showing / hiding columns, etc...).</li>
+              <li><i class="changelog-bug"></i>Added missing support for alpha channel / opacity to LinksCanvas / links drawing.</li>
 
-              
-              
-- product_name: Cleanhost 1.2.01
-  updated_date: Oct 04 2018
-  changelog:  <li><i class="changelog-fix"></i> BungListusing a hang when returning</li>
-              <li><i class="changelog-bug"></i>Adding Interactive Google Map</li>
-              <li><i class="changelog-fix"></i>Bootstrap Tab Panel</li>
-              <li><i class="changelog-fix"></i>Bootstrap Tab Panel</li>
-              <li><i class="changelog-bug"></i>BungListusing a hang when returning</li>
-              <li><i class="changelog-fix"></i>BungListusing a hang when returning</li>
-       
+
+- product_name: Release 11.10.0 (Performance Release)
+  updated_date: March 2020
+  changelog:  <li><i class="changelog-fix"></i>Replaced LinksPane with LinksCanvas. Links are now drawn via CanvasAPI (much faster).</li>
+              <li><i class="changelog-fix"></i>Replaced ObservableList of ActivityLinks with an IntervalTree for faster lookup.</li>
+              <li><i class="changelog-fix"></i>ActivityLink can now carry an optional user object.</li>
+              <li><i class="changelog-fix"></i>Custom link renderers can be registered on GraphicsBase.</li>
+              <li><i class="changelog-fix"></i>Reworked layout code of DatelineScale to work properly with latest CSS changes in JavaFX.</li>
+              <li><i class="changelog-fix"></i>Introduced buffers for RowCanvas and DatelineScale to reduce repaints.</li>

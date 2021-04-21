@@ -9,7 +9,7 @@
     <name>FlexGanttFX</name>
     <description>The parent project for the various FlexGanttFX modules.</description>
     <organization>
-        <name>Dirk Lemmermann Software &amp; Consulting</name>
+        <name>DLSC Software &amp; Consulting GmbH</name>
     </organization>
 
     <properties>
@@ -24,6 +24,9 @@
         <exec.maven.plugin.version>3.0.0</exec.maven.plugin.version>
         <javafx.maven.plugin.version>0.0.5</javafx.maven.plugin.version>
         <client.maven.plugin.version>0.1.36</client.maven.plugin.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.release>11</maven.compiler.release>
     </properties>
 
     <modules>
@@ -63,11 +66,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
-                <configuration>
-                    <source>11</source>
-                    <target>11</target>
-                    <release>11</release>
-                </configuration>
             </plugin>
 
             <plugin>
@@ -102,13 +100,20 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>3.2.0</version>
                 <configuration>
-                    <windowtitle>FlexGanttFX API</windowtitle>
+                    <verbose>true</verbose>
+                    <source>${maven.compiler.source}</source>
+                    <show>protected</show>
+                    <failOnWarnings>false</failOnWarnings>
+                    <release>${maven.compiler.release}</release>
+                    <stylesheet>java</stylesheet>
+
+                    <windowtitle>FlexGanttFX ${project.version} API</windowtitle>
                     <detectLinks>false</detectLinks>
                     <links>
                         <link>https://openjfx.io/javadoc/13/</link>
-                        <!--link>https://controlsfx.bitbucket.io</link -->
+                        <link>https://javadoc.io/doc/org.controlsfx/controlsfx/latest</link>
                     </links>
 
                     <groups>

@@ -1,0 +1,19 @@
+- title: Covid Data Explorer
+  url: https://demos.jpro.one/covid.html
+  image: assets/images/online-demos/online-demo-covid.jpg
+  text: This application downloads today's Covid data (incidents, deaths, etc...) from "Our World in Data" and renders them via FlexGanttFX and the "chart layout" option.
+
+- title: Emirates Airlines Resource Scheduler
+  url: https://demos.jpro.one/flexganttfx.html
+  image: assets/images/online-demos/online-demo-emirates.jpg
+  text: Emirates Airlines uses FlexGanttFX at their headquarter in Dubai to fine-tune the utilization of their aircraft fleet. Emirates developed scheduling procedures and algorithms and FlexGanttFX visualizes the results.
+
+- title: MSProject File Reader
+  url: https://demos.jpro.one/msproject.html
+  image: assets/images/online-demos/online-demo-msproject.jpg
+  text: By using third-party libraries applications can import data from all kinds of sources and display them in a FlexGanttFX UI. In this demo the open source project MPXJ is used to read a Microsoft project data file.
+
+- title: FlexGanttFX Sampler
+  url: https://www.jfx-ensemble.com/?page=project/flexganttfx
+  image: assets/images/online-demos/online-demo-sampler.jpg
+  text: This is the online version of the FXSampler demo of FlexGanttFX. Here you can try out all individual samples of this application. Each sample focuses on one or two features built into FlexGanttFX.

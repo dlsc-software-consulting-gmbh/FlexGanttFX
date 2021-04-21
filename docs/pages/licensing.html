@@ -1,0 +1,48 @@
+---
+layout: page
+title: Licensing
+add_to_menu: true
+description: "This page lists all licenses available for FlexGanttFX"
+keywords: "java,javafx,FlexGanttFX,gantt,chart,UI,download,license,runtime,development,enterprise,maintenance"
+---
+
+<!-- Start Changelog  Area -->
+<section class="changelog-area bg-color1">
+   <div class="changelog-wrapper inner-spacing">
+
+      <div class="container" data-wow-duration="2s">
+         <div class="section-title">
+            <h2 class="heading-2">Available Licenses</h2>
+            <p>This page lists the license types available for FlexGanttFX. To purchase them simply contact us via email and we will send you a quote. Once we have received
+            your order we will send you a license key which can be set via the FlexGanttFX API.</p>
+         </div>
+
+         <div class="row">
+            <div class="alert alert-danger" role="alert">
+               <div class="row">
+                  <div class="col-md-12 col-lg-12">
+                     <h4 class="alert-heading">Maintenance Plan</h4>
+                     A maintenance plan for FlexGanttFX is also available. The cost for this is 20% of the total licensing volume per year. Subscribers
+                     of the maintenance plan will receive premium support and free upgrades whenever a new major version has been released. Without a
+                     maintenance plan licensees will only be eligible for bug fix releases.
+                  </div>
+               </div>
+            </div>
+            {% for license in site.data.licenses %}
+            <div class="col-md-12 col-lg-12">
+               <div class="changelog-service wow fadeIn">
+                  <div class="changelog-tile">
+                     <h5 class="heading-5">{{license.name}}</h5>
+                  </div>
+                  <ul class="changelog-list list-inline">
+                     {{license.text}} <p><a href="{{license.url}}" class="btn btn-style2">Download PDF</a></p>
+                  </ul>
+               </div>
+            </div>
+            {% endfor %}
+         </div>
+      </div>
+   </div>
+</section>
+{% include call_to_action.html %}
+<!-- End Changelog Area -->

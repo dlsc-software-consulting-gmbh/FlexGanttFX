@@ -1,9 +1,9 @@
 ---
 layout: page
-title: Changelog
+title: Release Notes
 add_to_menu: true
-description: "Meta description for about page"
-keywords: "responsive,jekyll,minimal template"
+description: "The changes and bug fixes that went into the various FlexGanttFX releases"
+keywords: "java,javafx,FlexGanttFX,gantt,chart,UI,UX,scheduling,planning,pps,mes"
 ---
 
 <!-- Start Changelog  Area -->
@@ -12,8 +12,8 @@ keywords: "responsive,jekyll,minimal template"
       <div class="container">
          <div class="row">
             {% for change_log in site.data.changelog %}
-            <div class="col-md-6 col-lg-4">
-               <div class="changelog-service wow fadeIn" data-wow-duration="3s">
+            <div class="col-lg-6">
+               <div class="changelog-service wow fadeIn">
                   <div class="changelog-tile">
                      <h5 class="heading-5">{{change_log.product_name}}</h5>
                      <p><i class="changelog-date"></i> Updated :  {{change_log.updated_date}}</p>

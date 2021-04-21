@@ -6,7 +6,7 @@
 
 - name: Aurelien Boulanger, PlanningForce, Belgium
   designation: Software Engineer
-  url: aurelien.boulanger
+  url: https://planningforce.com
   desc: "We first had a bad experience with another Gantt library and were looking for a performing, customizable component allowing us to represent data through an attractive tool. When evaluating FlexGantt library, we have instantly been really impressed because it seemed to correspond to our main expectations and needs. Now, after a few months of use, we know that it will allow us to do almost everything we need thanks to its architecture which uses design patterns and also thanks to the continuous and reactive support provided."
   image_url: assets/images/aurelien-boulanger.jpeg
 

@@ -1,24 +1,24 @@
-- icon: /assets/images/001-computer.png
-  title: May i use Doxy in any shared hosting server?
-  subtitle: The standard chunk of Lorem Ipsum used since the 1500s is reproduced .
+- icon: /assets/images/duke-gantt.png
+  title: Is FlexGanttFX an open source project?
+  subtitle: No, FlexGanttFX is a commercial software. You need to purchase a developer license once the trial period of 30 days has expired. Once you go into production you require a runtime license for each application / project that you want to ship.
+
+- icon: /assets/images/duke-gantt.png
+  title: Do you have a Swing version of FlexGanttFX?
+  subtitle: Yes we do. Take a look at the product's <a href="https://dlsc.com/products/flexgantt/"><u>home on the DLSC website</u></a> or contact us and we will tell you more about it. The Swing version works with any Java version above 8.
+
+- icon: /assets/images/duke-gantt.png
+  title: Which Java versions does FlexGanttFX support?
+  subtitle: We have versions for Java 8 and Java 11+. The Java 8 version will use the JavaFX bundled with the JDK. The newer versions require the artifacts provided by the OpenJFX project.
+
+- icon: /assets/images/duke-gantt.png
+  title: Do you provide support for FlexGanttFX?
+  subtitle: Any licensee will receive basic support and bug fixes. An annual maintenance plan option is also available qualifying you for premium support and free updates when new versions become available.
   
-- icon: /assets/images/002-support.png
-  title: What is your support policy for that item?​
-  subtitle: Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+- icon: /assets/images/duke-gantt.png
+  title: Does FlexGanttFX run in browsers like Chrome or Safari?
+  subtitle: Via JPRO FlexGanttFX runs great in browsers. Check out <a href="https://www.jpro.one/?page=demos"><u>their website</u></a> for more info!
   
-- icon: /assets/images/004-coupon.png
-  title: Is there any Coupon code?
-  subtitle: The standard chunk of Lorem Ipsum used since the 1500s is reproduced .
-  
-- icon: /assets/images/005-payment-method.png
-  title: How do i pay for doxy?
-  subtitle: All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks.
-  
-- icon: /assets/images/006-social-care.png
-  title: Can you help me to modify my site?
-  subtitle: But I must explain to you how all this mistaken idea of denouncing pleasure .
-  
-- icon: /assets/images/006-social-care.png
-  title: Why should i choose that template?
-  subtitle: There are many variations of passages of Lorem Ipsum available, but the majority have suffered .
+- icon: /assets/images/duke-gantt.png
+  title: Which version of OpenJFX should we use?
+  subtitle: Ideally you use the last one, which currently is version 16.
   

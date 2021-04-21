@@ -120,7 +120,9 @@ public class AgendaLayout extends Layout {
 	 * Returns the property used for storing the start time of the agenda. The
 	 * start time is used for the vertical time scale. The default value of this
 	 * property is {@link LocalTime#MIN}, which is equivalent to midnight.
+	 * <p>
 	 * <img src="doc-files/scale-agenda.png" alt="Agenda Scale">
+	 * </p>
 	 *
 	 * @return the start time used for the agenda layout
 	 * @since 1.0
@@ -157,7 +159,10 @@ public class AgendaLayout extends Layout {
 	 * Returns the property used for storing the end time of the agenda. The end
 	 * time is used for the vertical time scale. The default value of this
 	 * property is {@link LocalTime#MAX}, which is equivalent to the time just
-	 * before midnight. <img src="doc-files/scale-agenda.png" alt="Agenda Scale">
+	 * before midnight.
+	 * <p>
+	 * <img src="doc-files/scale-agenda.png" alt="Agenda Scale">
+	 * </p>
 	 *
 	 * @return the start time used for the agenda layout
 	 * @since 1.0
