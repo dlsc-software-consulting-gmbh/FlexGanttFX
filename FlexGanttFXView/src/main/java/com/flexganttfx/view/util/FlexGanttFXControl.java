@@ -13,6 +13,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Control;
 
 import java.time.Instant;
+import java.time.Year;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
@@ -97,8 +98,8 @@ public abstract class FlexGanttFXControl extends Control {
 				System.out.println("Development License (do not use in production systems)");
 			}
 
-			System.out.println("(c) 2013-2020 DLSC Software & Consulting GmbH");
-			System.out.println("https://www.dlsc.com");
+			System.out.println("(c) 2013-" + Year.now() + " DLSC Software & Consulting GmbH");
+			System.out.println("https://www.dlsc.com, https://www.flexganttfx.com");
 		}
 	}
 
