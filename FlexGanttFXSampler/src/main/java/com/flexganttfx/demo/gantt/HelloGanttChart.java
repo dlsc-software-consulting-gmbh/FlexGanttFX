@@ -11,11 +11,14 @@ import com.flexganttfx.demo.HelloRow;
 import com.flexganttfx.extras.properties.view.GanttChartConfigurationView;
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.view.GanttChart;
+import com.flexganttfx.view.GanttChartBase;
 import javafx.application.Application;
 import javafx.scene.Node;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 
 public class HelloGanttChart extends FlexGanttFXSample {
 
@@ -35,6 +38,11 @@ public class HelloGanttChart extends FlexGanttFXSample {
 
         Layer layer = new Layer("layer");
         gc.getLayers().add(layer);
+        gc.setScrollBarType(GanttChartBase.ScrollBarType.FIXED_HORIZON);
+        gc.setAutoHideScrollBar(false);
+
+        gc.getTimeline().getModel().setHorizonStartTime(ZonedDateTime.now().truncatedTo(ChronoUnit.DAYS).toInstant());
+        gc.getTimeline().getModel().setHorizonEndTime(ZonedDateTime.now().plusMonths(3).truncatedTo(ChronoUnit.DAYS).toInstant());
 
         HelloActivity activity = new HelloActivity();
         activity.setStartTime(Instant.now());

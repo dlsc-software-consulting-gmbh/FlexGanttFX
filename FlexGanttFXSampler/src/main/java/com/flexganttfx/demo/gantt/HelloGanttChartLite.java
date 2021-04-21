@@ -13,6 +13,9 @@ import com.flexganttfx.view.GanttChartLite;
 import javafx.application.Application;
 import javafx.scene.Node;
 
+import java.time.Instant;
+import java.time.ZonedDateTime;
+
 public class HelloGanttChartLite extends FlexGanttFXSample {
 
     private GanttChartLite<HelloRow> gc;
@@ -26,6 +29,10 @@ public class HelloGanttChartLite extends FlexGanttFXSample {
     @Override
     protected GanttChartBase<?> createGanttChart() {
         gc = new GanttChartLite<>();
+        gc.setScrollBarType(GanttChartBase.ScrollBarType.FIXED_HORIZON);
+        gc.setAutoHideScrollBar(false);
+        gc.getTimeline().getModel().setHorizonStartTime(Instant.now());
+        gc.getTimeline().getModel().setHorizonEndTime(ZonedDateTime.now().plusMonths(4).toInstant());
         for (int i = 0; i < 100; i++) {
             HelloRow row = new HelloRow("Row " + i);
             gc.getRows().add(row);

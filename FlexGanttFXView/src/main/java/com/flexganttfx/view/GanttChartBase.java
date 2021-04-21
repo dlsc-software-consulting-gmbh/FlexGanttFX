@@ -114,7 +114,7 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
 
         horizonScrollBar.valueProperty().addListener(it -> {
             Long value = Double.valueOf(horizonScrollBar.getValue()).longValue();
-            getMasterTimeline().getModel().setStartTime(Instant.ofEpochMilli(value.longValue()));
+            getMasterTimeline().getModel().setStartTime(timeline.getModel().getHorizonStartTime().plusMillis(value.longValue()));
         });
 
         Label noDetailsLabel = new Label("No Details");
@@ -137,10 +137,26 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
         ScrollBar scrollBar = getHorizonScrollBar();
         Timeline timeline = getMasterTimeline();
         TimelineModel<?> timelineModel = timeline.getModel();
-        scrollBar.setValue(timelineModel.getStartTime().toEpochMilli());
 
-        long visibleAmount = timeline.getVisibleEndTime().toEpochMilli() - timeline.getVisibleStartTime().toEpochMilli();
-        scrollBar.setVisibleAmount(visibleAmount);
+        Instant horizonStartTime = timelineModel.getHorizonStartTime();
+        Instant horizonEndTime = timelineModel.getHorizonEndTime();
+
+        if (horizonStartTime != null && horizonEndTime != null) {
+            long value = timelineModel.getStartTime().toEpochMilli() - timelineModel.getHorizonStartTime().toEpochMilli();
+            long visibleAmount = timeline.getVisibleEndTime().toEpochMilli() - timeline.getVisibleStartTime().toEpochMilli();
+            long startMillis = horizonStartTime.toEpochMilli();
+            long endMillis = horizonEndTime.toEpochMilli();
+
+            // visible amount needs to be adjusted because the max value will also be smaller (subtracting the visible amount)
+            double adjuster = ((double) endMillis - (double) startMillis - (double) visibleAmount) / ((double) endMillis - (double) startMillis);
+
+            scrollBar.setMin(0);
+            scrollBar.setMax(endMillis - startMillis - visibleAmount);
+            scrollBar.setValue(value);
+            scrollBar.setVisibleAmount(visibleAmount * adjuster);
+            scrollBar.setBlockIncrement(scrollBar.getVisibleAmount() / 2);
+            scrollBar.setUnitIncrement(scrollBar.getVisibleAmount() / 10);
+        }
     };
 
     private final WeakInvalidationListener weakUpdateHorizonScrollBarListener = new WeakInvalidationListener(updateHorizonScrollBarListener);
@@ -160,15 +176,13 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
     }
 
     private void connectHorizonScrollBarToTimelineModel(TimelineModel model) {
-        horizonScrollBar.minProperty().bind(Bindings.createDoubleBinding(() -> model.getHorizonStartTime() != null ? model.getHorizonStartTime().toEpochMilli() : 0d, model.horizonStartTimeProperty()));
-        horizonScrollBar.maxProperty().bind(Bindings.createDoubleBinding(() -> model.getHorizonEndTime() != null ? model.getHorizonEndTime().toEpochMilli() : 0d, model.horizonEndTimeProperty()));
         model.startTimeProperty().addListener(weakUpdateHorizonScrollBarListener);
+        model.horizonEndTimeProperty().addListener(weakUpdateHorizonScrollBarListener);
     }
 
     private void disconnectHorizonScrollBarFromTimelineModel(TimelineModel model) {
-        horizonScrollBar.minProperty().unbind();
-        horizonScrollBar.maxProperty().unbind();
         model.startTimeProperty().removeListener(weakUpdateHorizonScrollBarListener);
+        model.horizonEndTimeProperty().removeListener(weakUpdateHorizonScrollBarListener);
     }
 
     /**
