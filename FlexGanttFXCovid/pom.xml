@@ -57,21 +57,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.controlsfx</groupId>
-            <artifactId>controlsfx</artifactId>
-            <version>11.0.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>eu.hansolo</groupId>
-            <artifactId>tilesfx</artifactId>
-            <version>11.41</version>
-        </dependency>
-
-        <dependency>
             <groupId>fr.brouillard.oss</groupId>
             <artifactId>cssfx</artifactId>
-            <version>11.3.0</version>
+            <version>11.4.0</version>
         </dependency>
 
         <dependency>
