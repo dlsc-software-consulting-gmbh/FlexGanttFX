@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FlexGanttFX Developer Manual : 3.1.5 Row Header</title>
+    <link rel="stylesheet" href="styles/site.css" type="text/css"/>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body class="theme-default aui-theme-default">
+<div id="page">
+    <div id="main" class="aui-page-panel">
+        <div id="main-header">
+            <div id="breadcrumb-section">
+                <ol id="breadcrumbs">
+                    <li class="first">
+                        <span><a href="index.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="FlexGanttFX-Developer-Manual_491528.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="3.-Controls_491598.html">3. Controls</a></span>
+                    </li>
+                    <li>
+                        <span><a href="3.1-GanttChart_491607.html">3.1 GanttChart</a></span>
+                    </li>
+                </ol>
+            </div>
+            <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            FlexGanttFX Developer Manual : 3.1.5 Row Header
+                        </span>
+            </h1>
+        </div>
+
+        <div id="content" class="view">
+            <div class="page-metadata">
+
+
+                Created by <span class='author'> Dirk Lemmermann</span>, last modified on Oct 08, 2014
+            </div>
+            <div id="main-content" class="wiki-content group">
+                <p>
+                    <style type='text/css'>/*<![CDATA[*/
+                    div.rbtoc1633442027477 {
+                        padding: 0px;
+                    }
+
+                    div.rbtoc1633442027477 ul {
+                        list-style: disc;
+                        margin-left: 0px;
+                    }
+
+                    div.rbtoc1633442027477 li {
+                        margin-left: 0px;
+                        padding-left: 0px;
+                    }
+
+                    /*]]>*/</style>
+                <div class='toc-macro rbtoc1633442027477'>
+                    <ul class='toc-indentation'>
+                        <li><a href='#id-3.1.5RowHeader-Introduction'>Introduction</a></li>
+                        <li><a href='#id-3.1.5RowHeader-RowHeaderType'>Row Header Type</a></li>
+                        <li><a href='#id-3.1.5RowHeader-RowHeaderFactory'>Row Header Factory</a></li>
+                    </ul>
+                </div>
+                </p><h2 id="id-3.1.5RowHeader-Introduction">Introduction</h2>
+                <p>The first column in the tree table view is called &quot;row header&quot;. This column is provided by
+                    the framework and can not be removed. By default it is used to display row numbers but can be reused
+                    for other purposes. The RowHeader class is a subclass of TreeTableColumn with some special logic to
+                    it. It supports row resizing and might call back on a factory to produce its graphic.</p>
+                <h2 id="id-3.1.5RowHeader-RowHeaderType">Row Header Type</h2>
+                <p>The enumerator <strong>RowHeaderType</strong> defines the different ways the row header can be used.
+                </p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Value</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>GRAPIC_NODE</pre>
+                            </td>
+                            <td class="confluenceTd"><p>Makes the row header cells display a custom node for each
+                                row.</p>
+                                <p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image"
+                                                                                       confluence-query-params="effects=border-simple,blur-border"
+                                                                                       loading="lazy"
+                                                                                       src="attachments/491950/983080.png?effects=border-simple,blur-border"
+                                                                                       data-image-src="attachments/491950/983080.png"
+                                                                                       data-unresolved-comment-count="0"
+                                                                                       data-linked-resource-id="983080"
+                                                                                       data-linked-resource-version="1"
+                                                                                       data-linked-resource-type="attachment"
+                                                                                       data-linked-resource-default-alias="header-controls.png"
+                                                                                       data-base-url="https://flexgantt.atlassian.net/wiki"
+                                                                                       data-linked-resource-content-type="image/png"
+                                                                                       data-linked-resource-container-id="491950"
+                                                                                       data-linked-resource-container-version="5"
+                                                                                       data-media-id="15e28a70-4501-4e04-8c50-709dc4ca261b"
+                                                                                       data-media-type="file"></span>
+                                </p></td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>LEVEL_NUMBER</pre>
+                            </td>
+                            <td class="confluenceTd"><p>Makes the row header cells display the level number of the
+                                current row (1, 1.1, 1.2, 2, 2.1, 2.2, 2.3, ...).</p>
+                                <p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image"
+                                                                                       confluence-query-params="effects=border-simple,blur-border"
+                                                                                       loading="lazy"
+                                                                                       src="attachments/491950/983081.png?effects=border-simple,blur-border"
+                                                                                       data-image-src="attachments/491950/983081.png"
+                                                                                       data-unresolved-comment-count="0"
+                                                                                       data-linked-resource-id="983081"
+                                                                                       data-linked-resource-version="1"
+                                                                                       data-linked-resource-type="attachment"
+                                                                                       data-linked-resource-default-alias="header-levels.pg.png"
+                                                                                       data-base-url="https://flexgantt.atlassian.net/wiki"
+                                                                                       data-linked-resource-content-type="image/png"
+                                                                                       data-linked-resource-container-id="491950"
+                                                                                       data-linked-resource-container-version="5"
+                                                                                       data-media-id="6319379f-d175-43e9-a584-e5394b7ce9f3"
+                                                                                       data-media-type="file"></span>
+                                </p></td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>ROW_NUMBER</pre>
+                            </td>
+                            <td class="confluenceTd"><p>Makes the row header cells display the number of the current row
+                                (1, 2, 3, ....).</p>
+                                <p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image"
+                                                                                       confluence-query-params="effects=border-simple,blur-border"
+                                                                                       loading="lazy"
+                                                                                       src="attachments/491950/983082.png?effects=border-simple,blur-border"
+                                                                                       data-image-src="attachments/491950/983082.png"
+                                                                                       data-unresolved-comment-count="0"
+                                                                                       data-linked-resource-id="983082"
+                                                                                       data-linked-resource-version="1"
+                                                                                       data-linked-resource-type="attachment"
+                                                                                       data-linked-resource-default-alias="header-numbers.png"
+                                                                                       data-base-url="https://flexgantt.atlassian.net/wiki"
+                                                                                       data-linked-resource-content-type="image/png"
+                                                                                       data-linked-resource-container-id="491950"
+                                                                                       data-linked-resource-container-version="5"
+                                                                                       data-media-id="2a49f67f-3b99-4212-a3fd-bf0c3b3c70e9"
+                                                                                       data-media-type="file"></span>
+                                </p></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h2 id="id-3.1.5RowHeader-RowHeaderFactory"><span style="color: rgb(0,0,0);">Row Header Factory</span>
+                </h2>
+                <p>If the graphic node header type is chosen then the row header will call back on the row header node
+                    factory that is supplied by the GanttChart class. The following example shows how to register a
+                    possible implementation of such a factory.</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Row Header Node
+                        Factory</b></div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">ganttChart.setRowHeaderNodeFactory(row -&gt; {
+	public Node call(R row) {
+		Button delete = new Button(&quot;Delete&quot;);
+		delete.setOnAction(evt -&gt; deleteRow(row));
+		return delete;
+	}
+});
+ </pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pageSection group">
+                <div class="pageSectionHeader">
+                    <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                </div>
+
+                <div class="greybox" align="left">
+                    <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                    <a href="attachments/491950/983080.png">header-controls.png</a> (image/png)
+                    <br/>
+                    <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                    <a href="attachments/491950/983081.png">header-levels.pg.png</a> (image/png)
+                    <br/>
+                    <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                    <a href="attachments/491950/983082.png">header-numbers.png</a> (image/png)
+                    <br/>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

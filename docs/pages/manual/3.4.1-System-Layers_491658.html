@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FlexGanttFX Developer Manual : 3.4.1 System Layers</title>
+    <link rel="stylesheet" href="styles/site.css" type="text/css"/>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body class="theme-default aui-theme-default">
+<div id="page">
+    <div id="main" class="aui-page-panel">
+        <div id="main-header">
+            <div id="breadcrumb-section">
+                <ol id="breadcrumbs">
+                    <li class="first">
+                        <span><a href="index.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="FlexGanttFX-Developer-Manual_491528.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="3.-Controls_491598.html">3. Controls</a></span>
+                    </li>
+                    <li>
+                        <span><a href="3.5-GraphicsBase_491612.html">3.5 GraphicsBase</a></span>
+                    </li>
+                </ol>
+            </div>
+            <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            FlexGanttFX Developer Manual : 3.4.1 System Layers
+                        </span>
+            </h1>
+        </div>
+
+        <div id="content" class="view">
+            <div class="page-metadata">
+
+
+                Created by <span class='author'> Dirk Lemmermann</span>, last modified on Sep 01, 2017
+            </div>
+            <div id="main-content" class="wiki-content group">
+                <h2 id="id-3.4.1SystemLayers-/*&lt;![CDATA[*/div.rbtoc1633442035452{padding:0px;}div.rbtoc1633442035452ul{list-style:disc;margin-left:0px;}div.rbtoc1633442035452li{margin-left:0px;padding-left:0px;}/*]]&gt;*/#id-3.4.1SystemLayers-Introduction#id-3.4.1SystemLayers-Intro">
+                    <style type='text/css'>/*<![CDATA[*/
+                    div.rbtoc1633442035452 {
+                        padding: 0px;
+                    }
+
+                    div.rbtoc1633442035452 ul {
+                        list-style: disc;
+                        margin-left: 0px;
+                    }
+
+                    div.rbtoc1633442035452 li {
+                        margin-left: 0px;
+                        padding-left: 0px;
+                    }
+
+                    /*]]>*/</style>
+                    <div class='toc-macro rbtoc1633442035452'>
+                        <ul class='toc-indentation'>
+                            <li><a href='#id-3.4.1SystemLayers-'></a></li>
+                            <li><a href='#id-3.4.1SystemLayers-Introduction'>Introduction</a></li>
+                            <li><a href='#id-3.4.1SystemLayers-AvailableLayers'>Available Layers</a></li>
+                        </ul>
+                    </div>
+                </h2>
+                <h2 id="id-3.4.1SystemLayers-Introduction">Introduction</h2>
+                <p>System layers are used in the background and foreground of each row. A background layer gets drawn
+                    <u>before</u> the activities are drawn while a foreground layer gets drawn <u>after</u> the
+                    activities are drawn. Each layer is specialized on drawing one type of information: current time,
+                    selected time intervals, grid lines, and so on. The <a href="3.5-GraphicsBase_491612.html"
+                                                                           data-linked-resource-id="491612"
+                                                                           data-linked-resource-version="43"
+                                                                           data-linked-resource-type="page">graphics
+                        view</a> manages the layers in two lists and provides convenience methods to easily look them
+                    up.</p>
+                <div class="table-wrap">
+                    <table class="wrapped confluenceTable">
+                        <colgroup>
+                            <col/>
+                            <col/>
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Method</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>getBackgroundSystemLayers()</pre>
+                            </td>
+                            <td class="confluenceTd">Returns the complete list of system layers used in the background
+                                of activities.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>getForegroundSystemLayers()</pre>
+                            </td>
+                            <td class="confluenceTd">Returns the complete list of system layers used in the foreground
+                                of activities.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>getBackgroundSystemLayer(Class)</pre>
+                            </td>
+                            <td class="confluenceTd">Returns the system background layer instance of the given type.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>getForegroundSystemLayer(Class)</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd"><span>Returns the system foreground layer instance of the given type.</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>getSystemLayer(Class)</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd"><span>Returns the system layer instance of the given type, no matter if it is a foreground or background layer.</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <ul>
+                    <li>Layers can be added to or removed from the graphics view by adding them to or removing them from
+                        the foreground or background list.
+                    </li>
+                    <li>Once you have looked up a layer you can set its properties to customize its appearance. The most
+                        common properties are used for line colors and widths.
+                    </li>
+                </ul>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>System Layer
+                        Example</b></div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+NowLineLayer nowLayer = graphics.getBackgroundSystemLayer(NowLineLayer .class);
+nowLayer.setStroke(Color.ORANGE);
+nowLayer.setLineWidth(3); // thick line</pre>
+                    </div>
+                </div>
+                <div class="confluence-information-macro confluence-information-macro-note"><p class="title">System
+                    Layers vs. Model Layers</p><span
+                        class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span>
+                    <div class="confluence-information-macro-body"><p><span>Please note that </span><u>system</u><span> layers are not related in any way to </span><a
+                            href="4.6-Layer_491705.html" data-linked-resource-id="491705"
+                            data-linked-resource-version="3" data-linked-resource-type="page">model layers</a><span>. A system layer is basically a renderer for some graphical feedback while a model layer is used for grouping activities.</span>
+                    </p></div>
+                </div>
+                <h2 id="id-3.4.1SystemLayers-AvailableLayers">Available Layers</h2>
+                <p>The following table lists all system layers that are shipping with
+                    <strong><em>FlexGanttFX</em></strong>. The last two columns (FG, BG) are used to indicate whether
+                    the layer is used as a foreground or as a background layer.</p>
+                <div class="table-wrap">
+                    <table class="wrapped confluenceTable">
+                        <colgroup>
+                            <col/>
+                            <col/>
+                            <col/>
+                            <col/>
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Layer</th>
+                            <th class="confluenceTh">Description</th>
+                            <th colspan="1" class="confluenceTh">FG</th>
+                            <th colspan="1" class="confluenceTh">BG</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd"><strong>AgendaLinesLayer</strong></td>
+                            <td class="confluenceTd">Draws the horizontal grid lines for a <a href="4.5-Row_491703.html"
+                                                                                              data-linked-resource-id="491703"
+                                                                                              data-linked-resource-version="8"
+                                                                                              data-linked-resource-type="page">row</a>
+                                if the row or any of its inner lines are using the <a
+                                        href="4.8.2-Agenda-Layout_492047.html" data-linked-resource-id="492047"
+                                        data-linked-resource-version="6" data-linked-resource-type="page">agenda
+                                    layout</a>.
+                            </td>
+                            <td colspan="1" class="confluenceTd"><br/></td>
+                            <td colspan="1" class="confluenceTd"><img class="emoticon emoticon-tick" title="(tick)"
+                                                                      border="0"
+                                                                      src="http://flexgantt.atlassian.net/wiki/s/447985187/6452/a3302e550db7e1a9ac10ba0e5e7904434428a82b/_/images/icons/emoticons/check.png"
+                                                                      alt="(tick)"/></td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd"><strong>CalendarLayer</strong></td>
+                            <td class="confluenceTd">Draws the entries returned by the <a
+                                    href="4.9-Calendar_491718.html" data-linked-resource-id="491718"
+                                    data-linked-resource-version="8" data-linked-resource-type="page">calendars </a>attached
+                                to a <a href="4.5-Row_491703.html" data-linked-resource-id="491703"
+                                        data-linked-resource-version="8" data-linked-resource-type="page">row </a>or
+                                attached to the entire graphics view. The calendar layer uses pluggable renderers that
+                                are mapped to the entry types. Applications can register their own renderers by calling
+                                <strong>CalendarLayer.setCalendarActivityRenderer()</strong>.
+                            </td>
+                            <td colspan="1" class="confluenceTd"><br/></td>
+                            <td colspan="1" class="confluenceTd"><img class="emoticon emoticon-tick" title="(tick)"
+                                                                      border="0"
+                                                                      src="http://flexgantt.atlassian.net/wiki/s/447985187/6452/a3302e550db7e1a9ac10ba0e5e7904434428a82b/_/images/icons/emoticons/check.png"
+                                                                      alt="(tick)"/></td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd"><strong>ChartLinesLayer</strong></td>
+                            <td class="confluenceTd">Draws the horizontal grid lines for a <a href="4.5-Row_491703.html"
+                                                                                              data-linked-resource-id="491703"
+                                                                                              data-linked-resource-version="8"
+                                                                                              data-linked-resource-type="page">row </a>if
+                                the row or any of its inner lines are using the <a href="4.8.3-Chart-Layout_492049.html"
+                                                                                   data-linked-resource-id="492049"
+                                                                                   data-linked-resource-version="5"
+                                                                                   data-linked-resource-type="page">chart
+                                    layout</a>.
+                            </td>
+                            <td colspan="1" class="confluenceTd"><br/></td>
+                            <td colspan="1" class="confluenceTd"><img class="emoticon emoticon-tick" title="(tick)"
+                                                                      border="0"
+                                                                      src="http://flexgantt.atlassian.net/wiki/s/447985187/6452/a3302e550db7e1a9ac10ba0e5e7904434428a82b/_/images/icons/emoticons/check.png"
+                                                                      alt="(tick)"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="confluenceTd"><strong>DSTLineLayer</strong></td>
+                            <td colspan="1" class="confluenceTd">Draws a vertical line at the time when the daylight
+                                saving time changes.
+                            </td>
+                            <td colspan="1" class="confluenceTd"><br/></td>
+                            <td colspan="1" class="confluenceTd"><span class="confluence-embedded-file-wrapper"><img
+                                    class="confluence-embedded-image emoticon emoticon-tick confluence-external-resource"
+                                    alt="(tick)"
+                                    src="http://flexgantt.atlassian.net/wiki/s/447985187/6452/a3302e550db7e1a9ac10ba0e5e7904434428a82b/_/images/icons/emoticons/check.png"
+                                    data-image-src="http://flexgantt.atlassian.net/wiki/s/447985187/6452/a3302e550db7e1a9ac10ba0e5e7904434428a82b/_/images/icons/emoticons/check.png"
+                                    loading="lazy"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd"><strong>GridLinesLayer</strong></td>
+                            <td class="confluenceTd">Draws the vertical grid lines based on the scale resolutions
+                                currently present in the <a href="3.7-Dateline_491628.html"
+                                                            data-linked-resource-id="491628"
+                                                            data-linked-resource-version="32"
+                                                            data-linked-resource-type="page">dateline</a>. The layer can
+                                be configured to display 0 to 3 grid line levels. If the <a
+                                        href="3.7-Dateline_491628.html" data-linked-resource-id="491628"
+                                        data-linked-resource-version="32" data-linked-resource-type="page">dateline</a>
+                                is, for example, showing days and weeks then a level of 2 would cause the layer to draw
+                                grid lines for days and weeks, while a grid line level of 1 would only render grid lines
+                                for days.
+                            </td>
+                            <td colspan="1" class="confluenceTd"><br/></td>
+                            <td colspan="1" class="confluenceTd"><img class="emoticon emoticon-tick" title="(tick)"
+                                                                      border="0"
+                                                                      src="http://flexgantt.atlassian.net/wiki/s/447985187/6452/a3302e550db7e1a9ac10ba0e5e7904434428a82b/_/images/icons/emoticons/check.png"
+                                                                      alt="(tick)"/></td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd"><strong>HoverTimeIntervalLayer</strong></td>
+                            <td class="confluenceTd">Draws the hover time interval specified by the <a
+                                    href="3.7-Dateline_491628.html" data-linked-resource-id="491628"
+                                    data-linked-resource-version="32" data-linked-resource-type="page">dateline</a>. If
+                                the mouse cursor hovers over a week in the <a href="3.7-Dateline_491628.html"
+                                                                              data-linked-resource-id="491628"
+                                                                              data-linked-resource-version="32"
+                                                                              data-linked-resource-type="page">dateline </a>then
+                                the layer will fill the time interval defined by this week with a highlighting color.
+                            </td>
+                            <td colspan="1" class="confluenceTd"><br/></td>
+                            <td colspan="1" class="confluenceTd"><img class="emoticon emoticon-tick" title="(tick)"
+                                                                      border="0"
+                                                                      src="http://flexgantt.atlassian.net/wiki/s/447985187/6452/a3302e550db7e1a9ac10ba0e5e7904434428a82b/_/images/icons/emoticons/check.png"
+                                                                      alt="(tick)"/></td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd"><strong>InnerLinesLayer</strong></td>
+                            <td class="confluenceTd">
+                                <div class="content-wrapper"><p>Draws separator lines between inner lines.</p>
+                                    <div class="confluence-information-macro confluence-information-macro-note"><span
+                                            class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span>
+                                        <div class="confluence-information-macro-body"><p><span>By default the line width property of this layer is set to 0 and the lines will not be drawn at all. To change this simply set a line width greater than 0.</span>
+                                        </p></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td colspan="1" class="confluenceTd"><br/></td>
+                            <td colspan="1" class="confluenceTd"><img class="emoticon emoticon-tick" title="(tick)"
+                                                                      border="0"
+                                                                      src="http://flexgantt.atlassian.net/wiki/s/447985187/6452/a3302e550db7e1a9ac10ba0e5e7904434428a82b/_/images/icons/emoticons/check.png"
+                                                                      alt="(tick)"/></td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd"><strong>LayoutLayer</strong></td>
+                            <td class="confluenceTd">Draws the <a href="4.8-Layout_491714.html"
+                                                                  data-linked-resource-id="491714"
+                                                                  data-linked-resource-version="8"
+                                                                  data-linked-resource-type="page">layout </a>padding
+                                areas. Each layout may have some padding added to its top and bottom. This layer fills
+                                the padding area with a solid color.
+                            </td>
+                            <td colspan="1" class="confluenceTd"><span class="confluence-embedded-file-wrapper"><img
+                                    class="confluence-embedded-image emoticon emoticon-tick confluence-external-resource"
+                                    alt="(tick)"
+                                    src="http://flexgantt.atlassian.net/wiki/s/447985187/6452/a3302e550db7e1a9ac10ba0e5e7904434428a82b/_/images/icons/emoticons/check.png"
+                                    data-image-src="http://flexgantt.atlassian.net/wiki/s/447985187/6452/a3302e550db7e1a9ac10ba0e5e7904434428a82b/_/images/icons/emoticons/check.png"
+                                    loading="lazy"></span></td>
+                            <td colspan="1" class="confluenceTd"><br/></td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd"><strong>NowLineLayer</strong></td>
+                            <td class="confluenceTd">Draws a vertical line at the location of the current time / now
+                                time. The current time is defined in the <a href="3.5.1-Timeline-Model_491797.html"
+                                                                            data-linked-resource-id="491797"
+                                                                            data-linked-resource-version="13"
+                                                                            data-linked-resource-type="page">timeline
+                                    model</a>.
+                            </td>
+                            <td colspan="1" class="confluenceTd"><br/></td>
+                            <td colspan="1" class="confluenceTd"><img class="emoticon emoticon-tick" title="(tick)"
+                                                                      border="0"
+                                                                      src="http://flexgantt.atlassian.net/wiki/s/447985187/6452/a3302e550db7e1a9ac10ba0e5e7904434428a82b/_/images/icons/emoticons/check.png"
+                                                                      alt="(tick)"/></td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd"><strong>RowLayer</strong></td>
+                            <td class="confluenceTd">Draws the background of each row. The layer can be configured with
+                                pluggable renderers that are mapped to the type of the row. Applications can register
+                                their own renderers by calling <strong>RowLayer.setRowRenderer()</strong>. For more
+                                information please read <a href="3.4.7-Row-Rendering_492288.html"
+                                                           data-linked-resource-id="492288"
+                                                           data-linked-resource-version="7"
+                                                           data-linked-resource-type="page">3.4.7 Row Rendering</a>.
+                            </td>
+                            <td colspan="1" class="confluenceTd"><br/></td>
+                            <td colspan="1" class="confluenceTd"><img class="emoticon emoticon-tick" title="(tick)"
+                                                                      border="0"
+                                                                      src="http://flexgantt.atlassian.net/wiki/s/447985187/6452/a3302e550db7e1a9ac10ba0e5e7904434428a82b/_/images/icons/emoticons/check.png"
+                                                                      alt="(tick)"/></td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd"><strong>ScaleLayer</strong></td>
+                            <td class="confluenceTd">Draws a scale for an entire <a href="4.5-Row_491703.html"
+                                                                                    data-linked-resource-id="491703"
+                                                                                    data-linked-resource-version="8"
+                                                                                    data-linked-resource-type="page">row </a>or
+                                for each line within the row. Scales vary depending on the <a
+                                        href="4.8-Layout_491714.html" data-linked-resource-id="491714"
+                                        data-linked-resource-version="8" data-linked-resource-type="page">layout </a>used
+                                for the row / line. The scale for the <a href="4.8.3-Chart-Layout_492049.html"
+                                                                         data-linked-resource-id="492049"
+                                                                         data-linked-resource-version="5"
+                                                                         data-linked-resource-type="page">chart
+                                    layout </a>displays the minimum and maximum values while the scale for the <a
+                                        href="4.8.2-Agenda-Layout_492047.html" data-linked-resource-id="492047"
+                                        data-linked-resource-version="6" data-linked-resource-type="page">agenda
+                                    layout</a> displays a time scale (8am, 9am, 10am, .....). The labels and dashes in
+                                the scale layer have to align perfectly with the lines drawn by the agenda lines layer
+                                and the chart lines layer.
+                            </td>
+                            <td colspan="1" class="confluenceTd"><img class="emoticon emoticon-tick" title="(tick)"
+                                                                      border="0"
+                                                                      src="http://flexgantt.atlassian.net/wiki/s/447985187/6452/a3302e550db7e1a9ac10ba0e5e7904434428a82b/_/images/icons/emoticons/check.png"
+                                                                      alt="(tick)"/></td>
+                            <td colspan="1" class="confluenceTd"><br/></td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd"><strong>SelectedTimeIntervalsLayer</strong></td>
+                            <td class="confluenceTd">Draws the time intervals that were selected by the user (or the
+                                application) in the <a href="3.7-Dateline_491628.html" data-linked-resource-id="491628"
+                                                       data-linked-resource-version="32"
+                                                       data-linked-resource-type="page">dateline</a>.
+                            </td>
+                            <td colspan="1" class="confluenceTd"><br/></td>
+                            <td colspan="1" class="confluenceTd"><img class="emoticon emoticon-tick" title="(tick)"
+                                                                      border="0"
+                                                                      src="http://flexgantt.atlassian.net/wiki/s/447985187/6452/a3302e550db7e1a9ac10ba0e5e7904434428a82b/_/images/icons/emoticons/check.png"
+                                                                      alt="(tick)"/></td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd"><strong>ZoomIntervalLayer</strong></td>
+                            <td class="confluenceTd">Draws the zoom interval as defined by the timeline. The zoom
+                                interval gets created by the user via the help of the timeline lasso.
+                            </td>
+                            <td colspan="1" class="confluenceTd"><br/></td>
+                            <td colspan="1" class="confluenceTd"><img class="emoticon emoticon-tick" title="(tick)"
+                                                                      border="0"
+                                                                      src="http://flexgantt.atlassian.net/wiki/s/447985187/6452/a3302e550db7e1a9ac10ba0e5e7904434428a82b/_/images/icons/emoticons/check.png"
+                                                                      alt="(tick)"/></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

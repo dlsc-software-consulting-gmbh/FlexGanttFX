@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FlexGanttFX Developer Manual : 4.4 ActivityRepository</title>
+    <link rel="stylesheet" href="styles/site.css" type="text/css"/>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body class="theme-default aui-theme-default">
+<div id="page">
+    <div id="main" class="aui-page-panel">
+        <div id="main-header">
+            <div id="breadcrumb-section">
+                <ol id="breadcrumbs">
+                    <li class="first">
+                        <span><a href="index.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="FlexGanttFX-Developer-Manual_491528.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="4.-Model_491687.html">4. Model</a></span>
+                    </li>
+                </ol>
+            </div>
+            <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            FlexGanttFX Developer Manual : 4.4 ActivityRepository
+                        </span>
+            </h1>
+        </div>
+
+        <div id="content" class="view">
+            <div class="page-metadata">
+
+
+                Created by <span class='author'> Dirk Lemmermann</span>, last modified on Nov 27, 2015
+            </div>
+            <div id="main-content" class="wiki-content group">
+                <p class="block">
+                    <style type='text/css'>/*<![CDATA[*/
+                    div.rbtoc1633442046053 {
+                        padding: 0px;
+                    }
+
+                    div.rbtoc1633442046053 ul {
+                        list-style: disc;
+                        margin-left: 0px;
+                    }
+
+                    div.rbtoc1633442046053 li {
+                        margin-left: 0px;
+                        padding-left: 0px;
+                    }
+
+                    /*]]>*/</style>
+                <div class='toc-macro rbtoc1633442046053'>
+                    <ul class='toc-indentation'>
+                        <li><a href='#id-4.4ActivityRepository-Introduction'>Introduction</a></li>
+                        <li><a href='#id-4.4ActivityRepository-Queries'>Queries</a></li>
+                        <li><a href='#id-4.4ActivityRepository-Earliest/LatestTimeUsed'>Earliest / Latest Time Used</a>
+                        </li>
+                        <li><a href='#id-4.4ActivityRepository-UpdatingActivities'>Updating Activities</a></li>
+                        <li><a href='#id-4.4ActivityRepository-EventHandling'>Event Handling</a></li>
+                    </ul>
+                </div>
+                </p><h2 class="block" id="id-4.4ActivityRepository-Introduction">Introduction</h2>
+                <p class="block">Activity repositories are used by rows to store and lookup activities. Each row by
+                    default owns an <strong><a href="4.4.1-IntervalTreeActivityRepository_491974.html"
+                                               data-linked-resource-id="491974" data-linked-resource-version="7"
+                                               data-linked-resource-type="page">IntervalTreeActivityRepository</a></strong>.
+                    This default repository can be replaced with a custom one, for example if your application requires
+                    a lazy loading strategy. </p>
+                <h2 class="block" id="id-4.4ActivityRepository-Queries">Queries</h2>
+                <p class="block">The most important functionality of any repository is the ability to query the
+                    repository for activities within a given time interval. For this purpose the <strong>ActivityRepository</strong>
+                    interface defines the <strong>getActivities()</strong> method with these parameters:</p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Parameter</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>Layer layer</pre>
+                            </td>
+                            <td class="confluenceTd">Whenever the user scrolls left or right the row will query the
+                                repository several times. Once for each layer.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>Instant startTime</pre>
+                            </td>
+                            <td class="confluenceTd">The start time of the time interval for which the row is querying
+                                activities.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>Instant endTime</pre>
+                            </td>
+                            <td class="confluenceTd"><span>The end time of the time interval for which the row is querying activities.</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>TemporalUnit unit</pre>
+                            </td>
+                            <td class="confluenceTd">The current value of the <strong>primary temporal unit</strong>
+                                currently displayed by the <a href="3.7-Dateline_491628.html"
+                                                              data-linked-resource-id="491628"
+                                                              data-linked-resource-version="32"
+                                                              data-linked-resource-type="page">dateline</a>. This is the
+                                unit shown at the bottom of the <a href="3.7-Dateline_491628.html"
+                                                                   data-linked-resource-id="491628"
+                                                                   data-linked-resource-version="32"
+                                                                   data-linked-resource-type="page">dateline</a>, e.g.
+                                days. This parameter can be used to control how fine-grained the result will be. If we
+                                know that the user is currently looking at months then it might make sense to aggregate
+                                daily activities.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>ZomeId zoneId</pre>
+                            </td>
+                            <td class="confluenceTd">The timezone shown by the row.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h2 id="id-4.4ActivityRepository-Earliest/LatestTimeUsed"><span style="color: rgb(0,0,0);">Earliest / Latest Time Used</span>
+                </h2>
+                <p class="block">Each repository implementation needs to be able to answer the question for the earliest
+                    and latest times used (earliest start time / latest end time of any activity stored in the
+                    repository). This allows the UI to provide controls for easy navigation: &quot;show earliest&quot;,
+                    &quot;show latest&quot;. For this purpose repositories need to implement the <strong>getEarliestTimeUsed()</strong>
+                    and <strong>getLatestTimeUsed()</strong> methods.</p>
+                <h2 class="block" id="id-4.4ActivityRepository-UpdatingActivities">Updating Activities</h2>
+                <p class="block">Activities need to be removed (ActivityRef.detachFromRow()) from their repository <u>before</u>
+                    they are being changed and added back (ActivityRef.attachToRow()) <u>after</u> they have been
+                    changed. This is the only way to ensure that a repository will always have its underlying data
+                    structure in synch with the activities. Example: the interval tree data structure only works
+                    properly if all its nodes are in their correct location. This can only be guaranteed if the nodes
+                    are removed from the tree before they are being changed (otherwise the tree will not find them) and
+                    then reinserted with their new value.</p>
+                <h2 class="block" id="id-4.4ActivityRepository-EventHandling">Event Handling</h2>
+                <p class="block">Activitiy repositories implement listener support so that the UI can update itself if
+                    the content of the repository changes. Interested parties can attach handlers by calling <strong>addEventHandler()</strong>
+                    or remove handlers by calling <strong>removeEventHandler()</strong>. The event class is called
+                    RepositoryEvent and it has three event types:</p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Event Type</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>ACTIVITY_ADDED</pre>
+                            </td>
+                            <td class="confluenceTd">An activity was added to the repository.</td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>ACTIVITY_REMOVED</pre>
+                            </td>
+                            <td class="confluenceTd">An activity was removed from the repository.</td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>REPOSITORY_CHANGED</pre>
+                            </td>
+                            <td class="confluenceTd">Something has changed the state of the repository.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>Each one of these event types will normally trigger a redraw of the row to which the repository
+                    belongs.</p>
+                <p class="block"> </p>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

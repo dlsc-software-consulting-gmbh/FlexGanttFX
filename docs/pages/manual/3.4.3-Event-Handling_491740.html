@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FlexGanttFX Developer Manual : 3.4.3 Event Handling</title>
+    <link rel="stylesheet" href="styles/site.css" type="text/css"/>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body class="theme-default aui-theme-default">
+<div id="page">
+    <div id="main" class="aui-page-panel">
+        <div id="main-header">
+            <div id="breadcrumb-section">
+                <ol id="breadcrumbs">
+                    <li class="first">
+                        <span><a href="index.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="FlexGanttFX-Developer-Manual_491528.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="3.-Controls_491598.html">3. Controls</a></span>
+                    </li>
+                    <li>
+                        <span><a href="3.5-GraphicsBase_491612.html">3.5 GraphicsBase</a></span>
+                    </li>
+                </ol>
+            </div>
+            <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            FlexGanttFX Developer Manual : 3.4.3 Event Handling
+                        </span>
+            </h1>
+        </div>
+
+        <div id="content" class="view">
+            <div class="page-metadata">
+
+
+                Created by <span class='author'> Dirk Lemmermann</span>, last modified on May 25, 2020
+            </div>
+            <div id="main-content" class="wiki-content group">
+                <p>
+                    <style type='text/css'>/*<![CDATA[*/
+                    div.rbtoc1633442035600 {
+                        padding: 0px;
+                    }
+
+                    div.rbtoc1633442035600 ul {
+                        list-style: disc;
+                        margin-left: 0px;
+                    }
+
+                    div.rbtoc1633442035600 li {
+                        margin-left: 0px;
+                        padding-left: 0px;
+                    }
+
+                    /*]]>*/</style>
+                <div class='toc-macro rbtoc1633442035600'>
+                    <ul class='toc-indentation'>
+                        <li><a href='#id-3.4.3EventHandling-Introduction'>Introduction</a></li>
+                        <li><a href='#id-3.4.3EventHandling-ActivityEvents'>Activity Events</a></li>
+                        <li><a href='#id-3.4.3EventHandling-ActivityEventsHierarchy'>Activity Events Hierarchy</a></li>
+                        <li><a href='#id-3.4.3EventHandling-ActivityEventProperties'>Activity Event Properties</a></li>
+                        <li><a href='#id-3.4.3EventHandling-LassoEvents'>Lasso Events</a></li>
+                        <li><a href='#id-3.4.3EventHandling-LassoEventHierarchy'>Lasso Event Hierarchy</a></li>
+                        <li><a href='#id-3.4.3EventHandling-LassoInfo'>Lasso Info</a></li>
+                        <li><a href='#id-3.4.3EventHandling-Links/FurtherReading'>Links / Further Reading</a></li>
+                    </ul>
+                </div>
+                </p><h2 id="id-3.4.3EventHandling-Introduction"><span style="color: rgb(0,0,0);">Introduction</span>
+            </h2>
+                <p>The <a href="3.5-GraphicsBase_491612.html" data-linked-resource-id="491612"
+                          data-linked-resource-version="43" data-linked-resource-type="page">graphics view</a> fires
+                    standard JavaFX events in order to let applications react to change. The concepts used for event
+                    handler support in <em><strong>FlexGanttFX</strong> </em>are the same as the ones found in the
+                    standard JavaFX controls. </p>
+                <h2 id="id-3.4.3EventHandling-ActivityEvents">Activity Events</h2>
+                <p>Activity events are fired whenever the user deletes or edits an activity. To receive an activity
+                    event simply register an event handler with the <a href="3.5-GraphicsBase_491612.html"
+                                                                       data-linked-resource-id="491612"
+                                                                       data-linked-resource-version="43"
+                                                                       data-linked-resource-type="page">graphics
+                        view</a> via one of the convenience methods.</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Single Activity Event
+                        Handler</b></div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.setOnActivityChangeFinished(evt -&gt; System.out.println(&quot;An activity has changed&quot;));</pre>
+                    </div>
+                </div>
+                <p>If you need to register more than one handler for a specific event type then use this approach:</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Multiple Activity Event
+                        Handlers</b></div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.addEventHandler(ActivityEvent.ACTIVITY_CHANGE_FINISHED, evt -&gt; System.out.println(&quot;Listener 1&quot;));
+graphics.addEventHandler(ActivityEvent.ACTIVITY_CHANGE_FINISHED, evt -&gt; System.out.println(&quot;Listener 2&quot;));</pre>
+                    </div>
+                </div>
+                <p>The following table lists all supported activity event types and the convenience setter methods of
+                    the <a href="3.5-GraphicsBase_491612.html" data-linked-resource-id="491612"
+                           data-linked-resource-version="43" data-linked-resource-type="page">graphics view</a>. These
+                    methods are used to quickly register an event handler for the given event type.</p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <colgroup>
+                            <col/>
+                            <col/>
+                            <col/>
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Event Types</th>
+                            <th class="confluenceTh">Methods</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>ACTIVITY_DELETED</pre>
+                            </td>
+                            <td class="confluenceTd">
+                                <pre>setOnActivityDeleted()</pre>
+                            </td>
+                            <td class="confluenceTd">Fired whenever the user deletes an activity via the backspace
+                                key.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>ACTIVITY_CHANGE</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>setOnActivityChanged()</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd">The parent event type of all activity changes. Can be
+                                used to to receive a notification for any kind of activity change.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>ACTIVITY_CHANGE_STARTED</pre>
+                                <pre>ACTIVITY_CHANGE_ONGOING</pre>
+                                <pre>ACTIVITY_CHANGE_FINISHED</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>setOnActivityChangeStarted()</pre>
+                                <pre>setOnActivityChangeOngoing()</pre>
+                                <pre>setOnActivityChangeFinished()</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd">Fired whenever an activity change has started, is
+                                ongoing, or has finished.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>CHART_HIGH_VALUE_CHANGE_STARTED</pre>
+                                <pre>CHART_HIGH_VALUE_CHANGE_ONGOING</pre>
+                                <pre>CHART_HIGH_VALUE_CHANGE_FINISHED</pre>
+                            </td>
+                            <td class="confluenceTd">
+                                <pre>setOnChartHighValueChangeStarted();</pre>
+                                <pre>setOnChartHighValueChangeOngoing();</pre>
+                                <pre>setOnChartHighValueChangeFinished();</pre>
+                            </td>
+                            <td class="confluenceTd">Fired whenever the user has started editing, is in the process of
+                                editing, or has finished editing the &quot;high&quot; value of a high / low chart
+                                activity.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>CHART_LOW_VALUE_CHANGE_STARTED</pre>
+                                <pre>CHART_LOW_VALUE_CHANGE_ONGOING</pre>
+                                <pre>CHART_LOW_VALUE_CHANGE_FINISHED</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>setOnChartLowValueChangeStarted();</pre>
+                                <pre>setOnChartLowValueChangeOngoing();</pre>
+                                <pre>setOnChartLowValueChangeFinished();</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd"><span>Fired whenever the user has started editing, is in the process of editing, or has finished editing the &quot;low&quot; value of a high / low chart activity.</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>CHART_VALUE_CHANGE_STARTED</pre>
+                                <pre>CHART_VALUE_CHANGE_ONGOING</pre>
+                                <pre>CHART_VALUE_CHANGE_FINISHED</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>setOnChartValueChangeStarted();</pre>
+                                <pre>setOnChartValueChangeOngoing();</pre>
+                                <pre>setOnChartValueChangeFinished();</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd"><span>Fired whenever the user has started editing, is in the process of editing, or has finished editing a chart value of a chart activity.</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>DRAG_STARTED</pre>
+                                <pre>DRAG_ONGOING</pre>
+                                <pre>DRAG_FINISHED</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>setOnActivityDragStarted();</pre>
+                                <pre>setOnActivityDragOngoing();</pre>
+                                <pre>setOnActivityDragFinished();</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd">Fired whenever the user has started dragging, is in the
+                                process of dragging, or has finished dragging an activity via platform-provided drag
+                                &amp; drop. This event type is used when the user can freely move the activity around,
+                                vertically and horizontally.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>END_TIME_CHANGE_STARTED</pre>
+                                <pre>END_TIME_CHANGE_ONGOING</pre>
+                                <pre>END_TIME_CHANGE_FINISHED</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>setOnActivityEndTimeChangeStarted();</pre>
+                                <pre>setOnActivityEndTimeChangeOngoing();</pre>
+                                <pre>setOnActivityEndTimeChangeFinished();</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd">Fired whenever the user has started changing, is in the
+                                process of changing, or has finished changing the end time of an activity.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>HORIZONTAL_DRAG_STARTED</pre>
+                                <pre>HORIZONTAL_DRAG_ONGOING</pre>
+                                <pre>HORIZONTAL_DRAG_FINISHED</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>setOnActivityHorizontalDragStarted();</pre>
+                                <pre>setOnActivityHorizontalDragOngoing();</pre>
+                                <pre>setOnActivityHorizontalDragFinished();</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd"><span>Fired whenever the user has started changing, is in the process of changing, or has finished changing the time interval (start <u>and</u> end time) of an activity. Changing this time interval makes the activity move horizontally, either to the right (future) or the left (past).</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>PERCENTAGE_CHANGE_STARTED</pre>
+                                <pre>PERCENTAGE_CHANGE_ONGOING</pre>
+                                <pre>PERCENTAGE_CHANGE_FINISHED</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>setOnActivityPercentageChangeStarted();</pre>
+                                <pre>setOnActivityPercentageChangeOngoing();</pre>
+                                <pre>setOnActivityPercentageChangeFinished();</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd"><span>Fired whenever the user has started changing, is in the process of changing, or has finished changing the &quot;percentage complete&quot; value of an activity.</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>START_TIME_CHANGE_STARTED</pre>
+                                <pre>START_TIME_CHANGE_ONGOING</pre>
+                                <pre>START_TIME_CHANGE_FINISHED</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>setOnActivityStartTimeChangeStarted();</pre>
+                                <pre>setOnActivityStartTimeChangeOngoing();</pre>
+                                <pre>setOnActivityStartTimeChangeFinished();</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd"><span>Fired whenever the user has started changing, is in the process of changing, or has finished changing the start time of an activity.</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>VERTICAL_DRAG_STARTED</pre>
+                                <pre>VERTICAL_DRAG_ONGOING</pre>
+                                <pre>VERTICAL_DRAG_FINISHED</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>setOnActivityVerticalDragStarted();</pre>
+                                <pre>setOnActivityVerticalDragOngoing();</pre>
+                                <pre>setOnActivityVerticalDragFinished();</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd"><span>Fired whenever the user has started dragging, is in the process of dragging, or has finished dragging an activity via platform-provided drag &amp; drop. This event type is used when the user can only drag the activity vertically (reassign an activity to a different row).</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h2 id="id-3.4.3EventHandling-ActivityEventsHierarchy">Activity Events Hierarchy</h2>
+                <p>The event types defined in the <strong>ActivityEvent</strong> class are defining an event hierarchy.
+                    All events are input events (InputEvent.ANY) and they change the activity. Some of them get fired
+                    when the user starts the change, some while the change is ongoing, and some when the change is
+                    finished. </p>
+                <ul>
+                    <li>
+                        <pre>InputEvent.ANY</pre>
+                        <ul>
+                            <li>
+                                <pre>ACTIVITY_CHANGE</pre>
+                                <ul>
+                                    <li>
+                                        <pre>ACTIVITY_DELETED</pre>
+                                    </li>
+                                    <li>
+                                        <pre>ACTIVITY_CHANGE_STARTED  // All event types that signal &quot;start&quot;</pre>
+                                        <ul>
+                                            <li>
+                                                <pre>CHART_VALUE_CHANGE_STARTED</pre>
+                                                <ul>
+                                                    <li>
+                                                        <pre>CHART_HIGH_VALUE_CHANGE_STARTED</pre>
+                                                    </li>
+                                                    <li>
+                                                        <pre>CHART_LOW_VALUE_CHANGE_STARTED</pre>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <pre>DRAG_STARTED</pre>
+                                            </li>
+                                            <li>
+                                                <pre>END_TIME_CHANGE_STARTED</pre>
+                                            </li>
+                                            <li>
+                                                <pre>HORIZONTAL_DRAG_STARTED</pre>
+                                            </li>
+                                            <li>
+                                                <pre>PERCENTAGE_CHANGE_STARTED</pre>
+                                            </li>
+                                            <li>
+                                                <pre>START_TIME_CHANGE_STARTED</pre>
+                                            </li>
+                                            <li>
+                                                <pre>VERTICAL_DRAG_STARTED</pre>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <pre>ACTIVITY_CHANGE_ONGOING // All event types that signal &quot;ongoing&quot;</pre>
+                                        <ul>
+                                            <li>
+                                                <pre>CHART_VALUE_CHANGE_ONGOING</pre>
+                                                <ul>
+                                                    <li>
+                                                        <pre>CHART_HIGH_VALUE_CHANGE_ONGOING</pre>
+                                                    </li>
+                                                    <li>
+                                                        <pre>CHART_LOW_VALUE_CHANGE_ONGOING</pre>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <pre>DRAG_ONGOING</pre>
+                                            </li>
+                                            <li>
+                                                <pre>END_TIME_CHANGE_ONGOING</pre>
+                                            </li>
+                                            <li>
+                                                <pre>HORIZONTAL_DRAG_ONGOING</pre>
+                                            </li>
+                                            <li>
+                                                <pre>PERCENTAGE_CHANGE_ONGOING</pre>
+                                            </li>
+                                            <li>
+                                                <pre>START_TIME_CHANGE_ONGOING</pre>
+                                            </li>
+                                            <li>
+                                                <pre>VERTICAL_DRAG_ONGOING</pre>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <pre>ACTIVITY_CHANGE_FINISHED // All event types that signal &quot;finished&quot;</pre>
+                                        <ul>
+                                            <li>
+                                                <pre>CHART_VALUE_CHANGE_FINISHED</pre>
+                                                <ul>
+                                                    <li>
+                                                        <pre>CHART_HIGH_VALUE_CHANGE_FINISHED</pre>
+                                                    </li>
+                                                    <li>
+                                                        <pre>CHART_LOW_VALUE_CHANGE_FINISHED</pre>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <pre>DRAG_FINISHED</pre>
+                                            </li>
+                                            <li>
+                                                <pre>END_TIME_CHANGE_FINISHED</pre>
+                                            </li>
+                                            <li>
+                                                <pre>HORIZONTAL_DRAG_FINISHED</pre>
+                                            </li>
+                                            <li>
+                                                <pre>PERCENTAGE_CHANGE_FINISHED</pre>
+                                            </li>
+                                            <li>
+                                                <pre>START_TIME_CHANGE_FINISHED</pre>
+                                            </li>
+                                            <li>
+                                                <pre>VERTICAL_DRAG_FINISHED</pre>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <h2 id="id-3.4.3EventHandling-ActivityEventProperties"><span style="color: rgb(0,0,0);">Activity Event Properties</span>
+                </h2>
+                <p>Applications are obviously interested in the attributes of an activity. Not only the new values of
+                    these attributes (for example the new start time) but also the old values (start time <u>before</u>
+                    the change). The new values are already available on the activity as they are being set <u>while</u>
+                    the user performs the change. The old values are stored on the event object. The following table
+                    lists the methods on <strong>ActivityEvent</strong> to retrieve these values.</p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <colgroup>
+                            <col/>
+                            <col/>
+                            <col/>
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Method</th>
+                            <th class="confluenceTh">Description</th>
+                            <th colspan="1" class="confluenceTh">Event Types</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>getOldTime()</pre>
+                            </td>
+                            <td class="confluenceTd">Returns the old start <u>or</u> end time of the activity.</td>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>END_TIME_CHANGE_</pre>
+                                <pre>START_TIME_CHANGE_</pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>getOldTimeInterval()</pre>
+                            </td>
+                            <td class="confluenceTd">Returns the old start <u>and</u> end time of the activity.</td>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>DRAG_</pre>
+                                <pre>HORIZONTAL_DRAG_</pre>
+                                <pre>VERTICAL_DRAG_</pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>getOldRow()</pre>
+                            </td>
+                            <td class="confluenceTd">Returns the old row where the activity was located before.</td>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>DRAG_</pre>
+                                <pre>VERTICAL_DRAG_</pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>getOldValue()</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd">Returns the old value of &quot;percentage complete&quot;
+                                or &quot;chart value&quot;.
+                            </td>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>CHART_VALUE_CHANGE_</pre>
+                                <pre>CHART_HIGH_VALUE_</pre>
+                                <pre>CHART_LOW_VALUE_</pre>
+                                <pre>PERCENTAGE_CHANGE_</pre>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h2 id="id-3.4.3EventHandling-LassoEvents">Lasso Events</h2>
+                <p>The user can use a lasso to select activities. Events are fired when this happens. To receive a lasso
+                    event simply register an event handler <a href="3.5-GraphicsBase_491612.html"
+                                                              data-linked-resource-id="491612"
+                                                              data-linked-resource-version="43"
+                                                              data-linked-resource-type="page">with the graphics
+                        view</a> via one of the convenience methods.</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Singe Lasso Event
+                        Handler</b></div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.setOnLassoFinished(evt -&gt; System.out.println(&quot;The lasso was used&quot;));</pre>
+                    </div>
+                </div>
+                <p>If you need to register more than one handler for a specific event type then use this approach:</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Multiple Lasso Event
+                        Handlers</b></div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.addEventHandler(LassoEvent.SELECTION_FINISHED, evt -&gt; System.out.println(&quot;Listener 1&quot;));
+graphics.addEventHandler(LassoEvent.SELECTION_FINISHED, evt -&gt; System.out.println(&quot;Listener 2&quot;));</pre>
+                    </div>
+                </div>
+                <p>The following table lists the event types and the convenience setter methods of the <a
+                        href="3.5-GraphicsBase_491612.html" data-linked-resource-id="491612"
+                        data-linked-resource-version="43" data-linked-resource-type="page">graphics view</a>.</p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <colgroup>
+                            <col/>
+                            <col/>
+                            <col/>
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Event Type</th>
+                            <th class="confluenceTh">Method</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>ALL</pre>
+                            </td>
+                            <td class="confluenceTd">
+                                <pre>setOnLassoSelection()</pre>
+                            </td>
+                            <td class="confluenceTd">Any lasso operation (start, ongoing, finished).</td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>SELECTION_STARTED</pre>
+                            </td>
+                            <td class="confluenceTd">
+                                <pre>setOnLassoSelectionStarted()</pre>
+                            </td>
+                            <td class="confluenceTd">The user has pressed the mouse button and started a drag. The lasso
+                                has become visible.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>SELECTION_ONGOING</pre>
+                            </td>
+                            <td class="confluenceTd">
+                                <pre>setOnLassoSelectionOngoing()</pre>
+                            </td>
+                            <td class="confluenceTd">The user is changing the size of the lasso.</td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>SELECTION_FINISHED</pre>
+                            </td>
+                            <td class="confluenceTd">
+                                <pre>setOnLassoSelectionFinished()</pre>
+                            </td>
+                            <td class="confluenceTd">The user has finished the lasso selection. The lasso is no longer
+                                visible.
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h2 id="id-3.4.3EventHandling-LassoEventHierarchy"><span style="color: rgb(0,0,0);">Lasso Event Hierarchy</span>
+                </h2>
+                <p><span style="color: rgb(0,0,0);"> </span>The event types defined in the <strong>LassoEvent </strong>class
+                    are defining an event hierarchy. All events are input events (InputEvent.ANY). </p>
+                <ul>
+                    <li>
+                        <pre>InputEvent.ANY</pre>
+                        <ul>
+                            <li>
+                                <pre>LassoEvent.ALL</pre>
+                                <ul>
+                                    <li>
+                                        <pre>LassoEvent.SELECTION_STARTED</pre>
+                                    </li>
+                                    <li>
+                                        <pre>LassoEvent.SELECTION_ONGOING</pre>
+                                    </li>
+                                    <li>
+                                        <pre>LassoEvent.SELECTION_FINISHED</pre>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <h2 id="id-3.4.3EventHandling-LassoInfo">Lasso Info</h2>
+                <p>The lasso automatically performs selections of activities but sometimes we might want to know more
+                    about the exact nature of this selection or we want to use the lasso for another use case (e.g. for
+                    creating new activities). For this reason instances of <strong>LassoEvent</strong> also provide an
+                    object of type <strong>LassoInfo</strong>, which carries many attributes that the application can
+                    use to react accordingly. The lasso information can be retrieved by calling <strong>LassoEvent.getInfo()</strong>.
+                    The following table lists the attributes of <strong>LassoInfo</strong>.</p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <colgroup>
+                            <col/>
+                            <col/>
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Method</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>List&lt;ActivityRef&lt;?&gt;&gt; getActivities();</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd">Returns all activities that were selected by the
+                                lasso.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>Instant getStartTime();</pre>
+                                <pre>Instant getEndTime();</pre>
+                            </td>
+                            <td class="confluenceTd">Returns the start and end time of the lasso according to the
+                                location of the <u>left</u> and <u>right</u> edge of the lasso.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>LocalTime getLocalStartTime();</pre>
+                                <pre>LocalTime getLocalEndTime();</pre>
+                            </td>
+                            <td class="confluenceTd"><p>Returns the <u>local</u> start and end time. These values are
+                                only provided if the <u>upper</u> or <u>lower</u> edge of the lasso is located in an
+                                area that uses the <a href="4.8.2-Agenda-Layout_492047.html"
+                                                      data-linked-resource-id="492047" data-linked-resource-version="6"
+                                                      data-linked-resource-type="page">AgendaLayout</a>.</p></td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>List&lt;Row&lt;?,?,?&gt;&gt; getRows();</pre>
+                            </td>
+                            <td class="confluenceTd">Returns the rows that were touched by the lasso.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h2 id="id-3.4.3EventHandling-Links/FurtherReading"><span style="color: rgb(0,0,0);">Links / Further Reading</span>
+                </h2>
+                <ul>
+                    <li><a class="external-link"
+                           href="http://docs.oracle.com/javase/8/javafx/events-tutorial/events.htm#JFXED117"
+                           rel="nofollow">Oracle JavaFX documentation</a></li>
+                    <li><a class="external-link" href="http://code.makery.ch/blog/javafx-8-event-handling-examples/"
+                           rel="nofollow">Event handling examples</a></li>
+                </ul>
+                <p><br/></p>
+                <p><br/></p>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

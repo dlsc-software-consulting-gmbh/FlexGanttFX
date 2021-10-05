@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FlexGanttFX Developer Manual : 4.8.2 Agenda Layout</title>
+    <link rel="stylesheet" href="styles/site.css" type="text/css"/>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body class="theme-default aui-theme-default">
+<div id="page">
+    <div id="main" class="aui-page-panel">
+        <div id="main-header">
+            <div id="breadcrumb-section">
+                <ol id="breadcrumbs">
+                    <li class="first">
+                        <span><a href="index.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="FlexGanttFX-Developer-Manual_491528.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="4.-Model_491687.html">4. Model</a></span>
+                    </li>
+                    <li>
+                        <span><a href="4.8-Layout_491714.html">4.8 Layout</a></span>
+                    </li>
+                </ol>
+            </div>
+            <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            FlexGanttFX Developer Manual : 4.8.2 Agenda Layout
+                        </span>
+            </h1>
+        </div>
+
+        <div id="content" class="view">
+            <div class="page-metadata">
+
+
+                Created by <span class='author'> Dirk Lemmermann</span>, last modified on Oct 09, 2014
+            </div>
+            <div id="main-content" class="wiki-content group">
+                <p>
+                    <style type='text/css'>/*<![CDATA[*/
+                    div.rbtoc1633442050736 {
+                        padding: 0px;
+                    }
+
+                    div.rbtoc1633442050736 ul {
+                        list-style: disc;
+                        margin-left: 0px;
+                    }
+
+                    div.rbtoc1633442050736 li {
+                        margin-left: 0px;
+                        padding-left: 0px;
+                    }
+
+                    /*]]>*/</style>
+                <div class='toc-macro rbtoc1633442050736'>
+                    <ul class='toc-indentation'>
+                        <li><a href='#id-4.8.2AgendaLayout-Introduction'>Introduction</a></li>
+                        <li><a href='#id-4.8.2AgendaLayout-StartandEndTime'>Start and End Time</a></li>
+                        <li><a href='#id-4.8.2AgendaLayout-ConflictStrategy'>Conflict Strategy</a></li>
+                    </ul>
+                </div>
+                </p><h2 id="id-4.8.2AgendaLayout-Introduction">Introduction</h2>
+                <p><span style="color: rgb(71,71,71);">The agenda layout class is used to lay out activities in a style similar to a regular calendar where a vertical scale will display hours. Activities are used to represent appointments for a given day.</span>
+                </p>
+                <div class="confluence-information-macro confluence-information-macro-note"><span
+                        class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span>
+                    <div class="confluence-information-macro-body"><p>Activities shown in agenda layout might be
+                        rendered several times. This is, for example, the case when an activity spans several days.</p>
+                    </div>
+                </div>
+                <p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img
+                        class="confluence-embedded-image" width="500" loading="lazy"
+                        src="attachments/492047/983096.jpg?width=500" data-image-src="attachments/492047/983096.jpg"
+                        data-unresolved-comment-count="0" data-linked-resource-id="983096"
+                        data-linked-resource-version="1" data-linked-resource-type="attachment"
+                        data-linked-resource-default-alias="layout-agenda.jpg"
+                        data-base-url="https://flexgantt.atlassian.net/wiki"
+                        data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="492047"
+                        data-linked-resource-container-version="6" data-media-id="620c9237-46de-4e94-ab2b-26316d02fa89"
+                        data-media-type="file"></span></p>
+                <h2 id="id-4.8.2AgendaLayout-StartandEndTime">Start and End Time</h2>
+                <p>The agenda layout class allows you to specify a start and end time. This is used to restrict the time
+                    interval that is shown and in which the agenda activities are laid out. In most cases it does not
+                    make sense to show the entire 24 hours but only the working hours, e.g. 8am until 6pm. Simply call
+                    <strong>AgendaLayout.setStartTime()</strong> or <strong>setEndTime()</strong> to change the time
+                    range.</p>
+                <h2 id="id-4.8.2AgendaLayout-ConflictStrategy">Conflict Strategy</h2>
+                <p>Activities in an agenda layout might intersect with each other. The conflictStrategy property allows
+                    you how to handle these situations. The following table lists the possible values.</p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Strategy</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>OVERLAPPING</pre>
+                            </td>
+                            <td class="confluenceTd"><p><span style="color: rgb(71,71,71);">Conflicting agenda entries will be drawn on top of each other but with one of them being indented by a couple of pixels.</span>
+                            </p>
+                                <div class="confluence-information-macro confluence-information-macro-note"><span
+                                        class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span>
+                                    <div class="confluence-information-macro-body"><p>The indentation amount can be
+                                        controlled via the <strong>overlapOffset</strong> property on AgendaLayout.</p>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>PARALLEL</pre>
+                            </td>
+                            <td class="confluenceTd"><span style="color: rgb(71,71,71);">Conflicting agenda entries will be displayed in different columns within the same day.</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="pageSection group">
+                <div class="pageSectionHeader">
+                    <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                </div>
+
+                <div class="greybox" align="left">
+                    <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                    <a href="attachments/492047/983096.jpg">layout-agenda.jpg</a> (image/jpeg)
+                    <br/>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

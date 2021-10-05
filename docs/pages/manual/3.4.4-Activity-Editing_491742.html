@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FlexGanttFX Developer Manual : 3.4.4 Activity Editing</title>
+    <link rel="stylesheet" href="styles/site.css" type="text/css"/>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body class="theme-default aui-theme-default">
+<div id="page">
+    <div id="main" class="aui-page-panel">
+        <div id="main-header">
+            <div id="breadcrumb-section">
+                <ol id="breadcrumbs">
+                    <li class="first">
+                        <span><a href="index.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="FlexGanttFX-Developer-Manual_491528.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="3.-Controls_491598.html">3. Controls</a></span>
+                    </li>
+                    <li>
+                        <span><a href="3.5-GraphicsBase_491612.html">3.5 GraphicsBase</a></span>
+                    </li>
+                </ol>
+            </div>
+            <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            FlexGanttFX Developer Manual : 3.4.4 Activity Editing
+                        </span>
+            </h1>
+        </div>
+
+        <div id="content" class="view">
+            <div class="page-metadata">
+
+
+                Created by <span class='author'> Dirk Lemmermann</span>, last modified on Sep 01, 2017
+            </div>
+            <div id="main-content" class="wiki-content group">
+                <p>
+                    <style type='text/css'>/*<![CDATA[*/
+                    div.rbtoc1633442035688 {
+                        padding: 0px;
+                    }
+
+                    div.rbtoc1633442035688 ul {
+                        list-style: disc;
+                        margin-left: 0px;
+                    }
+
+                    div.rbtoc1633442035688 li {
+                        margin-left: 0px;
+                        padding-left: 0px;
+                    }
+
+                    /*]]>*/</style>
+                <div class='toc-macro rbtoc1633442035688'>
+                    <ul class='toc-indentation'>
+                        <li><a href='#id-3.4.4ActivityEditing-Introduction'>Introduction</a></li>
+                        <li><a href='#id-3.4.4ActivityEditing-EditModeCallback'>Edit Mode Callback</a>
+                            <ul class='toc-indentation'>
+                                <li><a href='#id-3.4.4ActivityEditing-EditModeCallbackParameter'>Edit Mode Callback
+                                    Parameter</a></li>
+                                <li><a href='#id-3.4.4ActivityEditing-EditModeCallbackExample'>Edit Mode Callback
+                                    Example</a></li>
+                            </ul>
+                        </li>
+                        <li><a href='#id-3.4.4ActivityEditing-EditingCallback'>Editing Callback</a>
+                            <ul class='toc-indentation'>
+                                <li><a href='#id-3.4.4ActivityEditing-EditingCallbackParameter'>Editing Callback
+                                    Parameter</a></li>
+                                <li><a href='#id-3.4.4ActivityEditing-EditingCallbackExample'>Editing Callback
+                                    Example</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                </p><h2 id="id-3.4.4ActivityEditing-Introduction">Introduction</h2>
+                <p>Two different callbacks on the <a href="3.5-GraphicsBase_491612.html"
+                                                     data-linked-resource-id="491612" data-linked-resource-version="43"
+                                                     data-linked-resource-type="page">graphics view</a> are used to
+                    control the editing behaviour of activities. The first maps a mouse event / mouse location to an
+                    editing mode. The second callback is used to determine whether a given editing mode / operation can
+                    be applied to an activity at all. Most applications will only need to work with the second callback
+                    and keep the defaults for the edit mode locations (for example: right edge used to change end time,
+                    left edge used to change start time). The enum <strong>GraphicsBase.EditMode</strong> lists all
+                    available editing operations that can be performed on an activity. </p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Mode</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">AGENDA_ASSIGNING</td>
+                            <td class="confluenceTd">Assign an activity in <a href="4.8.2-Agenda-Layout_492047.html"
+                                                                              data-linked-resource-id="492047"
+                                                                              data-linked-resource-version="6"
+                                                                              data-linked-resource-type="page"><strong>AgendaLayout</strong>
+                            </a>to another row.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd"><p>AGENDA_DRAGGING</p></td>
+                            <td class="confluenceTd">Drag an activity in <a href="4.8.2-Agenda-Layout_492047.html"
+                                                                            data-linked-resource-id="492047"
+                                                                            data-linked-resource-version="6"
+                                                                            data-linked-resource-type="page"><strong>AgendaLayout</strong>
+                            </a>up and down or sideways within the same row.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">AGENDA_END_TIME_CHANGE</td>
+                            <td class="confluenceTd">Change the end time of an activity in <strong><a
+                                    href="4.8.2-Agenda-Layout_492047.html" data-linked-resource-id="492047"
+                                    data-linked-resource-version="6"
+                                    data-linked-resource-type="page">AgendaLayout</a></strong>.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">AGENDA_START_TIME_CHANGE</td>
+                            <td class="confluenceTd">Chagne the start time of an activity in <strong><a
+                                    href="4.8.2-Agenda-Layout_492047.html" data-linked-resource-id="492047"
+                                    data-linked-resource-version="6"
+                                    data-linked-resource-type="page">AgendaLayout</a></strong>.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">CHART_VALUE_CHANGE</td>
+                            <td class="confluenceTd">Change the value of a <strong><a
+                                    href="4.1.1-ChartActivity_492237.html" data-linked-resource-id="492237"
+                                    data-linked-resource-version="4" data-linked-resource-type="page">ChartActivity</a></strong>.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">CHART_VALUE_HIGH_CHANGE</td>
+                            <td class="confluenceTd">Change the &quot;high&quot; value of a <strong><a
+                                    href="4.1.3-HighLowChartActivity_492241.html" data-linked-resource-id="492241"
+                                    data-linked-resource-version="2"
+                                    data-linked-resource-type="page">HighLowActivity</a></strong>.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">CHART_VALUE_LOW_CHANGE</td>
+                            <td class="confluenceTd">Change the &quot;low&quot; value of a <strong><a
+                                    href="4.1.3-HighLowChartActivity_492241.html" data-linked-resource-id="492241"
+                                    data-linked-resource-version="2"
+                                    data-linked-resource-type="page">HighLowActivity</a></strong>.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">DRAGGING</td>
+                            <td class="confluenceTd">Perform a drag and drop in all directions on an activity.</td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">DRAGGING_HORIZONTAL</td>
+                            <td class="confluenceTd">Move an activity horizontally within its own row (change start and
+                                end time).
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">DRAGGING_VERTICAL</td>
+                            <td class="confluenceTd">Perform a drag and drop on an activity in vertical direction
+                                only.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">END_TIME_CHANGE</td>
+                            <td class="confluenceTd">Change the end time of an activity.</td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">NONE</td>
+                            <td class="confluenceTd">Do nothing.</td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">PERCENTAGE_COMPLETE_CHANGE</td>
+                            <td class="confluenceTd">Change the &quot;percentage complete&quot; value of a <strong><a
+                                    href="4.1.2-CompletableActivity_492239.html" data-linked-resource-id="492239"
+                                    data-linked-resource-version="4" data-linked-resource-type="page">CompletableActivity</a></strong>.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">START_TIME_CHANGE</td>
+                            <td class="confluenceTd">Change the start time of an activity.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h2 id="id-3.4.4ActivityEditing-EditModeCallback">Edit Mode Callback</h2>
+                <p>The edit mode callback is used to determine the edit mode at the given mouse location. Instances of
+                    this callback can be registered via the <strong>GraphicsBase.setEditModeCallback()</strong> method
+                    which maps the callback to a combination of activity type and <a href="4.8-Layout_491714.html"
+                                                                                     data-linked-resource-id="491714"
+                                                                                     data-linked-resource-version="8"
+                                                                                     data-linked-resource-type="page">layout </a>type.
+                </p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Edit Mode Callback
+                        Registration</b></div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">public final void setEditModeCallback(
+			Class&lt;? extends MutableActivity&gt; activityType,
+			Class&lt;? extends Layout&gt; layoutType,
+			Callback&lt;EditModeCallbackParameter, EditMode&gt; callback);</pre>
+                    </div>
+                </div>
+                <h3 id="id-3.4.4ActivityEditing-EditModeCallbackParameter">Edit Mode Callback Parameter</h3>
+                <p>The parameter object passed to the edit mode callback is of type
+                    <strong>EditModeCallbackParameter</strong> and contains the following information:</p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <colgroup>
+                            <col/>
+                            <col/>
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Field</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">activityBounds</td>
+                            <td class="confluenceTd">The bounds of the activity over which the mouse cursor is hovering.
+                                The x and y coordinates are relative to the coordinate space of the row where the
+                                activity is displayed.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">mouseEvent</td>
+                            <td class="confluenceTd">The mouse event that triggered the lookup of the edit mode
+                                (normally a MOUSE_OVER).
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="id-3.4.4ActivityEditing-EditModeCallbackExample"><span style="color: rgb(0,0,0);">Edit Mode Callback Example</span>
+                </h3>
+                <p><span style="color: rgb(0,0,0);"> </span>The following is a simple example of an editing mode
+                    callback.</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Edit Mode Callback
+                        Example</b></div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">public class MyEditModeCallback implements Callback&lt;EditModeCallbackParameter, EditMode&gt; {
+ 
+	public EditMode call(EditModeCallbackParameter param) {
+		MouseEvent event = param.getMouseEvent();
+		ActivityBounds bounds = param.getActivityBounds();
+ 
+		/*
+		 * If the mouse cursor is touching the left edge of the activity
+ 		 * then begin a change of the start time of the activity.
+		 */
+		if (event.getX() - bounds.getMinX() &lt; 5) {
+			return EditMode.CHANGE_START_TIME;
+		}
+ 
+		return EditMode.NONE;
+	}
+}</pre>
+                    </div>
+                </div>
+                <p>This callback can now be registered like this:</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Edit Mode Callback
+                        Registration</b></div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.setEditModeCallback(
+			ActivityBase.class, 
+			GanttLayout.class, 
+			new MyEditModeCallback());</pre>
+                    </div>
+                </div>
+                <div class="confluence-information-macro confluence-information-macro-note"><span
+                        class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span>
+                    <div class="confluence-information-macro-body"><p>We could have used a lambda expression for the
+                        entire callback instance but decided against it in favor of verbosity.</p></div>
+                </div>
+                <h2 id="id-3.4.4ActivityEditing-EditingCallback"><span
+                        style="color: rgb(0,0,0);">Editing Callback</span></h2>
+                <p><span style="color: rgb(0,0,0);">The editing callback is used to determine if a specific edit mode is currently usable for a given activity. Instances of this callback can be registered via the <strong>GraphicsBase.setActivityEditingCallback()</strong> method which maps the callback to an activity type.</span>
+                </p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Edit Mode Callback
+                        Registration</b></div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">public final void setActivityEditingCallback(
+			Class&lt;? extends MutableActivity&gt; activityType,
+			Callback&lt;EditingCallbackParameter, Boolean&gt; callback);</pre>
+                    </div>
+                </div>
+                <h3 id="id-3.4.4ActivityEditing-EditingCallbackParameter"><span style="color: rgb(0,0,0);">Editing Callback Parameter</span>
+                </h3>
+                <p>The parameter object passed to the editing callback is of
+                    type <strong>EditingCallbackParameter</strong> and contains the following information:</p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Field</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">activityRef</td>
+                            <td class="confluenceTd">The reference to the activity for which to perform the check.</td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">editMode</td>
+                            <td class="confluenceTd">The edit mode that needs a check.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="id-3.4.4ActivityEditing-EditingCallbackExample">Editing Callback Example</h3>
+                <p>The following is a simple example of an editing callback.</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Edit Callback
+                        Example</b></div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">public class MyEditingCallback implements Callback&lt;EditingCallbackParameter, Boolean&gt; {
+ 
+	public Boolean call(EditingCallbackParameter param) {
+		ActivityRef ref = param.getActivityRef();
+		Activity activity = ref.getActivity();
+ 
+		/*
+		 * Only allow editing for activities that that have not
+		 * started, yet.
+		 */
+		if (activity.getStartTime().isAfter(Instant.now())) {
+ 
+			/*
+			 * Only allow changes to the start and end time
+			 * of the activity.
+			 */
+			switch (param.getEditMode()) {
+				case CHANGE_START_TIME:
+				case CHANGE_END_TIME:
+					return true;
+				default:
+					return false;
+			}
+  		} 
+ 
+		return false;
+	}
+}</pre>
+                    </div>
+                </div>
+                <p>This callback can now be registered like this:</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Editing Callback
+                        Registration</b></div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.setActivityEditingCallback(
+			ActivityBase.class, 
+			new MyEditingCallback());</pre>
+                    </div>
+                </div>
+                <p> </p>
+                <p> </p>
+                <p> </p>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FlexGanttFX Developer Manual : 3.4.2 Drag &amp; Drop</title>
+    <link rel="stylesheet" href="styles/site.css" type="text/css"/>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body class="theme-default aui-theme-default">
+<div id="page">
+    <div id="main" class="aui-page-panel">
+        <div id="main-header">
+            <div id="breadcrumb-section">
+                <ol id="breadcrumbs">
+                    <li class="first">
+                        <span><a href="index.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="FlexGanttFX-Developer-Manual_491528.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="3.-Controls_491598.html">3. Controls</a></span>
+                    </li>
+                    <li>
+                        <span><a href="3.5-GraphicsBase_491612.html">3.5 GraphicsBase</a></span>
+                    </li>
+                </ol>
+            </div>
+            <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            FlexGanttFX Developer Manual : 3.4.2 Drag &amp; Drop
+                        </span>
+            </h1>
+        </div>
+
+        <div id="content" class="view">
+            <div class="page-metadata">
+
+
+                Created by <span class='author'> Dirk Lemmermann</span>, last modified on Mar 02, 2021
+            </div>
+            <div id="main-content" class="wiki-content group">
+                <p>
+                    <style type='text/css'>/*<![CDATA[*/
+                    div.rbtoc1633442035538 {
+                        padding: 0px;
+                    }
+
+                    div.rbtoc1633442035538 ul {
+                        list-style: disc;
+                        margin-left: 0px;
+                    }
+
+                    div.rbtoc1633442035538 li {
+                        margin-left: 0px;
+                        padding-left: 0px;
+                    }
+
+                    /*]]>*/</style>
+                <div class='toc-macro rbtoc1633442035538'>
+                    <ul class='toc-indentation'>
+                        <li><a href='#id-3.4.2Drag&amp;Drop-Introduction'>Introduction</a></li>
+                        <li><a href='#id-3.4.2Drag&amp;Drop-Events'>Events</a></li>
+                        <li><a href='#id-3.4.2Drag&amp;Drop-DragAndDropInfoProperty'>Drag And Drop Info Property</a>
+                        </li>
+                        <li><a href='#id-3.4.2Drag&amp;Drop-FeedbackTypes'>Feedback Types</a></li>
+                        <li><a href='#id-3.4.2Drag&amp;Drop-DragImageProvider'>Drag Image Provider</a></li>
+                        <li><a href='#id-3.4.2Drag&amp;Drop-DropLayerProvider'> Drop Layer Provider</a></li>
+                    </ul>
+                </div>
+                </p><h2 id="id-3.4.2Drag&amp;Drop-Introduction">Introduction</h2>
+                <p>The platform (Windows, Mac) provided drag and drop (DnD) facilities are used in <em><strong>FlexGanttFX</strong> </em>only to
+                    move an activity from one <a href="4.5-Row_491703.html" data-linked-resource-id="491703"
+                                                 data-linked-resource-version="8"
+                                                 data-linked-resource-type="page">row </a>and to another. All other
+                    editing operations are handled with standard mouse events (pressed, dragged).The new row might
+                    actually be a row in another <a href="3.1-GanttChart_491607.html" data-linked-resource-id="491607"
+                                                    data-linked-resource-version="15" data-linked-resource-type="page">Gantt
+                        chart</a>. The default way to initiate a DnD is to move the mouse cursor into the center of an
+                    <a href="4.1-Activity_491695.html" data-linked-resource-id="491695"
+                       data-linked-resource-version="10" data-linked-resource-type="page">activity </a>while pressing
+                    the <strong>SHIFT</strong> key. This will change the cursor to the DnD cursor if this kind of
+                    editing operation is supported by the targeted activity (see also &quot;<a
+                            href="3.4.4-Activity-Editing_491742.html" data-linked-resource-id="491742"
+                            data-linked-resource-version="15" data-linked-resource-type="page">3.4.4 Activity
+                        Editing</a>&quot;). The DnD will terminate once the user lets go of the mouse button.</p>
+                <h2 id="id-3.4.2Drag&amp;Drop-Events">Events</h2>
+                <p>Just like all the other editing operations DnD will also trigger several events during its execution.
+                    The following table lists them:</p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <colgroup>
+                            <col/>
+                            <col/>
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Event Type</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>DRAG_STARTED</pre>
+                                <pre>DRAG_ONGOING</pre>
+                                <pre>DRAG_FINISHED</pre>
+                            </td>
+                            <td class="confluenceTd">These event types are fired if the editing operation is <strong>EditMode.DRAGGING.</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>VERTICAL_DRAG_STARTED</pre>
+                                <pre>VERTICAL_DRAG_ONGOING</pre>
+                                <pre>VERTICAL_DRAG_FINISHED</pre>
+                            </td>
+                            <td class="confluenceTd">These event types are fired if the editing operation is <strong>EditMode.DRAGGING_VERTICAL.</strong>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="confluence-information-macro confluence-information-macro-note"><span
+                        class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span>
+                    <div class="confluence-information-macro-body"><p>The edit mode DRAGGING_HORIZONTAL does not use
+                        platform DnD. Hence the event types HORIZOTAL_DRAG_STARTED / ONGOING / FINISHED are not listed
+                        above.</p></div>
+                </div>
+                <h2 id="id-3.4.2Drag&amp;Drop-DragAndDropInfoProperty"><span style="color: rgb(0,0,0);">Drag And Drop Info Property</span>
+                </h2>
+                <p><span style="color: rgb(0,0,0);">A</span> special property called <strong>dragAndDropInfo</strong> is
+                    available on the <a href="3.5-GraphicsBase_491612.html" data-linked-resource-id="491612"
+                                        data-linked-resource-version="43" data-linked-resource-type="page">graphics
+                        view</a> to monitor the DnD operation. This is in addition to the standard event types mentioned
+                    above. The info stored in this property provides the application with the most important information
+                    required about the dragged activity.</p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <colgroup>
+                            <col/>
+                            <col/>
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Field</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>row</pre>
+                            </td>
+                            <td class="confluenceTd">The row over which the mouse cursor / the dragged activity is
+                                currently hovering.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>activityBounds</pre>
+                            </td>
+                            <td class="confluenceTd">The bouds of the dragged activity (contains an activity reference
+                                and the actual activity).
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>dragEvent</pre>
+                            </td>
+                            <td class="confluenceTd">The last drag event (drag ongoing or drag dropped).</td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>dropInterval</pre>
+                            </td>
+                            <td class="confluenceTd">The time interval where the activity would be or was actually
+                                dropped.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>offset</pre>
+                            </td>
+                            <td class="confluenceTd">The offset where the mouse grabbed the activity (needed for visual
+                                feedback of the drag).
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h2 id="id-3.4.2Drag&amp;Drop-FeedbackTypes"><span style="color: rgb(0,0,0);">Feedback Types</span></h2>
+                <p><span style="color: rgb(0,0,0);"><em><strong>FlexGanttFX</strong> </em>provides different ways of visualizing the DnD feedback. The enumerator <strong>DragAndDropFeedback</strong> lists the following values which an be set by calling the <strong>setDragAndDropFeedback()</strong> method on <strong>GraphicsBase</strong>.</span>
+                </p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <colgroup>
+                            <col/>
+                            <col/>
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Value</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>NATIVE</pre>
+                            </td>
+                            <td class="confluenceTd"><p>A snapshot image of the activity will be taken and placed below
+                                the <span style="line-height: 1.4285715;">mouse cursor. The image will be set at the moment the drag gesture </span><span
+                                        style="line-height: 1.4285715;">gets recognized. Optionally a drag image provider can be used. </span>
+                            </p>
+                                <div class="confluence-information-macro confluence-information-macro-note"><span
+                                        class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span>
+                                    <div class="confluence-information-macro-body"><p><span>The size of the image might be different than the size of the </span><span>activity (platform</span><span
+                                            style="color: rgb(146,147,175);">-</span><span>specific).</span></p></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>RENDERED</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd"><p>The dragged activity will be constantly rendered on
+                                a separate canvas <span style="line-height: 1.4285715;">on top of the graphics area. The activity is guaranteed to keep its </span><span
+                                        style="line-height: 1.4285715;">original size.</span></p></td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>RENDERED_GRID_SNAPPED</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd"><p>The dragged activity will be constantly rendered on
+                                a separate canvas <span style="line-height: 1.4285715;">on top of the graphics area. The activity is guaranteed to keep its </span><span
+                                        style="line-height: 1.4285715;">original size. The currently active <span
+                                        style="color: rgb(81,88,203);">grid </span></span><span
+                                        style="line-height: 1.4285715;">will be used </span><span
+                                        style="line-height: 1.4285715;">to make the dragged activity snap to the grid locations.</span>
+                            </p></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h2 id="id-3.4.2Drag&amp;Drop-DragImageProvider"><span
+                        style="color: rgb(0,0,0);">Drag Image Provider</span></h2>
+                <p>If the DnD feedback type has been set to <strong>NATIVE</strong> then it is possible to pass a custom
+                    image for the drag operation. This can be accomplished by setting a drag image provider on <strong>GraphicsBase</strong>
+                    by calling <strong>setDragImageProvider()</strong>. This method accepts a callback lambda
+                    expression. The input for the callback will be an <a href="4.2-ActivityRef_491697.html"
+                                                                         data-linked-resource-id="491697"
+                                                                         data-linked-resource-version="2"
+                                                                         data-linked-resource-type="page"><strong>ActivityRef</strong>
+                    </a>and the output will be an image.</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Drag Image Provider</b>
+                    </div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.setDragImageProvider(ref -&gt; createImage(ref));</pre>
+                    </div>
+                </div>
+                <div class="confluence-information-macro confluence-information-macro-note"><span
+                        class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span>
+                    <div class="confluence-information-macro-body"><p>The default image is a snapshot of the activity at
+                        the moment when the drag started.</p></div>
+                </div>
+                <h2 id="id-3.4.2Drag&amp;Drop-DropLayerProvider"> Drop Layer Provider</h2>
+                <p>Drag and drop operations can be performed between two different Gantt charts with each chart managing
+                    its own list of layers. By default a dropped activity will be placed on the same layer as the one
+                    where is was dragged from. But if the target Gantt chart does not contain that layer then the
+                    application needs to be told which layer to use as the new home for the activity. This can be
+                    accomplished by setting a &quot;drop layer provider&quot; callback on target instance of
+                    GraphicsBase.</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Drop Layer Provider</b>
+                    </div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: false; theme: Confluence"
+     data-theme="Confluence">GraphicsBase&lt;?&gt; graphics = targetGanttChart.getGraphics();
+targetGraphics.setDropLayerProvider(info -&gt; targetLayer); // info is of type DragAndDropInfo</pre>
+                    </div>
+                </div>
+                <p>The default implementation of this callback looks like this:</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Default Drop Layer
+                        Provider</b></div>
+                    <div class="codeContent panelContent pdl">
+                        <pre class="syntaxhighlighter-pre"
+                             data-syntaxhighlighter-params="brush: jfx; gutter: false; theme: Confluence"
+                             data-theme="Confluence">info -&gt; info.getActivityRef().getLayer(); // use same layer as before</pre>
+                    </div>
+                </div>
+                <p>If the drop layer provider returns no layer or if the returned layer is not a layer that was added to
+                    the target Gantt chart / graphics then we will see messages like this.</p>
+                <ul>
+                    <li>&quot;the drop layer provider has returned no layer for the dropped activity&quot;</li>
+                    <li>&quot;the drop layer provider has returned a layer that does not exist in the Gantt
+                        chart&quot;<span
+                                style="color: rgb(23,43,77);font-size: 1.43em;font-style: inherit;letter-spacing: -0.01em;background-color: rgb(255,255,255);"> </span>
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

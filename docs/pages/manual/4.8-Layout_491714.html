@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FlexGanttFX Developer Manual : 4.8 Layout</title>
+    <link rel="stylesheet" href="styles/site.css" type="text/css"/>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body class="theme-default aui-theme-default">
+<div id="page">
+    <div id="main" class="aui-page-panel">
+        <div id="main-header">
+            <div id="breadcrumb-section">
+                <ol id="breadcrumbs">
+                    <li class="first">
+                        <span><a href="index.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="FlexGanttFX-Developer-Manual_491528.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="4.-Model_491687.html">4. Model</a></span>
+                    </li>
+                </ol>
+            </div>
+            <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            FlexGanttFX Developer Manual : 4.8 Layout
+                        </span>
+            </h1>
+        </div>
+
+        <div id="content" class="view">
+            <div class="page-metadata">
+
+
+                Created by <span class='author'> Dirk Lemmermann</span>, last modified on Oct 09, 2014
+            </div>
+            <div id="main-content" class="wiki-content group">
+                <div class="block">
+                    <style type='text/css'>/*<![CDATA[*/
+                    div.rbtoc1633442047254 {
+                        padding: 0px;
+                    }
+
+                    div.rbtoc1633442047254 ul {
+                        list-style: disc;
+                        margin-left: 0px;
+                    }
+
+                    div.rbtoc1633442047254 li {
+                        margin-left: 0px;
+                        padding-left: 0px;
+                    }
+
+                    /*]]>*/</style>
+                    <div class='toc-macro rbtoc1633442047254'>
+                        <ul class='toc-indentation'>
+                            <li><a href='#id-4.8Layout-Introduction'>Introduction</a></li>
+                            <li><a href='#id-4.8Layout-LayoutTypes'>Layout Types</a></li>
+                            <li><a href='#id-4.8Layout-Padding'>Padding</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <h2 class="block" id="id-4.8Layout-Introduction">Introduction</h2>
+                <div class="block">Each row and each inner line of a row are associated with a layout. The layout
+                    influences several aspects during rendering and editing of activities. Additionally several of the
+                    system layers used to draw the row background also utilize the layout information. The layout can be
+                    set by calling Row.setLayout(Layout) or when using inner lines by returning them via the <a
+                            href="4.7-LinesManager_491710.html" data-linked-resource-id="491710"
+                            data-linked-resource-version="8" data-linked-resource-type="page">lines manager</a> of the
+                    row.
+                </div>
+                <h2 class="block" id="id-4.8Layout-LayoutTypes">Layout Types</h2>
+                <p>Three layout types are included in FlexGanttFX.</p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Layout</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>GanttLayout</pre>
+                            </td>
+                            <td class="confluenceTd">Lays out activities horizontally along the timeline. Positions are
+                                based on the start and end times of the activities.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>AgendaLayout</pre>
+                            </td>
+                            <td class="confluenceTd">Lays out activities vertically along a &quot;local time&quot; scale
+                                (0 - 24 hours). This makes activities look like calendar entries.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>ChartLayout</pre>
+                            </td>
+                            <td class="confluenceTd">Lays out activities as chart values. Activities can implement the
+                                <a href="4.1.1-ChartActivity_492237.html" data-linked-resource-id="492237"
+                                   data-linked-resource-version="4" data-linked-resource-type="page">ChartActivity </a>or
+                                the <a href="4.1.3-HighLowChartActivity_492241.html" data-linked-resource-id="492241"
+                                       data-linked-resource-version="2" data-linked-resource-type="page">HighLowChartActivity </a><span>interface.</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h2 id="id-4.8Layout-Padding"><span style="color: rgb(0,0,0);">Padding</span></h2>
+                <p><span style="color: rgb(0,0,0);"> </span>All layout types have a <strong>padding</strong> property.
+                    It is used to create a visual gap at the top and bottom of each row / line.</p>
+                <p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image"
+                                                                       confluence-query-params="effects=border-simple,blur-border"
+                                                                       loading="lazy"
+                                                                       src="attachments/491714/983098.png?effects=border-simple,blur-border"
+                                                                       data-image-src="attachments/491714/983098.png"
+                                                                       data-unresolved-comment-count="0"
+                                                                       data-linked-resource-id="983098"
+                                                                       data-linked-resource-version="3"
+                                                                       data-linked-resource-type="attachment"
+                                                                       data-linked-resource-default-alias="padding.png"
+                                                                       data-base-url="https://flexgantt.atlassian.net/wiki"
+                                                                       data-linked-resource-content-type="image/png"
+                                                                       data-linked-resource-container-id="491714"
+                                                                       data-linked-resource-container-version="8"
+                                                                       data-media-id="3dc6af63-02ce-40ea-83df-6d9941425cbf"
+                                                                       data-media-type="file"></span></p>
+            </div>
+
+            <div class="pageSection group">
+                <div class="pageSectionHeader">
+                    <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                </div>
+
+                <div class="greybox" align="left">
+                    <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                    <a href="attachments/491714/983055.png">layout-gantt.png</a> (image/png)
+                    <br/>
+                    <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                    <a href="attachments/491714/983056.png">layout-agenda.png</a> (image/png)
+                    <br/>
+                    <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                    <a href="attachments/491714/983057.png">layout-capacity.png</a> (image/png)
+                    <br/>
+                    <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                    <a href="attachments/491714/983099.png">padding.png</a> (image/png)
+                    <br/>
+                    <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                    <a href="attachments/491714/983100.png">padding.png</a> (image/png)
+                    <br/>
+                    <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                    <a href="attachments/491714/983098.png">padding.png</a> (image/png)
+                    <br/>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

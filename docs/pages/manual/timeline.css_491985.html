@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FlexGanttFX Developer Manual : timeline.css</title>
+    <link rel="stylesheet" href="styles/site.css" type="text/css"/>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body class="theme-default aui-theme-default">
+<div id="page">
+    <div id="main" class="aui-page-panel">
+        <div id="main-header">
+            <div id="breadcrumb-section">
+                <ol id="breadcrumbs">
+                    <li class="first">
+                        <span><a href="index.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="FlexGanttFX-Developer-Manual_491528.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="491824.html">5. Styling (CSS)</a></span>
+                    </li>
+                </ol>
+            </div>
+            <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            FlexGanttFX Developer Manual : timeline.css
+                        </span>
+            </h1>
+        </div>
+
+        <div id="content" class="view">
+            <div class="page-metadata">
+
+
+                Created by <span class='author'> Dirk Lemmermann</span>, last modified on Oct 06, 2014
+            </div>
+            <div id="main-content" class="wiki-content group">
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: css; gutter: true; theme: Confluence"
+     data-theme="Confluence">/*
+ * timeline.css file of FlexGanttFX
+ * 
+ * Copyright 2014 Dirk Lemmermann Software &amp; Consulting
+ */
+
+/*
+ * timeline-first/middle/last are styles that are applied depending on the 
+ * position of the Gantt chart in a multi Gantt chart context, e.g. the
+ * DualGanttChartContainer or the MultipleGanttChartContainer.
+ */
+.timeline {
+	-fx-background-color: -fx-body-color;
+	/*
+	 * The pref height of the timeline has to match the pref height
+	 * of the table column headers, so that they 
+	 */
+	-fx-pref-height: 60px;
+}
+
+.timeline-first {
+}
+.timeline-middle,
+.timeline-last {
+	/*
+	 * The pref height of the timeline is smaller if the timeline 
+	 * is used for the second, third, ... chart in a multi Gantt chart
+	 * context. 
+	 */
+	-fx-pref-height: 24px;
+}
+
+/*
+ * The lasso used for selecting time intervals.
+ */
+.timeline-lasso {
+	/* semi-transparent rectangle, blue by default (modena.css) */
+	-fx-opacity: 60%;
+	-fx-background-color: -fx-accent;
+}
+</pre>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

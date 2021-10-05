@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FlexGanttFX Developer Manual : 2. Tutorial</title>
+    <link rel="stylesheet" href="styles/site.css" type="text/css"/>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body class="theme-default aui-theme-default">
+<div id="page">
+    <div id="main" class="aui-page-panel">
+        <div id="main-header">
+            <div id="breadcrumb-section">
+                <ol id="breadcrumbs">
+                    <li class="first">
+                        <span><a href="index.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="FlexGanttFX-Developer-Manual_491528.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                </ol>
+            </div>
+            <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            FlexGanttFX Developer Manual : 2. Tutorial
+                        </span>
+            </h1>
+        </div>
+
+        <div id="content" class="view">
+            <div class="page-metadata">
+
+
+                Created by <span class='author'> Dirk Lemmermann</span>, last modified on Oct 08, 2014
+            </div>
+            <div id="main-content" class="wiki-content group">
+                <p>In this tutorial we are creating a very simple solution for displaying the schedule of an aircraft
+                    fleet.To install <em style="line-height: 1.4285;"><strong>FlexGanttFX </strong></em>please follow
+                    the instructions found in <a href="1.-Installation_491529.html" data-linked-resource-id="491529"
+                                                 data-linked-resource-version="46" data-linked-resource-type="page">1.
+                        Installation</a>.</p>
+                <p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image"
+                                                                       confluence-query-params="effects=border-simple,blur-border"
+                                                                       loading="lazy"
+                                                                       src="attachments/491567/983067.jpg?effects=border-simple,blur-border"
+                                                                       data-image-src="attachments/491567/983067.jpg"
+                                                                       data-unresolved-comment-count="0"
+                                                                       data-linked-resource-id="983067"
+                                                                       data-linked-resource-version="1"
+                                                                       data-linked-resource-type="attachment"
+                                                                       data-linked-resource-default-alias="airbus.jpg"
+                                                                       data-base-url="https://flexgantt.atlassian.net/wiki"
+                                                                       data-linked-resource-content-type="image/jpeg"
+                                                                       data-linked-resource-container-id="491567"
+                                                                       data-linked-resource-container-version="35"
+                                                                       data-media-id="251e0545-fa16-4ef4-8b3b-c7a7c3e08ab1"
+                                                                       data-media-type="file"></span></p>
+                <h2 id="id-2.Tutorial-ViewModel">View Model</h2>
+                <p>Let's start by creating a view model for the Gantt chart. Our objects are <strong>Fleet</strong>,
+                    <strong>Aircraft</strong>,<strong> Crew</strong>, and <strong>Flight</strong>. Instances of <strong>Flight</strong>
+                    will be shown as a horizontal bar in the graphics area of the Gantt chart while the first three will
+                    be displayed in the rows of the tree table area. <strong>Fleet,</strong> <strong>Aircraft</strong>,
+                    and<strong> Crew</strong> share a common superclass called <strong>ModelObject</strong>, an
+                    extension of <strong>Row</strong>.</p>
+                <p>The <strong>Row</strong> class is being used to define a hierarchical data structure by the help of
+                    three type arguments: the first one specifies the type of the parent row, the second one the type of
+                    the children rows, and the third one the type of activities that will be shown on the right-hand
+                    side of the Gantt chart. </p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Model Object </b></div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">class ModelObject&lt;
+       P extends Row&lt;?,?,?&gt;, // Type of parent row
+       C extends Row&lt;?,?,?&gt;, // Type of child rows
+       A extends Activity&gt; extends Row&lt;P, C, A&gt; { }</pre>
+                    </div>
+                </div>
+                <p>We can now pass <strong>ModelObject</strong> as a type argument when creating an instance of
+                    a <strong>GanttChart</strong> control. This informs the control that all rows will have this common
+                    supertype.</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Typed Gantt Chart</b>
+                    </div>
+                    <div class="codeContent panelContent pdl">
+                        <pre class="syntaxhighlighter-pre"
+                             data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+                             data-theme="Confluence">GanttChart&lt;ModelObject&lt;?,?,?&gt; gantt = new GanttChart&lt;&gt;()</pre>
+                    </div>
+                </div>
+                <p>The <strong>Aircraft</strong> model class can be implemented as shown in the following code
+                    fragment, assuming that a fleet consists of several aircrafts, each aircraft having a crew, and
+                    flights being assigned to aircrafts and crews.</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Row Type: Aircraft</b>
+                    </div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">public class Aircraft extends ModelObject&lt;Fleet, Crew, Flight&gt; { 
+  public Aircraft(String name) { 
+    super(name); 
+  } 
+}</pre>
+                    </div>
+                </div>
+                <p>The <strong>Flight</strong> class extends <strong>MutableActivityBase</strong> and might look like
+                    this:</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Activity Type:
+                        Flight</b></div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">public class Flight extends MutableActivityBase&lt;FlightData&gt; { 
+  public Flight(FlightData data) {
+    super(data.getFlightName()); // the activity name
+    setStartTime(data.getFlightDepartureTime()); // start / end times as java.time.Instant
+    setEndTime(data.getFlightArrivalTime()); 
+    setUserObject(data); // a user object according to the type argument above
+  } 
+} </pre>
+                    </div>
+                </div>
+                <p>This class definies a flight as a <u>mutable</u> activity, which means that the flight can be edited
+                    by the user. We can also see that the activity gets its information from a domain object of type
+                    <strong>FlightData</strong> . Supporting a user object allows us to create a bridge between the <u>domain</u>
+                    model and the <u>view </u>model. All that is left to do now is to add the activities / the flights
+                    to the rows / the aircrafts. For this we can simply call the method <strong>Row.addActivity(Layer,
+                        Activity).</strong></p>
+                <p> </p>
+                <div class="confluence-information-macro confluence-information-macro-note"><p class="title">Activity
+                    Repositories</p><span
+                        class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span>
+                    <div class="confluence-information-macro-body"><p>Rows do not store activities themselves, instead
+                        they are delegating all activity-related functionality to a repository of type <strong>ActivityRepository</strong>.
+                        The default repository is of type <strong>IntervalTreeRepository</strong>. Applications can
+                        implement their own repositories and register them by
+                        calling <strong>Row.setRepository()</strong> .</p></div>
+                </div>
+                <h2 id="id-2.Tutorial-Layers">Layers</h2>
+                <p>Layers are used to create groups of activities so that they can be shown / hidden together. In our
+                    example we want to group flights based on their service type (cargo, charter, training, etc...).</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Layers</b></div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">Layer cargoLayer = new Layer(&quot;Cargo&quot;);
+Layer trainingLayer = new Layer(&quot;Training&quot;);
+Layer charterLayer = new Layer(&quot;Charter&quot;);
+gantt.getLayers().addAll(cargoLayer, trainingLayer, charterLayer); // make layers known to Gantt</pre>
+                    </div>
+                </div>
+                <p>Now the Gantt chart knows which layers it needs to rendere and we can create the link between the
+                    layers and the activities. This is done when we add the activities to the rows (here: add flights to
+                    aircrafts).</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Adding Activities /
+                        Flights</b></div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">Flight flight1 = new Flight(); // a cargo flight
+Flight flight2 = new Flight(); // a training flight
+Flight flight3 = new Flight(); // a charter flight
+		
+aircraft1.addActivity(cargoLayer, flight1);
+aircraft1.addActivity(trainingLayer, flight2);
+aircraft2.addActivity(charterLayer, flight3);</pre>
+                    </div>
+                </div>
+                <h2 id="id-2.Tutorial-IntermediateResult">Intermediate Result</h2>
+                <p>In the following code sample we are combining all of the steps from above.</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Aircraft Gantt
+                        Chart</b></div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import com.flexganttfx.model.Activity;
+import com.flexganttfx.model.Layer;
+import com.flexganttfx.model.Row;
+import com.flexganttfx.model.activity.MutableActivityBase;
+import com.flexganttfx.view.GanttChart;
+
+public class MyFirstGanttChart extends Application {
+
+	/*
+	 * Common superclass of Fleet, Aircraft, and Crew.
+	 */
+	class ModelObject&lt;
+	       P extends Row&lt;?,?,?&gt;, // Type of parent row
+	       C extends Row&lt;?,?,?&gt;, // Type of child rows
+	       A extends Activity&gt; extends Row&lt;P, C, A&gt; { }
+	
+	class Fleet extends ModelObject&lt;Row&lt;?,?,?&gt;, Aircraft, Activity&gt; { }
+	
+	class Aircraft extends ModelObject&lt;Fleet, Crew, Flight&gt; { }
+		
+	class Flight extends MutableActivityBase&lt;Object&gt; { } 
+
+	@Override
+	public void start(Stage stage) throws Exception {
+		
+		// Our root object.
+		Fleet fleet = new Fleet();
+		fleet.setExpanded(true);
+
+		// Create the control.		
+		GanttChart&lt;ModelObject&lt;?,?,?&gt;&gt; gantt = new GanttChart&lt;&gt;(fleet);
+		
+		// Layers based on service type.
+		Layer cargoLayer = new Layer(&quot;Cargo&quot;);
+		Layer trainingLayer = new Layer(&quot;Training&quot;);
+		Layer charterLayer = new Layer(&quot;Charter&quot;);
+		gantt.getLayers().addAll(cargoLayer, trainingLayer, charterLayer);
+		
+		// Create the aircrafts.
+		Aircraft aircraft1 = new Aircraft();
+		Aircraft aircraft2 = new Aircraft();
+		
+		// Add the aircrafts to the fleet.
+		fleet.getChildren().addAll(aircraft1, aircraft2);
+		
+		// Create the flights
+		Flight flight1 = new Flight(); // a cargo flight
+		Flight flight2 = new Flight(); // a training flight
+		Flight flight3 = new Flight(); // a charter flight
+		
+		aircraft1.addActivity(cargoLayer, flight1);
+		aircraft1.addActivity(trainingLayer, flight2);
+		aircraft2.addActivity(charterLayer, flight3);
+		
+		Scene scene = new Scene(gantt);
+
+		stage.setTitle(&quot;Fleet Schedule&quot;);
+		stage.setScene(scene);
+		stage.centerOnScreen();
+		stage.sizeToScene();
+		stage.show();
+	}
+	
+	public static void main(String[] args) {
+		Application.launch(args);
+	}
+}	</pre>
+                    </div>
+                </div>
+                <p>The image below shows what we will see when we run this code. </p>
+                <p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy"
+                                                                       src="attachments/491567/983043.png"
+                                                                       data-image-src="attachments/491567/983043.png"
+                                                                       data-unresolved-comment-count="0"
+                                                                       data-linked-resource-id="983043"
+                                                                       data-linked-resource-version="1"
+                                                                       data-linked-resource-type="attachment"
+                                                                       data-linked-resource-default-alias="fleet-schedule.png"
+                                                                       data-base-url="https://flexgantt.atlassian.net/wiki"
+                                                                       data-linked-resource-content-type="image/png"
+                                                                       data-linked-resource-container-id="491567"
+                                                                       data-linked-resource-container-version="35"
+                                                                       data-media-id="c515b38f-c74d-425f-8ea8-739206120cfd"
+                                                                       data-media-type="file"></span></p>
+                <h2 id="id-2.Tutorial-ActivityRenderers">Activity Renderers</h2>
+                <p>This result is not bad for just a few lines of code, however the rendering of the flights is not
+                    attractive at all. We can customize their apperance by registering a different <strong>ActivityRenderer </strong>for
+                    the activity type <strong>Flight </strong>. This is done by calling the method <strong>GraphicsBase.setActivityRenderer()</strong> where
+                    the graphics view is the control on the right-hand side of the Gantt chart. It is responsible for
+                    rendering all activities. We can add the following lines to our example from above.</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Registering an Activity
+                        Renderer</b></div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">GraphicsView &lt;ModelObject&lt;?, ?, ?&gt;&gt; graphics = gantt.getGraphics();
+graphics.setActivityRenderer(
+	Flight.class, 
+	GanttLayout.class, 
+    new ActivityBarRenderer&lt;&gt;(graphics, &quot;FlightRenderer&quot;));</pre>
+                    </div>
+                </div>
+                <p>This replaces the default activity renderer with a renderer that draws a fixed-height bar.
+                    Interesting about this code is that we are not only passing the activity type and the renderer
+                    instance but also a layout type. We don't want to spend too much time on layouts in the context of
+                    this quick start guide but let's just say that <strong><em>FlexGanttFX</em> </strong>is capable of
+                    displaying activities in several different ways (as time bars, as chart entries, as agenda entries).
+                </p>
+                <p>Our example now looks like this:<span style="line-height: 1.4285;"> </span><span
+                        class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy"
+                                                                      src="attachments/491567/983044.png"
+                                                                      data-image-src="attachments/491567/983044.png"
+                                                                      data-unresolved-comment-count="0"
+                                                                      data-linked-resource-id="983044"
+                                                                      data-linked-resource-version="1"
+                                                                      data-linked-resource-type="attachment"
+                                                                      data-linked-resource-default-alias="fleet-schedule-customized.png"
+                                                                      data-base-url="https://flexgantt.atlassian.net/wiki"
+                                                                      data-linked-resource-content-type="image/png"
+                                                                      data-linked-resource-container-id="491567"
+                                                                      data-linked-resource-container-version="35"
+                                                                      data-media-id="5bf7bc13-af3d-4453-81ec-1f9f73cd8f40"
+                                                                      data-media-type="file"></span></p>
+                <p>We can now add a <strong>GanttChartToolBar </strong>and a <strong>GanttChartStatusBar </strong>to the
+                    example. This allows us to perform actions on the chart and also to verify that the layers have been
+                    added properly. The following lines of code are needed for this.</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Status- and Toolbar</b>
+                    </div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">BorderPane borderPane = new BorderPane(); 
+borderPane.setTop(new GanttChartToolBar(gantt)); 
+borderPane.setCenter(gantt); 
+borderPane.setBottom(new GanttChartStatusBar(gantt)); 
+Scene scene = new Scene(borderPane);</pre>
+                    </div>
+                </div>
+                <p><span style="line-height: 1.4285;">Our example will now look like this after clicking on the </span>layers<span
+                        style="line-height: 1.4285;"> button in the toolbar.</span></p>
+                <p><span style="line-height: 1.4285;"><span class="confluence-embedded-file-wrapper"><img
+                        class="confluence-embedded-image" loading="lazy" src="attachments/491567/983045.png"
+                        data-image-src="attachments/491567/983045.png" data-unresolved-comment-count="0"
+                        data-linked-resource-id="983045" data-linked-resource-version="1"
+                        data-linked-resource-type="attachment"
+                        data-linked-resource-default-alias="fleet-schedule-layers.png"
+                        data-base-url="https://flexgantt.atlassian.net/wiki"
+                        data-linked-resource-content-type="image/png" data-linked-resource-container-id="491567"
+                        data-linked-resource-container-version="35" data-media-id="9e508697-c116-468c-adc7-78939a8f0425"
+                        data-media-type="file"></span><br/></span></p>
+                <h2 id="id-2.Tutorial-ListeningtoChange">Listening to Change</h2>
+                <p>Now that we have visualized our data we obviously want to interact with it and we want to be informed
+                    about the changes that we make. Our activities are, by default, editable. This means we can drag
+                    them horizontally or vertically. To receive events we only need to register an <strong>ActivityEvent </strong>handler
+                    with the graphics view control by calling <strong>GraphicsBase.setOnActivityChanged().</strong></p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Receiving Activity
+                        Events</b></div>
+                    <div class="codeContent panelContent pdl">
+                        <pre class="syntaxhighlighter-pre"
+                             data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+                             data-theme="Confluence">graphics.setOnActivityChanged(evt -&gt; System.out.println(evt));</pre>
+                    </div>
+                </div>
+                <p>When we run our application now we will see the following output in the console.</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: text; gutter: false; theme: Confluence"
+     data-theme="Confluence">event type: DRAG_STARTED, time interval: 2014-04-17T21:45:00Z - 2014-04-22T21:30:00Z, 
+	value (chart value / percentage complete): 0.0, 
+	activity &quot;null from 2014-04-18T12:15:00Z until 2014-04-23T12:00:00Z, 
+	user object = null&quot;, 
+	row = &quot;Default&quot;, 
+	layer = &quot;Training&quot;
+
+event type: DRAG_ONGOING, time interval: 2014-04-17T21:45:00Z - 2014-04-22T21:30:00Z, 
+	value (chart value / percentage complete): 0.0, 
+	activity &quot;null from 2014-04-18T12:15:00Z until 2014-04-23T12:00:00Z, 
+	user object = null&quot;, 
+	row = &quot;Default&quot;, 
+	layer = &quot;Training&quot;
+ 
+event type: DRAG_FINISHED, time interval: 2014-04-17T21:45:00Z - 2014-04-22T21:30:00Z, 
+	value (chart value / percentage complete): 0.0, 
+	activity &quot;null from 2014-04-18T03:00:00Z until 2014-04-23T02:45:00Z, 
+	user object = null&quot;, 
+	row = &quot;Default&quot;, 
+	layer = &quot;Training&quot;</pre>
+                    </div>
+                </div>
+                <p>Please notice the three different event types <strong>DRAG_STARTED</strong>,
+                    <strong>DRAG_ONGOING</strong>, and <strong>DRAG_FINISHED </strong> The first one gets fired when the
+                    user initiates a drag, the second while while the drag is still in progress, and the third one when
+                    the drag has finished. This pattern can be observed in JavaFX itself and it was implemented
+                    throughout <em><strong>FlexGanttFX</strong> </em>as well. Make sure to take a look at the various
+                    event types defined in the <strong>ActivityEvent</strong> class to find out how much information you
+                    can receive when the user performs editing operations.</p>
+            </div>
+
+            <div class="pageSection group">
+                <div class="pageSectionHeader">
+                    <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                </div>
+
+                <div class="greybox" align="left">
+                    <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                    <a href="attachments/491567/983043.png">fleet-schedule.png</a> (image/png)
+                    <br/>
+                    <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                    <a href="attachments/491567/983044.png">fleet-schedule-customized.png</a> (image/png)
+                    <br/>
+                    <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                    <a href="attachments/491567/983045.png">fleet-schedule-layers.png</a> (image/png)
+                    <br/>
+                    <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                    <a href="attachments/491567/983067.jpg">airbus.jpg</a> (image/jpeg)
+                    <br/>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -10,7 +10,7 @@
     - text: FAQs
       url: /pages/faq
     - text: Developer Manual
-      url: https://flexgantt.atlassian.net/wiki/spaces/FFXMAN/overview
+      url: /pages/manual/index.html
       target: _blank
     - text: Javadocs / API
       url: /api/index.html

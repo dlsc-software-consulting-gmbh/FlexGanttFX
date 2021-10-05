@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FlexGanttFX Developer Manual : 4.8.3 Chart Layout</title>
+    <link rel="stylesheet" href="styles/site.css" type="text/css"/>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body class="theme-default aui-theme-default">
+<div id="page">
+    <div id="main" class="aui-page-panel">
+        <div id="main-header">
+            <div id="breadcrumb-section">
+                <ol id="breadcrumbs">
+                    <li class="first">
+                        <span><a href="index.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="FlexGanttFX-Developer-Manual_491528.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="4.-Model_491687.html">4. Model</a></span>
+                    </li>
+                    <li>
+                        <span><a href="4.8-Layout_491714.html">4.8 Layout</a></span>
+                    </li>
+                </ol>
+            </div>
+            <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            FlexGanttFX Developer Manual : 4.8.3 Chart Layout
+                        </span>
+            </h1>
+        </div>
+
+        <div id="content" class="view">
+            <div class="page-metadata">
+
+
+                Created by <span class='author'> Dirk Lemmermann</span>, last modified on Oct 09, 2014
+            </div>
+            <div id="main-content" class="wiki-content group">
+                <h2 id="id-4.8.3ChartLayout-Introduction">Introduction</h2>
+                <p>Using the ChartLayout class results in activities being laid out as chart bars. A series of such bars
+                    can for example be used to form a capacity profile. Activities of type <a
+                            href="4.1.1-ChartActivity_492237.html" data-linked-resource-id="492237"
+                            data-linked-resource-version="4" data-linked-resource-type="page">ChartActivity&nbsp;</a>will
+                    be placed on a zeroline between the minimum and the maximum value of the layout. The height of the
+                    chart activity will be based on the value returned by <strong>ChartActivity.getChartValue()</strong>.
+                    Activities of type <a href="4.1.3-HighLowChartActivity_492241.html" data-linked-resource-id="492241"
+                                          data-linked-resource-version="2" data-linked-resource-type="page">HighLowChartActivity&nbsp;</a>will
+                    appear as floating bars. The layout also supports the definition of minor and major chart lines
+                    drawn in the row background.</p>
+                <p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy"
+                                                                       src="attachments/492049/983097.jpg"
+                                                                       data-image-src="attachments/492049/983097.jpg"
+                                                                       data-unresolved-comment-count="0"
+                                                                       data-linked-resource-id="983097"
+                                                                       data-linked-resource-version="1"
+                                                                       data-linked-resource-type="attachment"
+                                                                       data-linked-resource-default-alias="layout-capacity.jpg"
+                                                                       data-base-url="https://flexgantt.atlassian.net/wiki"
+                                                                       data-linked-resource-content-type="image/jpeg"
+                                                                       data-linked-resource-container-id="492049"
+                                                                       data-linked-resource-container-version="5"
+                                                                       data-media-id="409f01e0-81e2-4a8c-8e2f-a75e41146d2b"
+                                                                       data-media-type="file"></span></p>
+                <h2 id="id-4.8.3ChartLayout-Min&amp;MaxValue">Min &amp; Max Value</h2>
+                <p>The chart layout provides two properties that control the actual layout of the chart activities:
+                    <strong>minValue</strong> and <strong>maxValue</strong>. These values have to be managed by the
+                    application, not the framework. They can be set by calling
+                    <strong>ChartLayout.setMinValue()</strong> or <strong>ChartLayout.setMaxValue()</strong>. </p>
+                <h2 id="id-4.8.3ChartLayout-Major&amp;MinorTicks">Major &amp; Minor Ticks</h2>
+                <p>A list of major and minor ticks is available on each chart layout instance. Values can be added to
+                    these lists in order to render value lines in the background of the row. Example: the min value is
+                    equal to 0 the max value is equal to 100. Then it would make sense to define major ticks for the
+                    values 50 and 100. Minor ticks might be at 10, 20, 30, 40, 60, 70, 80 and 90.</p>
+                <p> </p>
+            </div>
+
+            <div class="pageSection group">
+                <div class="pageSectionHeader">
+                    <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                </div>
+
+                <div class="greybox" align="left">
+                    <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                    <a href="attachments/492049/983097.jpg">layout-capacity.jpg</a> (image/jpeg)
+                    <br/>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,207 @@
+/*
+ * graphics.css file of FlexGanttFX
+ * 
+ * Copyright 2014 Dirk Lemmermann Software & Consulting
+ */
+
+.root {
+    /* The color used for drawing links between activities */
+    -flexganttfx-link-color: rosybrown;
+}
+
+/*
+ * We need to adjust the list view so it stays in synch with the tree
+ * table view. We also have to remove all padding from the list cells
+ * and assign a default row height that is equal to the default row
+ * height defined in Row.java.
+ */
+.list-view {
+    -fx-padding: 0.0;
+}
+
+.list-view:focused {
+    -fx-padding: 0.0;
+}
+
+.list-cell {
+    -fx-padding: 0.0;
+    -fx-pref-height: 24px;
+}
+
+.list-cell-row-pane {
+    -fx-background-color: transparent;
+}
+
+/*
+ * The single row pane, vbox row pane, and the splitpane row pane all have
+ * to set a background color. The list view version doesn't need to as it uses
+ * the colors of the rows.
+ */
+.single-row-pane,
+.vbox-row-pane,
+.splitpane-row-pane {
+    -fx-background-color: white;
+}
+
+.vbox-row-pane {
+    -fx-border-color: transparent transparent, gray, transparent;
+    -fx-border-width: .25px;
+}
+
+/*
+ * The lasso is used to select multiple activities at once.
+ */
+.activities-lasso {
+    -fx-stroke: red;
+    -fx-fill: rgba(255.0, 0.0, 0.0, 0.2);
+}
+
+/*
+ * The cursor lines.
+ */
+.horizontal-cursor,
+.vertical-cursor {
+    -fx-stroke: olivedrab;
+    -fx-stroke-width: 1.5;
+}
+
+.horizontal-cursor-indicator {
+    -fx-background-color: green, white;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+    -fx-pref-width: 8;
+    -fx-pref-height: 8;
+}
+
+/*
+ * Marked Time Interval
+ */
+.marked-time-line {
+    -fx-stroke-width: 1.5px;
+    -fx-stroke: cornflowerblue;
+    -fx-stroke-dash-array: 4 3;
+}
+
+.marked-start-time-line {
+}
+
+.marked-end-time-line {
+}
+
+/*
+ * Row controls button are shown when the mouse hovers over a row that can be
+ * edited (flipped around).
+ */
+
+.row-controls-button {
+    -fx-padding: 5 9 7 7;
+    -fx-background-insets: 0 4 2 2;
+    -fx-background-color: rgba(0, 0, 0, .5);
+    -fx-background-radius: 0;
+    -fx-text-fill: white;
+    -fx-font-size: 8;
+    -fx-font-weight: bold;
+}
+
+.row-controls-button:hover,
+.row-controls-button:focused {
+    -fx-padding: 5 9 7 7;
+    -fx-background-insets: 0 4 2 2;
+    -fx-background-color: rgba(0, 0, 0, .6);
+    -fx-background-radius: 0;
+    -fx-text-fill: white;
+    -fx-font-size: 8;
+    -fx-font-weight: bold;
+}
+
+.row-controls-button:pressed,
+.row-controls-button:selected {
+    -fx-background-color: rgba(0, 0, 0, .7);
+}
+
+.virtual-grid-popover > .border {
+    -fx-padding: 10px;
+}
+
+.grid-button,
+.grid-button:hover,
+.grid-button:selected,
+.grid-button:focused,
+.grid-button:pressed {
+    -fx-font-weight: bold;
+    -fx-font-size: 10px;
+    -fx-alignment: center-left;
+    -fx-label-padding: 2 0 2 0;
+    -fx-background-radius: 2;
+    -fx-background-insets: 4;
+}
+
+.grid-button {
+    -fx-background-color: white;
+}
+
+.grid-button:hover {
+    -fx-background-color: lightgray;
+}
+
+.grid-button:pressed {
+    -fx-background-color: gray;
+    -fx-text-fill: white;
+}
+
+.grid-button:selected {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+/*
+ * The styles used for the activity links. A link consists of a path and two
+ * regions (one for the start handle, one for the end handle).
+ */
+
+.link {
+    -fx-stroke-width: 1.5px;
+    -fx-stroke: -flexganttfx-link-color;
+}
+
+.link-start-handle {
+    -fx-border-color: derive(-flexganttfx-link-color, -20%);
+    -fx-background-color: derive(-flexganttfx-link-color, -20%);
+    -fx-pref-width: 6px;
+    -fx-pref-height: 6px;
+    -fx-translate-y: -3px;
+    -fx-shape: "M 100, 100  m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0";
+    -fx-scale-shape: true;
+}
+
+.link-end-handle {
+    -fx-background-color: derive(-flexganttfx-link-color, -20%);
+    -fx-pref-width: 8px;
+    -fx-pref-height: 8px;
+    -fx-translate-x: -8px;
+    -fx-translate-y: -4px;
+    -fx-shape: "M 0 0 L 100 50 L 0 100 L 0 0 Z";
+    -fx-scale-shape: true;
+}
+
+.link-start-handle-rotated {
+    -fx-translate-x: -6px;
+}
+
+.link-end-handle-rotated {
+    -fx-translate-x: 0px;
+}
+
+/*
+ * The lens for the graphics area. Experimental. Feature planned for 1.2 release earliest.
+ */
+.graphics-lens {
+    -fx-effect: innershadow(gaussian, gray, 10, .1, 0, 0);
+    -fx-border-color: gray;
+    -fx-border-insets: 8px;
+}
+
+.graphics-lens-popover {
+    -fx-border-color: red;
+}

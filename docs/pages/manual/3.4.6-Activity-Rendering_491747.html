@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FlexGanttFX Developer Manual : 3.4.6 Activity Rendering</title>
+    <link rel="stylesheet" href="styles/site.css" type="text/css"/>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body class="theme-default aui-theme-default">
+<div id="page">
+    <div id="main" class="aui-page-panel">
+        <div id="main-header">
+            <div id="breadcrumb-section">
+                <ol id="breadcrumbs">
+                    <li class="first">
+                        <span><a href="index.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="FlexGanttFX-Developer-Manual_491528.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="3.-Controls_491598.html">3. Controls</a></span>
+                    </li>
+                    <li>
+                        <span><a href="3.5-GraphicsBase_491612.html">3.5 GraphicsBase</a></span>
+                    </li>
+                </ol>
+            </div>
+            <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            FlexGanttFX Developer Manual : 3.4.6 Activity Rendering
+                        </span>
+            </h1>
+        </div>
+
+        <div id="content" class="view">
+            <div class="page-metadata">
+
+
+                Created by <span class='author'> Dirk Lemmermann</span>, last modified on Oct 07, 2014
+            </div>
+            <div id="main-content" class="wiki-content group">
+                <p>
+                    <style type='text/css'>/*<![CDATA[*/
+                    div.rbtoc1633442035933 {
+                        padding: 0px;
+                    }
+
+                    div.rbtoc1633442035933 ul {
+                        list-style: disc;
+                        margin-left: 0px;
+                    }
+
+                    div.rbtoc1633442035933 li {
+                        margin-left: 0px;
+                        padding-left: 0px;
+                    }
+
+                    /*]]>*/</style>
+                <div class='toc-macro rbtoc1633442035933'>
+                    <ul class='toc-indentation'>
+                        <li><a href='#id-3.4.6ActivityRendering-Introduction'>Introduction</a></li>
+                        <li><a href='#id-3.4.6ActivityRendering-Drawing'>Drawing</a></li>
+                        <li><a href='#id-3.4.6ActivityRendering-DefaultRenderers'>Default Renderers</a></li>
+                        <li><a href='#id-3.4.6ActivityRendering-ActivityBounds'>Activity Bounds</a></li>
+                        <li><a href='#id-3.4.6ActivityRendering-Properties'>Properties</a></li>
+                    </ul>
+                </div>
+                </p><h2 id="id-3.4.6ActivityRendering-Introduction">Introduction</h2>
+                <p><span style="color: rgb(71,71,71);">The graphics view uses the <a class="external-link"
+                                                                                     href="http://docs.oracle.com/javase/8/javafx/api/javafx/scene/canvas/Canvas.html"
+                                                                                     rel="nofollow">canvas API</a> of JavaFX. This is due to the complex nature of a Gantt chart and due to the large data volumes often observed inside of them. Directly rendering large quantities of activities into a bitmap is much faster than constantly updating the scene graph and reapplying CSS styling. FlexGanttFX implements a pluggable renderer architecture where renderer instances can be mapped to activity types, very similar to the way Swing was doing it. </span>
+                </p>
+                <p><span style="color: rgb(71,71,71);">The following code is an example of how to register a custom renderer for a given &quot;Flight&quot; activity type. Please note that the graphics view is capable of displaying activities in different layouts, hence the layout type must also be passed to the method.</span>
+                </p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Renderer
+                        Registration</b></div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.setActivityRenderer(
+				Flight.class, 
+				GanttLayout.class, 
+				new FlightRenderer(graphics));</pre>
+                    </div>
+                </div>
+                <div class="confluence-information-macro confluence-information-macro-note"><span
+                        class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span>
+                    <div class="confluence-information-macro-body"><p>We usually also pass the graphics view to the
+                        renderer at construction time. This is needed as renderers will invoke a redraw on the graphics
+                        when any of its properties changes. This is very different to the Swing approach. This also
+                        implies that renderer instances should only be used for a single graphics view, the one that was
+                        passed to their constructor.</p></div>
+                </div>
+                <p><span style="color: rgb(71,71,71);">The following methods on <strong>GraphicsBase</strong> are used for working with renderers:</span>
+                </p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Method</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>void setActivityRenderer(...);</pre>
+                            </td>
+                            <td class="confluenceTd">Registers a new renderer for the given activity and layout type.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>ActivityRenderer getActivityRenderer(...);</pre>
+                            </td>
+                            <td class="confluenceTd">Returns a renderer for the given activity and layout type.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h2 id="id-3.4.6ActivityRendering-Drawing">Drawing</h2>
+                <p>Activity renderers have a single entry point for drawing, a method called <strong>draw()</strong>.
+                    This method is <u>final</u> and can not be overriden. Once invoked it will call various protected
+                    methods to perform the actual drawing. The call hierarchy looks like this:</p>
+                <ul>
+                    <li>public final <strong>draw()</strong>  .... calls ...
+                        <ul>
+                            <li>protected ActivityBounds <strong>drawActivity()</strong>
+                                <ul>
+                                    <li>protected void <strong>drawBackground()</strong></li>
+                                    <li>protected void <strong>drawBorder()</strong></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <p>Subclasses are free to override any of the three protected methods to customize the activity
+                    appearance.</p>
+                <p>All drawXXX() methods have the same arguments:</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Arguments</b></div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">ActivityRef&lt;A&gt; activityRef,  // the activity to draw
+Position position,			 // agenda layout only (first, middle, last, only)
+GraphicsContext gc,		 	 // the graphics context into which to draw
+double x,					 // the location of the start time of the activity
+double y,					 // the y coordinate (0 when drawn on row or line location)
+double w,					 // end time location minus start time location
+double h,					 // row or line height
+boolean selected,			 // is activity currently selected?
+boolean hover,				 // is mouse cursor currently hovering over it?
+boolean highlighted,		 // is activity currently blinking?
+boolean pressed)			 // is user currently pressing on it?</pre>
+                    </div>
+                </div>
+                <h2 id="id-3.4.6ActivityRendering-DefaultRenderers"><span
+                        style="color: rgb(0,0,0);">Default Renderers</span></h2>
+                <p>The following table lists the various activity renderers that are provided by default.</p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Renderer Class</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>ActivityRenderer</pre>
+                            </td>
+                            <td class="confluenceTd">The most basic renderer for activities. Draws a filled rectangle at
+                                the location of the activity. All default renderers are subclasses of this type.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>ActivityBarRenderer</pre>
+                            </td>
+                            <td class="confluenceTd"><p>Draws a bar instead of filling the entire area. The height of
+                                the bar can be specified.</p>
+                                <div class="confluence-information-macro confluence-information-macro-note"><span
+                                        class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span>
+                                    <div class="confluence-information-macro-body"><p><span> Also supports text in several locations inside and outside the bar.</span>
+                                    </p></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>ChartActivityRenderer</pre>
+                            </td>
+                            <td class="confluenceTd">Draws a <a href="4.1.1-ChartActivity_492237.html"
+                                                                data-linked-resource-id="492237"
+                                                                data-linked-resource-version="4"
+                                                                data-linked-resource-type="page">ChartActivity </a>vertically
+                                depending on its chart value.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>CompletableActivityRenderer</pre>
+                            </td>
+                            <td class="confluenceTd">Subclass of the bar renderer. Draws a <a
+                                    href="4.1.2-CompletableActivity_492239.html" data-linked-resource-id="492239"
+                                    data-linked-resource-version="4" data-linked-resource-type="page">CompletableActivity </a>as
+                                a bar with a section of its background filled with another color. The size of the
+                                section depends on the percentage complete value of the activity.
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><span style="color: rgb(0,0,0);"> These default renderers are attached to this page and can be downloaded here:</span>
+                </p>
+                <p>
+
+
+                <div class="plugin_attachments_container">
+                    <div class="plugin_attachments_table_container">
+                        <fieldset class="hidden">
+                            <input type="hidden" class="plugin_attachments_macro_render_param" name="pageId"
+                                   value="491747">
+                            <input type="hidden" name="deleteConfirmMessage"
+                                   value="Are you sure you want to send the attached file " {0}" to the trash? Only a
+                            space administrator can undo this action."/>
+                            <input type="hidden" class="plugin_attachments_macro_render_param" name="upload"
+                                   value="false">
+                            <input type="hidden" name="outputType" value="html_export">
+                        </fieldset>
+
+
+                        <table class="attachments aui"
+                               data-sort-by="date"
+                               data-sort-order=""
+                               data-tablesorter-headers='{"0": {"sorter": false}}'>
+                            <tr class="header-row">
+                                <th class="expand-column attachment-summary-toggle">&nbsp;</th>
+                                <th class="filename-column">
+                                    File
+                                </th>
+                                <th class="modified-column">
+                                    Modified
+                                </th>
+                            </tr>
+
+
+                            <tbody>
+
+
+                            <tr id="attachment-983069"
+                                class="attachment-row"
+                                data-attachment-id="983069">
+
+                                <td class="attachment-summary-toggle">
+                                    <span class="icon icon-section-closed" title="Show more info"></span>
+
+                                    <div class="attachment-summary attachment-summary-983069 hidden attachment-details-wrapper"
+                                         data-attachment-id="983069"
+                                         data-attachment-filename="ChartActivityRenderer.java">
+
+
+                                        <p class="attachment-labels">Labels</p>
+
+                                        <div class="labels-section-content content-column" entityid="983069"
+                                             entitytype="attachment">
+                                            <div class="labels-content">
+
+
+                                                <ul class="label-list  has-pen">
+                                                    <li class="no-labels-message">
+                                                        No labels
+                                                    </li>
+                                                    <li class="labels-edit-container">
+                                                        <a aria-describedby="attach-983069" href="#"
+                                                           class="show-labels-editor" title="Edit Labels">
+                                                            <span class="aui-icon aui-icon-small aui-iconfont-edit-small">Edit Labels</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="attachment-history-wrapper"></div>
+
+                                        <div class="attachment-buttons">
+
+
+                                            <a class="aui-button " href="$itemRenderedUrl"
+                                               aria-describedby="attach-983069"
+                                               data-file-src="/download/attachments/491747/ChartActivityRenderer.java?version=1"
+                                               data-linked-resource-container-id="491747"
+                                               data-linked-resource-default-alias="ChartActivityRenderer.java"
+                                               data-linked-resource-id="983069"
+                                               data-linked-resource-type="attachment"
+                                            >$itemLabel</a>
+
+                                            <a class="aui-button editAttachmentLink"
+                                               href="$itemRenderedUrl&amp;isFromPageView=true"
+                                               aria-describedby="attach-983069"
+                                            >$itemLabel</a>
+
+                                            <a class="aui-button editInAppAttachmentLink"
+                                               href="$itemRenderedUrl&amp;isFromPageView=true"
+                                               aria-describedby="attach-983069"
+                                               data-file-referer="attachment"
+                                               data-file-src="/download/attachments/491747/ChartActivityRenderer.java?version=1"
+                                               data-linked-resource-container-id="491747"
+                                               data-linked-resource-default-alias="ChartActivityRenderer.java"
+                                               data-linked-resource-id="983069"
+                                               data-linked-resource-type="attachment"
+                                               data-preview-view-mode="edit"
+                                               data-should-edit="true"
+                                            >$itemLabel</a>
+
+                                            <a class="aui-button removeAttachmentLink"
+                                               href="$itemRenderedUrl&amp;isFromPageView=true"
+                                               aria-describedby="attach-983069"
+                                            >$itemLabel</a>
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                                <td class="filename-column">
+                                    <p>
+
+
+                                        <span class="icon icon-file-java" title="Java Source">Java Source</span> <a
+                                            class="filename" href="attachments/491747/983069.java" title="Download"
+                                            data-filename="ChartActivityRenderer.java" data-type="text/plain"
+                                            data-linked-resource-container-id="491747">
+                                        ChartActivityRenderer.java
+                                    </a>
+
+                                        <span class="attachment-comment">Base renderer for chart activities.</span>
+                                    </p>
+                                </td>
+
+                                <td class="attachment-created modified-column" data-sort-value="1412704723453">
+                                    <span>Oct 07, 2014</span>
+                                    <span>by</span>
+                                    <a href="/wiki/people/557058:0742f76c-1570-49ee-8999-29a2b2f14903"
+                                       class="url fn confluence-userlink"
+                                       data-account-id="557058:0742f76c-1570-49ee-8999-29a2b2f14903">Dirk Lemmermann</a>
+                                </td>
+                            </tr>
+
+
+                            <tr id="attachment-983070"
+                                class="attachment-row"
+                                data-attachment-id="983070">
+
+                                <td class="attachment-summary-toggle">
+                                    <span class="icon icon-section-closed" title="Show more info"></span>
+
+                                    <div class="attachment-summary attachment-summary-983070 hidden attachment-details-wrapper"
+                                         data-attachment-id="983070"
+                                         data-attachment-filename="ActivityRenderer.java">
+
+
+                                        <p class="attachment-labels">Labels</p>
+
+                                        <div class="labels-section-content content-column" entityid="983070"
+                                             entitytype="attachment">
+                                            <div class="labels-content">
+
+
+                                                <ul class="label-list  has-pen">
+                                                    <li class="no-labels-message">
+                                                        No labels
+                                                    </li>
+                                                    <li class="labels-edit-container">
+                                                        <a aria-describedby="attach-983070" href="#"
+                                                           class="show-labels-editor" title="Edit Labels">
+                                                            <span class="aui-icon aui-icon-small aui-iconfont-edit-small">Edit Labels</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="attachment-history-wrapper"></div>
+
+                                        <div class="attachment-buttons">
+
+
+                                            <a class="aui-button " href="$itemRenderedUrl&amp;isFromPageView=true"
+                                               aria-describedby="attach-983070"
+                                               data-file-src="/download/attachments/491747/ActivityRenderer.java?version=1"
+                                               data-linked-resource-container-id="491747"
+                                               data-linked-resource-default-alias="ActivityRenderer.java"
+                                               data-linked-resource-id="983070"
+                                               data-linked-resource-type="attachment"
+                                            >$itemLabel</a>
+
+                                            <a class="aui-button editAttachmentLink"
+                                               href="$itemRenderedUrl&amp;isFromPageView=true&amp;isFromPageView=true"
+                                               aria-describedby="attach-983070"
+                                            >$itemLabel</a>
+
+                                            <a class="aui-button editInAppAttachmentLink"
+                                               href="$itemRenderedUrl&amp;isFromPageView=true&amp;isFromPageView=true"
+                                               aria-describedby="attach-983070"
+                                               data-file-referer="attachment"
+                                               data-file-src="/download/attachments/491747/ActivityRenderer.java?version=1"
+                                               data-linked-resource-container-id="491747"
+                                               data-linked-resource-default-alias="ActivityRenderer.java"
+                                               data-linked-resource-id="983070"
+                                               data-linked-resource-type="attachment"
+                                               data-preview-view-mode="edit"
+                                               data-should-edit="true"
+                                            >$itemLabel</a>
+
+                                            <a class="aui-button removeAttachmentLink"
+                                               href="$itemRenderedUrl&amp;isFromPageView=true&amp;isFromPageView=true"
+                                               aria-describedby="attach-983070"
+                                            >$itemLabel</a>
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                                <td class="filename-column">
+                                    <p>
+
+
+                                        <span class="icon icon-file-java" title="Java Source">Java Source</span> <a
+                                            class="filename" href="attachments/491747/983070.java" title="Download"
+                                            data-filename="ActivityRenderer.java" data-type="text/plain"
+                                            data-linked-resource-container-id="491747">
+                                        ActivityRenderer.java
+                                    </a>
+
+                                        <span class="attachment-comment">The base class for all activity renderers.</span>
+                                    </p>
+                                </td>
+
+                                <td class="attachment-created modified-column" data-sort-value="1412704723464">
+                                    <span>Oct 07, 2014</span>
+                                    <span>by</span>
+                                    <a href="/wiki/people/557058:0742f76c-1570-49ee-8999-29a2b2f14903"
+                                       class="url fn confluence-userlink"
+                                       data-account-id="557058:0742f76c-1570-49ee-8999-29a2b2f14903">Dirk Lemmermann</a>
+                                </td>
+                            </tr>
+
+
+                            <tr id="attachment-983071"
+                                class="attachment-row"
+                                data-attachment-id="983071">
+
+                                <td class="attachment-summary-toggle">
+                                    <span class="icon icon-section-closed" title="Show more info"></span>
+
+                                    <div class="attachment-summary attachment-summary-983071 hidden attachment-details-wrapper"
+                                         data-attachment-id="983071"
+                                         data-attachment-filename="ActivityBarRenderer.java">
+
+
+                                        <p class="attachment-labels">Labels</p>
+
+                                        <div class="labels-section-content content-column" entityid="983071"
+                                             entitytype="attachment">
+                                            <div class="labels-content">
+
+
+                                                <ul class="label-list  has-pen">
+                                                    <li class="no-labels-message">
+                                                        No labels
+                                                    </li>
+                                                    <li class="labels-edit-container">
+                                                        <a aria-describedby="attach-983071" href="#"
+                                                           class="show-labels-editor" title="Edit Labels">
+                                                            <span class="aui-icon aui-icon-small aui-iconfont-edit-small">Edit Labels</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="attachment-history-wrapper"></div>
+
+                                        <div class="attachment-buttons">
+
+
+                                            <a class="aui-button "
+                                               href="$itemRenderedUrl&amp;isFromPageView=true&amp;isFromPageView=true"
+                                               aria-describedby="attach-983071"
+                                               data-file-src="/download/attachments/491747/ActivityBarRenderer.java?version=1"
+                                               data-linked-resource-container-id="491747"
+                                               data-linked-resource-default-alias="ActivityBarRenderer.java"
+                                               data-linked-resource-id="983071"
+                                               data-linked-resource-type="attachment"
+                                            >$itemLabel</a>
+
+                                            <a class="aui-button editAttachmentLink"
+                                               href="$itemRenderedUrl&amp;isFromPageView=true&amp;isFromPageView=true&amp;isFromPageView=true"
+                                               aria-describedby="attach-983071"
+                                            >$itemLabel</a>
+
+                                            <a class="aui-button editInAppAttachmentLink"
+                                               href="$itemRenderedUrl&amp;isFromPageView=true&amp;isFromPageView=true&amp;isFromPageView=true"
+                                               aria-describedby="attach-983071"
+                                               data-file-referer="attachment"
+                                               data-file-src="/download/attachments/491747/ActivityBarRenderer.java?version=1"
+                                               data-linked-resource-container-id="491747"
+                                               data-linked-resource-default-alias="ActivityBarRenderer.java"
+                                               data-linked-resource-id="983071"
+                                               data-linked-resource-type="attachment"
+                                               data-preview-view-mode="edit"
+                                               data-should-edit="true"
+                                            >$itemLabel</a>
+
+                                            <a class="aui-button removeAttachmentLink"
+                                               href="$itemRenderedUrl&amp;isFromPageView=true&amp;isFromPageView=true&amp;isFromPageView=true"
+                                               aria-describedby="attach-983071"
+                                            >$itemLabel</a>
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                                <td class="filename-column">
+                                    <p>
+
+
+                                        <span class="icon icon-file-java" title="Java Source">Java Source</span> <a
+                                            class="filename" href="attachments/491747/983071.java" title="Download"
+                                            data-filename="ActivityBarRenderer.java" data-type="text/plain"
+                                            data-linked-resource-container-id="491747">
+                                        ActivityBarRenderer.java
+                                    </a>
+
+                                        <span class="attachment-comment">The base class for all activity renderers that want to display a thin bar.</span>
+                                    </p>
+                                </td>
+
+                                <td class="attachment-created modified-column" data-sort-value="1412704723469">
+                                    <span>Oct 07, 2014</span>
+                                    <span>by</span>
+                                    <a href="/wiki/people/557058:0742f76c-1570-49ee-8999-29a2b2f14903"
+                                       class="url fn confluence-userlink"
+                                       data-account-id="557058:0742f76c-1570-49ee-8999-29a2b2f14903">Dirk Lemmermann</a>
+                                </td>
+                            </tr>
+
+
+                            <tr id="attachment-983072"
+                                class="attachment-row"
+                                data-attachment-id="983072">
+
+                                <td class="attachment-summary-toggle">
+                                    <span class="icon icon-section-closed" title="Show more info"></span>
+
+                                    <div class="attachment-summary attachment-summary-983072 hidden attachment-details-wrapper"
+                                         data-attachment-id="983072"
+                                         data-attachment-filename="CompletableActivityRenderer.java">
+
+
+                                        <p class="attachment-labels">Labels</p>
+
+                                        <div class="labels-section-content content-column" entityid="983072"
+                                             entitytype="attachment">
+                                            <div class="labels-content">
+
+
+                                                <ul class="label-list  has-pen">
+                                                    <li class="no-labels-message">
+                                                        No labels
+                                                    </li>
+                                                    <li class="labels-edit-container">
+                                                        <a aria-describedby="attach-983072" href="#"
+                                                           class="show-labels-editor" title="Edit Labels">
+                                                            <span class="aui-icon aui-icon-small aui-iconfont-edit-small">Edit Labels</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="attachment-history-wrapper"></div>
+
+                                        <div class="attachment-buttons">
+
+
+                                            <a class="aui-button "
+                                               href="$itemRenderedUrl&amp;isFromPageView=true&amp;isFromPageView=true&amp;isFromPageView=true"
+                                               aria-describedby="attach-983072"
+                                               data-file-src="/download/attachments/491747/CompletableActivityRenderer.java?version=1"
+                                               data-linked-resource-container-id="491747"
+                                               data-linked-resource-default-alias="CompletableActivityRenderer.java"
+                                               data-linked-resource-id="983072"
+                                               data-linked-resource-type="attachment"
+                                            >$itemLabel</a>
+
+                                            <a class="aui-button editAttachmentLink"
+                                               href="$itemRenderedUrl&amp;isFromPageView=true&amp;isFromPageView=true&amp;isFromPageView=true&amp;isFromPageView=true"
+                                               aria-describedby="attach-983072"
+                                            >$itemLabel</a>
+
+                                            <a class="aui-button editInAppAttachmentLink"
+                                               href="$itemRenderedUrl&amp;isFromPageView=true&amp;isFromPageView=true&amp;isFromPageView=true&amp;isFromPageView=true"
+                                               aria-describedby="attach-983072"
+                                               data-file-referer="attachment"
+                                               data-file-src="/download/attachments/491747/CompletableActivityRenderer.java?version=1"
+                                               data-linked-resource-container-id="491747"
+                                               data-linked-resource-default-alias="CompletableActivityRenderer.java"
+                                               data-linked-resource-id="983072"
+                                               data-linked-resource-type="attachment"
+                                               data-preview-view-mode="edit"
+                                               data-should-edit="true"
+                                            >$itemLabel</a>
+
+                                            <a class="aui-button removeAttachmentLink"
+                                               href="$itemRenderedUrl&amp;isFromPageView=true&amp;isFromPageView=true&amp;isFromPageView=true&amp;isFromPageView=true"
+                                               aria-describedby="attach-983072"
+                                            >$itemLabel</a>
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                                <td class="filename-column">
+                                    <p>
+
+
+                                        <span class="icon icon-file-java" title="Java Source">Java Source</span> <a
+                                            class="filename" href="attachments/491747/983072.java" title="Download"
+                                            data-filename="CompletableActivityRenderer.java" data-type="text/plain"
+                                            data-linked-resource-container-id="491747">
+                                        CompletableActivityRenderer.java
+                                    </a>
+
+                                        <span class="attachment-comment">Base renderer for completable activities.</span>
+                                    </p>
+                                </td>
+
+                                <td class="attachment-created modified-column" data-sort-value="1412704723475">
+                                    <span>Oct 07, 2014</span>
+                                    <span>by</span>
+                                    <a href="/wiki/people/557058:0742f76c-1570-49ee-8999-29a2b2f14903"
+                                       class="url fn confluence-userlink"
+                                       data-account-id="557058:0742f76c-1570-49ee-8999-29a2b2f14903">Dirk Lemmermann</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                    <div class="plugin_attachments_upload_container">
+                    </div>
+
+                    <div>
+                        <a class="download-all-link" href="/wiki/download/all_attachments?pageId=491747"
+                           title="Download all the latest versions of attachments on this page as single zip file.">Download
+                            All</a>
+                    </div>
+                </div>
+
+                </p><h2 id="id-3.4.6ActivityRendering-ActivityBounds"><span
+                    style="line-height: 1.5;">Activity Bounds</span></h2>
+                <p>Every activity renderer is responsible for returning an instance of <strong>ActivityBounds</strong>
+                    after drawing the activity. These bounds are an essential piece for the framework and many
+                    operations will only work properly if these bounds are valid. They are being used for editing
+                    activities, for hitpoint detection, for laying out links, for context menus, and so on. The
+                    following table lists the attributes of the <strong>ActivityBounds</strong> class.</p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Attribute</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">activity</td>
+                            <td class="confluenceTd">The activity for which these are the bounds.</td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">activityRef</td>
+                            <td class="confluenceTd">An activity referene pointing to the activity.</td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">layer</td>
+                            <td class="confluenceTd">The layer on which the activity was drawn.</td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">layout</td>
+                            <td class="confluenceTd">The layout that was used when the activity was drawn.</td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">lineIndex</td>
+                            <td class="confluenceTd">The index of the line on which the activity is located (-1 if
+                                activity is on the row, not a line).
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">position</td>
+                            <td class="confluenceTd"><p>The position of the bounds when the activity was drawn in agenda
+                                layout (first, middle, layout). This is needed becaue the same activity might be
+                                rendered in several pieces across several days.</p></td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">row</td>
+                            <td class="confluenceTd">The row where the activity was drawn.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="confluence-information-macro confluence-information-macro-note"><span
+                        class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span>
+                    <div class="confluence-information-macro-body"><p>Please ignore the attributes
+                        <strong>overlapColumn</strong>, <strong>overlapCount</strong>, and the list <strong>overlapBounds</strong>.
+                        These are all used internally for <a href="4.8.2-Agenda-Layout_492047.html"
+                                                             data-linked-resource-id="492047"
+                                                             data-linked-resource-version="6"
+                                                             data-linked-resource-type="page">agenda layout</a> related
+                        operations.</p></div>
+                </div>
+                <h2 id="id-3.4.6ActivityRendering-Properties"><span style="color: rgb(0,0,0);">Properties</span></h2>
+                <p>All renderers define several properties that can be used to customize their apperance. Many of these
+                    properties are depenent on the &quot;pseudo state&quot; of the activity: hover, pressed, selected,
+                    highlighted. To make it easier to lookup the right color at the right time several convenience
+                    methods are available:</p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Renderer</th>
+                            <th class="confluenceTh">Method</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>Renderer</pre>
+                            </td>
+                            <td class="confluenceTd"><pre>protected <a class="external-link"
+                                                                       href="http://docs.oracle.com/javase/8/javafx/api/javafx/scene/paint/Paint.html?is-external=true"
+                                                                       rel="nofollow"
+                                                                       title="class or interface in javafx.scene.paint">Paint</a> getFill(boolean selected,
+                        boolean hover,
+                        boolean highlighted,
+                        boolean pressed);</pre>
+                            </td>
+                            <td class="confluenceTd">Returns the color to use for the activity background depending on
+                                pseudo states passed.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>ActivityRenderer</pre>
+                            </td>
+                            <td class="confluenceTd"><pre>protected <a class="external-link"
+                                                                       href="http://docs.oracle.com/javase/8/javafx/api/javafx/scene/paint/Paint.html?is-external=true"
+                                                                       rel="nofollow"
+                                                                       title="class or interface in javafx.scene.paint">Paint</a> getStroke(boolean selected,
+                          boolean hover,
+                          boolean highlighted,
+                          boolean pressed);</pre>
+                            </td>
+                            <td class="confluenceTd">Returns the color to use for the activity border depending on
+                                pseudo states passed.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>ActivityBarRenderer</pre>
+                            </td>
+                            <td class="confluenceTd"><pre>protected <a class="external-link"
+                                                                       href="http://docs.oracle.com/javase/8/javafx/api/javafx/scene/paint/Paint.html?is-external=true"
+                                                                       rel="nofollow"
+                                                                       title="class or interface in javafx.scene.paint">Paint</a> getTextFill(boolean selected,
+                            boolean hover,
+                            boolean highlighted,
+                            boolean pressed);</pre>
+                            </td>
+                            <td class="confluenceTd">Returns the color to use for text depending on pseudo states
+                                passed.
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p> </p>
+                <p> </p>
+                <p> </p>
+                <p> </p>
+            </div>
+
+            <div class="pageSection group">
+                <div class="pageSectionHeader">
+                    <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                </div>
+
+                <div class="greybox" align="left">
+                    <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                    <a href="attachments/491747/983069.java">ChartActivityRenderer.java</a> (text/plain)
+                    <br/>
+                    <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                    <a href="attachments/491747/983070.java">ActivityRenderer.java</a> (text/plain)
+                    <br/>
+                    <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                    <a href="attachments/491747/983071.java">ActivityBarRenderer.java</a> (text/plain)
+                    <br/>
+                    <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                    <a href="attachments/491747/983072.java">CompletableActivityRenderer.java</a> (text/plain)
+                    <br/>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

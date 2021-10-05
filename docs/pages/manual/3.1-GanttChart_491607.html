@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FlexGanttFX Developer Manual : 3.1 GanttChart</title>
+    <link rel="stylesheet" href="styles/site.css" type="text/css"/>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body class="theme-default aui-theme-default">
+<div id="page">
+    <div id="main" class="aui-page-panel">
+        <div id="main-header">
+            <div id="breadcrumb-section">
+                <ol id="breadcrumbs">
+                    <li class="first">
+                        <span><a href="index.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="FlexGanttFX-Developer-Manual_491528.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="3.-Controls_491598.html">3. Controls</a></span>
+                    </li>
+                </ol>
+            </div>
+            <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            FlexGanttFX Developer Manual : 3.1 GanttChart
+                        </span>
+            </h1>
+        </div>
+
+        <div id="content" class="view">
+            <div class="page-metadata">
+
+
+                Created by <span class='author'> Dirk Lemmermann</span>, last modified on Oct 03, 2016
+            </div>
+            <div id="main-content" class="wiki-content group">
+                <p class="block">
+                    <style type='text/css'>/*<![CDATA[*/
+                    div.rbtoc1633442024051 {
+                        padding: 0px;
+                    }
+
+                    div.rbtoc1633442024051 ul {
+                        list-style: disc;
+                        margin-left: 0px;
+                    }
+
+                    div.rbtoc1633442024051 li {
+                        margin-left: 0px;
+                        padding-left: 0px;
+                    }
+
+                    /*]]>*/</style>
+                <div class='toc-macro rbtoc1633442024051'>
+                    <ul class='toc-indentation'>
+                        <li><a href='#id-3.1GanttChart-Introduction'>Introduction</a></li>
+                        <li><a href='#id-3.1GanttChart-Structure'>Structure</a></li>
+                        <li><a href='#id-3.1GanttChart-Master/DetailPanes'>Master / Detail Panes</a></li>
+                        <li><a href='#id-3.1GanttChart-Standalonevs.Multi-/DualGanttChart'>Standalone vs. Multi- /
+                            DualGanttChart</a></li>
+                    </ul>
+                </div>
+                </p><h2 class="block" id="id-3.1GanttChart-Introduction">Introduction</h2>
+                <div class="block">A generic JavaFX control to visualize any kind of scheduling data along a timeline.
+                    The model data needed by the control consists of rows with activities, links between activities, and
+                    layers to group activities together. 
+                </div>
+                <h2 class="block" id="id-3.1GanttChart-Structure"><span style="color: rgb(0,0,0);">Structure</span></h2>
+                <div class="block"><span style="line-height: 1.4285715;">The control consists of several children controls:</span>
+                </div>
+                <div class="block"><span style="line-height: 1.4285715;"><br/></span></div>
+                <div class="block">
+                    <ul>
+                        <li>TreeTableView: shown on the left-hand side to display a hierarchical structure of rows</li>
+                        <li><a href="3.5-GraphicsBase_491612.html" data-linked-resource-id="491612"
+                               data-linked-resource-version="43" data-linked-resource-type="page">GraphicsBase</a>:
+                            shown on the right-hand side to display a graphical representation of the model data
+                        </li>
+                        <li><a href="3.6-Timeline_491626.html" data-linked-resource-id="491626"
+                               data-linked-resource-version="38" data-linked-resource-type="page">Timeline</a>: shown
+                            above the graphics view. The timeline itself consists of two child controls.
+                        </li>
+                        <li><a href="3.7-Dateline_491628.html" data-linked-resource-id="491628"
+                               data-linked-resource-version="32" data-linked-resource-type="page">Dateline</a>: displays
+                            days, weeks, months, years, etc...
+                        </li>
+                        <li><a href="3.8-Eventline_491630.html" data-linked-resource-id="491630"
+                               data-linked-resource-version="15" data-linked-resource-type="page">Eventline</a>:
+                            displays various time markers
+                        </li>
+                    </ul>
+                    <p>The screenshot belows shows the initial appearance of an empty Gantt chart control.</p></div>
+                <p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image"
+                                                                       confluence-query-params="effects=border-simple,blur-border"
+                                                                       loading="lazy"
+                                                                       src="attachments/491607/983049.png?effects=border-simple,blur-border"
+                                                                       data-image-src="attachments/491607/983049.png"
+                                                                       data-unresolved-comment-count="0"
+                                                                       data-linked-resource-id="983049"
+                                                                       data-linked-resource-version="2"
+                                                                       data-linked-resource-type="attachment"
+                                                                       data-linked-resource-default-alias="gantt-chart.png"
+                                                                       data-base-url="https://flexgantt.atlassian.net/wiki"
+                                                                       data-linked-resource-content-type="image/png"
+                                                                       data-linked-resource-container-id="491607"
+                                                                       data-linked-resource-container-version="15"
+                                                                       data-media-id="11fcf837-bc33-4fa2-b070-bbf7de66fb1c"
+                                                                       data-media-type="file"></span></p>
+                <h2 id="id-3.1GanttChart-Master/DetailPanes">Master / Detail Panes</h2>
+                <p>The Gantt chart uses two MasterDetailPane instances from <a class="external-link"
+                                                                               href="http://controlsfx.org"
+                                                                               rel="nofollow">ControlsFX </a>for the
+                    high-level layout. The primary<span style="color: rgb(71,71,71);"> master detail pane displays the tree table as its detail node and the </span><span
+                            style="color: rgb(0,51,102);">secondary</span><span style="color: rgb(71,71,71);"><span
+                            style="color: rgb(0,51,102);"> </span>master detail pane initially displays a property sheet as its detail node. The property sheet is used at development time and can be replaced with any node by calling </span><strong>setDetail(Node)</strong><span
+                            style="color: rgb(71,71,71);">. The property sheet displays a lot of properties that are used by the controls, the renderers, the system layers to fine-tune the appearance of the control. Many of them can be changed at runtime.</span>
+                </p>
+                <h2 id="id-3.1GanttChart-Standalonevs.Multi-/DualGanttChart">Standalone vs. Multi- / DualGanttChart</h2>
+                <p>A Gantt chart can be used standalone or inside a <a class="external-link" href="http://multigantt"
+                                                                       rel="nofollow">MultiGanttChartContainer </a>or <a
+                        href="3.3-DualGanttChartContainer_491619.html" data-linked-resource-id="491619"
+                        data-linked-resource-version="9" data-linked-resource-type="page">DualGanttChartContainer</a>.
+                    When used in one of these containers the position of the Gantt chart becomes important. The control
+                    can be the first chart, the last chart, the only chart, or a chart somewhere in the middle. A &quot;first&quot;
+                    or &quot;only&quot; chart always displays a timeline. A &quot;middle&quot; or &quot;last&quot;
+                    displays a special header (see <strong>setGraphicsHeader</strong>()). The containers are also the
+                    reason why the control distinguishes between a timeline (<strong>getTimeline()</strong>) and a
+                    master timeline (<strong>getMasterTimeline()</strong>). The master timeline is the one shown by the
+                    &quot;first&quot; chart, while the regular timeline is the one that belongs directly to this
+                    instance.</p>
+            </div>
+
+            <div class="pageSection group">
+                <div class="pageSectionHeader">
+                    <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                </div>
+
+                <div class="greybox" align="left">
+                    <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                    <a href="attachments/491607/983062.png">gantt-chart.png</a> (image/png)
+                    <br/>
+                    <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                    <a href="attachments/491607/983049.png">gantt-chart.png</a> (image/png)
+                    <br/>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

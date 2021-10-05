@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FlexGanttFX Developer Manual : 3.4.7 Row Rendering</title>
+    <link rel="stylesheet" href="styles/site.css" type="text/css"/>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body class="theme-default aui-theme-default">
+<div id="page">
+    <div id="main" class="aui-page-panel">
+        <div id="main-header">
+            <div id="breadcrumb-section">
+                <ol id="breadcrumbs">
+                    <li class="first">
+                        <span><a href="index.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="FlexGanttFX-Developer-Manual_491528.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="3.-Controls_491598.html">3. Controls</a></span>
+                    </li>
+                    <li>
+                        <span><a href="3.5-GraphicsBase_491612.html">3.5 GraphicsBase</a></span>
+                    </li>
+                </ol>
+            </div>
+            <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            FlexGanttFX Developer Manual : 3.4.7 Row Rendering
+                        </span>
+            </h1>
+        </div>
+
+        <div id="content" class="view">
+            <div class="page-metadata">
+
+
+                Created by <span class='author'> Dirk Lemmermann</span>, last modified on Oct 07, 2014
+            </div>
+            <div id="main-content" class="wiki-content group">
+                <p>
+                    <style type='text/css'>/*<![CDATA[*/
+                    div.rbtoc1633442038014 {
+                        padding: 0px;
+                    }
+
+                    div.rbtoc1633442038014 ul {
+                        list-style: disc;
+                        margin-left: 0px;
+                    }
+
+                    div.rbtoc1633442038014 li {
+                        margin-left: 0px;
+                        padding-left: 0px;
+                    }
+
+                    /*]]>*/</style>
+                <div class='toc-macro rbtoc1633442038014'>
+                    <ul class='toc-indentation'>
+                        <li><a href='#id-3.4.7RowRendering-Introduction'>Introduction</a></li>
+                        <li><a href='#id-3.4.7RowRendering-RowRenderer'>Row Renderer</a></li>
+                    </ul>
+                </div>
+                </p><h2 id="id-3.4.7RowRendering-Introduction">Introduction</h2>
+                <p>The system layer <a href="3.4.1-System-Layers_491658.html" data-linked-resource-id="491658"
+                                       data-linked-resource-version="26" data-linked-resource-type="page">RowLayer </a>supports
+                    pluggable renderers in order to customize the background of each row depending on the row type. In
+                    the tutorial we have seen that we can have Aircraft rows and Crew rows. For clarity these two rows
+                    could have different background colors. This is something that could be done with a row renderer.
+                </p>
+                <h2 id="id-3.4.7RowRendering-RowRenderer">Row Renderer</h2>
+                <p>All row renderers have to subclass <strong>RowRenderer</strong>. This class defines a final public
+                    method called <strong>draw()</strong> that gets called by the framework. It then calls the protected
+                    method <strong>drawRow()</strong> which subclasses can override. A possible implementation might
+                    look like this:</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Custom Row Renderer</b>
+                    </div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">public class AircraftRowRenderer extends RowRenderer&lt;Aircraft&gt; {
+ 	
+	public AircraftRowRenderer(GraphicsBase&lt;?&gt; graphics) {
+		super(graphics, &quot;Aircraft Row Renderer&quot;);
+	}
+  
+	protected void drawRow(Aircraft row,
+                           GraphicsContext gc,
+                           double w,
+                           double h,
+                           boolean selected,
+                           boolean hover,
+                           boolean highlighted,
+                           boolean pressed) {
+		gc.setFill(Color.ORANGE);
+		gc.fillRect(0, 0, w, h);		
+	}
+}</pre>
+                    </div>
+                </div>
+                <p>This renderer can now be registered with the RowLayer like this:</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Row Renderer
+                        Registration</b></div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.getSystemLayer(RowLayer.class).setRowRenderer(
+					Aircraft.class, new AircraftRowRenderer());</pre>
+                    </div>
+                </div>
+                <p>The RowRenderer base implementation is attached to this page and can be downloaded here:</p>
+                <p>
+
+
+                <div class="plugin_attachments_container">
+                    <div class="plugin_attachments_table_container">
+                        <fieldset class="hidden">
+                            <input type="hidden" class="plugin_attachments_macro_render_param" name="pageId"
+                                   value="492288">
+                            <input type="hidden" name="deleteConfirmMessage"
+                                   value="Are you sure you want to send the attached file " {0}" to the trash? Only a
+                            space administrator can undo this action."/>
+                            <input type="hidden" class="plugin_attachments_macro_render_param" name="upload"
+                                   value="false">
+                            <input type="hidden" name="outputType" value="html_export">
+                        </fieldset>
+
+
+                        <table class="attachments aui"
+                               data-sort-by="date"
+                               data-sort-order=""
+                               data-tablesorter-headers='{"0": {"sorter": false}}'>
+                            <tr class="header-row">
+                                <th class="expand-column attachment-summary-toggle">&nbsp;</th>
+                                <th class="filename-column">
+                                    File
+                                </th>
+                                <th class="modified-column">
+                                    Modified
+                                </th>
+                            </tr>
+
+
+                            <tbody>
+
+
+                            <tr id="attachment-983073"
+                                class="attachment-row"
+                                data-attachment-id="983073">
+
+                                <td class="attachment-summary-toggle">
+                                    <span class="icon icon-section-closed" title="Show more info"></span>
+
+                                    <div class="attachment-summary attachment-summary-983073 hidden attachment-details-wrapper"
+                                         data-attachment-id="983073"
+                                         data-attachment-filename="RowRenderer.java">
+
+
+                                        <p class="attachment-labels">Labels</p>
+
+                                        <div class="labels-section-content content-column" entityid="983073"
+                                             entitytype="attachment">
+                                            <div class="labels-content">
+
+
+                                                <ul class="label-list  has-pen">
+                                                    <li class="no-labels-message">
+                                                        No labels
+                                                    </li>
+                                                    <li class="labels-edit-container">
+                                                        <a aria-describedby="attach-983073" href="#"
+                                                           class="show-labels-editor" title="Edit Labels">
+                                                            <span class="aui-icon aui-icon-small aui-iconfont-edit-small">Edit Labels</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="attachment-history-wrapper"></div>
+
+                                        <div class="attachment-buttons">
+
+
+                                            <a class="aui-button " href="$itemRenderedUrl"
+                                               aria-describedby="attach-983073"
+                                               data-file-src="/download/attachments/492288/RowRenderer.java?version=1"
+                                               data-linked-resource-container-id="492288"
+                                               data-linked-resource-default-alias="RowRenderer.java"
+                                               data-linked-resource-id="983073"
+                                               data-linked-resource-type="attachment"
+                                            >$itemLabel</a>
+
+                                            <a class="aui-button editAttachmentLink"
+                                               href="$itemRenderedUrl&amp;isFromPageView=true"
+                                               aria-describedby="attach-983073"
+                                            >$itemLabel</a>
+
+                                            <a class="aui-button editInAppAttachmentLink"
+                                               href="$itemRenderedUrl&amp;isFromPageView=true"
+                                               aria-describedby="attach-983073"
+                                               data-file-referer="attachment"
+                                               data-file-src="/download/attachments/492288/RowRenderer.java?version=1"
+                                               data-linked-resource-container-id="492288"
+                                               data-linked-resource-default-alias="RowRenderer.java"
+                                               data-linked-resource-id="983073"
+                                               data-linked-resource-type="attachment"
+                                               data-preview-view-mode="edit"
+                                               data-should-edit="true"
+                                            >$itemLabel</a>
+
+                                            <a class="aui-button removeAttachmentLink"
+                                               href="$itemRenderedUrl&amp;isFromPageView=true"
+                                               aria-describedby="attach-983073"
+                                            >$itemLabel</a>
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                                <td class="filename-column">
+                                    <p>
+
+
+                                        <span class="icon icon-file-java" title="Java Source">Java Source</span> <a
+                                            class="filename" href="attachments/492288/983073.java" title="Download"
+                                            data-filename="RowRenderer.java" data-type="text/plain"
+                                            data-linked-resource-container-id="492288">
+                                        RowRenderer.java
+                                    </a>
+
+                                        <span class="attachment-comment">Row renderer base implementation.</span>
+                                    </p>
+                                </td>
+
+                                <td class="attachment-created modified-column" data-sort-value="1412705040249">
+                                    <span>Oct 07, 2014</span>
+                                    <span>by</span>
+                                    <a href="/wiki/people/557058:0742f76c-1570-49ee-8999-29a2b2f14903"
+                                       class="url fn confluence-userlink"
+                                       data-account-id="557058:0742f76c-1570-49ee-8999-29a2b2f14903">Dirk Lemmermann</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                    <div class="plugin_attachments_upload_container">
+                    </div>
+
+                    <div>
+                    </div>
+                </div>
+
+                </p><p> </p>
+            </div>
+
+            <div class="pageSection group">
+                <div class="pageSectionHeader">
+                    <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                </div>
+
+                <div class="greybox" align="left">
+                    <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                    <a href="attachments/492288/983073.java">RowRenderer.java</a> (text/plain)
+                    <br/>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
