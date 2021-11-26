@@ -66,12 +66,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.controlsfx</groupId>
-			<artifactId>fxsampler</artifactId>
-			<version>1.0.12-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-web</artifactId>
 			<version>${javafx.version}</version>
@@ -155,7 +149,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
-				<version>3.1.2</version>
+				<version>3.2.0</version>
 				<executions>
 					<execution>
 						<id>copy-dependencies</id>
@@ -214,7 +208,7 @@
 									1.0.0
 								</APP_VERSION>
 								<APP_NAME>
-									FlexGanttFX Sampler
+									FlexGanttFXSampler
 								</APP_NAME>
 								<PROJECT_VERSION>
 									${project.version}
@@ -261,7 +255,7 @@
 									1.0.0
 								</APP_VERSION>
 								<APP_NAME>
-									FlexGanttFX Sampler
+									FlexGanttFXSampler
 								</APP_NAME>
 								<PROJECT_VERSION>
 									${project.version}

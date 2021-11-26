@@ -14,15 +14,15 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <javafx.version>17.0.0.1</javafx.version>
-        <controlsfx.version>11.0.3</controlsfx.version>
+        <javafx.version>16</javafx.version>
+        <controlsfx.version>11.1.0</controlsfx.version>
         <ikonli.version>12.2.0</ikonli.version>
         <maven.javadoc.skip>false</maven.javadoc.skip>
-        <jpro.version>2021.2.0</jpro.version>
+        <jpro.version>2021.2.1</jpro.version>
         <apache.felix.version>5.1.1</apache.felix.version>
         <client.plugin.version>0.1.36</client.plugin.version>
         <exec.maven.plugin.version>3.0.0</exec.maven.plugin.version>
-        <javafx.maven.plugin.version>0.0.5</javafx.maven.plugin.version>
+        <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
         <client.maven.plugin.version>0.1.36</client.maven.plugin.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
@@ -53,7 +53,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.1</version>
+                <version>2.22.2</version>
                 <configuration>
                     <forkCount>0</forkCount>
                     <argLine>
@@ -161,14 +161,14 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.5.1</version>
+            <version>5.8.1</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
-            <version>5.5.1</version>
+            <version>5.8.1</version>
             <scope>test</scope>
         </dependency>
 
@@ -194,16 +194,16 @@
         </dependency>
 
         <dependency>
-            <groupId>de.sandec</groupId>
-            <artifactId>JMemoryBuddy</artifactId>
-            <version>0.2.4</version>
+            <groupId>org.testfx</groupId>
+            <artifactId>testfx-core</artifactId>
+            <version>4.0.16-alpha</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.testfx</groupId>
-            <artifactId>testfx-core</artifactId>
-            <version>4.0.16-alpha</version>
+            <groupId>de.sandec</groupId>
+            <artifactId>JMemoryBuddy</artifactId>
+            <version>0.2.4</version>
             <scope>test</scope>
         </dependency>
 

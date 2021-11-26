@@ -38,7 +38,7 @@ public class GraphicsTest extends ApplicationTest implements EventHandler<Activi
     public void start(Stage stage) throws Exception {
         super.start(stage);
 
-        FlexGanttFX.setLicenseKey("LIC=;VEN=DLSC;VER=11_11;PRO=STANDARD;RUN=no;CTR=1;SignCode=3F;Signature=302C02144D3694C44BED5892BB980F53121FC3E9D83303AB0214572C7C38F1F389AEC0DE72D29796803364F4B217");
+        FlexGanttFX.setLicenseKey("LIC=DLSC;VEN=DLSC;VER=12;PRO=STANDARD;RUN=no;CTR=1;SignCode=3F;Signature=302D021442068CF635B84BFC157478E2D60932F52AFBD59E021500952B8FD690A764EC20AE70A3D8655029BDD66532");
 
         GanttChart<?> gantt = new GanttChart<>();
         view = gantt.getGraphics();

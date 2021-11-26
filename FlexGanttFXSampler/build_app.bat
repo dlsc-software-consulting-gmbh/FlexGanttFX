@@ -9,7 +9,7 @@ rem
 rem PROJECT_VERSION: version used in pom.xml, e.g. 1.0-SNAPSHOT
 rem APP_VERSION: the application version, e.g. 1.0.0, shown in "about" dialog
 
-set JAVA_VERSION=14
+set JAVA_VERSION=16
 set JAVA_HOME=%JAVA_HOME%
 set PROJECT_VERSION=%PROJECT_VERSION%
 set APP_VERSION=%APP_VERSION%
@@ -87,4 +87,4 @@ call "%JAVA_HOME%\bin\jpackage" ^
   --win-menu ^
   --win-dir-chooser ^
   --vendor "DLSC Software & Consulting GmbH" ^
-  --copyright "Copyright © 2020 DLSC GmbH"
+  --copyright "Copyright © 2021 DLSC GmbH"

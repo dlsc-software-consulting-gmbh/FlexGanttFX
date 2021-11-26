@@ -26,7 +26,7 @@ public class TutorialAircraftFlight extends Application {
 	/*
 	 * Plain data object storing dummy flight information.
 	 */
-	class FlightData {
+	public static class FlightData {
 
 		String flightNo;
 		Instant departureTime = Instant.now();
@@ -44,7 +44,7 @@ public class TutorialAircraftFlight extends Application {
 	 * bar in the graphics view of the Gantt chart. The flight is mutable, so
 	 * the user will be able to interact with it.
 	 */
-	class Flight extends MutableActivityBase<FlightData> {
+	public static class Flight extends MutableActivityBase<FlightData> {
 		public Flight(FlightData data) {
 			setUserObject(data);
 			setName(data.flightNo);
@@ -57,7 +57,7 @@ public class TutorialAircraftFlight extends Application {
 	 * Each row represents an aircraft in this example. The activities shown on
 	 * the row are of type Flight.
 	 */
-	class Aircraft extends Row<Aircraft, Aircraft, Flight> {
+	public static class Aircraft extends Row<Aircraft, Aircraft, Flight> {
 		public Aircraft(String name) {
 			super(name);
 		}

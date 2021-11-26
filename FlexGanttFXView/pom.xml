@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>view</artifactId>
 	<name>FlexGanttFXView</name>
-	<description>A com.flexganttfx.demo.gantt.Gantt chart component for JavaFX.</description>
+	<description>A Gantt chart component for JavaFX.</description>
 	<packaging>bundle</packaging>
 	
 	<parent>
@@ -64,6 +64,10 @@
 				<exclusion>
 					<groupId>org.openjfx</groupId>
 					<artifactId>javafx-swing</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.openjfx</groupId>
+					<artifactId>javafx-fxml</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
