@@ -1,3 +1,13 @@
+- name: Sampler App (Mac)
+  date: November 2021
+  url: ../../downloads/installer/sampler-pkg.zip
+  text: A sample application showcasing the various features of FlexGanttFX. The samples include the source code, CSS, and documentation.
+
+- name: Sampler App (Windows)
+  date: November 2021
+  url: ../../downloads/installer/sampler-msi.zip
+  text: A sample application showcasing the various features of FlexGanttFX. The samples include the source code, CSS, and documentation.
+
 - name: Covid Explorer (Mac)
   date: June 2021
   url: ../../downloads/installer/covid-explorer-pkg.zip
