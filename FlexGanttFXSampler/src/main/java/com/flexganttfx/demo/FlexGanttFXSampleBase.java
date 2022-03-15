@@ -27,7 +27,7 @@ public abstract class FlexGanttFXSampleBase extends SampleBase {
 
     @Override
     public final String getJavaDocURL() {
-        return "https://www.dlsc.com";
+        return "https://www.flexganttfx.com/api/index.html";
     }
 
     @Override
