@@ -18,7 +18,7 @@ public abstract class FlexGanttFXSampleBase extends SampleBase {
 
     @Override
     public String getSampleSourceURL() {
-        return getSampleSourceBase() + getClass().getSimpleName() + ".java";
+        return getSampleSourceBase() + getClass().getSimpleName() + ".txt";
     }
 
     private String getSampleSourceBase() {
