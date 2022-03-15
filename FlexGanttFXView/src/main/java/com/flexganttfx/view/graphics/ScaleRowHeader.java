@@ -53,8 +53,8 @@ import static javafx.scene.text.TextAlignment.RIGHT;
 public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
 
     private final Canvas canvas;
-    private final ObjectProperty<Paint> dividerLineStroke = new SimpleObjectProperty<>(this, "dividerLineStroke");
     private final InvalidationListener redrawListener = observable -> draw();
+    private final ObjectProperty<Paint> dividerLineStroke = new SimpleObjectProperty<>(this, "dividerLineStroke");
     private final BooleanProperty majorChartLabelsVisible = new SimpleBooleanProperty(this, "majorChartLabelsVisible", true);
     private final BooleanProperty minorChartLabelsVisible = new SimpleBooleanProperty(this, "minorChartLabelsVisible", true);
     private final BooleanProperty majorChartLinesVisible = new SimpleBooleanProperty(this, "majorChartLinesVisible", true);
@@ -167,7 +167,7 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
 
     /**
      * Registers the given observable as something that requires
-     * a redraw of the graphics area. E.g.: the stroke color has
+     * a drawing of the graphics area. E.g.: the stroke color has
      * changed.
      *
      * @param observable the observable to monitor for changes
@@ -177,6 +177,9 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         observable.addListener(redrawListener);
     }
 
+    /**
+     * Performs a drawing of the header canvas.
+     */
     public void draw() {
         double canvasHeight = canvas.getHeight();
 
