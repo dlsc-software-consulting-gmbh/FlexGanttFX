@@ -1,4 +1,4 @@
-./**
+/**
  * Contains all model classes used for the various Gantt chart controls.
  */
 module com.flexganttfx.model {
