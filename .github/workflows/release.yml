@@ -11,6 +11,12 @@ jobs:
     name: Create Release
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - uses: n1hility/cancel-previous-runs@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Version
         id: vars
         shell: bash
@@ -18,11 +24,6 @@ jobs:
           version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
           echo ::set-output name=VERSION::$(echo "$version")
 
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - uses: n1hility/cancel-previous-runs@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Cache Maven packages
         uses: actions/cache@v1
