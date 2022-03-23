@@ -1,10 +1,9 @@
-name: Release
+name: 'Release'
 on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: "Release version"
-        required: true
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
 jobs:
   release:
