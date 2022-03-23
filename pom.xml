@@ -12,6 +12,15 @@
         <name>DLSC Software &amp; Consulting GmbH</name>
     </organization>
 
+    <developers>
+        <developer>
+            <name>Dirk Lemmermann</name>
+            <email>dlemmermann@gmail.com</email>
+            <organization>DLSC Software &amp; Consulting GmbH</organization>
+            <url>http://www.dlsc.com</url>
+        </developer>
+    </developers>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <javafx.version>18</javafx.version>
