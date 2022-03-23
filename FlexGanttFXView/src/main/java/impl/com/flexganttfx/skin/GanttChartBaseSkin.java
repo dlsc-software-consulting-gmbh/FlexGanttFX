@@ -72,8 +72,13 @@ public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends Gantt
 
     protected void configureMasterNode() {
         if (getSkinnable().isAutoHideScrollBar()) {
-            rightHandSideHiddenSidesPane.setContent(timelineGraphicsPane);
+            graphicsMasterDetailPane.setMasterNode(new Label(""));
             graphicsMasterDetailPane.setMasterNode(rightHandSideHiddenSidesPane);
+
+            rightHandSideHiddenSidesPane.setContent(new Label());
+            rightHandSideHiddenSidesPane.setContent(timelineGraphicsPane);
+
+            rightHandSideHiddenSidesPane.setBottom(new Label());
 
             switch (getSkinnable().getScrollBarType()) {
                 case NONE:
@@ -88,6 +93,11 @@ public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends Gantt
             }
 
         } else {
+            horizonScrollBar.setManaged(true);
+            horizonScrollBar.setVisible(true);
+            timelineScrollBar.setManaged(true);
+            timelineScrollBar.setVisible(true);
+
             VBox.setVgrow(timelineGraphicsPane, Priority.ALWAYS);
             graphicsMasterDetailPane.setMasterNode(rightHandSideBox);
 
