@@ -8,6 +8,7 @@ Release: 11.12.5, Date: March 23rd 2022
    ** FLEXFX-357 - Autohide scroll causes weird behaviour.
    ** FLEXFX-358 - With turned off AutoScroll TimelineScrollbar position is fixed.
 
+
 ----------------------------------------------------------------
 Release: 11.12.4, Date: April 21st 2021
 ----------------------------------------------------------------
