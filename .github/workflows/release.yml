@@ -12,11 +12,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Version
-        id: version
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\/v/}
+        id: vars
+        shell: bash
+        run: |
+          version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo ::set-output name=VERSION::$(echo "$version")
 
       - name: Checkout code
         uses: actions/checkout@v2
+      - uses: n1hility/cancel-previous-runs@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Cache Maven packages
         uses: actions/cache@v1
