@@ -15,19 +15,12 @@ import impl.com.flexganttfx.skin.util.AgendaHelper;
 import impl.com.flexganttfx.skin.util.AgendaHelper.AgendaLineLocation;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.geometry.VPos;
+import javafx.beans.property.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.text.TextAlignment;
 
 import java.text.NumberFormat;
 import java.time.LocalTime;
@@ -334,8 +327,8 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
 
             for (double value : layout.getMajorTicks()) {
                 double y = getChartValueLocation(value, yOffset, height, layout);
-                gc.setTextAlign(TextAlignment.RIGHT);
-                gc.setTextBaseline(VPos.CENTER);
+                gc.setTextAlign(RIGHT);
+                gc.setTextBaseline(CENTER);
                 gc.setFill(getTextFill());
                 gc.fillText(format.format(value), width - getMajorChartLinesSize() - 3, y);
             }
@@ -350,7 +343,11 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         double maxChart = layout.getMaxValue();
 
         double range = maxChart - minChart;
-        double ppv = height / range;
+        double ppv = height;
+
+        if (Math.abs(range) > 0) {
+            ppv = height / range;
+        }
 
         double zeroLineLocation = yOffset + layout.getMaxValue() * ppv;
 
