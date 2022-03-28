@@ -105,7 +105,6 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
             requestRedraw("canvas buffer size changed");
         });
 
-        graphics.canvasBufferProperty().addListener(it -> randomTranslateX(true));
         randomTranslateX(true);
     }
 
@@ -114,9 +113,9 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         final double offset = Math.random() * canvasBuffer / 4;
 
         if (scrollingRight) {
-            setTranslateX(snapPositionX(canvasBuffer - offset));
+            setTranslateX(canvasBuffer - offset);
         } else {
-            setTranslateX(snapPositionX(-canvasBuffer + offset));
+            setTranslateX(-canvasBuffer + offset);
         }
     }
 
@@ -1147,11 +1146,11 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
     }
 
     private double getSnapScaleX() {
-        return getSnapScaleXImpl(graphics.getScene());
+        return getSnapScaleXImpl(getScene());
     }
 
     private double getSnapScaleY() {
-        return getSnapScaleYImpl(graphics.getScene());
+        return getSnapScaleYImpl(getScene());
     }
 
     private double scaledRound(double value, double scale) {

@@ -90,7 +90,6 @@ public class NowLineLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 		Instant now = model.getNow();
 
 		double nowLocation = getLocation(now, canvas);
-
 		gc.strokeLine(nowLocation, 0, nowLocation, canvas.getHeight());
 	}
 }

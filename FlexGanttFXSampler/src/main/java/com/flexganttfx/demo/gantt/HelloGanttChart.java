@@ -39,7 +39,7 @@ public class HelloGanttChart extends FlexGanttFXSample {
         gc.getLayers().add(layer);
         gc.setAutoHideScrollBar(false);
 
-        gc.getTimeline().getModel().setHorizonStartTime(ZonedDateTime.now().truncatedTo(ChronoUnit.DAYS).toInstant());
+        gc.getTimeline().getModel().setHorizonStartTime(ZonedDateTime.now().minusMonths(3).truncatedTo(ChronoUnit.DAYS).toInstant());
         gc.getTimeline().getModel().setHorizonEndTime(ZonedDateTime.now().plusMonths(3).truncatedTo(ChronoUnit.DAYS).toInstant());
 
         HelloActivity activity = new HelloActivity();
