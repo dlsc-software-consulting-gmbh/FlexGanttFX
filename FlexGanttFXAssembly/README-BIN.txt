@@ -30,7 +30,7 @@ This is the FlexGanttFX distribution. It contains the following items:
 Questions? Need Help? Contact me via dlsc.com
 
 Dirk Lemmermann
-https://www.dlsc.com
+https://www.flexganttfx.com
 Twitter: dlemmermann
 Mobile: +41-79-800-23-20
 
