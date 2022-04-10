@@ -21,12 +21,14 @@
     - text: ScheduleJS
       url: /pages/schedulejs
 - text: Support
-  url: https://flexgantt.atlassian.net/wiki/spaces/FFXMAN/overview
+  url: https://github.com/dlemmermann/flexganttfx-support
   submenu:
-    - text: Contact Us
-      url: /pages/contact
+    - text: Developer Manual
+      url: /pages/manual/index.html
     - text: Submit a Ticket
-      url: /pages/submit-ticket
+      url: https://github.com/dlemmermann/flexganttfx-support/issues
+    - text: Start a Discussion
+      url: https://github.com/dlemmermann/flexganttfx-support/discussions
 - text: Downloads
   url: /pages/download-releases
   submenu:
