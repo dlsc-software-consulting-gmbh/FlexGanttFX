@@ -17,7 +17,7 @@ open module com.flexganttfx.sampler {
 
     requires com.flexganttfx.view;
     requires com.flexganttfx.extras;
-    requires com.flexganttfx.msproject;
+    //requires com.flexganttfx.msproject;
 
     provides fxsampler.FXSamplerProject with com.flexganttfx.demo.FlexGanttFXSamplerProject;
 

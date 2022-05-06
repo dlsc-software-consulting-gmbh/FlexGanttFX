@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>com.flexganttfx</groupId>
 		<artifactId>gantt</artifactId>
-		<version>11.12.5</version>
+		<version>11.12.5-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -47,6 +47,7 @@
 			<version>${project.parent.version}</version>
 		</dependency>
 
+		<!--
 		<dependency>
 			<groupId>com.flexganttfx</groupId>
 			<artifactId>msproject</artifactId>
@@ -58,6 +59,7 @@
 			<artifactId>experimental</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
+		-->
 
 		<dependency>
 			<groupId>com.flexganttfx</groupId>

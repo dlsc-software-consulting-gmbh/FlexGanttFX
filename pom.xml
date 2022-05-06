@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.flexganttfx</groupId>
     <artifactId>gantt</artifactId>
-    <version>11.12.5</version>
+    <version>11.12.5-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>FlexGanttFX</name>
     <description>The parent project for the various FlexGanttFX modules.</description>
@@ -44,16 +44,16 @@
         <module>FlexGanttFXView</module>
         <module>FlexGanttFXExtras</module>
         <module>FlexGanttFXSampler</module>
-        <module>FlexGanttFXProject</module>
-        <module>FlexGanttFXMSProject</module>
-        <module>FlexGanttFXiCal</module>
+        <!-- module>FlexGanttFXProject</module -->
+        <!-- module>FlexGanttFXMSProject</module -->
+        <!-- module>FlexGanttFXiCal</module -->
         <module>FlexGanttFXExperimental</module>
         <module>FlexGanttFXLicensing</module>
-        <module>FlexGanttFXEmirates</module>
-        <module>FlexGanttFXTutorials</module>
+        <!-- module>FlexGanttFXEmirates</module -->
+        <!-- module>FlexGanttFXTutorials</module -->
         <module>FlexGanttFXEditor</module>
         <module>FlexGanttFXAssembly</module>
-        <module>FlexGanttFXCovid</module>
+        <!-- module>FlexGanttFXCovid</module -->
     </modules>
 
     <build>
@@ -227,9 +227,39 @@
 
     <repositories>
         <repository>
+            <id>eswitch-artifactory-release</id>
+            <name>libs-release-local</name>
+            <url>https://artifactory.e-switch.ch/artifactory/libs-release-local</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>eswitch-artifactory-snapshot</id>
+            <name>libs-snapshot-local</name>
+            <url>https://artifactory.e-switch.ch/artifactory/libs-snapshot-local/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
+        <repository>
             <id>jpro - sandec repository</id>
             <url>https://sandec.jfrog.io/artifactory/repo</url>
         </repository>
     </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>eswitch-artifactory-release</id>
+            <name>libs-release-local</name>
+            <url>https://artifactory.e-switch.ch/artifactory/libs-release-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>eswitch-artifactory-snapshot</id>
+            <name>libs-snapshot-local</name>
+            <url>https://artifactory.e-switch.ch/artifactory/libs-snapshot-local/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 </project>
