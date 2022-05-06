@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>com.flexganttfx</groupId>
 		<artifactId>gantt</artifactId>
-		<version>11.12.4-SNAPSHOT</version>
+		<version>11.12.5</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -30,13 +30,6 @@
 			<groupId>com.smardec</groupId>
 			<artifactId>license4j</artifactId>
 			<version>1.4.0</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-deploy-plugin -->
-		<dependency>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-deploy-plugin</artifactId>
-			<version>3.0.0-M1</version>
 		</dependency>
 
 	</dependencies>

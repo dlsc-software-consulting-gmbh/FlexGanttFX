@@ -10,7 +10,7 @@
     <parent>
         <groupId>com.flexganttfx</groupId>
         <artifactId>gantt</artifactId>
-        <version>11.12.4-SNAPSHOT</version>
+        <version>11.12.5</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -22,7 +22,7 @@
 
         <pluginRepository>
             <id>jpro - sandec repository</id>
-            <url>http://sandec.bintray.com/repo</url>
+            <url>https://sandec.jfrog.io/artifactory/repo</url>
         </pluginRepository>
 
         <pluginRepository>
@@ -38,7 +38,7 @@
 
         <repository>
             <id>jpro - sandec repository</id>
-            <url>http://sandec.bintray.com/repo</url>
+            <url>https://sandec.jfrog.io/artifactory/repo</url>
         </repository>
 
     </repositories>
@@ -150,7 +150,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>3.2.0</version>
                 <executions>
                     <execution>
                         <id>copy-dependencies</id>

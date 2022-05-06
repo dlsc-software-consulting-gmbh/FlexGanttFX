@@ -22,6 +22,8 @@
     - question: Do you have a Swing version of FlexGanttFX?
       answer: Yes. It is called FlexGantt and has been around for many years. You can <a href="https://dlsc.com/products/flexgantt/" target="_blank"><u>download it from the DLSC website</u></a>. It is also a commercial product and requires licensing just like FlexGanttFX.
 
+    - question: Do you have a JavaScript version of FlexGanttFX?
+      answer: Our partner AISO has re-implemented the FlexGanttFX API in JavaScript. You should visit their <a href="https://site.schedulejs.com" target="_blank"><u>product website</u></a>. It is also a commercial product and requires licensing just like FlexGanttFX.
 
 - title: Deployment
   id: faqaccordion1

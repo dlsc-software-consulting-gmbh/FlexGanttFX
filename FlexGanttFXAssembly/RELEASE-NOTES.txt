@@ -1,4 +1,16 @@
 ----------------------------------------------------------------
+Release: 11.12.5, Date: March 30th 2022
+----------------------------------------------------------------
+
+** BUG FIXES
+
+   ** FLEXFX-359 - Now line is not straight after zooming in
+   ** FLEXFX-356 - yOffset is not working when ChartLayout max and min values are the same.
+   ** FLEXFX-357 - Auto hide scrollbar causes weird behaviour.
+   ** FLEXFX-358 - With turned off auto hide TimelineScrollbar position is fixed.
+
+
+----------------------------------------------------------------
 Release: 11.12.4, Date: April 21st 2021
 ----------------------------------------------------------------
 

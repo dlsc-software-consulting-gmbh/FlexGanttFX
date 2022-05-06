@@ -154,7 +154,7 @@ public class HelloChartLayout extends FlexGanttFXSample {
 
                 ChartLayout volumeChartLayout = new ChartLayout();
                 volumeChartLayout.setPadding(10);
-                volumeChartLayout.setMinValue(0);
+                volumeChartLayout.setMinValue(maxVolume);
                 volumeChartLayout.setMaxValue(maxVolume);
                 volumeChartLayout.getMajorTicks().add(maxVolume);
 

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FlexGanttFX Developer Manual : 3.4.5 Row Editing</title>
+    <link rel="stylesheet" href="styles/site.css" type="text/css"/>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body class="theme-default aui-theme-default">
+<div id="page">
+    <div id="main" class="aui-page-panel">
+        <div id="main-header">
+            <div id="breadcrumb-section">
+                <ol id="breadcrumbs">
+                    <li class="first">
+                        <span><a href="index.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="FlexGanttFX-Developer-Manual_491528.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="3.-Controls_491598.html">3. Controls</a></span>
+                    </li>
+                    <li>
+                        <span><a href="3.5-GraphicsBase_491612.html">3.5 GraphicsBase</a></span>
+                    </li>
+                </ol>
+            </div>
+            <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            FlexGanttFX Developer Manual : 3.4.5 Row Editing
+                        </span>
+            </h1>
+        </div>
+
+        <div id="content" class="view">
+            <div class="page-metadata">
+
+
+                Created by <span class='author'> Dirk Lemmermann</span>, last modified on Oct 07, 2014
+            </div>
+            <div id="main-content" class="wiki-content group">
+                <p>
+                    <style type='text/css'>/*<![CDATA[*/
+                    div.rbtoc1633442035747 {
+                        padding: 0px;
+                    }
+
+                    div.rbtoc1633442035747 ul {
+                        list-style: disc;
+                        margin-left: 0px;
+                    }
+
+                    div.rbtoc1633442035747 li {
+                        margin-left: 0px;
+                        padding-left: 0px;
+                    }
+
+                    /*]]>*/</style>
+                <div class='toc-macro rbtoc1633442035747'>
+                    <ul class='toc-indentation'>
+                        <li><a href='#id-3.4.5RowEditing-Introduction'>Introduction</a></li>
+                        <li><a href='#id-3.4.5RowEditing-RowEditorFactory'>Row Editor Factory</a></li>
+                        <li><a href='#id-3.4.5RowEditing-RowControlsFactory'>Row Controls Factory</a>
+                            <ul class='toc-indentation'>
+                                <li><a href='#id-3.4.5RowEditing-Example1'>Example 1</a></li>
+                                <li><a href='#id-3.4.5RowEditing-Example2'>Example 2</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                </p><h2 id="id-3.4.5RowEditing-Introduction">Introduction</h2>
+                <p>The <a href="3.5-GraphicsBase_491612.html" data-linked-resource-id="491612"
+                          data-linked-resource-version="43" data-linked-resource-type="page">graphics view</a> not only
+                    supports editing <a href="4.1-Activity_491695.html" data-linked-resource-id="491695"
+                                        data-linked-resource-version="10"
+                                        data-linked-resource-type="page">activities</a> but also <a
+                            href="4.5-Row_491703.html" data-linked-resource-id="491703" data-linked-resource-version="8"
+                            data-linked-resource-type="page">rows</a>. If a row gets edited the entire row will be
+                    flipped around and additional controls will become visible on the &quot;back&quot; of the row. If
+                    the back of the row requires more space (height) than the front of the row then the height will be
+                    automatically adjusted. The following table lists the methods that are related to row editing:</p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Method</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>void startRowEditing(R row);</pre>
+                            </td>
+                            <td class="confluenceTd"><p>Initiates the row editing sequence on the given row. The back of
+                                the row will become visible and expose controls to change row settings.</p></td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>void stopRowEditing();</pre>
+                                <pre>void stopRowEditing(R row);</pre>
+                            </td>
+                            <td class="confluenceTd">Stops the row editing of all rows or just the given row. The front
+                                of the row will become visible again.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>ObjectProperty&lt;RowEditingMode&gt; rowEditingModeProperty();</pre>
+                                <pre>void setRowEditingMode(RowEditingMode);</pre>
+                                <pre>RowEditingMode getRowEditingMode();</pre>
+                            </td>
+                            <td class="confluenceTd">Stores, sets, and retrieves the row edit mode. The enum <strong>GraphicsBase.RowEditingMode</strong> is
+                                used to determine whether the user will be able to edit rows at all, one row at a time,
+                                or multiple rows at the same time.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>ObservableList&lt;R&gt; getRowsEditing();</pre>
+                            </td>
+                            <td class="confluenceTd">An observable list of all rows that are currently being edited
+                                (their back is shown).
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>BooleanProperty animateRowEditor();</pre>
+                                <pre>void setAnimateRowEditor(boolean);</pre>
+                                <pre>boolean isAnimateRowEditor();</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd">Stores, sets, and retrieves a flag that is used to
+                                signal whether the exposure of the row back will be immediate or animated.
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h2 id="id-3.4.5RowEditing-RowEditorFactory">Row Editor Factory</h2>
+                <p>The row editor factory is used to create the controls for a given row at the moment when the user
+                    requests that the row will be edited. The factory is a callback method that gets called with a
+                    <strong>GraphicsBase.RowEditorParameter</strong> object. This parameter object stores some fields
+                    that can be useful for creating the editor controls and also a method for stopping the row editing.
+                </p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Method</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>GraphicsBase getGraphics();</pre>
+                            </td>
+                            <td class="confluenceTd">Returns a reference to the graphics view where the editing will
+                                occure.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>R getRow();</pre>
+                            </td>
+                            <td class="confluenceTd"><p>Returns the row for which the row editor will be created.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>void stopEditing();</pre>
+                            </td>
+                            <td class="confluenceTd"><p>A convenience method for the row editor controls that can be
+                                used to signal that the user is done editing the row. This method will usually get
+                                invoked by some kind of close button in the editor UI:</p></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>A row editor factory might look like this:</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Row Editor Example</b>
+                    </div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">public class MyRowEditorFactory implements 
+					Callback&lt;RowEditorParameter&lt;R&gt;, Node&gt; {
+ 
+	public Node call(RowEditorParameter&lt;R&gt; param) {
+		VBox box = new VBox();
+ 
+		/*
+		 * Bind the text property of the textfield to the name
+		 * property of the row. This allows us to change the name
+		 * of the row.
+		 */
+		TextField nameField = new TextField();
+		Bindings.bindBidirectional(param.getRow().nameProperty(), nameField.textProperty());
+ 
+		/*
+		 * A close button to invoke the stopEditing() method
+		 * on the parameter object.
+		 */
+		Button closeButton = new Button(&quot;Close&quot;);
+		closeButton.setOnAction(evt -&gt; param.stopEditing());
+		box.getChildren().addAll(nameField, closeButton);
+ 
+		/*
+		 * Return the vbox node.
+		 */
+		return box;
+	}
+}</pre>
+                    </div>
+                </div>
+                <p>Row editors can be registered like this:</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Row Editor
+                        Registration</b></div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.setRowEditorFactory(new MyRowEditorFactory());</pre>
+                    </div>
+                </div>
+                <h2 id="id-3.4.5RowEditing-RowControlsFactory">Row Controls Factory</h2>
+                <p>To trigger row editing the user interface needs to provide some kind of controls. This can be done in
+                    many ways, for example by the help of a context menu on a row. Another way is to use the built-in
+                    support for so-called &quot;row controls&quot;. These controls appear / disappear every time the
+                    mouse cursor enters / exists a row. They are created by a callback implementation. This callback
+                    receives a parameter object of type <strong>GraphicsBase.RowControlsParameter</strong>. The
+                    following table lists the fields of this type.</p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Field</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">graphics</td>
+                            <td class="confluenceTd">The graphics view for which the callback gets invoked.</td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">row</td>
+                            <td class="confluenceTd">The row for which controls will be created.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="id-3.4.5RowEditing-Example1">Example 1</h3>
+                <p>A possible implementation of this callback can look like this:</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Row Controls
+                        Factory</b></div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">public class MyRowControlsFactory extends StackPane 
+		implements Callback&lt;RowControlsParameter, Node&gt; {
+	
+	private Button button;
+ 
+	public MyRowControlsFactory() {
+ 
+		/*
+		 * Important: let mouse events pass through.
+		 */
+		setMouseTransparent(true);
+		button = new Button(&quot;Press Me&quot;);
+		getChildren().add(button);
+	}
+ 
+	/*
+	 * Reuse the button. Simply exchange the action that will
+	 * happen when the user presses on it.
+	 */
+	public Node call(RowControlsParameter param) {
+ 		button.setOnAction(evt -&gt; 
+			System.out.println(&quot;Pressed on row &quot; + 
+					param.getRow().getName());
+		return this;
+	}
+}</pre>
+                    </div>
+                </div>
+                <div class="confluence-information-macro confluence-information-macro-note"><span
+                        class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span>
+                    <div class="confluence-information-macro-body"><p>Please take notice that this factory is a Node
+                        object and returns itself every time the call() method gets invoked. Only the action of the
+                        button gets replaced with each inocation. This makes perfect sense as row controls are always
+                        only shown for one row at a time (as opposed to row editors where several of them can be in use
+                        at the same time).</p></div>
+                </div>
+                <p> </p>
+                <p>The callback can be registered like this:</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Row Controls Factory
+                        Registration</b></div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.setRowControlsFactory(new MyRowControlsFactory());</pre>
+                    </div>
+                </div>
+                <h3 id="id-3.4.5RowEditing-Example2">Example 2</h3>
+                <p>The following is the code of the RowControls class in the FlexGanttFX &quot;Extras&quot; project. It
+                    adds a simple &quot;Edit&quot; button to the row. When clicked it will show the row editor controls
+                    on the back on the row.</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>RowControls.java</b>
+                    </div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence"> /**
+ * Copyright (C) 2014 Dirk Lemmermann Software &amp; Consulting (dlsc.com) 
+ * 
+ * This file is part of FlexGanttFX.
+ */
+package com.flexganttfx.extras;
+
+
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
+import javafx.util.Callback;
+import com.flexganttfx.model.Row;
+import com.flexganttfx.view.graphics.GraphicsBase.RowControlsParameter;
+
+public class RowControls&lt;R extends Row&lt;?, ?, ?&gt;&gt; extends HBox implements
+		Callback&lt;RowControlsParameter&lt;R&gt;, Node&gt; {
+
+
+	private Button editButton;
+
+	public RowControls() {
+		setPickOnBounds(false);
+		setMinSize(0, 0);
+		setAlignment(Pos.TOP_RIGHT);
+		setFillHeight(true);
+		editButton = new Button(&quot;EDIT&quot;);
+		editButton.getStyleClass().add(&quot;row-controls-button&quot;);
+		getChildren().add(editButton);
+	}
+
+	@Override
+	public Node call(RowControlsParameter&lt;R&gt; param) {
+		editButton.setOnAction(evt -&gt; param.getGraphics().startRowEditing(
+				param.getRow()));
+		return this;
+	}
+}</pre>
+                    </div>
+                </div>
+                <p>The matching CSS for the button is defined like this:</p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>RowControls Button
+                        CSS</b></div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: css; gutter: true; theme: Confluence"
+     data-theme="Confluence">/*
+ * Row controls button are shown when the mouse hovers over a row that can be
+ * edited (flipped around).
+ */
+.row-controls-button {
+	-fx-padding: 5 9 7 7;
+	-fx-background-insets: 0 4 2 2;
+	-fx-background-color: rgba(0,0,0,.5);
+	-fx-background-radius: 0;
+	-fx-text-fill: white;
+	-fx-font-size: 8;
+	-fx-font-weight: bold;
+}
+
+.row-controls-button:hover,
+.row-controls-button:focused {
+	-fx-padding: 5 9 7 7;
+	-fx-background-insets: 0 4 2 2;
+	-fx-background-color: rgba(0,0,0,.6);
+	-fx-background-radius: 0;
+	-fx-text-fill: white;
+	-fx-font-size: 8;
+	-fx-font-weight: bold;
+}
+
+.row-controls-button:pressed,
+.row-controls-button:selected {
+	-fx-background-color: rgba(0,0,0,.7);
+	-fx-background-radius: 0;
+}</pre>
+                    </div>
+                </div>
+                <p> </p>
+                <p> </p>
+                <p> </p>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

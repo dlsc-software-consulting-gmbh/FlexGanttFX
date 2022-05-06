@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FlexGanttFX Developer Manual : 3.1.7 Other Features</title>
+    <link rel="stylesheet" href="styles/site.css" type="text/css"/>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body class="theme-default aui-theme-default">
+<div id="page">
+    <div id="main" class="aui-page-panel">
+        <div id="main-header">
+            <div id="breadcrumb-section">
+                <ol id="breadcrumbs">
+                    <li class="first">
+                        <span><a href="index.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="FlexGanttFX-Developer-Manual_491528.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="3.-Controls_491598.html">3. Controls</a></span>
+                    </li>
+                    <li>
+                        <span><a href="3.1-GanttChart_491607.html">3.1 GanttChart</a></span>
+                    </li>
+                </ol>
+            </div>
+            <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            FlexGanttFX Developer Manual : 3.1.7 Other Features
+                        </span>
+            </h1>
+        </div>
+
+        <div id="content" class="view">
+            <div class="page-metadata">
+
+
+                Created by <span class='author'> Dirk Lemmermann</span>, last modified on Apr 01, 2021
+            </div>
+            <div id="main-content" class="wiki-content group">
+                <h2 id="id-3.1.7OtherFeatures-/*&lt;![CDATA[*/div.rbtoc1633442029990{padding:0px;}div.rbtoc1633442029990ul{list-style:disc;margin-left:0px;}div.rbtoc1633442029990li{margin-left:0px;padding-left:0px;}/*]]&gt;*/#id-3.1.7OtherFeatures-Introduction#id-3.1.7OtherFeatures-In">
+                    <style type='text/css'>/*<![CDATA[*/
+                    div.rbtoc1633442029990 {
+                        padding: 0px;
+                    }
+
+                    div.rbtoc1633442029990 ul {
+                        list-style: disc;
+                        margin-left: 0px;
+                    }
+
+                    div.rbtoc1633442029990 li {
+                        margin-left: 0px;
+                        padding-left: 0px;
+                    }
+
+                    /*]]>*/</style>
+                    <div class='toc-macro rbtoc1633442029990'>
+                        <ul class='toc-indentation'>
+                            <li><a href='#id-3.1.7OtherFeatures-'></a></li>
+                            <li><a href='#id-3.1.7OtherFeatures-Introduction'>Introduction</a></li>
+                            <li><a href='#id-3.1.7OtherFeatures-Fixedcellsize'>Fixed cell size</a></li>
+                            <li><a href='#id-3.1.7OtherFeatures-MasterTimeline'>Master Timeline</a></li>
+                            <li><a href='#id-3.1.7OtherFeatures-ScrollBarType'>ScrollBar Type</a></li>
+                            <li><a href='#id-3.1.7OtherFeatures-ScrollBarVisibility'>ScrollBar Visibility</a></li>
+                            <li><a href='#id-3.1.7OtherFeatures-Position'>Position</a></li>
+                            <li><a href='#id-3.1.7OtherFeatures-FactoryMethods'>Factory Methods</a></li>
+                        </ul>
+                    </div>
+                </h2>
+                <h2 id="id-3.1.7OtherFeatures-Introduction">Introduction</h2>
+                <p>This page describes several of the smaller and normally less important features of the Gantt chart
+                    control.</p>
+                <h2 id="id-3.1.7OtherFeatures-Fixedcellsize">Fixed cell size</h2>
+                <p>The tree table view and the list view of JavaFX both support a property called
+                    <strong>fixedCellSize</strong>. It can be used to improve the performance of both controls. This is
+                    done by setting it to a value other than -1. A value like that informs the controls that each cell
+                    will have the same height, which allows for faster algorithms to be used when updating the controls.
+                    The <strong>GanttChart</strong> class also defines this property in order to ensure that the tree
+                    table view and the list view used by it use the same cell size. If set the Gantt chart will not use
+                    the <strong>height</strong> property of the <a href="4.5-Row_491703.html"
+                                                                   data-linked-resource-id="491703"
+                                                                   data-linked-resource-version="8"
+                                                                   data-linked-resource-type="page">rows </a>and will
+                    also not allow the user to resize the rows.</p>
+                <h2 id="id-3.1.7OtherFeatures-MasterTimeline">Master Timeline</h2>
+                <p>The <strong>GanttChart</strong> control defines a property called <strong>masterTimeLine</strong>.
+                    This property is used when the Gantt chart is being used in a multi Gantt chart context (e.g. <a
+                            href="3.3-DualGanttChartContainer_491619.html" data-linked-resource-id="491619"
+                            data-linked-resource-version="9"
+                            data-linked-resource-type="page">DualGanttChartContainer </a>or <a
+                            href="3.2-MultiGanttChartContainer_491616.html" data-linked-resource-id="491616"
+                            data-linked-resource-version="10"
+                            data-linked-resource-type="page">MultiGanttChartContainer</a>). In these situations it is
+                    the timeline of the top Gantt chart that is the basis for rendering weekends, grid lines, etc. Every
+                    Gantt chart still has its own <a href="3.6-Timeline_491626.html" data-linked-resource-id="491626"
+                                                     data-linked-resource-version="38" data-linked-resource-type="page">timeline </a>subcontrol
+                    but they will all know which one is the master.</p>
+                <div class="confluence-information-macro confluence-information-macro-note"><span
+                        class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span>
+                    <div class="confluence-information-macro-body"><p>This is framework functionality that applications
+                        should normally not interfere with.</p></div>
+                </div>
+                <h2 id="id-3.1.7OtherFeatures-ScrollBarType"><span style="color: rgb(0,0,0);">ScrollBar Type</span></h2>
+                <p>The GanttChart control supports different types of scrollbars. The type can be set by calling
+                    <strong>GanttChartBase.setScrollBarType(ScrollBarType)</strong>. The following types are currently
+                    available:</p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <colgroup>
+                            <col/>
+                            <col/>
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Type</th>
+                            <th class="confluenceTh">Behaviour</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">NONE</td>
+                            <td class="confluenceTd">The <a href="3.1-GanttChart_491607.html"
+                                                            data-linked-resource-id="491607"
+                                                            data-linked-resource-version="15"
+                                                            data-linked-resource-type="page">Gantt chart</a> will never
+                                offer any scrollbars. Neither for the tree table view nor the <a
+                                        href="3.5-GraphicsBase_491612.html" data-linked-resource-id="491612"
+                                        data-linked-resource-version="43" data-linked-resource-type="page">graphics
+                                    area</a>. A Gantt chart like that could only be scrolled via the keyboard, the mouse
+                                wheel or a touch input device.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">INFINITE</td>
+                            <td class="confluenceTd">The <a href="3.1-GanttChart_491607.html"
+                                                            data-linked-resource-id="491607"
+                                                            data-linked-resource-version="15"
+                                                            data-linked-resource-type="page">Gantt chart</a> will show a
+                                regular scrollbar for the tree table view and a scrollbar called <a
+                                        href="attachments/491958/983089.png" data-linked-resource-id="983089"
+                                        data-linked-resource-version="1" data-linked-resource-type="attachment"
+                                        data-linked-resource-default-alias="timelineScrollBar.png"
+                                        data-nice-type="PNG Image" data-linked-resource-content-type="image/png"
+                                        data-linked-resource-container-id="491958"
+                                        data-linked-resource-container-version="11">TimelineScrollBar</a> which
+                                internally uses a PlusMinusSlider (provided by the ControlsFX project). The slider
+                                allows for scrolling at different speeds into the past or into the future. This
+                                scrollbar does not require a specified scrolling &quot;horizon&quot; (earliest / latest
+                                time to scroll to).
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">FIXED_HORIZON</td>
+                            <td class="confluenceTd">The Gantt chart will show a regulars scrollbar for the tree table
+                                view AND the graphics area. The bounds of the scrollbar are based on the horizon start
+                                and end times as defined by the <a href="3.5.1-Timeline-Model_491797.html"
+                                                                   data-linked-resource-id="491797"
+                                                                   data-linked-resource-version="13"
+                                                                   data-linked-resource-type="page">TimelineModel</a>.
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h2 id="id-3.1.7OtherFeatures-ScrollBarVisibility">ScrollBar Visibility</h2>
+                <p>Another configuration option related to ScrollBars is the boolean property autoHideScrollBars. If set
+                    to true the scrollbars for the tree table view (the left-hand side) and the graphics area (the
+                    right-hand side) will be placed inside a HiddenSidesPane instance. This container control from
+                    ControlsFX can show or hide controls that have been placed on one of its sides. In this case the
+                    scrollbars will be placed on the &quot;bottom&quot; side and they will only appear when the user
+                    moves the mouse cursor close to the edge.</p>
+                <h2 id="id-3.1.7OtherFeatures-Position">Position</h2>
+                <p>The position property of the <strong>GanttChart</strong> class is used to inform the Gantt chart
+                    where it is located within a multi Gantt chart context (e.g. <a
+                            href="3.3-DualGanttChartContainer_491619.html" data-linked-resource-id="491619"
+                            data-linked-resource-version="9" data-linked-resource-type="page">DualGanttChartContainer&nbsp;</a>or <a
+                            href="3.2-MultiGanttChartContainer_491616.html" data-linked-resource-id="491616"
+                            data-linked-resource-version="10"
+                            data-linked-resource-type="page">MultiGanttChartContainer</a>). Possible values are:</p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <colgroup>
+                            <col/>
+                            <col/>
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Value</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>ONLY</pre>
+                            </td>
+                            <td class="confluenceTd">The Gantt chart is the only one. This is the default value and will
+                                not change if not used in a multi Gantt chart context.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>FIRST</pre>
+                            </td>
+                            <td class="confluenceTd">The Gantt chart is shown at the top of the container.</td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>MIDDLE</pre>
+                            </td>
+                            <td class="confluenceTd">The Gantt chart is not the first and not the last one. It is also
+                                not the only one.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>LAST</pre>
+                            </td>
+                            <td class="confluenceTd">The Gantt chart is shown at the bottom of the container.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>The screenshot below shows three charts in a <a href="3.2-MultiGanttChartContainer_491616.html"
+                                                                   data-linked-resource-id="491616"
+                                                                   data-linked-resource-version="10"
+                                                                   data-linked-resource-type="page">MultiGanttChartContainer </a>and
+                    their position values.</p>
+                <p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image"
+                                                                       confluence-query-params="effects=border-simple,blur-border"
+                                                                       loading="lazy"
+                                                                       src="attachments/491958/983088.png?effects=border-simple,blur-border"
+                                                                       data-image-src="attachments/491958/983088.png"
+                                                                       data-unresolved-comment-count="0"
+                                                                       data-linked-resource-id="983088"
+                                                                       data-linked-resource-version="1"
+                                                                       data-linked-resource-type="attachment"
+                                                                       data-linked-resource-default-alias="position.png"
+                                                                       data-base-url="https://flexgantt.atlassian.net/wiki"
+                                                                       data-linked-resource-content-type="image/png"
+                                                                       data-linked-resource-container-id="491958"
+                                                                       data-linked-resource-container-version="11"
+                                                                       data-media-id="036fe187-1c3a-43cb-a222-7391c1729d7a"
+                                                                       data-media-type="file"></span></p>
+                <div class="confluence-information-macro confluence-information-macro-note"><span
+                        class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span>
+                    <div class="confluence-information-macro-body"><p>This is framework functionality that applications
+                        should normally not interfere with.</p></div>
+                </div>
+                <h2 id="id-3.1.7OtherFeatures-FactoryMethods">Factory Methods</h2>
+                <p>There are several protected factory methods used for creating the subcontrols. These methods can be
+                    overriden to create subclasses of these controls.</p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Method</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>TreeTableView createTreeTable();</pre>
+                            </td>
+                            <td class="confluenceTd">Creates the tree table view shown on the left-hand side of the
+                                Gantt chart. A typical use case for replacing this table is when you already have a tree
+                                table view specialization with advanced filtering or interaction options. You might want
+                                to use the same tree table view that your application is already using in other places.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>Timeline createTimeline();</pre>
+                            </td>
+                            <td class="confluenceTd">Creates the timeline.</td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>GraphicsBase createGraphics();</pre>
+                            </td>
+                            <td class="confluenceTd">Creates the graphics view. A use case for replacing the standard
+                                one might be that your application adds a couple of nodes to the graphics view. Maybe
+                                some kind of overlap on top of the graphics (e.g. a radar).
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>RowHeader createRowHeader();</pre>
+                            </td>
+                            <td class="confluenceTd">Creates the row header column for the tree table view.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><br/></p>
+                <p><br/></p>
+            </div>
+
+            <div class="pageSection group">
+                <div class="pageSectionHeader">
+                    <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                </div>
+
+                <div class="greybox" align="left">
+                    <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                    <a href="attachments/491958/983088.png">position.png</a> (image/png)
+                    <br/>
+                    <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                    <a href="attachments/491958/983089.png">timelineScrollBar.png</a> (image/png)
+                    <br/>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.flexganttfx</groupId>
 		<artifactId>gantt</artifactId>
-		<version>11.12.4-SNAPSHOT</version>
+		<version>11.12.5</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>assembly</artifactId>
@@ -24,7 +24,6 @@
 			<version>${project.parent.version}</version>
 		</dependency>
 
-		<!--
 		<dependency>
 			<groupId>com.flexganttfx</groupId>
 			<artifactId>tutorials</artifactId>
@@ -60,7 +59,6 @@
 			<artifactId>editor</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
-		-->
 
 	</dependencies>
 

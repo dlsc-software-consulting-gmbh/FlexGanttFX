@@ -243,7 +243,7 @@ public abstract class RendererBase {
 
     /**
      * Calculates the x coordinate for the given time. This method only returns
-     * valid results when the renderers is used in a layout with horizontal
+     * valid results when the renderer is used in a layout with horizontal
      * orientation. It will not work in {@link AgendaLayout}.
      *
      * @param time
@@ -255,7 +255,7 @@ public abstract class RendererBase {
     protected final double getLocation(Instant time, Canvas canvas) {
         Timeline timeline = getGraphics().getTimeline();
         TimelineModel<?> timelineModel = timeline.getModel();
-        return snapPositionX(timelineModel.calculateLocationForTime(time) + getGraphics().getCanvasBuffer() - canvas.getTranslateX()) - timeline.getOffset();
+        return timelineModel.calculateLocationForTime(time) + getGraphics().getCanvasBuffer() - canvas.getTranslateX() - timeline.getOffset();
     }
 
     /**
@@ -263,8 +263,7 @@ public abstract class RendererBase {
      * valid results when the renderer is used in a layout with horizontal
      * orientation. It will not work in {@link AgendaLayout}.
      *
-     * @param location
-     *            the location for which to return the time
+     * @param location the location for which to return the time
      * @return the time at the given x coordinate
      * @see TimelineModel#calculateTimeForLocation(double)
      * @since 1.0

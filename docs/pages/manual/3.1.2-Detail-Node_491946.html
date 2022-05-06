@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FlexGanttFX Developer Manual : 3.1.2 Detail Node</title>
+    <link rel="stylesheet" href="styles/site.css" type="text/css"/>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body class="theme-default aui-theme-default">
+<div id="page">
+    <div id="main" class="aui-page-panel">
+        <div id="main-header">
+            <div id="breadcrumb-section">
+                <ol id="breadcrumbs">
+                    <li class="first">
+                        <span><a href="index.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="FlexGanttFX-Developer-Manual_491528.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="3.-Controls_491598.html">3. Controls</a></span>
+                    </li>
+                    <li>
+                        <span><a href="3.1-GanttChart_491607.html">3.1 GanttChart</a></span>
+                    </li>
+                </ol>
+            </div>
+            <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            FlexGanttFX Developer Manual : 3.1.2 Detail Node
+                        </span>
+            </h1>
+        </div>
+
+        <div id="content" class="view">
+            <div class="page-metadata">
+
+
+                Created by <span class='author'> Dirk Lemmermann</span>, last modified on Oct 08, 2014
+            </div>
+            <div id="main-content" class="wiki-content group">
+                <p>The Gantt chart control is using two nested <a class="external-link"
+                                                                  href="http://fxexperience.com/controlsfx/features/#masterdetailpane"
+                                                                  rel="nofollow">master / detail panes</a> (from <a
+                        class="external-link" href="http://controlsfx.org" rel="nofollow">ControlsFX</a>). The first one
+                    contains the tree table view as its detail node and the second master / detail pane as its master
+                    node. The second master / detail pane shows the <a href="3.5-GraphicsBase_491612.html"
+                                                                       data-linked-resource-id="491612"
+                                                                       data-linked-resource-version="43"
+                                                                       data-linked-resource-type="page">graphics
+                        view</a> as the master node and a <a href="3.1.6-Property-Sheet_492355.html"
+                                                             data-linked-resource-id="492355"
+                                                             data-linked-resource-version="4"
+                                                             data-linked-resource-type="page">property sheet</a> as the
+                    detail node. The following table lists the related methods:</p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Method</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>setDetail(Node);</pre>
+                                <pre>getDetail(Node);</pre>
+                            </td>
+                            <td class="confluenceTd">Sets / gets the node that is being shown as the detail node of the
+                                secondary master detail pane.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>getPrimaryMasterDetailPane();</pre>
+                            </td>
+                            <td class="confluenceTd">Returns the primary master / detail pane. This pane shows the tree
+                                table view as its detail and the secondary master / detail pane as its master.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>getSecondaryMasterDetailPane();</pre>
+                            </td>
+                            <td class="confluenceTd">Returns the secondary master / detail pane. This pane shows the
+                                graphics view as its master and an optional node as its detail.
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>The following image illustrates the concept of two nested master / detail panes.</p>
+                <p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image"
+                                                                       confluence-query-params="effects=border-simple,blur-border"
+                                                                       loading="lazy"
+                                                                       src="attachments/491946/983079.png?effects=border-simple,blur-border"
+                                                                       data-image-src="attachments/491946/983079.png"
+                                                                       data-unresolved-comment-count="0"
+                                                                       data-linked-resource-id="983079"
+                                                                       data-linked-resource-version="1"
+                                                                       data-linked-resource-type="attachment"
+                                                                       data-linked-resource-default-alias="masterdetail.png"
+                                                                       data-base-url="https://flexgantt.atlassian.net/wiki"
+                                                                       data-linked-resource-content-type="image/png"
+                                                                       data-linked-resource-container-id="491946"
+                                                                       data-linked-resource-container-version="9"
+                                                                       data-media-id="b78f038a-b8b7-42ed-9506-697fd9f39d1d"
+                                                                       data-media-type="file"></span></p>
+            </div>
+
+            <div class="pageSection group">
+                <div class="pageSectionHeader">
+                    <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                </div>
+
+                <div class="greybox" align="left">
+                    <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                    <a href="attachments/491946/983079.png">masterdetail.png</a> (image/png)
+                    <br/>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

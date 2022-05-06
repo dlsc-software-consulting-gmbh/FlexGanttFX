@@ -510,7 +510,7 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
     /**
      * Determines if the scrollbar will automatically hide itself if no longer needed. The default is
      * "true". If set to "true", the skin of the Gantt chart will use a {@link HiddenSidesPane} instance
-     * for the left- and right-hand side. This container support the sliding in and out of controls on
+     * for the left- and right-hand side. This container supports the sliding in and out of controls on
      * the four sides.
      *
      * @return true if the scrollbars should automatically hide when not used

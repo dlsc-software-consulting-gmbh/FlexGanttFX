@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FlexGanttFX Developer Manual : 3.5.1 Timeline Model</title>
+    <link rel="stylesheet" href="styles/site.css" type="text/css"/>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body class="theme-default aui-theme-default">
+<div id="page">
+    <div id="main" class="aui-page-panel">
+        <div id="main-header">
+            <div id="breadcrumb-section">
+                <ol id="breadcrumbs">
+                    <li class="first">
+                        <span><a href="index.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="FlexGanttFX-Developer-Manual_491528.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="3.-Controls_491598.html">3. Controls</a></span>
+                    </li>
+                    <li>
+                        <span><a href="3.6-Timeline_491626.html">3.6 Timeline</a></span>
+                    </li>
+                </ol>
+            </div>
+            <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            FlexGanttFX Developer Manual : 3.5.1 Timeline Model
+                        </span>
+            </h1>
+        </div>
+
+        <div id="content" class="view">
+            <div class="page-metadata">
+
+
+                Created by <span class='author'> Dirk Lemmermann</span>, last modified on Oct 06, 2014
+            </div>
+            <div id="main-content" class="wiki-content group">
+                <p>
+                    <style type='text/css'>/*<![CDATA[*/
+                    div.rbtoc1633442043030 {
+                        padding: 0px;
+                    }
+
+                    div.rbtoc1633442043030 ul {
+                        list-style: disc;
+                        margin-left: 0px;
+                    }
+
+                    div.rbtoc1633442043030 li {
+                        margin-left: 0px;
+                        padding-left: 0px;
+                    }
+
+                    /*]]>*/</style>
+                <div class='toc-macro rbtoc1633442043030'>
+                    <ul class='toc-indentation'>
+                        <li><a href='#id-3.5.1TimelineModel-Introduction'>Introduction</a></li>
+                        <li><a href='#id-3.5.1TimelineModel-StartTime&amp;MillisPerPixel'>Start Time &amp; Millis Per
+                            Pixel</a></li>
+                        <li><a href='#id-3.5.1TimelineModel-NowTime/NowLocation'>Now Time / Now Location</a></li>
+                        <li><a href='#id-3.5.1TimelineModel-Time&amp;CoordinateCalculations'>Time &amp; Coordinate
+                            Calculations</a></li>
+                        <li><a href='#id-3.5.1TimelineModel-TheHorizon'>The Horizon</a></li>
+                        <li><a href='#id-3.5.1TimelineModel-Highest&amp;LowestTemporalUnit'>Highest &amp; Lowest
+                            Temporal Unit</a></li>
+                    </ul>
+                </div>
+                </p><h2 id="id-3.5.1TimelineModel-Introduction">Introduction</h2>
+                <p>The timeline uses a model of type <strong>TimelineModel</strong>. This model provides the most
+                    important parameters for the timeline and the dateline in order for them to work properly. The
+                    timeline model can by typed for different temporal units. <em><strong>FlexGanttFX</strong> </em>ships
+                    with a <strong>ChronoUnitTimelineModel</strong> and a <strong>SimpleUnitTimelineModel</strong>.</p>
+                <h2 id="id-3.5.1TimelineModel-StartTime&amp;MillisPerPixel">Start Time &amp; Millis Per Pixel</h2>
+                <p>The two most important properties of the <strong>TimelineModel</strong> are the
+                    <strong>startTime</strong> and the <strong>millisPerPixel</strong> (MPP) properties. The start time
+                    determines the first visible time in the Gantt chart while the current width of the timeline in
+                    combination with the MPP value determine the last visible time and hence the visible time range.
+                    Increasing the MPP value will cause the timeline to show a larger time range while reducing this
+                    value will result in a shorter time range. The methods found in the Timeline class for showing a
+                    time, scrolling to a time, zooming into a range are all playing with these two variables to achieve
+                    their purpose. The following table lists the methods related to these properties:</p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Method</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>ObjectProperty&lt;Instant&gt; startTimeProperty();</pre>
+                                <pre>setStartTime(Instant time);</pre>
+                                <pre>Instant getStartTime();</pre>
+                            </td>
+                            <td class="confluenceTd"><p>Stores, sets, and retrieves the current <u>start</u> time, the
+                                first visible time in the Gantt chart.</p>
+                                <div class="confluence-information-macro confluence-information-macro-note"><span
+                                        class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span>
+                                    <div class="confluence-information-macro-body"><p>The earliest possible start time
+                                        can be restricted via the <strong>horizonStartTime</strong> property.</p></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>DoubleProperty millisPerPixel();</pre>
+                                <pre>setMillisPerPixel(double mpp);</pre>
+                                <pre>double getMillisPerPixel();</pre>
+                            </td>
+                            <td class="confluenceTd"><p>Stores, sets, and retrieves the millis per pixel value
+                                (mpp).</p>
+                                <div class="confluence-information-macro confluence-information-macro-note"><span
+                                        class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span>
+                                    <div class="confluence-information-macro-body"><p>The default value of mpp is 24 *
+                                        60 * 60 * 1000 / 30. This results in days having the width of 30 pixels.</p>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h2 id="id-3.5.1TimelineModel-NowTime/NowLocation">Now Time / Now Location</h2>
+                <p>Gantt charts often have a requirement to mark the &quot;current&quot; time. This time can either be
+                    the system time (<strong>java.time.Instant.now()</strong>) or an arbitrary value controlled by the
+                    application. The latter is often the case in software that runs some kind of simulation and the
+                    Gantt chart is used to track the simulation time. To support these use cases the timeline model
+                    defines a property called <strong>now</strong>.</p>
+                <p>The value of now is usually updated by a <a href="3.5.2-Time-Tracker_491677.html"
+                                                               data-linked-resource-id="491677"
+                                                               data-linked-resource-version="10"
+                                                               data-linked-resource-type="page">time tracker</a> that
+                    can be controlled via the <a href="3.6-Timeline_491626.html" data-linked-resource-id="491626"
+                                                 data-linked-resource-version="38" data-linked-resource-type="page">timeline</a>.
+                </p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Method</th>
+                            <th class="confluenceTh">DescriptionDesDesdf</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>ObjectProperty&lt;Instant&gt; nowProperty();</pre>
+                                <pre>void setNow(Instant now);</pre>
+                                <pre>Instant getNow();now</pre>
+                            </td>
+                            <td class="confluenceTd">Stores, sets, and retrieves the current time.</td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>ReadOnlyDoubleProperty nowLocation();</pre>
+                                <pre>double getNowLocation();</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd"><p>Stores and retrieves the location of the current
+                                time. The now location is calculated by the model based on the start time, and the
+                                millis per pixel value.</p>
+                                <div class="confluence-information-macro confluence-information-macro-note"><span
+                                        class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span>
+                                    <div class="confluence-information-macro-body"><p>This property is a read-only
+                                        property as the now <u>location</u> is always dependent on the value of the now
+                                        <u>time</u>. The location can only changed by changing now itself.</p></div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h2 id="id-3.5.1TimelineModel-Time&amp;CoordinateCalculations">Time &amp; Coordinate Calculations</h2>
+                <p>The primary purpose of the timeline model is to convert time into a location and vice versa. For this
+                    the model provides several methods:</p>
+                <div class="table-wrap">
+                    <table class="confluenceTable">
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Method</th>
+                            <th class="confluenceTh">DescriptionD</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>double calculateLocationForTime(Instant);</pre>
+                            </td>
+                            <td class="confluenceTd">Returns the x coordinate for the given time.</td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>Instant calculateTimeForLocation(double);</pre>
+                            </td>
+                            <td class="confluenceTd">Returns the time for the given x coordinate.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h2 id="id-3.5.1TimelineModel-TheHorizon">The Horizon</h2>
+                <p>Scheduling applications often work with a horizon, defined by an earliest and latest time. These
+                    times might be based on the loaded dataset (min / max calculation of the start and end times of the
+                    activities) or the planning horizon (Q1, Q2, Q3, Q4). Setting the values of
+                    <strong>horizonStartTime</strong> and <strong>horizonEndTime </strong>ensures that the user will not
+                    be able to scroll to a time outside the horizon.</p>
+                <h2 id="id-3.5.1TimelineModel-Highest&amp;LowestTemporalUnit">Highest &amp; Lowest Temporal Unit</h2>
+                <p>Not all applications require all available units of a temporal unit. <strong>java.time.temporal.ChronoUnit</strong>
+                    for example defines units for nanos until millennia. The <strong>highestTemporalUnit</strong> and
+                    the <strong>lowestTemporalUnit</strong> property enable the application to restrict the unit range
+                    to something more sensible, e.g. hours to months.</p>
+                <p> </p>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

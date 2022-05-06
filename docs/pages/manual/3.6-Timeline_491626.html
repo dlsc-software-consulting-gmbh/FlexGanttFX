@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FlexGanttFX Developer Manual : 3.6 Timeline</title>
+    <link rel="stylesheet" href="styles/site.css" type="text/css"/>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body class="theme-default aui-theme-default">
+<div id="page">
+    <div id="main" class="aui-page-panel">
+        <div id="main-header">
+            <div id="breadcrumb-section">
+                <ol id="breadcrumbs">
+                    <li class="first">
+                        <span><a href="index.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="FlexGanttFX-Developer-Manual_491528.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="3.-Controls_491598.html">3. Controls</a></span>
+                    </li>
+                </ol>
+            </div>
+            <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            FlexGanttFX Developer Manual : 3.6 Timeline
+                        </span>
+            </h1>
+        </div>
+
+        <div id="content" class="view">
+            <div class="page-metadata">
+
+
+                Created by <span class='author'> Dirk Lemmermann</span>, last modified on Oct 03, 2016
+            </div>
+            <div id="main-content" class="wiki-content group">
+                <p class="block">
+                    <style type='text/css'>/*<![CDATA[*/
+                    div.rbtoc1633442042385 {
+                        padding: 0px;
+                    }
+
+                    div.rbtoc1633442042385 ul {
+                        list-style: disc;
+                        margin-left: 0px;
+                    }
+
+                    div.rbtoc1633442042385 li {
+                        margin-left: 0px;
+                        padding-left: 0px;
+                    }
+
+                    /*]]>*/</style>
+                <div class='toc-macro rbtoc1633442042385'>
+                    <ul class='toc-indentation'>
+                        <li><a href='#id-3.6Timeline-Navigation'>Navigation</a></li>
+                        <li><a href='#id-3.6Timeline-Zooming'>Zooming</a></li>
+                        <li><a href='#id-3.6Timeline-Scrolling'>Scrolling</a></li>
+                        <li><a href='#id-3.6Timeline-TimeTracker'>TimeTracker</a></li>
+                        <li><a href='#id-3.6Timeline-VisibleTimeInterval'>Visible Time Interval</a></li>
+                    </ul>
+                </div>
+                </p><p class="block">The timeline control is a container for the <a href="3.7-Dateline_491628.html"
+                                                                                    data-linked-resource-id="491628"
+                                                                                    data-linked-resource-version="32"
+                                                                                    data-linked-resource-type="page">Dateline </a>and
+                the <a href="3.8-Eventline_491630.html" data-linked-resource-id="491630"
+                       data-linked-resource-version="15" data-linked-resource-type="page">Eventline</a>. It is displayed
+                above the <a href="3.5-GraphicsBase_491612.html" data-linked-resource-id="491612"
+                             data-linked-resource-version="43" data-linked-resource-type="page">Graphics </a>control and
+                provides several methods for scrolling and zooming, both of which can be done with or without animation.
+                The timeline also keeps track of the current time (see <a href="3.5.2-Time-Tracker_491677.html"
+                                                                          data-linked-resource-id="491677"
+                                                                          data-linked-resource-version="10"
+                                                                          data-linked-resource-type="page">TimeTracker</a>).
+            </p>
+                <p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image"
+                                                                       confluence-query-params="effects=border-simple,blur-border"
+                                                                       loading="lazy"
+                                                                       src="attachments/491626/983052.png?effects=border-simple,blur-border"
+                                                                       data-image-src="attachments/491626/983052.png"
+                                                                       data-unresolved-comment-count="0"
+                                                                       data-linked-resource-id="983052"
+                                                                       data-linked-resource-version="1"
+                                                                       data-linked-resource-type="attachment"
+                                                                       data-linked-resource-default-alias="timeline.png"
+                                                                       data-base-url="https://flexgantt.atlassian.net/wiki"
+                                                                       data-linked-resource-content-type="image/png"
+                                                                       data-linked-resource-container-id="491626"
+                                                                       data-linked-resource-container-version="38"
+                                                                       data-media-id="a6a2d123-80d0-4d38-9469-a440864702aa"
+                                                                       data-media-type="file"></span></p>
+                <h2 id="id-3.6Timeline-Navigation">Navigation</h2>
+                <p>The timeline is used to navigate through time. It provides methods to jump to the current time or a
+                    given time. It can be requested to show a specific time unit (&quot;show days&quot;), or a time
+                    range. </p>
+                <div class="table-wrap">
+                    <table class="wrapped confluenceTable">
+                        <colgroup>
+                            <col/>
+                            <col/>
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Method</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>showNow()</pre>
+                                <pre>showNow(boolean center)</pre>
+                            </td>
+                            <td class="confluenceTd"><p>Changes the start time of the <a
+                                    href="3.5.1-Timeline-Model_491797.html" data-linked-resource-id="491797"
+                                    data-linked-resource-version="13" data-linked-resource-type="page">timeline
+                                model</a> in such a way that the current time (as already stored in the <a
+                                    href="3.5.1-Timeline-Model_491797.html" data-linked-resource-id="491797"
+                                    data-linked-resource-version="13" data-linked-resource-type="page">TimelineModel</a>)
+                                will be displayed either on the left edge of the <a href="3.7-Dateline_491628.html"
+                                                                                    data-linked-resource-id="491628"
+                                                                                    data-linked-resource-version="32"
+                                                                                    data-linked-resource-type="page">dateline</a>
+                                or right in the middle.</p></td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>showTime(Instant time)</pre>
+                                <pre>showTime(Instant time, boolean center)</pre>
+                            </td>
+                            <td class="confluenceTd"><span>Changes the start time of the <a
+                                    href="3.5.1-Timeline-Model_491797.html" data-linked-resource-id="491797"
+                                    data-linked-resource-version="13"
+                                    data-linked-resource-type="page">timeline model</a> in such a way that the given time </span><span>will be displayed either on the left edge of the <a
+                                    href="3.7-Dateline_491628.html" data-linked-resource-id="491628"
+                                    data-linked-resource-version="32" data-linked-resource-type="page">dateline</a> or right in the middle.</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>showRange(Instant start, Instant end)</pre>
+                                <pre>showRange(Instant start, Duration duration)</pre>
+                                <pre>showRange(TimeInterval range)</pre>
+                            </td>
+                            <td class="confluenceTd">Changes the start time and the &quot;millis per pixel&quot; value
+                                of the <a href="3.5.1-Timeline-Model_491797.html" data-linked-resource-id="491797"
+                                          data-linked-resource-version="13" data-linked-resource-type="page">timeline
+                                    model</a> in such a way that the given time range will become fully visible in the
+                                <a href="3.7-Dateline_491628.html" data-linked-resource-id="491628"
+                                   data-linked-resource-version="32" data-linked-resource-type="page">dateline</a>.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>showTemporalUnit(TemporalUnit unit, double width)</pre>
+                            </td>
+                            <td class="confluenceTd"><span>Changes the start time and the &quot;millis per pixel&quot; value of the </span><a
+                                    href="3.5.1-Timeline-Model_491797.html" data-linked-resource-id="491797"
+                                    data-linked-resource-version="13" data-linked-resource-type="page">timeline
+                                model</a><span> </span><span> in such a way that the given time unit will be used in the </span><a
+                                    href="3.7-Dateline_491628.html" data-linked-resource-id="491628"
+                                    data-linked-resource-version="32"
+                                    data-linked-resource-type="page">dateline</a><span>. Each cell in the <a
+                                    href="3.7-Dateline_491628.html" data-linked-resource-id="491628"
+                                    data-linked-resource-version="32" data-linked-resource-type="page">dateline</a> will be as wide as the given width.</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="confluence-information-macro confluence-information-macro-note"><span
+                        class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span>
+                    <div class="confluence-information-macro-body"><p><span>It should be noted that the timeline in cooperation with the dateline can only make a best-effort attempt at fulfillng these requests as they depend on the availability of dateline resolutions in the </span><a
+                            href="3.6.1-Dateline-Model_491800.html" data-linked-resource-id="491800"
+                            data-linked-resource-version="12" data-linked-resource-type="page">dateline
+                        model</a><span>.</span></p></div>
+                </div>
+                <p><span style="line-height: 1.4285715;">The methods above can be executed with or without animation. This animation can be controlled via the help of two properties: </span><strong
+                        style="line-height: 1.4285715;">moveAnimated</strong><span
+                        style="line-height: 1.4285715;"> and </span><strong
+                        style="line-height: 1.4285715;">moveDuration</strong><span style="line-height: 1.4285715;">. The appropriate getter and setter methods for these properties are available on </span><strong
+                        style="line-height: 1.4285715;">Timeline</strong><span style="line-height: 1.4285715;">.</span>
+                </p>
+                <h2 id="id-3.6Timeline-Zooming">Zooming</h2>
+                <p>The timeline is responsible for managing anything related to zooming. The user can press the + / -
+                    keys to increase the zoom level by a specific zoom factor or he can select a time interval via a
+                    &quot;lasso&quot; by dragging the mouse and holding down the SHIFT key. The result will be a
+                    selected time interval which is stored in the read-only property <strong
+                            style="line-height: 1.4285715;">selectedTimeInterval</strong>. The timeline listens for
+                    changes to this property and will automatically try to display the selected time interval across the
+                    entire available width, ultimately causing a zoom in operation.</p>
+                <div class="table-wrap">
+                    <table class="wrapped confluenceTable">
+                        <colgroup>
+                            <col/>
+                            <col/>
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Method</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>zoomIn()</pre>
+                                <pre>zoomOut()</pre>
+                            </td>
+                            <td class="confluenceTd">Makes the timeline modify the timeline model in such a way that the
+                                resulting visible time range will be the current time range multiplied by / divided by
+                                the current zoom factor.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>zoom(double factor, boolean zoomIn, Instant frozenTime)</pre>
+                            </td>
+                            <td class="confluenceTd">Performs a zoom operation with the given zoom factor (either zoom
+                                in or out). The timeline will try to keep the given &quot;frozen&quot; time at its
+                                current location. This kind of behaviour is very useful for a pinch-based zoom, where
+                                the UI zooms &quot;into&quot; a specific time.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="confluenceTd">
+                                <pre>setZoomLassoEnabled(boolean);</pre>
+                                <pre>boolean isZoomLassoEnabled();</pre>
+                            </td>
+                            <td colspan="1" class="confluenceTd">Controls the availability of the zoom lasso.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>Just like the moving operations the zoom operations can also be executed in an animated or
+                    non-animated way. To control this the two properties <strong>zoomAnimated</strong> and <strong>zoomDuration</strong>
+                    are available.</p>
+                <p>Another property is used to fine-tune the zooming behaviour as some applications prefer to either
+                    keep the start time, the end time, or the center time while zooming. For this the application can
+                    set the <strong>zoomMode</strong> property. Possible values of this enum are
+                    <strong>KEEP_START_TIME</strong>, <strong>KEEP_END_TIME</strong>, or <strong>CENTER</strong>.</p>
+                <h2 id="id-3.6Timeline-Scrolling">Scrolling</h2>
+                <p>The timeline supports scrolling to the left and right in two different speeds. </p>
+                <div class="table-wrap">
+                    <table class="wrapped confluenceTable">
+                        <colgroup>
+                            <col/>
+                            <col/>
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Method</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>scrollLeft()</pre>
+                                <pre>scrollLeftFast()</pre>
+                            </td>
+                            <td class="confluenceTd">Changes the start time property of the timeline model in such a way
+                                that the dateline will end up starting with an <strong>earlier</strong> time.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>scrollRight()</pre>
+                                <pre>scrollRightFast()</pre>
+                            </td>
+                            <td class="confluenceTd">Changes the start time property of the timeline model in such a way
+                                that the dateline will end up starting with a <strong>later</strong> time.
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>These methods can be invoked by the user via the <span
+                        class="status-macro aui-lozenge aui-lozenge-complete">+</span> and <span
+                        class="status-macro aui-lozenge aui-lozenge-complete">-</span> keys. Scrolling will be fast if
+                    the user presses <span class="status-macro aui-lozenge aui-lozenge-complete">SHIFT</span> at the
+                    same time.</p>
+                <h2 id="id-3.6Timeline-TimeTracker">TimeTracker</h2>
+                <p>The timeline control is responsible for tracking time. This means that it updates the property now of
+                    the underlying timeline model. The timeline implements methods for starting and stopping time
+                    tracking, however the actual update of now will be delegated to a time tracker class.</p>
+                <div class="table-wrap">
+                    <table class="wrapped confluenceTable">
+                        <colgroup>
+                            <col/>
+                            <col/>
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Method</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>startTimeTracking()</pre>
+                                <pre>stopTimeTracking()</pre>
+                            </td>
+                            <td class="confluenceTd">Starts and stops time tracking. These methods invoke the equivalent
+                                methods on the <a href="3.5.2-Time-Tracker_491677.html" data-linked-resource-id="491677"
+                                                  data-linked-resource-version="10" data-linked-resource-type="page">TimeTracker </a>class.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>timeTrackerProperty()</pre>
+                                <pre>setTimeTracker(TimeTracker tracker)</pre>
+                                <pre>TimeTracker getTimeTracker()</pre>
+                            </td>
+                            <td class="confluenceTd">The <a href="3.5.2-Time-Tracker_491677.html"
+                                                            data-linked-resource-id="491677"
+                                                            data-linked-resource-version="10"
+                                                            data-linked-resource-type="page">time tracker</a> property
+                                and its getter and setter methods. The default <a href="3.5.2-Time-Tracker_491677.html"
+                                                                                  data-linked-resource-id="491677"
+                                                                                  data-linked-resource-version="10"
+                                                                                  data-linked-resource-type="page">time
+                                    tracker</a> (uses the system time) can be replaced with a custom one.
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h2 id="id-3.6Timeline-VisibleTimeInterval"><span
+                        style="color: rgb(0,0,0);">Visible Time Interval</span></h2>
+                <p><span style="font-size: 14.0px;line-height: 1.4285715;">Two read-only properties are keeping track of the earliest and latest times shown by the timeline . They are called <strong>visibleStartTime</strong> and <strong>visibleEndTime</strong> and the methods <strong>getVisibleStartTime()</strong>, <strong>getVisibleEndTime()</strong>, and <strong>getVisibleDuration()</strong> can be used to work with them.</span> 
+                </p>
+                <p><span style="font-size: 14.0px;line-height: 1.4285715;"><br/></span></p>
+            </div>
+
+            <div class="pageSection group">
+                <div class="pageSectionHeader">
+                    <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                </div>
+
+                <div class="greybox" align="left">
+                    <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                    <a href="attachments/491626/983052.png">timeline.png</a> (image/png)
+                    <br/>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

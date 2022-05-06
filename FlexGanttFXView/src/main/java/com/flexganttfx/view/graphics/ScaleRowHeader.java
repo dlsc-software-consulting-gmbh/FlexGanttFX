@@ -15,19 +15,12 @@ import impl.com.flexganttfx.skin.util.AgendaHelper;
 import impl.com.flexganttfx.skin.util.AgendaHelper.AgendaLineLocation;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.geometry.VPos;
+import javafx.beans.property.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.text.TextAlignment;
 
 import java.text.NumberFormat;
 import java.time.LocalTime;
@@ -53,8 +46,8 @@ import static javafx.scene.text.TextAlignment.RIGHT;
 public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
 
     private final Canvas canvas;
-    private final ObjectProperty<Paint> dividerLineStroke = new SimpleObjectProperty<>(this, "dividerLineStroke");
     private final InvalidationListener redrawListener = observable -> draw();
+    private final ObjectProperty<Paint> dividerLineStroke = new SimpleObjectProperty<>(this, "dividerLineStroke");
     private final BooleanProperty majorChartLabelsVisible = new SimpleBooleanProperty(this, "majorChartLabelsVisible", true);
     private final BooleanProperty minorChartLabelsVisible = new SimpleBooleanProperty(this, "minorChartLabelsVisible", true);
     private final BooleanProperty majorChartLinesVisible = new SimpleBooleanProperty(this, "majorChartLinesVisible", true);
@@ -167,7 +160,7 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
 
     /**
      * Registers the given observable as something that requires
-     * a redraw of the graphics area. E.g.: the stroke color has
+     * a drawing of the graphics area. E.g.: the stroke color has
      * changed.
      *
      * @param observable the observable to monitor for changes
@@ -177,6 +170,9 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         observable.addListener(redrawListener);
     }
 
+    /**
+     * Performs a drawing of the header canvas.
+     */
     public void draw() {
         double canvasHeight = canvas.getHeight();
 
@@ -331,8 +327,8 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
 
             for (double value : layout.getMajorTicks()) {
                 double y = getChartValueLocation(value, yOffset, height, layout);
-                gc.setTextAlign(TextAlignment.RIGHT);
-                gc.setTextBaseline(VPos.CENTER);
+                gc.setTextAlign(RIGHT);
+                gc.setTextBaseline(CENTER);
                 gc.setFill(getTextFill());
                 gc.fillText(format.format(value), width - getMajorChartLinesSize() - 3, y);
             }
@@ -347,7 +343,11 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         double maxChart = layout.getMaxValue();
 
         double range = maxChart - minChart;
-        double ppv = height / range;
+        double ppv = height;
+
+        if (Math.abs(range) > 0) {
+            ppv = height / range;
+        }
 
         double zeroLineLocation = yOffset + layout.getMaxValue() * ppv;
 

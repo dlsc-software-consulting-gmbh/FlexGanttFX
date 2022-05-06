@@ -40,8 +40,7 @@ public abstract class Layout {
 
 	// Padding support.
 
-	private DoubleProperty padding = new SimpleDoubleProperty(this, "padding",
-			0);
+	private DoubleProperty padding = new SimpleDoubleProperty(this, "padding", 0);
 
 	/**
 	 * Returns the property used to specify a padding that will be added to the

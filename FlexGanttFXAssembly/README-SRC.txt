@@ -12,7 +12,7 @@ This is the FlexGanttFX source code distribution. It contains the following item
 Questions? Need Help? Contact me via flexganttfx.com
 
 Dirk Lemmermann
-http://www.dlsc.com
+https://www.flexganttfx.com
 Skype: dlemmermann
 Mobile: +41-79-800-23-20
 

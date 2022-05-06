@@ -1,3 +1,8 @@
+- release: Release 11.12.5
+  date: March 30th, 2022
+  url: ../../downloads/flexganttfx-11.12.5-bin.zip
+  text: Fixed various rendering issues where vertical lines were not aligned properly (grid lines, 'now' line), chart layout scale fixes, scrollbar behaviour fixes.
+
 - release: Release 11.12.4
   date: April 21, 2021
   url: ../../downloads/flexganttfx-11.12.4-bin.zip

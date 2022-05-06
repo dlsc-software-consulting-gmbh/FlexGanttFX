@@ -102,6 +102,8 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
     private void applyLayout() {
         getChildren().clear();
 
+        double dividerPosition = treeTableMasterDetailPane.getDividerPosition();
+
         applyLeftHandSideLayout();
 
         switch (getSkinnable().getDisplayMode()) {
@@ -115,13 +117,24 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
                 applyLayoutTableOnly();
                 break;
         }
+
+        treeTableMasterDetailPane.setDividerPosition(dividerPosition);
     }
 
     private void applyLeftHandSideLayout() {
+        /*
+         * The extra setting of labels is needed so that the hidden sides pane will react properly.
+         */
+        leftHandSideHiddenSidesPane.setContent(new Label());
+        leftHandSideHiddenSidesPane.setBottom(new Label());
+
         if (getSkinnable().isAutoHideScrollBar()) {
             leftHandSideHiddenSidesPane.setContent(treeTable);
             leftHandSideHiddenSidesPane.setBottom(treeTableScrollBar);
         } else {
+            treeTable.setManaged(true);
+            treeTableScrollBar.setManaged(true);
+            treeTableScrollBar.setVisible(true);
             VBox.setVgrow(treeTable, Priority.ALWAYS);
             leftHandSideBox.getChildren().setAll(treeTable, treeTableScrollBar);
         }

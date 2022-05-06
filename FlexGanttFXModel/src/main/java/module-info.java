@@ -1,9 +1,4 @@
 /**
- * Copyright (C) 2014 - 2021 DLSC Software & Consulting GmbH (dlsc.com)
- *
- * This file is part of FlexGanttFX.
- */
-/**
  * Contains all model classes used for the various Gantt chart controls.
  */
 module com.flexganttfx.model {

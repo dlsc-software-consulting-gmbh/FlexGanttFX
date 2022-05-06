@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.flexganttfx</groupId>
     <artifactId>gantt</artifactId>
-    <version>11.12.4-SNAPSHOT</version>
+    <version>11.12.5</version>
     <packaging>pom</packaging>
     <name>FlexGanttFX</name>
     <description>The parent project for the various FlexGanttFX modules.</description>
@@ -12,17 +12,26 @@
         <name>DLSC Software &amp; Consulting GmbH</name>
     </organization>
 
+    <developers>
+        <developer>
+            <name>Dirk Lemmermann</name>
+            <email>dlemmermann@gmail.com</email>
+            <organization>DLSC Software &amp; Consulting GmbH</organization>
+            <url>http://www.dlsc.com</url>
+        </developer>
+    </developers>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <javafx.version>16</javafx.version>
-        <controlsfx.version>11.0.3</controlsfx.version>
-        <ikonli.version>12.2.0</ikonli.version>
+        <javafx.version>18</javafx.version>
+        <controlsfx.version>11.1.1</controlsfx.version>
+        <ikonli.version>12.3.1</ikonli.version>
         <maven.javadoc.skip>false</maven.javadoc.skip>
-        <jpro.version>2020.1.5</jpro.version>
+        <jpro.version>2022.1.0</jpro.version>
         <apache.felix.version>5.1.1</apache.felix.version>
         <client.plugin.version>0.1.36</client.plugin.version>
         <exec.maven.plugin.version>3.0.0</exec.maven.plugin.version>
-        <javafx.maven.plugin.version>0.0.5</javafx.maven.plugin.version>
+        <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
         <client.maven.plugin.version>0.1.36</client.maven.plugin.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
@@ -35,16 +44,16 @@
         <module>FlexGanttFXView</module>
         <module>FlexGanttFXExtras</module>
         <module>FlexGanttFXSampler</module>
-        <!-- module>FlexGanttFXProject</module -->
-        <!-- module>FlexGanttFXMSProject</module -->
-        <!-- module>FlexGanttFXiCal</module -->
-        <!-- module>FlexGanttFXExperimental</module -->
+        <module>FlexGanttFXProject</module>
+        <module>FlexGanttFXMSProject</module>
+        <module>FlexGanttFXiCal</module>
+        <module>FlexGanttFXExperimental</module>
         <module>FlexGanttFXLicensing</module>
-        <!-- module>FlexGanttFXEmirates</module -->
-        <!-- module>FlexGanttFXTutorials</module -->
+        <module>FlexGanttFXEmirates</module>
+        <module>FlexGanttFXTutorials</module>
         <module>FlexGanttFXEditor</module>
         <module>FlexGanttFXAssembly</module>
-        <!-- module>FlexGanttFXCovid</module -->
+        <module>FlexGanttFXCovid</module>
     </modules>
 
     <build>
@@ -53,7 +62,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.1</version>
+                <version>2.22.2</version>
                 <configuration>
                     <forkCount>0</forkCount>
                     <argLine>
@@ -161,14 +170,14 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.5.1</version>
+            <version>5.8.1</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
-            <version>5.5.1</version>
+            <version>5.8.1</version>
             <scope>test</scope>
         </dependency>
 
@@ -194,31 +203,33 @@
         </dependency>
 
         <dependency>
-            <groupId>de.sandec</groupId>
-            <artifactId>JMemoryBuddy</artifactId>
-            <version>0.2.4</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-core</artifactId>
             <version>4.0.16-alpha</version>
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>de.sandec</groupId>
+            <artifactId>JMemoryBuddy</artifactId>
+            <version>0.2.4</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
-    <distributionManagement>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>jpro - sandec repository</id>
+            <url>https://sandec.jfrog.io/artifactory/repo</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <repositories>
         <repository>
-            <id>eswitch-artifactory-release</id>
-            <name>libs-release-local</name>
-            <url>https://artifactory.e-switch.ch/artifactory/libs-release-local</url>
+            <id>jpro - sandec repository</id>
+            <url>https://sandec.jfrog.io/artifactory/repo</url>
         </repository>
-        <snapshotRepository>
-            <id>eswitch-artifactory-snapshot</id>
-            <name>libs-snapshot-local</name>
-            <url>https://artifactory.e-switch.ch/artifactory/libs-snapshot-local/</url>
-        </snapshotRepository>
-    </distributionManagement>
+    </repositories>
 
 </project>

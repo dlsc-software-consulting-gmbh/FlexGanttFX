@@ -37,6 +37,7 @@ public class HelloDualGanttChartContainer extends FlexGanttFXSampleBase {
     public Node getPanel(Stage panel) {
         GanttChart<HelloRow> gc1 = new GanttChart<>();
         gc1.setRoot(new HelloRow("Root"));
+        gc1.setAutoHideScrollBar(false);
 
         GanttChart<HelloRow> gc2 = new GanttChart<>();
         gc2.setRoot(new HelloRow("Root"));

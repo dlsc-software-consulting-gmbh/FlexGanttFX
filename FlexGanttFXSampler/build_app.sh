@@ -9,7 +9,7 @@
 # PROJECT_VERSION: version used in pom.xml, e.g. 1.0-SNAPSHOT
 # APP_VERSION: the application version, e.g. 1.0.0, shown in "about" dialog
 
-JAVA_VERSION=14
+JAVA_VERSION=16
 JAVA_HOME=$JAVA_HOME
 PROJECT_VERSION=$PROJECT_VERSION
 APP_VERSION=$APP_VERSION
@@ -78,12 +78,8 @@ $JAVA_HOME/bin/jlink \
 # A loop iterates over the various packaging types supported by jpackage. In
 # the end we will find all packages inside the target/installer directory.
 
-for type in "dmg" "pkg"
-do
-  echo "Creating installer of type ... $type"
-
-  $JAVA_HOME/bin/jpackage \
-  --type $type \
+$JAVA_HOME/bin/jpackage \
+  --type pkg \
   --dest target/installer \
   --input target/installer/input/libs \
   --name "${APP_NAME}" \
@@ -94,7 +90,6 @@ do
   --icon ../dlsc-logo.icns \
   --app-version ${APP_VERSION} \
   --vendor "DLSC Software & Consulting GmbH" \
-  --copyright "Copyright © 2020 DLSC GmbH." \
+  --copyright "Copyright © 2021 DLSC GmbH." \
   --mac-package-identifier com.flexganttfx.sampler \
   --mac-package-name "${APP_NAME}"
-done

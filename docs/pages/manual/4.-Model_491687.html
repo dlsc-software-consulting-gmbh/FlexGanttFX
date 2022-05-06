@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FlexGanttFX Developer Manual : 4. Model</title>
+    <link rel="stylesheet" href="styles/site.css" type="text/css"/>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body class="theme-default aui-theme-default">
+<div id="page">
+    <div id="main" class="aui-page-panel">
+        <div id="main-header">
+            <div id="breadcrumb-section">
+                <ol id="breadcrumbs">
+                    <li class="first">
+                        <span><a href="index.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="FlexGanttFX-Developer-Manual_491528.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                </ol>
+            </div>
+            <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            FlexGanttFX Developer Manual : 4. Model
+                        </span>
+            </h1>
+        </div>
+
+        <div id="content" class="view">
+            <div class="page-metadata">
+                Created by <span class='author'> Dirk Lemmermann</span>, last modified on Jul 04, 2016
+            </div>
+            <div id="main-content" class="wiki-content group">
+                <p>The following table lists the most important model classes for populating a <a
+                        href="3.1-GanttChart_491607.html" data-linked-resource-id="491607"
+                        data-linked-resource-version="15" data-linked-resource-type="page">Gantt chart</a> with data.
+                </p>
+                <div class="table-wrap">
+                    <table class="wrapped confluenceTable">
+                        <colgroup>
+                            <col/>
+                            <col/>
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Class</th>
+                            <th class="confluenceTh">Desription</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd"><a href="4.1-Activity_491695.html" data-linked-resource-id="491695"
+                                                        data-linked-resource-version="10"
+                                                        data-linked-resource-type="page">Activity</a></td>
+                            <td class="confluenceTd">
+                                <div class="block">Activities represent objects that will be displayed below the
+                                    timeline in the graphics view of the Gantt chart control. Activities can be added to
+                                    a specific layer on a row.
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="confluenceTd"><a href="4.2-ActivityRef_491697.html"
+                                                                    data-linked-resource-id="491697"
+                                                                    data-linked-resource-version="2"
+                                                                    data-linked-resource-type="page">ActivityRef</a>
+                            </td>
+                            <td colspan="1" class="confluenceTd">
+                                <div class="block">An activity reference is used to precisely identify the location of
+                                    an activity where the location is a combination of row, layer, and the activity
+                                    itself.
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd"><a href="4.3-ActivityLink_491699.html"
+                                                        data-linked-resource-id="491699"
+                                                        data-linked-resource-version="4"
+                                                        data-linked-resource-type="page">ActivityLink</a></td>
+                            <td class="confluenceTd">
+                                <div class="block">An activity link can be used to express a dependency between two
+                                    activities.
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd"><a href="4.4-ActivityRepository_491701.html"
+                                                        data-linked-resource-id="491701"
+                                                        data-linked-resource-version="7"
+                                                        data-linked-resource-type="page">ActivityRepository</a></td>
+                            <td class="confluenceTd">
+                                <div class="block">Activity repositories are used by rows to store and lookup
+                                    activities.
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd"><a href="4.5-Row_491703.html" data-linked-resource-id="491703"
+                                                        data-linked-resource-version="8"
+                                                        data-linked-resource-type="page">Row</a></td>
+                            <td class="confluenceTd">
+                                <div class="block">A (model) row object is used to store the activities found on a
+                                    (visual) row of the Gantt chart.
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd"><a href="4.6-Layer_491705.html" data-linked-resource-id="491705"
+                                                        data-linked-resource-version="3"
+                                                        data-linked-resource-type="page">Layer</a></td>
+                            <td class="confluenceTd">
+                                <div class="block">Layers are used to create groups of activities.</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd"><a href="4.7-LinesManager_491710.html"
+                                                        data-linked-resource-id="491710"
+                                                        data-linked-resource-version="8"
+                                                        data-linked-resource-type="page">LinesManager</a></td>
+                            <td class="confluenceTd">
+                                <div class="block">A lines manager is used to control the layout of (inner) lines inside
+                                    a row.
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="confluenceTd"><a href="4.8-Layout_491714.html"
+                                                                    data-linked-resource-id="491714"
+                                                                    data-linked-resource-version="8"
+                                                                    data-linked-resource-type="page">Layout</a></td>
+                            <td colspan="1" class="confluenceTd">
+                                <div class="block">Each row and each inner line of a row are associated with a layout.
+                                    The layout influences several aspects during rendering and editing of activities.
+                                    Additionally several of the system layers used for drawing the row background also
+                                    utilize the layout information. 
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd"><a href="4.9-Calendar_491718.html" data-linked-resource-id="491718"
+                                                        data-linked-resource-version="8"
+                                                        data-linked-resource-type="page">Calendar</a></td>
+                            <td class="confluenceTd">
+                                <div class="block">A calendar is an extension of an activity repository with the
+                                    addition of a name and a visibility property.
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

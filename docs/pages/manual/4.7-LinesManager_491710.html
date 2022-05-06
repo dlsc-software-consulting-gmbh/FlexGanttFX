@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FlexGanttFX Developer Manual : 4.7 LinesManager</title>
+    <link rel="stylesheet" href="styles/site.css" type="text/css"/>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body class="theme-default aui-theme-default">
+<div id="page">
+    <div id="main" class="aui-page-panel">
+        <div id="main-header">
+            <div id="breadcrumb-section">
+                <ol id="breadcrumbs">
+                    <li class="first">
+                        <span><a href="index.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="FlexGanttFX-Developer-Manual_491528.html">FlexGanttFX Developer Manual</a></span>
+                    </li>
+                    <li>
+                        <span><a href="4.-Model_491687.html">4. Model</a></span>
+                    </li>
+                </ol>
+            </div>
+            <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            FlexGanttFX Developer Manual : 4.7 LinesManager
+                        </span>
+            </h1>
+        </div>
+
+        <div id="content" class="view">
+            <div class="page-metadata">
+
+
+                Created by <span class='author'> Dirk Lemmermann</span>, last modified on May 23, 2019
+            </div>
+            <div id="main-content" class="wiki-content group">
+                <p class="block">
+                    <style type='text/css'>/*<![CDATA[*/
+                    div.rbtoc1633442047181 {
+                        padding: 0px;
+                    }
+
+                    div.rbtoc1633442047181 ul {
+                        list-style: disc;
+                        margin-left: 0px;
+                    }
+
+                    div.rbtoc1633442047181 li {
+                        margin-left: 0px;
+                        padding-left: 0px;
+                    }
+
+                    /*]]>*/</style>
+                <div class='toc-macro rbtoc1633442047181'>
+                    <ul class='toc-indentation'>
+                        <li><a href='#id-4.7LinesManager-Introduction'>Introduction</a></li>
+                        <li><a href='#id-4.7LinesManager-LineCount'>Line Count</a></li>
+                        <li><a href='#id-4.7LinesManager-Interface'>Interface</a></li>
+                        <li><a href='#id-4.7LinesManager-EqualLinesManager'>Equal Lines Manager</a></li>
+                        <li><a href='#id-4.7LinesManager-AutoLinesManager'>Auto Lines Manager</a></li>
+                    </ul>
+                </div>
+                </p><h2 class="block" id="id-4.7LinesManager-Introduction">Introduction</h2>
+                <p class="block">A lines manager is used to control the layout of lines inside a <a
+                        href="4.5-Row_491703.html" data-linked-resource-id="491703" data-linked-resource-version="8"
+                        data-linked-resource-type="page">row</a>. <a href="4.1-Activity_491695.html"
+                                                                     data-linked-resource-id="491695"
+                                                                     data-linked-resource-version="10"
+                                                                     data-linked-resource-type="page">Activities </a>located
+                    on different lines do not overlap each other, except if the lines themselves overlap each other.
+                    Each line can have its own height and a location within the row. Each line can also have its own <a
+                            href="4.8-Layout_491714.html" data-linked-resource-id="491714"
+                            data-linked-resource-version="8" data-linked-resource-type="page">Layout </a>. By using
+                    lines and <a href="4.8-Layout_491714.html" data-linked-resource-id="491714"
+                                 data-linked-resource-version="8" data-linked-resource-type="page">layouts </a>it is
+                    possible to display activities that belong to the same row in different ways (see <a
+                            href="4.8.3-Chart-Layout_492049.html" data-linked-resource-id="492049"
+                            data-linked-resource-version="5" data-linked-resource-type="page">ChartLayout</a>, <a
+                            href="4.8.2-Agenda-Layout_492047.html" data-linked-resource-id="492047"
+                            data-linked-resource-version="6" data-linked-resource-type="page">AgendaLayout</a>, <a
+                            href="4.8.1-Gantt-Layout_492045.html" data-linked-resource-id="492045"
+                            data-linked-resource-version="3" data-linked-resource-type="page">GanttLayout</a>).</p>
+                <h2 class="block" id="id-4.7LinesManager-LineCount">Line Count</h2>
+                <p class="block">The actual number of lines on a row is stored on the <strong>lineCount</strong>
+                    property of the row. Simply call Row.setLineCount(int) to change its value. If the line count is
+                    larger than 0 the row will call back on its line manager to figure out where each line is located,
+                    how high it is, and which activity will be placed on which row. Also the type of layout to use for
+                    each line will be retrieved from the manager.</p>
+                <h2 class="block" id="id-4.7LinesManager-Interface">Interface</h2>
+                <p class="block">The following table describes the interface methods.</p>
+                <div class="table-wrap">
+                    <table class="wrapped confluenceTable">
+                        <colgroup>
+                            <col/>
+                            <col/>
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th class="confluenceTh">Method</th>
+                            <th class="confluenceTh">Description</th>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>double getLineHeight(int lineIndex, double rowHeight);</pre>
+                            </td>
+                            <td class="confluenceTd"><span>Returns the height of the line with the given index. The height can be computed on-the-fly based on the given available row height.</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>int getLineIndex(A activity);</pre>
+                            </td>
+                            <td class="confluenceTd"><span>Returns the line index for the given activity. This method places activities on different lines.</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>Layout getLineLayout(int lineIndex);</pre>
+                            </td>
+                            <td class="confluenceTd"><span>Returns the layout for the line with the given line index. Each line can have its own layout.</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="confluenceTd">
+                                <pre>double getLineLocation(int lineIndex, double rowHeight);</pre>
+                            </td>
+                            <td class="confluenceTd"><span>Returns the location of the line with the given index. The location can be computed on-the-fly based on the given available row height.</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h2 id="id-4.7LinesManager-EqualLinesManager">Equal Lines Manager</h2>
+                <p>The <strong>EqualLinesManager</strong> can be used to equally distribute line locations and line
+                    heights on a row. Each line will have the same height and the lines will not overlap each other.
+                    While this behaviour will be provided by the manager it is still the responsibility of the
+                    application to place the activities on different rows and to specify the layout for each line. This
+                    is also the reason why the methods <strong>getLineHeight()</strong> and
+                    <strong>getLineLocation()</strong> are final while the methods <strong>getLineLayout()</strong> and
+                    <strong>getLineIndex()</strong> are not and can be overriden. </p>
+                <h2 id="id-4.7LinesManager-AutoLinesManager">Auto Lines Manager</h2>
+                <p>The <strong>AutoLinesManager</strong> can be used to create a dynamic number of lines based on all <a
+                        href="4.1-Activity_491695.html" data-linked-resource-id="491695"
+                        data-linked-resource-version="10" data-linked-resource-type="page">activities</a> inside a <a
+                        href="4.4-ActivityRepository_491701.html" data-linked-resource-id="491701"
+                        data-linked-resource-version="7" data-linked-resource-type="page">repository</a>. This lines
+                    manager detects clusters of intersecting activities (start / end time intervals) and ensures that
+                    enough lines are available to place the activities in a non-overlapping way. Below you are finding
+                    the complete source code of this manager class as a case study. Please note that the manager's
+                    <strong>layout()</strong> method needs to be invoked from the outside. A good way to do this is to
+                    listen to <a href="3.4.3-Event-Handling_491740.html" data-linked-resource-id="491740"
+                                 data-linked-resource-version="25" data-linked-resource-type="page">ACTIVITY_CHANGE_FINISHED</a>
+                    events or even more fine grained <a href="3.4.3-Event-Handling_491740.html"
+                                                        data-linked-resource-id="491740"
+                                                        data-linked-resource-version="25"
+                                                        data-linked-resource-type="page">START/END_TIME_CHANGE_FINISHED </a>events.
+                </p>
+                <div class="code panel pdl" style="border-width: 1px;">
+                    <div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>AutoLinesManager</b>
+                    </div>
+                    <div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: jfx; gutter: true; theme: Confluence"
+     data-theme="Confluence">/**
+ * Copyright (C) 2014 Dirk Lemmermann Software &amp; Consulting (dlsc.com)
+ *
+ * This file is part of FlexGanttFX.
+ */
+package com.flexganttfx.view.util;
+import static java.util.Objects.requireNonNull;
+import impl.com.flexganttfx.skin.util.Placement;
+import impl.com.flexganttfx.skin.util.Resolver;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import com.flexganttfx.model.Activity;
+import com.flexganttfx.model.ActivityRepository;
+import com.flexganttfx.model.Layer;
+import com.flexganttfx.model.LinesManager;
+import com.flexganttfx.model.Row;
+import com.flexganttfx.model.layout.EqualLinesManager;
+import com.flexganttfx.view.graphics.GraphicsBase;
+/**
+ * A specialized {@link LinesManager} used for ensuring that activities will not
+ * overlap each other. This manager will create as many inner lines as needed
+ * and will calculate the placement of all activities on these lines.
+ *
+ * @param &lt;R&gt;
+ *            the type of the row that will be managed
+ * @param &lt;A&gt;
+ *            the type of the activities that will be managed
+ *
+ * @since 1.2
+ */
+public class AutoLinesManager&lt;R extends Row&lt;?, ?, A&gt;, A extends Activity&gt;
+		extends EqualLinesManager&lt;R, A&gt; {
+	private Map&lt;A, Placement&lt;A&gt;&gt; placements;
+	private GraphicsBase&lt;R&gt; graphics;
+	/**
+	 * Constructs a new automatic lines manager. The constructor requires a
+	 * reference to the graphics view to lookup various parameters that are
+	 * needed when the manager queries the activity repository of the row (e.g.
+	 * the currently displayed temporal unit and the list of layers).
+	 *
+	 * @param row
+	 *            the managed row
+	 * @param graphics
+	 *            the graphics view where the manager will be used
+	 *
+	 * @since 1.2
+	 */
+	public AutoLinesManager(R row, GraphicsBase&lt;R&gt; graphics) {
+		super(row);
+		this.graphics = requireNonNull(graphics);
+		layout();
+	}
+	/**
+	 * Returns the graphics view where the manager will be used.
+	 *
+	 * @return the graphics view
+	 * @since 1.2
+	 */
+	public final GraphicsBase&lt;R&gt; getGraphics() {
+		return graphics;
+	}
+	public final void layout() {
+		R row = getRow();
+		ActivityRepository&lt;A&gt; repository = row.getRepository();
+		Instant st = repository.getEarliestTimeUsed();
+		Instant et = repository.getLatestTimeUsed();
+		if (st == null || et == null) {
+			return;
+		}
+		List&lt;A&gt; allActivities = new ArrayList&lt;&gt;();
+		for (Layer layer : graphics.getLayers()) {
+			Iterator&lt;A&gt; activities = repository.getActivities(layer, st, et,
+					graphics.getTimeline().getDateline()
+							.getPrimaryTemporalUnit(), row.getZoneId());
+			if (activities != null) {
+				activities.forEachRemaining(activity -&gt; allActivities
+						.add(activity));
+			}
+		}
+		placements = Resolver.resolve(allActivities);
+		if (placements != null &amp;&amp; !placements.isEmpty()) {
+			Placement&lt;A&gt; p = placements.values().iterator().next();
+			row.setLineCount(p.getColumnCount());
+		} else {
+			row.setLineCount(0);
+		}
+	}
+	@Override
+	public int getLineIndex(A activity) {
+		if (placements != null) {
+			Placement&lt;A&gt; placement = placements.get(activity);
+			if (placement != null) {
+				return placement.getColumnIndex();
+			}
+		}
+		return -1;
+	}
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
