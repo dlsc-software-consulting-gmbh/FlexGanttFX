@@ -1,0 +1,136 @@
+.spacer {
+    -fx-pref-height: 4.5em;
+}
+
+.graphics-list-view .list-cell:odd {
+    -fx-background: lightgrey;
+}
+
+.graphics-list-view {
+    -fx-padding: 0;
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+}
+
+.graphics-list-view:focused {
+    -fx-padding: 0;
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+}
+
+.row-cell {
+    -fx-padding: 0 !important;
+    -fx-background-insets: 0 !important;
+    -fx-border-width: 0 !important;
+    -fx-pref-height: 24px;
+}
+
+.gantt-tree-table-view {
+    -fx-padding: 0px;
+}
+
+.gantt-tree-table-view .tree-table-row-cell {
+    -fx-padding: 0px;
+}
+
+.gantt-tree-table-view .tree-table-row-cell:odd {
+    -fx-background-color: lightgrey !important;
+}
+
+.gantt-tree-table-view .tree-table-row-cell:odd:selected {
+    -fx-background-color: -fx-selection-bar !important;
+}
+
+/*
+ * The tree table header has to have the same height as the timeline.
+ * The height can depend on the location of the Gantt chart if it is
+ * shown in a multi Gantt chart container.
+ */
+
+.gantt-tree-table-view {
+    -fx-padding: 0;
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+    -fx-table-cell-border-color: -fx-box-border;
+}
+
+.gantt-tree-table-view:focused {
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+}
+
+.gantt-tree-table-view .column-header,
+.gantt-tree-table-view-first .column-header {
+    -fx-pref-height: 4.5em;
+}
+
+/*
+ * The table header is smaller when the Gantt chart is placed in the
+ * middle or bottom of a multi Gantt chart context.
+ */
+
+.gantt-tree-table-view-middle .column-header,
+.gantt-tree-table-view-last .column-header {
+    -fx-pref-height: 2em;
+}
+
+/*
+ * We do not need the vertical scrollbar of the table. We are styling it
+ * away by setting its preferred width to zero. But we only do this if the
+ * current display mode is "standard" (table and graphics are both visible).
+ */
+
+.tree-table-view-standard-display-mode > .virtual-flow > .scroll-bar:vertical,
+.tree-table-view-standard-display-mode > .virtual-flow > .scroll-bar:vertical .decrement-arrow ,
+.tree-table-view-standard-display-mode > .virtual-flow > .scroll-bar:vertical .increment-arrow {
+    -fx-pref-width: 0.0;
+    -fx-opacity: 0;
+}
+
+/*
+ * We do not need the horizontal scrollbar of the table. We are styling it
+ * away by setting its preferred height to zero. We are replacing the scrollbar
+ * with our own scrollbar located hidden inside a HiddenSidesPane instance. The
+ * scrollbar only becomes visible if the user moves the mouse cursor close to
+ * the bottom edge of the table.
+ */
+
+.gantt-tree-table-view > .virtual-flow > .scroll-bar:horizontal,
+.gantt-tree-table-view > .virtual-flow > .scroll-bar:horizontal .decrement-arrow ,
+.gantt-tree-table-view > .virtual-flow > .scroll-bar:horizontal .increment-arrow {
+    -fx-pref-height: 0.0;
+    -fx-opacity: 0;
+}
+
+/*
+ * We like to center the column header text and use a normal font weight
+ * for it.
+ */
+
+.gantt-tree-table-view .column-header .label {
+    -fx-alignment: center;
+}
+
+.gantt-tree-table-view .column-header, .gantt-tree-table-view .filler {
+    -fx-font-weight: normal;
+}
+
+/*
+ * Alternating row colors inside the table.
+ */
+
+.gantt-tree-table-view .tree-table-row-cell:even {
+    -fx-background-color: -fx-control-inner-background;
+}
+
+.gantt-tree-table-view .tree-table-row-cell:odd {
+    -fx-background-color: -fx-control-inner-background-alt;
+}
+
+.gantt-tree-table-view > .virtual-flow > .clipped-container > .sheet > .tree-table-row-cell:selected {
+    -fx-background-color: -fx-selection-bar-non-focused;
+}
+
+.gantt-tree-table-view:focused > .virtual-flow > .clipped-container > .sheet > .tree-table-row-cell:selected {
+    -fx-background-color: -fx-selection-bar;
+}
