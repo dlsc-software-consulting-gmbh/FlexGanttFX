@@ -297,7 +297,7 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
              * controls. It is really hard to exactly determine where we should
              * look for the scrollbar. Other controls might as well use a
              * virtual flow with their own scrollbars. But the most likely place
-             * for them would be in the table header. See issue FLEXFX-67 more
+             * for them would be in the table header. See issue FLEXFX-67 for
              * more information.
              */
             if (node instanceof Parent && !(node instanceof TableHeaderRow)) {
