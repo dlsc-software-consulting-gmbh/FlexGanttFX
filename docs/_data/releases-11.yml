@@ -1,3 +1,8 @@
+- release: Release 11.12.6
+  date: January 30th, 2023
+  url: ../../downloads/flexganttfx-11.12.6-bin.zip
+  text: Fixes a single issue where key events were dropped while dragging an activity inside the Gantt chart.
+
 - release: Release 11.12.5
   date: March 30th, 2022
   url: ../../downloads/flexganttfx-11.12.5-bin.zip
