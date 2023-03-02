@@ -10,6 +10,7 @@ import com.flexganttfx.model.Row;
 import com.flexganttfx.view.GanttChart;
 import com.flexganttfx.view.graphics.ListViewGraphics;
 import com.flexganttfx.view.util.RowHeaderColumn;
+import com.flexganttfx.view.util.VirtualFlowUtil;
 import impl.com.flexganttfx.skin.treetable.GanttChartTreeItem;
 import impl.com.flexganttfx.skin.treetable.GanttChartTreeTableRow;
 import javafx.beans.InvalidationListener;
@@ -32,6 +33,8 @@ import java.util.List;
 public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R, GanttChart<R>> {
 
     private final TreeTableView<R> treeTable;
+
+    private final ListView<R> listView;
     private final ScrollBar treeTableScrollBar;
     private final MasterDetailPane treeTableMasterDetailPane;
     private final MasterDetailPane graphicsMasterDetailPane;
@@ -43,6 +46,7 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
     public GanttChartSkin(GanttChart<R> ganttChart) {
         super(ganttChart);
 
+        listView = ganttChart.getGraphics().getListView();
         treeTable = ganttChart.getTreeTable();
         treeTable.getStylesheets().add(GanttChart.class.getResource("gantt.css").toExternalForm());
         treeTable.fixedCellSizeProperty().bind(ganttChart.fixedCellSizeProperty());
@@ -90,9 +94,7 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
         updateRoot();
         updateColumns();
 
-        bindVerticalListViewScrollBarWithVerticalTreeTableScrollBar();
-
-        graphics.getListView().skinProperty().addListener((observable, oldValue, newValue) -> bindVerticalListViewScrollBarWithVerticalTreeTableScrollBar());
+        VirtualFlowUtil.bindVirtualFlows(treeTable, listView);
     }
 
     public HiddenSidesPane getLeftHandSideHiddenSidesPane() {
@@ -311,17 +313,5 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
         return null;
     }
 
-    protected void bindVerticalListViewScrollBarWithVerticalTreeTableScrollBar() {
-        ScrollBar treeTableScrollBar = findScrollBar(getSkinnable().getTreeTable(), Orientation.VERTICAL);
-        ScrollBar graphicsViewScrollBar = findScrollBar(getSkinnable().getGraphics(), Orientation.VERTICAL);
 
-        if (treeTableScrollBar != null && graphicsViewScrollBar != null) {
-            Bindings.bindBidirectional(treeTableScrollBar.valueProperty(), graphicsViewScrollBar.valueProperty());
-            Bindings.bindBidirectional(treeTableScrollBar.visibleAmountProperty(), graphicsViewScrollBar.visibleAmountProperty());
-            Bindings.bindBidirectional(treeTableScrollBar.blockIncrementProperty(), graphicsViewScrollBar.blockIncrementProperty());
-            Bindings.bindBidirectional(treeTableScrollBar.unitIncrementProperty(), graphicsViewScrollBar.unitIncrementProperty());
-            Bindings.bindBidirectional(treeTableScrollBar.minProperty(), graphicsViewScrollBar.minProperty());
-            Bindings.bindBidirectional(treeTableScrollBar.maxProperty(), graphicsViewScrollBar.maxProperty());
-        }
-    }
 }
