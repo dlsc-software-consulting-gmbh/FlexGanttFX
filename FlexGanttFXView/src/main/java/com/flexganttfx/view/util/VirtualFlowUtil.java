@@ -27,7 +27,7 @@ public class VirtualFlowUtil {
             VirtualFlow<?> leftFlow = findVirtualFlow(node1);
             VirtualFlow<?> rightFlow = findVirtualFlow(node2);
             if (leftFlow != null && rightFlow != null) {
-                doRealBirectionalBinding(leftFlow, rightFlow);
+                doRealBidirectionalBinding(leftFlow, rightFlow);
                 node1.skinProperty().removeListener(skinListener.get());
                 node2.skinProperty().removeListener(skinListener.get());
                 isBound.set(true);
@@ -41,7 +41,7 @@ public class VirtualFlowUtil {
         maybeBind.run();
     }
 
-    public static void doRealBirectionalBinding(VirtualFlow<?> leftFlow, VirtualFlow<?> rightFlow) {
+    public static void doRealBidirectionalBinding(VirtualFlow<?> leftFlow, VirtualFlow<?> rightFlow) {
         AtomicBoolean isUpdating = new AtomicBoolean(false);
         doRealBinding(isUpdating, leftFlow, rightFlow);
         doRealBinding(isUpdating, rightFlow, leftFlow);
