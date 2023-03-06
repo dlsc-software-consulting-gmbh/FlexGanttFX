@@ -1,5 +1,6 @@
 package com.flexganttfx.view;
 
+import com.flexganttfx.view.util.VirtualFlowUtil;
 import javafx.application.Application;
 import javafx.beans.InvalidationListener;
 import javafx.beans.binding.Bindings;
@@ -197,16 +198,9 @@ public class Test extends Application {
     }
 
     protected void bindVerticalListViewScrollBarWithVerticalTreeTableScrollBar(TreeTableView treeTableView, ListView listView) {
-        ScrollBar treeTableScrollBar = findScrollBar(treeTableView, Orientation.VERTICAL);
-        ScrollBar graphicsViewScrollBar = findScrollBar(listView, Orientation.VERTICAL);
-
-        if (treeTableScrollBar != null && graphicsViewScrollBar != null) {
-            Bindings.bindBidirectional(treeTableScrollBar.valueProperty(), graphicsViewScrollBar.valueProperty());
-            Bindings.bindBidirectional(treeTableScrollBar.visibleAmountProperty(), graphicsViewScrollBar.visibleAmountProperty());
-            Bindings.bindBidirectional(treeTableScrollBar.blockIncrementProperty(), graphicsViewScrollBar.blockIncrementProperty());
-            Bindings.bindBidirectional(treeTableScrollBar.unitIncrementProperty(), graphicsViewScrollBar.unitIncrementProperty());
-            Bindings.bindBidirectional(treeTableScrollBar.minProperty(), graphicsViewScrollBar.minProperty());
-            Bindings.bindBidirectional(treeTableScrollBar.maxProperty(), graphicsViewScrollBar.maxProperty());
+        protected void bindVerticalListViewScrollBarWithVerticalTreeTableScrollBar(TreeTableView treeTableView, ListView listView)
+        {
+            VirtualFlowUtil.bindVirtualFlows(treeTableView, listView);
         }
     }
 
