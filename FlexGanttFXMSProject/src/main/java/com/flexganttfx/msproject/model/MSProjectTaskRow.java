@@ -5,21 +5,20 @@
  */
 package com.flexganttfx.msproject.model;
 
-import static com.flexganttfx.model.repository.ListActivityRepository.IteratorType.SIMPLE_ITERATOR;
-
-import java.time.Instant;
-import java.util.Map;
-
 import com.flexganttfx.model.ActivityRef;
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.model.repository.ListActivityRepository;
-
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import net.sf.mpxj.Task;
+
+import java.time.Instant;
+import java.util.Map;
+
+import static com.flexganttfx.model.repository.ListActivityRepository.IteratorType.SIMPLE_ITERATOR;
 
 public class MSProjectTaskRow
         extends Row<MSProjectTaskRow, MSProjectTaskRow, MSProjectTaskActivity> {
@@ -27,15 +26,13 @@ public class MSProjectTaskRow
     public MSProjectTaskRow() {
     }
 
-    public MSProjectTaskRow(Layer layer, net.sf.mpxj.Task task,
-            Map<Task, ActivityRef<MSProjectTaskActivity>> taskMap) {
+    public MSProjectTaskRow(Layer layer, net.sf.mpxj.Task task, Map<Task, ActivityRef<MSProjectTaskActivity>> taskMap) {
 
         setName(task.getName());
         setUserObject(task);
         setExpanded(true);
 
-        setRepository(new ListActivityRepository<MSProjectTaskActivity>(
-                SIMPLE_ITERATOR));
+        setRepository(new ListActivityRepository<>(SIMPLE_ITERATOR));
 
         for (net.sf.mpxj.Task childTask : task.getChildTasks()) {
             getChildren().add(new MSProjectTaskRow(layer, childTask, taskMap));
@@ -48,8 +45,7 @@ public class MSProjectTaskRow
         MSProjectTaskActivity activity = new MSProjectTaskActivity(this);
         addActivity(layer, activity);
 
-        taskMap.put(task,
-                new ActivityRef<MSProjectTaskActivity>(this, layer, activity));
+        taskMap.put(task, new ActivityRef<>(this, layer, activity));
     }
 
     public final net.sf.mpxj.Task getTask() {
@@ -101,5 +97,4 @@ public class MSProjectTaskRow
     public final double getPercentageComplete() {
         return percentageComplete.get();
     }
-
 }
