@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2021 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package impl.com.flexganttfx.skin;
@@ -10,6 +10,7 @@ import com.flexganttfx.model.Row;
 import com.flexganttfx.view.GanttChart;
 import com.flexganttfx.view.graphics.ListViewGraphics;
 import com.flexganttfx.view.util.RowHeaderColumn;
+import com.flexganttfx.view.util.VirtualFlowUtil;
 import impl.com.flexganttfx.skin.treetable.GanttChartTreeItem;
 import impl.com.flexganttfx.skin.treetable.GanttChartTreeTableRow;
 import javafx.beans.InvalidationListener;
@@ -18,8 +19,14 @@ import javafx.beans.binding.Bindings;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeItem.TreeModificationEvent;
+import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableView;
 import javafx.scene.control.skin.TableHeaderRow;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -32,6 +39,7 @@ import java.util.List;
 public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R, GanttChart<R>> {
 
     private final TreeTableView<R> treeTable;
+    private final ListView<R> listView;
     private final ScrollBar treeTableScrollBar;
     private final MasterDetailPane treeTableMasterDetailPane;
     private final MasterDetailPane graphicsMasterDetailPane;
@@ -43,6 +51,7 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
     public GanttChartSkin(GanttChart<R> ganttChart) {
         super(ganttChart);
 
+        listView = ganttChart.getGraphics().getListView();
         treeTable = ganttChart.getTreeTable();
         treeTable.getStylesheets().add(GanttChart.class.getResource("gantt.css").toExternalForm());
         treeTable.fixedCellSizeProperty().bind(ganttChart.fixedCellSizeProperty());
@@ -90,9 +99,7 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
         updateRoot();
         updateColumns();
 
-        bindVerticalListViewScrollBarWithVerticalTreeTableScrollBar();
-
-        graphics.getListView().skinProperty().addListener((observable, oldValue, newValue) -> bindVerticalListViewScrollBarWithVerticalTreeTableScrollBar());
+        VirtualFlowUtil.bindVirtualFlows(treeTable, listView);
     }
 
     public HiddenSidesPane getLeftHandSideHiddenSidesPane() {
@@ -297,7 +304,7 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
              * controls. It is really hard to exactly determine where we should
              * look for the scrollbar. Other controls might as well use a
              * virtual flow with their own scrollbars. But the most likely place
-             * for them would be in the table header. See issue FLEXFX-67 more
+             * for them would be in the table header. See issue FLEXFX-67 for
              * more information.
              */
             if (node instanceof Parent && !(node instanceof TableHeaderRow)) {
@@ -309,19 +316,5 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
         }
 
         return null;
-    }
-
-    protected void bindVerticalListViewScrollBarWithVerticalTreeTableScrollBar() {
-        ScrollBar treeTableScrollBar = findScrollBar(getSkinnable().getTreeTable(), Orientation.VERTICAL);
-        ScrollBar graphicsViewScrollBar = findScrollBar(getSkinnable().getGraphics(), Orientation.VERTICAL);
-
-        if (treeTableScrollBar != null && graphicsViewScrollBar != null) {
-            Bindings.bindBidirectional(treeTableScrollBar.valueProperty(), graphicsViewScrollBar.valueProperty());
-            Bindings.bindBidirectional(treeTableScrollBar.visibleAmountProperty(), graphicsViewScrollBar.visibleAmountProperty());
-            Bindings.bindBidirectional(treeTableScrollBar.blockIncrementProperty(), graphicsViewScrollBar.blockIncrementProperty());
-            Bindings.bindBidirectional(treeTableScrollBar.unitIncrementProperty(), graphicsViewScrollBar.unitIncrementProperty());
-            Bindings.bindBidirectional(treeTableScrollBar.minProperty(), graphicsViewScrollBar.minProperty());
-            Bindings.bindBidirectional(treeTableScrollBar.maxProperty(), graphicsViewScrollBar.maxProperty());
-        }
     }
 }

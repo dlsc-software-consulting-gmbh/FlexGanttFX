@@ -332,7 +332,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
                     GraphicsBase<R> graphics = canvas.getGraphics();
                     Callback<ActivityRef<?>, Image> dragImageProvider = graphics.getDragImageProvider();
 
-                    Dragboard dragBoard = canvas.startDragAndDrop(TransferMode.MOVE);
+                    Dragboard dragBoard = canvas.startDragAndDrop(TransferMode.ANY);
 
                     Image image;
 

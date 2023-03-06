@@ -1,4 +1,12 @@
 ----------------------------------------------------------------
+Release: 11.12.6, Date: January 30th 2023
+----------------------------------------------------------------
+
+** BUG FIXES (Switched to GitHub Issue Management System)
+
+    ** #60 - It is no longer possible to handle the key press during the dragging of an activity
+
+----------------------------------------------------------------
 Release: 11.12.5, Date: March 30th 2022
 ----------------------------------------------------------------
 

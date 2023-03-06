@@ -49,6 +49,7 @@ public class HelloGanttChart extends FlexGanttFXSample {
 
         for (int i = 0; i < 200; i++) {
             HelloRow row = new HelloRow("Row " + (i + 1));
+            row.setHeight(20 + Math.random() * 100);
             root.getChildren().add(row);
         }
 

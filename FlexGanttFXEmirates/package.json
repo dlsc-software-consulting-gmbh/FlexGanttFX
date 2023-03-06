@@ -1,0 +1,24 @@
+{
+    "bin": {"emirates-11-12-5": "jdeploy-bundle/jdeploy.js"},
+    "author": "Dirk Lemmermann",
+    "description": "A proof of concept application developed for Emirates Airlines.",
+    "main": "index.js",
+    "preferGlobal": true,
+    "repository": "",
+    "version": "1.0.1",
+    "jdeploy": {
+        "jdk": false,
+        "javaVersion": "11",
+        "jar": "target/emirates-11.12.5.jar",
+        "javafx": true,
+        "title": "Emirates POC"
+    },
+    "dependencies": {
+        "njre": "^0.2.0",
+        "shelljs": "^0.8.4"
+    },
+    "license": "ISC",
+    "name": "emirates",
+    "files": ["jdeploy-bundle"],
+    "scripts": {"test": "echo \"Error: no test specified\" && exit 1"}
+}

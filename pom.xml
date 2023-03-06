@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.flexganttfx</groupId>
     <artifactId>gantt</artifactId>
-    <version>11.12.5-SNAPSHOT</version>
+    <version>11.12.6-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>FlexGanttFX</name>
     <description>The parent project for the various FlexGanttFX modules.</description>
@@ -23,7 +23,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <javafx.version>18</javafx.version>
+        <javafx.version>19.0.2.1</javafx.version>
         <controlsfx.version>11.1.1</controlsfx.version>
         <ikonli.version>12.3.1</ikonli.version>
         <maven.javadoc.skip>false</maven.javadoc.skip>
@@ -174,7 +174,6 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
 

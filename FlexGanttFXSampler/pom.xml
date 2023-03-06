@@ -9,24 +9,13 @@
 	<parent>
 		<groupId>com.flexganttfx</groupId>
 		<artifactId>gantt</artifactId>
-		<version>11.12.5-SNAPSHOT</version>
+		<version>11.12.6-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<properties>
 		<maven.javadoc.skip>true</maven.javadoc.skip>
 	</properties>
-
-	<repositories>
-		<repository>
-			<id>oss-sonatype</id>
-			<name>oss-sonatype</name>
-			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
 
 	<pluginRepositories>
 

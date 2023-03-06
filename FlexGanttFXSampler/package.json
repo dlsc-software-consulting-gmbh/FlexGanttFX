@@ -1,0 +1,24 @@
+{
+    "bin": {"flexganttfxsampler": "jdeploy-bundle/jdeploy.js"},
+    "author": "Dirk Lemmermann",
+    "description": "A set of simple demos highlighting various features and capabilities of the professional UI framework for production planning and scheduling applications.",
+    "main": "index.js",
+    "preferGlobal": true,
+    "repository": "",
+    "version": "1.0.0",
+    "jdeploy": {
+        "jdk": false,
+        "javaVersion": "11",
+        "jar": "target/sampler-11.12.5.jar",
+        "javafx": true,
+        "title": "FlexGanttFX Demos"
+    },
+    "dependencies": {
+        "njre": "^0.2.0",
+        "shelljs": "^0.8.4"
+    },
+    "license": "ISC",
+    "name": "flexganttfxsampler",
+    "files": ["jdeploy-bundle"],
+    "scripts": {"test": "echo \"Error: no test specified\" && exit 1"}
+}

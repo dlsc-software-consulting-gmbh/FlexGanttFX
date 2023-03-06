@@ -5,7 +5,12 @@
  */
 package com.flexganttfx.msproject.model;
 
-import static java.util.Objects.requireNonNull;
+import com.flexganttfx.model.ActivityLink;
+import com.flexganttfx.model.ActivityRef;
+import com.flexganttfx.model.Layer;
+import net.sf.mpxj.ProjectFile;
+import net.sf.mpxj.Relation;
+import net.sf.mpxj.Task;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -13,13 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.mpxj.ProjectFile;
-import net.sf.mpxj.Relation;
-import net.sf.mpxj.Task;
-
-import com.flexganttfx.model.ActivityLink;
-import com.flexganttfx.model.ActivityRef;
-import com.flexganttfx.model.Layer;
+import static java.util.Objects.requireNonNull;
 
 public class MSProjectGanttChartModel {
 
@@ -33,23 +32,23 @@ public class MSProjectGanttChartModel {
 
 	private MSProjectTaskRow root = new MSProjectTaskRow();
 
-	public MSProjectGanttChartModel(ProjectFile projectFile) {
-		requireNonNull(projectFile);
+	public MSProjectGanttChartModel(ProjectFile file) {
+		requireNonNull(file);
 
-		this.projectFile = projectFile;
-		this.taskMap = new HashMap<Task, ActivityRef<MSProjectTaskActivity>>();
+		projectFile = file;
+		taskMap = new HashMap<>();
 
 		Layer layer = new Layer("Default");
 		layers.add(layer);
 
 		List<MSProjectTaskRow> children = new ArrayList<>();
-		for (net.sf.mpxj.Task task : projectFile.getChildTasks()) {
+		for (net.sf.mpxj.Task task : file.getChildTasks()) {
 			children.add(new MSProjectTaskRow(layer, task, taskMap));
 		}
 
 		root.getChildren().setAll(children);
 
-		for (Task task : projectFile.getChildTasks()) {
+		for (Task task : file.getChildTasks()) {
 			createLinks(task);
 		}
 	}
@@ -70,14 +69,14 @@ public class MSProjectGanttChartModel {
 		List<Relation> successors = task.getSuccessors();
 		if (successors != null) {
 			for (Relation relation : successors) {
-				createRelation(task, relation, true);
+				createRelation(relation, true);
 			}
 		}
 
 		List<Relation> predecessors = task.getPredecessors();
 		if (predecessors != null) {
 			for (Relation relation : predecessors) {
-				createRelation(task, relation, false);
+				createRelation(relation, false);
 			}
 		}
 
@@ -86,7 +85,7 @@ public class MSProjectGanttChartModel {
 		}
 	}
 
-	private void createRelation(Task task, Relation relation, boolean successor) {
+	private void createRelation(Relation relation, boolean successor) {
 		Task sourceTask = relation.getSourceTask();
 		Task targetTask = relation.getTargetTask();
 
