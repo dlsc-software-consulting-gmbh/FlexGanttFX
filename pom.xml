@@ -23,7 +23,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <javafx.version>21-ea+5</javafx.version>
+        <javafx.version>19.0.2.1</javafx.version>
         <controlsfx.version>11.1.1</controlsfx.version>
         <ikonli.version>12.3.1</ikonli.version>
         <maven.javadoc.skip>false</maven.javadoc.skip>
