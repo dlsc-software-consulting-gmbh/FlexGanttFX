@@ -1,8 +1,11 @@
 package com.flexganttfx.view.util;
 
+import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
+import javafx.beans.value.ChangeListener;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Cell;
 import javafx.scene.control.Control;
 import javafx.scene.control.IndexedCell;
 import javafx.scene.control.skin.VirtualFlow;
@@ -48,17 +51,42 @@ public class VirtualFlowUtil {
     }
 
     public static void doRealBinding(AtomicBoolean isUpdating, VirtualFlow<?> flow1, VirtualFlow<?> flow2) {
+        AtomicReference<Cell> lastCell = new AtomicReference(null);
 
-        flow1.positionProperty().addListener((obs, oldVal, newVal) -> {
+        Runnable doUpdate = () -> {
             if (isUpdating.get()) {
                 return;
             }
             isUpdating.set(true);
-            try {
-                updatePosition(flow1, flow2);
-            } finally {
-                isUpdating.set(false);
+            Platform.runLater(() -> {
+                // The runLater ensures that we are outside of the layout pass
+                // It's verified via video, that both flows are updated in the same layout pass
+                try {
+                    updatePosition(flow1, flow2);
+                } finally {
+                    isUpdating.set(false);
+                }
+            });
+        };
+        ChangeListener doUpdateListener = (obs, oldVal, newVal) -> {
+            doUpdate.run();
+        };
+
+        Runnable updateCellListener = () -> {
+            if(lastCell.get() != null) {
+                lastCell.get().layoutYProperty().removeListener(doUpdateListener);
             }
+            Cell newCell = flow1.getLastVisibleCell();
+
+            if (newCell != null) {
+                newCell.layoutYProperty().addListener(doUpdateListener);
+            }
+            lastCell.set(newCell);
+        };
+
+        flow1.positionProperty().addListener((obs, oldVal, newVal) -> {
+            updateCellListener.run();
+            doUpdate.run();
         });
     }
 
