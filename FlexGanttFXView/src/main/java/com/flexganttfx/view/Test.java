@@ -197,11 +197,9 @@ public class Test extends Application {
         return null;
     }
 
-    protected void bindVerticalListViewScrollBarWithVerticalTreeTableScrollBar(TreeTableView treeTableView, ListView listView) {
-        protected void bindVerticalListViewScrollBarWithVerticalTreeTableScrollBar(TreeTableView treeTableView, ListView listView)
-        {
-            VirtualFlowUtil.bindVirtualFlows(treeTableView, listView);
-        }
+    protected void bindVerticalListViewScrollBarWithVerticalTreeTableScrollBar(TreeTableView treeTableView, ListView listView)
+    {
+        VirtualFlowUtil.bindVirtualFlows(treeTableView, listView);
     }
 
     public static void main(String[] args) {

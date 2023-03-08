@@ -6,3 +6,6 @@ tmp/
 /docs/Gemfile.lock
 jdeploy/
 jdeploy-bundle/
+*.iml
+.idea
+FlexGanttFXSampler
