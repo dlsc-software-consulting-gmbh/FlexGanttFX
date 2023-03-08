@@ -10,3 +10,4 @@ jdeploy-bundle/
 *.iml
 .idea
 FlexGanttFXCovid/target
+package-lock.json
