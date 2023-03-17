@@ -5,6 +5,7 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Cell;
 import javafx.scene.control.Control;
 import javafx.scene.control.IndexedCell;
@@ -58,9 +59,7 @@ public class VirtualFlowUtil {
                 return;
             }
             isUpdating.set(true);
-            Platform.runLater(() -> {
-                // The runLater ensures that we are outside of the layout pass
-                // It's verified via video, that both flows are updated in the same layout pass
+            addPostLayoutAction(flow1.getScene(), () -> {
                 try {
                     updatePosition(flow1, flow2);
                 } finally {
@@ -159,5 +158,15 @@ public class VirtualFlowUtil {
         public int hashCode() {
             return Objects.hash(index, offset);
         }
+    }
+
+    public static void addPostLayoutAction(Scene scene, Runnable action) {
+        AtomicReference<Runnable> listener = new AtomicReference<>();
+
+        listener.set(() -> {
+            scene.removePostLayoutPulseListener(listener.get());
+            action.run();
+        });
+        scene.addPostLayoutPulseListener(listener.get());
     }
 }
