@@ -1,10 +1,8 @@
 package com.flexganttfx.view.util;
 
-import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
-import javafx.scene.Node;
-import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Cell;
 import javafx.scene.control.Control;
 import javafx.scene.control.IndexedCell;
@@ -16,8 +14,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class VirtualFlowUtil {
 
-
-    public static void bindVirtualFlows(Control node1, Control node2) {
+    public static void bindVirtualFlows(Control control1, Control control2) {
 
         AtomicReference<InvalidationListener> skinListener = new AtomicReference<>();
 
@@ -27,30 +24,33 @@ public class VirtualFlowUtil {
             if (isBound.get()) {
                 return;
             }
-            VirtualFlow<?> leftFlow = findVirtualFlow(node1);
-            VirtualFlow<?> rightFlow = findVirtualFlow(node2);
+
+            VirtualFlow<?> leftFlow = (VirtualFlow) control1.lookup("VirtualFlow");
+            VirtualFlow<?> rightFlow = (VirtualFlow) control2.lookup("VirtualFlow");
+
             if (leftFlow != null && rightFlow != null) {
                 doRealBidirectionalBinding(leftFlow, rightFlow);
-                node1.skinProperty().removeListener(skinListener.get());
-                node2.skinProperty().removeListener(skinListener.get());
+                control1.skinProperty().removeListener(skinListener.get());
+                control2.skinProperty().removeListener(skinListener.get());
                 isBound.set(true);
             }
         };
 
         skinListener.set(it -> maybeBind.run());
 
-        node1.skinProperty().addListener(skinListener.get());
-        node2.skinProperty().addListener(skinListener.get());
+        control1.skinProperty().addListener(skinListener.get());
+        control2.skinProperty().addListener(skinListener.get());
+
         maybeBind.run();
     }
 
-    public static void doRealBidirectionalBinding(VirtualFlow<?> leftFlow, VirtualFlow<?> rightFlow) {
+    private static void doRealBidirectionalBinding(VirtualFlow<?> leftFlow, VirtualFlow<?> rightFlow) {
         AtomicBoolean isUpdating = new AtomicBoolean(false);
         doRealBinding(isUpdating, leftFlow, rightFlow);
         doRealBinding(isUpdating, rightFlow, leftFlow);
     }
 
-    public static void doRealBinding(AtomicBoolean isUpdating, VirtualFlow<?> flow1, VirtualFlow<?> flow2) {
+    private static void doRealBinding(AtomicBoolean isUpdating, VirtualFlow<?> flow1, VirtualFlow<?> flow2) {
         AtomicReference<Cell> lastCell = new AtomicReference(null);
 
         Runnable doUpdate = () -> {
@@ -58,9 +58,7 @@ public class VirtualFlowUtil {
                 return;
             }
             isUpdating.set(true);
-            Platform.runLater(() -> {
-                // The runLater ensures that we are outside of the layout pass
-                // It's verified via video, that both flows are updated in the same layout pass
+            addPostLayoutAction(flow1.getScene(), () -> {
                 try {
                     updatePosition(flow1, flow2);
                 } finally {
@@ -73,7 +71,7 @@ public class VirtualFlowUtil {
         };
 
         Runnable updateCellListener = () -> {
-            if(lastCell.get() != null) {
+            if (lastCell.get() != null) {
                 lastCell.get().layoutYProperty().removeListener(doUpdateListener);
             }
             Cell newCell = flow1.getLastVisibleCell();
@@ -90,14 +88,15 @@ public class VirtualFlowUtil {
         });
     }
 
-    public static void updatePosition(VirtualFlow<?> fromFlow, VirtualFlow<?> toFlow) {
+    private static void updatePosition(VirtualFlow<?> fromFlow, VirtualFlow<?> toFlow) {
         var pos2 = getVFlowPosition(fromFlow);
         setVFlowPosition(toFlow, pos2);
     }
 
-    public static VirtualFlowPosition getVFlowPosition(VirtualFlow<?> flow) {
+    private static VirtualFlowPosition getVFlowPosition(VirtualFlow<?> flow) {
         flow.applyCss();
         flow.layout();
+
         IndexedCell cell = flow.getFirstVisibleCell();
         int index = cell.getIndex();
         double offset = -cell.getLayoutY();
@@ -105,7 +104,7 @@ public class VirtualFlowUtil {
         return new VirtualFlowPosition(index, offset);
     }
 
-    public static void setVFlowPosition(VirtualFlow<?> flow, VirtualFlowPosition pos) {
+    private static void setVFlowPosition(VirtualFlow<?> flow, VirtualFlowPosition pos) {
         try {
             flow.scrollToTop(pos.index);
             flow.layout();
@@ -115,26 +114,10 @@ public class VirtualFlowUtil {
         }
     }
 
-    public static VirtualFlow findVirtualFlow(Parent parent) {
-        for (Node node : parent.getChildrenUnmodifiable()) {
-            if (node instanceof VirtualFlow) {
-                return (VirtualFlow) node;
-            }
+    private static class VirtualFlowPosition {
 
-            if (node instanceof Parent) {
-                VirtualFlow b = findVirtualFlow((Parent) node);
-                if (b != null) {
-                    return b;
-                }
-            }
-        }
-
-        return null;
-    }
-
-    static class VirtualFlowPosition {
-        int index;
-        double offset;
+        private int index;
+        private double offset;
 
         public VirtualFlowPosition(int index, double offset) {
             this.index = index;
@@ -148,16 +131,32 @@ public class VirtualFlowUtil {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
             VirtualFlowPosition that = (VirtualFlowPosition) o;
-            return index == that.index &&
-                    Double.compare(that.offset, offset) == 0;
+            return index == that.index && Double.compare(that.offset, offset) == 0;
         }
 
         @Override
         public int hashCode() {
             return Objects.hash(index, offset);
         }
+    }
+
+    private static void addPostLayoutAction(Scene scene, Runnable action) {
+        AtomicReference<Runnable> listener = new AtomicReference<>();
+
+        listener.set(() -> {
+            scene.removePostLayoutPulseListener(listener.get());
+            action.run();
+        });
+
+        scene.addPostLayoutPulseListener(listener.get());
     }
 }
