@@ -13,6 +13,7 @@ import com.flexganttfx.view.util.RowHeaderColumn;
 import com.flexganttfx.view.util.VirtualFlowUtil;
 import impl.com.flexganttfx.skin.treetable.GanttChartTreeItem;
 import impl.com.flexganttfx.skin.treetable.GanttChartTreeTableRow;
+import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
@@ -28,15 +29,21 @@ import javafx.scene.control.TreeItem.TreeModificationEvent;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.control.skin.TableHeaderRow;
+import javafx.scene.control.skin.VirtualFlow;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.HiddenSidesPane;
 import org.controlsfx.control.MasterDetailPane;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
-public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R, GanttChart<R>> {
+public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R, GanttChart<R>>
+{
 
     private final TreeTableView<R> treeTable;
     private final ListView<R> listView;
@@ -48,7 +55,10 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
     private final HiddenSidesPane leftHandSideHiddenSidesPane;
     private final VBox leftHandSideBox;
 
-    public GanttChartSkin(GanttChart<R> ganttChart) {
+    private AtomicBoolean isUpdating = null;
+
+    public GanttChartSkin(GanttChart<R> ganttChart)
+    {
         super(ganttChart);
 
         listView = ganttChart.getGraphics().getListView();
@@ -80,7 +90,6 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
                     getSkinnable().requestLayout();
                 });
 
-
         leftHandSideHiddenSidesPane = new HiddenSidesPane();
         leftHandSideBox = new VBox();
 
@@ -99,21 +108,24 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
         updateRoot();
         updateColumns();
 
-        VirtualFlowUtil.bindVirtualFlows(treeTable, listView);
+        isUpdating = VirtualFlowUtil.bindVirtualFlows(treeTable, listView);
     }
 
-    public HiddenSidesPane getLeftHandSideHiddenSidesPane() {
+    public HiddenSidesPane getLeftHandSideHiddenSidesPane()
+    {
         return leftHandSideHiddenSidesPane;
     }
 
-    private void applyLayout() {
+    private void applyLayout()
+    {
         getChildren().clear();
 
         double dividerPosition = treeTableMasterDetailPane.getDividerPosition();
 
         applyLeftHandSideLayout();
 
-        switch (getSkinnable().getDisplayMode()) {
+        switch (getSkinnable().getDisplayMode())
+        {
             case STANDARD:
                 applyLayoutStandard();
                 break;
@@ -128,17 +140,21 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
         treeTableMasterDetailPane.setDividerPosition(dividerPosition);
     }
 
-    private void applyLeftHandSideLayout() {
+    private void applyLeftHandSideLayout()
+    {
         /*
          * The extra setting of labels is needed so that the hidden sides pane will react properly.
          */
         leftHandSideHiddenSidesPane.setContent(new Label());
         leftHandSideHiddenSidesPane.setBottom(new Label());
 
-        if (getSkinnable().isAutoHideScrollBar()) {
+        if (getSkinnable().isAutoHideScrollBar())
+        {
             leftHandSideHiddenSidesPane.setContent(treeTable);
             leftHandSideHiddenSidesPane.setBottom(treeTableScrollBar);
-        } else {
+        }
+        else
+        {
             treeTable.setManaged(true);
             treeTableScrollBar.setManaged(true);
             treeTableScrollBar.setVisible(true);
@@ -147,13 +163,17 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
         }
     }
 
-    private void applyLayoutTableOnly() {
+    private void applyLayoutTableOnly()
+    {
         graphicsMasterDetailPane.setDetailNode(new Label("Placeholder"));
         graphicsMasterDetailPane.setMasterNode(new Label("Placeholder"));
 
-        if (getSkinnable().isAutoHideScrollBar()) {
+        if (getSkinnable().isAutoHideScrollBar())
+        {
             graphicsMasterDetailPane.setMasterNode(leftHandSideHiddenSidesPane);
-        } else {
+        }
+        else
+        {
             graphicsMasterDetailPane.setMasterNode(leftHandSideBox);
         }
 
@@ -162,13 +182,17 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
         getChildren().add(graphicsMasterDetailPane);
     }
 
-    private void applyLayoutGraphicsOnly() {
+    private void applyLayoutGraphicsOnly()
+    {
         graphicsMasterDetailPane.setDetailNode(new Label("Placeholder"));
         graphicsMasterDetailPane.setMasterNode(new Label("Placeholder"));
 
-        if (getSkinnable().isAutoHideScrollBar()) {
+        if (getSkinnable().isAutoHideScrollBar())
+        {
             graphicsMasterDetailPane.setMasterNode(getRightHandSideHiddenSidesPane());
-        } else { // NONE or HORIZON
+        }
+        else
+        { // NONE or HORIZON
             graphicsMasterDetailPane.setMasterNode(getRightHandSideBox());
         }
         graphicsMasterDetailPane.setDetailNode(detailNode);
@@ -176,7 +200,8 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
         getChildren().add(graphicsMasterDetailPane);
     }
 
-    private void applyLayoutStandard() {
+    private void applyLayoutStandard()
+    {
         /*
          * The extra setting of placeholder labels is needed so that the master
          * detail pane will react properly.
@@ -184,10 +209,13 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
         treeTableMasterDetailPane.setDetailNode(new Label("Placeholder"));
         treeTableMasterDetailPane.setMasterNode(new Label("Placeholder"));
 
-        if (getSkinnable().isAutoHideScrollBar()) {
+        if (getSkinnable().isAutoHideScrollBar())
+        {
             treeTableMasterDetailPane.setDetailNode(leftHandSideHiddenSidesPane);
             treeTableMasterDetailPane.setMasterNode(getRightHandSideHiddenSidesPane());
-        } else { // NONE or HORIZON
+        }
+        else
+        { // NONE or HORIZON
             treeTableMasterDetailPane.setDetailNode(leftHandSideBox);
             treeTableMasterDetailPane.setMasterNode(getRightHandSideBox());
         }
@@ -201,9 +229,11 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
         getChildren().add(graphicsMasterDetailPane);
     }
 
-    private void updateRoot() {
+    private void updateRoot()
+    {
         R root = getSkinnable().getRoot();
-        if (root != null) {
+        if (root != null)
+        {
             GanttChartTreeItem<R> treeItem = new GanttChartTreeItem<>(root);
             treeItem.filterProperty().bind(getSkinnable().rowFilterProperty());
 
@@ -214,23 +244,77 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
         }
     }
 
-    private void updateListRows(TreeModificationEvent<Object> evt) {
+    private void updateListRows(TreeModificationEvent<Object> evt)
+    {
         LoggingDomain.EDITING.fine("updating list rows after tree modification event: " + evt);
+        preUpdateListRows(evt);
         updateListRows();
+        postUpdateListRows();
     }
 
-    private void updateListRows() {
+    AtomicReference<TreeModificationEvent<Object>> lastCollapseExpandEvent = new AtomicReference<>();
+    AtomicReference<Instant> lastExpandEventTime = new AtomicReference<>(Instant.now());
+    VirtualFlow<?> flowLeft = null;
+    VirtualFlow<?> flowRight = null;
+
+    private void preUpdateListRows(TreeModificationEvent<Object> evt)
+    {
+
+        if (TreeItem.branchExpandedEvent().equals(evt.getEventType()) || TreeItem.branchCollapsedEvent().equals(evt.getEventType()))
+        {
+            Instant now = Instant.now();
+            Duration sinceLastEvent = Duration.between(lastExpandEventTime.get(), now).abs();
+            lastExpandEventTime.set(now);
+            //System.out.println("preUpdateListRows, duration since last event: " + sinceLastEvent);
+            if (sinceLastEvent.compareTo(Duration.ofMillis(300)) <= 0)
+            {
+                System.out.println("preUpdateListRows skip, duration since last event: " + sinceLastEvent);
+                return;
+            }
+            lastCollapseExpandEvent.set(evt);
+            System.err.println("preUpdateListRows start, " + Instant.now().toString());
+            flowLeft = flowLeft != null ? flowLeft : (VirtualFlow) treeTable.lookup("VirtualFlow");
+            flowRight = flowRight != null ? flowRight : (VirtualFlow) treeTable.lookup("VirtualFlow");
+            TreeItem item = evt.getTreeItem();
+            int index = treeTable.getRow(item);
+            VirtualFlowUtil.storeCurrentPosition(flowLeft, index);
+        }
+    }
+
+    private void postUpdateListRows()
+    {
+        if (isUpdating.get())
+        {
+            System.err.println("postUpdateListRows - is already updating!");
+            Platform.runLater(() -> postUpdateListRows());
+            return;
+        }
+        TreeModificationEvent<Object> evt = lastCollapseExpandEvent.getAndSet(null);
+        if (evt != null)
+        {
+            VirtualFlowUtil.restoreCurrentPosition(flowLeft, flowRight);
+        }
+    }
+
+    private void updateListRows()
+    {
         doUpdateListRows();
     }
 
-    private void doUpdateListRows() {
+    private void doUpdateListRows()
+    {
         List<R> list = new ArrayList<>();
 
-        if (treeTable.getRoot() != null) {
-            if (treeTable.isShowRoot()) {
+        if (treeTable.getRoot() != null)
+        {
+            if (treeTable.isShowRoot())
+            {
                 doUpdateListRows(treeTable.getRoot(), list);
-            } else {
-                for (TreeItem<R> child : treeTable.getRoot().getChildren()) {
+            }
+            else
+            {
+                for (TreeItem<R> child : treeTable.getRoot().getChildren())
+                {
                     doUpdateListRows(child, list);
                 }
             }
@@ -239,31 +323,41 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
         getSkinnable().getGraphics().getRows().setAll(list);
     }
 
-    private void doUpdateListRows(TreeItem<R> item, List<R> list) {
+    private void doUpdateListRows(TreeItem<R> item, List<R> list)
+    {
         list.add(item.getValue());
 
-        if (!item.isLeaf() && item.isExpanded()) {
-            for (TreeItem<R> child : item.getChildren()) {
+        if (!item.isLeaf() && item.isExpanded())
+        {
+            for (TreeItem<R> child : item.getChildren())
+            {
                 doUpdateListRows(child, list);
             }
         }
     }
 
-    private void updateColumns() {
+    private void updateColumns()
+    {
         List<TreeTableColumn<R, ?>> columns = treeTable.getColumns();
-        if (!columns.contains(rowHeader)) {
-            if (columns.size() == 0) {
+        if (!columns.contains(rowHeader))
+        {
+            if (columns.size() == 0)
+            {
                 treeTable.getColumns().add(rowHeader);
-            } else {
+            }
+            else
+            {
                 treeTable.getColumns().add(0, rowHeader);
             }
         }
     }
 
-    private void bindHorizontalReplacementWithBuiltInHorizontalTreeTableScrollBar() {
+    private void bindHorizontalReplacementWithBuiltInHorizontalTreeTableScrollBar()
+    {
         ScrollBar builtInScrollBar = findScrollBar(treeTable, Orientation.HORIZONTAL);
 
-        if (builtInScrollBar != null && treeTableScrollBar != null) {
+        if (builtInScrollBar != null && treeTableScrollBar != null)
+        {
 
             Bindings.bindBidirectional(builtInScrollBar.valueProperty(), treeTableScrollBar.valueProperty());
             Bindings.bindBidirectional(builtInScrollBar.visibleAmountProperty(), treeTableScrollBar.visibleAmountProperty());
@@ -272,29 +366,36 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
             Bindings.bindBidirectional(builtInScrollBar.minProperty(), treeTableScrollBar.minProperty());
             Bindings.bindBidirectional(builtInScrollBar.maxProperty(), treeTableScrollBar.maxProperty());
 
-            if (!builtInScrollBar.isVisible()) {
+            if (!builtInScrollBar.isVisible())
+            {
                 disableTreeTableScrollBar();
             }
 
             builtInScrollBar.visibleProperty().addListener((value, oldVisible, newVisible) -> {
-                if (newVisible.equals(Boolean.FALSE)) {
+                if (newVisible.equals(Boolean.FALSE))
+                {
                     disableTreeTableScrollBar();
                 }
             });
         }
     }
 
-    private void disableTreeTableScrollBar() {
+    private void disableTreeTableScrollBar()
+    {
         treeTableScrollBar.setMin(0);
         treeTableScrollBar.setMax(0);
         treeTableScrollBar.setValue(0);
     }
 
-    private ScrollBar findScrollBar(Parent parent, Orientation orientation) {
-        for (Node node : parent.getChildrenUnmodifiable()) {
-            if (node instanceof ScrollBar) {
+    private ScrollBar findScrollBar(Parent parent, Orientation orientation)
+    {
+        for (Node node : parent.getChildrenUnmodifiable())
+        {
+            if (node instanceof ScrollBar)
+            {
                 ScrollBar b = (ScrollBar) node;
-                if (b.getOrientation().equals(orientation)) {
+                if (b.getOrientation().equals(orientation))
+                {
                     return b;
                 }
             }
@@ -307,9 +408,11 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
              * for them would be in the table header. See issue FLEXFX-67 for
              * more information.
              */
-            if (node instanceof Parent && !(node instanceof TableHeaderRow)) {
+            if (node instanceof Parent && !(node instanceof TableHeaderRow))
+            {
                 ScrollBar b = findScrollBar((Parent) node, orientation);
-                if (b != null) {
+                if (b != null)
+                {
                     return b;
                 }
             }
