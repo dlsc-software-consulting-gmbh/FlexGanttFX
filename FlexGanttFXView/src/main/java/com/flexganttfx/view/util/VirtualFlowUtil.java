@@ -1,8 +1,5 @@
 package com.flexganttfx.view.util;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.Scene;
@@ -107,77 +104,32 @@ public class VirtualFlowUtil
         });
     }
 
-    private static VirtualFlowPosition curPos = null;
+    private static VirtualFlowPosition flowLockPosition = null;
 
-    public static void storeCurrentPosition(VirtualFlow<?> flow, int index)
+    public static void storeCurrentPosition(VirtualFlow<?> flow)
     {
-        curPos = getVFlowPosition(flow, index);
-        lastRestoredPos.set(Instant.now());
+        flowLockPosition = getVFlowPosition(flow);
+        lockPosTimestamp.set(Instant.now());
     }
 
-    static final AtomicReference<Timeline> restoreTimeline = new AtomicReference<>();
-
-    public static void restoreCurrentPosition(Duration delay, VirtualFlow<?> flowLeft, VirtualFlow<?> flowRight)
-    {
-        boolean executeNow = delay == null || delay.isZero();
-        Timeline newTimeline = runLater(delay, () -> {
-            VirtualFlowPosition pos = getVFlowPosition(flowLeft);
-            if (pos.equals(curPos))
-            {
-                System.out.println("Restore skipped because curPos not changed: " + pos);
-            }
-            else
-            {
-                setVFlowPosition(flowLeft, curPos);
-
-                System.out.println("Restored: " + curPos + ", flowLeft: " + flowLeft.hashCode() + ", from active pos: " + pos);
-            }
-            lastRestoredPos.set(Instant.now());
-            if (!executeNow)
-            {
-                restoreTimeline.set(null);
-            }
-        });
-
-        if (executeNow)
-        {
-            return;
-        }
-
-        Timeline currTimeline = restoreTimeline.getAndSet(newTimeline);
-        if (currTimeline != null)
-        {
-            currTimeline.stop();
-            System.out.println("Stopped / postponed restoring: " + curPos + ", flowLeft: " + flowLeft.hashCode());
-        }
-    }
-
-    public static Timeline runLater(Duration delay, Runnable run)
-    {
-        delay = delay == null || delay.isZero() ? Duration.ofMillis(1) : delay;
-        final KeyFrame kf = new KeyFrame(javafx.util.Duration.millis(delay.toMillis()), e -> run.run());
-        final Timeline timeline = new Timeline(kf);
-        timeline.play();
-        return timeline;
-    }
-
-    private static final AtomicReference<Instant> lastRestoredPos = new AtomicReference<>(Instant.now());
-    private static final Duration keepRestoredPosition = Duration.ofMillis(300);
+    private static final AtomicReference<Instant> lockPosTimestamp = new AtomicReference<>(Instant.now());
+    private static final Duration keepLockPosDuration = Duration.ofMillis(300);
 
     private static void updatePosition(VirtualFlow<?> fromFlow, VirtualFlow<?> toFlow)
     {
 
-        VirtualFlowPosition pos = null;
+        VirtualFlowPosition pos;
         Instant now = Instant.now();
-        Duration between = Duration.between(lastRestoredPos.get(), now).abs();
+        Duration duratSinceLastLockTime = Duration.between(lockPosTimestamp.get(), now).abs();
 
-        if (restoreTimeline.get() != null || between.compareTo(keepRestoredPosition) < 0)
+        if (duratSinceLastLockTime.compareTo(keepLockPosDuration) < 0)
         {
-            System.out.println("between: " + between);
-            pos = curPos;
-            lastRestoredPos.set(now);
+            // need to stick to the expand / collapse position for an arbitrary time (because of other rendering updates triggered by TreeTableView while expanding)
+            System.out.println("between: " + duratSinceLastLockTime);
+            pos = flowLockPosition;
+            lockPosTimestamp.set(now);
+            // set to from flow
             setVFlowPosition(fromFlow, pos);
-
             System.err.println("updatePosition restore active, using curPos: " + pos + ", fromFlow: " + fromFlow.hashCode() + ", toFlow: " + toFlow.hashCode());
         }
         else
@@ -186,28 +138,6 @@ public class VirtualFlowUtil
         }
         setVFlowPosition(toFlow, pos);
         System.err.println("updatePosition: " + pos + ", fromFlow: " + fromFlow.hashCode() + ", toFlow: " + toFlow.hashCode());
-    }
-
-    private static VirtualFlowPosition getVFlowPosition(VirtualFlow<?> flow, int index)
-    {
-        flow.applyCss();
-        flow.layout();
-
-        IndexedCell fcell = flow.getFirstVisibleCell();
-        int cellIndex = fcell.getIndex();
-        /*if (fcell.getLayoutY() != 0d)
-        {
-            if (index > cellIndex)
-            {
-                cellIndex++; // next cell
-            }
-        }*/
-
-        //    IndexedCell cell = flow.getCell(index);
-        //int cellIndex  = cell.getIndex();
-        double offset = -fcell.getLayoutY();///0d; // scroll to the expanded /collapsed on top
-
-        return new VirtualFlowPosition(cellIndex, offset);
     }
 
     private static VirtualFlowPosition getVFlowPosition(VirtualFlow<?> flow)

@@ -13,14 +13,9 @@ import com.flexganttfx.view.util.RowHeaderColumn;
 import com.flexganttfx.view.util.VirtualFlowUtil;
 import impl.com.flexganttfx.skin.treetable.GanttChartTreeItem;
 import impl.com.flexganttfx.skin.treetable.GanttChartTreeTableRow;
-import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ListChangeListener;
-import javafx.event.EventType;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -253,23 +248,11 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
         LoggingDomain.EDITING.fine("updating list rows after tree modification event: " + evt);
         preUpdateListRows(evt);
         updateListRows();
-        postUpdateListRows();
     }
 
-    AtomicReference<TreeModificationEvent<Object>> lastCollapseExpandEvent = new AtomicReference<>();
     AtomicReference<Instant> lastExpandEventTime = new AtomicReference<>(Instant.now());
     VirtualFlow<?> flowLeft = null;
-    VirtualFlow<?> flowRight = null;
-
-    final ChangeListener<Boolean> changeListener = new ChangeListener<>()
-    {
-        @Override
-        public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1)
-        {
-            VirtualFlowUtil.restoreCurrentPosition(Duration.ofMillis(5), flowLeft, flowRight);
-        }
-    };
-
+    Duration sameExpandCollapseSkipDelay = Duration.ofMillis(300);
     private void preUpdateListRows(TreeModificationEvent<Object> evt)
     {
         if (TreeItem.branchExpandedEvent().equals(evt.getEventType()) || TreeItem.branchCollapsedEvent().equals(evt.getEventType()))
@@ -277,36 +260,16 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
             Instant now = Instant.now();
             Duration sinceLastEvent = Duration.between(lastExpandEventTime.get(), now).abs();
             lastExpandEventTime.set(now);
-            Duration delay = Duration.ofMillis(300);
-            //System.out.println("preUpdateListRows, duration since last event: " + sinceLastEvent);
-            if (sinceLastEvent.compareTo(delay) <= 0)
+
+            if (sinceLastEvent.compareTo(sameExpandCollapseSkipDelay) <= 0)
             {
+                // skip events because of expand all
                 System.out.println("preUpdateListRows skip, duration since last event: " + sinceLastEvent);
-                //VirtualFlowUtil.restoreCurrentPosition(delay, flowLeft, flowRight); // this will postpone the restore
                 return;
             }
-            lastCollapseExpandEvent.set(evt);
-            System.err.println("preUpdateListRows start, " + Instant.now().toString());
             flowLeft = flowLeft != null ? flowLeft : (VirtualFlow) treeTable.lookup("VirtualFlow");
-            flowRight = flowRight != null ? flowRight : (VirtualFlow) listView.lookup("VirtualFlow");
-            TreeItem item = evt.getTreeItem();
-            int index = treeTable.getRow(item);
-            VirtualFlowUtil.storeCurrentPosition(flowLeft, index);
-            //VirtualFlowUtil.restoreCurrentPosition(null, flowLeft, flowRight); // this overwrites the above restore with less time
-            // run a first update
-            // VirtualFlowUtil.restoreCurrentPosition(null, flowLeft, flowRight);
-            // run a second postponed update
+            VirtualFlowUtil.storeCurrentPosition(flowLeft);
         }
-    }
-
-    private void postUpdateListRows()
-    {
-        if (lastCollapseExpandEvent.getAndSet(null) != null)
-        {
-           // VirtualFlowUtil.restoreCurrentPosition(Duration.ofMillis(10), flowLeft, flowRight); // this overwrites the above restore with less time
-        }
-        //VirtualFlowUtil.restoreCurrentPosition(null, flowLeft, flowRight);
-        // VirtualFlowUtil.restoreCurrentPosition(Duration.ofMillis(5), flowLeft, flowRight); // this overwrites the above restore with less time
     }
 
     private void updateListRows()
