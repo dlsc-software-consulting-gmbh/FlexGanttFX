@@ -17,6 +17,10 @@ import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
+import javafx.event.EventType;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -257,43 +261,52 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
     VirtualFlow<?> flowLeft = null;
     VirtualFlow<?> flowRight = null;
 
+    final ChangeListener<Boolean> changeListener = new ChangeListener<>()
+    {
+        @Override
+        public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1)
+        {
+            VirtualFlowUtil.restoreCurrentPosition(Duration.ofMillis(5), flowLeft, flowRight);
+        }
+    };
+
     private void preUpdateListRows(TreeModificationEvent<Object> evt)
     {
-
         if (TreeItem.branchExpandedEvent().equals(evt.getEventType()) || TreeItem.branchCollapsedEvent().equals(evt.getEventType()))
         {
             Instant now = Instant.now();
             Duration sinceLastEvent = Duration.between(lastExpandEventTime.get(), now).abs();
             lastExpandEventTime.set(now);
+            Duration delay = Duration.ofMillis(300);
             //System.out.println("preUpdateListRows, duration since last event: " + sinceLastEvent);
-            if (sinceLastEvent.compareTo(Duration.ofMillis(300)) <= 0)
+            if (sinceLastEvent.compareTo(delay) <= 0)
             {
                 System.out.println("preUpdateListRows skip, duration since last event: " + sinceLastEvent);
+                //VirtualFlowUtil.restoreCurrentPosition(delay, flowLeft, flowRight); // this will postpone the restore
                 return;
             }
             lastCollapseExpandEvent.set(evt);
             System.err.println("preUpdateListRows start, " + Instant.now().toString());
             flowLeft = flowLeft != null ? flowLeft : (VirtualFlow) treeTable.lookup("VirtualFlow");
-            flowRight = flowRight != null ? flowRight : (VirtualFlow) treeTable.lookup("VirtualFlow");
+            flowRight = flowRight != null ? flowRight : (VirtualFlow) listView.lookup("VirtualFlow");
             TreeItem item = evt.getTreeItem();
             int index = treeTable.getRow(item);
             VirtualFlowUtil.storeCurrentPosition(flowLeft, index);
+            //VirtualFlowUtil.restoreCurrentPosition(null, flowLeft, flowRight); // this overwrites the above restore with less time
+            // run a first update
+            // VirtualFlowUtil.restoreCurrentPosition(null, flowLeft, flowRight);
+            // run a second postponed update
         }
     }
 
     private void postUpdateListRows()
     {
-        if (isUpdating.get())
+        if (lastCollapseExpandEvent.getAndSet(null) != null)
         {
-            System.err.println("postUpdateListRows - is already updating!");
-            Platform.runLater(() -> postUpdateListRows());
-            return;
+           // VirtualFlowUtil.restoreCurrentPosition(Duration.ofMillis(10), flowLeft, flowRight); // this overwrites the above restore with less time
         }
-        TreeModificationEvent<Object> evt = lastCollapseExpandEvent.getAndSet(null);
-        if (evt != null)
-        {
-            VirtualFlowUtil.restoreCurrentPosition(flowLeft, flowRight);
-        }
+        //VirtualFlowUtil.restoreCurrentPosition(null, flowLeft, flowRight);
+        // VirtualFlowUtil.restoreCurrentPosition(Duration.ofMillis(5), flowLeft, flowRight); // this overwrites the above restore with less time
     }
 
     private void updateListRows()
