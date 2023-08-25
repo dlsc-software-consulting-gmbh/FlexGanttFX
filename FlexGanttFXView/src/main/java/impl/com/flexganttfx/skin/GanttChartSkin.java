@@ -38,8 +38,8 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.logging.Level;
 
 public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R, GanttChart<R>>
 {
@@ -54,7 +54,10 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
     private final HiddenSidesPane leftHandSideHiddenSidesPane;
     private final VBox leftHandSideBox;
 
-    private AtomicBoolean isUpdating = null;
+    // flow position locking
+    AtomicReference<Instant> lastExpandEventTime = new AtomicReference<>(Instant.now());
+    VirtualFlow<?> flowLeft = null;
+    Duration sameExpandCollapseSkipRetentionTime = Duration.ofMillis(300);
 
     public GanttChartSkin(GanttChart<R> ganttChart)
     {
@@ -107,7 +110,7 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
         updateRoot();
         updateColumns();
 
-        isUpdating = VirtualFlowUtil.bindVirtualFlows(treeTable, listView);
+        VirtualFlowUtil.bindVirtualFlows(treeTable, listView);
     }
 
     public HiddenSidesPane getLeftHandSideHiddenSidesPane()
@@ -250,21 +253,19 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
         updateListRows();
     }
 
-    AtomicReference<Instant> lastExpandEventTime = new AtomicReference<>(Instant.now());
-    VirtualFlow<?> flowLeft = null;
-    Duration sameExpandCollapseSkipDelay = Duration.ofMillis(300);
     private void preUpdateListRows(TreeModificationEvent<Object> evt)
     {
-        if (TreeItem.branchExpandedEvent().equals(evt.getEventType()) || TreeItem.branchCollapsedEvent().equals(evt.getEventType()))
+        if (VirtualFlowUtil.isMode(VirtualFlowUtil.MODE.POS_LOCKING) && TreeItem.branchExpandedEvent().equals(evt.getEventType()) || TreeItem.branchCollapsedEvent().equals(evt.getEventType()))
         {
+            LoggingDomain.NAVIGATION.fine("MODE.POS_LOCKING, tree modification event: " + evt.getEventType());
             Instant now = Instant.now();
-            Duration sinceLastEvent = Duration.between(lastExpandEventTime.get(), now).abs();
+            Duration duratSinceLastEvent = Duration.between(lastExpandEventTime.get(), now).abs();
             lastExpandEventTime.set(now);
 
-            if (sinceLastEvent.compareTo(sameExpandCollapseSkipDelay) <= 0)
+            if (duratSinceLastEvent.compareTo(sameExpandCollapseSkipRetentionTime) <= 0)
             {
                 // skip events because of expand all
-                System.out.println("preUpdateListRows skip, duration since last event: " + sinceLastEvent);
+                LoggingDomain.NAVIGATION.fine("MODE.POS_LOCKING, skipping VirtualFlowUtil.storeCurrentPosition. Duration since last event: " + duratSinceLastEvent);
                 return;
             }
             flowLeft = flowLeft != null ? flowLeft : (VirtualFlow) treeTable.lookup("VirtualFlow");
