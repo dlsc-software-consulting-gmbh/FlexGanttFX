@@ -1,3 +1,5 @@
+[![JFXCentral](https://img.shields.io/badge/Find_me_on-JFXCentral-blue?logo=googlechrome&logoColor=white)](https://www.jfx-central.com/libraries/flexganttfx)
+
 ## Build Instructions ##
 
 Simple run "mvn install" on the parent project **FlexGanttFX**. Once completed you will find several assemblies in the **FlexGanttFXAssembly** project.
