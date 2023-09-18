@@ -27,8 +27,20 @@ public class VirtualFlowUtil
     private static final AtomicReference<Instant> lockPosTimestamp = new AtomicReference<>(Instant.now());
     private static final AtomicReference<VirtualFlowPosition> flowLockPosition = new AtomicReference<>();
     private static Duration keepLockPosDuration = Duration.ofMillis(300);
+    private static boolean flowPosOptActive = false;
+
+    public static void setFlowPosOptActive(boolean flowPosOptActive)
+    {
+        VirtualFlowUtil.flowPosOptActive = flowPosOptActive;
+    }
+    private static boolean isFlowPosOptActive()
+    {
+        return flowPosOptActive;
+    }
+
 
     private static MODE mode = MODE.POS_LOCKING;
+
 
     public static void setMode(MODE mode)
     {
@@ -207,23 +219,11 @@ public class VirtualFlowUtil
 
         return new VirtualFlowPosition(index, offset);
     }
-
     private static void setVFlowPosition(VirtualFlow<?> flow, VirtualFlowPosition pos)
     {
         try
         {
-            flow.scrollToTop(pos.index);
-            flow.layout();
-            flow.scrollPixels(pos.offset);
-            /* is this faster (just scrolling if the index is already the same?) */
-            /*
-            IndexedCell cell = flow.getFirstVisibleCell();
-            int index = cell.getIndex();
-            double offset = -cell.getLayoutY();
-
-            VirtualFlowPosition curPos = new VirtualFlowPosition(index, offset);
-            double diff = curPos.offset - pos.offset;
-            if (curPos.index != pos.index)
+            if (!isFlowPosOptActive())
             {
                 flow.scrollToTop(pos.index);
                 flow.layout();
@@ -231,11 +231,32 @@ public class VirtualFlowUtil
             }
             else
             {
-                if (diff != 0d)
+                /* is this faster (just scrolling if the index is already the same?) */
+
+                IndexedCell cell = flow.getFirstVisibleCell();
+                int index = cell.getIndex();
+                double offset = -cell.getLayoutY();
+
+                VirtualFlowPosition curPos = new VirtualFlowPosition(index, offset);
+                double diff = curPos.offset - pos.offset;
+                if (curPos.index != pos.index)
                 {
-                    flow.scrollPixels(-diff);
+                    flow.scrollToTop(pos.index);
+                    flow.layout();
+                    flow.scrollPixels(pos.offset);
                 }
-            }*/
+                else
+                {
+                    if (diff != 0d)
+                    {
+                        flow.scrollPixels(-diff);
+                        if (LoggingDomain.NAVIGATION.isLoggable(Level.FINEST))
+                        {
+                            LoggingDomain.NAVIGATION.log(Level.FINEST, "flowPosOptActive: " + true);
+                        }
+                    }
+                }
+            }
         }
         catch (Throwable e)
         {
