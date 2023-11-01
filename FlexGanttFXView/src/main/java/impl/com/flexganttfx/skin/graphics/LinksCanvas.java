@@ -26,7 +26,7 @@ import java.util.logging.Level;
 
 public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
-    private GraphicsBase<R> graphics;
+    private final GraphicsBase<R> graphics;
 
     public LinksCanvas(GraphicsBase<R> graphics) {
         this.graphics = graphics;

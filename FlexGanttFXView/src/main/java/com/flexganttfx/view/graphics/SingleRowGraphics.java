@@ -5,10 +5,14 @@
  */
 package com.flexganttfx.view.graphics;
 
+import impl.com.flexganttfx.skin.graphics.RowPane;
 import impl.com.flexganttfx.skin.graphics.SingleRowGraphicsSkin;
 import javafx.scene.control.Skin;
 
 import com.flexganttfx.model.Row;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A specialization of {@link GraphicsBase} that displays exactly one row. The
@@ -28,5 +32,12 @@ public class SingleRowGraphics<R extends Row<?, ?, ?>> extends GraphicsBase<R> {
 	@Override
 	protected Skin<?> createDefaultSkin() {
 		return new SingleRowGraphicsSkin<>(this);
+	}
+
+	private final List<RowPane<R>> rowPanes = new ArrayList<>();
+
+	@Override
+	public List<RowPane<R>> getRowPanes() {
+		return rowPanes;
 	}
 }

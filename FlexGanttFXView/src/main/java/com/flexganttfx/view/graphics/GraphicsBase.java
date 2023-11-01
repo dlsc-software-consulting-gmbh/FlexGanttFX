@@ -3374,11 +3374,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         placeholderProperty().set(node);
     }
 
-    private final ObservableList<RowPane<R>> rowPanes = FXCollections.observableArrayList();
-
-    public final ObservableList<RowPane<R>> getRowPanes() {
-        return rowPanes;
-    }
+    public abstract List<RowPane<R>> getRowPanes();
 
     private LinksCanvas<R> linksCanvas;
 

@@ -5,6 +5,7 @@
  */
 package com.flexganttfx.view.graphics;
 
+import impl.com.flexganttfx.skin.graphics.RowPane;
 import impl.com.flexganttfx.skin.graphics.VBoxGraphicsSkin;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -14,6 +15,9 @@ import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
 import com.flexganttfx.model.Row;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A specialization of {@link GraphicsBase} that displays several rows inside a
@@ -37,6 +41,13 @@ public class VBoxGraphics<R extends Row<?, ?, ?>> extends GraphicsBase<R> {
 	@Override
 	protected Skin<?> createDefaultSkin() {
 		return new VBoxGraphicsSkin<>(this);
+	}
+
+	private final List<RowPane<R>> rowPanes = new ArrayList<>();
+
+	@Override
+	public List<RowPane<R>> getRowPanes() {
+		return rowPanes;
 	}
 
 	private final VBox vbox;

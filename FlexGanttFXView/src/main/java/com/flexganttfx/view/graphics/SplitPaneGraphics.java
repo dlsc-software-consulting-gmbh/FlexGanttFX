@@ -5,6 +5,7 @@
  */
 package com.flexganttfx.view.graphics;
 
+import impl.com.flexganttfx.skin.graphics.RowPane;
 import impl.com.flexganttfx.skin.graphics.SplitPaneGraphicsSkin;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -13,6 +14,9 @@ import javafx.scene.control.SplitPane;
 import javafx.util.Callback;
 
 import com.flexganttfx.model.Row;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A specialization of {@link GraphicsBase} that displays several rows inside a
@@ -33,6 +37,13 @@ public class SplitPaneGraphics<R extends Row<?, ?, ?>> extends GraphicsBase<R> {
 	@Override
 	protected Skin<?> createDefaultSkin() {
 		return new SplitPaneGraphicsSkin<>(this);
+	}
+
+	private final List<RowPane<R>> rowPanes = new ArrayList<>();
+
+	@Override
+	public List<RowPane<R>> getRowPanes() {
+		return rowPanes;
 	}
 
 	private final SplitPane splitPane;

@@ -7,14 +7,21 @@ package com.flexganttfx.view.graphics;
 
 import com.flexganttfx.model.Row;
 import impl.com.flexganttfx.skin.graphics.ListViewGraphicsSkin;
+import impl.com.flexganttfx.skin.graphics.RowPane;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Skin;
 import javafx.scene.control.skin.VirtualFlow;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * A specialization of {@link GraphicsBase} that uses a {@link ListView} to
@@ -74,6 +81,12 @@ public class ListViewGraphics<R extends Row<?, ?, ?>> extends GraphicsBase<R> {
 	 */
 	protected ListView<R> createListView() {
 		return new ListView<>();
+	}
+
+	@Override
+	public List<RowPane<R>> getRowPanes() {
+		ListView<R> listView = getListView();
+		return listView.lookupAll(".row-pane").stream().map(node -> (RowPane<R>) node).collect(Collectors.toList());
 	}
 
 	private final DoubleProperty autoscrollProximity = new SimpleDoubleProperty(
