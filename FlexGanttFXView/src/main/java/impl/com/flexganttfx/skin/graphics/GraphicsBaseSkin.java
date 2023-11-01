@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2014 - 2021 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * <p>
  * This file is part of FlexGanttFX.
  */
 package impl.com.flexganttfx.skin.graphics;
@@ -57,10 +57,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.SkinBase;
 import javafx.scene.image.Image;
-import javafx.scene.input.ContextMenuEvent;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Line;
@@ -692,12 +689,12 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         });
 
         node.addEventHandler(MouseEvent.MOUSE_PRESSED, evt -> {
-            if (contextMenu != null && contextMenu.isShowing()) {
-                contextMenu.hide();
+            if (!evt.getButton().equals(MouseButton.PRIMARY) || evt.isConsumed()) {
+                return;
             }
 
-            if (!evt.isPrimaryButtonDown()) {
-                return;
+            if (contextMenu != null && contextMenu.isShowing()) {
+                contextMenu.hide();
             }
 
             getSkinnable().requestFocus();
