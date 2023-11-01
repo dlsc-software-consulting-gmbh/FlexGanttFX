@@ -8,6 +8,7 @@ open module com.flexganttfx.sampler {
     requires opencsv;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.materialdesign;
+//    requires org.scenicview.scenicview;
 
     requires javafx.graphics;
     requires javafx.controls;

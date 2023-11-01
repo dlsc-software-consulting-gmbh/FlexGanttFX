@@ -38,6 +38,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import org.scenicview.ScenicView;
 
 import java.util.ServiceLoader;
 
@@ -64,6 +65,8 @@ public abstract class SampleBase extends Application implements Sample {
         }
         primaryStage.setScene(scene);
         primaryStage.show();
+
+       // ScenicView.show(scene);
     }
 
     /** {@inheritDoc} */
