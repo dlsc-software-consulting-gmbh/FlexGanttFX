@@ -27,8 +27,6 @@ public class RowCell<R extends Row<?, ?, ?>> extends ListCell<R> {
 
         this.rowPane = new RowPane<>(graphics);
 
-        graphics.getRowPanes().add(rowPane);
-
         getStyleClass().add(DEFAULT_STYLE_CLASS);
 
         rowPane.prefWidthProperty().bind(widthProperty());
