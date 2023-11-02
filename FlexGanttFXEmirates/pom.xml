@@ -5,12 +5,12 @@
     <artifactId>emirates</artifactId>
     <name>FlexGanttFXEmirates</name>
     <description>Use case study for Emirates airlines</description>
-    <version>11.12.6</version>
+    <version>11.12.7</version>
 
     <parent>
         <groupId>com.flexganttfx</groupId>
         <artifactId>gantt</artifactId>
-        <version>11.12.6</version>
+        <version>11.12.7</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 

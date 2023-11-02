@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>com.flexganttfx</groupId>
 		<artifactId>gantt</artifactId>
-		<version>11.12.6</version>
+		<version>11.12.7</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -94,6 +94,7 @@
 				</configuration>
 			</plugin>
 
+			<!--
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
@@ -196,7 +197,7 @@
 					</execution>
 				</executions>
 			</plugin>
-
+			-->
 		</plugins>
 	</build>
 </project>

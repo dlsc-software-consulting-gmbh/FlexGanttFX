@@ -1,4 +1,15 @@
 ----------------------------------------------------------------
+Release: 11.12.7, Date: November 2nd 2023
+----------------------------------------------------------------
+
+** BUG FIXES
+
+    ** #58 - Links do not display correctly when changing row height
+    ** #61 - Lasso can break navigation by dragging
+    ** #66 - Links are pointing to nowhere
+
+
+----------------------------------------------------------------
 Release: 11.12.6, Date: January 30th 2023
 ----------------------------------------------------------------
 
