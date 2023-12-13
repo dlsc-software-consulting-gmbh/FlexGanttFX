@@ -94,7 +94,7 @@ public class VirtualFlowUtil
     private static void doRealBinding(AtomicBoolean isUpdating, VirtualFlow<?> flow1, VirtualFlow<?> flow2)
     {
         AtomicReference<Cell<?>> lastCell = new AtomicReference<>(null);
-
+        final FlowBinding fb = FlowBinding.get(flow1);
         Runnable doUpdate = () -> {
             try
             {
@@ -106,7 +106,8 @@ public class VirtualFlowUtil
                 addPostLayoutAction(flow1.getScene(), () -> {
                     try
                     {
-                        updatePosition(flow1, flow2);
+                        // if there are pos layout actions during skipping we stick to restore pos
+                        updatePosition(flow1, flow2, fb.restorePos);
                     }
                     finally
                     {
@@ -123,7 +124,6 @@ public class VirtualFlowUtil
         Runnable updateCellListener = getRunnable(flow1, doUpdate, lastCell);
 
         flow1.positionProperty().addListener((obs, oldVal, newVal) -> {
-            FlowBinding fb = FlowBinding.get(flow1);
             if (fb.isSkipUpdatePos())
             {
                 if (debugLog)
@@ -132,6 +132,8 @@ public class VirtualFlowUtil
                 }
                 return;
             }
+            // prevent infinite updates between flow1 and flow2
+            // has no visible effect but much better performance
             double threshold = 0.000001;
             double diff = Math.abs(oldVal.doubleValue() - newVal.doubleValue());
             if (diff > threshold)
@@ -185,13 +187,18 @@ public class VirtualFlowUtil
         return null;
     }
 
-    private static void updatePosition(VirtualFlow<?> fromFlow, VirtualFlow<?> toFlow)
+    private static void updatePosition(VirtualFlow<?> fromFlow, VirtualFlow<?> toFlow, VirtualFlowPosition requestedPosition)
     {
-        VirtualFlowPosition pos = getVFlowPosition(fromFlow);
+        // take restore position if provided - preventing jumping while expanding/collapsing tree nodes
+        VirtualFlowPosition pos = requestedPosition != null ? requestedPosition : getVFlowPosition(fromFlow);
         setVFlowPosition(toFlow, pos);
-        if (debugLog && LoggingDomain.NAVIGATION.isLoggable(Level.FINEST))
+        if (requestedPosition != null)
         {
-            LoggingDomain.NAVIGATION.finest("set pos: " + pos + ", to toFlow. (fromFlow: " + fromFlow.hashCode() + ", toFlow: " + toFlow.hashCode() + ")");
+            setVFlowPosition(fromFlow, pos);
+        }
+        if (debugLog)
+        {
+            System.out.println("set pos: " + pos + ", isRestorePos: " + (requestedPosition != null) + ", to toFlow. (fromFlow: " + fromFlow.hashCode() + ", toFlow: " + toFlow.hashCode() + ")");
         }
     }
 
@@ -283,9 +290,10 @@ public class VirtualFlowUtil
         VirtualFlow<?> leftFlow;
         VirtualFlow<?> rightFlow;
 
-        boolean skipUpdatePos;
+        final AtomicBoolean skipUpdatePos = new AtomicBoolean(false);
         Instant skipUpdatePosSetTime = Instant.now().minusSeconds(1);
         Duration skipUpdatePosRetentionTime = Duration.ofMillis(50);
+        Duration skipUpdatePosMaxRetentionTime = Duration.ofMillis(300); // for unlocking if lock takes too long
 
         VirtualFlowPosition restorePos = null;
         boolean restoring = false;
@@ -318,24 +326,40 @@ public class VirtualFlowUtil
 
         public boolean isSkipUpdatePos()
         {
-            Duration duratSinceLastSkipTime = Duration.between(skipUpdatePosSetTime, Instant.now());
-            if (this.skipUpdatePos && duratSinceLastSkipTime.compareTo(skipUpdatePosRetentionTime) < 0)
+            if (this.skipUpdatePos.get())
             {
-                if (debugLog)
+                Duration duratSinceLastSkipTime = Duration.between(skipUpdatePosSetTime, Instant.now());
+                if (duratSinceLastSkipTime.compareTo(skipUpdatePosMaxRetentionTime) < 0)
                 {
-                    System.out.println("isSkipUpdatePos: true, for another: " + duratSinceLastSkipTime.abs());
+                    if (debugLog)
+                    {
+                        System.out.println("isSkipUpdatePos: true, for another: " + skipUpdatePosMaxRetentionTime.minus(duratSinceLastSkipTime.abs()));
+                    }
+                }
+                else
+                {
+                    unlock(); // unlock for next run
                 }
                 return true;
             }
-            else
+
+            return false;
+
+        }
+
+        private void unlock()
+        {
+            this.restorePos = null;
+            this.skipUpdatePos.set(false);
+            if (debugLog)
             {
-                return false;
+                System.err.println("Unlock! Because too long locked!");
             }
         }
 
         public void setSkipUpdatePos(boolean skipUpdatePos)
         {
-            this.skipUpdatePos = skipUpdatePos;
+            this.skipUpdatePos.set(skipUpdatePos);
             if (!skipUpdatePos)
             {
                 this.restorePos = null;
@@ -379,7 +403,7 @@ public class VirtualFlowUtil
             FlowBinding fb = get(flow);
             if (fb != null)
             {
-                fb.skipUpdatePos = skipUpdatePos;
+                fb.skipUpdatePos.set(skipUpdatePos);
             }
         }
 
@@ -426,7 +450,11 @@ public class VirtualFlowUtil
                 }
             }
             restoring = false;
-            skipUpdatePos = false;
+            if (debugLog)
+            {
+                System.out.println("restorePosition: unlocking");
+            }
+            skipUpdatePos.set(false);
         }
     }
 }
