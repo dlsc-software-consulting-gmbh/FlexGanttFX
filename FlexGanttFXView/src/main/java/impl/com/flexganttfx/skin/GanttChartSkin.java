@@ -19,14 +19,8 @@ import javafx.beans.binding.Bindings;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TreeItem;
+import javafx.scene.control.*;
 import javafx.scene.control.TreeItem.TreeModificationEvent;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableView;
 import javafx.scene.control.skin.TableHeaderRow;
 import javafx.scene.control.skin.VirtualFlow;
 import javafx.scene.layout.Priority;
@@ -34,12 +28,10 @@ import javafx.scene.layout.VBox;
 import org.controlsfx.control.HiddenSidesPane;
 import org.controlsfx.control.MasterDetailPane;
 
-import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.logging.Level;
 
 public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R, GanttChart<R>>
 {
@@ -57,7 +49,7 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
     // flow position locking
     AtomicReference<Instant> lastExpandEventTime = new AtomicReference<>(Instant.now());
     VirtualFlow<?> flowLeft = null;
-    Duration sameExpandCollapseSkipRetentionTime = Duration.ofMillis(300);
+    VirtualFlow<?> flowRight = null;
 
     public GanttChartSkin(GanttChart<R> ganttChart)
     {
@@ -246,30 +238,34 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
         }
     }
 
+    VirtualFlowUtil.VirtualFlowPosition posBeforeUpdate = null;
+
     private void updateListRows(TreeModificationEvent<Object> evt)
     {
-        LoggingDomain.EDITING.fine("updating list rows after tree modification event: " + evt);
+        if (VirtualFlowUtil.isDebugLog())
+        {
+            LoggingDomain.EDITING.fine("updating list rows after tree modification event: " + evt);
+        }
         preUpdateListRows(evt);
         updateListRows();
     }
 
     private void preUpdateListRows(TreeModificationEvent<Object> evt)
     {
-        if (VirtualFlowUtil.isMode(VirtualFlowUtil.MODE.POS_LOCKING) && TreeItem.branchExpandedEvent().equals(evt.getEventType()) || TreeItem.branchCollapsedEvent().equals(evt.getEventType()))
+        if (VirtualFlowUtil.isMode(VirtualFlowUtil.MODE.POS_LOCKING) &&
+                (TreeItem.branchExpandedEvent().equals(evt.getEventType())
+                        || TreeItem.branchCollapsedEvent().equals(evt.getEventType())
+                        || TreeItem.childrenModificationEvent().equals(evt.getEventType())))
         {
-            LoggingDomain.NAVIGATION.fine("MODE.POS_LOCKING, tree modification event: " + evt.getEventType());
-            Instant now = Instant.now();
-            Duration duratSinceLastEvent = Duration.between(lastExpandEventTime.get(), now).abs();
-            lastExpandEventTime.set(now);
-
-            if (duratSinceLastEvent.compareTo(sameExpandCollapseSkipRetentionTime) <= 0)
+            if (VirtualFlowUtil.isDebugLog())
             {
-                // skip events because of expand all
-                LoggingDomain.NAVIGATION.fine("MODE.POS_LOCKING, skipping VirtualFlowUtil.storeCurrentPosition. Duration since last event: " + duratSinceLastEvent);
-                return;
+                LoggingDomain.NAVIGATION.fine("MODE.POS_LOCKING, tree modification event: " + evt.getEventType());
             }
-            flowLeft = flowLeft != null ? flowLeft : (VirtualFlow) treeTable.lookup("VirtualFlow");
-            VirtualFlowUtil.storeCurrentPosition(flowLeft);
+            Instant now = Instant.now();
+            lastExpandEventTime.set(now);
+            flowLeft = flowLeft != null ? flowLeft : (VirtualFlow<?>) treeTable.lookup("VirtualFlow");
+            flowRight = flowRight != null ? flowRight : (VirtualFlow<?>) listView.lookup("VirtualFlow");
+            posBeforeUpdate = VirtualFlowUtil.storeCurrentPosition(flowLeft);
         }
     }
 
@@ -318,7 +314,7 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
         List<TreeTableColumn<R, ?>> columns = treeTable.getColumns();
         if (!columns.contains(rowHeader))
         {
-            if (columns.size() == 0)
+            if (columns.isEmpty())
             {
                 treeTable.getColumns().add(rowHeader);
             }

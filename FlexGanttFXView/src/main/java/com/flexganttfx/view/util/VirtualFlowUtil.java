@@ -1,6 +1,8 @@
 package com.flexganttfx.view.util;
 
 import com.flexganttfx.core.LoggingDomain;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.Scene;
@@ -11,6 +13,7 @@ import javafx.scene.control.skin.VirtualFlow;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -24,23 +27,8 @@ public class VirtualFlowUtil
         POS_LOCKING
     }
 
-    private static final AtomicReference<Instant> lockPosTimestamp = new AtomicReference<>(Instant.now());
-    private static final AtomicReference<VirtualFlowPosition> flowLockPosition = new AtomicReference<>();
-    private static Duration keepLockPosDuration = Duration.ofMillis(300);
-    private static boolean flowPosOptActive = false;
-
-    public static void setFlowPosOptActive(boolean flowPosOptActive)
-    {
-        VirtualFlowUtil.flowPosOptActive = flowPosOptActive;
-    }
-    private static boolean isFlowPosOptActive()
-    {
-        return flowPosOptActive;
-    }
-
-
     private static MODE mode = MODE.POS_LOCKING;
-
+    private static boolean debugLog = false;
 
     public static void setMode(MODE mode)
     {
@@ -52,14 +40,15 @@ public class VirtualFlowUtil
         return VirtualFlowUtil.mode == mode;
     }
 
-    public static Duration getKeepLockPosDuration()
+    @SuppressWarnings("unused")
+    public static void setDebugLog(boolean enableLog)
     {
-        return keepLockPosDuration;
+        VirtualFlowUtil.debugLog = enableLog;
     }
 
-    public static void setKeepLockPosDuration(Duration keepLockPosDuration)
+    public static boolean isDebugLog()
     {
-        VirtualFlowUtil.keepLockPosDuration = keepLockPosDuration == null || keepLockPosDuration.isNegative() ? Duration.ZERO : keepLockPosDuration;
+        return debugLog;
     }
 
     public static void bindVirtualFlows(Control control1, Control control2)
@@ -75,11 +64,12 @@ public class VirtualFlowUtil
                 return;
             }
             AtomicBoolean isUpdating = new AtomicBoolean(false);
-            VirtualFlow<?> leftFlow = (VirtualFlow) control1.lookup("VirtualFlow");
-            VirtualFlow<?> rightFlow = (VirtualFlow) control2.lookup("VirtualFlow");
+            VirtualFlow<?> leftFlow = (VirtualFlow<?>) control1.lookup("VirtualFlow");
+            VirtualFlow<?> rightFlow = (VirtualFlow<?>) control2.lookup("VirtualFlow");
 
             if (leftFlow != null && rightFlow != null)
             {
+                FlowBinding.addFlowBinding(leftFlow, rightFlow);
                 doRealBidirectionalBinding(isUpdating, leftFlow, rightFlow);
                 control1.skinProperty().removeListener(skinListener.get());
                 control2.skinProperty().removeListener(skinListener.get());
@@ -103,35 +93,75 @@ public class VirtualFlowUtil
 
     private static void doRealBinding(AtomicBoolean isUpdating, VirtualFlow<?> flow1, VirtualFlow<?> flow2)
     {
-        AtomicReference<Cell> lastCell = new AtomicReference(null);
+        AtomicReference<Cell<?>> lastCell = new AtomicReference<>(null);
 
         Runnable doUpdate = () -> {
-            if (isUpdating.get())
+            try
             {
+                if (isUpdating.get())
+                {
+                    return;
+                }
+                isUpdating.set(true);
+                addPostLayoutAction(flow1.getScene(), () -> {
+                    try
+                    {
+                        updatePosition(flow1, flow2);
+                    }
+                    finally
+                    {
+                        isUpdating.set(false);
+                    }
+                });
+            }
+            catch (Throwable t)
+            {
+                isUpdating.set(false);
+                LoggingDomain.NAVIGATION.log(Level.WARNING, "Exception while updating!", t);
+            }
+        };
+        Runnable updateCellListener = getRunnable(flow1, doUpdate, lastCell);
+
+        flow1.positionProperty().addListener((obs, oldVal, newVal) -> {
+            FlowBinding fb = FlowBinding.get(flow1);
+            if (fb.isSkipUpdatePos())
+            {
+                if (debugLog)
+                {
+                    System.out.println("Skipped update because FlowBinding.skipUpdatePos: " + fb.isSkipUpdatePos());
+                }
                 return;
             }
-            isUpdating.set(true);
-            addPostLayoutAction(flow1.getScene(), () -> {
-                try
+            double threshold = 0.000001;
+            double diff = Math.abs(oldVal.doubleValue() - newVal.doubleValue());
+            if (diff > threshold)
+            {
+                if (debugLog)
                 {
-                    updatePosition(flow1, flow2);
+                    System.out.println("Update! diff:" + diff);
                 }
-                finally
+                updateCellListener.run();
+                doUpdate.run();
+            }
+            else
+            {
+                if (debugLog)
                 {
-                    isUpdating.set(false);
+                    System.out.println("Skipped update because threshold not reached! diff:" + diff);
                 }
-            });
-        };
-        ChangeListener doUpdateListener = (obs, oldVal, newVal) -> {
-            doUpdate.run();
-        };
+            }
+        });
+    }
 
-        Runnable updateCellListener = () -> {
+    private static Runnable getRunnable(VirtualFlow<?> flow1, Runnable doUpdate, AtomicReference<Cell<?>> lastCell)
+    {
+        ChangeListener<Number> doUpdateListener = (obs, oldVal, newVal) -> doUpdate.run();
+        return () -> {
             if (lastCell.get() != null)
             {
                 lastCell.get().layoutYProperty().removeListener(doUpdateListener);
             }
-            Cell newCell = flow1.getLastVisibleCell();
+            Cell<?> newCell = flow1.getLastVisibleCell();
 
             if (newCell != null)
             {
@@ -139,70 +169,27 @@ public class VirtualFlowUtil
             }
             lastCell.set(newCell);
         };
-
-        flow1.positionProperty().addListener((obs, oldVal, newVal) -> {
-            updateCellListener.run();
-            doUpdate.run();
-        });
     }
 
-    public static void storeCurrentPosition(VirtualFlow<?> flow)
+    public static VirtualFlowPosition storeCurrentPosition(VirtualFlow<?> flow)
     {
-        if (LoggingDomain.NAVIGATION.isLoggable(Level.FINE))
+        if (debugLog && LoggingDomain.NAVIGATION.isLoggable(Level.FINE))
         {
             LoggingDomain.NAVIGATION.fine("mode: " + VirtualFlowUtil.mode + ", flow: " + flow.hashCode());
         }
-        flowLockPosition.set(getVFlowPosition(flow));
-        lockPosTimestamp.set(Instant.now());
+        FlowBinding fb = isMode(MODE.POS_LOCKING) ? FlowBinding.get(flow) : null;
+        if (fb != null)
+        {
+            fb.setSkipUpdatePos(true);
+        }
+        return null;
     }
 
     private static void updatePosition(VirtualFlow<?> fromFlow, VirtualFlow<?> toFlow)
     {
-        VirtualFlowPosition pos = null;
-        boolean lockedPos = false;
-        if (isMode(MODE.POS_LOCKING))
-        {
-            try
-            {
-                Instant now = Instant.now();
-                Duration duratSinceLastLockTime = Duration.between(lockPosTimestamp.get(), now).abs();
-
-                if (duratSinceLastLockTime.compareTo(keepLockPosDuration) < 0)
-                {
-                    if (LoggingDomain.NAVIGATION.isLoggable(Level.FINEST))
-                    {
-                        LoggingDomain.NAVIGATION.finest("POS_LOCKING active, for another " + duratSinceLastLockTime.minus(keepLockPosDuration) + " (fromFlow: " + fromFlow.hashCode() + ", toFlow: " + toFlow.hashCode() + ")");
-                    }
-                    // need to stick to the expand / collapse position for an arbitrary time (because of other rendering updates triggered by TreeTableView while expanding)
-                    pos = flowLockPosition.get();
-                    if (pos != null)
-                    {
-                        lockedPos = true;
-                        lockPosTimestamp.set(now);
-                        // set to from flow
-                        setVFlowPosition(fromFlow, pos);
-                        if (LoggingDomain.NAVIGATION.isLoggable(Level.FINE))
-                        {
-                            LoggingDomain.NAVIGATION.fine("POS_LOCKING active, set stored pos: " + pos + ", set to fromFlow. (fromFlow: " + fromFlow.hashCode() + ", toFlow: " + toFlow.hashCode() + ")");
-                        }
-                    }
-                }
-            }
-            catch (Throwable e)
-            {
-                LoggingDomain.NAVIGATION.log(Level.WARNING, "POS_LOCKING active, using stored pos: " + pos + ", fromFlow: " + fromFlow.hashCode() + ", toFlow: " + toFlow.hashCode(), e);
-            }
-        }
-        if (pos == null)
-        {
-            pos = getVFlowPosition(fromFlow);
-        }
+        VirtualFlowPosition pos = getVFlowPosition(fromFlow);
         setVFlowPosition(toFlow, pos);
-        if (lockedPos && LoggingDomain.NAVIGATION.isLoggable(Level.FINE))
-        {
-            LoggingDomain.NAVIGATION.fine("POS_LOCKING active, set stored pos: " + pos + ", set to toFlow. (fromFlow: " + fromFlow.hashCode() + ", toFlow: " + toFlow.hashCode() + ")");
-        }
-        else if (LoggingDomain.NAVIGATION.isLoggable(Level.FINEST))
+        if (debugLog && LoggingDomain.NAVIGATION.isLoggable(Level.FINEST))
         {
             LoggingDomain.NAVIGATION.finest("set pos: " + pos + ", to toFlow. (fromFlow: " + fromFlow.hashCode() + ", toFlow: " + toFlow.hashCode() + ")");
         }
@@ -213,61 +200,34 @@ public class VirtualFlowUtil
         flow.applyCss();
         flow.layout();
 
-        IndexedCell cell = flow.getFirstVisibleCell();
-        int index = cell.getIndex();
-        double offset = -cell.getLayoutY();
+        IndexedCell<?> cell = flow.getFirstVisibleCell();
+        int index = cell == null ? 0 : cell.getIndex();
+        double offset = cell == null ? 0 : -cell.getLayoutY();
 
         return new VirtualFlowPosition(index, offset);
     }
-    private static void setVFlowPosition(VirtualFlow<?> flow, VirtualFlowPosition pos)
+
+    public static void setVFlowPosition(VirtualFlow<?> flow, VirtualFlowPosition pos)
     {
         try
         {
-            if (!isFlowPosOptActive())
-            {
-                flow.scrollToTop(pos.index);
-                flow.layout();
-                flow.scrollPixels(pos.offset);
-            }
-            else
-            {
-                /* is this faster (just scrolling if the index is already the same?) */
-
-                IndexedCell cell = flow.getFirstVisibleCell();
-                int index = cell.getIndex();
-                double offset = -cell.getLayoutY();
-
-                VirtualFlowPosition curPos = new VirtualFlowPosition(index, offset);
-                double diff = curPos.offset - pos.offset;
-                if (curPos.index != pos.index)
-                {
-                    flow.scrollToTop(pos.index);
-                    flow.layout();
-                    flow.scrollPixels(pos.offset);
-                }
-                else
-                {
-                    if (diff != 0d)
-                    {
-                        flow.scrollPixels(-diff);
-                        if (LoggingDomain.NAVIGATION.isLoggable(Level.FINEST))
-                        {
-                            LoggingDomain.NAVIGATION.log(Level.FINEST, "flowPosOptActive: " + true);
-                        }
-                    }
-                }
-            }
+            flow.scrollToTop(pos.index);
+            flow.layout();
+            flow.scrollPixels(pos.offset);
         }
         catch (Throwable e)
         {
-            LoggingDomain.NAVIGATION.log(Level.WARNING, "Exception", e);
+            if (debugLog)
+            {
+                LoggingDomain.NAVIGATION.log(Level.WARNING, "Exception", e);
+            }
         }
     }
 
-    private static class VirtualFlowPosition
+    public static class VirtualFlowPosition
     {
-        private int index;
-        private double offset;
+        private final int index;
+        private final double offset;
 
         public VirtualFlowPosition(int index, double offset)
         {
@@ -315,5 +275,158 @@ public class VirtualFlowUtil
         });
 
         scene.addPostLayoutPulseListener(listener.get());
+    }
+
+    static class FlowBinding
+    {
+        private static final HashSet<FlowBinding> flowBindings = new HashSet<>();
+        VirtualFlow<?> leftFlow;
+        VirtualFlow<?> rightFlow;
+
+        boolean skipUpdatePos;
+        Instant skipUpdatePosSetTime = Instant.now().minusSeconds(1);
+        Duration skipUpdatePosRetentionTime = Duration.ofMillis(50);
+
+        VirtualFlowPosition restorePos = null;
+        boolean restoring = false;
+
+        final Timeline restoreTimer = new Timeline();
+
+        private FlowBinding(VirtualFlow<?> leftFlow, VirtualFlow<?> rightFlow)
+        {
+            this.leftFlow = leftFlow;
+            this.rightFlow = rightFlow;
+            javafx.util.Duration durat = new javafx.util.Duration(skipUpdatePosRetentionTime.toMillis());
+            restoreTimer.getKeyFrames().add(new KeyFrame(durat, ae -> restorePosition()));
+        }
+
+        @SuppressWarnings("UnusedReturnValue")
+        public static FlowBinding addFlowBinding(VirtualFlow<?> leftFlow, VirtualFlow<?> rightFlow)
+        {
+            FlowBinding fb = new FlowBinding(leftFlow, rightFlow);
+            flowBindings.add(fb);
+            return fb;
+        }
+
+        public static FlowBinding get(VirtualFlow<?> flow)
+        {
+            return flowBindings.stream()
+                    .filter(fb -> fb.leftFlow == flow || fb.rightFlow == flow)
+                    .findFirst()
+                    .orElse(null);
+        }
+
+        public boolean isSkipUpdatePos()
+        {
+            Duration duratSinceLastSkipTime = Duration.between(skipUpdatePosSetTime, Instant.now());
+            if (this.skipUpdatePos && duratSinceLastSkipTime.compareTo(skipUpdatePosRetentionTime) < 0)
+            {
+                if (debugLog)
+                {
+                    System.out.println("isSkipUpdatePos: true, for another: " + duratSinceLastSkipTime.abs());
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void setSkipUpdatePos(boolean skipUpdatePos)
+        {
+            this.skipUpdatePos = skipUpdatePos;
+            if (!skipUpdatePos)
+            {
+                this.restorePos = null;
+            }
+            else if (this.restorePos == null) // do not update restore pos for subsequent calls
+            {
+                this.restorePos = getVFlowPosition(leftFlow);
+            }
+            if (skipUpdatePos)
+            {
+                this.skipUpdatePosSetTime = Instant.now();
+                try
+                {
+                    restoreTimer.stop();
+                    restoreTimer.play();
+                }
+                catch (Exception ex)
+                {
+                    if (debugLog)
+                    {
+                        System.err.println("error stopping timeLine: " + ex.getMessage());
+                    }
+                }
+            }
+        }
+
+        @SuppressWarnings("unused")
+        public static boolean isSkipUpdatePos(VirtualFlow<?> flow)
+        {
+            FlowBinding fb = get(flow);
+            if (fb != null)
+            {
+                return fb.isSkipUpdatePos();
+            }
+            return false;
+        }
+
+        @SuppressWarnings("unused")
+        public static void setSkipUpdatePos(boolean skipUpdatePos, VirtualFlow<?> flow)
+        {
+            FlowBinding fb = get(flow);
+            if (fb != null)
+            {
+                fb.skipUpdatePos = skipUpdatePos;
+            }
+        }
+
+        public void restorePosition()
+        {
+            final VirtualFlowPosition pos = restorePos;
+            restorePos = null;
+            if (pos != null) // first update after lock
+            {
+                restoring = true;
+                try
+                {
+                    // scroll down to get the virtual flow initialized
+                    int lastRowIndex = Math.max(leftFlow.getCellCount() - 1, 0);
+                    if (debugLog)
+                    {
+                        System.out.println("restorePosition, restore, lastRowIndex: " + lastRowIndex);
+                    }
+                    VirtualFlowPosition lastPos = new VirtualFlowPosition(lastRowIndex, 0);
+                    setVFlowPosition(rightFlow, lastPos);
+                    setVFlowPosition(leftFlow, lastPos);
+
+                    // restore the current position
+                    int index = Math.min(pos.index, lastRowIndex);
+                    VirtualFlowPosition restorePos = new VirtualFlowPosition(index, pos.index != index ? 0 : pos.offset);
+                    if (debugLog)
+                    {
+                        System.out.println("restorePosition, restorePos: " + pos);
+                    }
+
+                    setVFlowPosition(rightFlow, restorePos);
+                    setVFlowPosition(leftFlow, restorePos);
+                }
+                catch (Exception ex)
+                {
+                    if (debugLog)
+                    {
+                        System.err.println("error stopping timeLine: " + ex.getMessage());
+                    }
+                }
+                finally
+                {
+                    restorePos = null;
+                }
+            }
+            restoring = false;
+            skipUpdatePos = false;
+        }
     }
 }
