@@ -6,3 +6,10 @@ tmp/
 /docs/Gemfile.lock
 jdeploy/
 jdeploy-bundle/
+/.idea/compiler.xml
+/.idea/encodings.xml
+/.idea/FlexGanttFX.iml
+/.idea/jarRepositories.xml
+/.idea/misc.xml
+/scenicView.properties
+/.idea/vcs.xml
