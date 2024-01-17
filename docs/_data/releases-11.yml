@@ -1,3 +1,8 @@
+- release: Release 11.12.8
+  date: January 17th, 2024
+  url: ../../downloads/flexganttfx-11.12.8-bin.zip
+  text: JAR files are no longer OSGI bundles.
+
 - release: Release 11.12.7
   date: November 2nd, 2023
   url: ../../downloads/flexganttfx-11.12.7-bin.zip

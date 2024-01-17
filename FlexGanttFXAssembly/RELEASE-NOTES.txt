@@ -1,4 +1,13 @@
 ----------------------------------------------------------------
+Release: 11.12.8, Date: January 17th 2024
+----------------------------------------------------------------
+
+** Changed the type of various JAR files to be of type "jar" instead of type "bundle".
+   The building of OSGI bundles pulled in native dependencies (javafx native
+   libs), which could lead to JavaFX using the bundled libraries instead of the ones
+   used by the project's required JavaFX version.
+
+----------------------------------------------------------------
 Release: 11.12.7, Date: November 2nd 2023
 ----------------------------------------------------------------
 
