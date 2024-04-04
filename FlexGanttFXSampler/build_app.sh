@@ -11,7 +11,7 @@
 
 JAVA_VERSION=17
 #JAVA_HOME=$JAVA_HOME
-JAVA_HOME=~/Library/Java/JavaVirtualMachines/openjdk-17.0.2/Contents/Home
+JAVA_HOME=~/Library/Java/JavaVirtualMachines/openjdk-21.0.1/Contents/Home
 PROJECT_VERSION=$PROJECT_VERSION
 APP_VERSION=$APP_VERSION
 APP_NAME=$APP_NAME
