@@ -756,16 +756,14 @@ public class GanttChart<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
         if (item != null) {
             for (Row<?, ?, ?> child : item.getChildren()) {
                 closeItem(child, all, depth + 1, closeLevel);
+                // call collapse directly on the parent
+                // because item.getParent() can provide wrong parent in dual mode if using dedicated parent nodes and same leaf rows for primary and secondary gantt chart)
+                if (!all && depth + 1 == closeLevel) {
+                    item.setExpanded(false);
+                }
             }
             if (all) {
                 item.setExpanded(false);
-            } else {
-                if (item.getPath().length == closeLevel) {
-                    Row<?, ?, ?> parent = item.getParent();
-                    if (parent != null) {
-                        parent.setExpanded(false);
-                    }
-                }
             }
         }
     }
