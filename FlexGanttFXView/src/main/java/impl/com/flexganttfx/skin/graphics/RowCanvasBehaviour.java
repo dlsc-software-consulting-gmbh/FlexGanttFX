@@ -77,57 +77,59 @@ import static javafx.scene.paint.Color.TRANSPARENT;
 
 public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
-    private static final String DRAGANDDROPINFO = "com.flexganttfx.draganddropinfo";
+  private static final String DRAGANDDROPINFO = "com.flexganttfx.draganddropinfo";
 
-    private static final String CURRENTEDITMODE = "com.flexganttfx.currenteditmode";
+  private static final String CURRENTEDITMODE = "com.flexganttfx.currenteditmode";
 
-    private static final String CURRENTLYEDITEDACTIVITY = "com.flexganttfx.currentlyeditedactivity";
+  private static final String CURRENTLYEDITEDACTIVITY = "com.flexganttfx.currentlyeditedactivity";
 
-    private static final Map<EditMode, Cursor> cursorMap = new HashMap<>();
+  private static final Map<EditMode, Cursor> cursorMap = new HashMap<>();
 
-    static {
-        useSystemCursors();
-    }
+  private static volatile boolean windowsSpecificMouseEventHandling = true;
 
-    private static List<ActivityBounds> selectedBounds;
+  static {
+    useSystemCursors();
+  }
 
-    public static void setCursor(EditMode editMode, Cursor cursor) {
-        requireNonNull(editMode);
-        requireNonNull(cursor);
+  private static List<ActivityBounds> selectedBounds;
 
-        cursorMap.put(editMode, cursor);
-    }
+  public static void setCursor(EditMode editMode, Cursor cursor) {
+    requireNonNull(editMode);
+    requireNonNull(cursor);
 
-    private final RowCanvas<R> canvas;
+    cursorMap.put(editMode, cursor);
+  }
 
-    private static EditMode editMode = EditMode.NONE;
+  private final RowCanvas<R> canvas;
 
-    private static ActivityBounds activityBounds;
+  private static EditMode editMode = EditMode.NONE;
 
-    private static double editStartX;
+  private static ActivityBounds activityBounds;
 
-    private static double editStartY;
+  private static double editStartX;
 
-    private static TimeInterval oldTimeInterval;
+  private static double editStartY;
 
-    private static double oldValue;
+  private static TimeInterval oldTimeInterval;
 
-    private static Point2D offset;
+  private static double oldValue;
 
-    private MouseEvent lastMouseEvent;
+  private static Point2D offset;
 
-    RowCanvasBehaviour(RowCanvas<R> canvas) {
-        requireNonNull(canvas);
+  private MouseEvent lastMouseEvent;
 
-        this.canvas = canvas;
+  RowCanvasBehaviour(RowCanvas<R> canvas) {
+    requireNonNull(canvas);
 
-        canvas.addEventHandler(MouseEvent.MOUSE_MOVED, this::mouseMoved);
-        canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, this::mousePressed);
-        canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::mouseDragged);
-        canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, this::mouseReleased);
-        canvas.addEventHandler(MouseEvent.DRAG_DETECTED, this::dragDetected);
-        canvas.addEventHandler(DragEvent.DRAG_OVER, this::dragOver);
-        canvas.addEventHandler(DragEvent.DRAG_EXITED, this::dragExited);
+    this.canvas = canvas;
+
+    canvas.addEventHandler(MouseEvent.MOUSE_MOVED, this::mouseMoved);
+    canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, this::mousePressed);
+    canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::mouseDragged);
+    canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, this::mouseReleased);
+    canvas.addEventHandler(MouseEvent.DRAG_DETECTED, this::dragDetected);
+    canvas.addEventHandler(DragEvent.DRAG_OVER, this::dragOver);
+    canvas.addEventHandler(DragEvent.DRAG_EXITED, this::dragExited);
         canvas.addEventHandler(DragEvent.DRAG_DROPPED, this::dragDropped);
         canvas.addEventHandler(DragEvent.DRAG_DONE, this::dragDone);
 
@@ -147,13 +149,13 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
             Cursor cursor = Cursor.DEFAULT;
             switch (editMode) {
                 default:
-                case NONE:
-                case DELETING:
-                    break;
-                case START_TIME_CHANGE:
-                    cursor = Cursor.W_RESIZE;
-                    break;
-                case END_TIME_CHANGE:
+        case NONE:
+        case DELETING:
+          break;
+        case START_TIME_CHANGE:
+          cursor = Cursor.W_RESIZE;
+          break;
+        case END_TIME_CHANGE:
                     cursor = Cursor.E_RESIZE;
                     break;
                 case PERCENTAGE_COMPLETE_CHANGE:
@@ -161,27 +163,27 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
                     cursor = new ImageCursor(percentageImage, percentageImage.getWidth(), percentageImage.getHeight() / 2);
                     break;
                 case DRAGGING_HORIZONTAL:
-                case AGENDA_DRAGGING:
-                    cursor = Cursor.DEFAULT;
-                    break;
-                case DRAGGING_VERTICAL:
-                case DRAGGING:
-                case CHART_VALUE_CHANGE:
-                    cursor = Cursor.OPEN_HAND;
-                    break;
-                case AGENDA_START_TIME_CHANGE:
-                case CHART_VALUE_HIGH_CHANGE:
-                    cursor = Cursor.N_RESIZE;
-                    break;
-                case AGENDA_END_TIME_CHANGE:
-                case CHART_VALUE_LOW_CHANGE:
-                    cursor = Cursor.S_RESIZE;
-                    break;
-                case AGENDA_ASSIGNING:
-                    break;
-            }
-            cursorMap.put(editMode, cursor);
-        }
+        case AGENDA_DRAGGING:
+          cursor = Cursor.DEFAULT;
+          break;
+        case DRAGGING_VERTICAL:
+        case DRAGGING:
+        case CHART_VALUE_CHANGE:
+          cursor = Cursor.OPEN_HAND;
+          break;
+        case AGENDA_START_TIME_CHANGE:
+        case CHART_VALUE_HIGH_CHANGE:
+          cursor = Cursor.N_RESIZE;
+          break;
+        case AGENDA_END_TIME_CHANGE:
+        case CHART_VALUE_LOW_CHANGE:
+          cursor = Cursor.S_RESIZE;
+          break;
+        case AGENDA_ASSIGNING:
+          break;
+      }
+      cursorMap.put(editMode, cursor);
+    }
     }
 
     /**
@@ -240,16 +242,16 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         cursorMap.put(EditMode.AGENDA_DRAGGING, draggingAgendaCursor);
     }
 
-    private void draw() {
-        canvas.requestRedraw("row canvas behaviour call");
-    }
+  private void draw() {
+    canvas.requestRedraw("row canvas behaviour call");
+  }
 
-    /**
-     * Changes the current edit mode to NONE and redraws the canvas.
-     */
-    public void stopEdit() {
-        editMode = EditMode.NONE;
-        draw();
+  /**
+   * Changes the current edit mode to NONE and redraws the canvas.
+   */
+  public void stopEdit() {
+    editMode = EditMode.NONE;
+    draw();
     }
 
     private void updateEditModeAfterKeyEvent(KeyEvent evt) {
@@ -272,60 +274,60 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
             updateEditMode();
         }
+  }
+
+  public static final DataFormat DRAG_INFO = new DataFormat("FlexGanttFX/dragInfo");
+
+  public static final class DragInfo implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private final EditMode editMode;
+
+    private final double xOffset;
+
+    private final boolean shortcutDown;
+
+    private final boolean shiftDown;
+
+    private final boolean altDown;
+
+    private DragInfo(EditMode editMode, double xOffset, boolean shortcutDown, boolean shiftDown, boolean altDown) {
+      requireNonNull(editMode);
+      this.editMode = editMode;
+      this.xOffset = xOffset;
+      this.shortcutDown = shortcutDown;
+      this.shiftDown = shiftDown;
+      this.altDown = altDown;
     }
 
-    public static final DataFormat DRAG_INFO = new DataFormat("FlexGanttFX/dragInfo");
-
-    public static final class DragInfo implements Serializable {
-
-        private static final long serialVersionUID = 1L;
-
-        private final EditMode editMode;
-
-        private final double xOffset;
-
-        private final boolean shortcutDown;
-
-        private final boolean shiftDown;
-
-        private final boolean altDown;
-
-        private DragInfo(EditMode editMode, double xOffset, boolean shortcutDown, boolean shiftDown, boolean altDown) {
-            requireNonNull(editMode);
-            this.editMode = editMode;
-            this.xOffset = xOffset;
-            this.shortcutDown = shortcutDown;
-            this.shiftDown = shiftDown;
-            this.altDown = altDown;
-        }
-
-        public EditMode getEditMode() {
-            return editMode;
-        }
-
-        public double getOffset() {
-            return xOffset;
-        }
-
-        public boolean isShortcutDown() {
-            return shortcutDown;
-        }
-
-        public boolean isShiftDown() {
-            return shiftDown;
-        }
-
-        public boolean isAltDown() {
-            return altDown;
-        }
+    public EditMode getEditMode() {
+      return editMode;
     }
 
-    private void dragDetected(MouseEvent event) {
-        DND.fine("drag detected: " + event);
+    public double getOffset() {
+      return xOffset;
+    }
 
-        switch (editMode) {
-            case DRAGGING:
-            case DRAGGING_VERTICAL:
+    public boolean isShortcutDown() {
+      return shortcutDown;
+    }
+
+    public boolean isShiftDown() {
+      return shiftDown;
+    }
+
+    public boolean isAltDown() {
+      return altDown;
+    }
+  }
+
+  private void dragDetected(MouseEvent event) {
+    DND.fine("drag detected: " + event);
+
+    switch (editMode) {
+      case DRAGGING:
+      case DRAGGING_VERTICAL:
 
                 if (activityBounds != null) {
 
@@ -336,9 +338,9 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
                     Image image;
 
-                    switch (graphics.getDragAndDropFeedback()) {
-                        case NATIVE:
-                            if (dragImageProvider != null) {
+          switch (graphics.getDragAndDropFeedback()) {
+            case NATIVE:
+              if (dragImageProvider != null) {
 
                                 image = dragImageProvider.call(activityBounds.getActivityRef());
 
@@ -349,15 +351,15 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
                                 snapshotParameters.setViewport(activityBounds);
                                 snapshotParameters.setFill(TRANSPARENT);
                                 image = canvas.snapshot(snapshotParameters, writableImage);
-                            }
+              }
 
-                            dragBoard.setDragView(image);
-                            break;
-                        case RENDERED:
-                        case RENDERED_GRID_SNAPPED:
-                            dragBoard.setDragView(new WritableImage(1, 1));
-                            break;
-                        default:
+              dragBoard.setDragView(image);
+              break;
+            case RENDERED:
+            case RENDERED_GRID_SNAPPED:
+              dragBoard.setDragView(new WritableImage(1, 1));
+              break;
+            default:
                             break;
                     }
 
@@ -374,28 +376,28 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
                     switch (editMode) {
                         case DRAGGING:
-                            fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.DRAG_STARTED, row, row, oldTimeInterval));
-                            break;
-                        case DRAGGING_VERTICAL:
-                            fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.VERTICAL_DRAG_STARTED, row, row, oldTimeInterval));
-                            break;
-                        default:
-                            break;
-                    }
-                }
-
-                break;
+              fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.DRAG_STARTED, row, row, oldTimeInterval));
+              break;
+            case DRAGGING_VERTICAL:
+              fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.VERTICAL_DRAG_STARTED, row, row, oldTimeInterval));
+              break;
             default:
-                break;
+              break;
+          }
         }
+
+        break;
+      default:
+        break;
     }
+  }
 
-    private Point2D lastDragLocation;
+  private Point2D lastDragLocation;
 
-    private boolean dragPreviouslyAccepted;
+  private boolean dragPreviouslyAccepted;
 
-    private void dragOver(DragEvent evt) {
-        if (DND.isLoggable(Level.FINE)) {
+  private void dragOver(DragEvent evt) {
+    if (DND.isLoggable(Level.FINE)) {
             DND.fine("drag over: " + evt);
         }
 
@@ -403,7 +405,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
         if (lastDragLocation != null && lastDragLocation.equals(dragLocation)) {
             if (DND.isLoggable(Level.FINE)) {
-                DND.fine("returning early");
+        DND.fine("returning early");
             }
             if (dragPreviouslyAccepted) {
                 evt.acceptTransferModes(TransferMode.ANY);
@@ -411,7 +413,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
                 evt.acceptTransferModes(TransferMode.NONE);
             }
             return;
-        }
+    }
 
         lastDragLocation = dragLocation;
 
@@ -453,14 +455,14 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
         /*
          * Callback determines if drop is possible.
-         */
+     */
 
-        Callback<DragAndDropInfo, Boolean> callback;
-        if (row != null) {
-            callback = graphics.getRowDragAndDropCallback(row.getClass());
+    Callback<DragAndDropInfo, Boolean> callback;
+    if (row != null) {
+      callback = graphics.getRowDragAndDropCallback(row.getClass());
 
-            if (callback != null) {
-                if (callback.call(dragAndDropInfo)) {
+      if (callback != null) {
+        if (callback.call(dragAndDropInfo)) {
                     LoggingDomain.DND.fine("accepting transfer mode ANY");
                     dragPreviouslyAccepted = true;
                     evt.acceptTransferModes(TransferMode.ANY);
@@ -480,17 +482,17 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
             switch (dragEditMode) {
                 case DRAGGING:
-                    fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.DRAG_ONGOING, activityRef.getRow(), row, oldTimeInterval));
-                    break;
-                case DRAGGING_VERTICAL:
-                    fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.VERTICAL_DRAG_ONGOING, activityRef.getRow(), row, oldTimeInterval));
-                    break;
-                default:
-                    break;
-            }
+          fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.DRAG_ONGOING, activityRef.getRow(), row, oldTimeInterval));
+          break;
+        case DRAGGING_VERTICAL:
+          fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.VERTICAL_DRAG_ONGOING, activityRef.getRow(), row, oldTimeInterval));
+          break;
+        default:
+          break;
+      }
 
-            evt.consume();
-        }
+      evt.consume();
+    }
     }
 
     /*
@@ -510,10 +512,10 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
                     if (activityEditingCallback.call(param)) {
                         bounds.add(canvas.getActivityBounds(activityRef));
                     }
-                }
-            }
         }
-        return bounds;
+      }
+    }
+    return bounds;
     }
 
     private TimeInterval getDragInterval(DragEvent evt) {
@@ -530,7 +532,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
             Instant newStartTime = calculateTimeForLocation(getGraphicsX(evt) - dragInfo.getOffset());
             Instant newEndTime = newStartTime.plus(duration);
 
-            switch (graphics.getDragAndDropFeedback()) {
+      switch (graphics.getDragAndDropFeedback()) {
                 case RENDERED_GRID_SNAPPED:
                     if (newStartTime.isBefore(activity.getStartTime())) {
                         // moving left
@@ -556,20 +558,20 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
                             newEndTime = newEndTime2;
                         }
                         newStartTime = newEndTime.minus(duration);
-                    }
-                    break;
-                case NATIVE:
-                case RENDERED:
-                    break;
-            }
+          }
+          break;
+        case NATIVE:
+        case RENDERED:
+          break;
+      }
 
-            if (DND.isLoggable(Level.FINER)) {
-                DND.finer("drag interval start: " + newStartTime);
-                DND.finer("drag interval end: " + newEndTime);
-            }
+      if (DND.isLoggable(Level.FINER)) {
+        DND.finer("drag interval start: " + newStartTime);
+        DND.finer("drag interval end: " + newEndTime);
+      }
 
-            return new TimeInterval(newStartTime, newEndTime);
-        }
+      return new TimeInterval(newStartTime, newEndTime);
+    }
 
         return new TimeInterval(activity.getStartTime(), activity.getEndTime());
     }
@@ -583,7 +585,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
             return;
         }
 
-        clearDragCanvas();
+    clearDragCanvas();
 
         updateMarkedTimeInterval(null);
 
@@ -614,13 +616,13 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
         if (callback.call(dragAndDropInfo)) {
 
-            /*
-             * Detach before updating the start and end time.
-             */
-            oldActivityRef.detachFromRow();
+      /*
+       * Detach before updating the start and end time.
+       */
+      oldActivityRef.detachFromRow();
 
-            if (dragEditMode == DRAGGING) {
-                activity.setStartTime(dragInterval.getStartTime());
+      if (dragEditMode == DRAGGING) {
+        activity.setStartTime(dragInterval.getStartTime());
                 activity.setEndTime(dragInterval.getEndTime());
             }
 
@@ -642,27 +644,27 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
             /*
              * Fix the activity links.
-             */
-            fixLinks(oldActivityRef, newActivityRef);
+       */
+      fixLinks(oldActivityRef, newActivityRef);
 
-            /*
-             * Fire event.
-             */
-            switch (dragEditMode) {
-                case DRAGGING:
-                    fireEvent(new ActivityEvent(oldActivityRef, canvas, ActivityEvent.DRAG_FINISHED, oldRow, newRow, oldTimeInterval));
-                    break;
-                case DRAGGING_VERTICAL:
-                    fireEvent(new ActivityEvent(oldActivityRef, canvas, ActivityEvent.VERTICAL_DRAG_FINISHED, oldRow, newRow, oldTimeInterval));
-                    break;
-                default:
-                    break;
-            }
-        }
+      /*
+       * Fire event.
+       */
+      switch (dragEditMode) {
+        case DRAGGING:
+          fireEvent(new ActivityEvent(oldActivityRef, canvas, ActivityEvent.DRAG_FINISHED, oldRow, newRow, oldTimeInterval));
+          break;
+        case DRAGGING_VERTICAL:
+          fireEvent(new ActivityEvent(oldActivityRef, canvas, ActivityEvent.VERTICAL_DRAG_FINISHED, oldRow, newRow, oldTimeInterval));
+          break;
+        default:
+          break;
+      }
+    }
 
-        draw();
+    draw();
 
-        lastDragLocation = null;
+    lastDragLocation = null;
         dragPreviouslyAccepted = false;
     }
 
@@ -678,7 +680,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
                 link.setTargetActivityRef(newActivityRef);
             }
         }
-    }
+  }
 
     private void dragExited(DragEvent evt) {
         DND.fine("drag exited: " + evt);
@@ -686,9 +688,9 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         clearDragCanvas();
     }
 
-    private void dragDone(DragEvent evt) {
-        DND.fine("drag done: " + evt);
-        selectedBounds.clear();
+  private void dragDone(DragEvent evt) {
+    DND.fine("drag done: " + evt);
+    selectedBounds.clear();
 
         stopAutoScrollIfNeeded();
 
@@ -708,21 +710,21 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
         /*
          * Fire event.
-         */
-        switch (dragEditMode) {
-            case DRAGGING:
-                fireEvent(new ActivityEvent(activityBounds.getActivityRef(), canvas, ActivityEvent.DRAG_DONE));
-                break;
-            case DRAGGING_VERTICAL:
-                fireEvent(new ActivityEvent(activityBounds.getActivityRef(), canvas, ActivityEvent.VERTICAL_DRAG_DONE));
-                break;
-            default:
-                break;
-        }
+     */
+    switch (dragEditMode) {
+      case DRAGGING:
+        fireEvent(new ActivityEvent(activityBounds.getActivityRef(), canvas, ActivityEvent.DRAG_DONE));
+        break;
+      case DRAGGING_VERTICAL:
+        fireEvent(new ActivityEvent(activityBounds.getActivityRef(), canvas, ActivityEvent.VERTICAL_DRAG_DONE));
+        break;
+      default:
+        break;
+    }
 
-        lastDragLocation = null;
-        dragPreviouslyAccepted = false;
-        activityBounds = null;
+    lastDragLocation = null;
+    dragPreviouslyAccepted = false;
+    activityBounds = null;
     }
 
     private void clearDragCanvas() {
@@ -731,10 +733,10 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         dragCanvas.draw(null);
     }
 
-    private void handleSelection(MouseEvent event) {
-        EDITING.fine(event.toString());
-        EDITING.fine("consumed: " + event.isConsumed());
-        EDITING.fine("edit mode: " + editMode);
+  private void handleSelection(MouseEvent event) {
+    EDITING.fine(event.toString());
+    EDITING.fine("consumed: " + event.isConsumed());
+    EDITING.fine("edit mode: " + editMode);
         EDITING.fine("popup trigger: " + event.isPopupTrigger());
 
         if (!event.isConsumed()) {
@@ -769,38 +771,38 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
                 EDITING.fine("no bounds found, clearing current selection");
                 selectedActivities.clear();
             }
-        }
+    }
+  }
+
+  private void mouseReleased(MouseEvent event) {
+    EDITING.finest("mouse released: " + event);
+
+    if (!mouseWasPressed) {
+      return;
     }
 
-    private void mouseReleased(MouseEvent event) {
-        EDITING.finest("mouse released: " + event);
+    stopAutoScrollIfNeeded();
 
-        if (!mouseWasPressed) {
-            return;
-        }
+    if (isWindows() && windowsSpecificMouseEventHandling) {
+      EDITING.fine("OS is Windows, handling selection upon mouse released");
+      handleSelection(event);
+    }
 
-        stopAutoScrollIfNeeded();
+    GraphicsBase<R> graphics = canvas.getGraphics();
+    graphics.getProperties().put("com.flexganttfx.pressed.activity", null);
 
-        if (isWindows()) {
-            EDITING.fine("OS is Windows, handling selection upon mouse released");
-            handleSelection(event);
-        }
+    if (editMode != EditMode.NONE && activityBounds != null && event.getButton().equals(PRIMARY)) {
+      clearCurrentlyEditedActivity();
 
-        GraphicsBase<R> graphics = canvas.getGraphics();
-        graphics.getProperties().put("com.flexganttfx.pressed.activity", null);
+      draw();
 
-        if (editMode != EditMode.NONE && activityBounds != null && event.getButton().equals(PRIMARY)) {
-            clearCurrentlyEditedActivity();
+      fireActivityChangeFinished();
+    }
 
-            draw();
+    updateMarkedTimeInterval(null);
 
-            fireActivityChangeFinished();
-        }
-
-        updateMarkedTimeInterval(null);
-
-        mouseWasPressed = false;
-        activityBounds = null;
+    mouseWasPressed = false;
+    activityBounds = null;
     }
 
     private boolean isWindows() {
@@ -808,24 +810,24 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
     }
 
     class ScrollThread extends Thread {
-        private boolean running = true;
-        private double xOffset;
-        private double yOffset;
-        private MouseEvent evt;
+    private boolean running = true;
+    private double xOffset;
+    private double yOffset;
+    private MouseEvent evt;
 
-        public ScrollThread() {
-            super("Autoscrolling Row Canvas");
-            setDaemon(true);
-        }
+    public ScrollThread() {
+      super("Autoscrolling Row Canvas");
+      setDaemon(true);
+    }
 
-        @Override
-        public void run() {
-            while (running) {
+    @Override
+    public void run() {
+      while (running) {
 
-                Platform.runLater(() -> {
-                    scrollX();
-                    scrollY();
-                });
+        Platform.runLater(() -> {
+          scrollX();
+          scrollY();
+        });
 
                 try {
                     sleep(15);
@@ -844,10 +846,10 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
             // Important check, otherwise the activity will get lost.
             // See FLEXFX-277: "Activity "lost" if dragged to a timeline horizon boundary"
-            if (!oldStartTime.equals(newStartTime)) {
-                editStartX -= xOffset;
-                doMouseDragged(evt);
-            }
+      if (!oldStartTime.equals(newStartTime)) {
+        editStartX -= xOffset;
+        doMouseDragged(evt);
+      }
         }
 
         private void scrollY() {
@@ -855,10 +857,10 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
             if (flow != null) {
                 /*
                  * Flow only exists when using ListView.
-                 */
-                flow.scrollPixels(yOffset);
-                doMouseDragged(evt);
-            }
+         */
+        flow.scrollPixels(yOffset);
+        doMouseDragged(evt);
+      }
         }
 
         private VirtualFlow<?> getFlow() {
@@ -870,8 +872,8 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         }
 
         public void setDelta(double xOffset, double yOffset) {
-            this.xOffset = xOffset;
-            this.yOffset = yOffset;
+      this.xOffset = xOffset;
+      this.yOffset = yOffset;
         }
 
         public void setMouseEvent(MouseEvent event) {
@@ -879,26 +881,26 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         }
     }
 
-    private ScrollThread scrollThread;
+  private ScrollThread scrollThread;
 
-    private void autoscroll(double xOffset, double yOffset, MouseEvent event) {
-        if (scrollThread == null) {
-            scrollThread = new ScrollThread();
-            scrollThread.start();
-        }
-
-        scrollThread.setMouseEvent(event);
-        scrollThread.setDelta(xOffset, yOffset);
+  private void autoscroll(double xOffset, double yOffset, MouseEvent event) {
+    if (scrollThread == null) {
+      scrollThread = new ScrollThread();
+      scrollThread.start();
     }
 
-    private void stopAutoScrollIfNeeded() {
-        if (scrollThread != null) {
-            scrollThread.stopRunning();
-            scrollThread = null;
-        }
-    }
+    scrollThread.setMouseEvent(event);
+    scrollThread.setDelta(xOffset, yOffset);
+  }
 
-    private void startAutoscrollIfNeeded(MouseEvent evt) {
+  private void stopAutoScrollIfNeeded() {
+    if (scrollThread != null) {
+      scrollThread.stopRunning();
+      scrollThread = null;
+    }
+  }
+
+  private void startAutoscrollIfNeeded(MouseEvent evt) {
 
         final GraphicsBase<?> graphics = canvas.getGraphics();
 
@@ -914,8 +916,8 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
             final double visibleCanvasSize = graphics.getWidth() - getRowHeadersWidth();
             if (x > visibleCanvasSize) {
                 xOffset = x - visibleCanvasSize;
-            }
-        }
+      }
+    }
 
         double yOffset = 0;
 
@@ -944,12 +946,12 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
     }
 
     private double getGraphicsX(MouseEvent evt) {
-        return getGraphicsX(evt.getSceneX());
-    }
+    return getGraphicsX(evt.getSceneX());
+  }
 
-    private double getGraphicsX(DragEvent evt) {
-        return getGraphicsX(evt.getSceneX());
-    }
+  private double getGraphicsX(DragEvent evt) {
+    return getGraphicsX(evt.getSceneX());
+  }
 
     private double getGraphicsX(double evtX) {
         final GraphicsBase<?> graphics = canvas.getGraphics();
@@ -957,24 +959,24 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         return x - getRowHeadersWidth();
     }
 
-    private void mouseDragged(MouseEvent event) {
-        if (!mouseWasPressed) {
-            return;
-        }
+  private void mouseDragged(MouseEvent event) {
+    if (!mouseWasPressed) {
+      return;
+    }
 
-        if (EDITING.isLoggable(Level.FINEST)) {
-            EDITING.finest("mouse dragged: " + event);
-        }
+    if (EDITING.isLoggable(Level.FINEST)) {
+      EDITING.finest("mouse dragged: " + event);
+    }
 
-        switch (editMode) {
-            case NONE:
-            case DRAGGING:
-            case DRAGGING_VERTICAL:
-                return;
-            default:
-                startAutoscrollIfNeeded(event);
-                break;
-        }
+    switch (editMode) {
+      case NONE:
+      case DRAGGING:
+      case DRAGGING_VERTICAL:
+        return;
+      default:
+        startAutoscrollIfNeeded(event);
+        break;
+    }
     }
 
     private void doMouseDragged(MouseEvent event) {
@@ -988,9 +990,9 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
             activityRef.detachFromRow();
 
             switch (editMode) {
-                case NONE:
-                    // Nothing to do here
-                    break;
+        case NONE:
+          // Nothing to do here
+          break;
                 case DRAGGING:
                 case DRAGGING_VERTICAL:
                     /*
@@ -999,61 +1001,61 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
                      */
                     break;
                 case DRAGGING_HORIZONTAL:
-                    changeStartAndEndTime(event);
-                    activityRef.attachToRow();
-                    break;
-                case CHART_VALUE_CHANGE:
-                    changeChartValue(event);
-                    activityRef.attachToRow();
-                    break;
-                case CHART_VALUE_HIGH_CHANGE:
-                    // TODO implement this?
-                    //changeChartHighValue(event);
-                    activityRef.attachToRow();
-                    break;
-                case CHART_VALUE_LOW_CHANGE:
-                    // TODO implement this?
-                    //changeChartLowValue(event);
-                    activityRef.attachToRow();
-                    break;
-                case START_TIME_CHANGE:
-                    changeStartTime(event);
-                    activityRef.attachToRow();
-                    break;
-                case END_TIME_CHANGE:
-                    changeEndTime(event);
-                    activityRef.attachToRow();
-                    break;
-                case PERCENTAGE_COMPLETE_CHANGE:
-                    changePercentageComplete(event);
-                    activityRef.attachToRow();
-                    break;
-                case AGENDA_ASSIGNING:
-                    // TODO: implement this?
-                    activityRef.attachToRow();
-                    break;
-                case AGENDA_DRAGGING:
-                    changeStartAndEndTimeAgenda(event);
-                    activityRef.attachToRow();
-                    break;
-                case AGENDA_END_TIME_CHANGE:
-                    changeEndTimeAgenda(event);
-                    activityRef.attachToRow();
-                    break;
-                case AGENDA_START_TIME_CHANGE:
-                    changeStartTimeAgenda(event);
-                    activityRef.attachToRow();
-                    break;
-                default:
-                    break;
-            }
+          changeStartAndEndTime(event);
+          activityRef.attachToRow();
+          break;
+        case CHART_VALUE_CHANGE:
+          changeChartValue(event);
+          activityRef.attachToRow();
+          break;
+        case CHART_VALUE_HIGH_CHANGE:
+          // TODO implement this?
+          //changeChartHighValue(event);
+          activityRef.attachToRow();
+          break;
+        case CHART_VALUE_LOW_CHANGE:
+          // TODO implement this?
+          //changeChartLowValue(event);
+          activityRef.attachToRow();
+          break;
+        case START_TIME_CHANGE:
+          changeStartTime(event);
+          activityRef.attachToRow();
+          break;
+        case END_TIME_CHANGE:
+          changeEndTime(event);
+          activityRef.attachToRow();
+          break;
+        case PERCENTAGE_COMPLETE_CHANGE:
+          changePercentageComplete(event);
+          activityRef.attachToRow();
+          break;
+        case AGENDA_ASSIGNING:
+          // TODO: implement this?
+          activityRef.attachToRow();
+          break;
+        case AGENDA_DRAGGING:
+          changeStartAndEndTimeAgenda(event);
+          activityRef.attachToRow();
+          break;
+        case AGENDA_END_TIME_CHANGE:
+          changeEndTimeAgenda(event);
+          activityRef.attachToRow();
+          break;
+        case AGENDA_START_TIME_CHANGE:
+          changeStartTimeAgenda(event);
+          activityRef.attachToRow();
+          break;
+        default:
+          break;
+      }
 
-            fireActivityChangeOngoing();
-        }
+      fireActivityChangeOngoing();
     }
+  }
 
-    private void fireEvent(ActivityEvent event) {
-        if (LoggingDomain.EVENTS.isLoggable(Level.FINE)) {
+  private void fireEvent(ActivityEvent event) {
+    if (LoggingDomain.EVENTS.isLoggable(Level.FINE)) {
             LoggingDomain.EVENTS.fine("firing event: " + event);
         }
 
@@ -1070,18 +1072,18 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
             activity.setStartTime(time);
         }
 
-        updateMarkedTimeInterval(new TimeInterval(activity.getStartTime(), activity.getEndTime()));
+    updateMarkedTimeInterval(new TimeInterval(activity.getStartTime(), activity.getEndTime()));
 
-        draw();
-    }
+    draw();
+  }
 
-    private Instant calculateTimeForLocation(MouseEvent event) {
-        return calculateTimeForLocation(getGraphicsX(event));
-    }
+  private Instant calculateTimeForLocation(MouseEvent event) {
+    return calculateTimeForLocation(getGraphicsX(event));
+  }
 
-    private Instant calculateTimeForLocation(double x) {
-        final TimelineModel<?> timelineModel = canvas.getTimelineModel();
-        return timelineModel.calculateTimeForLocation(x + timelineModel.getOffset());
+  private Instant calculateTimeForLocation(double x) {
+    final TimelineModel<?> timelineModel = canvas.getTimelineModel();
+    return timelineModel.calculateTimeForLocation(x + timelineModel.getOffset());
     }
 
     private void changeEndTime(MouseEvent event) {
@@ -1093,9 +1095,9 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
             activity.setEndTime(time);
         }
 
-        updateMarkedTimeInterval(new TimeInterval(activity.getStartTime(), activity.getEndTime()));
+    updateMarkedTimeInterval(new TimeInterval(activity.getStartTime(), activity.getEndTime()));
 
-        draw();
+    draw();
     }
 
     private void changeStartAndEndTime(MouseEvent event) {
@@ -1111,9 +1113,9 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
             editStartX = getGraphicsX(event);
         }
 
-        updateMarkedTimeInterval(new TimeInterval(activity.getStartTime(), activity.getEndTime()));
+    updateMarkedTimeInterval(new TimeInterval(activity.getStartTime(), activity.getEndTime()));
 
-        draw();
+    draw();
     }
 
     private void updateMarkedTimeInterval(TimeInterval markedTimeInterval) {
@@ -1184,8 +1186,8 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
         EDITING.fine("chart value = " + chartValue);
 
-        chartActivity.setChartValue(chartValue);
-        draw();
+    chartActivity.setChartValue(chartValue);
+    draw();
     }
 
     private void changeStartAndEndTimeAgenda(MouseEvent event) {
@@ -1217,13 +1219,13 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
         if (!newStartTime.equals(oldStartTime)) {
             activity.setStartTime(newStartTime);
-            activity.setEndTime(newEndTime);
+      activity.setEndTime(newEndTime);
 
-            draw();
+      draw();
 
-            editStartY = event.getY();
-            editStartX = getGraphicsX(event);
-        }
+      editStartY = event.getY();
+      editStartX = getGraphicsX(event);
+    }
     }
 
     private void changeStartTimeAgenda(MouseEvent event) {
@@ -1274,9 +1276,9 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         }
 
         draw();
-    }
+  }
 
-    private LocalTime timeAt(AgendaLayout layout, double y) {
+  private LocalTime timeAt(AgendaLayout layout, double y) {
         double yOffset = 0;
         double height = canvas.getHeight();
 
@@ -1286,7 +1288,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
             yOffset = row.getLineLocation(lineIndex);
             height = row.getLineHeight(lineIndex);
-        }
+    }
 
         height -= 2 * layout.getPadding();
 
@@ -1305,22 +1307,22 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
      */
     private boolean mouseWasPressed;
 
-    private void mousePressed(MouseEvent event) {
-        EDITING.fine(event.toString());
-        EDITING.fine("editing bounds: " + activityBounds);
-        EDITING.fine("editing operation: " + editMode);
+  private void mousePressed(MouseEvent event) {
+    EDITING.fine(event.toString());
+    EDITING.fine("editing bounds: " + activityBounds);
+    EDITING.fine("editing operation: " + editMode);
 
-        mouseWasPressed = true;
+    mouseWasPressed = true;
 
-        if (!isWindows()) {
-            EDITING.fine("OS is not Windows, handling selection upon mouse pressed");
-            handleSelection(event);
-        }
+    if (!isWindows() || !windowsSpecificMouseEventHandling) {
+      EDITING.fine("OS is not Windows, handling selection upon mouse pressed");
+      handleSelection(event);
+    }
 
-        editStartX = getGraphicsX(event);
-        editStartY = event.getY();
+    editStartX = getGraphicsX(event);
+    editStartY = event.getY();
 
-        EDITING.finest("editing start x: " + editStartX);
+    EDITING.finest("editing start x: " + editStartX);
         EDITING.finest("editing start y: " + editStartY);
 
         /*
@@ -1331,7 +1333,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
          */
         activityBounds = canvas.getActivityBounds(event.getX(), event.getY());
 
-        if (activityBounds != null) {
+    if (activityBounds != null) {
 
             offset = new Point2D(event.getX() - activityBounds.getMinX(), event.getY() - activityBounds.getMinY());
 
@@ -1355,12 +1357,12 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
                     oldValue = -1;
                 }
 
-                updateCurrentlyEditedActivity();
+        updateCurrentlyEditedActivity();
 
-                fireActivityChangeStarted();
-            }
-        }
+        fireActivityChangeStarted();
+      }
     }
+  }
 
     private void updateCurrentlyEditedActivity() {
         if (activityBounds != null) {
@@ -1383,10 +1385,10 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         return timeline.getEventline();
     }
 
-    private void mouseMoved(MouseEvent event) {
-        if (EDITING.isLoggable(FINEST)) {
-            EDITING.finest("mouse moved: " + event);
-        }
+  private void mouseMoved(MouseEvent event) {
+    if (EDITING.isLoggable(FINEST)) {
+      EDITING.finest("mouse moved: " + event);
+    }
 
         lastMouseEvent = event;
 
@@ -1404,8 +1406,8 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
             updateEditMode();
 
-            if (EDITING.isLoggable(FINER)) {
-                EDITING.finer("found bounds: " + activityBounds);
+      if (EDITING.isLoggable(FINER)) {
+        EDITING.finer("found bounds: " + activityBounds);
                 EDITING.finer("edit mode: " + editMode);
             }
 
@@ -1440,9 +1442,9 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
             if (editModeCallback == null) {
                 throw new IllegalArgumentException("no edit mode controller found for activity of type " + activity.getClass());
-            }
+      }
 
-            if (EDITING.isLoggable(Level.FINER)) {
+      if (EDITING.isLoggable(Level.FINER)) {
                 EDITING.finer("using edit mode controller of type " + editModeCallback.getClass());
             }
 
@@ -1468,11 +1470,11 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
             }
         }
 
-        return EditMode.NONE;
-    }
+    return EditMode.NONE;
+  }
 
-    private void fireActivityChangeStarted() {
-        if (!mouseWasPressed) {
+  private void fireActivityChangeStarted() {
+    if (!mouseWasPressed) {
             return;
         }
 
@@ -1480,57 +1482,57 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
         switch (editMode) {
             case NONE:
-                // Nothing to do here
-                break;
-            case DRAGGING:
-            case DRAGGING_VERTICAL:
-                /*
-                 * These notifications will be handled by the drag and drop support.
-                 */
-                break;
-            case DRAGGING_HORIZONTAL:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.HORIZONTAL_DRAG_STARTED, oldTimeInterval));
-                break;
-            case CHART_VALUE_CHANGE:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.CHART_VALUE_CHANGE_STARTED, oldValue));
-                break;
-            case CHART_VALUE_HIGH_CHANGE:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.CHART_HIGH_VALUE_CHANGE_STARTED, oldValue));
-                break;
-            case CHART_VALUE_LOW_CHANGE:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.CHART_LOW_VALUE_CHANGE_STARTED, oldValue));
-                break;
-            case START_TIME_CHANGE:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.START_TIME_CHANGE_STARTED, oldTimeInterval.getStartTime()));
-                break;
-            case END_TIME_CHANGE:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.END_TIME_CHANGE_STARTED, oldTimeInterval.getEndTime()));
-                break;
-            case PERCENTAGE_COMPLETE_CHANGE:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.PERCENTAGE_CHANGE_STARTED, oldValue));
-                break;
-            case AGENDA_ASSIGNING:
-                // TODO: implement
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.DRAG_STARTED, activityBounds.getRow(), activityBounds.getRow(), oldTimeInterval));
-                break;
-            case AGENDA_DRAGGING:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.HORIZONTAL_DRAG_STARTED, oldTimeInterval));
-                break;
-            case AGENDA_END_TIME_CHANGE:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.END_TIME_CHANGE_STARTED, oldTimeInterval.getEndTime()));
-                break;
-            case AGENDA_START_TIME_CHANGE:
-                activityRef.attachToRow();
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.START_TIME_CHANGE_STARTED, oldTimeInterval.getStartTime()));
-                break;
-            default:
-                break;
-        }
+        // Nothing to do here
+        break;
+      case DRAGGING:
+      case DRAGGING_VERTICAL:
+        /*
+         * These notifications will be handled by the drag and drop support.
+         */
+        break;
+      case DRAGGING_HORIZONTAL:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.HORIZONTAL_DRAG_STARTED, oldTimeInterval));
+        break;
+      case CHART_VALUE_CHANGE:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.CHART_VALUE_CHANGE_STARTED, oldValue));
+        break;
+      case CHART_VALUE_HIGH_CHANGE:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.CHART_HIGH_VALUE_CHANGE_STARTED, oldValue));
+        break;
+      case CHART_VALUE_LOW_CHANGE:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.CHART_LOW_VALUE_CHANGE_STARTED, oldValue));
+        break;
+      case START_TIME_CHANGE:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.START_TIME_CHANGE_STARTED, oldTimeInterval.getStartTime()));
+        break;
+      case END_TIME_CHANGE:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.END_TIME_CHANGE_STARTED, oldTimeInterval.getEndTime()));
+        break;
+      case PERCENTAGE_COMPLETE_CHANGE:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.PERCENTAGE_CHANGE_STARTED, oldValue));
+        break;
+      case AGENDA_ASSIGNING:
+        // TODO: implement
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.DRAG_STARTED, activityBounds.getRow(), activityBounds.getRow(), oldTimeInterval));
+        break;
+      case AGENDA_DRAGGING:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.HORIZONTAL_DRAG_STARTED, oldTimeInterval));
+        break;
+      case AGENDA_END_TIME_CHANGE:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.END_TIME_CHANGE_STARTED, oldTimeInterval.getEndTime()));
+        break;
+      case AGENDA_START_TIME_CHANGE:
+        activityRef.attachToRow();
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.START_TIME_CHANGE_STARTED, oldTimeInterval.getStartTime()));
+        break;
+      default:
+        break;
     }
+  }
 
-    private void fireActivityChangeFinished() {
+  private void fireActivityChangeFinished() {
 
-        if (!mouseWasPressed) {
+    if (!mouseWasPressed) {
             return;
         }
 
@@ -1538,54 +1540,54 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
         switch (editMode) {
             case NONE:
-                // Nothing to do here.
-                break;
-            case DRAGGING:
-            case DRAGGING_VERTICAL:
-                /*
-                 * These notifications will be handled by the drag and drop support.
-                 */
-                break;
-            case DRAGGING_HORIZONTAL:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.HORIZONTAL_DRAG_FINISHED, oldTimeInterval));
-                break;
-            case CHART_VALUE_CHANGE:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.CHART_VALUE_CHANGE_FINISHED, oldValue));
-                break;
-            case CHART_VALUE_HIGH_CHANGE:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.CHART_HIGH_VALUE_CHANGE_FINISHED, oldValue));
-                break;
-            case CHART_VALUE_LOW_CHANGE:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.CHART_LOW_VALUE_CHANGE_FINISHED, oldValue));
-                break;
-            case START_TIME_CHANGE:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.START_TIME_CHANGE_FINISHED, oldTimeInterval.getStartTime()));
-                break;
-            case END_TIME_CHANGE:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.END_TIME_CHANGE_FINISHED, oldTimeInterval.getEndTime()));
-                break;
-            case PERCENTAGE_COMPLETE_CHANGE:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.PERCENTAGE_CHANGE_FINISHED, oldValue));
-                break;
-            case AGENDA_ASSIGNING:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.DRAG_FINISHED, activityBounds.getRow(), activityBounds.getRow(), oldTimeInterval));
-                break;
-            case AGENDA_DRAGGING:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.HORIZONTAL_DRAG_FINISHED, oldTimeInterval));
-                break;
-            case AGENDA_END_TIME_CHANGE:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.END_TIME_CHANGE_FINISHED, oldTimeInterval.getEndTime()));
-                break;
-            case AGENDA_START_TIME_CHANGE:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.START_TIME_CHANGE_FINISHED, oldTimeInterval.getStartTime()));
-                break;
-            default:
-                break;
-        }
+        // Nothing to do here.
+        break;
+      case DRAGGING:
+      case DRAGGING_VERTICAL:
+        /*
+         * These notifications will be handled by the drag and drop support.
+         */
+        break;
+      case DRAGGING_HORIZONTAL:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.HORIZONTAL_DRAG_FINISHED, oldTimeInterval));
+        break;
+      case CHART_VALUE_CHANGE:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.CHART_VALUE_CHANGE_FINISHED, oldValue));
+        break;
+      case CHART_VALUE_HIGH_CHANGE:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.CHART_HIGH_VALUE_CHANGE_FINISHED, oldValue));
+        break;
+      case CHART_VALUE_LOW_CHANGE:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.CHART_LOW_VALUE_CHANGE_FINISHED, oldValue));
+        break;
+      case START_TIME_CHANGE:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.START_TIME_CHANGE_FINISHED, oldTimeInterval.getStartTime()));
+        break;
+      case END_TIME_CHANGE:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.END_TIME_CHANGE_FINISHED, oldTimeInterval.getEndTime()));
+        break;
+      case PERCENTAGE_COMPLETE_CHANGE:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.PERCENTAGE_CHANGE_FINISHED, oldValue));
+        break;
+      case AGENDA_ASSIGNING:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.DRAG_FINISHED, activityBounds.getRow(), activityBounds.getRow(), oldTimeInterval));
+        break;
+      case AGENDA_DRAGGING:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.HORIZONTAL_DRAG_FINISHED, oldTimeInterval));
+        break;
+      case AGENDA_END_TIME_CHANGE:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.END_TIME_CHANGE_FINISHED, oldTimeInterval.getEndTime()));
+        break;
+      case AGENDA_START_TIME_CHANGE:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.START_TIME_CHANGE_FINISHED, oldTimeInterval.getStartTime()));
+        break;
+      default:
+        break;
     }
+  }
 
-    private void fireActivityChangeOngoing() {
-        if (!mouseWasPressed) {
+  private void fireActivityChangeOngoing() {
+    if (!mouseWasPressed) {
             return;
         }
 
@@ -1593,49 +1595,63 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
         switch (editMode) {
             case NONE:
-                // Nothing to do here
-                break;
-            case DRAGGING:
-            case DRAGGING_VERTICAL:
-                /*
-                 * These notifications will be handled by the drag and drop support.
-                 */
-                break;
-            case DRAGGING_HORIZONTAL:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.HORIZONTAL_DRAG_ONGOING, oldTimeInterval));
-                break;
-            case CHART_VALUE_CHANGE:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.CHART_VALUE_CHANGE_ONGOING, oldValue));
-                break;
-            case CHART_VALUE_HIGH_CHANGE:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.CHART_HIGH_VALUE_CHANGE_ONGOING, oldValue));
-                break;
-            case CHART_VALUE_LOW_CHANGE:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.CHART_LOW_VALUE_CHANGE_ONGOING, oldValue));
-                break;
-            case START_TIME_CHANGE:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.START_TIME_CHANGE_ONGOING, oldTimeInterval.getStartTime()));
-                break;
-            case END_TIME_CHANGE:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.END_TIME_CHANGE_ONGOING, oldTimeInterval.getEndTime()));
-                break;
-            case PERCENTAGE_COMPLETE_CHANGE:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.PERCENTAGE_CHANGE_ONGOING, oldValue));
-                break;
-            case AGENDA_ASSIGNING:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.DRAG_ONGOING, activityBounds.getRow(), activityBounds.getRow(), oldTimeInterval));
-                break;
-            case AGENDA_DRAGGING:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.HORIZONTAL_DRAG_ONGOING, oldTimeInterval));
-                break;
-            case AGENDA_END_TIME_CHANGE:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.END_TIME_CHANGE_ONGOING, oldTimeInterval.getEndTime()));
-                break;
-            case AGENDA_START_TIME_CHANGE:
-                fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.START_TIME_CHANGE_ONGOING, oldTimeInterval.getStartTime()));
-                break;
-            default:
-                break;
-        }
+        // Nothing to do here
+        break;
+      case DRAGGING:
+      case DRAGGING_VERTICAL:
+        /*
+         * These notifications will be handled by the drag and drop support.
+         */
+        break;
+      case DRAGGING_HORIZONTAL:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.HORIZONTAL_DRAG_ONGOING, oldTimeInterval));
+        break;
+      case CHART_VALUE_CHANGE:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.CHART_VALUE_CHANGE_ONGOING, oldValue));
+        break;
+      case CHART_VALUE_HIGH_CHANGE:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.CHART_HIGH_VALUE_CHANGE_ONGOING, oldValue));
+        break;
+      case CHART_VALUE_LOW_CHANGE:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.CHART_LOW_VALUE_CHANGE_ONGOING, oldValue));
+        break;
+      case START_TIME_CHANGE:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.START_TIME_CHANGE_ONGOING, oldTimeInterval.getStartTime()));
+        break;
+      case END_TIME_CHANGE:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.END_TIME_CHANGE_ONGOING, oldTimeInterval.getEndTime()));
+        break;
+      case PERCENTAGE_COMPLETE_CHANGE:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.PERCENTAGE_CHANGE_ONGOING, oldValue));
+        break;
+      case AGENDA_ASSIGNING:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.DRAG_ONGOING, activityBounds.getRow(), activityBounds.getRow(), oldTimeInterval));
+        break;
+      case AGENDA_DRAGGING:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.HORIZONTAL_DRAG_ONGOING, oldTimeInterval));
+        break;
+      case AGENDA_END_TIME_CHANGE:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.END_TIME_CHANGE_ONGOING, oldTimeInterval.getEndTime()));
+        break;
+      case AGENDA_START_TIME_CHANGE:
+        fireEvent(new ActivityEvent(activityRef, canvas, ActivityEvent.START_TIME_CHANGE_ONGOING, oldTimeInterval.getStartTime()));
+        break;
+      default:
+        break;
     }
+  }
+
+  /**
+   * Enables or disables a fix for the different way popup and context menu events are triggered on Mac and Windows
+   * platforms.
+   * <p>
+   * The selection behavior with context menus behaves differently across Mac and Windows: in Mac the popup trigger is a
+   * mouse "pressed" event, while in Windows the "released" event is used. By default this fix is enabled, and is
+   * supposed to ensure a consistent selection behavior, but in some contexts it may be undesirable.
+   *
+   * @param specificTreatmentForMSWindows the windowsSpecificMouseEventHandling to set
+   */
+  public static void setWindowsSpecificMouseEventHandling(boolean specificTreatmentForMSWindows) {
+    RowCanvasBehaviour.windowsSpecificMouseEventHandling = specificTreatmentForMSWindows;
+  }
 }
