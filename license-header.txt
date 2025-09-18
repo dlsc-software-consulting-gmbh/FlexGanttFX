@@ -4,7 +4,7 @@ The FlexGanttFX software library is distributed under a dual licensing model.
 
 1. Commercial Use  
    Use of FlexGanttFX in proprietary or commercial applications requires the purchase of a commercial license.  
-   The applicable terms and conditions are set forth in the document “commercial-enterprise-license.pdf”.  
+   The applicable terms and conditions are set forth in the document <https://github.com/dlemmermann/FlexGanttFX/commercial-enterprise-license.pdf>.
 
 2. Open Source Use  
    For use in open source projects, FlexGanttFX is made available under the **Apache License, Version 2.0**.  
