@@ -1,6 +1,6 @@
 [![JFXCentral](https://img.shields.io/badge/Find_me_on-JFXCentral-blue?logo=googlechrome&logoColor=white)](https://www.jfx-central.com/libraries/flexganttfx)
 
-Find more information and demos on the FlexGanttFX website at https://flexganttfx.com
+Find more information and demos on the FlexGanttFX website at http://flexganttfx.com
 
 ## License Notice for FlexGanttFX ##
 
