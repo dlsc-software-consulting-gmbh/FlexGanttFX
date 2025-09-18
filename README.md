@@ -1,5 +1,19 @@
 [![JFXCentral](https://img.shields.io/badge/Find_me_on-JFXCentral-blue?logo=googlechrome&logoColor=white)](https://www.jfx-central.com/libraries/flexganttfx)
 
+# License Notice for FlexGanttFX
+
+The **FlexGanttFX** software library is distributed under a **dual licensing model**.
+
+1. **Commercial Use**  
+   Use of FlexGanttFX in proprietary or commercial applications requires the purchase of a commercial license.  
+   The applicable terms and conditions are set forth [in this document](commercial-enterprise-license.pdf).
+
+2. **Open Source Use**  
+   For use in open source projects, FlexGanttFX is made available under the **Apache License, Version 2.0**.  
+   The full text of the license is [available here](http://www.apache.org/licenses/LICENSE-2.0).
+
+By using FlexGanttFX, the licensee accepts and agrees to the applicable licensing terms.
+
 ## Build Instructions ##
 
 Simple run "mvn install" on the parent project **FlexGanttFX**. Once completed you will find several assemblies in the **FlexGanttFXAssembly** project.
