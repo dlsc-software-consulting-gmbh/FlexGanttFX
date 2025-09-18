@@ -1,8 +1,3 @@
-- title: Covid Data Explorer
-  url: https://demos.jpro.one/covid.html
-  image: assets/images/online-demos/online-demo-covid.jpg
-  text: This application downloads today's Covid data (incidents, deaths, etc...) from "Our World in Data" and renders them via FlexGanttFX and the "chart layout" option.
-
 - title: Emirates Airlines Resource Scheduler
   url: https://demos.jpro.one/flexganttfx.html
   image: assets/images/online-demos/online-demo-emirates.jpg
