@@ -1,6 +1,8 @@
 [![JFXCentral](https://img.shields.io/badge/Find_me_on-JFXCentral-blue?logo=googlechrome&logoColor=white)](https://www.jfx-central.com/libraries/flexganttfx)
 
-# License Notice for FlexGanttFX
+Find more information and demos on the FlexGanttFX website at https://flexganttfx.com
+
+## License Notice for FlexGanttFX ##
 
 The **FlexGanttFX** software library is distributed under a **dual licensing model**.
 
