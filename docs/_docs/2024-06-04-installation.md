@@ -1,41 +1,26 @@
 ---
 layout: doc
-title: Tutorial FlexGanttFX
+title: Installation
 date: 2021-01-27 8:39:00 +0600
 post_image: assets/images/service-icon3.png
-tags: [Profile]
+tags: [Getting Started]
 toc: true
-custom_links:
-- text: Installation
-  url: /
-- text: Getting Started
-  url: /pages/support
-- text: Product Manual
-  url: /explore-topics/
-  submenu:
-  - text: Invoice
-    url: /blog-post-left-sidebar
-  - text: Payment
-    url: /blog-post-right-sidebar
-  - text: Another Link
-    url: /tag/education
-- text: Support
-  url: https://support.themeix.com	
-- text: Contact
-  url: /pages/contact
 ---
+### Install Java
+With Java 11 and higher JavaFX is no longer bundled with the JDKs from Oracle, so you have to make sure to 
+download and install a JDK 11+ distribution that does include it, e.g. from Azul.
 
-## Step 1: Download and Install Java 8 or 11+
-Download JDK 8 and run the installer. Java 8 includes JavaFX 8.
-With Java 11 and higher JavaFX is no longer bundled with the JDKs from Oracle, so you have to make sure to download and install a JDK 11+ distribution that does include it, e.g. from Azul.
+### Download the FlexGanttFX distribution
+Go to the downloads section of FlexGanttFX.com and download the latest release. The download file will be a 
+ZIP archive containing the required JAR files, demos, tutorials, API documentation, etc...
 
-## Step 2. Download the FlexGanttFX distribution
-Go to the downloads section of FlexGanttFX.com and download the latest release. The download file will be a ZIP archive containing the required JAR files, demos, tutorials, API documentation, etc...
+### Unpack the distribution
+Unzip the distribution to your local file system. Once unpacked you will see the following content: 
 
-## Step 3. Unpack the distribution
-Unzip the distribution to your local file system. Once unpacked you will see the following content:
+![Installation Directory](/assets/images/docs/directory.png)
 
 The distribution contains the following subfolders:
+
 - css - copies of the stylesheets used by FlexGanttFX (the originals are included in the JAR file)
 - docs - the API documentation of FlexGanttFX
 - ext - third-party JAR files required for running FlexGanttFX
@@ -43,8 +28,9 @@ The distribution contains the following subfolders:
 - lib - the FlexGanttFX libraries
 - tutorial - files to get you started
 
-## Step 4. Add JAR files to classpath
-Assuming that you downloaded release 11.12.5 then add the following files (located in the distribution's lib folder) to your classpath.
+## Add JAR files to classpath
+Assuming that you downloaded release 11.12.5 then add the following files (located in the distribution's lib folder) 
+to your classpath.
 
 - flexganttfx-core-11.12.5.jar - contains various utility classes and the licensing support
 - flexganttfx-model-11.12.5.jar - all classes related to the data model (activities, rows, repositories)
@@ -55,10 +41,10 @@ Add the files located in the ext folder to your classpath.
 - controlsfx.jar - the distribution of the ControlsFX project
 - license4j.jar - code for supporting the licensing concepts
 
-## Step 5. Create application class
+## Create application class
 The following listing shows the most basic setup that is required to launch a Gantt chart user interface.
 
-~~~ bash
+~~~ java
 
 import javafx.application.Application;
 import javafx.scene.Scene;

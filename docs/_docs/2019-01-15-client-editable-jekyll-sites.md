@@ -4,7 +4,7 @@ title: Client editable Jekyll sites
 date: 2019-09-08 8:14:30 +0600
 post_image: assets/images/service-icon3.png
 tags: [Profile]
-toc: false
+toc: true
 ---
 Jekyll is a simple, blog-aware, static site generator. It takes a template directory containing raw text files in various formats, runs it through a converter (like Markdown) and our Liquid renderer, and spits out a complete, ready-to-publish static website suitable for serving with your favorite web server.
 

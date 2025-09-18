@@ -5,6 +5,8 @@
 - text: Docs
   url: https://flexgantt.atlassian.net/wiki/spaces/FFXMAN/overview
   submenu:
+    - text: Online Manual
+      url: /pages/topics
     - text: Introduction
       url: /pages/introduction
     - text: FAQs
@@ -26,9 +28,9 @@
     - text: Developer Manual
       url: https://flexgantt.atlassian.net/wiki/spaces/FFXMAN/overview
     - text: Submit a Ticket
-      url: https://github.com/dlemmermann/flexganttfx-support/issues
+      url: https://github.com/dlemmermann/flexganttfx/issues
     - text: Start a Discussion
-      url: https://github.com/dlemmermann/flexganttfx-support/discussions
+      url: https://github.com/dlemmermann/flexganttfx/discussions
 - text: Downloads
   url: /pages/download-releases
   submenu:

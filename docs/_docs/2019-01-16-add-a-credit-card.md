@@ -12,6 +12,7 @@ If you already have a full Ruby development environment with all headers and Rub
 
 ## How to install
 
+
 ~~~ bash
 # Install Jekyll and Bundler gems through RubyGems
 ~ $ gem install jekyll bundler
