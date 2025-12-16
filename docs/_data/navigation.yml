@@ -2,18 +2,28 @@
 
 - text: Home
   url: /
-- text: Docs
-  url: https://flexgantt.atlassian.net/wiki/spaces/FFXMAN/overview
+- text: Manual
+  url: /docs/tutorial/
   submenu:
-    - text: Online Manual
-      url: /pages/topics
+    - text: Installation
+      url: /docs/installation/
+    - text: Tutorial
+      url: /docs/tutorial/
+    - text: Controls
+      url: /docs/gantt-chart/
+    - text: Model
+      url: /docs/model/
+    - text: Styling
+      url: /docs/styling/
+    - text: Logging
+      url: /docs/logging/
+- text: Docs
+  url: /pages/topics
+  submenu:
     - text: Introduction
       url: /pages/introduction
     - text: FAQs
       url: /pages/faq
-    - text: Developer Manual
-      url: https://flexgantt.atlassian.net/wiki/spaces/FFXMAN/overview
-      target: _blank
     - text: Javadocs / API
       url: /api/index.html
     - text: Release Notes
