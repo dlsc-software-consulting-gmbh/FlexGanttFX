@@ -9,8 +9,10 @@
       url: /docs/installation/
     - text: Tutorial
       url: /docs/tutorial/
-    - text: Controls
-      url: /docs/gantt-chart/
+    - text: Gantt Chart Controls
+      url: /docs/gantt-charts/
+    - text: Timeline Controls
+      url: /docs/timeline/
     - text: Model
       url: /docs/model/
     - text: Styling

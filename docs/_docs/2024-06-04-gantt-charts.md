@@ -1,8 +1,8 @@
 ---
 layout: doc
-title: Gantt Chart
+title: Gantt Chart Controls
 date: 2024-06-04 17:31:00 +0600
-tags: [ Controls ]
+tags: [ Gantt Charts ]
 toc: true
 ---
 
@@ -217,3 +217,4 @@ scrolling and zooming behavior in synch. The container distinguishes between the
 scrolling in sync and the timelines of the `UPPER_RIGHT` and `LOWER_RIGHT` are scrolling in sync.
 
 ![quad-gantt-chart.png](/assets/images/docs/quad-gantt-chart.png)
+
