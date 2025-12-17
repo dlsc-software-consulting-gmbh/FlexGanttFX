@@ -1,3 +1,28 @@
+- product_name: Release 11.12.8
+  updated_date: January 17th 2024
+  changelog: <li><i class="changelog-fix"></i>Changed the type of various JAR files to be of type "jar" instead of type "bundle". The building of OSGI bundles pulled in native dependencies (javafx native libs), which could lead to JavaFX using the bundled libraries instead of the ones used by the project's required JavaFX version.</li>
+
+- product_name: Release 11.12.7
+  updated_date: November 2nd 2023
+  changelog: <li><i class="changelog-bug"></i>Links do not display correctly when changing row height</li>
+             <li><i class="changelog-bug"></i>Lasso can break navigation by dragging</li>
+             <li><i class="changelog-bug"></i>Links are pointing to nowhere</li>
+
+- product_name: Release 11.12.6
+  updated_date: January 30th 2023
+  changelog: <li><i class="changelog-bug"></i>It is no longer possible to handle the key press during the dragging of an activity</li>
+
+- product_name: Release 11.12.5
+  updated_date: March 30th 2022
+  changelog: <li><i class="changelog-bug"></i>Now line is not straight after zooming in</li>
+             <li><i class="changelog-bug"></i>yOffset is not working when ChartLayout max and min values are the same.</li>
+             <li><i class="changelog-bug"></i>Auto hide scrollbar causes weird behaviour.</li>
+             <li><i class="changelog-bug"></i>With turned off auto hide TimelineScrollbar position is fixed.</li>
+
+- product_name: Release 11.12.4
+  updated_date: April 21st 2021
+  changelog: <li><i class="changelog-fix"></i>The "horizon" scrollbar now ensures that the horizon end date will be shown on the right edge of the graphics area. Before this change the user could scroll the horizon end time to be on the left edge of the viewport.</li>
+
 - product_name: Release 11.12.3
   updated_date: April 2021
   changelog: <li><i class="changelog-fix"></i>Added methods on Timeline for showing / scrolling to a given date or a given zoned date time. Before it was only possible to pass an instant.</li>
