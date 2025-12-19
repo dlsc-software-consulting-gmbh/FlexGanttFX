@@ -1,0 +1,54 @@
+name: Release All
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release Emirates Demo"
+        required: true
+
+jobs:
+  build-jdeploy-clients:
+    name: 'Build on Ubuntu for jdeploy'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.DEPLOY_GITHUB_TOKEN }}
+
+      - name: Setup Java
+        uses: ./.github/actions/prepare-java
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          registry-url: 'https://registry.npmjs.org'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Set up Git Config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+
+      - name: Update Emirates demo package.json version
+        uses: jossef/action-set-json-field@v2.1
+        with:
+          file: ./FlexGanttFXEmirates/package.json
+          field: jdeploy.jar
+          value: target/crm-desktop-ui-client-senapt-${{ github.event.inputs.version }}.jar
+
+      - name: Build with Maven
+        run: ./mvnw --no-transfer-progress -B package -Dinstaller=false
+        env:
+          GITHUB_TOKEN: ${{ secrets.DEPLOY_GITHUB_TOKEN }}
+
+      - name: Publish Emirates Demo with jDeploy
+        working-directory: ./FlexGanttFXEmirates/
+        run: |
+          npm version "${{ github.event.inputs.version }}"
+          npx jdeploy publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,0 +1,19 @@
+name: "Prepare Java"
+description: "Install Java and cache Maven dependencies"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Build | Setup OpenJDK 25
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'zulu'
+        java-version: 11
+        cache: maven
+
+    - name: Build | Cache Maven dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2

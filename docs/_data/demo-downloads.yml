@@ -8,16 +8,6 @@
   url: ../../downloads/installer/sampler-msi.zip
   text: A sample application showcasing the various features of FlexGanttFX. The samples include the source code, CSS, and documentation.
 
-- name: Covid Explorer (Mac)
-  date: June 2021
-  url: ../../downloads/installer/covid-explorer-pkg.zip
-  text: A data exploration tool based on Covid data from the "Our World in Data" website. The app uses the charting capabilities of FlexGanttFX and allows the user to compare countries with each other.
-
-- name: Covid Explorer (Windows)
-  date: June 2021
-  url: ../../downloads/installer/covid-explorer-msi.zip
-  text: A data exploration tool based on Covid data from the "Our World in Data" website. The app uses the charting capabilities of FlexGanttFX and allows the user to compare countries with each other.
-
 - name: Emirates POC (Windows)
   date: April 2021
   url: ../../downloads/installer/aircraft-demo-windows-msi.zip
