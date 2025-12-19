@@ -3,8 +3,10 @@
 - text: Home
   url: /
 - text: Manual
-  url: /docs/tutorial/
+  url: /pages/explore-topics
   submenu:
+    - text: Table of Contents
+      url: /pages/explore-topics
     - text: Installation
       url: /docs/installation/
     - text: Tutorial
@@ -26,7 +28,6 @@
     - text: Logging
       url: /docs/logging/
 - text: Docs
-  url: /pages/topics
   submenu:
     - text: Introduction
       url: /pages/introduction

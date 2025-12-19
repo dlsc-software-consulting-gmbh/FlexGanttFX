@@ -1,6 +1,7 @@
 ---
 layout: doc
-title: Gantt Chart Controls
+title: Gantt Charts & Containers
+category_name: 2. Controls
 tags: [ Controls ]
 date: 2024-06-04 17:31:00 +0600
 toc: true

@@ -3,6 +3,7 @@ layout: doc
 title: Installation
 date: 2021-01-27 8:39:00 +0600
 post_image: assets/images/service-icon3.png
+category_name: 1. Getting Started
 tags: [Getting Started]
 toc: true
 ---
