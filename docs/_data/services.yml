@@ -1,6 +1,6 @@
 - title: Consulting
   icon: /assets/images/service-icon2.png
-  description: FlexGanttFX is supported by DLSC GmbH. We will help you get off the ground quickly.
+  description: FlexGanttFX is complex, but supported by DLSC GmbH. We will help you get off the ground quickly.
   button_label: Visit Site
   url: https://www.dlsc.com
 
@@ -14,5 +14,5 @@
   icon: /assets/images/service-icon3.png
   description:  The extensive online developer manual covers all the important aspects of the framework.
   button_label: Read Docs
-  url: https://flexgantt.atlassian.net/wiki/spaces/FFXMAN/overview
+  url: /pages/explore-topics/
   
