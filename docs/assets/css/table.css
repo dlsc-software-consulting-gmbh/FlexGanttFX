@@ -1,0 +1,20 @@
+table, th, td {
+    border: 1px solid rgb(64, 65, 69);
+}
+
+th, td {
+    padding: 10px;
+}
+
+td {
+    vertical-align: top;
+}
+
+th {
+    background-color: rgb(64, 65, 69);
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: rgb(243, 246, 251);
+}
