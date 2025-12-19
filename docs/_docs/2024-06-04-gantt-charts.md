@@ -7,7 +7,7 @@ date: 2024-06-04 17:31:00 +0600
 toc: true
 ---
 
-# GanttChart
+# Overview
 
 A custom **JavaFX** control to visualize any kind of scheduling data along a timeline. The model data needed by the control
 consists of rows with activities, links between them, and layers to group activities together.

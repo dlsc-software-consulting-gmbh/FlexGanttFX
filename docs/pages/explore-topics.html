@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Explore Topics
-description: "Meta description for Support page"
+title: Developer Manual
+description: "Developer manual for the JavaFX Gantt charting framework FlexGanttFX"
 keywords: "java,javafx,ui,ux,topics,blog,posts,dlsc"
 ---
 <div class="topics-area bg-color1">
@@ -16,7 +16,7 @@ keywords: "java,javafx,ui,ux,topics,blog,posts,dlsc"
                             <h4 class="heading-4 text-capitalize">{{ group.name }} </h4>
                         </header>
                         <ul class="topics-list list-inline">
-                            {% for item in group.items limit:5 %}
+                            {% for item in group.items limit:10 %}
                             <li><a href="{{item.url | relative_url}}">{{item.title}}</a></li>
                             {% endfor %}
                         </ul>

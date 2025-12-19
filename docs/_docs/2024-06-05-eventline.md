@@ -7,7 +7,7 @@ tags: [ Controls ]
 toc: true
 ---
 
-# Eventline
+# Overview
 
 The eventline is a control that displays time cursors: time at mouse location, selected time interval. This control is 
 part of the Timeline and displayed at the bottom.
