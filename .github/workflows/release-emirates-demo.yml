@@ -1,4 +1,4 @@
-name: Release All
+name: Release Emirates Demo
 
 on:
   workflow_dispatch:
