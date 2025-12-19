@@ -10,7 +10,6 @@
         "jdk": false,
         "fallbackToUniversal": false,
         "publishTargets": [{
-            "isDefault": true,
             "name": "npm: emirates",
             "type": "NPM",
             "url": "emirates"
