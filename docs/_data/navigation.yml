@@ -11,8 +11,12 @@
       url: /docs/tutorial/
     - text: Gantt Charts
       url: /docs/gantt-charts/
-    - text: Timeline Controls
+    - text: Timeline
       url: /docs/timeline/
+    - text: Dateline
+      url: /docs/dateline/
+    - text: Eventline
+      url: /docs/eventline/
     - text: Graphics
       url: /docs/graphics/
     - text: Model

@@ -6,15 +6,19 @@ post_image: assets/images/service-icon3.png
 tags: [Getting Started]
 toc: true
 ---
-### Install Java
+# Installation
+
+The following steps describe how to install FlexGanttFX in your project. 
+
+## Install Java
 With Java 11 and higher JavaFX is no longer bundled with the JDKs from Oracle, so you have to make sure to 
 download and install a JDK 11+ distribution that does include it, e.g. from Azul.
 
-### Download the FlexGanttFX distribution
+## Download the Distribution
 Go to the downloads section of FlexGanttFX.com and download the latest release. The download file will be a 
 ZIP archive containing the required JAR files, demos, tutorials, API documentation, etc...
 
-### Unpack the distribution
+## Unpack the Distribution
 Unzip the distribution to your local file system. Once unpacked you will see the following content: 
 
 ![Installation Directory](/assets/images/docs/directory.png)
@@ -28,21 +32,21 @@ The distribution contains the following subfolders:
 - lib - the FlexGanttFX libraries
 - tutorial - files to get you started
 
-## Add JAR files to classpath
+## Add JAR files to Classpath
 Assuming that you downloaded release 11.12.5 then add the following files (located in the distribution's lib folder) 
 to your classpath.
 
-- flexganttfx-core-11.12.5.jar - contains various utility classes and the licensing support
-- flexganttfx-model-11.12.5.jar - all classes related to the data model (activities, rows, repositories)
-- flexganttfx-view-11.12.5.jar - the view classes, such as the actual Gantt Chart control
-- flexganttfx-extras-11.12.5.jar - additional classes such as a toolbar and a statusbar
+- flexganttfx-core-11.12.8.jar - contains various utility classes and the licensing support
+- flexganttfx-model-11.12.8.jar - all classes related to the data model (activities, rows, repositories)
+- flexganttfx-view-11.12.8.jar - the view classes, such as the actual Gantt Chart control
+- flexganttfx-extras-11.12.8.jar - additional classes such as a toolbar and a statusbar
 
 Add the files located in the ext folder to your classpath.
 - controlsfx.jar - the distribution of the ControlsFX project
 - license4j.jar - code for supporting the licensing concepts
 
-## Create application class
-The following listing shows the most basic setup that is required to launch a Gantt chart user interface.
+## Create Application Class
+The following listing shows the most basic setup required to launch a Gantt chart user interface.
 
 ~~~ java
 

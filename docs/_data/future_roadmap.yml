@@ -1,3 +1,11 @@
+- name: 11.12.8 - Removed OSGI bundle support..
+  date: January 2024
+  description: The building of OSGI bundles pulled in native dependencies (javafx native libs), which could lead to JavaFX using the bundled libraries instead of the ones used by the project's required JavaFX version.
+
+- name: 11.12.7 - Bug Fixes
+  date: November 2023
+  description: Fixed links and lasso operations.
+
 - name: 11.12.3 - Scrollbar types. Bug Fixes.
   date: April 2021
   description: Option to work with different types of scrollbars. Option to always show or to auto-hide scrollbars. Bug fixes. "Inverse" flag on lasso info object.

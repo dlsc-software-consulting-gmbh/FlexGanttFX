@@ -1,4 +1,4 @@
-table, th, td {
+table, th {
     border: 1px solid rgb(64, 65, 69);
 }
 
@@ -16,5 +16,5 @@ th {
 }
 
 tr:nth-child(even) {
-    background-color: rgb(243, 246, 251);
+    background-color: rgba(64, 65, 69, .1);
 }
