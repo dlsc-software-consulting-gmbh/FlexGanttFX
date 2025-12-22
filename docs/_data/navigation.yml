@@ -2,6 +2,8 @@
 
 - text: Home
   url: /
+- text: Demos
+  url: /pages/download-demos
 - text: Manual
   url: /pages/explore-topics
   submenu:
@@ -31,6 +33,8 @@
   submenu:
     - text: Introduction
       url: /pages/introduction
+    - text: Licensing
+      url: /pages/licensing
     - text: FAQs
       url: /pages/faq
     - text: Javadocs / API
@@ -41,23 +45,7 @@
       url: /pages/testimonials
     - text: ScheduleJS
       url: /pages/schedulejs
-- text: Support
-  url: https://github.com/dlemmermann/flexganttfx-support
-  submenu:
-    - text: Developer Manual
-      url: https://flexgantt.atlassian.net/wiki/spaces/FFXMAN/overview
-    - text: Submit a Ticket
-      url: https://github.com/dlemmermann/flexganttfx/issues
-    - text: Start a Discussion
-      url: https://github.com/dlemmermann/flexganttfx/discussions
 - text: Downloads
   url: /pages/download-releases
-  submenu:
-    - text: Releases
-      url: /pages/download-releases
-    - text: Demos
-      url: /pages/download-demos
-- text: Licensing
-  url: /pages/licensing
 - text: Contact
   url: /pages/contact
