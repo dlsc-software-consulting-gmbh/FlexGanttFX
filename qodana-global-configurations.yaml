@@ -1,0 +1,5 @@
+configurations:
+  - id: flexganttfx
+    name: FlexGanttFX # Displayed in Qodana Cloud UI
+    description: A JavaFX Gantt charting library # Displayed in Qodana Cloud UI
+    qodanaYaml: qodana.yaml # Path to the config file relatively to file
