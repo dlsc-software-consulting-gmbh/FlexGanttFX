@@ -1,24 +1,24 @@
 {
     "bin": {"flexganttfxsampler": "jdeploy-bundle/jdeploy.js"},
     "author": "Dirk Lemmermann",
-    "description": "A set of simple demos highlighting various features and capabilities of the professional UI framework for production planning and scheduling applications.",
+    "description": "A simple demo application for FlexGanttFX showing how to use it to visualize a project plan (e.g., a file from MSProject)",
     "main": "index.js",
     "preferGlobal": true,
     "repository": "",
-    "version": "1.0.10",
+    "version": "1.0.11",
     "jdeploy": {
         "jdk": false,
         "fallbackToUniversal": false,
         "publishTargets": [{
-            "name": "npm: flexganttfx-sampler",
+            "name": "npm: flexganttfx-project",
             "type": "NPM",
-            "url": "sampler"
+            "url": "flexganttfx-project"
         }],
         "javaVersion": "11",
         "documentTypes": [],
-        "jar": "target/sampler-11.12.8.jar",
+        "jar": "target/msproject-11.12.8.jar",
         "javafx": true,
-        "title": "FlexGanttFX Demos",
+        "title": "FlexGanttFX MSProject Demo",
         "downloadPage": {"platforms": ["default"]},
         "platformBundlesEnabled": false
     },
@@ -27,7 +27,7 @@
         "shelljs": "^0.8.4"
     },
     "license": "ISC",
-    "name": "flexganttfxsampler",
+    "name": "flexganttfxproject",
     "files": ["jdeploy-bundle"],
     "scripts": {"test": "echo \"Error: no test specified\" && exit 1"}
 }
