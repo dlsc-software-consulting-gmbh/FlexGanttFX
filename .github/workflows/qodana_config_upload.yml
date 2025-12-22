@@ -2,9 +2,9 @@ name: Qodana Configuration Upload
 
 on:
   push:
-    branches: [ main, dev ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
   workflow_dispatch:
 
 jobs:
