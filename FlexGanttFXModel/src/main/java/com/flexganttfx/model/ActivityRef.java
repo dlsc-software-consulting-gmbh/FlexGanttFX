@@ -20,9 +20,9 @@ import static java.util.Objects.requireNonNull;
  */
 public final class ActivityRef<A extends Activity> {
 
-	private Row<?, ?, A> row;
-	private A activity;
-	private Layer layer;
+	private final Row<?, ?, A> row;
+	private final A activity;
+	private final Layer layer;
 
 	/**
 	 * Constructs a new activity reference.

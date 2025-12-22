@@ -332,15 +332,15 @@ public class ListActivityRepository<A extends Activity> extends MutableActivityR
         private static final Logger LOGGER = Logger
                 .getLogger(LinearSearchActivityIterator.class.getName());
 
-        private List<T> activities;
+        private final List<T> activities;
 
         private int index = -1;
 
-        private Instant startTime;
+        private final Instant startTime;
 
-        private Instant endTime;
+        private final Instant endTime;
 
-        private boolean reverse;
+        private final boolean reverse;
 
         public LinearSearchActivityIterator(List<T> activities,
                                             Instant startTime, Instant endTime, boolean reverse) {
@@ -445,11 +445,11 @@ public class ListActivityRepository<A extends Activity> extends MutableActivityR
     static class BinarySearchActivityIterator<T extends Activity> implements
             Iterator<T> {
 
-        private List<T> objectList;
+        private final List<T> objectList;
 
-        private Instant startTime;
+        private final Instant startTime;
 
-        private Instant endTime;
+        private final Instant endTime;
 
         private int index = -1;
 

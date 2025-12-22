@@ -11,7 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
 public class ColumnBrowserSkin<S> extends SkinBase<ColumnBrowser<S>> {
-	private HBox box;
+	private final HBox box;
 
 	public ColumnBrowserSkin(ColumnBrowser<S> browser) {
 		super(browser);

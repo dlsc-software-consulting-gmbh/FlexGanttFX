@@ -57,7 +57,7 @@ public class AgendaConflictResolver<R extends Row<?, ?, ?>> {
 	 * is currently implemented by the {@link AgendaEditor} and the
 	 * {@link AgendaGanttChart} classes.
 	 */
-	private AgendaEditorContext<R> context;
+	private final AgendaEditorContext<R> context;
 
 	public AgendaConflictResolver(AgendaEditorContext<R> context) {
 		this.context = context;
@@ -80,7 +80,7 @@ public class AgendaConflictResolver<R extends Row<?, ?, ?>> {
 	 * A data structure used to keep track of fixed boxes / entries. The key of
 	 * the map is also the primary entry of the box.
 	 */
-	private Map<AgendaEntry, Box> fixedBoxes = new HashMap<>();
+	private final Map<AgendaEntry, Box> fixedBoxes = new HashMap<>();
 
 	/**
 	 * Clears all boxes in the "fixedBoxes" map.
@@ -905,17 +905,17 @@ public class AgendaConflictResolver<R extends Row<?, ?, ?>> {
 		/*
 		 * The primary entry for which the box was created in the first place.
 		 */
-		private AgendaEntry entry;
+		private final AgendaEntry entry;
 
 		/*
 		 * Entries that are in the same group as the primary entry and located
 		 * on the same day.
 		 */
-		private List<AgendaEntry> entries = new ArrayList<>();
+		private final List<AgendaEntry> entries = new ArrayList<>();
 
-		private Row row;
+		private final Row row;
 
-		private Layer layer;
+		private final Layer layer;
 
 		/**
 		 * Constructs a new box for the given entry. Automatically adds all
@@ -1220,7 +1220,7 @@ public class AgendaConflictResolver<R extends Row<?, ?, ?>> {
 	/**
 	 * Sets the start and end time for the given entry to their original values.
 	 */
-	private final void resetToOriginalLocation(Row row, Layer layer,
+	private void resetToOriginalLocation(Row row, Layer layer,
 			AgendaEntry entry) {
 		ActivityRef<AgendaEntry> ref = new ActivityRef<>(row, layer, entry);
 
@@ -1238,7 +1238,7 @@ public class AgendaConflictResolver<R extends Row<?, ?, ?>> {
 	 */
 	public final void reset(boolean originalLocations) {
 		if (originalLocations) {
-			fixedBoxes.values().forEach(it -> resetToOriginalLocation(it));
+			fixedBoxes.values().forEach(this::resetToOriginalLocation);
 		}
 		clearFixedBoxes();
 	}
@@ -1247,7 +1247,7 @@ public class AgendaConflictResolver<R extends Row<?, ?, ?>> {
 	 * One of the fix methods provided by the conflict resolver. Gets invoked
 	 * when the uer changes the end time of an agenda entry.
 	 *
-	 * @param horizontalMove
+	 * @param horizontal
 	 *            a flag used to indicate whether the user has performed a
 	 *            horizontal drag (new end time is on next day).
 	 */
@@ -1304,11 +1304,8 @@ public class AgendaConflictResolver<R extends Row<?, ?, ?>> {
 	 *            the index of the line where the conflict resolution will run
 	 * @param editedEntry
 	 *            the edited agenda entry that might be causing conflicts
-	 * @param pushedEntry
-	 *            an agenda entry which is in conflict with the currently edited
-	 *            entry
-	 * @param horizontalMove
-	 *            a flag signalling wether the new end time was passing day
+	 * @param horizontal
+	 *            a flag signaling whether the new end time was passing day
 	 *            boundaries
 	 */
 	private void resolveConflictsAfterEndTimeChange(Row row, Layer layer,

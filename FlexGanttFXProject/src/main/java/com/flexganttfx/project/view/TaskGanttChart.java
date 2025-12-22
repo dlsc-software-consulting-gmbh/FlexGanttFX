@@ -29,12 +29,12 @@ public class TaskGanttChart extends GanttChart<TaskRow> {
 	 * a task associated with it. It is the only row using the empty
 	 * constructor.
 	 */
-	private TaskRow createRow = new TaskRow();
+	private final TaskRow createRow = new TaskRow();
 
 	/*
 	 * This is the column where editing will happen.
 	 */
-	private TreeTableColumn<TaskRow, String> titleColumn;
+	private final TreeTableColumn<TaskRow, String> titleColumn;
 
 	public TaskGanttChart() {
 		super(new TaskRow());
@@ -92,7 +92,7 @@ public class TaskGanttChart extends GanttChart<TaskRow> {
 
 	class DateTreeTableCell extends TreeTableCell<TaskRow, LocalDate> {
 
-		private DatePicker datePicker;
+		private final DatePicker datePicker;
 
 		public DateTreeTableCell() {
 			datePicker = new DatePicker();

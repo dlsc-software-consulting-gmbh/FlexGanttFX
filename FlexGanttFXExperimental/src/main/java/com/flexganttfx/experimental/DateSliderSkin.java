@@ -25,10 +25,10 @@ import java.time.temporal.ChronoUnit;
  */
 public class DateSliderSkin extends SkinBase<DateSlider> {
 
-    private Slider slider;
-    private Label earliestLabel;
-    private Label latestLabel;
-    private Tooltip tooltip;
+    private final Slider slider;
+    private final Label earliestLabel;
+    private final Label latestLabel;
+    private final Tooltip tooltip;
 
     public DateSliderSkin(DateSlider control) {
         super(control);

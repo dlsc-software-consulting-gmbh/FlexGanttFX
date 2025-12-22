@@ -153,11 +153,11 @@ public class HelloRowHeaderColumn extends FlexGanttFXSample {
     }
 
     enum Status {
-        OK, WARNING, ERROR, OTHER;
+        OK, WARNING, ERROR, OTHER
     }
 
     class MyRow extends Row<MyRow, MyRow, Activity> {
-        private Paint paint;
+        private final Paint paint;
         private Status status = Status.OK;
 
         public MyRow(String name) {

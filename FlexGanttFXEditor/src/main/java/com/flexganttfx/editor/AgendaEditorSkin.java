@@ -46,13 +46,13 @@ public class AgendaEditorSkin extends SkinBase<AgendaEditor> {
 
 	private static final double INITIAL_DAY_WIDTH = 100;
 
-	private Layer layer = new Layer("Default");
+	private final Layer layer = new Layer("Default");
 	private Label gridLabel;
-	private GraphicsBase<AgendaRow> graphics;
-	private AgendaRow agendaRow;
+	private final GraphicsBase<AgendaRow> graphics;
+	private final AgendaRow agendaRow;
 	private Label lassoLabel;
 
-	private AgendaConflictResolver<AgendaRow> conflictResolver;
+	private final AgendaConflictResolver<AgendaRow> conflictResolver;
 
 	/**
 	 * Constructs a new editor skin.

@@ -55,9 +55,9 @@ import static javafx.scene.control.ContentDisplay.TEXT_ONLY;
  */
 public class RowHeaderColumn<R extends Row<?, ?, ?>> extends TreeTableColumn<R, R> {
 
-    private TreeTableView<R> treeTable;
+    private final TreeTableView<R> treeTable;
     private GanttChart<R> ganttChart;
-    private Menu columns;
+    private final Menu columns;
     private Pane cornerRegion;
 
     private final InvalidationListener columnListener = it -> updateColumnsMenu();

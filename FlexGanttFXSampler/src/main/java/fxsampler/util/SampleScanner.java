@@ -56,7 +56,7 @@ import java.util.*;
  */
 public class SampleScanner {
 
-    private static List<String> ILLEGAL_CLASS_NAMES = new ArrayList<>();
+    private static final List<String> ILLEGAL_CLASS_NAMES = new ArrayList<>();
 
     static {
         ILLEGAL_CLASS_NAMES.add("/com/javafx/main/Main.class");

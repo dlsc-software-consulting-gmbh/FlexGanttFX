@@ -40,7 +40,7 @@ public class WeekendCalendar extends CalendarBase<WeekendCalendarActivity> {
 
     private List<WeekendCalendarActivity> entries;
 
-    private EnumSet<DayOfWeek> weekendDays = EnumSet.of(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
+    private final EnumSet<DayOfWeek> weekendDays = EnumSet.of(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
 
     /**
      * Constructs a new weekend calendar.

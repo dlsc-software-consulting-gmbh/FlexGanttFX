@@ -22,7 +22,7 @@ public final class Resolver {
     /**
      * Constructs a new resolver.
      */
-    protected Resolver() {
+    private Resolver() {
     }
 
     /**

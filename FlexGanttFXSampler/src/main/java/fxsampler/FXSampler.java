@@ -218,35 +218,35 @@ public final class FXSampler extends Application {
         samplesTreeView.requestFocus();
     }
 
-    public final GridPane getGrid() {
+    public GridPane getGrid() {
         return grid;
     }
 
-    public final TabPane getTabPane() {
+    public TabPane getTabPane() {
         return tabPane;
     }
     // should never be null
-    public final Tab getWelcomeTab() {
+    public Tab getWelcomeTab() {
         return welcomeTab;
     }
 
-    public final Tab getSampleTab() {
+    public Tab getSampleTab() {
         return sampleTab;
     }
 
-    public final Tab getJavaDocTab() {
+    public Tab getJavaDocTab() {
         return javaDocTab;
     }
 
-    public final Tab getSourceTab() {
+    public Tab getSourceTab() {
         return sourceTab;
     }
 
-    public final Tab getCssTab() {
+    public Tab getCssTab() {
         return cssTab;
     }
 
-    protected void buildSampleTree(String searchText) {
+    private void buildSampleTree(String searchText) {
         // rebuild the whole tree (it isn't memory intensive - we only scan
         // classes once at startup)
         root = new TreeItem<>(new EmptySample("FXSampler"));
@@ -274,7 +274,7 @@ public final class FXSampler extends Application {
         sort(root, Comparator.comparing(o -> o.getValue().getSampleName()));
     }
 
-    protected void changeSample() {
+    private void changeSample() {
         if (selectedSample == null) {
             return;
         }

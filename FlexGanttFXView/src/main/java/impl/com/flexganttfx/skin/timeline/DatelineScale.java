@@ -138,15 +138,15 @@ final class DatelineScale extends Region {
         });
     }
 
-    final Position getPosition() {
+    Position getPosition() {
         return position;
     }
 
-    final void setResolution(Resolution<?> resolution) {
+    void setResolution(Resolution<?> resolution) {
         this.resolution = resolution;
     }
 
-    final Resolution<? extends TemporalUnit> getResolution() {
+    Resolution<? extends TemporalUnit> getResolution() {
         return resolution;
     }
 
@@ -218,7 +218,7 @@ final class DatelineScale extends Region {
     }
 
     @Override
-    public final List<CssMetaData<? extends Styleable, ?>> getCssMetaData() {
+    public List<CssMetaData<? extends Styleable, ?>> getCssMetaData() {
         return getClassCssMetaData();
     }
 
@@ -233,7 +233,7 @@ final class DatelineScale extends Region {
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
-    final TemporalUnit buildScale(TemporalUnit unit) {
+    TemporalUnit buildScale(TemporalUnit unit) {
 
         DatelineModel datelineModel = dateline.getModel();
 

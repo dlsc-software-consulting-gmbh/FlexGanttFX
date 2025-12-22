@@ -20,7 +20,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 
 public class HelloTimeZones extends FlexGanttFXSample {
-    private Layer layer = new Layer("Default");
+    private final Layer layer = new Layer("Default");
 
     public HelloTimeZones() {
     }

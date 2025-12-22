@@ -21,9 +21,9 @@ public class IllegalLineIndexException extends RuntimeException {
 
     private static final long serialVersionUID = -6806986448373406748L;
 
-    private int lineIndex;
-    private int lineCount;
-    private Row<?, ?, ?> row;
+    private final int lineIndex;
+    private final int lineCount;
+    private final Row<?, ?, ?> row;
 
     /**
      * Constructs a new exception.

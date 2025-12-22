@@ -197,10 +197,10 @@ public class HelloTableColumnBrowser extends Application {
 	}
 
 	public class Person {
-		private String name;
+		private final String name;
 		private String profession;
-		private Integer age;
-		private Gender gender;
+		private final Integer age;
+		private final Gender gender;
 		private Color color;
 
 		public Person(String name, int age, Gender gender) {

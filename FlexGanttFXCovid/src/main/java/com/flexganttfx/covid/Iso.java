@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class Iso {
 
-    private static Map<String, Locale> localeMap;
+    private static final Map<String, Locale> localeMap;
 
     static {
         String[] countries = Locale.getISOCountries();

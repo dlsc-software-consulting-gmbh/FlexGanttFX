@@ -13,7 +13,7 @@ import static org.hamcrest.Matchers.is;
 
 public class SimpleUnitDatelineModelTest {
 
-	private SimpleUnitDatelineModel datelineModel = new SimpleUnitDatelineModel();
+	private final SimpleUnitDatelineModel datelineModel = new SimpleUnitDatelineModel();
 
 	@Test
 	public void shouldReturnResolutionsForAllChronoUnits() {

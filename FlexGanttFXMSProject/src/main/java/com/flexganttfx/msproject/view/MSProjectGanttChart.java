@@ -64,8 +64,8 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
 
         Callback<TreeTableColumn<MSProjectTaskRow, String>, TreeTableCell<MSProjectTaskRow, String>> nameCellFactory = param -> new TreeTableCell<>() {
 
-            private FontIcon parentImage = new FontIcon(MaterialDesign.MDI_CHECKBOX_MULTIPLE_MARKED);
-            private FontIcon childImage = new FontIcon(MaterialDesign.MDI_CHECKBOX_MARKED);
+            private final FontIcon parentImage = new FontIcon(MaterialDesign.MDI_CHECKBOX_MULTIPLE_MARKED);
+            private final FontIcon childImage = new FontIcon(MaterialDesign.MDI_CHECKBOX_MARKED);
 
             {
                 getStyleClass().add("task-name-cell");
@@ -100,7 +100,7 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
 
         Callback<TreeTableColumn<MSProjectTaskRow, Instant>, TreeTableCell<MSProjectTaskRow, Instant>> dateTimeCellFactory = new Callback<TreeTableColumn<MSProjectTaskRow, Instant>, TreeTableCell<MSProjectTaskRow, Instant>>() {
 
-            private DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT);
+            private final DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT);
 
             @Override
             public TreeTableCell<MSProjectTaskRow, Instant> call(TreeTableColumn<MSProjectTaskRow, Instant> param) {
@@ -141,7 +141,7 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
             finishColumn.setCellFactory(dateTimeCellFactory);
 
             Callback<TreeTableColumn<MSProjectTaskRow, Double>, TreeTableCell<MSProjectTaskRow, Double>> percentageCellFactory = new Callback<TreeTableColumn<MSProjectTaskRow, Double>, TreeTableCell<MSProjectTaskRow, Double>>() {
-                private NumberFormat formatter = DecimalFormat.getPercentInstance();
+                private final NumberFormat formatter = DecimalFormat.getPercentInstance();
 
                 @Override
                 public TreeTableCell<MSProjectTaskRow, Double> call(TreeTableColumn<MSProjectTaskRow, Double> param) {

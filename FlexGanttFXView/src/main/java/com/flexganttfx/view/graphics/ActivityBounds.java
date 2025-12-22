@@ -37,44 +37,44 @@ public final class ActivityBounds extends Rectangle2D {
 		this.activityRef = requireNonNull(activityRef);
 	}
 
-	public final Activity getActivity() {
+	public Activity getActivity() {
 		return activityRef.getActivity();
 	}
 
-	public final Layer getLayer() {
+	public Layer getLayer() {
 		return activityRef.getLayer();
 	}
 
-	public final int getLineIndex() {
+	public int getLineIndex() {
 		return activityRef.getLineIndex();
 	}
 
-	public final Row<?, ?, ?> getRow() {
+	public Row<?, ?, ?> getRow() {
 		return activityRef.getRow();
 	}
 
-	public final ActivityRef<?> getActivityRef() {
+	public ActivityRef<?> getActivityRef() {
 		return activityRef;
 	}
 
-	public final void setPosition(Position position) {
+	public void setPosition(Position position) {
 		this.position = position;
 	}
 
-	public final Position getPosition() {
+	public Position getPosition() {
 		return position;
 	}
 
-	public final void setLayout(Layout layout) {
+	public void setLayout(Layout layout) {
 		this.layout = layout;
 	}
 
-	public final Layout getLayout() {
+	public Layout getLayout() {
 		return layout;
 	}
 
 	@Override
-	public final int hashCode() {
+	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + ((activityRef == null) ? 0 : activityRef.hashCode());
@@ -84,7 +84,7 @@ public final class ActivityBounds extends Rectangle2D {
 	}
 
 	@Override
-	public final boolean equals(Object obj) {
+	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (!super.equals(obj))

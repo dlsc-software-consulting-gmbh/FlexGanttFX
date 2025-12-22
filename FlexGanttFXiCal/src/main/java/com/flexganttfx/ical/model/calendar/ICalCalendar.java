@@ -29,7 +29,7 @@ public class ICalCalendar extends CalendarBase<ICalCalendarActivity> {
 
 	private List<ICalCalendarActivity> entries;
 
-	private Calendar calendar;
+	private final Calendar calendar;
 
 	public ICalCalendar(String name, Calendar calendar) {
 		super(name);

@@ -154,7 +154,7 @@ public class HelloLinksStressTest extends FlexGanttFXSample {
     int shift = 1;
 
     class ActivityRow extends Row<ActivityRow, ActivityRow, ActivityBase<Data>> {
-        private int year = LocalDate.now().getYear();
+        private final int year = LocalDate.now().getYear();
 
         Data data;
         int linksIn;
@@ -224,7 +224,7 @@ public class HelloLinksStressTest extends FlexGanttFXSample {
 
     class CompletableActivityRendererBase<A extends CompletableActivity> extends CompletableActivityRenderer<A> {
 
-        private double widthPerChar = -1;
+        private final double widthPerChar = -1;
 
         public CompletableActivityRendererBase(GraphicsBase<?> graphics, String name) {
             super(graphics, name);

@@ -171,7 +171,7 @@ public class CalendarLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
 		Objects.requireNonNull(clazz);
 
-		return (CalendarActivityRenderer<? extends A>) doGetCalendarActivityRenderer(
+		return doGetCalendarActivityRenderer(
 				calendarRendererMap, clazz);
 	}
 

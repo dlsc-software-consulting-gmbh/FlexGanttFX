@@ -14,9 +14,9 @@ import java.util.Map;
 
 class LocationRow extends Row<LocationRow, LocationRow, Cases> {
 
-    private Map<View, Double> maxCases = new HashMap<>();
+    private final Map<View, Double> maxCases = new HashMap<>();
 
-    private Map<View, Double> maxCasesGlobally = new HashMap<>();
+    private final Map<View, Double> maxCasesGlobally = new HashMap<>();
 
     private final ChartLayout chartLayout = new ChartLayout();
 

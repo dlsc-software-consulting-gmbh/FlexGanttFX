@@ -22,8 +22,8 @@ import java.time.Instant;
  */
 public class NameLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
-    private Color backgroundColor = Color.color(0, 0, 0, .5);
-    private Color foregroundColor = Color.WHITE;
+    private final Color backgroundColor = Color.color(0, 0, 0, .5);
+    private final Color foregroundColor = Color.WHITE;
 
     public NameLayer(GraphicsBase graphics) {
         super("Name Layer", graphics);

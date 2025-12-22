@@ -25,10 +25,10 @@ import static java.util.Objects.requireNonNull;
  */
 public abstract class VirtualGrid<T extends TemporalUnit> {
 
-	private String name;
-	private String shortName;
-	private T unit;
-	private int amount;
+	private final String name;
+	private final String shortName;
+	private final T unit;
+	private final int amount;
 
 	/**
 	 * Constructs a new grid.

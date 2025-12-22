@@ -24,13 +24,13 @@ public class MSProjectGanttChartModel {
 
 	public Map<Task, ActivityRef<MSProjectTaskActivity>> taskMap;
 
-	private ProjectFile projectFile;
+	private final ProjectFile projectFile;
 
-	private List<Layer> layers = new ArrayList<>();
+	private final List<Layer> layers = new ArrayList<>();
 
-	private List<ActivityLink<?>> links = new ArrayList<>();
+	private final List<ActivityLink<?>> links = new ArrayList<>();
 
-	private MSProjectTaskRow root = new MSProjectTaskRow();
+	private final MSProjectTaskRow root = new MSProjectTaskRow();
 
 	public MSProjectGanttChartModel(ProjectFile file) {
 		requireNonNull(file);

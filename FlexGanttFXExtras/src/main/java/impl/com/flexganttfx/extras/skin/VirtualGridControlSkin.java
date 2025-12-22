@@ -17,7 +17,7 @@ import com.flexganttfx.model.dateline.VirtualGrid;
 
 public class VirtualGridControlSkin extends SkinBase<VirtualGridControl> {
 
-	private VBox vbox;
+	private final VBox vbox;
 
 	public VirtualGridControlSkin(VirtualGridControl control) {
 		super(control);

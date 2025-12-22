@@ -38,9 +38,9 @@ public class AgendaEditorBackgroundLayer<R extends Row<?, ?, ?>> extends SystemL
 
     private boolean lassoActive;
 
-    private AgendaEditorContext<R> context;
+    private final AgendaEditorContext<R> context;
 
-    private AgendaController<R> controller;
+    private final AgendaController<R> controller;
 
     /**
      * Constructs a new background layer.

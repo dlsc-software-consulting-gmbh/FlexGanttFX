@@ -23,7 +23,7 @@ public class AgendaEntryBase extends MutableActivityBase<String> implements
 				"Chemistry"), PHYSICS("Physics"), BIOLOGY("Biology"), RELIGION(
 				"Religion");
 
-		private String displayName;
+		private final String displayName;
 
 		Type(String name) {
 			this.displayName = name;

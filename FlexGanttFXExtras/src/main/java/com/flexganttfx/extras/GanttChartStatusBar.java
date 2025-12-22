@@ -36,7 +36,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class GanttChartStatusBar<R extends Row<?, ?, ?>> extends StatusBar {
 
-    private Label gridLabel;
+    private final Label gridLabel;
 
     /**
      * Constructs a new statusbar control. The Gantt chart has to be set later
@@ -97,7 +97,7 @@ public class GanttChartStatusBar<R extends Row<?, ?, ?>> extends StatusBar {
         }
     };
 
-    private WeakInvalidationListener weakFocusedActivityListener = new WeakInvalidationListener(focusedActivityListener);
+    private final WeakInvalidationListener weakFocusedActivityListener = new WeakInvalidationListener(focusedActivityListener);
 
     private final InvalidationListener virtualGridListener = observable -> updateGridLabel();
 

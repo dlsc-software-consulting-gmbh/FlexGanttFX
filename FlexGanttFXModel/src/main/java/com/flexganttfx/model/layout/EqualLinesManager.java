@@ -26,7 +26,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class EqualLinesManager<R extends Row<?, ?, A>, A extends Activity> implements LinesManager<A> {
 
-	private R row;
+	private final R row;
 
 	/**
 	 * Constructs a new lines manager for the given row. The manager attaches

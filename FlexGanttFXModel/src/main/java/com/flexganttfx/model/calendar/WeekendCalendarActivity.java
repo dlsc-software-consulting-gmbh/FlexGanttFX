@@ -18,7 +18,7 @@ import java.time.Instant;
  */
 public class WeekendCalendarActivity extends CalendarActivityBase<Object> {
 
-	private DayOfWeek dayOfWeek;
+	private final DayOfWeek dayOfWeek;
 
 	/**
 	 * Constructs a new weekend calendar activity. The initial start time will

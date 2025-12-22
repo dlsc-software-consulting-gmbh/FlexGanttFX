@@ -30,7 +30,7 @@ import static org.hamcrest.Matchers.notNullValue;
 
 public class ChronoUnitDatelineModelTest {
 
-    private ChronoUnitDatelineModel datelineModel = new ChronoUnitDatelineModel();
+    private final ChronoUnitDatelineModel datelineModel = new ChronoUnitDatelineModel();
 
     @Test
     public void shouldSetScaleCountWithinMinAndMaxBounds() {

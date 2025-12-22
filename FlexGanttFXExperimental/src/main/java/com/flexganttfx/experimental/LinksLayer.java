@@ -166,9 +166,7 @@ public class LinksLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
             boolean sourceRowShowing = rowFilter.test(sourceRow) || sourceRow.hasChildren(rowFilter);
             boolean targetRowShowing = rowFilter.test(targetRow) || targetRow.hasChildren(rowFilter);
 
-            if (!(sourceRowShowing && targetRowShowing)) {
-                return false;
-            }
+            return sourceRowShowing && targetRowShowing;
         }
 
         return true;

@@ -26,7 +26,7 @@ import com.flexganttfx.view.graphics.GraphicsBase.ContextMenuParameter;
 public class AgendaEditorContextMenu extends ContextMenu implements Callback<ContextMenuParameter<AgendaRow>, ContextMenu>{
 
 	private List<ActivityRef<?>> activities;
-	private MenuItem group;
+	private final MenuItem group;
 
 	public AgendaEditorContextMenu(GraphicsBase<?> graphics) {
 

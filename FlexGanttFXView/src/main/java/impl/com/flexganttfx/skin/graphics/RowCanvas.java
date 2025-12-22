@@ -172,7 +172,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         }
     };
 
-    public final GraphicsBase<R> getGraphics() {
+    public GraphicsBase<R> getGraphics() {
         return graphics;
     }
 
@@ -180,34 +180,34 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
     private final ObjectProperty<R> row = new SimpleObjectProperty<>(this, "row");
 
-    public final ObjectProperty<R> rowProperty() {
+    public ObjectProperty<R> rowProperty() {
         return row;
     }
 
-    public final void setRow(R row) {
+    public void setRow(R row) {
         rowProperty().set(row);
     }
 
-    public final R getRow() {
+    public R getRow() {
         return rowProperty().get();
     }
 
-    public final TimelineModel<?> getTimelineModel() {
+    public TimelineModel<?> getTimelineModel() {
         return graphics.getTimeline().getModel();
     }
 
     @Override
-    public final boolean isResizable() {
+    public boolean isResizable() {
         return true;
     }
 
     @Override
-    public final double prefHeight(double width) {
+    public double prefHeight(double width) {
         return getHeight();
     }
 
     @Override
-    public final double prefWidth(double height) {
+    public double prefWidth(double height) {
         return getWidth();
     }
 
@@ -223,7 +223,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         return dirty;
     }
 
-    public final void requestRedraw(String reason) {
+    public void requestRedraw(String reason) {
         this.reason = reason;
 
         dirty = true;
@@ -245,7 +245,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         }
     }
 
-    public final void draw() {
+    public void draw() {
         if (doDrawCounter < Integer.MAX_VALUE) {
             doDrawCounter++;
         } else {
@@ -646,10 +646,10 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
                      * from midnight till midnight.
                      */
 
-                    ZonedDateTime truncatedDateTime = zonedStartDateTime.truncatedTo(DAYS).plus(column, DAYS);
+                    ZonedDateTime truncatedDateTime = zonedStartDateTime.truncatedTo(DAYS).plusDays(column);
 
                     x1 = calculateLocation(Instant.from(truncatedDateTime));
-                    x2 = calculateLocation(Instant.from(truncatedDateTime.plus(1, DAYS)));
+                    x2 = calculateLocation(Instant.from(truncatedDateTime.plusDays(1)));
 
                     LayoutStrategy layoutStrategy = agendaLayout.getLayoutStrategy();
 
@@ -877,11 +877,11 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         return Math.min(availableHeight, Math.max(0, (time.get(ChronoField.MILLI_OF_DAY) - st.get(ChronoField.MILLI_OF_DAY)) / mpp));
     }
 
-    public final List<ActivityBounds> getAllActivityBounds() {
+    public List<ActivityBounds> getAllActivityBounds() {
         return activityBounds;
     }
 
-    public final List<ActivityBounds> getAllActivityBounds(double x, double y) {
+    public List<ActivityBounds> getAllActivityBounds(double x, double y) {
         List<ActivityBounds> result = new ArrayList<>();
         for (ActivityBounds bounds : activityBounds) {
             if (bounds.contains(x, y)) {
@@ -891,7 +891,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         return result;
     }
 
-    public final ActivityBounds getActivityBounds(double x, double y) {
+    public ActivityBounds getActivityBounds(double x, double y) {
         List<ActivityBounds> allBounds = getAllActivityBounds(x, y);
 
         int s = allBounds.size();
@@ -902,7 +902,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         return null;
     }
 
-    public final ActivityBounds getActivityBounds(ActivityRef<?> activityRef) {
+    public ActivityBounds getActivityBounds(ActivityRef<?> activityRef) {
         if (activityRef.getRow().equals(getRow())) {
             for (ActivityBounds bounds : activityBounds) {
                 if (bounds.getActivityRef().equals(activityRef)) {
@@ -949,7 +949,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
     private Rectangle2D lookupBounds;
 
-    public final List<ActivityBounds> getActivityBounds(double x, double y, double w, double h) {
+    public List<ActivityBounds> getActivityBounds(double x, double y, double w, double h) {
 
         if (graphics.isDebugMode()) {
             lookupBounds = new Rectangle2D(x, y, w, h);
@@ -997,7 +997,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         return result;
     }
 
-    public final Layout getLayoutAt(double y) {
+    public Layout getLayoutAt(double y) {
         Layout layout = null;
 
         Row<?, ?, ?> row = getRow();
@@ -1020,7 +1020,7 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         return layout;
     }
 
-    public final Rectangle2D getLayoutBoundsAt(double y) {
+    public Rectangle2D getLayoutBoundsAt(double y) {
         Rectangle2D bounds = null;
 
         Row<?, ?, ?> row = getRow();
@@ -1053,15 +1053,15 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
     private final BooleanProperty snapToPixel = new SimpleBooleanProperty(this, "snapToPixel", true);
 
-    public final BooleanProperty snapToPixelProperty() {
+    public BooleanProperty snapToPixelProperty() {
         return snapToPixel;
     }
 
-    public final void setSnapToPixel(boolean snap) {
+    public void setSnapToPixel(boolean snap) {
         snapToPixel.set(snap);
     }
 
-    public final boolean isSnapToPixel() {
+    public boolean isSnapToPixel() {
         return snapToPixel.get();
     }
 

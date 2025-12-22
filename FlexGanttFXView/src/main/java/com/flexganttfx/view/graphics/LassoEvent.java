@@ -183,7 +183,7 @@ public class LassoEvent extends InputEvent {
 		 *
 		 * @return the lasso start time
 		 */
-		public final Instant getStartTime() {
+		public Instant getStartTime() {
 			return startTime;
 		}
 
@@ -192,7 +192,7 @@ public class LassoEvent extends InputEvent {
 		 *
 		 * @return the lasso end time
 		 */
-		public final Instant getEndTime() {
+		public Instant getEndTime() {
 			return endTime;
 		}
 
@@ -202,7 +202,7 @@ public class LassoEvent extends InputEvent {
 		 *
 		 * @return the agenda start time
 		 */
-		public final LocalTime getLocalStartTime() {
+		public LocalTime getLocalStartTime() {
 			return localStartTime;
 		}
 
@@ -212,7 +212,7 @@ public class LassoEvent extends InputEvent {
 		 *
 		 * @return the agenda end time
 		 */
-		public final LocalTime getLocalEndTime() {
+		public LocalTime getLocalEndTime() {
 			return localEndTime;
 		}
 
@@ -221,7 +221,7 @@ public class LassoEvent extends InputEvent {
 		 *
 		 * @return the affected rows.
 		 */
-		public final List<Row<?, ?, ?>> getRows() {
+		public List<Row<?, ?, ?>> getRows() {
 			return rows;
 		}
 
@@ -230,7 +230,7 @@ public class LassoEvent extends InputEvent {
 		 *
 		 * @return the selected activities.
 		 */
-		public final List<ActivityRef<?>> getActivities() {
+		public List<ActivityRef<?>> getActivities() {
 			return activities;
 		}
 

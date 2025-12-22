@@ -30,7 +30,7 @@ import javafx.util.Callback;
 public class ColumnValuesListSkin<S, T> extends
 		SkinBase<ColumnValuesList<S, T>> {
 
-	private Label label;
+	private final Label label;
 
 	public ColumnValuesListSkin(ColumnValuesList<S, T> valuesList) {
 		super(valuesList);
@@ -67,7 +67,7 @@ public class ColumnValuesListSkin<S, T> extends
 		getChildren().add(borderPane);
 	}
 
-	private ChangeListener<TableView<S>> tableChangedListener = new ChangeListener<TableView<S>>() {
+	private final ChangeListener<TableView<S>> tableChangedListener = new ChangeListener<TableView<S>>() {
 		@Override
 		public void changed(ObservableValue<? extends TableView<S>> observable,
 				TableView<S> oldTable, TableView<S> newTable) {
@@ -76,7 +76,7 @@ public class ColumnValuesListSkin<S, T> extends
 		}
 	};
 
-	private InvalidationListener itemsChangedListener = new InvalidationListener() {
+	private final InvalidationListener itemsChangedListener = new InvalidationListener() {
 
 		@Override
 		public void invalidated(Observable observable) {

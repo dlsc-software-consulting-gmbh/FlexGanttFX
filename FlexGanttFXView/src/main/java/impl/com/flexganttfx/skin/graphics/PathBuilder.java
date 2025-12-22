@@ -37,15 +37,15 @@ public class PathBuilder {
 			this.close = close;
 		}
 
-		public final Point2D getStart() {
+		public Point2D getStart() {
 			return start;
 		}
 
-		public final Point2D getEnd() {
+		public Point2D getEnd() {
 			return end;
 		}
 
-		public final Path getPath() {
+		public Path getPath() {
 			return path;
 		}
 

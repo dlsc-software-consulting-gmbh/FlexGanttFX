@@ -76,7 +76,7 @@ public class HelloSystemLayers extends FlexGanttFXSample {
     }
 
     class CustomLinksLayer extends SystemLayer<HelloRow> {
-        private Map<String, Rectangle2D> boundsMap = new HashMap<>();
+        private final Map<String, Rectangle2D> boundsMap = new HashMap<>();
 
         public CustomLinksLayer(GraphicsBase<HelloRow> graphicsView) {
             super("Links Layer", graphicsView);

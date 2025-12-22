@@ -40,7 +40,7 @@ import static java.util.logging.Level.FINEST;
  */
 public class IntervalTreeActivityRepository<A extends Activity> extends MutableActivityRepositoryBase<A> {
 
-    private Map<Layer, IntervalTree<A>> treeMap = new HashMap<>();
+    private final Map<Layer, IntervalTree<A>> treeMap = new HashMap<>();
 
     private IntervalTree<A> getTree(Layer layer) {
         IntervalTree<A> tree = treeMap.get(layer);

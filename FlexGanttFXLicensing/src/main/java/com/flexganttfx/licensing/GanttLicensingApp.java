@@ -15,14 +15,14 @@ public class GanttLicensingApp extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	private JTextField licensee = new JTextField("", 30);
-	private JTextField vendor = new JTextField("DLSC", 30);
-    private JCheckBox runtime = new JCheckBox("Runtime");
-	private JTextField counter = new JTextField("1", 2);
-	private JComboBox<Version> version = new JComboBox<>(Version.values());
-	private JComboBox<Product> product = new JComboBox<>(Product.values());
-	private JTextArea key = new JTextArea(5, 30);
-	private JButton generate = new JButton("Generate");
+	private final JTextField licensee = new JTextField("", 30);
+	private final JTextField vendor = new JTextField("DLSC", 30);
+    private final JCheckBox runtime = new JCheckBox("Runtime");
+	private final JTextField counter = new JTextField("1", 2);
+	private final JComboBox<Version> version = new JComboBox<>(Version.values());
+	private final JComboBox<Product> product = new JComboBox<>(Product.values());
+	private final JTextArea key = new JTextArea(5, 30);
+	private final JButton generate = new JButton("Generate");
 
 	public GanttLicensingApp() {
 		super("Gantt Chart: Create License");

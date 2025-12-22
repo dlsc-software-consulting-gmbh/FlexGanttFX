@@ -97,7 +97,7 @@ public final class ChronoUnitDatelineModel extends DatelineModel<ChronoUnit> {
     }
 
     @Override
-    public final ChronoUnit nextTemporalUnit(ChronoUnit unit) {
+    public ChronoUnit nextTemporalUnit(ChronoUnit unit) {
         switch (unit) {
             case NANOS:
                 return MICROS;

@@ -29,11 +29,11 @@ public abstract class Resolution<T extends TemporalUnit> {
         TOP, MIDDLE, BOTTOM, ONLY
     }
 
-    private Set<Position> supportedPositions = new HashSet<>();
+    private final Set<Position> supportedPositions = new HashSet<>();
 
-    private T temporalUnit;
-    private String format;
-    private int stepRate;
+    private final T temporalUnit;
+    private final String format;
+    private final int stepRate;
 
     /**
      * Constructs a new resolution for the given temporal unit, in the

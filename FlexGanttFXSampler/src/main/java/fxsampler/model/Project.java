@@ -103,16 +103,15 @@ public class Project {
     }
 
     @Override public String toString() {
-        StringBuilder sb = new StringBuilder();
+
+        String sb = "Project [ name: " +
+                name +
+                ", sample count: " +
+                sampleTree.size() +
+                ", tree: " +
+                sampleTree +
+                " ]";
         
-        sb.append("Project [ name: ");
-        sb.append(name);
-        sb.append(", sample count: ");
-        sb.append(sampleTree.size());
-        sb.append(", tree: ");
-        sb.append(sampleTree);
-        sb.append(" ]");
-        
-        return sb.toString();
+        return sb;
     }
 }

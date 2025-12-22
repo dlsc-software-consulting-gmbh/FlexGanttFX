@@ -24,14 +24,14 @@ import java.util.List;
 
 public class TutorialGantt extends Application {
 
-    private GanttChart<Aircraft> ganttBottom = new GanttChart<>(new Aircraft("ROOTBOTTOM"));
+    private final GanttChart<Aircraft> ganttBottom = new GanttChart<>(new Aircraft("ROOTBOTTOM"));
 
     private int scrollValue = 0;
 
     private int treetableCount = 0;
 
-    private List<Aircraft> aircraftList = new ArrayList<>();
-    private List<Flight> flightList = new ArrayList<>();
+    private final List<Aircraft> aircraftList = new ArrayList<>();
+    private final List<Flight> flightList = new ArrayList<>();
 
     public void start(Stage stage) {
 

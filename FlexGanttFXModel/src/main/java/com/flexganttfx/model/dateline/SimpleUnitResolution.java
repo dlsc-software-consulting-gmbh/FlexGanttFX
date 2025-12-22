@@ -22,7 +22,7 @@ import java.time.ZoneId;
  */
 public final class SimpleUnitResolution extends Resolution<SimpleUnit> {
 
-	private NumberFormat formatter = DecimalFormat.getInstance();
+	private final NumberFormat formatter = DecimalFormat.getInstance();
 
 	/**
 	 * Constructs a new resolution for the given unit, format, step rate, and positions.

@@ -36,8 +36,8 @@ public class ListActivityRepositoryTest implements EventHandler<RepositoryEvent>
     class TestRow extends Row<TestRow, TestRow, MutableActivityBase<String>> {}
 
     private ListActivityRepository<MutableActivityBase<String>> repository;
-    private Layer layer = new Layer("Default");
-    private TestRow row = new TestRow();
+    private final Layer layer = new Layer("Default");
+    private final TestRow row = new TestRow();
     private ActivityRef<MutableActivityBase<String>> activityRef;
     private RepositoryEvent event;
 

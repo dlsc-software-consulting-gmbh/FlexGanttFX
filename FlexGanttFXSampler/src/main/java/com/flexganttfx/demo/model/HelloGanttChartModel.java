@@ -31,7 +31,7 @@ public class HelloGanttChartModel extends FlexGanttFXSample {
 	private int rootCounter;
 	private int layerCounter;
 	private GanttChart<HelloRow> gantt;
-	private Layer layer = new Layer("Default");
+	private final Layer layer = new Layer("Default");
 
 	class HelloRow extends Row<HelloRow, HelloRow, Activity> {
 		public HelloRow(String name) {

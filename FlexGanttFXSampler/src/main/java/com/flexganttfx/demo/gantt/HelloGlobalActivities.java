@@ -50,10 +50,10 @@ import java.util.Optional;
 public class HelloGlobalActivities extends FlexGanttFXSample {
 
     private GanttChart<HelloRow> gc;
-    private EventlineCalendar calendar = new EventlineCalendar();
-    private Layer layer = new Layer("Default Layer");
-    private PhaseRow frozenRow = new PhaseRow();
-    private ChronoUnitGrid dayGrid = new ChronoUnitGrid("Day Grid", ChronoUnit.DAYS, 1);
+    private final EventlineCalendar calendar = new EventlineCalendar();
+    private final Layer layer = new Layer("Default Layer");
+    private final PhaseRow frozenRow = new PhaseRow();
+    private final ChronoUnitGrid dayGrid = new ChronoUnitGrid("Day Grid", ChronoUnit.DAYS, 1);
 
     @Override
     public void dispose() {
@@ -170,7 +170,7 @@ public class HelloGlobalActivities extends FlexGanttFXSample {
 
     class EventlineCalendar extends CalendarBase<Phase> {
 
-        private List<Phase> phases = new ArrayList<>();
+        private final List<Phase> phases = new ArrayList<>();
 
         protected EventlineCalendar() {
             super("Eventline Calendar");

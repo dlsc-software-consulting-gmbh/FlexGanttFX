@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SampleTree {
-    private TreeNode root;
+    private final TreeNode root;
     
     private int count = 0;
 
@@ -56,7 +56,7 @@ public class SampleTree {
         private final String packageName;
         
         private final TreeNode parent;
-        private List<TreeNode> children;
+        private final List<TreeNode> children;
         
         public TreeNode() {
             this(null, null, null);

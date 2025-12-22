@@ -175,7 +175,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
 
     // Parent support.
 
-    private ReadOnlyObjectWrapper<P> parent = new ReadOnlyObjectWrapper<>(
+    private final ReadOnlyObjectWrapper<P> parent = new ReadOnlyObjectWrapper<>(
             this, "parent");
 
     private void setParent(P value) {
@@ -205,7 +205,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
 
     // called whenever the contents of the children sequence changes
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    private ListChangeListener<Row> childrenChangeListener = c -> {
+    private final ListChangeListener<Row> childrenChangeListener = c -> {
         while (c.next()) {
             for (Row row : c.getRemoved()) {
                 row.setParent(null);
@@ -223,7 +223,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
     // an invalidation listener and would be executed before the code in this class, which can
     // cause all kinds of issues when updating the list of rows inside the GanttChartSkin class.
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    private InvalidationListener childrenInvalidationListener = c -> {
+    private final InvalidationListener childrenInvalidationListener = c -> {
 
         /*
          * Do not call getChildren() as this might cause stack overflows when
@@ -326,7 +326,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
      * @since 1.3
      */
     public boolean isLeaf() {
-        return leaf == null ? true : leaf.getValue();
+        return leaf == null || leaf.getValue();
     }
 
     /**
@@ -345,7 +345,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
 
     // expansion support
 
-    private BooleanProperty expanded = new SimpleBooleanProperty(this,
+    private final BooleanProperty expanded = new SimpleBooleanProperty(this,
             "expanded", false);
 
     /**
@@ -384,7 +384,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
 
     // Showing support
 
-    private ReadOnlyBooleanWrapper showing = new ReadOnlyBooleanWrapper(this,
+    private final ReadOnlyBooleanWrapper showing = new ReadOnlyBooleanWrapper(this,
             "showing", false);
 
     /**
@@ -804,7 +804,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
         return calendars;
     }
 
-    private IntegerProperty lineCount = new SimpleIntegerProperty(this,
+    private final IntegerProperty lineCount = new SimpleIntegerProperty(this,
             "lineCount", 0);
 
     /**

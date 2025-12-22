@@ -30,7 +30,7 @@ public class DragCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
     private boolean includeSelectedActivitiesInDrag;
 
-    private List<ActivityBounds> renderedBounds = new ArrayList<>();
+    private final List<ActivityBounds> renderedBounds = new ArrayList<>();
 
     public DragCanvas(GraphicsBase<R> graphics) {
         this.graphics = graphics;

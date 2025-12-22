@@ -110,7 +110,7 @@ public enum SimpleUnit implements TemporalUnit {
     /*
      * The total number of milliseconds represented by the granularity.
      */
-    private long millis;
+    private final long millis;
 
     /**
      * Constructs a new enumerator value.

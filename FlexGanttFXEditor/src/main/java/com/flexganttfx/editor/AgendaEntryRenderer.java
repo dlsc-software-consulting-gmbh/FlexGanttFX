@@ -34,18 +34,18 @@ import java.util.Map;
  */
 public class AgendaEntryRenderer extends ActivityRenderer<AgendaEntryBase> {
 
-	private DateTimeFormatter timeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT);
+	private final DateTimeFormatter timeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT);
 
-	private Map<Type, Color> fillColorMap = new HashMap<>();
-	private Map<Type, Color> strokeColorMap = new HashMap<>();
-	private Map<Type, Color> textColorMap = new HashMap<>();
-	private Map<Type, Image> imageMap = new HashMap<>();
+	private final Map<Type, Color> fillColorMap = new HashMap<>();
+	private final Map<Type, Color> strokeColorMap = new HashMap<>();
+	private final Map<Type, Color> textColorMap = new HashMap<>();
+	private final Map<Type, Image> imageMap = new HashMap<>();
 
-	private Font font = Font.font("system", FontWeight.BOLD, 10);
+	private final Font font = Font.font("system", FontWeight.BOLD, 10);
 
-	private Image linkImage = new Image(AgendaEntryRenderer.class.getResourceAsStream("link.png"));
-	private Image upArrow = new Image(AgendaEntryRenderer.class.getResourceAsStream("arrow_up.png"));
-	private Image downArrow = new Image(AgendaEntryRenderer.class.getResourceAsStream("arrow_down.png"));
+	private final Image linkImage = new Image(AgendaEntryRenderer.class.getResourceAsStream("link.png"));
+	private final Image upArrow = new Image(AgendaEntryRenderer.class.getResourceAsStream("arrow_up.png"));
+	private final Image downArrow = new Image(AgendaEntryRenderer.class.getResourceAsStream("arrow_down.png"));
 
 	public AgendaEntryRenderer(GraphicsBase<?> graphics) {
 		super(graphics, "Agenda Entries");

@@ -25,7 +25,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class Lens<R extends Row<?, ?, ?>> extends Control {
 
-    private GraphicsBase<R> graphics;
+    private final GraphicsBase<R> graphics;
 
     public Lens(GraphicsBase<R> graphics) {
         this.graphics = requireNonNull(graphics);

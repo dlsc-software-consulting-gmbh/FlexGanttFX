@@ -116,8 +116,8 @@ public class VirtualFlowUtil {
 
     private static class VirtualFlowPosition {
 
-        private int index;
-        private double offset;
+        private final int index;
+        private final double offset;
 
         public VirtualFlowPosition(int index, double offset) {
             this.index = index;

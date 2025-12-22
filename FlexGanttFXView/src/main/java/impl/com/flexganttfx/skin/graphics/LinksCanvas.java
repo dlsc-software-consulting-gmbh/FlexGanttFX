@@ -259,9 +259,7 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
             boolean sourceRowShowing = rowFilter.test(sourceRow) || sourceRow.hasChildren(rowFilter);
             boolean targetRowShowing = rowFilter.test(targetRow) || targetRow.hasChildren(rowFilter);
 
-            if (!(sourceRowShowing && targetRowShowing)) {
-                return false;
-            }
+            return sourceRowShowing && targetRowShowing;
         }
 
         return true;

@@ -22,9 +22,9 @@ import java.time.Instant;
 
 public class HelloLinks extends FlexGanttFXSample {
 
-	private static final long ONE_DAY = 1 * 24 * 60 * 60 * 1000;
+	private static final long ONE_DAY = 24 * 60 * 60 * 1000;
 
-	private HelloRow root;
+	private final HelloRow root;
 	private GanttChart<HelloRow> gantt;
 	private Layer layer;
 

@@ -114,7 +114,7 @@ public class AgendaLayout extends Layout {
 
 	// Agenda support.
 
-	private ObjectProperty<LocalTime> startTime = new SimpleObjectProperty<>(this, "startTime", LocalTime.MIN);
+	private final ObjectProperty<LocalTime> startTime = new SimpleObjectProperty<>(this, "startTime", LocalTime.MIN);
 
 	/**
 	 * Returns the property used for storing the start time of the agenda. The
@@ -153,7 +153,7 @@ public class AgendaLayout extends Layout {
 		startTimeProperty().set(time);
 	}
 
-	private ObjectProperty<LocalTime> endTime = new SimpleObjectProperty<>(this, "endTime", LocalTime.MAX);
+	private final ObjectProperty<LocalTime> endTime = new SimpleObjectProperty<>(this, "endTime", LocalTime.MAX);
 
 	/**
 	 * Returns the property used for storing the end time of the agenda. The end
@@ -193,7 +193,7 @@ public class AgendaLayout extends Layout {
 		endTimeProperty().set(time);
 	}
 
-	private ObjectProperty<Duration> minDuration = new SimpleObjectProperty<Duration>(this, "minDuration", Duration.ofMinutes(15)) {
+	private final ObjectProperty<Duration> minDuration = new SimpleObjectProperty<Duration>(this, "minDuration", Duration.ofMinutes(15)) {
 
 		@Override
 		public void set(Duration duration) {

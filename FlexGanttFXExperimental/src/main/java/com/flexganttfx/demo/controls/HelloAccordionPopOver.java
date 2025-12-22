@@ -123,11 +123,11 @@ public class HelloAccordionPopOver extends Application {
 	}
 
 	class ExamplePane extends GridPane {
-		private DatePicker datePicker = new DatePicker();
-		private CheckBox milestone = new CheckBox("Milestone");
-		private TextField durationField = new TextField();
-		private TextField capacityField = new TextField();
-		private Slider percentageSlider = new Slider(0, 100, 0);
+		private final DatePicker datePicker = new DatePicker();
+		private final CheckBox milestone = new CheckBox("Milestone");
+		private final TextField durationField = new TextField();
+		private final TextField capacityField = new TextField();
+		private final Slider percentageSlider = new Slider(0, 100, 0);
 		private Label percentageValueLabel = new Label();
 
 		public ExamplePane() {

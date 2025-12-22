@@ -35,7 +35,7 @@ public abstract class ActivityRepositoryBase<A extends Activity> implements Acti
     protected ActivityRepositoryBase() {
     }
 
-    private ObservableList<EventHandler<RepositoryEvent>> repositoryListeners = FXCollections.observableArrayList();
+    private final ObservableList<EventHandler<RepositoryEvent>> repositoryListeners = FXCollections.observableArrayList();
 
     @Override
     public void addEventHandler(EventHandler<RepositoryEvent> l) {

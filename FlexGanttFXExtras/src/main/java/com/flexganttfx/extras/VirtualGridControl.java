@@ -154,7 +154,7 @@ public class VirtualGridControl extends FlexGanttFXControl {
 		valueProperty().set(grid);
 	}
 
-	private ObservableList<VirtualGrid<?>> grids = FXCollections
+	private final ObservableList<VirtualGrid<?>> grids = FXCollections
 			.observableArrayList();
 
 	/**

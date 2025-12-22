@@ -19,7 +19,7 @@ import org.controlsfx.control.PopOver;
 
 public class AccordionPopOver extends PopOver {
 
-	private Accordion accordion;
+	private final Accordion accordion;
 
 	public AccordionPopOver() {
 		super();

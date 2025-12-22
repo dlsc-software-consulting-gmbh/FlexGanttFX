@@ -20,7 +20,7 @@ import java.util.Objects;
  */
 public abstract class LinesManagerBase<A extends Activity> implements LinesManager<A> {
 
-	private Row<?, ?, ?> row;
+	private final Row<?, ?, ?> row;
 
 	/**
 	 * Constructs a new lines manager.

@@ -24,10 +24,10 @@ import java.util.List;
 
 public class HelloGanttChartLiteModel extends FlexGanttFXSample {
 
-    private HelloRow root;
+    private final HelloRow root;
     private int layerCounter;
     private GanttChartLite<HelloRow> gantt;
-    private Layer layer = new Layer("Default");
+    private final Layer layer = new Layer("Default");
 
     class HelloRow extends Row<HelloRow, HelloRow, Activity> {
         public HelloRow(String name) {

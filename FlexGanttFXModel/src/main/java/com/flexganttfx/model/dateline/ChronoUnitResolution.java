@@ -155,13 +155,13 @@ public final class ChronoUnitResolution extends Resolution<ChronoUnit> {
                 time = time.plusYears(stepRate);
                 break;
             case DECADES:
-                time = time.plusYears(stepRate * 10);
+                time = time.plusYears(stepRate * 10L);
                 break;
             case CENTURIES:
-                time = time.plusYears(stepRate * 100);
+                time = time.plusYears(stepRate * 100L);
                 break;
             case MILLENNIA:
-                time = time.plusYears(stepRate * 1000);
+                time = time.plusYears(stepRate * 1000L);
                 break;
             default:
                 return instant.plus(getTemporalUnit().getDuration().multipliedBy(stepRate));
@@ -221,13 +221,13 @@ public final class ChronoUnitResolution extends Resolution<ChronoUnit> {
                 time = time.minusYears(stepRate);
                 break;
             case DECADES:
-                time = time.minusYears(stepRate * 10);
+                time = time.minusYears(stepRate * 10L);
                 break;
             case CENTURIES:
-                time = time.minusYears(stepRate * 100);
+                time = time.minusYears(stepRate * 100L);
                 break;
             case MILLENNIA:
-                time = time.minusYears(stepRate * 1000);
+                time = time.minusYears(stepRate * 1000L);
                 break;
             default:
                 return instant.minus(getTemporalUnit().getDuration().multipliedBy(stepRate));

@@ -43,9 +43,9 @@ import com.flexganttfx.view.timeline.Dateline;
 public class AgendaEditor extends Control implements
 		AgendaEditorContext<AgendaRow> {
 
-	private AgendaRow agendaRow;
+	private final AgendaRow agendaRow;
 
-	private AgendaLayout agendaLayout;
+	private final AgendaLayout agendaLayout;
 
 	/**
 	 * Constructs a new editor with a single row on which the user can add

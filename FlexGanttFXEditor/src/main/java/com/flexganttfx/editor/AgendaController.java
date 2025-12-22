@@ -60,17 +60,17 @@ import com.flexganttfx.view.timeline.Dateline;
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class AgendaController<R extends Row<?, ?, ?>> {
 
-	private Stack<Snapshot> undoStack = new Stack<>();
+	private final Stack<Snapshot> undoStack = new Stack<>();
 
-	private Stack<Snapshot> redoStack = new Stack<>();
+	private final Stack<Snapshot> redoStack = new Stack<>();
 
-	private AgendaConflictResolver<R> conflictResolver;
+	private final AgendaConflictResolver<R> conflictResolver;
 
-	private AgendaEditorContext<R> context;
+	private final AgendaEditorContext<R> context;
 
-	private GraphicsBase<R> graphics;
+	private final GraphicsBase<R> graphics;
 
-	private Layer layer;
+	private final Layer layer;
 
 	private MouseEvent lastMouseEvent;
 
@@ -340,7 +340,7 @@ public class AgendaController<R extends Row<?, ?, ?>> {
 
 		long deltaDays = initialDate.until(zonedNewTime, ChronoUnit.DAYS);
 
-		initialDate = initialDate.plus(deltaDays, ChronoUnit.DAYS);
+		initialDate = initialDate.plusDays(deltaDays);
 
 		/*
 		 * Perform the same drag on all selected activities, except for the one
@@ -361,17 +361,15 @@ public class AgendaController<R extends Row<?, ?, ?>> {
 				Instant mutableEndTime = mutableActivity.getEndTime();
 
 				zonedNewTime = ZonedDateTime
-						.ofInstant(mutableStartTime, row.getZoneId())
-						.plus(deltaMillis, ChronoUnit.MILLIS)
-						.plus(deltaDays, ChronoUnit.DAYS);
+                        .ofInstant(mutableStartTime, row.getZoneId())
+                        .plus(deltaMillis, ChronoUnit.MILLIS).plusDays(deltaDays);
 
 				Instant newStartTime = Instant.from(zonedNewTime);
 				mutableActivity.setStartTime(newStartTime);
 
 				zonedNewTime = ZonedDateTime
-						.ofInstant(mutableEndTime, row.getZoneId())
-						.plus(deltaMillis, ChronoUnit.MILLIS)
-						.plus(deltaDays, ChronoUnit.DAYS);
+                        .ofInstant(mutableEndTime, row.getZoneId())
+                        .plus(deltaMillis, ChronoUnit.MILLIS).plusDays(deltaDays);
 
 				Instant newEndTime = Instant.from(zonedNewTime);
 				mutableActivity.setEndTime(newEndTime);
@@ -842,8 +840,8 @@ public class AgendaController<R extends Row<?, ?, ?>> {
 	 * Data structure used to store the current state of the editor.
 	 */
 	class Snapshot {
-		private Row<?, ?, ?> row;
-		private Map<AgendaEntry, SavedState> stateMap;
+		private final Row<?, ?, ?> row;
+		private final Map<AgendaEntry, SavedState> stateMap;
 
 		public Snapshot(Row<?, ?, ?> row) {
 			this.row = row;
@@ -863,8 +861,8 @@ public class AgendaController<R extends Row<?, ?, ?>> {
 	 * Data stucture used to store the state of a single agenda entry.
 	 */
 	class SavedState {
-		private Instant start;
-		private Instant end;
+		private final Instant start;
+		private final Instant end;
 
 		public SavedState(AgendaEntry entry) {
 			this.start = entry.getStartTime();

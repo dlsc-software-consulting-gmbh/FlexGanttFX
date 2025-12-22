@@ -37,23 +37,18 @@ public class ChronoUnitGridTest {
 
 		// then
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.YEAR) % 5, is(equalTo(0)));
+				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getYear() % 5, is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.HOUR_OF_DAY), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getHour(), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.MINUTE_OF_HOUR), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getMinute(), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.SECOND_OF_MINUTE), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getSecond(), is(equalTo(0)));
 		assertThat(
 				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
 						ChronoField.MILLI_OF_SECOND), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.NANO_OF_SECOND), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getNano(), is(equalTo(0)));
 	}
 
 	@Test
@@ -69,23 +64,18 @@ public class ChronoUnitGridTest {
 
 		// then
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.YEAR) % 10, is(equalTo(0)));
+				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getYear() % 10, is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.HOUR_OF_DAY), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getHour(), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.MINUTE_OF_HOUR), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getMinute(), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.SECOND_OF_MINUTE), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getSecond(), is(equalTo(0)));
 		assertThat(
 				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
 						ChronoField.MILLI_OF_SECOND), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.NANO_OF_SECOND), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getNano(), is(equalTo(0)));
 	}
 
 	@Test
@@ -101,23 +91,18 @@ public class ChronoUnitGridTest {
 
 		// then
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.YEAR) % 100, is(equalTo(0)));
+				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getYear() % 100, is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.HOUR_OF_DAY), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getHour(), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.MINUTE_OF_HOUR), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getMinute(), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.SECOND_OF_MINUTE), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getSecond(), is(equalTo(0)));
 		assertThat(
 				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
 						ChronoField.MILLI_OF_SECOND), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.NANO_OF_SECOND), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getNano(), is(equalTo(0)));
 	}
 
 	// ROUND DOWN MONTHS
@@ -126,8 +111,7 @@ public class ChronoUnitGridTest {
 
 		// given
 		ChronoUnitGrid grid = new ChronoUnitGrid("", ChronoUnit.MONTHS, 2);
-		Instant time = Instant.from(ZonedDateTime.now().with(
-				ChronoField.MONTH_OF_YEAR, 2));
+		Instant time = Instant.from(ZonedDateTime.now().withMonth(2));
 
 		// when
 		time = grid.adjustTime(time, ZoneId.systemDefault(), false,
@@ -135,23 +119,18 @@ public class ChronoUnitGridTest {
 
 		// then
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.MONTH_OF_YEAR) % 2, is(equalTo(1)));
+				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getMonth() % 2, is(equalTo(1)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.HOUR_OF_DAY), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getHour(), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.MINUTE_OF_HOUR), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getMinute(), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.SECOND_OF_MINUTE), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getSecond(), is(equalTo(0)));
 		assertThat(
 				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
 						ChronoField.MILLI_OF_SECOND), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.NANO_OF_SECOND), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getNano(), is(equalTo(0)));
 	}
 
 	@Test
@@ -159,8 +138,7 @@ public class ChronoUnitGridTest {
 
 		// given
 		ChronoUnitGrid grid = new ChronoUnitGrid("", ChronoUnit.MONTHS, 4);
-		Instant time = Instant.from(ZonedDateTime.now().with(
-				ChronoField.MONTH_OF_YEAR, 2));
+		Instant time = Instant.from(ZonedDateTime.now().withMonth(2));
 
 		// when
 		time = grid.adjustTime(time, ZoneId.systemDefault(), false,
@@ -168,23 +146,18 @@ public class ChronoUnitGridTest {
 
 		// then
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.MONTH_OF_YEAR) % 4, is(equalTo(1)));
+				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getMonth() % 4, is(equalTo(1)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.HOUR_OF_DAY), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getHour(), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.MINUTE_OF_HOUR), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getMinute(), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.SECOND_OF_MINUTE), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getSecond(), is(equalTo(0)));
 		assertThat(
 				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
 						ChronoField.MILLI_OF_SECOND), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.NANO_OF_SECOND), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getNano(), is(equalTo(0)));
 	}
 
 	@Test
@@ -192,8 +165,7 @@ public class ChronoUnitGridTest {
 
 		// given
 		ChronoUnitGrid grid = new ChronoUnitGrid("", ChronoUnit.MONTHS, 6);
-		Instant time = Instant.from(ZonedDateTime.now().with(
-				ChronoField.MONTH_OF_YEAR, 2));
+		Instant time = Instant.from(ZonedDateTime.now().withMonth(2));
 
 		// when
 		time = grid.adjustTime(time, ZoneId.systemDefault(), false,
@@ -201,23 +173,18 @@ public class ChronoUnitGridTest {
 
 		// then
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.MONTH_OF_YEAR) % 6, is(equalTo(1)));
+				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getMonth() % 6, is(equalTo(1)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.HOUR_OF_DAY), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getHour(), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.MINUTE_OF_HOUR), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getMinute(), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.SECOND_OF_MINUTE), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getSecond(), is(equalTo(0)));
 		assertThat(
 				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
 						ChronoField.MILLI_OF_SECOND), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.NANO_OF_SECOND), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getNano(), is(equalTo(0)));
 	}
 
 	// ROUND DOWN WEEKS
@@ -235,20 +202,16 @@ public class ChronoUnitGridTest {
 
 		// then
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.HOUR_OF_DAY), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getHour(), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.MINUTE_OF_HOUR), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getMinute(), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.SECOND_OF_MINUTE), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getSecond(), is(equalTo(0)));
 		assertThat(
 				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
 						ChronoField.MILLI_OF_SECOND), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.NANO_OF_SECOND), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getNano(), is(equalTo(0)));
 	}
 
 	@Test
@@ -264,20 +227,16 @@ public class ChronoUnitGridTest {
 
 		// then
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.HOUR_OF_DAY), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getHour(), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.MINUTE_OF_HOUR), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getMinute(), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.SECOND_OF_MINUTE), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getSecond(), is(equalTo(0)));
 		assertThat(
 				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
 						ChronoField.MILLI_OF_SECOND), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.NANO_OF_SECOND), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getNano(), is(equalTo(0)));
 	}
 
 	@Test
@@ -293,20 +252,16 @@ public class ChronoUnitGridTest {
 
 		// then
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.HOUR_OF_DAY), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getHour(), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.MINUTE_OF_HOUR), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getMinute(), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.SECOND_OF_MINUTE), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getSecond(), is(equalTo(0)));
 		assertThat(
 				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
 						ChronoField.MILLI_OF_SECOND), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.NANO_OF_SECOND), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getNano(), is(equalTo(0)));
 	}
 
 	// ROUND DOWN DAYS
@@ -324,23 +279,18 @@ public class ChronoUnitGridTest {
 
 		// then
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.DAY_OF_YEAR) % 2, is(equalTo(0)));
+				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getDayOfYear() % 2, is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.HOUR_OF_DAY), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getHour(), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.MINUTE_OF_HOUR), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getMinute(), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.SECOND_OF_MINUTE), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getSecond(), is(equalTo(0)));
 		assertThat(
 				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
 						ChronoField.MILLI_OF_SECOND), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.NANO_OF_SECOND), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getNano(), is(equalTo(0)));
 	}
 
 	@Test
@@ -356,23 +306,18 @@ public class ChronoUnitGridTest {
 
 		// then
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.DAY_OF_YEAR) % 4, is(equalTo(0)));
+				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getDayOfYear() % 4, is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.HOUR_OF_DAY), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getHour(), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.MINUTE_OF_HOUR), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getMinute(), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.SECOND_OF_MINUTE), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getSecond(), is(equalTo(0)));
 		assertThat(
 				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
 						ChronoField.MILLI_OF_SECOND), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.NANO_OF_SECOND), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getNano(), is(equalTo(0)));
 	}
 
 	@Test
@@ -388,23 +333,18 @@ public class ChronoUnitGridTest {
 
 		// then
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.DAY_OF_YEAR) % 6, is(equalTo(0)));
+				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getDayOfYear() % 6, is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.HOUR_OF_DAY), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getHour(), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.MINUTE_OF_HOUR), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getMinute(), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.SECOND_OF_MINUTE), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getSecond(), is(equalTo(0)));
 		assertThat(
 				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
 						ChronoField.MILLI_OF_SECOND), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.NANO_OF_SECOND), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getNano(), is(equalTo(0)));
 	}
 
 	// ROUND DOWN HOURS
@@ -422,20 +362,16 @@ public class ChronoUnitGridTest {
 
 		// then
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.HOUR_OF_DAY) % 2, is(equalTo(0)));
+				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getHour() % 2, is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.MINUTE_OF_HOUR), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getMinute(), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.SECOND_OF_MINUTE), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getSecond(), is(equalTo(0)));
 		assertThat(
 				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
 						ChronoField.MILLI_OF_SECOND), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.NANO_OF_SECOND), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getNano(), is(equalTo(0)));
 	}
 
 	@Test
@@ -451,20 +387,16 @@ public class ChronoUnitGridTest {
 
 		// then
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.HOUR_OF_DAY) % 4, is(equalTo(0)));
+				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getHour() % 4, is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.MINUTE_OF_HOUR), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getMinute(), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.SECOND_OF_MINUTE), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getSecond(), is(equalTo(0)));
 		assertThat(
 				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
 						ChronoField.MILLI_OF_SECOND), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.NANO_OF_SECOND), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getNano(), is(equalTo(0)));
 	}
 
 	@Test
@@ -480,20 +412,16 @@ public class ChronoUnitGridTest {
 
 		// then
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.HOUR_OF_DAY) % 6, is(equalTo(0)));
+				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getHour() % 6, is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.MINUTE_OF_HOUR), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getMinute(), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.SECOND_OF_MINUTE), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getSecond(), is(equalTo(0)));
 		assertThat(
 				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
 						ChronoField.MILLI_OF_SECOND), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.NANO_OF_SECOND), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getNano(), is(equalTo(0)));
 	}
 
 	// ROUND DOWN MINUTES
@@ -511,17 +439,14 @@ public class ChronoUnitGridTest {
 
 		// then
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.MINUTE_OF_HOUR) % 5, is(equalTo(0)));
+				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getMinute() % 5, is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.SECOND_OF_MINUTE), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getSecond(), is(equalTo(0)));
 		assertThat(
 				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
 						ChronoField.MILLI_OF_SECOND), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.NANO_OF_SECOND), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getNano(), is(equalTo(0)));
 	}
 
 	@Test
@@ -537,17 +462,14 @@ public class ChronoUnitGridTest {
 
 		// then
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.MINUTE_OF_HOUR) % 15, is(equalTo(0)));
+				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getMinute() % 15, is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.SECOND_OF_MINUTE), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getSecond(), is(equalTo(0)));
 		assertThat(
 				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
 						ChronoField.MILLI_OF_SECOND), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.NANO_OF_SECOND), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getNano(), is(equalTo(0)));
 	}
 
 	@Test
@@ -563,17 +485,14 @@ public class ChronoUnitGridTest {
 
 		// then
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.MINUTE_OF_HOUR) % 60, is(equalTo(0)));
+				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getMinute() % 60, is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.SECOND_OF_MINUTE), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getSecond(), is(equalTo(0)));
 		assertThat(
 				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
 						ChronoField.MILLI_OF_SECOND), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.NANO_OF_SECOND), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getNano(), is(equalTo(0)));
 	}
 
 	// ROUND DOWN SECONDS
@@ -591,14 +510,12 @@ public class ChronoUnitGridTest {
 
 		// then
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.SECOND_OF_MINUTE) % 5, is(equalTo(0)));
+				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getSecond() % 5, is(equalTo(0)));
 		assertThat(
 				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
 						ChronoField.MILLI_OF_SECOND), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.NANO_OF_SECOND), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getNano(), is(equalTo(0)));
 	}
 
 	@Test
@@ -614,14 +531,12 @@ public class ChronoUnitGridTest {
 
 		// then
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.SECOND_OF_MINUTE) % 15, is(equalTo(0)));
+				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getSecond() % 15, is(equalTo(0)));
 		assertThat(
 				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
 						ChronoField.MILLI_OF_SECOND), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.NANO_OF_SECOND), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getNano(), is(equalTo(0)));
 	}
 
 	@Test
@@ -637,14 +552,12 @@ public class ChronoUnitGridTest {
 
 		// then
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.SECOND_OF_MINUTE) % 60, is(equalTo(0)));
+				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getSecond() % 60, is(equalTo(0)));
 		assertThat(
 				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
 						ChronoField.MILLI_OF_SECOND), is(equalTo(0)));
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).get(
-						ChronoField.NANO_OF_SECOND), is(equalTo(0)));
+                LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getNano(), is(equalTo(0)));
 	}
 
 	@Test

@@ -40,12 +40,12 @@ public abstract class DatelineCell<T extends TemporalUnit> extends Region {
     private Instant endTime;
 
     private Dateline dateline;
-    private Text text;
+    private final Text text;
     private Position scalePosition;
 
-    private InvalidationListener layoutListener = it -> requestLayout();
+    private final InvalidationListener layoutListener = it -> requestLayout();
 
-    private WeakInvalidationListener weakLayoutListener = new WeakInvalidationListener(layoutListener);
+    private final WeakInvalidationListener weakLayoutListener = new WeakInvalidationListener(layoutListener);
 
     protected DatelineCell() {
         setMouseTransparent(true);

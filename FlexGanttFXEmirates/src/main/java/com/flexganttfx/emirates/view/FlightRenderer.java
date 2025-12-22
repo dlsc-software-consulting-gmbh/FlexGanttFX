@@ -19,7 +19,7 @@ import java.util.EnumMap;
 
 public class FlightRenderer extends ActivityBarRenderer<Flight> {
 
-    private EnumMap<ServiceType, Color> servicePaintMap = new EnumMap<>(
+    private final EnumMap<ServiceType, Color> servicePaintMap = new EnumMap<>(
             ServiceType.class);
 
     public FlightRenderer(GraphicsBase<?> graphics) {

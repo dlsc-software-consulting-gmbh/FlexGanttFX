@@ -58,10 +58,10 @@ import java.util.List;
 
 public class HelloCanvasBuffer extends FlexGanttFXSampleBase {
 
-    private HelloCanvasBuffer.EventlineCalendar calendar = new HelloCanvasBuffer.EventlineCalendar();
-    private Layer layer = new Layer("Default Layer");
-    private PhaseRow frozenRow = new PhaseRow();
-    private ChronoUnitGrid dayGrid = new ChronoUnitGrid("Day Grid", ChronoUnit.DAYS, 1);
+    private final HelloCanvasBuffer.EventlineCalendar calendar = new HelloCanvasBuffer.EventlineCalendar();
+    private final Layer layer = new Layer("Default Layer");
+    private final PhaseRow frozenRow = new PhaseRow();
+    private final ChronoUnitGrid dayGrid = new ChronoUnitGrid("Day Grid", ChronoUnit.DAYS, 1);
     private VBoxGraphics<HelloRow> vboxGraphics;
     private Timeline timeline;
 
@@ -243,7 +243,7 @@ public class HelloCanvasBuffer extends FlexGanttFXSampleBase {
 
     class EventlineCalendar extends CalendarBase<Phase> {
 
-        private List<Phase> phases = new ArrayList<>();
+        private final List<Phase> phases = new ArrayList<>();
 
         protected EventlineCalendar() {
             super("Eventline Calendar");

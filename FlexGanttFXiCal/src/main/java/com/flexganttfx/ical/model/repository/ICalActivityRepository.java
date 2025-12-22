@@ -29,7 +29,7 @@ import com.flexganttfx.model.repository.ActivityRepositoryBase;
 public final class ICalActivityRepository extends
 		ActivityRepositoryBase<ICalActivity> {
 
-	private Calendar calendar;
+	private final Calendar calendar;
 
 	public ICalActivityRepository(Calendar calendar) {
 		this.calendar = calendar;

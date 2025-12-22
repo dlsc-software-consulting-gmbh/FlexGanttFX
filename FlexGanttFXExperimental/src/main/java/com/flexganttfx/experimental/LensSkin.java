@@ -23,8 +23,8 @@ import com.flexganttfx.view.timeline.Timeline;
 
 public class LensSkin<R extends Row<?, ?, ?>> extends SkinBase<Lens<R>> {
 
-	private VBoxGraphics<R> graphics;
-	private Timeline timeline;
+	private final VBoxGraphics<R> graphics;
+	private final Timeline timeline;
 
 	public LensSkin(Lens<R> lens) {
 		super(lens);

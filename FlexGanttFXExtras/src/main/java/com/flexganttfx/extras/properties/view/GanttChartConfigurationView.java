@@ -18,10 +18,10 @@ import javafx.scene.control.TabPane;
  */
 public class GanttChartConfigurationView extends TabPane  {
 
-    private GanttChartPropertySheet controlsSheet = new GanttChartPropertySheet();
-    private GanttChartPropertySheet backgroundLayersSheet = new GanttChartPropertySheet();
-    private GanttChartPropertySheet foregroundLayersSheet = new GanttChartPropertySheet();
-    private GanttChartPropertySheet renderersSheet = new GanttChartPropertySheet();
+    private final GanttChartPropertySheet controlsSheet = new GanttChartPropertySheet();
+    private final GanttChartPropertySheet backgroundLayersSheet = new GanttChartPropertySheet();
+    private final GanttChartPropertySheet foregroundLayersSheet = new GanttChartPropertySheet();
+    private final GanttChartPropertySheet renderersSheet = new GanttChartPropertySheet();
 
     /**
      * Constructs a new view.

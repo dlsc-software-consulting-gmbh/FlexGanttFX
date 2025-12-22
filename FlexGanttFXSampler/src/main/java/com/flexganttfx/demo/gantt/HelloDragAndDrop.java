@@ -431,7 +431,7 @@ public class HelloDragAndDrop extends FlexGanttFXSampleBase {
 	}
 
 	public class Order {
-		private String title;
+		private final String title;
 		private LocalDate startDate = LocalDate.now();
 		private LocalDate endDate = LocalDate.now().plusWeeks(1);
 		private Priority priority;
@@ -470,7 +470,7 @@ public class HelloDragAndDrop extends FlexGanttFXSampleBase {
 	}
 
 	public class Person {
-		private String name;
+		private final String name;
 
 		public Person(String name) {
 			this.name = name;
@@ -558,11 +558,11 @@ public class HelloDragAndDrop extends FlexGanttFXSampleBase {
 
 	class DragInfoPane extends GridPane {
 
-		private TextField activityField = new TextField();
-		private TextField rowField = new TextField();
-		private TextField transferModeField = new TextField();
-		private DatePicker startTimeField = new DatePicker();
-		private DatePicker endTimeField = new DatePicker();
+		private final TextField activityField = new TextField();
+		private final TextField rowField = new TextField();
+		private final TextField transferModeField = new TextField();
+		private final DatePicker startTimeField = new DatePicker();
+		private final DatePicker endTimeField = new DatePicker();
 
 		public DragInfoPane() {
 			setHgap(5);

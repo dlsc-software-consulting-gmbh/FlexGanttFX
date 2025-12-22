@@ -19,9 +19,9 @@ import javafx.scene.layout.Priority;
 
 public class PopOverHeader<T extends Node> extends GridPane {
 
-	private TextField titleField = new TextField();
+	private final TextField titleField = new TextField();
 
-	private TextField subtitleField = new TextField();
+	private final TextField subtitleField = new TextField();
 
 	public PopOverHeader() {
 		add(titleField, 0, 0);

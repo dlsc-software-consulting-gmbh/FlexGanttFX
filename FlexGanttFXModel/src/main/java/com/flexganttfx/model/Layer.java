@@ -53,7 +53,7 @@ public class Layer {
 		setId(getName());
 	}
 
-	private StringProperty name = new SimpleStringProperty(this, "name",
+	private final StringProperty name = new SimpleStringProperty(this, "name",
 			"Untitled");
 
 	/**
@@ -88,7 +88,7 @@ public class Layer {
 		return nameProperty().get();
 	}
 
-	private StringProperty id = new SimpleStringProperty(this, "id");
+	private final StringProperty id = new SimpleStringProperty(this, "id");
 
 	/**
 	 * The property used to store the id of the layer.
@@ -122,7 +122,7 @@ public class Layer {
 		return idProperty().get();
 	}
 
-	private DoubleProperty opacity = new SimpleDoubleProperty(this, "opacity",
+	private final DoubleProperty opacity = new SimpleDoubleProperty(this, "opacity",
 			1);
 
 	/**
@@ -156,7 +156,7 @@ public class Layer {
 		return opacityProperty().get();
 	}
 
-	private DoubleProperty fadeInOutOpacity = new SimpleDoubleProperty(this, "fadeInOutOpacity", 1);
+	private final DoubleProperty fadeInOutOpacity = new SimpleDoubleProperty(this, "fadeInOutOpacity", 1);
 
 	/**
 	 * The property used to store the temporary opacity of the layer while the
@@ -191,7 +191,7 @@ public class Layer {
 		fadeInOutOpacityProperty().set(opacity);
 	}
 
-	private BooleanProperty visible = new SimpleBooleanProperty(this,
+	private final BooleanProperty visible = new SimpleBooleanProperty(this,
 			"visible", true);
 
 	/**
@@ -224,7 +224,7 @@ public class Layer {
 		visibleProperty().set(visible);
 	}
 
-	private BooleanProperty deletable = new SimpleBooleanProperty(this,
+	private final BooleanProperty deletable = new SimpleBooleanProperty(this,
 			"deletable", true);
 
 	/**

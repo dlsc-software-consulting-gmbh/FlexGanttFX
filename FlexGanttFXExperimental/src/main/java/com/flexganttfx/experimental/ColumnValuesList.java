@@ -22,11 +22,11 @@ import javafx.util.Callback;
 
 public class ColumnValuesList<S, T> extends Control {
 
-	private TableColumn<S, T> column;
+	private final TableColumn<S, T> column;
 
-	private ListView<T> listView;
+	private final ListView<T> listView;
 
-	private ColumnBrowser<S> browser;
+	private final ColumnBrowser<S> browser;
 
 	public ColumnValuesList(ColumnBrowser<S> browser, TableColumn<S, T> column) {
 		requireNonNull(browser);

@@ -256,12 +256,12 @@ public class HelloMultiLine extends FlexGanttFXSample {
 
     class RandomLinesManager implements LinesManager<HelloActivity> {
 
-        private HelloRow row;
+        private final HelloRow row;
 
         private double[] locations;
         private double[] heights;
 
-        private GanttLayout layout;
+        private final GanttLayout layout;
 
         public RandomLinesManager(HelloRow row) {
             this.row = row;

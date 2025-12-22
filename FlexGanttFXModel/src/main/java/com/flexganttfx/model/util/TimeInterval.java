@@ -16,9 +16,9 @@ import static java.util.Objects.requireNonNull;
  */
 public final class TimeInterval {
 
-	private Instant startTime;
+	private final Instant startTime;
 
-	private Instant endTime;
+	private final Instant endTime;
 
 	/**
 	 * Constructs a new time interval.

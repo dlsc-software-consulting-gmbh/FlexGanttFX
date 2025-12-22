@@ -324,7 +324,7 @@ public class HelloAgendaLayout extends FlexGanttFXSample {
         BIOLOGY("Biology"),
         RELIGION("Religion");
 
-        private String displayName;
+        private final String displayName;
 
         Type(String name) {
             displayName = name;
@@ -357,14 +357,14 @@ public class HelloAgendaLayout extends FlexGanttFXSample {
      */
     public class AgendaActivityRenderer extends ActivityRenderer<AgendaActivity> {
 
-        private DateTimeFormatter timeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT);
+        private final DateTimeFormatter timeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT);
 
-        private Map<Type, Color> fillColorMap = new HashMap<>();
-        private Map<Type, Color> strokeColorMap = new HashMap<>();
-        private Map<Type, Color> textColorMap = new HashMap<>();
-        private Map<Type, Image> imageMap = new HashMap<>();
+        private final Map<Type, Color> fillColorMap = new HashMap<>();
+        private final Map<Type, Color> strokeColorMap = new HashMap<>();
+        private final Map<Type, Color> textColorMap = new HashMap<>();
+        private final Map<Type, Image> imageMap = new HashMap<>();
 
-        private Font font = Font.font("system", FontWeight.BOLD, 10);
+        private final Font font = Font.font("system", FontWeight.BOLD, 10);
 
         public AgendaActivityRenderer(GraphicsBase<?> graphics) {
             super(graphics, "Agenda Activities");

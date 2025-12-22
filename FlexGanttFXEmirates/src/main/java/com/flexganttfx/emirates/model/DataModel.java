@@ -24,9 +24,9 @@ public class DataModel {
     private static final long serialVersionUID = 1L;
 
     private static final Logger LOGGER = Logger.getLogger(DataModel.class.getName());
-    private Layer capacityLayer = new Layer("Capacity");
-    private Map<ServiceType, Layer> layerMap = new HashMap<>();
-    private List<ModelObject<?, ?, ?>> rows = new ArrayList<>();
+    private final Layer capacityLayer = new Layer("Capacity");
+    private final Map<ServiceType, Layer> layerMap = new HashMap<>();
+    private final List<ModelObject<?, ?, ?>> rows = new ArrayList<>();
 
     public DataModel(DataModel.DataSet dataSet, DoubleProperty progress) throws IOException {
         switch (dataSet) {
@@ -123,7 +123,7 @@ public class DataModel {
             String arrivalAirport = st.nextToken();
             String arrivalTime = st.nextToken();
 
-            if (!getGroupAircrafts().keySet().contains(groupName)) {
+            if (!getGroupAircrafts().containsKey(groupName)) {
                 getGroupAircrafts().put(groupName, new HashMap<>());
                 Group groupRow = new Group(groupName);
                 getRows().add(groupRow);
@@ -172,7 +172,7 @@ public class DataModel {
         return aircrafts;
     }
 
-    private HashMap<String, Map<String, Aircraft>> groupAircrafts = new HashMap<>();
+    private final HashMap<String, Map<String, Aircraft>> groupAircrafts = new HashMap<>();
 
     public HashMap<String, Map<String, Aircraft>> getGroupAircrafts() {
         return groupAircrafts;
@@ -195,7 +195,7 @@ public class DataModel {
         SMALL("Small Data Set"), MEDIUM("Medium Data Set"), LARGE(
                 "Large Data Set");
 
-        private String displayName;
+        private final String displayName;
 
         DataSet(String name) {
             this.displayName = name;

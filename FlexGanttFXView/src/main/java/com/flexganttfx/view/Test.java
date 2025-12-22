@@ -27,8 +27,8 @@ import java.util.List;
 
 public class Test extends Application {
 
-    private ListView<Entry> listView = new ListView<>();
-    private TreeTableView<Entry> treeTableView = new TreeTableView<>();
+    private final ListView<Entry> listView = new ListView<>();
+    private final TreeTableView<Entry> treeTableView = new TreeTableView<>();
 
     @Override
     public void start(Stage primaryStage) throws Exception {

@@ -33,7 +33,7 @@ import org.kordamp.ikonli.materialdesign.MaterialDesign;
 public class LayersViewSkin<R extends Row<?, ?, ?>> extends
         SkinBase<LayersView<R>> {
 
-    private GridPane gridPane;
+    private final GridPane gridPane;
 
     private final InvalidationListener rebuildListener = observable -> buildControls();
 

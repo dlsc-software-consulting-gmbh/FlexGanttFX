@@ -71,7 +71,7 @@ public final class GanttChartTreeItem<R extends Row<?, ?, ?>> extends TreeItem<R
 	 *
 	 * @return the filter predicate
 	 */
-	public final ObjectProperty<Predicate> filterProperty() {
+	public ObjectProperty<Predicate> filterProperty() {
 		return filter;
 	}
 
@@ -135,7 +135,7 @@ public final class GanttChartTreeItem<R extends Row<?, ?, ?>> extends TreeItem<R
 	 *
 	 * @return the row
 	 */
-	public final R getRow() {
+	public R getRow() {
 		return getValue();
 	}
 

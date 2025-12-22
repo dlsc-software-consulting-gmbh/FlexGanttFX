@@ -29,7 +29,7 @@ import javafx.scene.text.Font;
  */
 public class ScaleView extends Canvas {
 
-	private AgendaLayout layout;
+	private final AgendaLayout layout;
 
 	public ScaleView(AgendaLayout layout) {
 		this.layout = layout;
