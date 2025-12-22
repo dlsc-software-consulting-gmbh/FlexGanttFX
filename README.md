@@ -4,15 +4,18 @@ Find more information and demos on the FlexGanttFX website at http://flexganttfx
 
 ## License Notice for FlexGanttFX ##
 
-The **FlexGanttFX** software library is distributed under a **dual licensing model**.
+This library is dual-licensed:
 
-1. **Commercial Use**  
-   Use of FlexGanttFX in proprietary or commercial applications requires the purchase of a commercial license.  
-   The applicable terms and conditions are set forth [in this document](commercial-enterprise-license.pdf).
+1) Open Source License (AGPLv3)
+   You may use this library under the terms of the GNU Affero General Public License v3.
 
-2. **Open Source Use**  
-   For use in open source projects, FlexGanttFX is made available under the **Apache License, Version 2.0**.  
-   The full text of the license is [available here](http://www.apache.org/licenses/LICENSE-2.0).
+2) Commercial License
+   If you want to use this library in a proprietary application,
+   or offer it as part of a commercial product or SaaS,
+   you must obtain a commercial license.
+
+Contact: dlemmermann@gmail.com
+Read more: https://www.flexganttfx.com/pages/licensing/
 
 By using FlexGanttFX, the licensee accepts and agrees to the applicable licensing terms.
 
