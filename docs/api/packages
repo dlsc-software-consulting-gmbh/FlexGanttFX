@@ -127,6 +127,7 @@ com.flexganttfx.view.util
 com.flexganttfx.view.util
 com.flexganttfx.view.util
 com.flexganttfx.view.util
+com.flexganttfx.view.util
 com.flexganttfx.view
 com.flexganttfx.view.container
 com.flexganttfx.view.container
@@ -139,9 +140,9 @@ com.flexganttfx.view.container
 com.flexganttfx.view.container
 com.flexganttfx.view.container
 com.flexganttfx.view.container
+com.flexganttfx.view
 com.flexganttfx.view
 com.flexganttfx.view.graphics
-com.flexganttfx.view.graphics.renderer
 com.flexganttfx.view.graphics.renderer
 com.flexganttfx.view.graphics.renderer
 com.flexganttfx.view.graphics.renderer
