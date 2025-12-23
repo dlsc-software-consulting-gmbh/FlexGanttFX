@@ -1,6 +1,5 @@
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- *
  * This file is part of FlexGanttFX.
  */
 package impl.com.flexganttfx.skin.container;
@@ -49,12 +48,17 @@ public abstract class MultiGanttChartContainerSkinBase<T extends ContainerBase> 
         for (int i = 0; i < size; i++) {
 
             GanttChartBase<?> ganttChart = ganttCharts.get(i);
+            if (ganttChart == null) {
+                // better safe than sorry
+                continue;
+            }
+
             ganttChart.setMasterTimeline(masterTimeline);
 
             if (ganttChart instanceof GanttChart) {
-                ((GanttChart) ganttChart).getTreeTable().getStyleClass().remove(GANTT_TREE_TABLE_VIEW_FIRST);
-                ((GanttChart) ganttChart).getTreeTable().getStyleClass().remove(GANTT_TREE_TABLE_VIEW_MIDDLE);
-                ((GanttChart) ganttChart).getTreeTable().getStyleClass().remove(GANTT_TREE_TABLE_VIEW_LAST);
+                ((GanttChart<?>) ganttChart).getTreeTable().getStyleClass().remove(GANTT_TREE_TABLE_VIEW_FIRST);
+                ((GanttChart<?>) ganttChart).getTreeTable().getStyleClass().remove(GANTT_TREE_TABLE_VIEW_MIDDLE);
+                ((GanttChart<?>) ganttChart).getTreeTable().getStyleClass().remove(GANTT_TREE_TABLE_VIEW_LAST);
             }
 
             ganttChart.getTimeline().getStyleClass().remove(TIMELINE_FIRST);

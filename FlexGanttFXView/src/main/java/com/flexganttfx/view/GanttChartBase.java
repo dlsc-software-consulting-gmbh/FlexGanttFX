@@ -1,6 +1,5 @@
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- *
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.view;
@@ -668,7 +667,7 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
     /**
      * Sets the value of {@link #showDetailProperty()}.
      *
-     * @param show if true the detail node will be shown on the right-hand side
+     * @param show if true, the detail node will be shown on the right-hand side
      *             of the Gantt chart
      * @since 1.6
      */

@@ -94,7 +94,7 @@ public interface Sample {
     String getSampleSourceURL();
 
     /**
-     * If true this sample is shown to users, if false it is not.
+     * if true, this sample is shown to users, if false it is not.
      */
     boolean isVisible();
 

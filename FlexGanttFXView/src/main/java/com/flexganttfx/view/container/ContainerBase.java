@@ -25,7 +25,7 @@ public abstract class ContainerBase<T extends GanttChartBase<?>> extends FlexGan
 	 * Constructs a new container with the given Gantt chart controls.
 	 *
 	 * @param autoBinding
-	 *            if true many properties of the given controls will be bound to
+	 *            if true, many properties of the given controls will be bound to
 	 *            their equivalent of the Gantt chart on the first position
 	 * @param ganttCharts
 	 *            the Gantt charts to add to this container
@@ -38,7 +38,11 @@ public abstract class ContainerBase<T extends GanttChartBase<?>> extends FlexGan
 		this.autoBinding = autoBinding;
 
 		if (ganttCharts != null) {
-			this.ganttCharts.setAll(ganttCharts);
+			for (T ganttChart : ganttCharts) {
+				if (ganttChart != null) { // this check is strongly needed
+					this.ganttCharts.setAll(ganttCharts);
+				}
+			}
 		}
 	}
 
@@ -83,11 +87,11 @@ public abstract class ContainerBase<T extends GanttChartBase<?>> extends FlexGan
 	}
 
 	/**
-	 * Determines if the container performs autobinding of the Gantt chart
-	 * properties. Autobinding means that the properties of all charts will be
+	 * Determines if the container performs auto-binding of the Gantt chart
+	 * properties. Auto-binding means that the properties of all charts will be
 	 * kept in sync.
 	 *
-	 * @return true if the container is performing autobinding
+	 * @return true if the container is performing auto-binding
 	 * @since 1.6
 	 */
 	public final boolean isAutoBinding() {

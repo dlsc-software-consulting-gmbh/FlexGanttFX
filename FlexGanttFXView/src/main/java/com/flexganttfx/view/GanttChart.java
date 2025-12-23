@@ -1,6 +1,5 @@
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- *
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.view;
@@ -382,7 +381,7 @@ public class GanttChart<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
     /**
      * Sets the value of {@link #tableMenuButtonVisibleProperty()}.
      *
-     * @param value if true the menu button will be shown to the user
+     * @param value if true, the menu button will be shown to the user
      * @since 1.0
      */
     public final void setTableMenuButtonVisible(boolean value) {
@@ -526,7 +525,7 @@ public class GanttChart<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
     /**
      * Sets the value of {@link #showTreeTableProperty()}.
      *
-     * @param show if true the tree table becomes visible
+     * @param show if true, the tree table becomes visible
      * @since 1.0
      */
     public final void setShowTreeTable(boolean show) {

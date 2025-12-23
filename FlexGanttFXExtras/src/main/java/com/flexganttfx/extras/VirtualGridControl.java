@@ -1,6 +1,5 @@
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- *
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.extras;
@@ -114,7 +113,7 @@ public class VirtualGridControl extends FlexGanttFXControl {
 	 * Sets the value of {@link #showNoGridOptionProperty()}.
 	 *
 	 * @param show
-	 *            if true the option will be shown
+	 *            if true, the option will be shown
 	 */
 	public final void setShowNoGridOption(boolean show) {
 		showNoGridOption.set(show);

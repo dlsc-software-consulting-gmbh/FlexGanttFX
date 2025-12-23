@@ -1,6 +1,5 @@
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- *
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.view.graphics;
@@ -736,7 +735,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     /**
      * Sets the value of {@link #lassoEnabledProperty()}.
      *
-     * @param enabled if true the lasso will be usable by the user
+     * @param enabled if true, the lasso will be usable by the user
      * @since 1.6
      */
     public final void setLassoEnabled(boolean enabled) {
@@ -1004,7 +1003,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     /**
      * Sets the value of {@link #lassoSnapsToGridProperty()}.
      *
-     * @param snaps if true the lasso will obey the grid
+     * @param snaps if true, the lasso will obey the grid
      * @since 1.1
      */
     public final void setLassoSnapsToGrid(boolean snaps) {
@@ -2740,7 +2739,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     /**
      * Sets the value of {@link #autoMarkedTimeIntervalProperty()}.
      *
-     * @param auto if true the marked time interval will be updated automatically
+     * @param auto if true, the marked time interval will be updated automatically
      */
     public final void setAutoMarkedTimeInterval(boolean auto) {
         autoMarkedTimeIntervalProperty().set(auto);
@@ -2820,7 +2819,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     /**
      * Sets the value of {@link #showVerticalCursorProperty()}.
      *
-     * @param show if true a vertical cursor line will be shown
+     * @param show if true, a vertical cursor line will be shown
      * @since 1.0
      */
     public final void setShowVerticalCursor(boolean show) {
@@ -2855,7 +2854,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     /**
      * Sets the value of {@link #showHorizontalCursorProperty()}.
      *
-     * @param show if true a horizontal cursor line will be shown
+     * @param show if true, a horizontal cursor line will be shown
      * @since 1.0
      */
     public final void setShowHorizontalCursor(boolean show) {
@@ -2893,7 +2892,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     /**
      * Sets the value of {@link #showMarkedTimeIntervalProperty()}.
      *
-     * @param show if true marker lines will be drawn for the currently marked
+     * @param show if true, marker lines will be drawn for the currently marked
      *             time interval
      * @see Eventline#markedTimeIntervalProperty
      * @since 1.1
@@ -2933,7 +2932,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     /**
      * Sets the value of {@link #debugModeProperty()}.
      *
-     * @param debug if true the debug mode is enabled
+     * @param debug if true, the debug mode is enabled
      * @since 1.0
      */
     public final void setDebugMode(boolean debug) {
@@ -2972,7 +2971,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     /**
      * Sets the value of {@link #autoGridEnabledProperty()}.
      *
-     * @param auto if true the autogrid mode is enabled
+     * @param auto if true, the autogrid mode is enabled
      * @since 1.1
      */
     public final void setAutoGridEnabled(boolean auto) {
@@ -5143,7 +5142,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     /**
      * Sets the value of {@link #horizontalDragEnabledProperty()}.
      *
-     * @param enabled if true the user can perform horizontal scrolling
+     * @param enabled if true, the user can perform horizontal scrolling
      */
     public final void setHorizontalDragEnabled(boolean enabled) {
         horizontalDragEnabled.set(enabled);
@@ -5204,7 +5203,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     /**
      * Sets the value of {@link #safeRenderingProperty()}.
      *
-     * @param safe if true the safe rendering mode will be used (the graphics context state will
+     * @param safe if true, the safe rendering mode will be used (the graphics context state will
      *             be saved before invoking renderers or drawing system layers).
      */
     public final void setSafeRendering(boolean safe) {

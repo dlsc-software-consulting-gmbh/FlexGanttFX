@@ -35,7 +35,7 @@ public abstract class DualGanttChartContainerBase<T extends GanttChartBase<?>> e
     /**
      * Constructs a new container with the given Gantt chart controls.
      *
-     * @param autoBinding         if true many properties of the secondary control will be bound
+     * @param autoBinding         if true, many properties of the secondary control will be bound
      *                            to their equivalent of the primary Gantt chart
      * @param primaryGanttChart   the primary Gantt chart shown in the top position
      * @param secondaryGanttChart the secondary Gantt chart shown in the bottom position
@@ -364,7 +364,7 @@ public abstract class DualGanttChartContainerBase<T extends GanttChartBase<?>> e
     /**
      * Sets the value of {@link #showSecondaryProperty()}.
      *
-     * @param show if true the secondary Gantt chart will be visible
+     * @param show if true, the secondary Gantt chart will be visible
      * @since 1.6
      */
     public final void setShowSecondary(boolean show) {

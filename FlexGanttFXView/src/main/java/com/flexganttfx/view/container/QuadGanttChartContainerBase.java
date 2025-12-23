@@ -628,7 +628,7 @@ public abstract class QuadGanttChartContainerBase<T extends GanttChartBase<?>> e
     /**
      * Sets the value of {@link #showLowerProperty()}.
      *
-     * @param show if true the lower Gantt charts will be visible
+     * @param show if true, the lower Gantt charts will be visible
      * @since 1.6
      */
     public final void setShowLower(boolean show) {
@@ -651,7 +651,7 @@ public abstract class QuadGanttChartContainerBase<T extends GanttChartBase<?>> e
     /**
      * Sets the value of {@link #animatedProperty()}.
      *
-     * @param animated if true the opening and closing operations will be animated
+     * @param animated if true, the opening and closing operations will be animated
      * @since 1.6
      */
     public final void setAnimated(boolean animated) {

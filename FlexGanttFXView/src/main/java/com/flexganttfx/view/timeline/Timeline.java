@@ -1,6 +1,5 @@
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- *
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.view.timeline;
@@ -286,7 +285,7 @@ public class Timeline extends FlexGanttFXControl {
     /**
      * Sets the value of {@link #scrollDragEnabledProperty}.
      *
-     * @param enabled if true the user can trigger horizontal scrolling by dragging the timeline
+     * @param enabled if true, the user can trigger horizontal scrolling by dragging the timeline
      * @since 1.0
      */
     public final void setScrollDragEnabled(boolean enabled) {
@@ -448,7 +447,7 @@ public class Timeline extends FlexGanttFXControl {
     /**
      * Sets the value of {@link #moveAnimatedProperty()}.
      *
-     * @param animated if true the change from one time to another will be animated
+     * @param animated if true, the change from one time to another will be animated
      */
     public final void setMoveAnimated(boolean animated) {
         moveAnimatedProperty().set(animated);
@@ -551,7 +550,7 @@ public class Timeline extends FlexGanttFXControl {
      * Makes the timeline scroll to the time point passed to the method.
      *
      * @param time   the time to show
-     * @param center if true the time will be centered within the timeline
+     * @param center if true, the time will be centered within the timeline
      * @see #showNow()
      * @see #showNow(boolean)
      * @see #showTime(Instant)
@@ -714,7 +713,7 @@ public class Timeline extends FlexGanttFXControl {
     /**
      * Sets the value of {@link #zoomAnimatedProperty}.
      *
-     * @param animated if true the zoom in / out operations will be visualized in an animated way
+     * @param animated if true, the zoom in / out operations will be visualized in an animated way
      * @since 1.0
      */
     public final void setZoomAnimated(boolean animated) {
@@ -834,7 +833,7 @@ public class Timeline extends FlexGanttFXControl {
      * Requests that the timeline performs a zoom operation.
      *
      * @param factor     the zoom factor (default is .5)
-     * @param zoomIn     if true the zoom will show less time
+     * @param zoomIn     if true, the zoom will show less time
      * @param frozenTime the point in time that will stay where it was before (use case: pinch zoom)
      * @see #zoomIn()
      * @see #zoomOut()
