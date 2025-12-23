@@ -11,7 +11,7 @@ public enum Version {
 	VERSION_11_11("11_11"),
 	VERSION_12("12");
 
-	String text;
+	final String text;
 
 	Version(String text) {
 		this.text = text;

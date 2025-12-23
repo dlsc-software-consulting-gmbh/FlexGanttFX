@@ -832,7 +832,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final ChangeListener<Instant> startTimeChangedListener = (obs, oldTime, newTime) -> redraw("start time changed", oldTime);
 
-    private final WeakChangeListener weakStartTimeChangedListener = new WeakChangeListener(startTimeChangedListener);
+    private final WeakChangeListener<Instant> weakStartTimeChangedListener = new WeakChangeListener<>(startTimeChangedListener);
 
     private final ChangeListener<TimelineModel<?>> timelineModelChangedListener = (observable, oldModel, newModel) -> {
 
@@ -1178,7 +1178,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     /**
      * Returns the x coordinate for the given time.
      *
-     * @param time the time for which to lookup a coordinate
+     * @param time the time for which to look up a coordinate
      * @return the x coordinate for the given time
      * @see #getTimeAt(double)
      * @see TimelineModel#calculateLocationForTime(Instant)
@@ -1187,7 +1187,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     public final double getLocation(Instant time) {
         Timeline timeline = getTimeline();
         TimelineModel<?> timelineModel = timeline.getModel();
-        return snapPosition(timelineModel.calculateLocationForTime(time));
+        return snapPositionX(timelineModel.calculateLocationForTime(time));
     }
 
     /**

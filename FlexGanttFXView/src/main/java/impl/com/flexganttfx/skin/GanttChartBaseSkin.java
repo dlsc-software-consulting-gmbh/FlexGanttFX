@@ -25,7 +25,6 @@ import org.controlsfx.control.MasterDetailPane;
 public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends GanttChartBase<R>> extends SkinBase<C> {
 
     private final BorderPane timelineGraphicsPane;
-    private final Timeline timeline;
     private final MasterDetailPane graphicsMasterDetailPane;
     private final TimelineScrollBar timelineScrollBar;
     private final ScrollBar horizonScrollBar;
@@ -38,7 +37,7 @@ public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends Gantt
 
         ListViewGraphics<R> graphics = control.getGraphics();
 
-        timeline = control.getTimeline();
+        Timeline timeline = control.getTimeline();
         timelineScrollBar = control.getTimelineScrollBar();
         horizonScrollBar = control.getHorizonScrollBar();
         detailNode = control.getDetail();

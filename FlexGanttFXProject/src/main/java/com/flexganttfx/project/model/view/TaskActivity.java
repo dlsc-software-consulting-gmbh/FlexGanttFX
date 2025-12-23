@@ -22,7 +22,7 @@ public class TaskActivity extends MutableCompletableActivityBase<Task> {
 	}
 
 	public boolean isParent() {
-		return subtasks != null && subtasks.size() > 0;
+		return subtasks != null && !subtasks.isEmpty();
 	}
 
 	public List<TaskActivity> getSubtasks() {

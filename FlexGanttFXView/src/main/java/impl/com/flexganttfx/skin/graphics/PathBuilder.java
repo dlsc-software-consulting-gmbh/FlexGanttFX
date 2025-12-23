@@ -20,7 +20,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class PathBuilder {
 
-	final class PathBuilderResult {
+	public static final class PathBuilderResult {
 
 		private final Point2D start;
 		private final Point2D end;
@@ -291,8 +291,7 @@ public class PathBuilder {
 			}
 		}
 
-		PathBuilderResult result = new PathBuilderResult(startPoint, endPoint,
-				path, ArrowDirection.RIGHT, close);
+		PathBuilderResult result = new PathBuilderResult(startPoint, endPoint, path, ArrowDirection.RIGHT, close);
 
 		ObservableList<PathElement> pathElements = path.getElements();
 		pathElements.add(new MoveTo(sx, sy));
@@ -301,43 +300,43 @@ public class PathBuilder {
 		case BELOW_RIGHT:
 		case BELOW:
 		case BELOW_LEFT:
-			double x = Math.min(sx1, tx1);
-			pathElements.add(new LineTo(x + curve, sy));
-			pathElements.add(new QuadCurveTo(x, sy, x, sy + curve));
-			pathElements.add(new LineTo(x, ty - curve));
-			pathElements.add(new QuadCurveTo(x, ty, x + curve, ty));
+			double x1 = Math.min(sx1, tx1);
+			pathElements.add(new LineTo(x1 + curve, sy));
+			pathElements.add(new QuadCurveTo(x1, sy, x1, sy + curve));
+			pathElements.add(new LineTo(x1, ty - curve));
+			pathElements.add(new QuadCurveTo(x1, ty, x1 + curve, ty));
 			pathElements.add(new LineTo(tx, ty));
 			break;
 		case ABOVE_RIGHT:
 		case ABOVE_LEFT:
 		case ABOVE:
-			x = Math.min(sx1, tx1);
-			pathElements.add(new LineTo(x + curve, sy));
-			pathElements.add(new QuadCurveTo(x, sy, x, sy - curve));
-			pathElements.add(new LineTo(x, ty + curve));
-			pathElements.add(new QuadCurveTo(x, ty, x + curve, ty));
+			double x2 = Math.min(sx1, tx1);
+			pathElements.add(new LineTo(x2 + curve, sy));
+			pathElements.add(new QuadCurveTo(x2, sy, x2, sy - curve));
+			pathElements.add(new LineTo(x2, ty + curve));
+			pathElements.add(new QuadCurveTo(x2, ty, x2 + curve, ty));
 			pathElements.add(new LineTo(tx, ty));
 			break;
 		case RIGHT:
-			double my = sourceRect.getMinY() + sourceRect.getHeight() + gap;
+			double my1 = sourceRect.getMinY() + sourceRect.getHeight() + gap;
 			pathElements.add(new LineTo(sx1 + curve, sy));
 			pathElements.add(new QuadCurveTo(sx1, sy, sx1, sy + curve));
-			pathElements.add(new LineTo(sx1, my - curve));
-			pathElements.add(new QuadCurveTo(sx1, my, sx1 + curve, my));
-			pathElements.add(new LineTo(tx1 - curve, my));
-			pathElements.add(new QuadCurveTo(tx1, my, tx1, my - curve));
+			pathElements.add(new LineTo(sx1, my1 - curve));
+			pathElements.add(new QuadCurveTo(sx1, my1, sx1 + curve, my1));
+			pathElements.add(new LineTo(tx1 - curve, my1));
+			pathElements.add(new QuadCurveTo(tx1, my1, tx1, my1 - curve));
 			pathElements.add(new LineTo(tx1, ty + curve));
 			pathElements.add(new QuadCurveTo(tx1, ty, tx1 + curve, ty));
 			pathElements.add(new LineTo(tx, ty));
 			break;
 		case LEFT:
-			my = sourceRect.getMinY() - gap;
+			double my2 = sourceRect.getMinY() - gap;
 			pathElements.add(new LineTo(sx1 + curve, sy));
 			pathElements.add(new QuadCurveTo(sx1, sy, sx1, sy - curve));
-			pathElements.add(new LineTo(sx1, my + curve));
-			pathElements.add(new QuadCurveTo(sx1, my, sx1 - curve, my));
-			pathElements.add(new LineTo(tx1 + curve, my));
-			pathElements.add(new QuadCurveTo(tx1, my, tx1, my + curve));
+			pathElements.add(new LineTo(sx1, my2 + curve));
+			pathElements.add(new QuadCurveTo(sx1, my2, sx1 - curve, my2));
+			pathElements.add(new LineTo(tx1 + curve, my2));
+			pathElements.add(new QuadCurveTo(tx1, my2, tx1, my2 + curve));
 			pathElements.add(new LineTo(tx1, ty - curve));
 			pathElements.add(new QuadCurveTo(tx1, ty, tx + curve, ty));
 			pathElements.add(new LineTo(tx, ty));
@@ -405,43 +404,43 @@ public class PathBuilder {
 		case BELOW_RIGHT:
 		case BELOW:
 		case BELOW_LEFT:
-			double x = Math.max(sx1, tx1);
-			pathElements.add(new LineTo(x - curve, sy));
-			pathElements.add(new QuadCurveTo(x, sy, x, sy + curve));
-			pathElements.add(new LineTo(x, ty - curve));
-			pathElements.add(new QuadCurveTo(x, ty, x - curve, ty));
+			double x1 = Math.max(sx1, tx1);
+			pathElements.add(new LineTo(x1 - curve, sy));
+			pathElements.add(new QuadCurveTo(x1, sy, x1, sy + curve));
+			pathElements.add(new LineTo(x1, ty - curve));
+			pathElements.add(new QuadCurveTo(x1, ty, x1 - curve, ty));
 			pathElements.add(new LineTo(tx, ty));
 			break;
 		case ABOVE_RIGHT:
 		case ABOVE_LEFT:
 		case ABOVE:
-			x = Math.max(sx1, tx1);
-			pathElements.add(new LineTo(x - curve, sy));
-			pathElements.add(new QuadCurveTo(x, sy, x, sy - curve));
-			pathElements.add(new LineTo(x, ty + curve));
-			pathElements.add(new QuadCurveTo(x, ty, x - curve, ty));
+			double x2 = Math.max(sx1, tx1);
+			pathElements.add(new LineTo(x2 - curve, sy));
+			pathElements.add(new QuadCurveTo(x2, sy, x2, sy - curve));
+			pathElements.add(new LineTo(x2, ty + curve));
+			pathElements.add(new QuadCurveTo(x2, ty, x2 - curve, ty));
 			pathElements.add(new LineTo(tx, ty));
 			break;
 		case RIGHT:
-			double my = sourceRect.getMinY() - gap;
+			double my1 = sourceRect.getMinY() - gap;
 			pathElements.add(new LineTo(sx1 - curve, sy));
 			pathElements.add(new QuadCurveTo(sx1, sy, sx1, sy - curve));
-			pathElements.add(new LineTo(sx1, my + curve));
-			pathElements.add(new QuadCurveTo(sx1, my, sx1 + curve, my));
-			pathElements.add(new LineTo(tx1 - curve, my));
-			pathElements.add(new QuadCurveTo(tx1, my, tx1, my + curve));
+			pathElements.add(new LineTo(sx1, my1 + curve));
+			pathElements.add(new QuadCurveTo(sx1, my1, sx1 + curve, my1));
+			pathElements.add(new LineTo(tx1 - curve, my1));
+			pathElements.add(new QuadCurveTo(tx1, my1, tx1, my1 + curve));
 			pathElements.add(new LineTo(tx1, ty - curve));
 			pathElements.add(new QuadCurveTo(tx1, ty, tx1 - curve, ty));
 			pathElements.add(new LineTo(tx, ty));
 			break;
 		case LEFT:
-			my = sourceRect.getMinY() + sourceRect.getHeight() + gap;
+			double my2 = sourceRect.getMinY() + sourceRect.getHeight() + gap;
 			pathElements.add(new LineTo(sx1 - curve, sy));
 			pathElements.add(new QuadCurveTo(sx1, sy, sx1, sy + curve));
-			pathElements.add(new LineTo(sx1, my - curve));
-			pathElements.add(new QuadCurveTo(sx1, my, sx1 - curve, my));
-			pathElements.add(new LineTo(tx1 + curve, my));
-			pathElements.add(new QuadCurveTo(tx1, my, tx1, my - curve));
+			pathElements.add(new LineTo(sx1, my2 - curve));
+			pathElements.add(new QuadCurveTo(sx1, my2, sx1 - curve, my2));
+			pathElements.add(new LineTo(tx1 + curve, my2));
+			pathElements.add(new QuadCurveTo(tx1, my2, tx1, my2 - curve));
 			pathElements.add(new LineTo(tx1, ty + curve));
 			pathElements.add(new QuadCurveTo(tx1, ty, tx1 - curve, ty));
 			pathElements.add(new LineTo(tx, ty));
@@ -514,25 +513,25 @@ public class PathBuilder {
 			pathElements.add(new LineTo(tx, ty));
 			break;
 		case BELOW_RIGHT:
-			double my = sourceRect.getMinY() + sourceRect.getHeight() + gap;
+			double my1 = sourceRect.getMinY() + sourceRect.getHeight() + gap;
 			pathElements.add(new LineTo(sx1 + curve, sy));
 			pathElements.add(new QuadCurveTo(sx1, sy, sx1, sy + curve));
-			pathElements.add(new LineTo(sx1, my - curve));
-			pathElements.add(new QuadCurveTo(sx1, my, sx1 + curve, my));
-			pathElements.add(new LineTo(tx1 - curve, my));
-			pathElements.add(new QuadCurveTo(tx1, my, tx1, my + curve));
+			pathElements.add(new LineTo(sx1, my1 - curve));
+			pathElements.add(new QuadCurveTo(sx1, my1, sx1 + curve, my1));
+			pathElements.add(new LineTo(tx1 - curve, my1));
+			pathElements.add(new QuadCurveTo(tx1, my1, tx1, my1 + curve));
 			pathElements.add(new LineTo(tx1, ty - curve));
 			pathElements.add(new QuadCurveTo(tx1, ty, tx1 - curve, ty));
 			pathElements.add(new LineTo(tx, ty));
 			break;
 		case ABOVE_RIGHT:
-			my = sourceRect.getMinY() - gap;
+			double my2 = sourceRect.getMinY() - gap;
 			pathElements.add(new LineTo(sx1 + curve, sy));
 			pathElements.add(new QuadCurveTo(sx1, sy, sx1, sy - curve));
-			pathElements.add(new LineTo(sx1, my + curve));
-			pathElements.add(new QuadCurveTo(sx1, my, sx1 + curve, my));
-			pathElements.add(new LineTo(tx1 - curve, my));
-			pathElements.add(new QuadCurveTo(tx1, my, tx1, my - curve));
+			pathElements.add(new LineTo(sx1, my2 + curve));
+			pathElements.add(new QuadCurveTo(sx1, my2, sx1 + curve, my2));
+			pathElements.add(new LineTo(tx1 - curve, my2));
+			pathElements.add(new QuadCurveTo(tx1, my2, tx1, my2 - curve));
 			pathElements.add(new LineTo(tx1, ty + curve));
 			pathElements.add(new QuadCurveTo(tx1, ty, tx1 - curve, ty));
 			pathElements.add(new LineTo(tx, ty));
@@ -546,13 +545,13 @@ public class PathBuilder {
 			pathElements.add(new LineTo(tx, ty));
 			break;
 		case RIGHT:
-			my = sourceRect.getMinY() - gap;
+			double my3 = sourceRect.getMinY() - gap;
 			pathElements.add(new LineTo(sx1 + curve, sy));
 			pathElements.add(new QuadCurveTo(sx1, sy, sx1, sy - curve));
-			pathElements.add(new LineTo(sx1, my + curve));
-			pathElements.add(new QuadCurveTo(sx1, my, sx1 + curve, my));
-			pathElements.add(new LineTo(tx1 - curve, my));
-			pathElements.add(new QuadCurveTo(tx1, my, tx1, my + curve));
+			pathElements.add(new LineTo(sx1, my3 + curve));
+			pathElements.add(new QuadCurveTo(sx1, my3, sx1 + curve, my3));
+			pathElements.add(new LineTo(tx1 - curve, my3));
+			pathElements.add(new QuadCurveTo(tx1, my3, tx1, my3 + curve));
 			pathElements.add(new LineTo(tx1, ty - curve));
 			pathElements.add(new QuadCurveTo(tx1, ty, tx1 - curve, ty));
 			pathElements.add(new LineTo(tx, ty));
@@ -630,13 +629,13 @@ public class PathBuilder {
 			break;
 		case BELOW_LEFT:
 		case BELOW:
-			double my = sourceRect.getMinY() + sourceRect.getHeight() + gap;
+			double my1 = sourceRect.getMinY() + sourceRect.getHeight() + gap;
 			pathElements.add(new LineTo(sx1 - curve, sy));
 			pathElements.add(new QuadCurveTo(sx1, sy, sx1, sy + curve));
-			pathElements.add(new LineTo(sx1, my - curve));
-			pathElements.add(new QuadCurveTo(sx1, my, sx1 - curve, my));
-			pathElements.add(new LineTo(tx1 + curve, my));
-			pathElements.add(new QuadCurveTo(tx1, my, tx1, my + curve));
+			pathElements.add(new LineTo(sx1, my1 - curve));
+			pathElements.add(new QuadCurveTo(sx1, my1, sx1 - curve, my1));
+			pathElements.add(new LineTo(tx1 + curve, my1));
+			pathElements.add(new QuadCurveTo(tx1, my1, tx1, my1 + curve));
 			pathElements.add(new LineTo(tx1, ty - curve));
 			pathElements.add(new QuadCurveTo(tx1, ty, tx1 + curve, ty));
 			pathElements.add(new LineTo(tx, ty));
@@ -650,14 +649,12 @@ public class PathBuilder {
 			break;
 		case ABOVE_LEFT:
 		case ABOVE:
-			my = sourceRect.getMinY() - gap;
+			double my2 = sourceRect.getMinY() - gap;
 			pathElements.add(new LineTo(sx1 - curve, sy));
-			double delta = (sy - my) / 2 + 1;
-			pathElements.add(
-					new QuadCurveTo(sx1 - curve + delta, sy - delta, sx1
-							- curve, my));
-			pathElements.add(new LineTo(tx1 + curve, my));
-			pathElements.add(new QuadCurveTo(tx1, my, tx1, my - curve));
+			double delta1 = (sy - my2) / 2 + 1;
+			pathElements.add(new QuadCurveTo(sx1 - curve + delta1, sy - delta1, sx1 - curve, my2));
+			pathElements.add(new LineTo(tx1 + curve, my2));
+			pathElements.add(new QuadCurveTo(tx1, my2, tx1, my2 - curve));
 			pathElements.add(new LineTo(tx1, ty + curve));
 			pathElements.add(new QuadCurveTo(tx1, ty, tx1 + curve, ty));
 			pathElements.add(new LineTo(tx, ty));
@@ -666,14 +663,12 @@ public class PathBuilder {
 			pathElements.add(new LineTo(tx, ty));
 			break;
 		case LEFT:
-			my = sourceRect.getMinY() - gap;
+			double my3 = sourceRect.getMinY() - gap;
 			pathElements.add(new LineTo(sx1 - curve, sy));
-			delta = (sy - my) / 2 + 1;
-			pathElements.add(
-					new QuadCurveTo(sx1 - curve + delta, sy - delta, sx1
-							- curve, my));
-			pathElements.add(new LineTo(tx1 + curve, my));
-			pathElements.add(new QuadCurveTo(tx1, my, tx1, my + curve));
+			double delta2 = (sy - my3) / 2 + 1;
+			pathElements.add(new QuadCurveTo(sx1 - curve + delta2, sy - delta2, sx1 - curve, my3));
+			pathElements.add(new LineTo(tx1 + curve, my3));
+			pathElements.add(new QuadCurveTo(tx1, my3, tx1, my3 + curve));
 			pathElements.add(new LineTo(tx1, ty - curve));
 			pathElements.add(new QuadCurveTo(tx1, ty, tx1 + curve, ty));
 			break;

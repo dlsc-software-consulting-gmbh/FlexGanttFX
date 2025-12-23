@@ -76,6 +76,7 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
         }
 
         if (isMilestone(activityRef)) {
+            //noinspection SuspiciousNameCombination
             return new ActivityBounds(activityRef, x - barHeight / 2, my, barHeight, barHeight);
         }
 

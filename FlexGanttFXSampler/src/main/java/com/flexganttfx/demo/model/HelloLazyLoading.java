@@ -80,7 +80,7 @@ public class HelloLazyLoading extends FlexGanttFXSample {
      */
     class LazyLoadingManager {
 
-        private LazyLoadingService service;
+        private final LazyLoadingService service;
 
         private TimeInterval lastTimeInterval;
 
@@ -145,7 +145,7 @@ public class HelloLazyLoading extends FlexGanttFXSample {
      */
     class LazyLoadingTask extends Task<List<HelloLazyLoadingActivity>> {
 
-        private TimeInterval timeInterval;
+        private final TimeInterval timeInterval;
 
         public LazyLoadingTask(TimeInterval timeInterval) {
             this.timeInterval = Objects.requireNonNull(timeInterval);
@@ -201,7 +201,7 @@ public class HelloLazyLoading extends FlexGanttFXSample {
 
     static class HelloLazyLoadingActivity extends HelloActivity {
 
-        private HelloLazyRow row;
+        private final HelloLazyRow row;
 
         public HelloLazyLoadingActivity(HelloLazyRow row) {
             this.row = Objects.requireNonNull(row);

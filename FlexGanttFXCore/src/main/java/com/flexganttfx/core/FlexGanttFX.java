@@ -101,7 +101,7 @@ public final class FlexGanttFX {
     /*
      * Stores the public key needed by license4j.
      */
-    private static String publicKey;
+    private static final String publicKey;
 
     /*
      * The system exit code that will be used if the license key validation

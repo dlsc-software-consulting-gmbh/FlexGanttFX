@@ -335,7 +335,7 @@ public class IntervalTree<A extends Activity> {
         private long low;
         private long high;
         private V value;
-        private long maxHigh = Long.MIN_VALUE;
+        private long maxHigh;
         private Entry<V> left = null;
         private Entry<V> right = null;
         private Entry<V> parent;

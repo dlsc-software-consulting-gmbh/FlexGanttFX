@@ -47,7 +47,7 @@ public final class RepositoryEvent extends Event {
 
     private ActivityRef<?> activityRef;
 
-    private ActivityRepository<?> repository;
+    private final ActivityRepository<?> repository;
 
     /**
      * Constructs a new repository event.

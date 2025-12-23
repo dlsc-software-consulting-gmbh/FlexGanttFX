@@ -55,9 +55,9 @@ import static javafx.scene.control.ContentDisplay.TEXT_ONLY;
 public class RowHeaderColumn<R extends Row<?, ?, ?>> extends TreeTableColumn<R, R> {
 
     private final TreeTableView<R> treeTable;
-    private GanttChart<R> ganttChart;
+    private final GanttChart<R> ganttChart;
     private final Menu columns;
-    private Pane cornerRegion;
+    private final Pane cornerRegion;
 
     /**
      * Constructs a new row header.

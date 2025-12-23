@@ -32,7 +32,7 @@ public class StringUtils {
 	 * @since 1.0
 	 */
 	public static boolean isEmpty(String str) {
-		return str == null || str.length() == 0;
+		return str == null || str.isEmpty();
 	}
 
 	/**

@@ -418,7 +418,7 @@ public class ListActivityRepository<A extends Activity> extends MutableActivityR
          * time span. The algorithm uses a linear search.
          */
         private int findFirstObject() {
-            if (activities != null && activities.size() > 0) {
+            if (activities != null && !activities.isEmpty()) {
                 if (reverse) {
                     for (int i = activities.size() - 1; i >= 0; i--) {
                         T activity = activities.get(i);
@@ -496,7 +496,7 @@ public class ListActivityRepository<A extends Activity> extends MutableActivityR
         private int findFirstObject() {
             int m;
             int result = 0;
-            if (objectList != null && objectList.size() > 0) {
+            if (objectList != null && !objectList.isEmpty()) {
                 Instant startTime = this.startTime;
                 Instant endTime = this.endTime;
                 int low = 0;

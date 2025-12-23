@@ -174,8 +174,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
 
     // Parent support.
 
-    private final ReadOnlyObjectWrapper<P> parent = new ReadOnlyObjectWrapper<>(
-            this, "parent");
+    private final ReadOnlyObjectWrapper<P> parent = new ReadOnlyObjectWrapper<>(this, "parent");
 
     private void setParent(P value) {
         parent.setValue(value);
@@ -189,7 +188,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
      * @since 1.0
      */
     public final P getParent() {
-        return parent == null ? null : parent.getValue();
+        return parent.getValue();
     }
 
     /**

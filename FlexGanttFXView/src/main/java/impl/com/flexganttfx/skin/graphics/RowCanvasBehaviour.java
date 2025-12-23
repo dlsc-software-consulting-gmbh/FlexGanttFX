@@ -62,6 +62,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.logging.Level;
 
 import static com.flexganttfx.core.LoggingDomain.DND;
@@ -494,14 +495,14 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
     /*
      * This method finds all activities on the same row (this row) that are currently selected and that
-     * can also be edited with the current edit mode, e.g. a vertical drag.
+     * can also be edited with the current edit mode, e.g., a vertical drag.
      */
     private List<ActivityBounds> computeSelectedBoundsOnSameRow() {
         GraphicsBase<R> graphics = canvas.getGraphics();
         List<ActivityBounds> bounds = new ArrayList<>();
         Row<?, ?, ?> row = canvas.getRow();
         for (ActivityRef<?> activityRef : graphics.getSelectedActivities()) {
-            if (!activityRef.equals(activityBounds.getActivity()) && activityRef.getRow().equals(row)) {
+            if (!Objects.equals(activityRef.getActivity(), activityBounds.getActivity()) && activityRef.getRow().equals(row)) {
                 Activity activity = activityRef.getActivity();
                 if (activity instanceof MutableActivity) {
                     Callback<EditingCallbackParameter, Boolean> activityEditingCallback = graphics.getActivityEditingCallback(((MutableActivity) activity).getClass());

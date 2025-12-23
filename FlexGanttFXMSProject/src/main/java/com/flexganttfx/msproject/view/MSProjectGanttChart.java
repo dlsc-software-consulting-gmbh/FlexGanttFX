@@ -85,7 +85,7 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
                 getStyleClass().removeAll("parent", "child");
 
                 MSProjectTaskRow row = getTreeTableRow().getItem();
-                if (row != null && row.getChildren().size() > 0) {
+                if (row != null && !row.getChildren().isEmpty()) {
                     getStyleClass().add("parent");
                     setGraphic(parentImage);
                 } else {

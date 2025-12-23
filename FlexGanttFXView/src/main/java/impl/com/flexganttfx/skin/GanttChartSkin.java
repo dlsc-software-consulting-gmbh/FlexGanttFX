@@ -39,7 +39,6 @@ import java.util.List;
 public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R, GanttChart<R>> {
 
     private final TreeTableView<R> treeTable;
-    private final ListView<R> listView;
     private final ScrollBar treeTableScrollBar;
     private final MasterDetailPane treeTableMasterDetailPane;
     private final MasterDetailPane graphicsMasterDetailPane;
@@ -51,7 +50,7 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
     public GanttChartSkin(GanttChart<R> ganttChart) {
         super(ganttChart);
 
-        listView = ganttChart.getGraphics().getListView();
+        ListView<R> listView = ganttChart.getGraphics().getListView();
         treeTable = ganttChart.getTreeTable();
         treeTable.getStylesheets().add(GanttChart.class.getResource("gantt.css").toExternalForm());
         treeTable.fixedCellSizeProperty().bind(ganttChart.fixedCellSizeProperty());
@@ -252,7 +251,7 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
     private void updateColumns() {
         List<TreeTableColumn<R, ?>> columns = treeTable.getColumns();
         if (!columns.contains(rowHeader)) {
-            if (columns.size() == 0) {
+            if (columns.isEmpty()) {
                 treeTable.getColumns().add(rowHeader);
             } else {
                 treeTable.getColumns().add(0, rowHeader);

@@ -87,7 +87,7 @@ public abstract class DatelineModel<T extends TemporalUnit> {
 		addZoneId("Asia/Ho_Chi_Minh");
 	}
 
-	private ObservableSet<String> availableZoneIds = FXCollections.observableSet();
+	private final ObservableSet<String> availableZoneIds = FXCollections.observableSet();
 
 	/**
 	 * Adds a {@link ZoneId} to the model.
@@ -193,7 +193,7 @@ public abstract class DatelineModel<T extends TemporalUnit> {
 
 	// Scale count support
 
-	private IntegerProperty scaleCount = new SimpleIntegerProperty(this, "scaleCount", 2) {
+	private final IntegerProperty scaleCount = new SimpleIntegerProperty(this, "scaleCount", 2) {
 
 		@Override
 		public void set(int value) {
@@ -241,7 +241,7 @@ public abstract class DatelineModel<T extends TemporalUnit> {
 
 	// Maximum scale count support
 
-	private IntegerProperty maxScaleCount = new SimpleIntegerProperty(this, "maxScaleCount", 5) {
+	private final IntegerProperty maxScaleCount = new SimpleIntegerProperty(this, "maxScaleCount", 5) {
 
 		@Override
 		public void set(int value) {
@@ -294,7 +294,7 @@ public abstract class DatelineModel<T extends TemporalUnit> {
 
 	// Minimum scale count support
 
-	private IntegerProperty minScaleCount = new SimpleIntegerProperty(this, "minScaleCount", 1) {
+	private final IntegerProperty minScaleCount = new SimpleIntegerProperty(this, "minScaleCount", 1) {
 
 		@Override
 		public void set(int value) {

@@ -80,18 +80,16 @@ final class DatelineScale extends Region {
                     if (cell != null) {
                         TimeInterval interval = cell.getInterval();
 
-                        if (evt.getClickCount() == 1) {
-                            if (dateline.getSelectionMode().equals(SINGLE)) {
-                                dateline.getSelectedIntervals().clear();
-                            }
+                        if (dateline.getSelectionMode().equals(SINGLE)) {
+                            dateline.getSelectedIntervals().clear();
+                        }
 
-                            if (cell.getStyleClass().contains(SELECTED_STYLE_CLASS)) {
-                                cell.getStyleClass().remove(SELECTED_STYLE_CLASS);
-                                dateline.getSelectedIntervals().remove(interval);
-                            } else {
-                                cell.getStyleClass().add(SELECTED_STYLE_CLASS);
-                                dateline.getSelectedIntervals().add(interval);
-                            }
+                        if (cell.getStyleClass().contains(SELECTED_STYLE_CLASS)) {
+                            cell.getStyleClass().remove(SELECTED_STYLE_CLASS);
+                            dateline.getSelectedIntervals().remove(interval);
+                        } else {
+                            cell.getStyleClass().add(SELECTED_STYLE_CLASS);
+                            dateline.getSelectedIntervals().add(interval);
                         }
 
                         evt.consume();

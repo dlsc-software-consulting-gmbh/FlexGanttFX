@@ -83,9 +83,7 @@ public class HelloGlobalActivities extends FlexGanttFXSample {
             dialog.setHeaderText("Phase Name");
             dialog.setContentText("Enter a name for the new phase.");
             final Optional<String> nameOptional = dialog.showAndWait();
-            if (nameOptional.isPresent()) {
-                addPhase(nameOptional.get(), st, et);
-            }
+            nameOptional.ifPresent(s -> addPhase(s, st, et));
         });
 
         final CalendarLayer calendarLayer = gc.getGraphics().getSystemLayer(CalendarLayer.class);
