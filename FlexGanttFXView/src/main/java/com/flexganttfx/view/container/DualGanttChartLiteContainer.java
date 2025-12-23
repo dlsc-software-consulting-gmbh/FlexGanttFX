@@ -1,6 +1,5 @@
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- *
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.view.container;
@@ -11,15 +10,15 @@ import org.controlsfx.control.MasterDetailPane;
 
 /**
  * A specialization of {@link DualGanttChartContainerBase} capable of displaying
- * exactly two instances of {@link GanttChartLite} and keeping their layouts (e.g
+ * exactly two instances of {@link GanttChartLite} and keeping their layouts (e.g.,
  * same timeline) and their scrolling and zooming behavior in
  * sync. The container distinguishes between a primary and a secondary Gantt
  * chart, where the secondary Gantt chart is located in the detail node section
  * of a {@link MasterDetailPane}. It can be hidden or shown on demand. Each one
  * of the two Gantt charts can have its own header and footer.
- *
- *     <img src="doc-files/dual-gantt-chart-lite.png" alt="Dual Gantt Chart Lite Container" width="100%">
- *
+ * <p/>
+ * <img src="doc-files/dual-gantt-chart-lite.png" alt="Dual Gantt Chart Lite Container" width="100%">
+ * <p/>
  *
  * @since 1.6
  */
@@ -28,8 +27,8 @@ public class DualGanttChartLiteContainer extends DualGanttChartContainerBase<Gan
     /**
      * Constructs a new container with the given graphics controls.
      *
-     * @param autoBinding       if true, many properties of the secondary control will be bound
-     *                          to their equivalent of the primary graphics chart
+     * @param autoBinding         if true, many properties of the secondary control will be bound
+     *                            to their equivalent of the primary graphics chart
      * @param primaryGanttChart   the primary graphics shown in the top position
      * @param secondaryGanttChart the secondary graphics shown in the bottom position
      * @since 1.6
@@ -56,7 +55,7 @@ public class DualGanttChartLiteContainer extends DualGanttChartContainerBase<Gan
      * {@link DualGanttChartContainerBase#setPrimaryGanttChart(GanttChartBase)} and
      * {@link DualGanttChartContainerBase#setSecondaryGanttChart(GanttChartBase)}.
      *
-     * @param autoBinding if true many properties of the secondary graphics will be
+     * @param autoBinding if true, many properties of the secondary graphics will be
      *                    bound to their equivalent of the primary graphics
      * @since 1.6
      */

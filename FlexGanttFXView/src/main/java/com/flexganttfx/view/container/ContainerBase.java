@@ -45,7 +45,7 @@ public abstract class ContainerBase<T extends GanttChartBase<?>> extends FlexGan
 	/**
 	 * Constructs a new container with the given Gantt chart controls. The
 	 * properties of the charts will be bound to the same properties of the
-	 * Gantt chart on the first position.
+	 * Gantt chart in the first position.
 	 *
 	 * @param ganttCharts
 	 *            the Gantt charts to add to this container
@@ -62,13 +62,13 @@ public abstract class ContainerBase<T extends GanttChartBase<?>> extends FlexGan
 	 * returned by {@link #getGanttCharts()}.
 	 *
 	 * @param autoBinding
-	 *            if true many properties of the given controls will be bound to
+	 *            if true, many properties of the given controls will be bound to
 	 *            their equivalent of the Gantt chart on the first position
 	 *
 	 * @since 1.6
 	 */
 	public ContainerBase(boolean autoBinding) {
-		this(autoBinding, null);
+		this(autoBinding, (T) null);
 	}
 
 	/**

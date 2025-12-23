@@ -1,6 +1,5 @@
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- *
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.view.container;
@@ -17,6 +16,8 @@ import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.Skin;
 import org.controlsfx.control.MasterDetailPane;
+
+import java.util.Objects;
 
 /**
  * A specialization of {@link ContainerBase} capable of displaying
@@ -114,7 +115,7 @@ public abstract class QuadGanttChartContainerBase<T extends GanttChartBase<?>> e
 
     @Override
     public String getUserAgentStylesheet() {
-        return GanttChart.class.getResource("gantt.css").toExternalForm();
+        return Objects.requireNonNull(GanttChart.class.getResource("gantt.css")).toExternalForm();
     }
 
     private final MasterDetailPane upperLowerMasterDetailPane;
@@ -640,7 +641,7 @@ public abstract class QuadGanttChartContainerBase<T extends GanttChartBase<?>> e
      * A property used to control whether the opening / closing of the three instances of
      * MasterDetailPane in this container will be animated or not.
      *
-     * @return true if animation is desired
+     * @return true, if animation is desired
      * @since 1.6
      */
     public final BooleanProperty animatedProperty() {
@@ -673,7 +674,7 @@ public abstract class QuadGanttChartContainerBase<T extends GanttChartBase<?>> e
      * of the container.
      *
      * @see #setShowLower(boolean)
-     * @see MasterDetailPane#showDetailNode
+     * @see MasterDetailPane#showDetailNodeProperty()
      * @since 1.6
      */
     public final void showSingleChart() {
@@ -686,10 +687,10 @@ public abstract class QuadGanttChartContainerBase<T extends GanttChartBase<?>> e
      * Gantt chart in the upper left corner and the Gantt chart in the lower left
      * corner will take over the entire width and height of the container.
      *
-     * @param equalHeight if true then both Gantt charts will receive the same height,
+     * @param equalHeight if true, then both Gantt charts will receive the same height,
      *                    otherwise the current value of the divider position will be kept
      * @see #setShowLower(boolean)
-     * @see MasterDetailPane#showDetailNode
+     * @see MasterDetailPane#showDetailNodeProperty
      * @since 1.6
      */
     public final void showHorizontalSplitScreen(boolean equalHeight) {
@@ -705,10 +706,10 @@ public abstract class QuadGanttChartContainerBase<T extends GanttChartBase<?>> e
      * Gantt chart in the upper left corner and the Gantt chart in the upper right
      * corner will take over the entire width and height of the container.
      *
-     * @param equalWidth if true then both Gantt charts will receive the same width,
+     * @param equalWidth if true, then both Gantt charts will receive the same width,
      *                   otherwise the current value of the divider position will be kept
      * @see #setShowLower(boolean)
-     * @see MasterDetailPane#showDetailNode
+     * @see MasterDetailPane#showDetailNodeProperty()
      * @since 1.6
      */
     public final void showVerticalSplitScreen(boolean equalWidth) {
@@ -724,10 +725,10 @@ public abstract class QuadGanttChartContainerBase<T extends GanttChartBase<?>> e
      * four Gantt charts in all four corners of the container will take over the
      * entire width and height of the container.
      *
-     * @param equalSize if true then all Gantt charts will receive the same width and height,
+     * @param equalSize if true, then all Gantt charts will receive the same width and height,
      *                  otherwise the current value of the divider position will be kept
      * @see #setShowLower(boolean)
-     * @see MasterDetailPane#showDetailNode
+     * @see MasterDetailPane#showDetailNodeProperty()
      * @since 1.6
      */
     public final void showAllFour(boolean equalSize) {

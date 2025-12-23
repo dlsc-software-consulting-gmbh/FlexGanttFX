@@ -1,6 +1,5 @@
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- *
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.view.container;
@@ -17,13 +16,11 @@ import org.controlsfx.control.MasterDetailPane;
  * in the detail node sections of several {@link MasterDetailPane} instances. They
  * can be hidden or shown on demand. Each one of the four Gantt charts can have its
  * own header and footer.
- *
+ * <p/
  * The screenshot below shows the initial appearance of an empty Quad Gantt
  * chart lite container control.
- *
- *
+ * <p/>
  *     <img src="doc-files/quad-gantt-chart-lite.png" alt="Quad Gantt Chart Container Lite" width="100%">
- *
  *
  * @since 1.6
  */

@@ -281,7 +281,7 @@ public class Dateline extends FlexGanttFXControl {
     /**
      * Sets the value of {@link #zoomLassoEnabledProperty()}.
      *
-     * @param enabled if true then the zoom lasso is enabled
+     * @param enabled if true, then the zoom lasso is enabled
      * @since 1.0
      */
     public final void setZoomLassoEnabled(boolean enabled) {

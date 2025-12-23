@@ -1,6 +1,5 @@
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- *
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.view.container;
@@ -65,7 +64,7 @@ public class DualGanttChartContainer extends DualGanttChartContainerBase<GanttCh
 	 * {@link DualGanttChartContainerBase#setSecondaryGanttChart(GanttChartBase)}.
 	 *
 	 * @param autoBinding
-	 *            if true many properties of the secondary Gantt chart will be
+	 *            if true, many properties of the secondary Gantt chart will be
 	 *            bound to their equivalent of the primary Gantt chart
 	 * @since 1.0
 	 */

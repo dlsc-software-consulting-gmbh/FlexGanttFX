@@ -1,6 +1,5 @@
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- *
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.view.container;
@@ -11,7 +10,7 @@ import javafx.scene.control.SplitPane;
 /**
  * A container capable of displaying multiple instances of {@link GanttChart}
  * and keeping their layouts (same table width, same timeline) and their
- * scrolling and zooming behaviour in sync. The control utilizes a standard
+ * scrolling and zooming behavior in sync. The control uses a standard
  * {@link SplitPane} for laying out the charts vertically.
  * <p>
  * The screenshot below shows the initial appearance of an empty multi Gantt
@@ -29,7 +28,7 @@ public class MultiGanttChartContainer extends MultiGanttChartContainerBase<Gantt
 	 * Constructs a new container with the given Gantt chart controls.
 	 *
 	 * @param autoBinding
-	 *            if true many properties of the given controls will be bound to
+	 *            if true, many properties of the given controls will be bound to
 	 *            their equivalent of the Gantt chart on the first position
 	 * @param ganttCharts
 	 *            the Gantt charts to add to this container
@@ -43,7 +42,7 @@ public class MultiGanttChartContainer extends MultiGanttChartContainerBase<Gantt
 	/**
 	 * Constructs a new container with the given Gantt chart controls. The
 	 * properties of the charts will be bound to the same properties of the
-	 * Gantt chart on the first position.
+	 * Gantt chart in the first position.
 	 *
 	 * @param ganttCharts
 	 *            the Gantt charts to add to this container
@@ -59,13 +58,13 @@ public class MultiGanttChartContainer extends MultiGanttChartContainerBase<Gantt
 	 * returned by {@link #getGanttCharts()}.
 	 *
 	 * @param autoBinding
-	 *            if true many properties of the given controls will be bound to
+	 *            if true, many properties of the given controls are bound to
 	 *            their equivalent of the Gantt chart on the first position
 	 *
 	 * @since 1.0
 	 */
 	public MultiGanttChartContainer(boolean autoBinding) {
-		this(autoBinding, null);
+		this(autoBinding, (GanttChart<?>[]) null);
 	}
 
 	/**

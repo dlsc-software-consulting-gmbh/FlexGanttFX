@@ -786,7 +786,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     /**
      * Sets the value of {@link #automaticRedrawProperty()}.
      *
-     * @param automatic if true then the graphics redraw after every repository change
+     * @param automatic if true, then the graphics redraw after every repository change
      *                  event
      * @since 1.5
      */

@@ -1,6 +1,5 @@
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- *
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.view.container;
@@ -14,8 +13,8 @@ import static javafx.geometry.Orientation.VERTICAL;
 
 /**
  * A container capable of displaying multiple instances of {@link GanttChartBase}
- * and keeping their layouts and their scrolling and zooming behaviour in sync. The
- * control utilizes a standard {@link SplitPane} for laying out the charts vertically.
+ * and keeping their layouts and their scrolling and zooming behavior in sync. The
+ * control uses a standard {@link SplitPane} for laying out the charts vertically.
  *
  * @see DualGanttChartContainerBase
  *
@@ -30,13 +29,14 @@ public class MultiGanttChartContainerBase<T extends GanttChartBase<?>> extends C
      * Constructs a new container with the given Gantt chart controls.
      *
      * @param autoBinding
-     *            if true many properties of the given controls will be bound to
+     *            if true, many properties of the given controls will be bound to
      *            their equivalent of the Gantt chart on the first position
      * @param ganttCharts
      *            the Gantt charts to add to this container
      *
      * @since 1.0
      */
+    @SafeVarargs
     protected MultiGanttChartContainerBase(boolean autoBinding, T... ganttCharts) {
 
         super(autoBinding, ganttCharts);
@@ -50,13 +50,14 @@ public class MultiGanttChartContainerBase<T extends GanttChartBase<?>> extends C
     /**
      * Constructs a new container with the given Gantt chart controls. The
      * properties of the charts will be bound to the same properties of the
-     * Gantt chart on the first position.
+     * Gantt chart in the first position.
      *
      * @param ganttCharts
      *            the Gantt charts to add to this container
      *
      * @since 1.0
      */
+    @SafeVarargs
     public MultiGanttChartContainerBase(T... ganttCharts) {
         this(true, ganttCharts);
     }
@@ -66,13 +67,13 @@ public class MultiGanttChartContainerBase<T extends GanttChartBase<?>> extends C
      * returned by {@link #getGanttCharts()}.
      *
      * @param autoBinding
-     *            if true many properties of the given controls will be bound to
+     *            if true, many properties of the given controls will be bound to
      *            their equivalent of the Gantt chart on the first position
      *
      * @since 1.0
      */
     public MultiGanttChartContainerBase(boolean autoBinding) {
-        this(autoBinding, null);
+        this(autoBinding, (T) null);
     }
 
     /**
@@ -105,7 +106,7 @@ public class MultiGanttChartContainerBase<T extends GanttChartBase<?>> extends C
     }
 
     /**
-     * Returns the split pane that is used by the container to lay out the Gantt
+     * Returns the split pane used by the container to lay out the Gantt
      * charts.
      *
      * @return the split pane used by the container

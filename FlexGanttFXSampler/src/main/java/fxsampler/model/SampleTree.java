@@ -54,8 +54,7 @@ public class SampleTree {
     public static class TreeNode {
         private final Sample sample;
         private final String packageName;
-        
-        private final TreeNode parent;
+
         private final List<TreeNode> children;
         
         public TreeNode() {
@@ -69,7 +68,6 @@ public class SampleTree {
         public TreeNode(TreeNode parent, String packageName, Sample sample) {
             this.children = new ArrayList<>();
             this.sample = sample;
-            this.parent = parent;
             this.packageName = packageName;
         }
         
