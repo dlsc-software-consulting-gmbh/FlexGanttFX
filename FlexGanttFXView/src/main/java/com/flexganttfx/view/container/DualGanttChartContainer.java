@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 - 2021 DLSC Software & Consulting GmbH (dlsc.com)
+ * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
  *
  * This file is part of FlexGanttFX.
  */
@@ -17,7 +17,7 @@ import org.controlsfx.control.MasterDetailPane;
  * chart, where the secondary Gantt chart is located in the detail node section
  * of a {@link MasterDetailPane}. It can be hidden or shown on demand. Each one
  * of the two Gantt charts can have its own header and footer.
- *
+ * <p/>
  * The screenshot below shows the initial appearance of an empty Dual Gantt
  * chart control.<br>
  *  <img src="doc-files/dual-gantt-chart.png"
@@ -32,7 +32,7 @@ public class DualGanttChartContainer extends DualGanttChartContainerBase<GanttCh
 	 * Constructs a new container with the given Gantt chart controls.
 	 *
 	 * @param autoBinding
-	 *            if true many properties of the secondary control will be bound
+	 *            if true, many properties of the secondary control will be bound
 	 *            to their equivalent of the primary Gantt chart
 	 * @param primaryGanttChart
 	 *            the primary Gantt chart shown in the top position

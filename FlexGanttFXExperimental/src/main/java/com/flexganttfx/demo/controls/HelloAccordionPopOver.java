@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 - 2021 DLSC Software & Consulting GmbH (dlsc.com)
+ * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
  *
  * This file is part of FlexGanttFX.
  */
@@ -122,39 +122,38 @@ public class HelloAccordionPopOver extends Application {
 		return pane;
 	}
 
-	class ExamplePane extends GridPane {
-		private final DatePicker datePicker = new DatePicker();
-		private final CheckBox milestone = new CheckBox("Milestone");
-		private final TextField durationField = new TextField();
-		private final TextField capacityField = new TextField();
-		private final Slider percentageSlider = new Slider(0, 100, 0);
-		private Label percentageValueLabel = new Label();
+	static class ExamplePane extends GridPane {
 
-		public ExamplePane() {
+        public ExamplePane() {
 			Label timeLabel = new Label("Start Time:");
-			timeLabel.setLabelFor(datePicker);
+            DatePicker datePicker = new DatePicker();
+            timeLabel.setLabelFor(datePicker);
 			GridPane.setHalignment(timeLabel, HPos.RIGHT);
 			add(timeLabel, 0, 0);
 			add(datePicker, 1, 0);
 
-			add(milestone, 1, 1);
+            CheckBox milestone = new CheckBox("Milestone");
+            add(milestone, 1, 1);
 
 			Label durationLabel = new Label("Duration:");
-			durationLabel.setLabelFor(durationField);
+            TextField durationField = new TextField();
+            durationLabel.setLabelFor(durationField);
 			GridPane.setHalignment(durationLabel, HPos.RIGHT);
 			add(durationLabel, 0, 2);
 			add(durationField, 1, 2);
 
 			Label percentageLabel = new Label("Completeness:");
-			percentageLabel.setLabelFor(percentageSlider);
+            Slider percentageSlider = new Slider(0, 100, 0);
+            percentageLabel.setLabelFor(percentageSlider);
 			GridPane.setHalignment(percentageLabel, HPos.RIGHT);
-			percentageValueLabel = new Label("0%");
+            Label percentageValueLabel = new Label("0%");
 			add(percentageLabel, 0, 3);
 			add(percentageSlider, 1, 3);
 			add(percentageValueLabel, 2, 3);
 
 			Label capacityLabel = new Label("Capacity Used:");
-			capacityLabel.setLabelFor(capacityField);
+            TextField capacityField = new TextField();
+            capacityLabel.setLabelFor(capacityField);
 			GridPane.setHalignment(capacityLabel, HPos.RIGHT);
 			add(capacityLabel, 0, 4);
 			add(capacityField, 1, 4);

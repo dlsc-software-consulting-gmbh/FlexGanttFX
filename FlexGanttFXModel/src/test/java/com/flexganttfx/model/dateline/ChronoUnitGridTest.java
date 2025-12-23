@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 - 2021 DLSC Software & Consulting GmbH (dlsc.com)
+ * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
  *
  * This file is part of FlexGanttFX.
  */
@@ -119,7 +119,7 @@ public class ChronoUnitGridTest {
 
 		// then
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getMonth() % 2, is(equalTo(1)));
+				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getMonthValue() % 2, is(equalTo(1)));
 		assertThat(
                 LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getHour(), is(equalTo(0)));
 		assertThat(
@@ -146,7 +146,7 @@ public class ChronoUnitGridTest {
 
 		// then
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getMonth() % 4, is(equalTo(1)));
+				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getMonthValue() % 4, is(equalTo(1)));
 		assertThat(
                 LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getHour(), is(equalTo(0)));
 		assertThat(
@@ -173,7 +173,7 @@ public class ChronoUnitGridTest {
 
 		// then
 		assertThat(
-				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getMonth() % 6, is(equalTo(1)));
+				LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getMonthValue() % 6, is(equalTo(1)));
 		assertThat(
                 LocalDateTime.ofInstant(time, ZoneId.systemDefault()).getHour(), is(equalTo(0)));
 		assertThat(

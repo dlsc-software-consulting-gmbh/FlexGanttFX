@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 - 2021 DLSC Software & Consulting GmbH (dlsc.com)
+ * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
  *
  * This file is part of FlexGanttFX.
  */
@@ -28,7 +28,7 @@ public class DualGanttChartLiteContainer extends DualGanttChartContainerBase<Gan
     /**
      * Constructs a new container with the given graphics controls.
      *
-     * @param autoBinding       if true many properties of the secondary control will be bound
+     * @param autoBinding       if true, many properties of the secondary control will be bound
      *                          to their equivalent of the primary graphics chart
      * @param primaryGanttChart   the primary graphics shown in the top position
      * @param secondaryGanttChart the secondary graphics shown in the bottom position

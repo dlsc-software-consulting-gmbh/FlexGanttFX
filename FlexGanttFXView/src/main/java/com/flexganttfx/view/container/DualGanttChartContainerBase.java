@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 - 2021 DLSC Software & Consulting GmbH (dlsc.com)
+ * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
  *
  * This file is part of FlexGanttFX.
  */
@@ -17,6 +17,8 @@ import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.Skin;
 import org.controlsfx.control.MasterDetailPane;
+
+import java.util.Objects;
 
 /**
  * A specialization of {@link ContainerBase} capable of displaying
@@ -97,7 +99,7 @@ public abstract class DualGanttChartContainerBase<T extends GanttChartBase<?>> e
 
     @Override
     public String getUserAgentStylesheet() {
-        return GanttChart.class.getResource("gantt.css").toExternalForm();
+        return Objects.requireNonNull(GanttChart.class.getResource("gantt.css")).toExternalForm();
     }
 
     private final MasterDetailPane masterDetailPane;

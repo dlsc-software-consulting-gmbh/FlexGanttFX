@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 - 2021 DLSC Software & Consulting GmbH (dlsc.com)
+ * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
  *
  * This file is part of FlexGanttFX.
  */
@@ -36,10 +36,7 @@ import java.util.concurrent.ExecutionException;
 public class EmiratesApp extends Application {
 
     private EmiratesAircraftGanttChart gantt;
-    private Stage stage;
-    private Node ganttNode;
     private Node introNode;
-    private IntroPane introPane;
     private GlassPane glassPane;
 
     public static void main(String[] args) {
@@ -52,10 +49,10 @@ public class EmiratesApp extends Application {
             FlexGanttFX.setLicenseKey("LIC=DLSC;VEN=DLSC;VER=12;PRO=STANDARD;RUN=no;CTR=1;SignCode=3F;Signature=302C02142BD7F914E6633D7DBA0B8564D8FC20EC249BCFD702142558B5C6FF46325A0A698A1E8036828E54D6FEC8");
         }
 
-        this.stage = stage;
-        this.stage.setTitle("Emirates Aircraft Scheduling");
+        stage.setTitle("Emirates Aircraft Scheduling");
 
         StackPane stack = new StackPane();
+        Node ganttNode;
         stack.getChildren().add(ganttNode = createGanttChart());
         stack.getChildren().add(introNode = createIntro());
         stack.getChildren().add(glassPane = new GlassPane());
@@ -113,7 +110,7 @@ public class EmiratesApp extends Application {
     private Region createIntro() {
         HBox placeholder = new HBox();
         placeholder.getStyleClass().add("cover");
-        introPane = new IntroPane(this);
+        IntroPane introPane = new IntroPane(this);
         HBox.setMargin(introPane, new Insets(0, 0, 40, 40));
         placeholder.getChildren().add(introPane);
         return placeholder;

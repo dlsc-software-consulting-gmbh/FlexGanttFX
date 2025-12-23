@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 - 2021 DLSC Software & Consulting GmbH (dlsc.com)
+ * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
  *
  * This file is part of FlexGanttFX.
  */
@@ -116,7 +116,6 @@ public class RecordView extends GridPane {
 
     class CasesView extends VBox {
 
-        private final Label nameLabel = new Label();
         private final Label valueLabel = new Label();
 
         private final NumberFormat numberInstance = NumberFormat.getNumberInstance();
@@ -128,6 +127,7 @@ public class RecordView extends GridPane {
             setFillWidth(true);
             setMinWidth(Region.USE_PREF_SIZE);
 
+            Label nameLabel = new Label();
             nameLabel.getStyleClass().add("name-label");
             valueLabel.getStyleClass().add("value-label");
 

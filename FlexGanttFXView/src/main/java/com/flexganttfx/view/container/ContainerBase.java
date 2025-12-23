@@ -1,6 +1,5 @@
 /**
- * Copyright (C) 2014 - 2021 DLSC Software & Consulting GmbH (dlsc.com)
- *
+ * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
  * This file is part of FlexGanttFX.
  */
 package com.flexganttfx.view.container;
@@ -14,7 +13,7 @@ import javafx.collections.ObservableList;
  * A common base class for containers that wrap two or more Gantt charts. Containers
  * are used to keep two the charts synchronized. Synchronized elements are the
  * location of the dividers between the tree table and the graphics area, the timeline
- * state (start time, zoom level, etc...), cursors, etc....
+ * state (start time, zoom level, etc...), cursors, etc...
  *
  * @since 1.6
  */
@@ -33,7 +32,8 @@ public abstract class ContainerBase<T extends GanttChartBase<?>> extends FlexGan
 	 *
 	 * @since 1.6
 	 */
-	protected ContainerBase(boolean autoBinding, T... ganttCharts) {
+	@SafeVarargs
+    protected ContainerBase(boolean autoBinding, T... ganttCharts) {
 
 		this.autoBinding = autoBinding;
 
@@ -52,7 +52,8 @@ public abstract class ContainerBase<T extends GanttChartBase<?>> extends FlexGan
 	 *
 	 * @since 1.6
 	 */
-	public ContainerBase(T... ganttCharts) {
+	@SafeVarargs
+    public ContainerBase(T... ganttCharts) {
 		this(true, ganttCharts);
 	}
 

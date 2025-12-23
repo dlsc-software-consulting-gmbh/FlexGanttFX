@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 - 2021 DLSC Software & Consulting GmbH (dlsc.com)
+ * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
  *
  * This file is part of FlexGanttFX.
  */
@@ -5030,8 +5030,6 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private class GraphicsViewMenu extends ContextMenu {
 
-        private final CalendarMenu calendarMenu;
-
         public GraphicsViewMenu(final ContextMenuParameter<R> input) {
             requireNonNull(input);
 
@@ -5045,7 +5043,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
             highlightOff.disableProperty().bind(Bindings.isEmpty(getHighlightedActivities()));
             getItems().add(highlightOff);
 
-            calendarMenu = new CalendarMenu();
+            CalendarMenu calendarMenu = new CalendarMenu();
             calendarMenu.setText(Messages.getString("GraphicsBase.CALENDAR_MENU_TITLE"));
 
             getItems().add(calendarMenu);

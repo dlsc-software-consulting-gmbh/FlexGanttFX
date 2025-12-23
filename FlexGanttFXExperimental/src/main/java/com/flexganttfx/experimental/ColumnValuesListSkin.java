@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 - 2021 DLSC Software & Consulting GmbH (dlsc.com)
+ * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
  *
  * This file is part of FlexGanttFX.
  */
@@ -59,7 +59,12 @@ public class ColumnValuesListSkin<S, T> extends
 			attachToTable(tableView);
 		}
 
-		column.tableViewProperty().addListener(tableChangedListener);
+        ChangeListener<TableView<S>> tableChangedListener = (observable, oldTable, newTable) -> {
+            removeFromTable(oldTable);
+            attachToTable(newTable);
+        };
+
+        column.tableViewProperty().addListener(tableChangedListener);
 
 		updateLabelText();
 		updateListValues();
@@ -67,16 +72,7 @@ public class ColumnValuesListSkin<S, T> extends
 		getChildren().add(borderPane);
 	}
 
-	private final ChangeListener<TableView<S>> tableChangedListener = new ChangeListener<TableView<S>>() {
-		@Override
-		public void changed(ObservableValue<? extends TableView<S>> observable,
-				TableView<S> oldTable, TableView<S> newTable) {
-			removeFromTable(oldTable);
-			attachToTable(newTable);
-		}
-	};
-
-	private final InvalidationListener itemsChangedListener = new InvalidationListener() {
+    private final InvalidationListener itemsChangedListener = new InvalidationListener() {
 
 		@Override
 		public void invalidated(Observable observable) {

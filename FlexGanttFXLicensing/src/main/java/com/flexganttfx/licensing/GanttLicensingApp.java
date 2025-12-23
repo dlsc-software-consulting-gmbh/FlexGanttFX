@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 - 2021 DLSC Software & Consulting GmbH (dlsc.com)
+ * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
  *
  * This file is part of FlexGanttFX.
  */
@@ -22,9 +22,8 @@ public class GanttLicensingApp extends JFrame {
 	private final JComboBox<Version> version = new JComboBox<>(Version.values());
 	private final JComboBox<Product> product = new JComboBox<>(Product.values());
 	private final JTextArea key = new JTextArea(5, 30);
-	private final JButton generate = new JButton("Generate");
 
-	public GanttLicensingApp() {
+    public GanttLicensingApp() {
 		super("Gantt Chart: Create License");
 
 		key.setEditable(false);
@@ -124,7 +123,8 @@ public class GanttLicensingApp extends JFrame {
 		gbc.anchor = GridBagConstraints.NORTH;
 		gbc.gridx = 2;
 		gbc.gridy = 7;
-		add(generate, gbc);
+        JButton generate = new JButton("Generate");
+        add(generate, gbc);
 
 		pack();
 

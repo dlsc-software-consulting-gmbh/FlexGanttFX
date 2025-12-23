@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 - 2021 DLSC Software & Consulting GmbH (dlsc.com)
+ * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
  *
  * This file is part of FlexGanttFX.
  */
@@ -60,10 +60,6 @@ public class RowHeaderColumn<R extends Row<?, ?, ?>> extends TreeTableColumn<R, 
     private final Menu columns;
     private Pane cornerRegion;
 
-    private final InvalidationListener columnListener = it -> updateColumnsMenu();
-
-    private final InvalidationListener tableMenuButtonListener = it -> cornerRegion.setVisible(ganttChart.tableMenuButtonVisibleProperty().get());
-
     /**
      * Constructs a new row header.
      *
@@ -114,6 +110,7 @@ public class RowHeaderColumn<R extends Row<?, ?, ?>> extends TreeTableColumn<R, 
         collapseOnceItem.setOnAction(evt -> ganttChart.collapseRowsByOneLevel());
         contextMenu.getItems().add(collapseOnceItem);
 
+        InvalidationListener columnListener = it -> updateColumnsMenu();
         ganttChart.getTreeTable().getColumns().addListener(new WeakInvalidationListener(columnListener));
 
         updateColumnsMenu();
@@ -143,6 +140,7 @@ public class RowHeaderColumn<R extends Row<?, ?, ?>> extends TreeTableColumn<R, 
         cornerRegion.getStyleClass().setAll("show-hide-columns-button");
         cornerRegion.getChildren().addAll(image);
         cornerRegion.setVisible(ganttChart.tableMenuButtonVisibleProperty().get());
+        InvalidationListener tableMenuButtonListener = it -> cornerRegion.setVisible(ganttChart.tableMenuButtonVisibleProperty().get());
         ganttChart.tableMenuButtonVisibleProperty().addListener(new WeakInvalidationListener(tableMenuButtonListener));
 
         setContextMenu(contextMenu);
@@ -191,19 +189,17 @@ public class RowHeaderColumn<R extends Row<?, ?, ?>> extends TreeTableColumn<R, 
 
         private boolean empty;
 
-        private final InvalidationListener typeListener = observable -> {
-            updateIndex(getIndex());
-            updateItem(row, empty);
-        };
-
-        private final InvalidationListener nodeFactoryListener = observable -> {
-            updateIndex(getIndex());
-            updateItem(row, empty);
-        };
-
         public RowHeaderColumnCell() {
 
+            InvalidationListener typeListener = observable -> {
+                updateIndex(getIndex());
+                updateItem(row, empty);
+            };
             ganttChart.rowHeaderTypeProperty().addListener(new WeakInvalidationListener(typeListener));
+            InvalidationListener nodeFactoryListener = observable -> {
+                updateIndex(getIndex());
+                updateItem(row, empty);
+            };
             ganttChart.rowHeaderNodeFactoryProperty().addListener(new WeakInvalidationListener(nodeFactoryListener));
 
             getStyleClass().add(DEFAULT_STYLE_CLASS);

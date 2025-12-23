@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 - 2021 DLSC Software & Consulting GmbH (dlsc.com)
+ * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
  *
  * This file is part of FlexGanttFX.
  */
@@ -24,7 +24,6 @@ import java.util.List;
 
 public class HelloGanttChartLiteModel extends FlexGanttFXSample {
 
-    private final HelloRow root;
     private int layerCounter;
     private GanttChartLite<HelloRow> gantt;
     private final Layer layer = new Layer("Default");
@@ -36,7 +35,7 @@ public class HelloGanttChartLiteModel extends FlexGanttFXSample {
     }
 
     public HelloGanttChartLiteModel() {
-        root = new HelloRow("Initial Root");
+        HelloRow root = new HelloRow("Initial Root");
         root.setExpanded(true);
     }
 

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 - 2021 DLSC Software & Consulting GmbH (dlsc.com)
+ * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
  *
  * This file is part of FlexGanttFX.
  */
@@ -19,9 +19,7 @@ import org.controlsfx.control.PopOver;
 
 public class AccordionPopOver extends PopOver {
 
-	private final Accordion accordion;
-
-	public AccordionPopOver() {
+    public AccordionPopOver() {
 		super();
 
 		skinProperty().addListener(
@@ -37,7 +35,7 @@ public class AccordionPopOver extends PopOver {
 		headerProperty().addListener(
 				(value, oldNode, newNode) -> borderPane.setTop(newNode));
 
-		accordion = new Accordion();
+        Accordion accordion = new Accordion();
 		borderPane.setCenter(accordion);
 
 		Bindings.bindContentBidirectional(getPanes(), accordion.getPanes());

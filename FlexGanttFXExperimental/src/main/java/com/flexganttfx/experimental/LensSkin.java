@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 - 2021 DLSC Software & Consulting GmbH (dlsc.com)
+ * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
  *
  * This file is part of FlexGanttFX.
  */
@@ -24,9 +24,8 @@ import com.flexganttfx.view.timeline.Timeline;
 public class LensSkin<R extends Row<?, ?, ?>> extends SkinBase<Lens<R>> {
 
 	private final VBoxGraphics<R> graphics;
-	private final Timeline timeline;
 
-	public LensSkin(Lens<R> lens) {
+    public LensSkin(Lens<R> lens) {
 		super(lens);
 
 		InvalidationListener updateListener = it -> updateView();
@@ -34,7 +33,7 @@ public class LensSkin<R extends Row<?, ?, ?>> extends SkinBase<Lens<R>> {
 		lens.startIndexProperty().addListener(updateListener);
 		lens.getRows().addListener(updateListener);
 
-		timeline = new Timeline();
+        Timeline timeline = new Timeline();
 		timeline.setModel(lens.getGraphics().getTimeline().getModel());
 
 		graphics = new VBoxGraphics<>();

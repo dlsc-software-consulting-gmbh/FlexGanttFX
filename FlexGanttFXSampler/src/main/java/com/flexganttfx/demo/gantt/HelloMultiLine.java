@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 - 2021 DLSC Software & Consulting GmbH (dlsc.com)
+ * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
  *
  * This file is part of FlexGanttFX.
  */
@@ -63,8 +63,6 @@ public class HelloMultiLine extends FlexGanttFXSample {
 
     private RadioButton autoButton;
 
-    private RadioButton randomButton;
-
     @Override
     public String getSampleName() {
         return "Multi Line";
@@ -125,7 +123,7 @@ public class HelloMultiLine extends FlexGanttFXSample {
 
         equalButton = new RadioButton("Equal Lines");
         autoButton = new RadioButton("Equal Lines (Auto Layout)");
-        randomButton = new RadioButton("Random Lines");
+        RadioButton randomButton = new RadioButton("Random Lines");
 
         equalButton.setTooltip(new Tooltip("Distribute available row height equally to all lines"));
         autoButton.setTooltip(new Tooltip("Equal line height, activities non overlapping"));

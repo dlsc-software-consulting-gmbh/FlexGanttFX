@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 - 2021 DLSC Software & Consulting GmbH (dlsc.com)
+ * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
  *
  * This file is part of FlexGanttFX.
  */
@@ -154,7 +154,6 @@ public class HelloLinksStressTest extends FlexGanttFXSample {
     int shift = 1;
 
     class ActivityRow extends Row<ActivityRow, ActivityRow, ActivityBase<Data>> {
-        private final int year = LocalDate.now().getYear();
 
         Data data;
         int linksIn;
@@ -164,6 +163,7 @@ public class HelloLinksStressTest extends FlexGanttFXSample {
 
         public ActivityRow(String name, int i) {
             data = new Data();
+            int year = LocalDate.now().getYear();
             data.start = generateRandomInstant(year + (i * shift), year + 2 + (i * shift));
             data.end = generateRandomInstant(year + 4 + (i * shift), year + 6 + (i * shift));
             data.name = name;

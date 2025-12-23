@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 - 2021 DLSC Software & Consulting GmbH (dlsc.com)
+ * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
  *
  * This file is part of FlexGanttFX.
  */
@@ -26,9 +26,8 @@ import com.flexganttfx.view.graphics.GraphicsBase.ContextMenuParameter;
 public class AgendaEditorContextMenu extends ContextMenu implements Callback<ContextMenuParameter<AgendaRow>, ContextMenu>{
 
 	private List<ActivityRef<?>> activities;
-	private final MenuItem group;
 
-	public AgendaEditorContextMenu(GraphicsBase<?> graphics) {
+    public AgendaEditorContextMenu(GraphicsBase<?> graphics) {
 
 		Menu typeMenu = new Menu("Type");
 		for (Type type : Type.values()) {
@@ -81,7 +80,7 @@ public class AgendaEditorContextMenu extends ContextMenu implements Callback<Con
 
 		getItems().add(typeMenu);
 
-		group = new MenuItem("Group");
+        MenuItem group = new MenuItem("Group");
 		group.setOnAction(evt -> {
 			UUID uuid = UUID.randomUUID();
 
