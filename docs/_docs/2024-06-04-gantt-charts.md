@@ -9,8 +9,9 @@ toc: true
 
 # Overview
 
-A custom **JavaFX** control to visualize any kind of scheduling data along a timeline. The model data needed by the control
-consists of rows with activities, links between them, and layers to group activities together.
+The GanttChart control is a custom **JavaFX** control used to visualize any kind of scheduling data along a timeline. 
+The model data needed by the control consists of rows with activities, links between them, and layers to group activities 
+together.
 
 The `GanttChart` control consists of several complex sub-controls:
 
