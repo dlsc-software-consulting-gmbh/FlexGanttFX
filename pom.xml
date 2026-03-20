@@ -61,6 +61,7 @@
         <module>FlexGanttFXEditor</module>
         <module>FlexGanttFXAssembly</module>
         <module>FlexGanttFXCovid</module>
+        <module>FlexGanttFXFactory</module>
     </modules>
 
     <build>
