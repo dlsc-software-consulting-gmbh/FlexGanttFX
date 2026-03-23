@@ -270,7 +270,7 @@ public class CovidUI {
             Label label = new Label();
             label.textProperty().bind(Bindings.createStringBinding(() -> {
                 if (loading.get()) {
-                    return "Downloading today's data file from 'Our World in Data'.\nThis can take a moment (up to several minutes.)\n\nhttps://covid.ourworldindata.org";
+                    return "Downloading today's data file from 'Our World in Data'.\nThis can take a moment (up to several minutes.)\n\nhttps://github.com/owid/covid-19-data";
                 } else if (preparing.get()) {
                     return "Preparing data for visualization in FlexGanttFX.";
                 }
@@ -436,7 +436,7 @@ public class CovidUI {
             protected Void call() throws Exception {
                 Thread.sleep(5000);
                 System.out.println("downloading data file to " + file.getAbsolutePath());
-                URL url = new URL("https://covid.ourworldindata.org/data/owid-covid-data.csv");
+                URL url = new URL("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv");
                 ReadableByteChannel readableByteChannel = Channels.newChannel(url.openStream());
                 try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
                     FileChannel fileChannel = fileOutputStream.getChannel();
