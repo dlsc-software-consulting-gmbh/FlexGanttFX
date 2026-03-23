@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Release Notes — FlexGanttFX</title>
+  <meta name="description" content="FlexGanttFX release history — bug fixes, new features, and improvements across all versions." />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container navbar-inner">
+    <a href="../index.html" class="navbar-logo">
+      <i class="fa-solid fa-chart-gantt logo-icon"></i>
+      FlexGanttFX
+    </a>
+    <ul class="navbar-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="demos.html">Demos</a></li>
+      <li class="nav-dropdown"><a href="../docs/index.html">Manual</a>
+        <div class="dropdown-menu">
+          <a href="../docs/index.html">Table of Contents</a>
+          <a href="../docs/installation.html">Installation</a>
+          <a href="../docs/tutorial.html">Tutorial</a>
+          <a href="../docs/gantt-charts.html">Gantt Charts</a>
+        </div>
+      </li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="mailto:info@dlsc.com" class="nav-cta"><i class="fa-solid fa-envelope" style="font-size:0.8rem"></i> Contact</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="container">
+      <a href="../index.html">Home</a>
+      <a href="demos.html">Demos</a>
+      <a href="../docs/index.html">Documentation</a>
+      <a href="faq.html">FAQ</a>
+      <a href="changelog.html">Release Notes</a>
+      <a href="licensing.html">Licensing</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HERO ═══════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container hero-container">
+    <div class="hero-content">
+      <div class="badge badge-dark"><i class="fa-solid fa-clock-rotate-left" style="font-size:0.7rem"></i> Changelog</div>
+      <h1>Release <span>Notes</span></h1>
+      <p>A full history of FlexGanttFX releases, including new features, bug fixes, and performance improvements.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RELEASES TIMELINE ══════════════════════════════════════ -->
+<section class="section">
+  <div class="container" style="max-width:860px">
+    <div class="releases-timeline">
+
+      <div class="release-item">
+        <div class="release-version">Release 11.12.8</div>
+        <div class="release-date"><i class="fa-regular fa-calendar"></i> January 17th, 2024</div>
+        <div class="release-desc">
+          <p>JAR files are no longer OSGI bundles.</p>
+          <ul>
+            <li>Changed the type of various JAR files to be of type "jar" instead of type "bundle". The building of OSGI bundles pulled in native dependencies (javafx native libs), which could lead to JavaFX using the bundled libraries instead of the ones used by the project's required JavaFX version.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release-item">
+        <div class="release-version">Release 11.12.7</div>
+        <div class="release-date"><i class="fa-regular fa-calendar"></i> November 2nd, 2023</div>
+        <div class="release-desc">
+          <p>Fixes issues related to the rendering of links.</p>
+          <ul>
+            <li>Links do not display correctly when changing row height</li>
+            <li>Lasso can break navigation by dragging</li>
+            <li>Links are pointing to nowhere</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release-item">
+        <div class="release-version">Release 11.12.6</div>
+        <div class="release-date"><i class="fa-regular fa-calendar"></i> January 30th, 2023</div>
+        <div class="release-desc">
+          <p>Fixes a single issue where key events were dropped while dragging an activity inside the Gantt chart.</p>
+          <ul>
+            <li>It is no longer possible to handle the key press during the dragging of an activity</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release-item">
+        <div class="release-version">Release 11.12.5</div>
+        <div class="release-date"><i class="fa-regular fa-calendar"></i> March 30th, 2022</div>
+        <div class="release-desc">
+          <p>Fixed various rendering issues where vertical lines were not aligned properly (grid lines, 'now' line), chart layout scale fixes, scrollbar behaviour fixes.</p>
+          <ul>
+            <li>Now line is not straight after zooming in</li>
+            <li>yOffset is not working when ChartLayout max and min values are the same</li>
+            <li>Auto hide scrollbar causes weird behaviour</li>
+            <li>With turned off auto hide TimelineScrollbar position is fixed</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release-item">
+        <div class="release-version">Release 11.12.4</div>
+        <div class="release-date"><i class="fa-regular fa-calendar"></i> April 21, 2021</div>
+        <div class="release-desc">
+          <p>Enhanced the scrollbar behaviour for "fixed horizon" scrolling. The end date of the horizon will now remain on the right edge of the viewport.</p>
+          <ul>
+            <li>The "horizon" scrollbar now ensures that the horizon end date will be shown on the right edge of the graphics area. Before this change the user could scroll the horizon end time to be on the left edge of the viewport.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release-item">
+        <div class="release-version">Release 11.12.3</div>
+        <div class="release-date"><i class="fa-regular fa-calendar"></i> April 9th, 2021</div>
+        <div class="release-desc">
+          <p>Added support for a fixed horizon scrollbar. Added a flag for turning on/off auto-hiding the scrollbars. Fixed the drawing of grid lines when displaying hour granularity with a step rate larger than 1.</p>
+          <ul>
+            <li>Added methods on Timeline for showing / scrolling to a given date or a given zoned date time. Before it was only possible to pass an instant.</li>
+            <li>Added an option on GanttChartBase to specify the scrollbar type to use for scrolling horizontally in time. So far the scrollbar allowed for infinite scrolling. This version adds a standard ("normal") scrollbar that allows the user to scroll within a given time horizon. Applications can also choose to completely remove the scrollbar.</li>
+            <li>Added an option on GanttChartBase to specify whether the horizontal scrollbars on the left-hand side and the right-hand side should auto-hide when not used.</li>
+            <li>The RowCanvas class now has a full set of snapXYZ() methods and the alignment of the canvas itself and of the activities shown by the canvas have been improved.</li>
+            <li>Fixed an issue related to daylight saving time and grid lines when the timeline was showing "hours" granularity with a step rate of 3 or 6.</li>
+            <li>Row controls are now being recreated when the row model object changes.</li>
+            <li>Showing a row header UI could cause flickering when rows were added or removed — fixed.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release-item">
+        <div class="release-version">Release 11.12.2 <span style="font-size:0.75rem;opacity:0.6">(Internal Release)</span></div>
+        <div class="release-date"><i class="fa-regular fa-calendar"></i> March 3rd, 2021</div>
+        <div class="release-desc">
+          <ul>
+            <li>Added a flag called "inverse" to the LassoInfo class. The flag indicates whether the lasso was created in inverse direction.</li>
+            <li>The CSS styles .dateline-cell-first and .dateline-cell-last are no longer supported due to the new buffer concepts.</li>
+            <li>Fixed a styling issue that caused the graphics view header on the right-hand side to become misaligned with the table header on the left-hand side.</li>
+            <li>Made sure the time label shown in the first dateline cell remains visible as long as possible.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release-item">
+        <div class="release-version">Release 11.12.1 <span style="font-size:0.75rem;opacity:0.6">(Internal Release)</span></div>
+        <div class="release-date"><i class="fa-regular fa-calendar"></i> August 17th, 2020</div>
+        <div class="release-desc">
+          <ul>
+            <li>Fixed difference in selection behaviour between Mac and Windows in combination with context menu / popup trigger. On Mac the mouse "pressed" event gets marked as a popup trigger; on Windows it is the mouse "released" event.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release-item">
+        <div class="release-version">Release 11.12.0</div>
+        <div class="release-date"><i class="fa-regular fa-calendar"></i> May 14th, 2020</div>
+        <div class="release-desc">
+          <p>Replaced custom mouse cursors with standard system cursors. Row resizing via new row headers on right-hand side. Removed dateline scrolling events. Enhanced RadarView rendering performance.</p>
+          <ul>
+            <li>Started using system cursors for editing operations in the graphics area (e.g. Cursor.E_RESIZE). Old cursors can be re-enabled via RowCanvasBehaviour.useCustomCursors().</li>
+            <li>Added ability to resize a row / change a row height interactively via the row headers.</li>
+            <li>Consolidated license keys for Java 8 and Java 11+ versions.</li>
+            <li>Moved the timezone label from the dateline to the timeline.</li>
+            <li>Removed support for dateline scrolling events. Added new "visible time interval" read-only property on Timeline as replacement.</li>
+            <li>Enhanced RadarView's performance and added auto-redraw upon activity changes.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release-item">
+        <div class="release-version">Release 11.11.0 <span style="font-size:0.75rem;opacity:0.6">(Major Release)</span></div>
+        <div class="release-date"><i class="fa-regular fa-calendar"></i> May 2020</div>
+        <div class="release-desc">
+          <p>Replaced icon PNG files with Ikonli font icons. Added show/hide links support (incl. toolbar button). Added row headers for right-hand side. Redraws now batched and using pulse listener for increased performance.</p>
+          <ul>
+            <li>Stopped using PNG icon files — replaced with Material Design Icons from Ikonli.</li>
+            <li>Added new method to show / hide links. Added new toolbar button to trigger it.</li>
+            <li>Changed default font size used in timeline and dateline.</li>
+            <li>Added new "zoom mode" selector to toolbar.</li>
+            <li>Added new "show / hide scale / row header" button to toolbar.</li>
+            <li>New default value for "show hover interval" is "false".</li>
+            <li>Added new RowHeader concept to replace things like the ScaleLayer.</li>
+            <li>Minimized number of canvas redraws for RowCanvas and LinksCanvas by listening to layout pulses.</li>
+            <li>Fixed bug where grid lines were drawn from previous time unit after zoom operation.</li>
+            <li>Fixed bug where calendar entries were still drawn when the primary time unit does not want to display them.</li>
+            <li>Fixed bug where too many listeners were added to the timeline when adding and removing Gantt chart instances.</li>
+            <li>Added missing support for alpha channel / opacity to LinksCanvas.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release-item">
+        <div class="release-version">Release 11.10.0 <span style="font-size:0.75rem;opacity:0.6">(Performance Release)</span></div>
+        <div class="release-date"><i class="fa-regular fa-calendar"></i> March 2020</div>
+        <div class="release-desc">
+          <p>Replaced LinksPane with LinksCanvas. Links are now drawn via Canvas API. Replaced observable list of activity links with an IntervalTree for faster lookup. Customizable link renderers.</p>
+          <ul>
+            <li>Replaced LinksPane with LinksCanvas. Links are now drawn via Canvas API (much faster).</li>
+            <li>Replaced ObservableList of ActivityLinks with an IntervalTree for faster lookup.</li>
+            <li>ActivityLink can now carry an optional user object.</li>
+            <li>Custom link renderers can be registered on GraphicsBase.</li>
+            <li>Reworked layout code of DatelineScale to work properly with latest CSS changes in JavaFX.</li>
+            <li>Introduced buffers for RowCanvas and DatelineScale to reduce repaints.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release-item">
+        <div class="release-version">Release 11.9.1</div>
+        <div class="release-date"><i class="fa-regular fa-calendar"></i> October 24th, 2020</div>
+        <div class="release-desc">
+          <p>Various bug fixes and enhancements.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3><i class="fa-solid fa-chart-gantt" style="color:#60A5FA;margin-right:8px"></i>FlexGanttFX</h3>
+        <p>The professional Gantt chart framework for JavaFX.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="demos.html">Demos</a></li>
+          <li><a href="licensing.html">Licensing</a></li>
+          <li><a href="changelog.html">Release Notes</a></li>
+          <li><a href="faq.html">FAQs</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Documentation</h4>
+        <ul>
+          <li><a href="../docs/index.html">Overview</a></li>
+          <li><a href="../docs/installation.html">Installation</a></li>
+          <li><a href="../docs/tutorial.html">Tutorial</a></li>
+          <li><a href="../docs/gantt-charts.html">Gantt Charts</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>DLSC GmbH</h4>
+        <ul>
+          <li><a href="https://www.dlsc.com">dlsc.com</a></li>
+          <li><a href="mailto:info@dlsc.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2024 DLSC Software &amp; Consulting GmbH. All rights reserved.</span>
+      <span>FlexGanttFX v11.12.8</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

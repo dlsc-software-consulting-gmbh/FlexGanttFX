@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FlexGanttFX — Professional Gantt Charts for JavaFX</title>
+  <meta name="description" content="FlexGanttFX is the ultimate Gantt chart framework for JavaFX. High-performance, fully customizable timeline visualizations for desktop and web applications." />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    /* ── Hero gantt visual ────────────────────────── */
+    .hero-visual {
+      position: absolute;
+      right: -60px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 520px;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    @media (max-width: 1100px) { .hero-visual { display: none; } }
+    .hero-container { position: relative; }
+
+    /* ── Section label stripe ────────────────────── */
+    .stripe {
+      display: inline-block;
+      width: 40px;
+      height: 3px;
+      background: var(--blue);
+      border-radius: 2px;
+      margin-bottom: 12px;
+    }
+    .stripe-group { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .stripe-group span { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--blue); }
+
+    /* ── Stats bar ───────────────────────────────── */
+    .stats-bar {
+      background: var(--navy-light);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .stats-bar-inner {
+      display: flex;
+      justify-content: space-around;
+      padding: 28px 0;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .stat-item { text-align: center; }
+    .stat-number { font-size: 2rem; font-weight: 800; color: var(--white); letter-spacing: -0.02em; }
+    .stat-number span { color: var(--blue-light); }
+    .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-top: 2px; }
+
+    /* ── Feature icon colors ─────────────────────── */
+    .icon-blue { background: rgba(59,130,246,0.12); color: var(--blue); }
+    .icon-cyan { background: rgba(6,182,212,0.12); color: var(--cyan); }
+    .icon-green { background: rgba(16,185,129,0.12); color: #10b981; }
+    .icon-purple { background: rgba(139,92,246,0.12); color: #8b5cf6; }
+    .icon-orange { background: rgba(249,115,22,0.12); color: #f97316; }
+    .icon-pink { background: rgba(236,72,153,0.12); color: #ec4899; }
+
+    /* ── Releases 2-col ─────────────────────────── */
+    .releases-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    @media (max-width: 768px) { .releases-cols { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ════════════════════════════════════════════════ -->
+<nav class="navbar">
+  <div class="container navbar-inner">
+    <a href="index.html" class="navbar-logo">
+      <i class="fa-solid fa-chart-gantt logo-icon"></i>
+      FlexGanttFX
+    </a>
+    <ul class="navbar-links">
+      <li><a href="index.html">Home</a></li>
+      <li class="nav-dropdown">
+        <a href="pages/demos.html">Demos</a>
+        <div class="dropdown-menu">
+          <a href="pages/demos.html">Online Demos</a>
+          <a href="https://demos.jpro.one/flexganttfx.html">Emirates Demo ↗</a>
+          <a href="https://demos.jpro.one/msproject.html">MSProject Demo ↗</a>
+        </div>
+      </li>
+      <li class="nav-dropdown">
+        <a href="docs/index.html">Manual</a>
+        <div class="dropdown-menu">
+          <a href="docs/index.html">Table of Contents</a>
+          <a href="docs/installation.html">Installation</a>
+          <a href="docs/tutorial.html">Tutorial</a>
+          <a href="docs/gantt-charts.html">Gantt Charts</a>
+          <a href="docs/timeline.html">Timeline</a>
+          <a href="docs/dateline.html">Dateline</a>
+          <a href="docs/graphics.html">Graphics</a>
+          <a href="docs/model.html">Model</a>
+        </div>
+      </li>
+      <li class="nav-dropdown">
+        <a href="#">Docs</a>
+        <div class="dropdown-menu">
+          <a href="pages/faq.html">FAQs</a>
+          <a href="pages/changelog.html">Release Notes</a>
+          <a href="pages/licensing.html">Licensing</a>
+          <a href="https://www.flexganttfx.com/api/index.html">Javadocs / API ↗</a>
+        </div>
+      </li>
+      <li><a href="mailto:info@dlsc.com" class="nav-cta"><i class="fa-solid fa-envelope" style="font-size:0.8rem"></i> Contact</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="container">
+      <a href="index.html">Home</a>
+      <a href="pages/demos.html">Demos</a>
+      <a href="docs/index.html">Manual</a>
+      <a href="docs/installation.html">— Installation</a>
+      <a href="docs/tutorial.html">— Tutorial</a>
+      <a href="docs/gantt-charts.html">— Gantt Charts</a>
+      <a href="docs/model.html">— Model</a>
+      <a href="pages/faq.html">FAQs</a>
+      <a href="pages/changelog.html">Release Notes</a>
+      <a href="pages/licensing.html">Licensing</a>
+      <a href="mailto:info@dlsc.com">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HERO ══════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container hero-container">
+    <div class="hero-content">
+      <div class="badge badge-dark"><i class="fa-solid fa-star" style="font-size:0.7rem"></i> JavaFX Gantt Framework</div>
+      <h1>Professional <span>Timeline Visualizations</span> for JavaFX</h1>
+      <p>FlexGanttFX is the leading Gantt chart framework for JavaFX — high-performance, fully customizable, and deployable on desktop, web, and mobile. Trusted by Emirates, NASA, Boeing, and hundreds more.</p>
+      <div class="hero-actions">
+        <a href="docs/installation.html" class="btn btn-primary"><i class="fa-solid fa-rocket"></i> Get Started</a>
+        <a href="pages/demos.html" class="btn btn-outline"><i class="fa-solid fa-play"></i> Live Demos</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATS BAR ═════════════════════════════════════════════ -->
+<div class="stats-bar section-dark">
+  <div class="container">
+    <div class="stats-bar-inner">
+      <div class="stat-item fade-in">
+        <div class="stat-number"><span>25+</span></div>
+        <div class="stat-label">Enterprise Customers</div>
+      </div>
+      <div class="stat-item fade-in">
+        <div class="stat-number"><span>11</span></div>
+        <div class="stat-label">Major Versions</div>
+      </div>
+      <div class="stat-item fade-in">
+        <div class="stat-number"><span>10+</span></div>
+        <div class="stat-label">Years in Production</div>
+      </div>
+      <div class="stat-item fade-in">
+        <div class="stat-number">Java <span>8–21</span></div>
+        <div class="stat-label">Supported Versions</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FEATURES ══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="text-center">
+      <div class="badge"><i class="fa-solid fa-bolt" style="font-size:0.7rem"></i> Core Capabilities</div>
+      <h2 class="section-title">Everything you need for scheduling UIs</h2>
+      <p class="section-subtitle">FlexGanttFX is a domain-independent framework designed to handle anything from project planning to industrial scheduling at enterprise scale.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon icon-blue"><i class="fa-solid fa-gauge-high"></i></div>
+        <h3>High Performance</h3>
+        <p>Canvas-based rendering with a buffer architecture handles tens of thousands of activities at 60 fps — no virtualization compromises.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-purple"><i class="fa-solid fa-palette"></i></div>
+        <h3>Fully Customizable</h3>
+        <p>Pluggable renderers, CSS styling, layer system, and a comprehensive API let you tailor every visual detail to your domain and brand.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-cyan"><i class="fa-solid fa-calendar-days"></i></div>
+        <h3>Flexible Timeline</h3>
+        <p>ChronoUnit and SimpleUnit timelines support milliseconds to decades with configurable multi-row datelines, grid lines, and zoom levels.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-green"><i class="fa-solid fa-table-columns"></i></div>
+        <h3>Split-Screen Containers</h3>
+        <p>Dual, Quad, and Multi chart containers with synchronized scrolling and zooming for complex multi-resource views.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-orange"><i class="fa-solid fa-link"></i></div>
+        <h3>Activity Links</h3>
+        <p>Model and visualize dependencies between activities with customizable Finish-to-Start and other link types, rendered with curved or straight arrows.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-pink"><i class="fa-solid fa-globe"></i></div>
+        <h3>Desktop &amp; Web</h3>
+        <p>Deploy the same codebase on desktop via JavaFX, in a browser via JPro, or natively on iOS and Android via GraalVM + Gluon.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SERVICES ══════════════════════════════════════════════ -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="text-center">
+      <div class="badge"><i class="fa-solid fa-handshake" style="font-size:0.7rem"></i> Support &amp; Resources</div>
+      <h2 class="section-title">We've got you covered</h2>
+      <p class="section-subtitle">From professional consulting to extensive documentation, DLSC GmbH provides everything you need to succeed with FlexGanttFX.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-in">
+        <div class="service-icon"><i class="fa-solid fa-building" style="color:#3B82F6"></i></div>
+        <h3>Consulting</h3>
+        <p>FlexGanttFX is complex, but supported by DLSC GmbH. We will help you get off the ground quickly with architecture reviews, custom renderer development, and performance tuning.</p>
+        <a href="https://www.dlsc.com" class="btn btn-outline-blue btn-sm">Visit DLSC.com <i class="fa-solid fa-arrow-right" style="font-size:0.75rem"></i></a>
+      </div>
+      <div class="service-card fade-in">
+        <div class="service-icon"><i class="fa-solid fa-circle-question" style="color:#8b5cf6"></i></div>
+        <h3>FAQ</h3>
+        <p>Common questions about licensing, Java version support, web deployment, and technical topics — answered concisely so you can move fast.</p>
+        <a href="pages/faq.html" class="btn btn-outline-blue btn-sm">Browse FAQs <i class="fa-solid fa-arrow-right" style="font-size:0.75rem"></i></a>
+      </div>
+      <div class="service-card fade-in">
+        <div class="service-icon"><i class="fa-solid fa-book-open" style="color:#10b981"></i></div>
+        <h3>Documentation</h3>
+        <p>The extensive developer manual covers installation, the tutorial, all controls, the model layer, styling, and logging with code examples throughout.</p>
+        <a href="docs/index.html" class="btn btn-outline-blue btn-sm">Read the Docs <i class="fa-solid fa-arrow-right" style="font-size:0.75rem"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ONLINE DEMOS ═══════════════════════════════════════════ -->
+<section class="section section-dark" id="demos">
+  <div class="container">
+    <div class="text-center">
+      <div class="badge badge-dark"><i class="fa-solid fa-rocket" style="font-size:0.7rem"></i> Live Demos</div>
+      <h2 class="section-title">See FlexGanttFX in action</h2>
+      <p class="section-subtitle">These demos highlight some of the many features built right into FlexGanttFX. Click to launch them directly in your browser.</p>
+    </div>
+    <div class="demos-grid">
+      <div class="demo-card fade-in">
+        <div class="demo-card-img">
+          <img src="../docs/assets/images/online-demos/online-demo-emirates.jpg" alt="Emirates Airlines Resource Scheduler" loading="lazy" onerror="this.style.display='none'" />
+        </div>
+        <div class="demo-card-body">
+          <h3>Emirates Airlines Resource Scheduler</h3>
+          <p>Emirates Airlines uses FlexGanttFX at their Dubai headquarters to fine-tune the utilization of their aircraft fleet with real-time scheduling algorithms.</p>
+          <a href="https://demos.jpro.one/flexganttfx.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-play"></i> Launch Demo</a>
+        </div>
+      </div>
+      <div class="demo-card fade-in">
+        <div class="demo-card-img">
+          <img src="../docs/assets/images/online-demos/online-demo-msproject.jpg" alt="MSProject File Reader" loading="lazy" onerror="this.style.display='none'" />
+        </div>
+        <div class="demo-card-body">
+          <h3>MSProject File Reader</h3>
+          <p>Using the open-source MPXJ library, this demo imports Microsoft Project files and renders them in FlexGanttFX — showing seamless third-party data integration.</p>
+          <a href="https://demos.jpro.one/msproject.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-play"></i> Launch Demo</a>
+        </div>
+      </div>
+      <div class="demo-card fade-in">
+        <div class="demo-card-img">
+          <img src="../docs/assets/images/online-demos/online-demo-sampler.jpg" alt="FlexGanttFX Sampler" loading="lazy" onerror="this.style.display='none'" />
+        </div>
+        <div class="demo-card-body">
+          <h3>FlexGanttFX Sampler</h3>
+          <p>The online sampler lets you try out all individual feature samples — each focused on one or two capabilities of the framework.</p>
+          <a href="https://www.jfx-ensemble.com/?page=project/flexganttfx" class="btn btn-primary btn-sm"><i class="fa-solid fa-play"></i> Launch Demo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ VIDEOS ═════════════════════════════════════════════════ -->
+<section class="section" id="videos">
+  <div class="container">
+    <div class="text-center">
+      <div class="badge"><i class="fa-brands fa-youtube" style="font-size:0.8rem"></i> Videos</div>
+      <h2 class="section-title">Real-world examples &amp; technical videos</h2>
+      <p class="section-subtitle">See where and how FlexGanttFX has been deployed in production environments around the world.</p>
+    </div>
+    <div class="videos-grid">
+      <button class="video-card" data-video-id="Qju5_JYR8nY">
+        <div class="video-thumb">
+          <img src="../docs/assets/images/videos/demo-emirates.jpg" alt="Emirates Airlines" loading="lazy" onerror="this.style.display='none'" />
+          <div class="video-play"><div class="video-play-btn"><i class="fa-solid fa-play" style="margin-left:3px"></i></div></div>
+        </div>
+        <div class="video-body">
+          <h3>Emirates Airlines</h3>
+          <p>Real-world fleet scheduling with live dispatchers using FlexGanttFX in production.</p>
+        </div>
+      </button>
+      <button class="video-card" data-video-id="RN_Pcu8ssQc">
+        <div class="video-thumb">
+          <img src="../docs/assets/images/videos/demo-ebu.jpg" alt="European Broadcasting Union" loading="lazy" onerror="this.style.display='none'" />
+          <div class="video-play"><div class="video-play-btn"><i class="fa-solid fa-play" style="margin-left:3px"></i></div></div>
+        </div>
+        <div class="video-body">
+          <h3>European Broadcasting Union (EBU)</h3>
+          <p>150 dispatchers scheduling satellite and fibre transmissions with FlexGanttFX.</p>
+        </div>
+      </button>
+      <button class="video-card" data-video-id="v4GkjST64Hk">
+        <div class="video-thumb">
+          <img src="../docs/assets/images/videos/emirates-ipad.jpg" alt="Emirates on iPad" loading="lazy" onerror="this.style.display='none'" />
+          <div class="video-play"><div class="video-play-btn"><i class="fa-solid fa-play" style="margin-left:3px"></i></div></div>
+        </div>
+        <div class="video-body">
+          <h3>Emirates Demo on iPad</h3>
+          <p>Native iOS deployment of the Emirates POC via GraalVM and the Gluon plugin.</p>
+        </div>
+      </button>
+      <button class="video-card" data-video-id="9uL7jvuDRFw">
+        <div class="video-thumb">
+          <img src="../docs/assets/images/videos/demo-iphone.jpg" alt="Demo on iPhone" loading="lazy" onerror="this.style.display='none'" />
+          <div class="video-play"><div class="video-play-btn"><i class="fa-solid fa-play" style="margin-left:3px"></i></div></div>
+        </div>
+        <div class="video-body">
+          <h3>Demo on iPhone</h3>
+          <p>FlexGanttFX running natively on iOS — same codebase as the desktop app.</p>
+        </div>
+      </button>
+      <button class="video-card" data-video-id="ME47KzDGgEw">
+        <div class="video-thumb">
+          <img src="../docs/assets/images/videos/demo-browser.jpg" alt="Demo in Browser on iPad" loading="lazy" onerror="this.style.display='none'" />
+          <div class="video-play"><div class="video-play-btn"><i class="fa-solid fa-play" style="margin-left:3px"></i></div></div>
+        </div>
+        <div class="video-body">
+          <h3>Demo in Browser on iPad</h3>
+          <p>The Emirates POC running in Chrome on an iPad via JPro web deployment.</p>
+        </div>
+      </button>
+      <button class="video-card" data-video-id="jzy4b5GxkRA">
+        <div class="video-thumb">
+          <img src="../docs/assets/images/videos/demo-performance.jpg" alt="Performance Enhancements" loading="lazy" onerror="this.style.display='none'" />
+          <div class="video-play"><div class="video-play-btn"><i class="fa-solid fa-play" style="margin-left:3px"></i></div></div>
+        </div>
+        <div class="video-body">
+          <h3>Performance Enhancements</h3>
+          <p>The canvas buffer technique that enables 60fps scrolling through tens of thousands of activities.</p>
+        </div>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RELEASES ═══════════════════════════════════════════════ -->
+<section class="section section-alt" id="releases">
+  <div class="container">
+    <div class="text-center">
+      <div class="badge"><i class="fa-solid fa-code-branch" style="font-size:0.7rem"></i> Release History</div>
+      <h2 class="section-title">Recent Releases</h2>
+      <p class="section-subtitle">FlexGanttFX is actively maintained. Here are the latest releases. See the <a href="pages/changelog.html">full changelog</a> for complete release notes.</p>
+    </div>
+    <div class="releases-cols">
+      <div class="releases-timeline fade-in">
+        <div class="release-item">
+          <div class="release-version">11.12.8 — OSGI Bundle Removal</div>
+          <div class="release-date"><i class="fa-regular fa-calendar" style="font-size:0.75rem"></i> January 17th, 2024</div>
+          <div class="release-desc">JAR files are no longer OSGI bundles. This fixes issues where bundled native JavaFX libraries could conflict with the project's own JavaFX version.</div>
+        </div>
+        <div class="release-item">
+          <div class="release-version">11.12.7 — Bug Fixes</div>
+          <div class="release-date"><i class="fa-regular fa-calendar" style="font-size:0.75rem"></i> November 2nd, 2023</div>
+          <div class="release-desc">Fixes issues related to the rendering of links — links pointing nowhere, links not displaying correctly when changing row height, lasso breaking navigation.</div>
+        </div>
+        <div class="release-item">
+          <div class="release-version">11.12.5 — Rendering Fixes</div>
+          <div class="release-date"><i class="fa-regular fa-calendar" style="font-size:0.75rem"></i> March 30th, 2022</div>
+          <div class="release-desc">Fixed vertical line alignment, chart layout scale issues, and scrollbar behaviour regressions.</div>
+        </div>
+      </div>
+      <div class="releases-timeline fade-in">
+        <div class="release-item">
+          <div class="release-version">11.12.3 — Scrollbar Types</div>
+          <div class="release-date"><i class="fa-regular fa-calendar" style="font-size:0.75rem"></i> April 2021</div>
+          <div class="release-desc">Added fixed-horizon scrollbar option, auto-hide toggle, and DST grid-line fix for hourly granularity.</div>
+        </div>
+        <div class="release-item">
+          <div class="release-version">11.12.0 — Polishing</div>
+          <div class="release-date"><i class="fa-regular fa-calendar" style="font-size:0.75rem"></i> May 14th, 2020</div>
+          <div class="release-desc">System cursors, interactive row resizing via row headers, consolidated 8.x / 11.x license keys, improved RadarView performance.</div>
+        </div>
+        <div class="release-item">
+          <div class="release-version">11.10.0 — Performance Release</div>
+          <div class="release-date"><i class="fa-regular fa-calendar" style="font-size:0.75rem"></i> March 2020</div>
+          <div class="release-desc">Canvas-based links rendering, IntervalTree for faster activity lookup, row canvas buffering — a major performance milestone.</div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center" style="margin-top:40px">
+      <a href="pages/changelog.html" class="btn btn-outline-blue"><i class="fa-solid fa-list"></i> View Full Changelog</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FAQ ════════════════════════════════════════════════════ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="text-center">
+      <div class="badge"><i class="fa-solid fa-circle-question" style="font-size:0.7rem"></i> FAQ</div>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-subtitle">The most common questions about FlexGanttFX. Can't find your answer? <a href="mailto:info@dlsc.com">Contact us</a>.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question">Is FlexGanttFX an open source project? <span class="faq-icon"><i class="fa-solid fa-plus"></i></span></div>
+        <div class="faq-answer">No, FlexGanttFX is a commercial software. You need to purchase a developer license once the trial period of 30 days has expired. Once you go into production you require a runtime license for each application / project that you want to ship.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Do you have a Swing version of FlexGanttFX? <span class="faq-icon"><i class="fa-solid fa-plus"></i></span></div>
+        <div class="faq-answer">Yes we do. Take a look at the product's <a href="https://dlsc.com/products/flexgantt/">home on the DLSC website</a> or contact us and we will tell you more about it. The Swing version works with any Java version above 8.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Which Java versions does FlexGanttFX support? <span class="faq-icon"><i class="fa-solid fa-plus"></i></span></div>
+        <div class="faq-answer">We have versions for Java 8 and Java 11+. The Java 8 version will use the JavaFX bundled with the JDK. The newer versions require the artifacts provided by the OpenJFX project. Ideally you use the latest OpenJFX version.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Do you provide support for FlexGanttFX? <span class="faq-icon"><i class="fa-solid fa-plus"></i></span></div>
+        <div class="faq-answer">Any licensee will receive basic support and bug fixes. An annual maintenance plan option is also available qualifying you for premium support and free updates when new versions become available.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Does FlexGanttFX run in browsers like Chrome or Safari? <span class="faq-icon"><i class="fa-solid fa-plus"></i></span></div>
+        <div class="faq-answer">Via <a href="https://www.jpro.one">JPro</a>, FlexGanttFX runs great in browsers. Check out <a href="https://www.jpro.one/?page=demos">their website</a> for more info and live examples!</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Which version of OpenJFX should we use? <span class="faq-icon"><i class="fa-solid fa-plus"></i></span></div>
+        <div class="faq-answer">Ideally you use the latest one. FlexGanttFX is continuously tested against recent OpenJFX releases and will work with versions 11 through 21+.</div>
+      </div>
+    </div>
+    <div class="text-center" style="margin-top:32px">
+      <a href="pages/faq.html" class="btn btn-outline-blue"><i class="fa-solid fa-arrow-right"></i> More FAQs</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TESTIMONIALS ═══════════════════════════════════════════ -->
+<section class="section section-alt" id="testimonials">
+  <div class="container">
+    <div class="text-center">
+      <div class="badge"><i class="fa-solid fa-star" style="font-size:0.7rem"></i> Client Feedback</div>
+      <h2 class="section-title">Trusted by developers worldwide</h2>
+      <p class="section-subtitle">FlexGanttFX and its predecessor products have been deployed in hundreds of applications. Here's what customers have to say.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card fade-in">
+        <p class="testimonial-quote">FlexGantt increases the gap between us and our competitors. Other standard tools in this business area are miles away from FlexGantt. The well designed architecture gives you the possibility to control every pixel of this component.</p>
+        <div class="testimonial-author">
+          <img class="testimonial-avatar" src="../docs/assets/images/martin-schelldorfer.jpg" alt="Martin Schelldorfer" onerror="this.src=''" loading="lazy" />
+          <div>
+            <div class="testimonial-name">Martin Schelldorfer</div>
+            <div class="testimonial-role">Sr. Software Developer · e-Switch, Switzerland</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-in">
+        <p class="testimonial-quote">When evaluating FlexGantt library, we have instantly been really impressed because it seemed to correspond to our main expectations and needs. Its architecture using design patterns and the continuous and reactive support provided made it our clear choice.</p>
+        <div class="testimonial-author">
+          <img class="testimonial-avatar" src="../docs/assets/images/aurelien-boulanger.jpeg" alt="Aurelien Boulanger" onerror="this.src=''" loading="lazy" />
+          <div>
+            <div class="testimonial-name">Aurelien Boulanger</div>
+            <div class="testimonial-role">Software Engineer · PlanningForce, Belgium</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-in">
+        <p class="testimonial-quote">I spent a significant amount of time evaluating Gantt chart packages and they all paled in comparison to FlexGantt's features, flexibility, and straightforward licensing. I would highly recommend it for any Java-based scheduling application.</p>
+        <div class="testimonial-author">
+          <img class="testimonial-avatar" src="../docs/assets/images/daniel-wintschel.jpeg" alt="Daniel Wintschel" onerror="this.src=''" loading="lazy" />
+          <div>
+            <div class="testimonial-name">Daniel Wintschel</div>
+            <div class="testimonial-role">Software Developer · HumanDoing Software, Canada</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-in">
+        <p class="testimonial-quote">FlexGantt impressed us because of its wide range of functionalities, possibilities of customizing, performance, internationalization, documentation and examples. In our opinion FlexGantt is the best library for our requirements.</p>
+        <div class="testimonial-author">
+          <img class="testimonial-avatar" src="../docs/assets/images/simcron.jpeg" alt="Dagmar Wolfram" onerror="this.src=''" loading="lazy" />
+          <div>
+            <div class="testimonial-name">Dagmar Wolfram</div>
+            <div class="testimonial-role">Senior Consultant · Simcron, Germany</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-in">
+        <p class="testimonial-quote">FlexGantt is clearly, in my mind, head and shoulders above anything else we looked at. It's been a pleasure working with FlexGantt. We're lucky to have found such a wonderful product.</p>
+        <div class="testimonial-author">
+          <img class="testimonial-avatar" src="../docs/assets/images/andy-czerwonka.jpeg" alt="Andy Czerwonka" onerror="this.src=''" loading="lazy" />
+          <div>
+            <div class="testimonial-name">Andy Czerwonka</div>
+            <div class="testimonial-role">Senior Consultant · 3esi Inc. (Aucerna), Canada</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-in">
+        <p class="testimonial-quote">FlexGantt's large feature set, its high performance, and its superb visualization capabilities bring a great value to our products. The well-designed MVC architecture allows us to easily integrate and extend FlexGantt in our projects.</p>
+        <div class="testimonial-author">
+          <img class="testimonial-avatar" src="../docs/assets/images/duy-vo.jpeg" alt="Duy Vu" onerror="this.src=''" loading="lazy" />
+          <div>
+            <div class="testimonial-name">Duy Vu</div>
+            <div class="testimonial-role">Developer · Qnamic AG, Switzerland</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ COMPANIES ══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="text-center">
+      <div class="badge"><i class="fa-solid fa-building-columns" style="font-size:0.7rem"></i> Trusted By</div>
+      <h2 class="section-title">Used by leading organizations worldwide</h2>
+      <p class="section-subtitle" style="margin-bottom:40px">From aerospace and defense to telecommunications and logistics — FlexGanttFX powers mission-critical scheduling applications.</p>
+    </div>
+    <div class="companies-grid">
+      <div class="company-logo"><img src="../docs/assets/images/companies/emirates.png" alt="Emirates" loading="lazy" /></div>
+      <div class="company-logo"><img src="../docs/assets/images/companies/nasa.png" alt="NASA" loading="lazy" /></div>
+      <div class="company-logo"><img src="../docs/assets/images/companies/boeing.png" alt="Boeing" loading="lazy" /></div>
+      <div class="company-logo"><img src="../docs/assets/images/companies/airbus.png" alt="Airbus" loading="lazy" /></div>
+      <div class="company-logo"><img src="../docs/assets/images/companies/esa.png" alt="ESA" loading="lazy" /></div>
+      <div class="company-logo"><img src="../docs/assets/images/companies/general-dynamics.png" alt="General Dynamics" loading="lazy" /></div>
+      <div class="company-logo"><img src="../docs/assets/images/companies/jpl.png" alt="Jet Propulsion Laboratory" loading="lazy" /></div>
+      <div class="company-logo"><img src="../docs/assets/images/companies/lockheed-martin.png" alt="Lockheed Martin" loading="lazy" /></div>
+      <div class="company-logo"><img src="../docs/assets/images/companies/bt.png" alt="British Telecom" loading="lazy" /></div>
+      <div class="company-logo"><img src="../docs/assets/images/companies/db.png" alt="Deutsche Bahn" loading="lazy" /></div>
+      <div class="company-logo"><img src="../docs/assets/images/companies/siemens.png" alt="Siemens" loading="lazy" /></div>
+      <div class="company-logo"><img src="../docs/assets/images/companies/kuehne-nagel.png" alt="Kuehne &amp; Nagel" loading="lazy" /></div>
+      <div class="company-logo"><img src="../docs/assets/images/companies/raytheon.png" alt="Raytheon" loading="lazy" /></div>
+      <div class="company-logo"><img src="../docs/assets/images/companies/sabre.png" alt="Sabre" loading="lazy" /></div>
+      <div class="company-logo"><img src="../docs/assets/images/companies/saic.png" alt="SAIC" loading="lazy" /></div>
+      <div class="company-logo"><img src="../docs/assets/images/companies/los-alamos.png" alt="Los Alamos Laboratory" loading="lazy" /></div>
+      <div class="company-logo"><img src="../docs/assets/images/companies/psi.png" alt="PSI" loading="lazy" /></div>
+      <div class="company-logo"><img src="../docs/assets/images/companies/e-switch.png" alt="e-Switch" loading="lazy" /></div>
+      <div class="company-logo"><img src="../docs/assets/images/companies/alcatel.png" alt="Alcatel" loading="lazy" /></div>
+      <div class="company-logo"><img src="../docs/assets/images/companies/mcdonnell-douglas.png" alt="McDonnell Douglas" loading="lazy" /></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT CTA ════════════════════════════════════════════ -->
+<section class="contact-cta">
+  <div class="container">
+    <h2>Ready to get started?</h2>
+    <p>Evaluate FlexGanttFX free for 30 days — no commitment required. Contact us and we'll help you get up and running.</p>
+    <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap">
+      <a href="mailto:info@dlsc.com" class="btn btn-primary" style="font-size:1rem; padding:14px 32px"><i class="fa-solid fa-envelope"></i> Contact DLSC</a>
+      <a href="docs/installation.html" class="btn btn-outline" style="font-size:1rem; padding:14px 32px"><i class="fa-solid fa-book"></i> Read the Docs</a>
+    </div>
+    <p style="margin-top:28px; font-size:0.875rem; color:rgba(255,255,255,0.5)">
+      <i class="fa-solid fa-envelope" style="margin-right:6px"></i>
+      <a href="mailto:info@dlsc.com" style="color:rgba(255,255,255,0.7)">info@dlsc.com</a>
+    </p>
+  </div>
+</section>
+
+<!-- ══ FOOTER ═════════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3><i class="fa-solid fa-chart-gantt" style="color:#60A5FA;margin-right:8px"></i>FlexGanttFX</h3>
+        <p>The professional Gantt chart framework for JavaFX. Built and supported by DLSC GmbH &mdash; delivering enterprise scheduling solutions for over a decade.</p>
+        <div style="margin-top:16px; display:flex; gap:12px">
+          <a href="https://www.dlsc.com" style="color:rgba(255,255,255,0.5); font-size:1.1rem"><i class="fa-solid fa-globe"></i></a>
+          <a href="https://github.com/dlsc-software-consulting-gmbh" style="color:rgba(255,255,255,0.5); font-size:1.1rem"><i class="fa-brands fa-github"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="pages/demos.html">Demos</a></li>
+          <li><a href="pages/licensing.html">Licensing</a></li>
+          <li><a href="pages/changelog.html">Release Notes</a></li>
+          <li><a href="pages/faq.html">FAQs</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Documentation</h4>
+        <ul>
+          <li><a href="docs/index.html">Overview</a></li>
+          <li><a href="docs/installation.html">Installation</a></li>
+          <li><a href="docs/tutorial.html">Tutorial</a></li>
+          <li><a href="docs/gantt-charts.html">Gantt Charts</a></li>
+          <li><a href="docs/model.html">Model</a></li>
+          <li><a href="https://www.flexganttfx.com/api/index.html">API Reference</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>DLSC GmbH</h4>
+        <ul>
+          <li><a href="https://www.dlsc.com">dlsc.com</a></li>
+          <li><a href="https://www.dlsc.com/products/flexgantt/">FlexGantt (Swing)</a></li>
+          <li><a href="https://www.jpro.one">JPro (Web)</a></li>
+          <li><a href="mailto:info@dlsc.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2024 DLSC Software &amp; Consulting GmbH. All rights reserved.</span>
+      <span>FlexGanttFX v11.12.8</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ VIDEO MODAL ════════════════════════════════════════════ -->
+<div class="video-modal" id="video-modal" role="dialog" aria-modal="true" aria-label="Video player">
+  <div class="video-modal-backdrop" id="video-modal-backdrop"></div>
+  <div class="video-modal-dialog">
+    <button class="video-modal-close" id="video-modal-close" aria-label="Close video">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="video-modal-frame">
+      <iframe id="video-modal-iframe"
+        src=""
+        title="YouTube video"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

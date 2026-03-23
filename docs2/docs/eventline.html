@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eventline — FlexGanttFX</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/docs.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <a href="../index.html" class="navbar-logo">
+        <i class="fa-solid fa-chart-gantt logo-icon"></i>
+        FlexGanttFX
+      </a>
+      <ul class="navbar-links">
+        <li><a href="../index.html">Home</a></li>
+        <li class="nav-dropdown"><a href="../pages/demos.html">Demos</a>
+          <div class="dropdown-menu">
+            <a href="../pages/demos.html">Online Demos</a>
+            <a href="https://demos.jpro.one/flexganttfx.html">Emirates Demo ↗</a>
+          </div>
+        </li>
+        <li class="nav-dropdown"><a href="index.html" class="active">Manual</a>
+          <div class="dropdown-menu">
+            <a href="index.html">Table of Contents</a>
+            <a href="installation.html">Installation</a>
+            <a href="tutorial.html">Tutorial</a>
+            <a href="gantt-charts.html">Gantt Charts</a>
+            <a href="timeline.html">Timeline</a>
+            <a href="dateline.html">Dateline</a>
+            <a href="eventline.html">Eventline</a>
+            <a href="graphics.html">Graphics</a>
+            <a href="model.html">Model</a>
+            <a href="styling.html">Styling</a>
+            <a href="logging.html">Logging</a>
+          </div>
+        </li>
+        <li><a href="../pages/faq.html">FAQ</a></li>
+        <li><a href="mailto:info@dlsc.com" class="nav-cta"><i class="fa-solid fa-envelope" style="font-size:0.8rem"></i> Contact</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="container">
+        <a href="../index.html">Home</a>
+        <a href="index.html">Documentation</a>
+        <a href="installation.html">Installation</a>
+        <a href="tutorial.html">Tutorial</a>
+        <a href="gantt-charts.html">Gantt Charts</a>
+        <a href="model.html">Model</a>
+        <a href="../pages/faq.html">FAQ</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Getting Started</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Overview</a></li>
+          <li><a href="installation.html">Installation</a></li>
+          <li><a href="tutorial.html">Tutorial</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Controls</div>
+        <ul class="sidebar-nav">
+          <li><a href="gantt-charts.html">Gantt Charts</a></li>
+          <li><a href="timeline.html">Timeline</a></li>
+          <li><a href="dateline.html">Dateline</a></li>
+          <li><a href="eventline.html" class="active">Eventline</a></li>
+          <li><a href="graphics.html">Graphics</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Framework</div>
+        <ul class="sidebar-nav">
+          <li><a href="model.html">Model</a></li>
+          <li><a href="styling.html">Styling</a></li>
+          <li><a href="logging.html">Logging</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Reference</div>
+        <ul class="sidebar-nav">
+          <li><a href="https://www.flexganttfx.com/api/index.html">Javadocs / API ↗</a></li>
+          <li><a href="../pages/changelog.html">Release Notes</a></li>
+          <li><a href="../pages/licensing.html">Licensing</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="docs-content">
+      <nav class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="index.html">Docs</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Eventline</span>
+      </nav>
+      <article class="prose">
+<h1 id="overview">Overview</h1>
+<p>The eventline is a control that displays time cursors: time at mouse location, selected time interval. This control is 
+part of the Timeline and displayed at the bottom.</p>
+<p><img alt="Eventline" src="../../docs/assets/images/docs/eventline.png" /></p>
+<p><strong>Date &amp; Time Formatting</strong></p>
+<p>Each application has its own requirements regarding the format in which dates and times are displayed. Accordingly, the 
+eventline features a date and time formatter that can be replaced by calling <code>setDateTimeFormatter()</code>. Formatter instances 
+can be looked up by calling static methods on the <code>DateTimeFormatter</code> class, e.g. <code>DateTimeFormatter.ISO_LOCAL_DATE_TIME</code>.</p>
+<p><strong>Cursor: Location &amp; Time</strong></p>
+<p>The eventline keeps track of the mouse cursor location when the mouse hovers over the timeline or the graphics control. 
+The location is stored in the read-only <code>cursorLocationProperty()</code>. Whenever the location changes the eventline will also 
+update the value of <code>cursorTimeProperty()</code>. These two properties make the eventline the perfect provider for cursor 
+information for the entire application.</p>
+<p><strong>Marked Time Interval</strong></p>
+<p>Whenever the user edits an activity the eventline will display the new time interval occupied by the activity. This 
+interval is stored in the <code>markedTimeIntervalProperty()</code>. When its' value changes the eventline will display two additional 
+time cursors, one for the beginning of the time interval and one for its' end.</p>
+<p><strong>Frozen Row</strong></p>
+<p>The eventline contains an instance of <code>GraphicsBase</code> which means that the eventline can also display activities but only 
+in a single row. Since the eventline does not scroll vertically this will allow applications to provide a "frozen row". 
+This feature is very useful if there is a need to visualize "global" activities, e.g. milestones, that are relevant for 
+all rows underneath. The following API is relevant for working with this feature:</p>
+<pre><code class="language-java">public final SingleRowGraphics&lt;Row&lt;?, ? ,?&gt; getGraphics();
+public final Row&lt;? ,? ,?&gt; row = getFrozenRow();
+</code></pre>
+      </article>
+      <div class="docs-nav-bottom">
+        <a class="docs-nav-btn" href="dateline.html"><span class="docs-nav-label">← Previous</span><span class="docs-nav-title">Dateline</span></a>
+<a class="docs-nav-btn next" href="graphics.html"><span class="docs-nav-label">Next →</span><span class="docs-nav-title">Graphics</span></a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

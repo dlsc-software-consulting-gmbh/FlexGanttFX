@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dateline — FlexGanttFX</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/docs.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <a href="../index.html" class="navbar-logo">
+        <i class="fa-solid fa-chart-gantt logo-icon"></i>
+        FlexGanttFX
+      </a>
+      <ul class="navbar-links">
+        <li><a href="../index.html">Home</a></li>
+        <li class="nav-dropdown"><a href="../pages/demos.html">Demos</a>
+          <div class="dropdown-menu">
+            <a href="../pages/demos.html">Online Demos</a>
+            <a href="https://demos.jpro.one/flexganttfx.html">Emirates Demo ↗</a>
+          </div>
+        </li>
+        <li class="nav-dropdown"><a href="index.html" class="active">Manual</a>
+          <div class="dropdown-menu">
+            <a href="index.html">Table of Contents</a>
+            <a href="installation.html">Installation</a>
+            <a href="tutorial.html">Tutorial</a>
+            <a href="gantt-charts.html">Gantt Charts</a>
+            <a href="timeline.html">Timeline</a>
+            <a href="dateline.html">Dateline</a>
+            <a href="eventline.html">Eventline</a>
+            <a href="graphics.html">Graphics</a>
+            <a href="model.html">Model</a>
+            <a href="styling.html">Styling</a>
+            <a href="logging.html">Logging</a>
+          </div>
+        </li>
+        <li><a href="../pages/faq.html">FAQ</a></li>
+        <li><a href="mailto:info@dlsc.com" class="nav-cta"><i class="fa-solid fa-envelope" style="font-size:0.8rem"></i> Contact</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="container">
+        <a href="../index.html">Home</a>
+        <a href="index.html">Documentation</a>
+        <a href="installation.html">Installation</a>
+        <a href="tutorial.html">Tutorial</a>
+        <a href="gantt-charts.html">Gantt Charts</a>
+        <a href="model.html">Model</a>
+        <a href="../pages/faq.html">FAQ</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Getting Started</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Overview</a></li>
+          <li><a href="installation.html">Installation</a></li>
+          <li><a href="tutorial.html">Tutorial</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Controls</div>
+        <ul class="sidebar-nav">
+          <li><a href="gantt-charts.html">Gantt Charts</a></li>
+          <li><a href="timeline.html">Timeline</a></li>
+          <li><a href="dateline.html" class="active">Dateline</a></li>
+          <li><a href="eventline.html">Eventline</a></li>
+          <li><a href="graphics.html">Graphics</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Framework</div>
+        <ul class="sidebar-nav">
+          <li><a href="model.html">Model</a></li>
+          <li><a href="styling.html">Styling</a></li>
+          <li><a href="logging.html">Logging</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Reference</div>
+        <ul class="sidebar-nav">
+          <li><a href="https://www.flexganttfx.com/api/index.html">Javadocs / API ↗</a></li>
+          <li><a href="../pages/changelog.html">Release Notes</a></li>
+          <li><a href="../pages/licensing.html">Licensing</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="docs-content">
+      <nav class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="index.html">Docs</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Dateline</span>
+      </nav>
+      <article class="prose">
+<h1 id="overview">Overview</h1>
+<p>The dateline is a control that displays the actual dates (Mo, Tu, We, ...) in cells that are placed on one or more rows. 
+The dateline is timezone-aware, keeps track of currently selected time intervals and the current hover time interval. 
+It also fires events whenever the visible time range changes (e.g., after scrolling left or right).</p>
+<p><img alt="Dateline" src="../../docs/assets/images/docs/dateline.png" /></p>
+<p><strong>Scale Resolutions</strong></p>
+<p>The dateline can display one to five rows. Each row is called a "dateline scale" and each one of these scales displays 
+a "resolution." A resolution consists of a temporal unit (e.g., day, week, month), a pattern for formatting, and a 
+quantity. The quantity is needed to specify resolutions like "5 minutes," "15 minutes," and so on. The entire list of 
+resolutions that are currently shown by the dateline can be retrieved by calling <code>getScaleResolutions()</code>.</p>
+<p>One example for a use of this method is given by the system layer <code>GridLinesLayer</code>. It calls this method to use 
+the resolutions to calculate the locations of the vertical grid lines. For this the Resolution class offers the methods 
+<code>truncate()</code> to go to the beginning of a unit (e.g., the beginning of a day) and <code>increment()</code> to go to the next unit (e.g., 
+the next day). For more information on <code>Resolution</code> please go to the dateline model documentation.</p>
+<p><strong>Primary Temporal Unit</strong></p>
+<p>A dateline with three scales could, for example, display the resolutions "month," "week," and "day." The smallest 
+resolution "day" gets displayed at the bottom of the dateline. The temporal unit <code>ChronoUnit.DAYS</code> that is used by this 
+resolution is also called "primary temporal unit." The current value of this unit is stored in the read-only property 
+<code>primaryTemporalUnit</code>. The value of this property is used when querying activities from activity repositories. This way 
+the repository can decide how fine-grained the result of its invocation will be or if certain activities will not be 
+shown at all.</p>
+<p>One example for a good use of the primary temporal unit is the <code>WeekendCalendar</code> class. It implements <code>Calendar</code>, which is 
+an extension of <code>ActivityRepository</code>. The purpose of the <code>WeekendCalendar</code> is to return the weekend days (Saturday, Sunday) 
+for a given time interval. When it gets invoked, it will not return anything if the primary temporal unit is too large or 
+too small. It makes no sense to return weekend information if the user is currently looking at minutes or decades.</p>
+<p><strong>Timezone</strong></p>
+<p>The dateline needs to know for which timezone it is displaying the dates (e.g., EST or GMT). Hence, it features the 
+property <code>zoneIdProperty()</code>. It is writable and can be set via <code>setZoneId()</code>. The value of this property can be made visible 
+in the control by calling <code>setZoneId(true)</code>.</p>
+<p><strong>Selection Model</strong></p>
+<p>The dateline control allows the user to perform single or multiple selections of time intervals by clicking the primary
+mouse button while pressing the shortcut modifier key (<code>CTRL</code> on Windows / Linux, Option on Mac). Whether single or 
+multiple selection is supported depends on the value of <code>selectionModeProperty()</code>.</p>
+<p>Only those intervals can be selected that are currently visible in any one of the rows / scales. So if the dateline is 
+currently showing weeks and days, then the user can only select entire weeks or entire days. This list of selected 
+intervals can be retrieved by calling <code>getSelectedTimeIntervals()</code>.</p>
+<p><strong>Hover Time Interval</strong></p>
+<p>When the mouse cursor hovers over the dateline, it also implies that it is hovering over a time interval. Depending on 
+the resolution shown in the dateline row / scale at the given mouse location, the interval might be an entire week or a 
+single day. Whatever it is, the interval will be stored in the read-only property <code>hoverTimeIntervalProperty()</code>.</p>
+<p><strong>Events</strong></p>
+<p>Applications can listen to scrolling events fired by the dateline when they need to react to any changes in the 
+currently visible time range. This is done by passing an event listener to the <code>setOnVisibleRangeChanged()</code> method or by 
+calling <code>addEventListener(DatelineScrollingEvent.ANY, myListener)</code>.</p>
+<p><strong>Cell Factory</strong></p>
+<p>The dateline control is capable of displaying different types of temporal units. <code>ChronoUnit</code> (Mon, Tue, Wed, ...) and 
+<code>SimpleUnit</code> (1, 2, 3, 4, ...) are supported by default. Each unit type has its own visual representation. To accommodate 
+for this, the dateline control delegates the creation of dateline cells to a pluggable factory that was previously 
+mapped to a specific temporal unit type. </p>
+<pre><code class="language-java">setCellFactory(SimpleUnit.class, unit -&gt; new SimpleUnitDatelineCell());
+setCellFactory(ChronoUnit.class, unit -&gt; new ChronoUnitDatelineCell());
+</code></pre>
+<hr />
+<h1 id="dateline-model">Dateline Model</h1>
+<p>The dateline model provides the dateline control with various pieces of information so that it can lay itself out correctly.</p>
+<ul>
+<li><strong>Resolutions</strong> – a resolution defines which temporal unit to show (e.g., hours) and how to format it. It also contains the information whether it can be shown in a top, bottom, or middle scale. Each model usually defines a long list of such resolutions. The more resolutions are defined, the more flexible the dateline control becomes when it comes to zooming in and out.</li>
+<li><strong>Time Zones</strong> – the dateline control allows the user to switch between different time zones. The model defines which zones are available.</li>
+<li><strong>Scale Count</strong> – the dateline control is composed of a set of dateline scales (top, bottom, several middle scales). The model can be used to define the currently visible, the minimum, and the maximum number of scales that the user can choose to see.</li>
+<li><strong>Temporal Units</strong> – the dateline control calls back onto the model to look up the "next" temporal unit after it has either failed or succeeded to create a scale for the current unit.</li>
+</ul>
+<p>The dateline model is a typed model. <strong>FlexGanttFX</strong> ships with two specializations: <code>ChronoUnitDatelineModel</code> and 
+<code>SimpleUnitDatelineModel</code>.</p>
+<p><strong>Chrono Unit Dateline Model</strong></p>
+<p>The <code>ChronoUnitDatelineModel</code> class is a specialization for the <code>ChronoUnit</code> temporal that is part of JDK 8. It requires 
+scale resolutions of type <code>ChronoUnitResolution</code>. The following listing is the implementation of this model and 
+illustrates how to define and add resolutions and also how the resolution is used to go from one temporal unit to the next.</p>
+<pre><code class="language-java">package com.flexganttfx.model.dateline;
+
+import java.time.temporal.ChronoUnit;
+
+import static com.flexganttfx.model.dateline.Resolution.Position.*;
+import static java.time.temporal.ChronoUnit.*;
+
+/**
+ * The chrono unit dateline model is a specialization of the dateline model that works
+ * in combination with the {@link ChronoUnit}. The chrono unit basically represents standard
+ * calendar units ranging from milliseconds to thousands of years.
+ *
+ * @since 1.0
+ */
+public final class ChronoUnitDatelineModel extends DatelineModel&lt;ChronoUnit&gt; {
+
+    /**
+     * Constructs a new dateline model with a long list of predefined
+     * resolutions of type {@link ChronoUnitResolution}.
+     *
+     * @since 1.0
+     */
+    public ChronoUnitDatelineModel() {
+        addResolution(new ChronoUnitResolution(MILLIS, &quot;EEEE, dd. MMMM yyyy, HH:mm:ss:SSS&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(MILLIS, &quot;EEEE, dd.MM.yy, HH:mm:ss:SSS&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(MILLIS, &quot;E, dd.MM.yy, HH:mm:ss:SSS&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(MILLIS, &quot;dd.MM.yy, HH:mm:ss:SSS&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(MILLIS, &quot;dd.MM, HH:mm:ss:SSS&quot;, 1, TOP));
+        addResolution(new ChronoUnitResolution(MILLIS, &quot;SSS&quot;, 1, BOTTOM));
+        addResolution(new ChronoUnitResolution(MILLIS, &quot;SSS&quot;, 5, BOTTOM));
+        addResolution(new ChronoUnitResolution(MILLIS, &quot;SSS&quot;, 10, BOTTOM));
+        addResolution(new ChronoUnitResolution(MILLIS, &quot;SSS&quot;, 15, BOTTOM));
+
+        addResolution(new ChronoUnitResolution(SECONDS, &quot;EEEE, dd. MMMM yyyy, HH:mm:ss&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(SECONDS, &quot;EEEE, dd.MM.yy, HH:mm:ss&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(SECONDS, &quot;E, dd.MM.yy, HH:mm:ss&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(SECONDS, &quot;dd.MM.yy, HH:mm:ss&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(SECONDS, &quot;dd.MM, HH:mm:ss&quot;, 1, MIDDLE));
+        addResolution(new ChronoUnitResolution(SECONDS, &quot;HH:mm:ss&quot;, 1, MIDDLE));
+        addResolution(new ChronoUnitResolution(SECONDS, &quot;ss&quot;, 1, BOTTOM));
+        addResolution(new ChronoUnitResolution(SECONDS, &quot;ss&quot;, 5, BOTTOM));
+        addResolution(new ChronoUnitResolution(SECONDS, &quot;ss&quot;, 10, BOTTOM));
+        addResolution(new ChronoUnitResolution(SECONDS, &quot;ss&quot;, 15, BOTTOM));
+
+        addResolution(new ChronoUnitResolution(MINUTES, &quot;EEEE, dd. MMMM yyyy, HH:mm&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(MINUTES, &quot;EEEE, dd.MM.yy, HH:mm&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(MINUTES, &quot;E, dd.MM.yy, HH:mm&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(MINUTES, &quot;dd.MM.yy, HH:mm&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(MINUTES, &quot;dd.MM, HH:mm&quot;, 1, TOP));
+        addResolution(new ChronoUnitResolution(MINUTES, &quot;HH:mm&quot;, 1, MIDDLE));
+        addResolution(new ChronoUnitResolution(MINUTES, &quot;mm&quot;, 1, BOTTOM));
+        addResolution(new ChronoUnitResolution(MINUTES, &quot;mm&quot;, 5, BOTTOM));
+        addResolution(new ChronoUnitResolution(MINUTES, &quot;mm&quot;, 10, BOTTOM));
+        addResolution(new ChronoUnitResolution(MINUTES, &quot;mm&quot;, 15, BOTTOM));
+
+        addResolution(new ChronoUnitResolution(HOURS, &quot;EEEE, dd. MMMM yyyy, HH:mm&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(HOURS, &quot;EEEE, dd.MM.yy, HH:mm&quot;, 1, TOP, BOTTOM, ONLY));
+        addResolution(new ChronoUnitResolution(HOURS, &quot;E, dd.MM.yy, HH:mm&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(HOURS, &quot;dd.MM.yy, HH:mm&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(HOURS, &quot;dd.MM, HH:mm&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(HOURS, &quot;H:mm&quot;, 1, MIDDLE, BOTTOM));
+        addResolution(new ChronoUnitResolution(HOURS, &quot;H:mm&quot;, 3, MIDDLE, BOTTOM));
+        addResolution(new ChronoUnitResolution(HOURS, &quot;H:mm&quot;, 6, MIDDLE, BOTTOM));
+
+        addResolution(new ChronoUnitResolution(DAYS, &quot;EEEE d. MMMM yyyy&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(DAYS, &quot;EEEE d. MMMM yy&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(DAYS, &quot;E, d. MMMM yy&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(DAYS, &quot;E, d. MMMM&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(DAYS, &quot;E, dd.MM.yy&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(DAYS, &quot;EEEE dd&quot;, 1, MIDDLE, BOTTOM));
+        addResolution(new ChronoUnitResolution(DAYS, &quot;E dd&quot;, 1, MIDDLE, BOTTOM));
+        addResolution(new ChronoUnitResolution(DAYS, &quot;dd.MM&quot;, 1, MIDDLE, BOTTOM));
+        addResolution(new ChronoUnitResolution(DAYS, &quot;dd&quot;, 1, BOTTOM));
+
+        addResolution(new ChronoUnitResolution(WEEKS, &quot;'W' w, EEEE d. MMMM yy&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(WEEKS, &quot;'W' w, d. MMMM yy&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(WEEKS, &quot;'W' w, d. MMMM&quot;, 1));
+        addResolution(new ChronoUnitResolution(WEEKS, &quot;'W' w, E, dd.MM.yy&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(WEEKS, &quot;'W' w, dd.MM.yy&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(WEEKS, &quot;'W' w, dd.MM&quot;, 1, BOTTOM));
+        addResolution(new ChronoUnitResolution(WEEKS, &quot;'W' w&quot;, 1, MIDDLE, BOTTOM));
+
+        addResolution(new ChronoUnitResolution(MONTHS, &quot;MMMM yyyy&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(MONTHS, &quot;MMMM&quot;, 1, MIDDLE, BOTTOM));
+        addResolution(new ChronoUnitResolution(MONTHS, &quot;MMM&quot;, 1, MIDDLE, BOTTOM));
+        addResolution(new ChronoUnitResolution(MONTHS, &quot;M&quot;, 1, MIDDLE, BOTTOM));
+
+        addResolution(new ChronoUnitResolution(YEARS, &quot;yyyy&quot;, 1));
+        addResolution(new ChronoUnitResolution(DECADES, &quot;yyyy&quot;, 1));
+        addResolution(new ChronoUnitResolution(CENTURIES, &quot;yyyy&quot;, 1));
+        addResolution(new ChronoUnitResolution(MILLENNIA, &quot;yyyy&quot;, 1));
+    }
+
+    @Override
+    public final ChronoUnit nextTemporalUnit(ChronoUnit unit) {
+        switch (unit) {
+            case NANOS:
+                return MICROS;
+            case MICROS:
+                return MILLIS;
+            case MILLIS:
+                return SECONDS;
+            case SECONDS:
+                return MINUTES;
+            case MINUTES:
+                return HOURS;
+            case HOURS:
+                return DAYS;
+            case DAYS:
+                return WEEKS;
+            case WEEKS:
+                return MONTHS;
+            case MONTHS:
+                return YEARS;
+            case YEARS:
+                return DECADES;
+            case DECADES:
+                return CENTURIES;
+            case CENTURIES:
+                return MILLENNIA;
+            default:
+            /*
+             * We are ignoring HALF DAYS.
+             */
+                return null;
+        }
+    }
+}
+</code></pre>
+<hr />
+<p><strong>Simple Unit Dateline Model</strong></p>
+<p>The <code>SimpleUnitDatelineModel</code> class is a specialization for the <code>SimpleUnit</code> temporal which ships with <strong>FlexGanttFX</strong>. It 
+requires scale resolutions of type <code>SimpleUnitResolution</code>. The implementation of this model class below shows why the 
+unit is called "simple."</p>
+<pre><code class="language-java">package com.flexganttfx.model.dateline;
+
+
+import com.flexganttfx.model.util.SimpleUnit;
+
+public final class SimpleUnitDatelineModel extends DatelineModel&lt;SimpleUnit&gt; {
+
+    public SimpleUnitDatelineModel() {
+        for (SimpleUnit unit : SimpleUnit.values()) {
+            addResolution(new SimpleUnitResolution(unit, &quot;&quot;, 1));
+        }
+    }
+
+    @Override
+    public SimpleUnit nextTemporalUnit(SimpleUnit unit) {
+        int ordinal = unit.ordinal();
+        if (ordinal &lt; SimpleUnit.values().length - 1) {
+            return SimpleUnit.values()[ordinal + 1];
+        }
+        return null;
+    }
+}
+</code></pre>
+<hr />
+<p><strong>Timezones</strong></p>
+<p>The dateline model manages a list of zone IDs, which is used by the UI to create menu items for each ID. This way the 
+user can easily toggle between them. The default list is set up in the <code>DatelineModel</code> class like this:</p>
+<pre><code class="language-java">/**
+ * Constructs a new model and populates the list of available zone IDs.
+ */
+protected DatelineModel() {
+    addZoneId(&quot;Europe/Berlin&quot;);
+    addZoneId(&quot;America/New_York&quot;);
+    addZoneId(&quot;Australia/Darwin&quot;);
+    addZoneId(&quot;Australia/Sydney&quot;);
+    addZoneId(&quot;America/Argentina/Buenos_Aires&quot;);
+    addZoneId(&quot;Africa/Cairo&quot;);
+    addZoneId(&quot;America/Anchorage&quot;);
+    addZoneId(&quot;America/Sao_Paulo&quot;);
+    addZoneId(&quot;Asia/Dhaka&quot;);
+    addZoneId(&quot;Africa/Harare&quot;);
+    addZoneId(&quot;America/St_Johns&quot;);
+    addZoneId(&quot;America/Chicago&quot;);
+    addZoneId(&quot;Asia/Shanghai&quot;);
+    addZoneId(&quot;Africa/Addis_Ababa&quot;)
+    addZoneId(&quot;Europe/Paris&quot;);
+    addZoneId(&quot;America/Indiana/Indianapolis&quot;);
+    addZoneId(&quot;Asia/Kolkata&quot;);
+    addZoneId(&quot;Asia/Tokyo&quot;);
+    addZoneId(&quot;Pacific/Apia&quot;);
+    addZoneId(&quot;Asia/Yerevan&quot;);
+    addZoneId(&quot;Pacific/Auckland&quot;);
+    addZoneId(&quot;Asia/Karachi&quot;);
+    addZoneId(&quot;America/Phoenix&quot;);
+    addZoneId(&quot;America/Puerto_Rico&quot;);
+    addZoneId(&quot;America/Los_Angeles&quot;);
+    addZoneId(&quot;Pacific/Guadalcanal&quot;);
+    addZoneId(&quot;Asia/Ho_Chi_Minh&quot;);
+}
+</code></pre>
+      </article>
+      <div class="docs-nav-bottom">
+        <a class="docs-nav-btn" href="timeline.html"><span class="docs-nav-label">← Previous</span><span class="docs-nav-title">Timeline</span></a>
+<a class="docs-nav-btn next" href="eventline.html"><span class="docs-nav-label">Next →</span><span class="docs-nav-title">Eventline</span></a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gantt Charts — FlexGanttFX</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/docs.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <a href="../index.html" class="navbar-logo">
+        <i class="fa-solid fa-chart-gantt logo-icon"></i>
+        FlexGanttFX
+      </a>
+      <ul class="navbar-links">
+        <li><a href="../index.html">Home</a></li>
+        <li class="nav-dropdown"><a href="../pages/demos.html">Demos</a>
+          <div class="dropdown-menu">
+            <a href="../pages/demos.html">Online Demos</a>
+            <a href="https://demos.jpro.one/flexganttfx.html">Emirates Demo ↗</a>
+          </div>
+        </li>
+        <li class="nav-dropdown"><a href="index.html" class="active">Manual</a>
+          <div class="dropdown-menu">
+            <a href="index.html">Table of Contents</a>
+            <a href="installation.html">Installation</a>
+            <a href="tutorial.html">Tutorial</a>
+            <a href="gantt-charts.html">Gantt Charts</a>
+            <a href="timeline.html">Timeline</a>
+            <a href="dateline.html">Dateline</a>
+            <a href="eventline.html">Eventline</a>
+            <a href="graphics.html">Graphics</a>
+            <a href="model.html">Model</a>
+            <a href="styling.html">Styling</a>
+            <a href="logging.html">Logging</a>
+          </div>
+        </li>
+        <li><a href="../pages/faq.html">FAQ</a></li>
+        <li><a href="mailto:info@dlsc.com" class="nav-cta"><i class="fa-solid fa-envelope" style="font-size:0.8rem"></i> Contact</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="container">
+        <a href="../index.html">Home</a>
+        <a href="index.html">Documentation</a>
+        <a href="installation.html">Installation</a>
+        <a href="tutorial.html">Tutorial</a>
+        <a href="gantt-charts.html">Gantt Charts</a>
+        <a href="model.html">Model</a>
+        <a href="../pages/faq.html">FAQ</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Getting Started</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Overview</a></li>
+          <li><a href="installation.html">Installation</a></li>
+          <li><a href="tutorial.html">Tutorial</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Controls</div>
+        <ul class="sidebar-nav">
+          <li><a href="gantt-charts.html" class="active">Gantt Charts</a></li>
+          <li><a href="timeline.html">Timeline</a></li>
+          <li><a href="dateline.html">Dateline</a></li>
+          <li><a href="eventline.html">Eventline</a></li>
+          <li><a href="graphics.html">Graphics</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Framework</div>
+        <ul class="sidebar-nav">
+          <li><a href="model.html">Model</a></li>
+          <li><a href="styling.html">Styling</a></li>
+          <li><a href="logging.html">Logging</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Reference</div>
+        <ul class="sidebar-nav">
+          <li><a href="https://www.flexganttfx.com/api/index.html">Javadocs / API ↗</a></li>
+          <li><a href="../pages/changelog.html">Release Notes</a></li>
+          <li><a href="../pages/licensing.html">Licensing</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="docs-content">
+      <nav class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="index.html">Docs</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Gantt Charts</span>
+      </nav>
+      <article class="prose">
+<h1 id="overview">Overview</h1>
+<p>The GanttChart control is a custom <strong>JavaFX</strong> control used to visualize any kind of scheduling data along a timeline. 
+The model data needed by the control consists of rows with activities, links between them, and layers to group activities 
+together.</p>
+<p>The <code>GanttChart</code> control consists of several complex sub-controls:</p>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TreeTableView</strong></td>
+<td>Shown on the <strong>left-hand</strong> side to display a hierarchical structure of rows. This is the standard tree table view that ships with <strong>JavaFX</strong>.</td>
+</tr>
+<tr>
+<td><strong>GraphicsBase</strong></td>
+<td>Shown on the <strong>right-hand</strong> side to display a graphical representation of the model data.</td>
+</tr>
+<tr>
+<td><strong>Timeline</strong></td>
+<td>Shown above the graphics view. The timeline itself consists of two child controls (dateline and eventline)</td>
+</tr>
+<tr>
+<td><strong>Dateline</strong></td>
+<td>Displays days, weeks, months, years, etc...</td>
+</tr>
+<tr>
+<td><strong>Eventline</strong></td>
+<td>Displays various time markers. Also capable of displaying frozen rows (rows that do not scroll vertically).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>The screenshot below shows the initial appearance of an empty <code>GanttChart</code> control.</p>
+<p><img alt="Gantt Chart" src="../../docs/assets/images/docs/gantt-chart.png" /></p>
+<h2 id="master-detail-panes">Master / Detail Panes</h2>
+<p>The Gantt chart uses two <code>MasterDetailPane</code> instances from <strong>ControlsFX</strong> for the high-level layout. The primary master 
+detail pane displays the tree table as its detail node, and the secondary master detail pane initially displays a 
+property sheet as its detail node. The property sheet is used at development time and can be replaced with any node by 
+calling <code>setDetail(Node)</code>. The property sheet displays a lot of properties that are used by the controls, the renderers, 
+the system layers to fine-tune the appearance of the control. Many of them can be changed at runtime. The following table
+lists methods relevant for working with the master detail panes:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>setDetail(Node);</strong></td>
+<td>Sets the node that is being shown as the detail node of the secondary master detail pane.</td>
+</tr>
+<tr>
+<td><strong>getDetail(Node);</strong></td>
+<td>Gets the node that is being shown as the detail node of the secondary master detail pane.</td>
+</tr>
+<tr>
+<td><strong>getPrimaryMasterDetailPane();</strong></td>
+<td>Returns the primary master / detail pane. This pane shows the tree table view as its detail and the secondary master /  detail pane as its master.</td>
+</tr>
+<tr>
+<td><strong>getSecondaryMasterDetailPane();</strong></td>
+<td>Returns the secondary master / detail pane. This pane shows the graphics view as its master and an optional node as its detail.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="model">Model</h2>
+<p>The <code>GanttChart</code> control itself doesn't have a model. It is simply providing convenience methods and data structures to
+support the underlying controls (tree table view, graphics view). The following table lists the relevant methods:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>void setRoot(R row);</strong></td>
+<td>Sets the root node for the underlying tree table view control.</td>
+</tr>
+<tr>
+<td><strong>R getRoot();</strong></td>
+<td>Gets the root node for the underlying tree table view control.</td>
+</tr>
+<tr>
+<td><strong>ObservableList&lt;Layer&gt; getLayers();</strong></td>
+<td>The list of layers that will be displayed by the graphics view.</td>
+</tr>
+<tr>
+<td><strong>ObservableList&lt;ActivityLink&lt;?&gt;&gt; getLinks();</strong></td>
+<td>The list of links that will be displayed by the graphics view.</td>
+</tr>
+<tr>
+<td><strong>ObservableLis&lt;Calendar&lt;?&gt;&gt; getCalendars();</strong></td>
+<td>The list of calendars that will be displayed by the graphics view.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="display-mode">Display Mode</h2>
+<p>The displayMode property of the <code>GanttChart</code> control is used to toggle between three different layouts:</p>
+<ul>
+<li><strong>Standard</strong> – a layout with the tree table view shown on the left-hand side and the graphics area on the right-hand side</li>
+<li><strong>Table-Only</strong> – a layout where the table will fill the entire width of the Gantt chart control</li>
+<li><strong>Graphics Only</strong> – a layout where the graphics view will fill the entire width of the <code>GanttChart</code> control</li>
+</ul>
+<p>The display mode can be changed by calling the <code>setDisplayMode()</code> method. The following screenshots show the different 
+display modes.</p>
+<p><strong>Standard Layout</strong>
+<img alt="display-standard.png" src="../../docs/assets/images/docs/display-standard.png" /></p>
+<p><strong>Table-Only Layout</strong>
+<img alt="display-table.png" src="../../docs/assets/images/docs/display-table.png" /></p>
+<p><strong>Graphics-Only Layout</strong>
+<img alt="display-graphics.png" src="../../docs/assets/images/docs/display-graphics.png" /></p>
+<h2 id="graphics-header">Graphics Header</h2>
+<p>The graphics header node is a replacement for the timeline when the Gantt chart control is being used in a <strong>multi Gantt 
+chart context</strong>, for example, when used in a <code>DualGanttChartContainer</code> or a <code>MultiGanttChartContainer</code>.</p>
+<p><img alt="graphics-header.png" src="../../docs/assets/images/docs/graphics-header.png" /></p>
+<p>This node can be set by calling <code>GanttChart.setGraphicsHeader(Node)</code>. The node passed to this method can be anything. The 
+only important thing to be aware of is that the preferred height of this node has to be set to the same value as the 
+preferred height of the tree table header.</p>
+<p><strong>Row Header</strong> – the first column in the tree table view is called "row header." This column is provided by the framework 
+and cannot be removed. By default, it is used to display row numbers but can be reused for other purposes. The <code>RowHeader</code> 
+class is a subclass of <code>TreeTableColumn</code> with some special logic to it. It supports <strong>row resizing</strong> and might call back on 
+a factory to produce its graphic.</p>
+<p><strong>Row Header Type</strong> - the enumerator <code>RowHeaderType</code> defines the different ways the row header can be used.</p>
+<ul>
+<li><strong>GRAPHIC_NODE</strong> – Makes the row header cells display a custom node for each row.</li>
+</ul>
+<p><img alt="header-controls.png" src="../../docs/assets/images/docs/header-controls.png" /></p>
+<ul>
+<li><strong>LEVEL_NUMBER</strong> – Makes the row header cells display the level number of the current row (1, 1.1, 1.2, 2, 2.1, 2.2, 2.3, ...).</li>
+</ul>
+<p><img alt="header-numbers.png" src="../../docs/assets/images/docs/header-numbers.png" /></p>
+<ul>
+<li><strong>ROW_NUMBER</strong> – Makes the row header cells display the number of the current row (1, 2, 3, ...).</li>
+</ul>
+<p><img alt="header-levels.pg.png" src="../../docs/assets/images/docs/header-levels.pg.png" /></p>
+<p><strong>Row Header Factory</strong> – if the <code>GRAPHIC_NODE</code> type is chosen, then the row header will call back on the row header 
+node factory that is supplied by the <code>GanttChart</code> class. The following example shows how to register a possible 
+implementation of such a factory.</p>
+<pre><code class="language-java">ganttChart.setRowHeaderNodeFactory(row -&gt; {
+    public Node call(R row) {
+        Button delete = new Button(&quot;Delete&quot;);
+        delete.setOnAction(evt -&gt; deleteRow(row));
+        return delete;
+    }
+});
+</code></pre>
+<h2 id="property-sheet">Property Sheet</h2>
+<p>The default control used for the Gantt chart detail node property is the property sheet from the <strong>ControlsFX</strong> open source 
+project. It is used to display the properties of the Gantt chart itself and its subcontrols (timeline, dateline, 
+eventline, graphics). It also shows the properties of all renderers registered with the controls. The screenshot below 
+shows the property sheet as it presents itself when set as the detail node of the Gantt chart. It can then be made 
+visible by calling <code>GanttChart.setShowDetail(true)</code>.</p>
+<p><img alt="property-sheet.png" src="../../docs/assets/images/docs/property-sheet.png" /></p>
+<p>When writing your own renderers, you can override the <code>getPropertySheetItems()</code> method and add your own items to the list 
+of items returned by the superclass.</p>
+<h2 id="other-features">Other Features</h2>
+<p><strong>Fixed cell size</strong> – the tree table view and the list view of <strong>JavaFX</strong> both support a property called <code>fixedCellSize</code>. It can
+be used to improve the performance of both controls. This is done by setting it to a value other than -1. A value like 
+that informs the controls that each cell will have the same height, which allows for faster algorithms to be used when 
+updating the controls. The <code>GanttChart</code> class also defines this property to ensure that the tree table view and 
+the list view used by it use the same cell size. If set, the Gantt chart will not use the height property of the rows 
+and will also not allow the user to resize the rows.</p>
+<p><strong>Master Timeline</strong> – the <code>GanttChart</code> control defines a property called masterTimeLine. This property is used when the Gantt
+chart is being used in a multi Gantt chart context (e.g. <code>DualGanttChartContainer</code> or <code>MultiGanttChartContainer</code>). In these
+situations it is the timeline of the top Gantt chart that is the basis for rendering weekends, grid lines, etc. Every 
+Gantt chart still has its own timeline subcontrol, but they will all know which one is the master. This is framework 
+functionality that applications should normally not interfere with.</p>
+<p><strong>ScrollBar Type</strong> – the <code>GanttChart</code> control supports different types of scrollbars. The type can be set by calling 
+<code>GanttChartBase.setScrollBarType(ScrollBarType)</code>. The following types are currently available:</p>
+<ul>
+<li><strong><code>NONE</code></strong> - The Gantt chart will never offer any scrollbars. Neither for the tree table view nor the graphics area. A Gantt chart like that could only be scrolled via the keyboard, the mouse wheel, or a touch input device.</li>
+<li><strong><code>INFINITE</code></strong> - The Gantt chart will show a regular scrollbar for the tree table view and a scrollbar called TimelineScrollBar which internally uses a PlusMinusSlider (provided by the ControlsFX project). The slider allows for scrolling at different speeds into the past or into the future. This scrollbar does not require a specified scrolling "horizon" (the earliest / latest time to scroll to).</li>
+<li><strong><code>FIXED_HORIZON</code></strong> - The Gantt chart will show a regulars scrollbar for the tree table view AND the graphics area. The bounds of the scrollbar are based on the horizon start and end times as defined by the TimelineModel.</li>
+</ul>
+<p><strong>ScrollBar Visibility</strong> - another configuration option related to scrollbars is the boolean property 
+<code>autoHideScrollBars</code>. If set to true the scrollbars for the tree table view (the left-hand side) and the graphics area 
+(the right-hand side) will be placed inside a <code>HiddenSidesPane</code> instance. This container control from <strong>ControlsFX</strong> can show 
+or hide controls that have been placed on one of its sides. In this case the scrollbars will be placed on the "bottom" 
+side, and they will only appear when the user moves the mouse cursor close to the edge.</p>
+<p><strong>Position</strong> – the position property of the <code>GanttChart</code> class is used to inform the Gantt chart where it is located 
+within a multi Gantt chart context (e.g. <code>DualGanttChartContainer</code> or <code>MultiGanttChartContainer</code>). Possible values are:</p>
+<ul>
+<li><strong><code>ONLY</code></strong> - the Gantt chart is the only one. This is the default value and will not change if not used in a multi Gantt chart context.</li>
+<li><strong><code>FIRST</code></strong> - the Gantt chart is shown at the top of the container.</li>
+<li><strong><code>MIDDLE</code></strong> - the Gantt chart is not the first and not the last one. It is also not the only one.</li>
+<li><strong><code>LAST</code></strong> - the Gantt chart is shown at the bottom of the container.</li>
+</ul>
+<p>The screenshot below shows three charts in a <code>MultiGanttChartContainer</code> and their position values.</p>
+<p><img alt="position.png" src="../../docs/assets/images/docs/position.png" /></p>
+<p><strong>Factory Methods</strong> – there are several protected factory methods used for creating the subcontrols. These methods can be overridden to create subclasses of these controls.</p>
+<ul>
+<li><code>TreeTableView createTreeTable();</code> - Creates the tree table view shown on the left-hand side of the Gantt chart. A typical use case for replacing this table is when you already have a tree table view specialization with advanced filtering or interaction options. You might want to use the same tree table view that your application is already using in other places.</li>
+<li><code>Timeline createTimeline();</code> - Creates the timeline.</li>
+<li><code>GraphicsBase createGraphics();</code> - Creates the graphics view. A use case for replacing the standard one might be that your application adds a couple of nodes to the graphics view. Maybe some kind of overlap on top of the graphics (e.g., a radar).</li>
+<li><code>RowHeader createRowHeader();</code> - Creates the row header column for the tree table view.</li>
+</ul>
+<h2 id="gattchartlite">GattChartLite</h2>
+<p>A <code>GanttChartLite</code> is basically the same as a <code>GanttChart</code>, except that it does not show a <code>TreeTableView</code> on its' 
+left-hand side. This type of chart is useful when an application doesn’t have a need to show a lot of details for each row. 
+Often just the name of the row (e.g., aircraft name) is enough. In this case one can choose the lite version in 
+combination with row headers and the row header factory.</p>
+<h2 id="gantt-chart-containers">Gantt Chart Containers</h2>
+<p>A Gantt chart can be used standalone or inside a <code>MultiGanttChartContainer</code> or <code>DualGanttChartContainer</code>. When used in one
+of these containers, the position of the Gantt chart becomes important. The control can be the first chart, the last
+chart, the only chart, or a chart somewhere in the middle. A "first" or "only" chart always displays a timeline. A
+"middle" or "last" displays a special header (see <code>setGraphicsHeader()</code>). The containers are also the reason why the
+control distinguishes between a timeline (<code>getTimeline()</code>) and a master timeline (<code>getMasterTimeline()</code>).
+The master timeline is the one shown by the "first" chart, while the regular timeline is the one that belongs directly
+to this instance.</p>
+<p>FlexGanttFX ships with several containers capable of displaying multiple Gantt charts at the same time.</p>
+<ul>
+<li><strong><code>MultiGattChartContainer</code></strong>, <strong><code>MultiGattChartLiteContainer</code></strong> - a container capable of displaying multiple instances 
+of a <code>GanttChart</code> / <code>GanttChartLite</code> and keeping their layouts (same table width, same timeline) and their scrolling and 
+zooming behavior in synch. The screenshot below shows the initial appearance of an empty multi Gantt chart container.</li>
+</ul>
+<p><img alt="multi-gantt-chart.png" src="../../docs/assets/images/docs/multi-gantt-chart.png" /></p>
+<ul>
+<li><strong><code>DualGanttChartContainer</code></strong>, <strong><code>DualGanttChartLiteContainer</code></strong> - a specialization of <code>MultiGanttChartContainer</code> capable of 
+displaying exactly two instances of <code>GanttChart</code> and keeping their layouts (same table width, same timeline) and their 
+scrolling and zooming behavior in synch. The container distinguishes between a primary and a secondary Gantt chart, 
+where the secondary Gantt chart is located in the detail node section of a <code>MasterDetailPane</code>. It can be hidden or shown 
+on demand. Each one of the two Gantt charts can have its own header and footer. Initially, only the primary header and 
+the secondary footer are used. The header for displaying an instance of <code>GanttChartToolBar</code> and the footer for displaying
+an instance of <code>GanttChartStatusBar</code>. The screenshot below shows the initial appearance of an empty Dual Gantt chart 
+control.</li>
+</ul>
+<p><img alt="dual-gantt-chart.png" src="../../docs/assets/images/docs/dual-gantt-chart.png" /></p>
+<ul>
+<li><strong><code>QuadGanttChartContainer</code></strong>, <strong><code>QuadGanttChartLiteContainer</code></strong> - a specialization of <code>MultiGanttChartContainer</code> capable 
+of displaying exactly four instances of <code>GanttChart</code> and keeping their layouts (same table width, same timeline) and their 
+scrolling and zooming behavior in synch. The container distinguishes between the Gantt chart locations <code>UPPER_LEFT</code>, 
+<code>UPPER_RIGHT</code>, <code>LOWER_LEFT</code>, <code>LOWER_RIGHT</code>. The timelines of the <code>UPPER_LEFT</code> and <code>LOWER_LEFT</code> Gantt charts are 
+scrolling in synch and the timelines of the <code>UPPER_RIGHT</code> and <code>LOWER_RIGHT</code> are scrolling in synch.</li>
+</ul>
+<p><img alt="quad-gantt-chart.png" src="../../docs/assets/images/docs/quad-gantt-chart.png" /></p>
+      </article>
+      <div class="docs-nav-bottom">
+        <a class="docs-nav-btn" href="tutorial.html"><span class="docs-nav-label">← Previous</span><span class="docs-nav-title">Tutorial</span></a>
+<a class="docs-nav-btn next" href="timeline.html"><span class="docs-nav-label">Next →</span><span class="docs-nav-title">Timeline</span></a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
