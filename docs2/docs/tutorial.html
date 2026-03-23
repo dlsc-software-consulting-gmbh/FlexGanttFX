@@ -108,7 +108,7 @@
 <h1 id="tutorial">Tutorial</h1>
 <p>In this tutorial we are creating a basic solution for displaying the schedule of an aircraft fleet. To install 
 <strong>FlexGanttFX</strong> please follow the instructions found in <a href="/docs/installation">Installation</a>.</p>
-<p><img alt="Airbus A380" src="../../docs/assets/images/docs/a380.png" /></p>
+<p><img alt="Airbus A380" src="../assets/images/docs/a380.png" /></p>
 <h2 id="view-model">View Model</h2>
 <p>Let's start by creating a view model for the Gantt chart. Our objects are <code>Fleet</code>, <code>Aircraft</code>, <code>Crew</code>, and 
 <code>Flight</code>. Instances of <code>Flight</code> will be shown as a horizontal bar in the graphics area of the Gantt chart while 
@@ -249,7 +249,7 @@ public class MyFirstGanttChart extends Application {
 </code></pre>
 <hr />
 <p>The image below shows what we will see when we run this code.</p>
-<p><img alt="Intermediate Result" src="../../docs/assets/images/docs/intermediate-result.png" /></p>
+<p><img alt="Intermediate Result" src="../assets/images/docs/intermediate-result.png" /></p>
 <h2 id="activity-renderers">Activity Renderers</h2>
 <p>This result is not bad for just a few lines of code, however, the rendering of the flights is not attractive at all. We 
 can customize their appearance by registering a different <code>ActivityRenderer</code> for the activity type <code>Flight</code>. This is done 
@@ -266,7 +266,7 @@ is that we are not only passing the activity type and the renderer instance but 
 spend too much time on layouts in the context of this quick start guide, but let's just say that <strong>FlexGanttFX</strong> is capable 
 of displaying activities in several different ways (as time bars, as chart entries, as agenda entries). Our example now 
 looks like this:</p>
-<p><img alt="Renderer" src="../../docs/assets/images/docs/renderer.png" /></p>
+<p><img alt="Renderer" src="../assets/images/docs/renderer.png" /></p>
 <p>We can now add a <code>GanttChartToolBar</code> and a <code>GanttChartStatusBar</code> to the example. This allows us to perform actions on the
 chart and also to verify that the layers have been added properly. The "extras" library of <strong>FlexGanttFX</strong> contains 
 additional controls such as a <code>GanttChartStatusBar</code> and <code>GanttChartToolBar</code>. By using the standard <code>BorderPane</code> it is 
@@ -280,7 +280,7 @@ Scene scene = new Scene(borderPane);
 </code></pre>
 <hr />
 <p>Our example will now look like this after clicking on the layers button in the toolbar.</p>
-<p><img alt="Renderer" src="../../docs/assets/images/docs/toolbar.png" /></p>
+<p><img alt="Renderer" src="../assets/images/docs/toolbar.png" /></p>
 <h2 id="listening-to-change">Listening to Change</h2>
 <p>Now that we have visualized our data, we obviously want to interact with it, and we want to be informed about the changes 
 that we make. Our activities are, by default, editable. This means we can drag them horizontally or vertically. To 

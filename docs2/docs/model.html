@@ -243,13 +243,13 @@ Activities can be added to a specific layer on a row by calling <code>Row.addAct
 <p>A chart activity is an add-on interface for activities. It needs to be implemented by activities that want to participate 
 in a ChartLayout. The interface adds a chart value to the activity. The image below shows an example of a chart layout 
 laying out one chart activity per day.</p>
-<p><img alt="Capacity Layout" src="../../docs/assets/images/docs/layout-capacity.jpg" /></p>
+<p><img alt="Capacity Layout" src="../assets/images/docs/layout-capacity.jpg" /></p>
 <hr />
 <p><strong>Completable Activity</strong></p>
 <p>A completable activity is an activity that carries a "percentage complete" value between 0 and 100%. Completable 
 activities are drawn with a "completable activity bar renderer." This renderer draws the background of the activity 
 based on the percentage complete value. The image below shows an example.</p>
-<p><img alt="Completable" src="../../docs/assets/images/docs/completable.jpg" /></p>
+<p><img alt="Completable" src="../assets/images/docs/completable.jpg" /></p>
 <hr />
 <p><strong>High-Low Chart Activity</strong></p>
 <p>A high-low chart activity carries two extra attributes: high and low. These values are used by the ChartLayout to position 
@@ -266,7 +266,7 @@ link would express a predecessor / successor relationship between two tasks. For
 task B can begin"</em>. In other domains a link might simply express that two or more activities need to be scheduled together 
 and that moving one of them requires all others to be moved, too. The image below shows an example of such a link.</p>
 <p>A link can be added to the Gantt chart by calling <code>GanttChart.getLinks().add(myLink)</code>;</p>
-<p><img alt="Link" src="../../docs/assets/images/docs/link.png" /></p>
+<p><img alt="Link" src="../assets/images/docs/link.png" /></p>
 <h2 id="activity-repository">Activity Repository</h2>
 <p>Activity repositories are used by rows to store and lookup activities. Each row by default owns an 
 <code>IntervalTreeActivityRepository</code>. This default repository can be replaced with a custom one, for example, if your 
@@ -337,7 +337,7 @@ changes. Interested parties can attach handlers by calling <code>addEventHandler
 <p><strong>IntervalTreeActivityRepository</strong></p>
 <p>The <code>InteralTreeActivityRepository</code> is an activity repository using one or more binary interval tree data 
 structures for storing activities.</p>
-<p><img alt="Binary Interval Tree" src="../../docs/assets/images/docs/binary.gif" /></p>
+<p><img alt="Binary Interval Tree" src="../assets/images/docs/binary.gif" /></p>
 <p><strong>ListActivityRepository</strong></p>
 <p>The <code>ListActivityRepository</code> is an activity repository using one or more list data structures to store activities. This 
 repository can be configured to return different types of result iterators from its query method. The possible values 
@@ -350,7 +350,7 @@ are defined in <code>ListActivityRepository.IteratorType</code>.</p>
 <p>The <code>SIMPLE_ITERATOR</code> is used for rows with only a few activities on them. This iterator is invaluable when we want to 
 make sure that the trailing text of an activity will still be shown even if the activity has already scrolled out of 
 the visible area.</p>
-<p><img alt="Simple Iterator Usecase" src="../../docs/assets/images/docs/simple-iterator.png" /></p>
+<p><img alt="Simple Iterator Usecase" src="../assets/images/docs/simple-iterator.png" /></p>
 <h2 id="row">Row</h2>
 <p>A row object is used to store the activities found on a row of the Gantt chart. These activities are not stored directly 
 on the row but in an <strong>activity repository</strong>. The default repository is of type <code>IntervalTreeActivityRepository</code>. Activities 
@@ -663,16 +663,16 @@ returning them via the lines manager of the row.</p>
 <hr />
 <p><strong>Padding</strong> </p>
 <p>All layout types have a padding property. It is used to create a visual gap at the top and bottom of each row / line.</p>
-<p><img alt="Padding" src="../../docs/assets/images/docs/padding.png" /></p>
+<p><img alt="Padding" src="../assets/images/docs/padding.png" /></p>
 <hr />
 <p><strong>Gantt Layout</strong></p>
-<p><img alt="Gantt Layout" src="../../docs/assets/images/docs/layout-gantt.jpg" /></p>
+<p><img alt="Gantt Layout" src="../assets/images/docs/layout-gantt.jpg" /></p>
 <hr />
 <p><strong>Agenda Layout</strong></p>
 <p>The agenda layout class is used to lay out activities in a style similar to a regular calendar where a vertical scale 
 will display hours. Activities are used to represent appointments for a given day. Activities shown in an agenda layout 
 might be rendered several times. This is, for example, the case when an activity spans several days.</p>
-<p><img alt="Agenda Layout" src="../../docs/assets/images/docs/layout-agenda.jpg" /></p>
+<p><img alt="Agenda Layout" src="../assets/images/docs/layout-agenda.jpg" /></p>
 <p>The agenda layout class allows you to specify a start and end time. This is used to restrict the time interval that is 
 shown and in which the agenda activities are laid out. In most cases it does not make sense to show the entire 24 hours 
 but only the working hours, e.g. 8am until 6pm. Simply call <code>AgendaLayout.setStartTime()</code> or <code>setEndTime()</code> to change the 
@@ -705,7 +705,7 @@ be used to form a capacity profile. Activities of type <code>ChartActivity</code
 and the maximum value of the layout. The height of the chart activity will be based on the value returned by 
 <code>ChartActivity.getChartValue()</code>. Activities of type <code>HighLowChartActivity</code> will appear as floating bars. The layout also 
 supports the definition of minor and major chart lines drawn in the row background.</p>
-<p><img alt="Chart Layout" src="../../docs/assets/images/docs/layout-capacity.jpg" /></p>
+<p><img alt="Chart Layout" src="../assets/images/docs/layout-capacity.jpg" /></p>
 <p><strong>Min &amp; Max Value</strong> – the chart layout provides two properties that control the actual layout of the chart activities: 
 minValue and maxValue. These values have to be managed by the application, not the framework. They can be set by calling 
 <code>ChartLayout.setMinValue()</code> or <code>ChartLayout.setMaxValue()</code>.</p>
@@ -727,7 +727,7 @@ edited interactively by the user.</p>
 <p><strong>Weekend Calendar</strong></p>
 <p>There already is a predefined calendar type included in <strong>FlexGanttFX</strong>. It is called <code>WeekendCalendar</code> and it is used to 
 mark the weekend days (e.g., Saturday, Sunday).</p>
-<p><img alt="Weekend" src="../../docs/assets/images/docs/weekend.png" /></p>
+<p><img alt="Weekend" src="../assets/images/docs/weekend.png" /></p>
 <p>The following listing shows the entire code of this calendar class. It can be used as a basis for your own calendars.</p>
 <pre><code class="language-java">/**
  * Copyright (C) 2014 Dirk Lemmermann Software &amp; Consulting (dlsc.com)

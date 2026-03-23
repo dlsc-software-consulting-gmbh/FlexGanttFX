@@ -108,7 +108,7 @@
 <h1 id="overview">Overview</h1>
 <p>The graphics view control is responsible for the rendering of activities and system layers, editing of activities, event 
 notifications, hit detection, system layer management, and for context menu support.</p>
-<p><img alt="Graphics" src="../../docs/assets/images/docs/graphics.png" /></p>
+<p><img alt="Graphics" src="../assets/images/docs/graphics.png" /></p>
 <p><strong>Rendering</strong></p>
 <p>The graphics control uses the <code>Canvas</code> node and its direct drawing API (as opposed to the deferred rendering done 
 via the <em>Scenegraph</em>). This is due to the large data volumes often displayed by Gantt charts. Directly rendering an 
@@ -1287,7 +1287,7 @@ graphics.setContextMenuCallback(param -&gt; {
 <p>Each row in the graphics area can display its own header, which will be displayed on the left-hand side of the row. The 
 header always stays in this place and does not scroll when the visible time range changes (e.g. when the user scrolls 
 left or right).</p>
-<p><img alt="Row Headers" src="../../docs/assets/images/docs/row-headers.png" /></p>
+<p><img alt="Row Headers" src="../assets/images/docs/row-headers.png" /></p>
 <p>The default row header that ships with FlexGanttFX knows how to display scales when the application uses chart or agenda
 layouts. The implementation of the default header can be found in the ScaleRowHeader class. </p>
 <p>Custom row headers can be created by subclassing GraphicsBase.RowHeader. The item property will be updated whenever the 

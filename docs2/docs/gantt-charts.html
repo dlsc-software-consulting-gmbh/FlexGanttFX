@@ -142,7 +142,7 @@ together.</p>
 </table>
 <hr />
 <p>The screenshot below shows the initial appearance of an empty <code>GanttChart</code> control.</p>
-<p><img alt="Gantt Chart" src="../../docs/assets/images/docs/gantt-chart.png" /></p>
+<p><img alt="Gantt Chart" src="../assets/images/docs/gantt-chart.png" /></p>
 <h2 id="master-detail-panes">Master / Detail Panes</h2>
 <p>The Gantt chart uses two <code>MasterDetailPane</code> instances from <strong>ControlsFX</strong> for the high-level layout. The primary master 
 detail pane displays the tree table as its detail node, and the secondary master detail pane initially displays a 
@@ -219,15 +219,15 @@ support the underlying controls (tree table view, graphics view). The following 
 <p>The display mode can be changed by calling the <code>setDisplayMode()</code> method. The following screenshots show the different 
 display modes.</p>
 <p><strong>Standard Layout</strong>
-<img alt="display-standard.png" src="../../docs/assets/images/docs/display-standard.png" /></p>
+<img alt="display-standard.png" src="../assets/images/docs/display-standard.png" /></p>
 <p><strong>Table-Only Layout</strong>
-<img alt="display-table.png" src="../../docs/assets/images/docs/display-table.png" /></p>
+<img alt="display-table.png" src="../assets/images/docs/display-table.png" /></p>
 <p><strong>Graphics-Only Layout</strong>
-<img alt="display-graphics.png" src="../../docs/assets/images/docs/display-graphics.png" /></p>
+<img alt="display-graphics.png" src="../assets/images/docs/display-graphics.png" /></p>
 <h2 id="graphics-header">Graphics Header</h2>
 <p>The graphics header node is a replacement for the timeline when the Gantt chart control is being used in a <strong>multi Gantt 
 chart context</strong>, for example, when used in a <code>DualGanttChartContainer</code> or a <code>MultiGanttChartContainer</code>.</p>
-<p><img alt="graphics-header.png" src="../../docs/assets/images/docs/graphics-header.png" /></p>
+<p><img alt="graphics-header.png" src="../assets/images/docs/graphics-header.png" /></p>
 <p>This node can be set by calling <code>GanttChart.setGraphicsHeader(Node)</code>. The node passed to this method can be anything. The 
 only important thing to be aware of is that the preferred height of this node has to be set to the same value as the 
 preferred height of the tree table header.</p>
@@ -239,15 +239,15 @@ a factory to produce its graphic.</p>
 <ul>
 <li><strong>GRAPHIC_NODE</strong> – Makes the row header cells display a custom node for each row.</li>
 </ul>
-<p><img alt="header-controls.png" src="../../docs/assets/images/docs/header-controls.png" /></p>
+<p><img alt="header-controls.png" src="../assets/images/docs/header-controls.png" /></p>
 <ul>
 <li><strong>LEVEL_NUMBER</strong> – Makes the row header cells display the level number of the current row (1, 1.1, 1.2, 2, 2.1, 2.2, 2.3, ...).</li>
 </ul>
-<p><img alt="header-numbers.png" src="../../docs/assets/images/docs/header-numbers.png" /></p>
+<p><img alt="header-numbers.png" src="../assets/images/docs/header-numbers.png" /></p>
 <ul>
 <li><strong>ROW_NUMBER</strong> – Makes the row header cells display the number of the current row (1, 2, 3, ...).</li>
 </ul>
-<p><img alt="header-levels.pg.png" src="../../docs/assets/images/docs/header-levels.pg.png" /></p>
+<p><img alt="header-levels.pg.png" src="../assets/images/docs/header-levels.pg.png" /></p>
 <p><strong>Row Header Factory</strong> – if the <code>GRAPHIC_NODE</code> type is chosen, then the row header will call back on the row header 
 node factory that is supplied by the <code>GanttChart</code> class. The following example shows how to register a possible 
 implementation of such a factory.</p>
@@ -265,7 +265,7 @@ project. It is used to display the properties of the Gantt chart itself and its 
 eventline, graphics). It also shows the properties of all renderers registered with the controls. The screenshot below 
 shows the property sheet as it presents itself when set as the detail node of the Gantt chart. It can then be made 
 visible by calling <code>GanttChart.setShowDetail(true)</code>.</p>
-<p><img alt="property-sheet.png" src="../../docs/assets/images/docs/property-sheet.png" /></p>
+<p><img alt="property-sheet.png" src="../assets/images/docs/property-sheet.png" /></p>
 <p>When writing your own renderers, you can override the <code>getPropertySheetItems()</code> method and add your own items to the list 
 of items returned by the superclass.</p>
 <h2 id="other-features">Other Features</h2>
@@ -301,7 +301,7 @@ within a multi Gantt chart context (e.g. <code>DualGanttChartContainer</code> or
 <li><strong><code>LAST</code></strong> - the Gantt chart is shown at the bottom of the container.</li>
 </ul>
 <p>The screenshot below shows three charts in a <code>MultiGanttChartContainer</code> and their position values.</p>
-<p><img alt="position.png" src="../../docs/assets/images/docs/position.png" /></p>
+<p><img alt="position.png" src="../assets/images/docs/position.png" /></p>
 <p><strong>Factory Methods</strong> – there are several protected factory methods used for creating the subcontrols. These methods can be overridden to create subclasses of these controls.</p>
 <ul>
 <li><code>TreeTableView createTreeTable();</code> - Creates the tree table view shown on the left-hand side of the Gantt chart. A typical use case for replacing this table is when you already have a tree table view specialization with advanced filtering or interaction options. You might want to use the same tree table view that your application is already using in other places.</li>
@@ -328,7 +328,7 @@ to this instance.</p>
 of a <code>GanttChart</code> / <code>GanttChartLite</code> and keeping their layouts (same table width, same timeline) and their scrolling and 
 zooming behavior in synch. The screenshot below shows the initial appearance of an empty multi Gantt chart container.</li>
 </ul>
-<p><img alt="multi-gantt-chart.png" src="../../docs/assets/images/docs/multi-gantt-chart.png" /></p>
+<p><img alt="multi-gantt-chart.png" src="../assets/images/docs/multi-gantt-chart.png" /></p>
 <ul>
 <li><strong><code>DualGanttChartContainer</code></strong>, <strong><code>DualGanttChartLiteContainer</code></strong> - a specialization of <code>MultiGanttChartContainer</code> capable of 
 displaying exactly two instances of <code>GanttChart</code> and keeping their layouts (same table width, same timeline) and their 
@@ -339,7 +339,7 @@ the secondary footer are used. The header for displaying an instance of <code>Ga
 an instance of <code>GanttChartStatusBar</code>. The screenshot below shows the initial appearance of an empty Dual Gantt chart 
 control.</li>
 </ul>
-<p><img alt="dual-gantt-chart.png" src="../../docs/assets/images/docs/dual-gantt-chart.png" /></p>
+<p><img alt="dual-gantt-chart.png" src="../assets/images/docs/dual-gantt-chart.png" /></p>
 <ul>
 <li><strong><code>QuadGanttChartContainer</code></strong>, <strong><code>QuadGanttChartLiteContainer</code></strong> - a specialization of <code>MultiGanttChartContainer</code> capable 
 of displaying exactly four instances of <code>GanttChart</code> and keeping their layouts (same table width, same timeline) and their 
@@ -347,7 +347,7 @@ scrolling and zooming behavior in synch. The container distinguishes between the
 <code>UPPER_RIGHT</code>, <code>LOWER_LEFT</code>, <code>LOWER_RIGHT</code>. The timelines of the <code>UPPER_LEFT</code> and <code>LOWER_LEFT</code> Gantt charts are 
 scrolling in synch and the timelines of the <code>UPPER_RIGHT</code> and <code>LOWER_RIGHT</code> are scrolling in synch.</li>
 </ul>
-<p><img alt="quad-gantt-chart.png" src="../../docs/assets/images/docs/quad-gantt-chart.png" /></p>
+<p><img alt="quad-gantt-chart.png" src="../assets/images/docs/quad-gantt-chart.png" /></p>
       </article>
       <div class="docs-nav-bottom">
         <a class="docs-nav-btn" href="tutorial.html"><span class="docs-nav-label">← Previous</span><span class="docs-nav-title">Tutorial</span></a>
