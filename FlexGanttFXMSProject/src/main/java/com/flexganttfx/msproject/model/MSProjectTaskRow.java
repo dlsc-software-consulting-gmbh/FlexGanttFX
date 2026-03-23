@@ -39,7 +39,9 @@ public class MSProjectTaskRow
 
         startTime.set(task.getStart().toInstant());
         finishTime.set(task.getFinish().toInstant());
-        percentageComplete.set(task.getPercentageComplete().doubleValue());
+        if (task.getPercentageComplete() != null) {
+            percentageComplete.set(task.getPercentageComplete().doubleValue());
+        }
 
         MSProjectTaskActivity activity = new MSProjectTaskActivity(this);
         addActivity(layer, activity);
