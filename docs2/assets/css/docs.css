@@ -166,6 +166,43 @@
 .docs-nav-title { font-size: 0.9rem; font-weight: 600; color: var(--navy); }
 .docs-nav-btn.next { align-items: flex-end; }
 
+/* ── Prism.js syntax highlighting overrides ───────────────── */
+/* Pin background to our navy and unify with .prose pre */
+pre[class*="language-"],
+code[class*="language-"] {
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  text-shadow: none;
+  -webkit-font-smoothing: antialiased;
+}
+pre[class*="language-"] {
+  background: var(--navy) !important;
+  border-radius: var(--radius-sm) !important;
+  padding: 20px 24px !important;
+  margin: 20px 0 !important;
+  border: 1px solid rgba(255,255,255,0.06);
+  overflow-x: auto;
+  box-shadow: none;
+}
+/* Inline code with a language class (rare) */
+:not(pre) > code[class*="language-"] {
+  background: rgba(59,130,246,0.08);
+  color: var(--blue-dark);
+  padding: 2px 7px;
+  border-radius: 4px;
+  white-space: normal;
+}
+/* Prevent double background on the inner code element */
+pre[class*="language-"] > code {
+  background: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  color: inherit;
+}
+/* Line-highlight plugin compat */
+.token.comment, .token.prolog, .token.doctype, .token.cdata { opacity: 0.75; }
+
 /* ── Docs TOC page ─────────────────────────────────────────── */
 .docs-toc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
 .docs-toc-card {
