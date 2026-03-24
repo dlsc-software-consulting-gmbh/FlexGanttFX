@@ -4,7 +4,7 @@
  */
 package com.flexganttfx.demo.showcase;
 
-import atlantafx.base.theme.PrimerDark;
+import com.dlsc.gemsfx.util.StageManager;
 import com.flexganttfx.core.FlexGanttFX;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -21,8 +21,8 @@ public class ShowcaseApp extends Application {
             FlexGanttFX.setLicenseKey("LIC=DLSC;VEN=DLSC;VER=12;PRO=STANDARD;RUN=no;CTR=1;SignCode=3F;Signature=302C02142BD7F914E6633D7DBA0B8564D8FC20EC249BCFD702142558B5C6FF46325A0A698A1E8036828E54D6FEC8");
         }
 
-        // Apply AtlantaFX default theme (user can switch in the top bar)
-        Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
+        // Apply persisted theme (falls back to PrimerDark on first launch)
+        ShowcaseView.applyPersistedTheme();
 
         ShowcaseView view = new ShowcaseView(stage, getHostServices());
 
@@ -36,6 +36,7 @@ public class ShowcaseApp extends Application {
 
         stage.setTitle("FlexGanttFX — Feature Showcase");
         stage.setScene(scene);
+        StageManager.install(stage, "flexganttfx-showcase");
         stage.show();
     }
 
