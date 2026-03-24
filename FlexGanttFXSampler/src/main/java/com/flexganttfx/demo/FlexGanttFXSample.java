@@ -67,7 +67,7 @@ public abstract class FlexGanttFXSample extends FlexGanttFXSampleBase {
         statusbar = new GanttChartStatusBar<>(ganttChart);
 
         ganttPane = new BorderPane();
-        BorderPane.setMargin(ganttChart, new Insets(10));
+        BorderPane.setMargin(ganttChart, new Insets(0));
         ganttPane.setTop(toolbar);
         ganttPane.setCenter(ganttChart);
         ganttPane.setBottom(statusbar);

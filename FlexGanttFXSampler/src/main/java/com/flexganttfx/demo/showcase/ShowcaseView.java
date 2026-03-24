@@ -4,13 +4,17 @@
  */
 package com.flexganttfx.demo.showcase;
 
+import atlantafx.base.theme.*;
 import com.flexganttfx.core.FlexGanttFX;
 import fxsampler.Sample;
+import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -30,6 +34,16 @@ import java.util.function.Supplier;
  * Root layout: top bar + sidebar + content area.
  */
 public class ShowcaseView extends BorderPane {
+
+    private static final List<Theme> THEMES = List.of(
+        new PrimerDark(),
+        new PrimerLight(),
+        new NordDark(),
+        new NordLight(),
+        new CupertinoDark(),
+        new CupertinoLight(),
+        new Dracula()
+    );
 
     private final SampleContentView contentView;
     private final WelcomeView welcomeView;
@@ -70,6 +84,23 @@ public class ShowcaseView extends BorderPane {
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
+        // ── Theme switcher ────────────────────────────────────────────────
+        Label themeLabel = new Label("Theme:");
+        themeLabel.getStyleClass().add("showcase-tagline");
+
+        ComboBox<Theme> themeCombo = new ComboBox<>();
+        themeCombo.getItems().addAll(THEMES);
+        themeCombo.setValue(THEMES.get(0)); // PrimerDark default
+        themeCombo.getStyleClass().add("showcase-theme-combo");
+        themeCombo.setPrefWidth(160);
+        themeCombo.setCellFactory(lv -> new ThemeCell());
+        themeCombo.setButtonCell(new ThemeCell());
+        themeCombo.valueProperty().addListener((obs, oldTheme, newTheme) -> {
+            if (newTheme != null) {
+                Application.setUserAgentStylesheet(newTheme.getUserAgentStylesheet());
+            }
+        });
+
         Button websiteBtn = new Button("flexganttfx.com  ↗");
         websiteBtn.getStyleClass().add("showcase-website-btn");
         websiteBtn.setOnAction(e -> {
@@ -78,8 +109,17 @@ public class ShowcaseView extends BorderPane {
             }
         });
 
-        bar.getChildren().addAll(logoIcon, logoLabel, badge, tagline, spacer, websiteBtn);
+        bar.getChildren().addAll(logoIcon, logoLabel, badge, tagline, spacer, themeLabel, themeCombo, websiteBtn);
         return bar;
+    }
+
+    /** Simple ListCell that shows the theme name. */
+    private static class ThemeCell extends ListCell<Theme> {
+        @Override
+        protected void updateItem(Theme theme, boolean empty) {
+            super.updateItem(theme, empty);
+            setText(empty || theme == null ? null : theme.getName());
+        }
     }
 
     // ── Sidebar ───────────────────────────────────────────────────────────
@@ -107,7 +147,7 @@ public class ShowcaseView extends BorderPane {
         ScrollPane scrollPane = new ScrollPane(categoriesBox);
         scrollPane.setFitToWidth(true);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setStyle("-fx-background-color: transparent; -fx-border-color: transparent; -fx-background: #2B2D30;");
+        scrollPane.setStyle("-fx-background-color: transparent; -fx-border-color: transparent; -fx-background: -color-bg-subtle;");
         VBox.setVgrow(scrollPane, Priority.ALWAYS);
 
         sidebar.getChildren().add(scrollPane);

@@ -4,6 +4,7 @@
  */
 open module com.flexganttfx.sampler {
 
+    requires atlantafx.base;
     requires opencsv;
     requires org.kordamp.ikonli.core;
     requires org.kordamp.ikonli.javafx;
