@@ -83,7 +83,6 @@ public class SampleContentView extends BorderPane {
         if (controlPanel == null) {
             // No control panel — sample fills the entire area
             if (samplePanel != null) {
-                BorderPane.setMargin(samplePanel, new Insets(8));
                 setCenter(samplePanel);
             }
         } else {

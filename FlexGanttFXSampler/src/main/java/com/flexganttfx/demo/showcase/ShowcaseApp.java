@@ -8,6 +8,7 @@ import com.dlsc.gemsfx.util.StageManager;
 import com.flexganttfx.core.FlexGanttFX;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -15,8 +16,30 @@ import javafx.stage.Stage;
  */
 public class ShowcaseApp extends Application {
 
+    private static final String FONTS_BASE = "/com/flexganttfx/demo/showcase/fonts/";
+
+    private void loadInterFonts() {
+        String[] variants = {
+            "Inter-Regular.ttf",
+            "Inter-Italic.ttf",
+            "Inter-Light.ttf",
+            "Inter-LightItalic.ttf",
+            "Inter-Medium.ttf",
+            "Inter-MediumItalic.ttf",
+            "Inter-SemiBold.ttf",
+            "Inter-SemiBoldItalic.ttf",
+            "Inter-Bold.ttf",
+            "Inter-BoldItalic.ttf"
+        };
+        for (String variant : variants) {
+            Font.loadFont(ShowcaseApp.class.getResourceAsStream(FONTS_BASE + variant), 13);
+        }
+    }
+
     @Override
     public void start(Stage stage) {
+        loadInterFonts();
+
         if (!FlexGanttFX.isLicenseKeySet()) {
             FlexGanttFX.setLicenseKey("LIC=DLSC;VEN=DLSC;VER=12;PRO=STANDARD;RUN=no;CTR=1;SignCode=3F;Signature=302C02142BD7F914E6633D7DBA0B8564D8FC20EC249BCFD702142558B5C6FF46325A0A698A1E8036828E54D6FEC8");
         }

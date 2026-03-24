@@ -164,7 +164,7 @@ public class ShowcaseView extends BorderPane {
         // Search field
         TextField searchField = new TextField();
         searchField.getStyleClass().add("sidebar-search-field");
-        searchField.setPromptText("🔍  Filter samples…");
+        searchField.setPromptText("Filter samples…");
         searchField.setPrefWidth(230);
         VBox searchBox = new VBox(searchField);
         searchBox.setPadding(new Insets(10, 10, 6, 10));

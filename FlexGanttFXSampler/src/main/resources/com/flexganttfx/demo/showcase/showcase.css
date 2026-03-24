@@ -5,7 +5,7 @@
 
 /* ── Root / global ─────────────────────────────────────────────────── */
 .root {
-    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-family: "Inter";
     -fx-font-size: 13px;
 }
 
@@ -23,7 +23,7 @@
 }
 
 .showcase-logo-label {
-    -fx-text-fill: -color-fg-emphasis;
+    -fx-text-fill: -color-fg-default;
     -fx-font-size: 18px;
     -fx-font-weight: bold;
 }
@@ -219,7 +219,7 @@
 .sample-header-title {
     -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-text-fill: -color-fg-emphasis;
+    -fx-text-fill: -color-fg-default;
 }
 
 .sample-header-desc {
