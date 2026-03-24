@@ -1,0 +1,50 @@
+--class-path
+'/Users/lemmi/.m2/repository/org/openjfx/javafx-base/19.0.2.1/javafx-base-19.0.2.1.jar:/Users/lemmi/.m2/repository/org/openjfx/javafx-controls/19.0.2.1/javafx-controls-19.0.2.1.jar:/Users/lemmi/.m2/repository/org/openjfx/javafx-graphics/19.0.2.1/javafx-graphics-19.0.2.1.jar'
+--module-path
+'/Users/lemmi/.m2/repository/com/smardec/license4j/1.4.0/license4j-1.4.0.jar:/Users/lemmi/git/FlexGanttFX/FlexGanttFXView/target/classes:/Users/lemmi/git/FlexGanttFX/FlexGanttFXExtras/target/classes:/Users/lemmi/.m2/repository/org/kordamp/ikonli/ikonli-materialdesign-pack/12.3.1/ikonli-materialdesign-pack-12.3.1.jar:/Users/lemmi/.m2/repository/org/controlsfx/controlsfx/11.1.1/controlsfx-11.1.1.jar:/Users/lemmi/git/FlexGanttFX/FlexGanttFXCore/target/classes:/Users/lemmi/.m2/repository/org/openjfx/javafx-graphics/19.0.2.1/javafx-graphics-19.0.2.1-mac-aarch64.jar:/Users/lemmi/.m2/repository/org/kordamp/ikonli/ikonli-core/12.3.1/ikonli-core-12.3.1.jar:/Users/lemmi/.m2/repository/org/kordamp/ikonli/ikonli-javafx/12.3.1/ikonli-javafx-12.3.1.jar:/Users/lemmi/git/FlexGanttFX/FlexGanttFXModel/target/classes:/Users/lemmi/.m2/repository/org/openjfx/javafx-base/19.0.2.1/javafx-base-19.0.2.1-mac-aarch64.jar:/Users/lemmi/.m2/repository/org/openjfx/javafx-controls/19.0.2.1/javafx-controls-19.0.2.1-mac-aarch64.jar'
+--patch-module
+com.flexganttfx.extras='/Users/lemmi/git/FlexGanttFX/FlexGanttFXExtras/src/main/java:/Users/lemmi/git/FlexGanttFX/FlexGanttFXExtras/target/generated-sources/annotations:/Users/lemmi/git/FlexGanttFX/FlexGanttFXExtras/src/main/javadoc'
+--patch-module
+com.flexganttfx.core='/Users/lemmi/git/FlexGanttFX/FlexGanttFXCore/src/main/java:/Users/lemmi/git/FlexGanttFX/FlexGanttFXCore/target/generated-sources/annotations'
+--patch-module
+com.flexganttfx.model='/Users/lemmi/git/FlexGanttFX/FlexGanttFXModel/src/main/java:/Users/lemmi/git/FlexGanttFX/FlexGanttFXModel/target/generated-sources/annotations:/Users/lemmi/git/FlexGanttFX/FlexGanttFXModel/src/main/javadoc'
+--patch-module
+com.flexganttfx.view='/Users/lemmi/git/FlexGanttFX/FlexGanttFXView/src/main/java:/Users/lemmi/git/FlexGanttFX/FlexGanttFXView/target/generated-sources/annotations:/Users/lemmi/git/FlexGanttFX/FlexGanttFXView/src/main/javadoc'
+-encoding
+'UTF-8'
+-protected
+--release
+11
+--module-source-path
+'/Users/lemmi/git/FlexGanttFX/target/site/apidocs/src'
+-verbose
+-author
+-bottom
+'Copyright &#169; 2025 DLSC Software & Consulting GmbH. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/Users/lemmi/git/FlexGanttFX/target/site/apidocs'
+-docencoding
+'UTF-8'
+-docfilessubdirs
+-doctitle
+'FlexGanttFX 11.12.8 API'
+-group
+'Core' 'com.flexganttfx.core*'
+-group
+'Model' 'com.flexganttfx.model*'
+-group
+'View' 'com.flexganttfx.view*'
+-group
+'Extras' 'com.flexganttfx.extras*'
+-link
+'https://openjfx.io/javadoc/13'
+-link
+'https://javadoc.io/doc/org.controlsfx/controlsfx/latest'
+-linkoffline
+'https://docs.oracle.com/en/java/javase/11/docs/api' '/Users/lemmi/git/FlexGanttFX/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'FlexGanttFX 11.12.8 API'

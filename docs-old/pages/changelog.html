@@ -1,0 +1,31 @@
+---
+layout: page
+title: Release Notes
+add_to_menu: true
+description: "The changes and bug fixes that went into the various FlexGanttFX releases"
+keywords: "java,javafx,FlexGanttFX,gantt,chart,UI,UX,scheduling,planning,pps,mes"
+---
+
+<!-- Start Changelog  Area -->
+<section class="changelog-area bg-color1">
+   <div class="changelog-wrapper inner-spacing">
+      <div class="container">
+         <div class="row">
+            {% for change_log in site.data.changelog %}
+            <div class="col-lg-6">
+               <div class="changelog-service wow fadeIn">
+                  <div class="changelog-tile">
+                     <h5 class="heading-5">{{change_log.product_name}}</h5>
+                     <p><i class="changelog-date"></i> Updated :  {{change_log.updated_date}}</p>
+                  </div>
+                  <ul class="changelog-list list-inline">
+                     {{change_log.changelog}}
+                  </ul>
+               </div>
+            </div>
+            {% endfor %}
+         </div>
+      </div>
+   </div>
+</section>
+<!-- End Changelog Area -->

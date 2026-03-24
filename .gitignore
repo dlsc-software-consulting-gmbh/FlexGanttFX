@@ -1,9 +1,9 @@
 /target/
 /FlexGanttFXMSProject/logs/
 tmp/
-/docs/_site/*
-/docs/.jekyll-cache
-/docs/Gemfile.lock
+/docs-old/_site/*
+/docs-old/.jekyll-cache
+/docs-old/Gemfile.lock
 jdeploy/
 jdeploy-bundle/
 /.idea/
