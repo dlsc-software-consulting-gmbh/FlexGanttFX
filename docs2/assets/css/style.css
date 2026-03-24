@@ -614,7 +614,10 @@ footer {
   border-radius: var(--radius);
   padding: 32px;
   transition: all var(--transition);
+  display: flex;
+  flex-direction: column;
 }
+.license-card .btn { margin-top: auto; align-self: flex-start; }
 .license-card:hover { border-color: var(--blue); box-shadow: 0 0 0 4px rgba(59,130,246,0.08); transform: translateY(-3px); }
 .license-card h3 { font-size: 1.1rem; font-weight: 800; color: var(--navy); margin-bottom: 12px; }
 .license-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 20px; }

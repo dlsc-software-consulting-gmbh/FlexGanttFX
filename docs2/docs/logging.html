@@ -121,32 +121,37 @@ domains are defined in the class com.flexganttfx.core.LoggingDomain. The followi
 </ul>
 <h2 id="configuration-file">Configuration File</h2>
 <p>The following file can be used to configure logging for FlexGanttFX.</p>
-<p>```</p>
-<h1 id="to-use-this-property-file-add-the-following-command-line-argument">To use this property file add the following command line argument:</h1>
-<h1 id="-djavautilloggingconfigfileproject_loclogproperties">-Djava.util.logging.config.file=${project_loc}/log.properties</h1>
-<h1 id="specify-the-handlers-to-create-in-the-root-logger">Specify the handlers to create in the root logger</h1>
-<h1 id="all-loggers-are-children-of-the-root-logger">(all loggers are children of the root logger)</h1>
-<h1 id="the-following-creates-two-handlers">The following creates two handlers</h1>
-<h1 id="handlers-javautilloggingconsolehandler-javautilloggingfilehandler">handlers = java.util.logging.ConsoleHandler, java.util.logging.FileHandler</h1>
-<p>handlers = java.util.logging.ConsoleHandler</p>
-<h1 id="set-the-default-logging-level-for-the-root-logger">Set the default logging level for the root logger</h1>
-<p>.level = INFO</p>
-<h1 id="set-the-default-logging-level-for-new-consolehandler-instances">Set the default logging level for new ConsoleHandler instances</h1>
-<p>java.util.logging.ConsoleHandler.level = OFF</p>
-<h1 id="set-the-default-logging-level-for-new-filehandler-instances">Set the default logging level for new FileHandler instances</h1>
-<h1 id="javautilloggingfilehandlerlevel-all">java.util.logging.FileHandler.level = ALL</h1>
-<h1 id="set-the-default-formatter-for-new-consolehandler-instances">Set the default formatter for new ConsoleHandler instances</h1>
-<p>java.util.logging.ConsoleHandler.formatter = com.flexganttfx.core.LoggingFormatter</p>
-<h1 id="flexganttfx-logging-domains">FlexGanttFX logging domains</h1>
-<p>com.flexganttfx.config.level = OFF
+<pre><code class="language-properties"># To use this property file add the following command line argument:
+#    -Djava.util.logging.config.file=${project_loc}/log.properties
+
+# Specify the handlers to create in the root logger
+# (all loggers are children of the root logger)
+# The following creates two handlers
+# handlers = java.util.logging.ConsoleHandler, java.util.logging.FileHandler
+
+handlers = java.util.logging.ConsoleHandler
+
+# Set the default logging level for the root logger
+.level = INFO
+
+# Set the default logging level for new ConsoleHandler instances
+java.util.logging.ConsoleHandler.level = OFF
+
+# Set the default logging level for new FileHandler instances
+# java.util.logging.FileHandler.level = ALL
+
+# Set the default formatter for new ConsoleHandler instances
+java.util.logging.ConsoleHandler.formatter = com.flexganttfx.core.LoggingFormatter
+
+# FlexGanttFX logging domains
+com.flexganttfx.config.level = OFF
 com.flexganttfx.performance.level = OFF
 com.flexganttfx.repository.level = OFF
 com.flexganttfx.editing.level = OFF
 com.flexganttfx.navigation.level = OFF
 com.flexganttfx.rendering.level = OFF
 com.flexganttfx.dnd.level = OFF
-com.flexganttfx.events.level = OFF
-````</p>
+com.flexganttfx.events.level = OFF</code></pre>
       </article>
       <div class="docs-nav-bottom">
         <a class="docs-nav-btn" href="styling.html"><span class="docs-nav-label">← Previous</span><span class="docs-nav-title">Styling</span></a>
@@ -160,5 +165,6 @@ com.flexganttfx.events.level = OFF
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-properties.min.js" crossorigin="anonymous"></script>
 </body>
 </html>

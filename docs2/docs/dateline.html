@@ -158,7 +158,7 @@ mapped to a specific temporal unit type. </p>
 <pre><code class="language-java">setCellFactory(SimpleUnit.class, unit -&gt; new SimpleUnitDatelineCell());
 setCellFactory(ChronoUnit.class, unit -&gt; new ChronoUnitDatelineCell());
 </code></pre>
-<hr />
+
 <h1 id="dateline-model">Dateline Model</h1>
 <p>The dateline model provides the dateline control with various pieces of information so that it can lay itself out correctly.</p>
 <ul>
@@ -302,7 +302,7 @@ public final class ChronoUnitDatelineModel extends DatelineModel&lt;ChronoUnit&g
     }
 }
 </code></pre>
-<hr />
+
 <p><strong>Simple Unit Dateline Model</strong></p>
 <p>The <code>SimpleUnitDatelineModel</code> class is a specialization for the <code>SimpleUnit</code> temporal which ships with <strong>FlexGanttFX</strong>. It 
 requires scale resolutions of type <code>SimpleUnitResolution</code>. The implementation of this model class below shows why the 
@@ -330,7 +330,7 @@ public final class SimpleUnitDatelineModel extends DatelineModel&lt;SimpleUnit&g
     }
 }
 </code></pre>
-<hr />
+
 <p><strong>Timezones</strong></p>
 <p>The dateline model manages a list of zone IDs, which is used by the UI to create menu items for each ID. This way the 
 user can easily toggle between them. The default list is set up in the <code>DatelineModel</code> class like this:</p>

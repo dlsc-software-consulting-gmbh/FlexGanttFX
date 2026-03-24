@@ -125,7 +125,7 @@ graphics.setActivityRenderer(
     GanttLayout.class, // the type of layout where the renderer will be used
     new FlightRenderer(graphics)); // the actual renderer instance
 </code></pre>
-<hr />
+
 <p><strong>System Layers</strong></p>
 <p>Activities are not the only thing that needs to be displayed. There are also the current time ("now"), grid lines, inner 
 lines, agenda / chart lines, and so on. All of these things are rendered by so-called <strong>system layers</strong>. The graphics control 
@@ -137,7 +137,7 @@ layers, please refer to their individual documentation.</p>
 layer. The value of these properties can be set by calling the methods that follow the pattern <code>setShowXYZLayer</code>. System 
 layers that are controlled like this will appear and disappear with a fade in / fade out animation, while calling 
 <code>SystemLayer.setVisible(boolean)</code> directly will be without any animation.</p>
-<hr />
+
 <p><strong>Editing</strong></p>
 <p>Two different callbacks are used to control the editing behavior of activities. The first maps a mouse event / mouse 
 location to a <code>GraphicsBase.EditMode</code> and can be registered by calling <code>setEditModeCallback(Class, Class, Callback)</code>. The 
@@ -145,20 +145,20 @@ second callback is used to determine whether a given editing mode / operation ca
 This callback is registered by calling <code>setActivityEditingCallback(Class, Callback)</code>. Most applications will only need to 
 work with the second callback and keep the defaults for the edit mode locations (for example, right edge used to change 
 end time, left edge used to change start time).</p>
-<hr />
+
 <p><strong>Events</strong></p>
 <p>Events of the type <code>ActivityEvent</code> are sent whenever the user performs a change inside the graphics view. Applications that 
 want to receive these events can either call any one of the <code>setOnActivityXYZEvent()</code> methods or by adding an event 
 handler directly via <code>addEventHandler(ActionEvent.ACTIVITY_XYZ, ...)</code>. Events are fired while the change is being 
 performed and once it has been completed. For this the <code>ActivityEvent</code> class lists event types with the two different 
 endings <code>CHANGING</code> and <code>CHANGED</code>.</p>
-<hr />
+
 <p><strong>Hit-Point Detection</strong></p>
 <p>The graphics view provides support for finding out information about a given position. Activities can be found by 
 calling <code>getActivityBoundsAt(double, double)</code> or <code>getActivityRefAt(double, double)</code>. The time at an x-coordinate can be 
 looked up by calling <code>getTimeAt(double)</code>. The opposite direction is also available: a location can be found for a given 
 time by calling <code>getLocation(Instant)</code>.</p>
-<hr />
+
 <p><strong>Context Menu</strong></p>
 <p>Context menus can be set on any control in <strong>JavaFX</strong>, but due to the complexity of the graphics view, it does make sense 
 to provide additional built-in support. By calling <code>setContextMenuCallback(Callback)</code> a context menu specific callback can 
@@ -186,11 +186,11 @@ NowLineLayer nowLayer = graphics.getBackgroundSystemLayer(NowLineLayer .class);
 nowLayer.setStroke(Color.ORANGE);
 nowLayer.setLineWidth(3); // thick line
 </code></pre>
-<hr />
+
 <p><strong>System Layers vs. Model Layers</strong></p>
 <p>Please note that system layers are not related in any way to model layers. A system layer is basically a renderer for 
 some graphical feedback, while a model layer is used for grouping activities.</p>
-<hr />
+
 <p><strong>Available Background Layers</strong></p>
 <p>The following table lists all <strong><em>background</em></strong> layers that are shipping with <strong>FlexGanttFX</strong>. </p>
 <table>
@@ -247,7 +247,7 @@ some graphical feedback, while a model layer is used for grouping activities.</p
 </tr>
 </tbody>
 </table>
-<hr />
+
 <p><strong>Available Foreground Layers</strong></p>
 <p>The following table lists all <strong><em>foreground</em></strong> layers that are shipping with <strong>FlexGanttFX</strong>.</p>
 <table>
@@ -347,7 +347,7 @@ following values which an be set by calling the setDragAndDropFeedback() method 
 </tr>
 </tbody>
 </table>
-<hr />
+
 <p><strong>Drag Image Provider</strong></p>
 <p>If the DnD feedback type has been set to <code>NATIVE</code> then it is possible to pass a custom image for the drag operation. This 
 can be achieved by setting a drag image provider on <code>GraphicsBase</code> by calling <code>setDragImageProvider()</code>. This method 
@@ -355,7 +355,7 @@ accepts a callback lambda expression. The input for the callback will be an Acti
 <pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
 graphics.setDragImageProvider(ref -&gt; createImage(ref));
 </code></pre>
-<hr />
+
 <p>The default image is a snapshot of the activity at the moment when the drag started.</p>
 <p><strong>Drop Layer Provider</strong></p>
 <p>Drag and drop operations can be performed between two different Gantt charts, with each chart managing its own list of 
@@ -365,11 +365,11 @@ for the activity. This can be achieved by setting a "drop layer provider" callba
 <pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = targetGanttChart.getGraphics();
 targetGraphics.setDropLayerProvider(info -&gt; targetLayer); // info is of type DragAndDropInfo
 </code></pre>
-<hr />
+
 <p>The default implementation of this callback looks like this:</p>
 <pre><code class="language-java">info -&gt; info.getActivityRef().getLayer(); // use same layer as before
 </code></pre>
-<hr />
+
 <p>If the drop layer provider returns no layer or if the returned layer is not a layer added to the target 
 Gantt chart / graphics, then we will see messages like this.</p>
 <ul>
@@ -387,7 +387,7 @@ an event handler with the graphics view via one of the convenience methods.</p>
 graphics.setOnActivityChangeFinished(evt -&gt; 
             System.out.println(&quot;An activity has changed&quot;));
 </code></pre>
-<hr />
+
 <p>If you need to register more than one handler for a specific event type, then use this approach:</p>
 <p><strong>Multiple Activity Event Handlers</strong></p>
 <pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
@@ -396,7 +396,7 @@ graphics.addEventHandler(ActivityEvent.ACTIVITY_CHANGE_FINISHED,
 graphics.addEventHandler(ActivityEvent.ACTIVITY_CHANGE_FINISHED, 
                             evt -&gt; System.out.println(&quot;Listener 2&quot;));
 </code></pre>
-<hr />
+
 <p>The following tables list all supported activity event types and the convenience setter methods of the graphics view. 
 The methods are used to quickly register an event handler for the various event types.</p>
 <p>| Event Types                                                                           | Description                                                                                                                                                                                                                                                                     |
@@ -413,7 +413,7 @@ The methods are used to quickly register an event handler for the various event 
 | PERCENTAGE_CHANGE_STARTED, PERCENTAGE_CHANGE_ONGOING, PERCENTAGE_CHANGE_FINISHED      | Fired whenever the user has started changing, is in the process of changing, or has finished changing the "percentage complete" value of an activity.                                                                                                                           |
 | START_TIME_CHANGE_STARTED, START_TIME_CHANGE_ONGOING, START_TIME_CHANGE_FINISHED      | Fired whenever the user has started changing, is in the process of changing, or has finished changing the start time of an activity.                                                                                                                                            |
 | VERTICAL_DRAG_STARTED, VERTICAL_DRAG_ONGOING, VERTICAL_DRAG_FINISHED                  | Fired whenever the user has started dragging, is in the process of dragging, or has finished dragging an activity via platform-provided drag &amp; drop. This event type is used when the user can only drag the activity vertically (reassign an activity to a different row).     |</p>
-<hr />
+
 <table>
 <thead>
 <tr>
@@ -472,7 +472,7 @@ The methods are used to quickly register an event handler for the various event 
 </tr>
 </tbody>
 </table>
-<hr />
+
 <p><strong>Activity Events Hierarchy</strong></p>
 <p>The event types defined in the ActivityEvent class are defining an event hierarchy. All events are input events 
 (InputEvent.ANY) and they change the activity. Some of them get fired when the user starts the change, some while the 
@@ -563,7 +563,7 @@ register an event handler with the graphics view via one of the convenience meth
 <pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
 graphics.setOnLassoFinished(evt -&gt; System.out.println(&quot;The lasso was used&quot;));
 </code></pre>
-<hr />
+
 <p>If you need to register more than one handler for a specific event type then use this approach:</p>
 <p><strong>Multiple Lasso Event Handlers</strong></p>
 <pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
@@ -604,7 +604,7 @@ graphics.addEventHandler(LassoEvent.SELECTION_FINISHED,
 </tr>
 </tbody>
 </table>
-<hr />
+
 <p><strong>Lasso Event Hierarchy</strong></p>
 <p>The event types defined in the LassoEvent class are defining an event hierarchy. All events are input events (InputEvent.ANY).</p>
 <pre><code>* InputEvent.ANY
@@ -613,7 +613,7 @@ graphics.addEventHandler(LassoEvent.SELECTION_FINISHED,
         * LassoEvent.SELECTION_ONGOING
         * LassoEvent.SELECTION_FINISHED
 </code></pre>
-<hr />
+
 <p><strong>Lasso Info</strong></p>
 <p>The lasso automatically performs selections of activities but sometimes we might want to know more about the exact nature
 of this selection or we want to use the lasso for another use case (e.g. for creating new activities). For this reason 
@@ -721,7 +721,7 @@ start time). The enum GraphicsBase.EditMode lists all available editing operatio
 </tr>
 </tbody>
 </table>
-<hr />
+
 <p><strong>Edit Mode Callback</strong></p>
 <p>The edit mode callback is used to determine the edit mode at the given mouse location. Instances of this callback can 
 be registered via the GraphicsBase.setEditModeCallback() method which maps the callback to a combination of activity type 
@@ -751,7 +751,7 @@ and layout type.</p>
 </tr>
 </tbody>
 </table>
-<hr />
+
 <p><strong>Edit Mode Callback Example</strong></p>
 <p>The following is a simple example of an editing mode callback.</p>
 <pre><code class="language-java">public class MyEditModeCallback implements Callback&lt;EditModeCallbackParameter, EditMode&gt; {
@@ -787,7 +787,7 @@ an activity type.</p>
     Class&lt;? extends MutableActivity&gt; activityType,
     Callback&lt;EditingCallbackParameter, Boolean&gt; callback);
 </code></pre>
-<hr />
+
 <p><strong>Editing Callback Parameter</strong></p>
 <p>The parameter object passed to the editing callback is of type EditingCallbackParameter and contains the following 
 information:</p>
@@ -840,7 +840,7 @@ information:</p>
     }
 }
 </code></pre>
-<hr />
+
 <p>This callback can now be registered like this:</p>
 <pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
     graphics.setActivityEditingCallback(
@@ -882,7 +882,7 @@ that are related to row editing:</p>
 </tr>
 </tbody>
 </table>
-<hr />
+
 <p><strong>Row Editor Factory</strong></p>
 <p>The row editor factory is used to create the controls for a given row at the moment when the user requests that the row will be edited. The factory is a callback method that gets called with a GraphicsBase.RowEditorParameter object. This parameter object stores some fields that can be useful for creating the editor controls and also a method for stopping the row editing.</p>
 <table>
@@ -941,7 +941,7 @@ that are related to row editing:</p>
 <pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
 graphics.setRowEditorFactory(new MyRowEditorFactory());
 </code></pre>
-<hr />
+
 <p><strong>Row Controls Factory</strong></p>
 <p>To trigger row editing the user interface needs to provide some kind of controls. This can be done in many ways, for 
 example by the help of a context menu on a row. Another way is to use the built-in support for so-called "row controls". 
@@ -966,7 +966,7 @@ lists the fields of this type.</p>
 </tr>
 </tbody>
 </table>
-<hr />
+
 <p><strong>Example 1</strong></p>
 <p>A possible implementation of this callback can look like this:</p>
 <pre><code class="language-java">public class MyRowControlsFactory extends StackPane 
@@ -996,7 +996,7 @@ lists the fields of this type.</p>
     }
 
 </code></pre>
-<hr />
+
 <p>Please take notice that this factory is a Node object and returns itself every time the call() method gets invoked. Only 
 the action of the button gets replaced with each inocation. This makes perfect sense as row controls are always only 
 shown for one row at a time (as opposed to row editors where several of them can be in use at the same time).</p>
@@ -1004,7 +1004,7 @@ shown for one row at a time (as opposed to row editors where several of them can
 <pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
 graphics.setRowControlsFactory(new MyRowControlsFactory());
 </code></pre>
-<hr />
+
 <p><strong>Example 2</strong></p>
 <p>The following is the code of the RowControls class in the FlexGanttFX "Extras" project. It adds a simple "Edit" button 
 to the row. When clicked it will show the row editor controls on the back on the row.</p>
@@ -1043,7 +1043,7 @@ public class RowControls&lt;R extends Row&lt;?, ?, ?&gt;&gt; extends HBox implem
     }
 }
 </code></pre>
-<hr />
+
 <p>The matching CSS for the button is defined like this:</p>
 <pre><code class="language-css">/*
  * Row controls button are shown when the mouse hovers over a row that can be
@@ -1140,7 +1140,7 @@ boolean hover,               // is mouse cursor currently hovering over it?
 boolean highlighted,         // is activity currently blinking?
 boolean pressed)             // is user currently pressing on it?
 </code></pre>
-<hr />
+
 <p><strong>Default Renderers</strong></p>
 <p>The following table lists the various activity renderers that are provided by default.</p>
 <table>
@@ -1169,7 +1169,7 @@ boolean pressed)             // is user currently pressing on it?
 </tr>
 </tbody>
 </table>
-<hr />
+
 <p><strong>Activity Bounds</strong></p>
 <p>Every activity renderer is responsible for returning an instance of ActivityBounds after drawing the activity. These 
 bounds are an essential piece for the framework and many operations will only work properly if these bounds are valid. 
@@ -1214,7 +1214,7 @@ The following table lists the attributes of the ActivityBounds class.</p>
 </tbody>
 </table>
 <p>Please ignore the attributes overlapColumn, overlapCount, and the list overlapBounds. These are all used internally for agenda layout related operations.</p>
-<hr />
+
 <p><strong>Properties</strong></p>
 <p>All renderers define several properties that can be used to customize their apperance. Many of these properties are 
 dependent on the "pseudo state" of the activity: hover, pressed, selected, highlighted. To make it easier to lookup the 
@@ -1231,7 +1231,7 @@ right color at the right time several convenience methods are available:</p>
 <p>The system layer RowLayer supports pluggable renderers to customize the background of each row depending on 
 the row type. In the tutorial we have seen that we can have Aircraft rows and Crew rows. For clarity these two rows 
 could have different background colors. This is something that could be done with a row renderer.</p>
-<hr />
+
 <p><strong>Row Renderer</strong></p>
 <p>All row renderers have to subclass RowRenderer. This class defines a final public method called draw() that gets called 
 by the framework. It then calls the protected method drawRow() which subclasses can override. A possible implementation 
@@ -1255,7 +1255,7 @@ might look like this:</p>
     }
 }
 </code></pre>
-<hr />
+
 <p>This renderer can now be registered with the RowLayer like this:</p>
 <pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
 graphics.getSystemLayer(RowLayer.class).setRowRenderer(
@@ -1268,7 +1268,7 @@ GraphicsBase.setContextMenuCallback(). The advantage of the second option is tha
 ContextMenuParameter will be passed to the callback method. This parameter object contains the most relevant parameters 
 that most context menus will require to let the user perform some kind of action on the graphics view.</p>
 <p>Please note that a context menu callback will have precedence over a standard context menu.</p>
-<hr />
+
 <p><strong>Code Example</strong></p>
 <p>The following snippet shows an example of a context menu callback implementation. Here we simply add a menu item for 
 each activity that was found at the mouse location where the context menu was requested by the user.</p>
@@ -1299,7 +1299,7 @@ setContentDisplay(ContentDisplay.GRAPHICS_ONLY).</p>
 <pre><code class="language-java">public void setRowHeaderFactory(Callback&lt;GraphicsBase&lt;R&gt;, RowHeader&lt;R&gt;&gt; factory);
 public void setShowRowHeaders(boolean showRowHeaders);
 </code></pre>
-<hr />
+
 <p>Note: in older versions of FlexGanttFX the functionality for displaying a row header / scales was found inside the 
 ScaleLayer class. With the introduction of the canvas buffer concept and scrolling via the translateX property it 
 became necessary to change this because the scales were placed in all kinds of places, depending on the translateX 

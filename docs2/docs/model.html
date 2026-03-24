@@ -239,19 +239,19 @@ Activities can be added to a specific layer on a row by calling <code>Row.addAct
 <li>high (double)</li>
 <li>low (double)</li>
 </ul>
-<hr />
+
 <p><strong>Chart Activity</strong></p>
 <p>A chart activity is an add-on interface for activities. It needs to be implemented by activities that want to participate 
 in a ChartLayout. The interface adds a chart value to the activity. The image below shows an example of a chart layout 
 laying out one chart activity per day.</p>
 <p><img alt="Capacity Layout" src="../assets/images/docs/layout-capacity.jpg" /></p>
-<hr />
+
 <p><strong>Completable Activity</strong></p>
 <p>A completable activity is an activity that carries a "percentage complete" value between 0 and 100%. Completable 
 activities are drawn with a "completable activity bar renderer." This renderer draws the background of the activity 
 based on the percentage complete value. The image below shows an example.</p>
 <p><img alt="Completable" src="../assets/images/docs/completable.jpg" /></p>
-<hr />
+
 <p><strong>High-Low Chart Activity</strong></p>
 <p>A high-low chart activity carries two extra attributes: high and low. These values are used by the ChartLayout to position 
 them appropriately. One example of a good use case for high low activities is candlestick charts (e.g. stocks open / 
@@ -312,7 +312,7 @@ parameters:</p>
 </tr>
 </tbody>
 </table>
-<hr />
+
 <p><strong>Earliest / Latest Time Used</strong></p>
 <p>Each repository implementation needs to be able to answer the question for the earliest and latest times used 
 (earliest start time / latest end time of any activity stored in the repository). This allows the UI to provide controls 
@@ -365,7 +365,7 @@ representing the building we are showing shifts.</p>
 <pre><code class="language-java">public class Building extends Row&lt;Factory, Machine, Shift&gt; {
 }
 </code></pre>
-<hr />
+
 <p>A model like this would allow us to display a hierarchy in the Gant chart that might look like this:</p>
 <ul>
 <li>Factory</li>
@@ -461,7 +461,7 @@ representing the building we are showing shifts.</p>
 </tr>
 </tbody>
 </table>
-<hr />
+
 <h2 id="layer">Layer</h2>
 <p>Layers are used to <strong>group activities together</strong>. Activities on the same layer are drawn at the same time (z-order). A 
 layer has a name, an ID, it can be turned on / off, and their opacity can be changed. These changes have an impact on 
@@ -474,13 +474,13 @@ different Gantt charts.</p>
 overlap each other, except if the lines themselves overlap each other. Each line can have its own height and a location 
 within the row. Each line can also have its own layout. By using lines and layouts, it is possible to display activities 
 that belong to the same row in different ways (see <code>ChartLayout</code>, <code>AgendaLayout</code>, <code>GanttLayout</code>).</p>
-<hr />
+
 <p><strong>Line Count</strong></p>
 <p>The actual number of lines on a row is stored on the <code>lineCount</code> property of the row. Simply call <code>Row.setLineCount(int)</code> to 
 change its value. If the line count is larger than zero, the row will call back on its line manager to figure out where each 
 line is located, how high it is, and which activity will be placed on which row. Also, the type of layout to use for each 
 line will be retrieved from the manager.</p>
-<hr />
+
 <p><strong>Interface</strong></p>
 <p>The following table lists the interface methods of a <code>LineManager</code>.</p>
 <table>
@@ -509,14 +509,14 @@ line will be retrieved from the manager.</p>
 </tr>
 </tbody>
 </table>
-<hr />
+
 <p><strong>Equal Lines Manager</strong> </p>
 <p>The <code>EqualLinesManager</code> can be used to equally distribute line locations and line heights on a row. Each line will have
 the same height, and the lines will not overlap each other. While the manager will provide this behavior, it is 
 still the responsibility of the application to place the activities on different rows and to specify the layout for 
 each line. This is also the reason why the methods <code>getLineHeight()</code> and <code>getLineLocation()</code> are final while the methods 
 <code>getLineLayout()</code> and <code>getLineIndex()</code> are not and can be overridden.</p>
-<hr />
+
 <p><strong>Auto Lines Manager</strong></p>
 <p>The <code>AutoLinesManager</code> can be used to create a dynamic number of lines based on all activities inside a repository. This 
 line manager detects clusters of intersecting activities (start / end time intervals) and ensures that enough lines are 
@@ -632,7 +632,7 @@ public class AutoLinesManager&lt;R extends Row&lt;?, ?, A&gt;, A extends Activit
     }
 }
 </code></pre>
-<hr />
+
 <h2 id="layout-types">Layout Types</h2>
 <p>Each row and each inner line of a row are associated with a layout. The layout influences several aspects during 
 rendering and editing of activities. Additionally, several of the system layers used to draw the row background also 
@@ -661,14 +661,14 @@ returning them via the lines manager of the row.</p>
 </tr>
 </tbody>
 </table>
-<hr />
+
 <p><strong>Padding</strong> </p>
 <p>All layout types have a padding property. It is used to create a visual gap at the top and bottom of each row / line.</p>
 <p><img alt="Padding" src="../assets/images/docs/padding.png" /></p>
-<hr />
+
 <p><strong>Gantt Layout</strong></p>
 <p><img alt="Gantt Layout" src="../assets/images/docs/layout-gantt.jpg" /></p>
-<hr />
+
 <p><strong>Agenda Layout</strong></p>
 <p>The agenda layout class is used to lay out activities in a style similar to a regular calendar where a vertical scale 
 will display hours. Activities are used to represent appointments for a given day. Activities shown in an agenda layout 
@@ -699,7 +699,7 @@ these situations. The following list shows the possible values.</p>
 </tr>
 </tbody>
 </table>
-<hr />
+
 <p><strong>Chart Layout</strong></p>
 <p>Using the <code>ChartLayout</code> class results in activities being laid out as chart bars. A series of such bars can, for example, 
 be used to form a capacity profile. Activities of type <code>ChartActivity</code> will be placed on a zero line between the minimum 
@@ -721,7 +721,7 @@ can be added to the whole Gantt chart or to individual rows within the Gantt cha
 GraphicsBase.getCalendars();
 Row.getCalendars();
 </code></pre>
-<hr />
+
 <p>Calendars are used for the background of rows. They can mark things like weekend days or holidays. Calendar information 
 is always shown as read-only. Activities returned by calendars have to be of the type <code>CalendarActivity</code>. They cannot be 
 edited interactively by the user.</p>

@@ -204,18 +204,73 @@ pre[class*="language-"] > code {
 .token.comment, .token.prolog, .token.doctype, .token.cdata { opacity: 0.75; }
 
 /* ── Docs TOC page ─────────────────────────────────────────── */
-.docs-toc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+/* ── Docs ToC page ─────────────────────────────────────────── */
+.docs-toc-grid { display: flex; flex-direction: column; gap: 40px; }
+
+.docs-toc-category {}
+.docs-toc-category h2 {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin: 0 0 14px;
+  padding: 0;
+  border: none;
+  /* override .prose h2 */
+  margin-top: 0;
+}
+
+.docs-toc-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+}
+
 .docs-toc-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
   background: var(--white);
   border: 1px solid var(--gray-200);
-  border-radius: var(--radius);
-  padding: 24px;
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
   transition: all var(--transition);
+  color: var(--navy);
+  text-decoration: none;
 }
-.docs-toc-card:hover { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(59,130,246,0.1); transform: translateY(-2px); }
-.docs-toc-card h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
-.docs-toc-card p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px; line-height: 1.5; }
-.docs-toc-card a { font-size: 0.85rem; font-weight: 600; }
+.docs-toc-card:hover {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+  transform: translateY(-2px);
+  color: var(--navy);
+}
+.docs-toc-card-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(59,130,246,0.1);
+  color: var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.docs-toc-card strong {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 3px;
+}
+.docs-toc-card p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
 
 /* ── Responsive docs ───────────────────────────────────────── */
 @media (max-width: 768px) {
