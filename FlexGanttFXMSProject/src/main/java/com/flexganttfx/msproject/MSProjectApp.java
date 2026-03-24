@@ -15,13 +15,17 @@ import com.flexganttfx.view.GanttChartBase;
 import com.flexganttfx.view.graphics.renderer.CurvedLinkRenderer;
 import com.jpro.webapi.WebAPI;
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -62,7 +66,10 @@ public class MSProjectApp extends Application {
 				super.draw(link, gc, sourceBounds, targetBounds);
 			}
 		});
-		gantt.load("com/flexganttfx/msproject/files/n0741.mpp", MSProjectApp.class.getResourceAsStream("/com/flexganttfx/msproject/files/n0741.mpp"));
+
+		// Load the first sample project as the default
+		SampleProject defaultProject = SampleProjectFactory.ALL.get(0);
+		gantt.load(defaultProject.getFactory().get());
 		gantt.setDetail(new GanttChartConfigurationView(gantt));
 
 		VBox.setVgrow(gantt, Priority.ALWAYS);
@@ -71,6 +78,10 @@ public class MSProjectApp extends Application {
 
 		MenuBar menuBar = createMenuBar();
 		vbox.getChildren().add(menuBar);
+
+		// Project selector bar
+		HBox selectorBar = buildSelectorBar();
+		vbox.getChildren().add(selectorBar);
 
 		GanttChartStatusBar<MSProjectTaskRow> statusBar = new GanttChartStatusBar<>(gantt);
 
@@ -81,10 +92,6 @@ public class MSProjectApp extends Application {
 		} else {
 			GanttChartToolBar<MSProjectTaskRow> toolBar = new GanttChartToolBar<>(gantt);
 			vbox.getChildren().addAll(toolBar, gantt, statusBar);
-//			Button scenicView = new Button();
-//			scenicView.setGraphic(new FontIcon(MaterialDesign.MDI_INFORMATION));
-//			scenicView.setOnAction(evt -> ScenicView.show(scene));
-//			toolBar.getItems().add(0, scenicView);
 
 			ComboBox<GanttChartBase.ScrollBarType> box = new ComboBox<>();
 			box.getItems().setAll(GanttChartBase.ScrollBarType.values());
@@ -96,6 +103,29 @@ public class MSProjectApp extends Application {
 		stage.sizeToScene();
 		stage.centerOnScreen();
 		stage.show();
+	}
+
+	private HBox buildSelectorBar() {
+		Label label = new Label("Project:");
+		label.setStyle("-fx-font-weight: bold;");
+
+		ComboBox<SampleProject> projectBox = new ComboBox<>();
+		projectBox.getItems().setAll(SampleProjectFactory.ALL);
+		projectBox.getSelectionModel().selectFirst();
+		projectBox.setPrefWidth(260);
+
+		projectBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+			if (newVal != null) {
+				gantt.load(newVal.getFactory().get());
+				stage.setTitle(STAGE_TITLE + " – " + newVal.getName());
+			}
+		});
+
+		HBox bar = new HBox(10, label, projectBox);
+		bar.setAlignment(Pos.CENTER_LEFT);
+		bar.setPadding(new Insets(6, 12, 6, 12));
+		bar.setStyle("-fx-background-color: #F5F5F5; -fx-border-color: #DDDDDD; -fx-border-width: 0 0 1 0;");
+		return bar;
 	}
 
 	private MenuBar createMenuBar() {

@@ -191,6 +191,36 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
         getTreeTable().setTreeColumn(nameColumn);
     }
 
+    public final void load(ProjectFile projectFile) {
+        try {
+            MSProjectGanttChartModel model = new MSProjectGanttChartModel(projectFile);
+
+            setRoot(model.getRoot());
+            getLayers().setAll(model.getLayers());
+            getLinks().clear();
+            model.getLinks().forEach(link -> getLinks().add(link));
+
+            model.getRoot().setExpanded(true);
+
+            Timeline timeline = getTimeline();
+            TimelineModel<?> timelineModel = timeline.getModel();
+
+            // Null-safe: fall back to a sensible window when dates are not set
+            java.time.Instant horizonStart = projectFile.getStartDate() != null
+                    ? ZonedDateTime.ofInstant(projectFile.getStartDate().toInstant(), ZoneId.systemDefault()).minusDays(2).toInstant()
+                    : java.time.Instant.now().minus(7, java.time.temporal.ChronoUnit.DAYS);
+            java.time.Instant horizonEnd = projectFile.getFinishDate() != null
+                    ? ZonedDateTime.ofInstant(projectFile.getFinishDate().toInstant(), ZoneId.systemDefault()).plusDays(2).toInstant()
+                    : java.time.Instant.now().plus(90, java.time.temporal.ChronoUnit.DAYS);
+
+            timelineModel.setHorizonStartTime(horizonStart);
+            timelineModel.setHorizonEndTime(horizonEnd);
+            timelineModel.setStartTime(horizonStart);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public final void load(String fileName, InputStream stream) {
         try {
             ProjectReader reader = ProjectReaderUtility.getProjectReader(fileName);

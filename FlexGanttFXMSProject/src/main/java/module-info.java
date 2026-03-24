@@ -19,6 +19,4 @@ module com.flexganttfx.msproject {
     exports com.flexganttfx.msproject;
     exports com.flexganttfx.msproject.model;
     exports com.flexganttfx.msproject.view;
-
-    opens com.flexganttfx.msproject.files;
 }

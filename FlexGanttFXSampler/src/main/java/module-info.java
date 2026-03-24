@@ -5,9 +5,9 @@
 open module com.flexganttfx.sampler {
 
     requires opencsv;
+    requires org.kordamp.ikonli.core;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.materialdesign;
-//    requires org.scenicview.scenicview;
 
     requires javafx.graphics;
     requires javafx.controls;
@@ -18,9 +18,4 @@ open module com.flexganttfx.sampler {
     requires com.flexganttfx.view;
     requires com.flexganttfx.extras;
     requires com.flexganttfx.msproject;
-
-    provides fxsampler.FXSamplerProject with com.flexganttfx.demo.FlexGanttFXSamplerProject;
-
-    uses fxsampler.FXSamplerProject;
-    uses fxsampler.FXSamplerConfiguration;
 }

@@ -1,48 +1,445 @@
----
-layout: page
-title: FAQ
-add_to_menu: true
-description: "Frequently asked questions regarding FlexGanttFX for JavaFX"
-keywords: "javafx,flexganttfx,java,ui,control,component,dlsc"
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ — FlexGanttFX</title>
+  <meta name="description" content="Frequently asked questions about FlexGanttFX, the professional Gantt chart framework for JavaFX." />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" />
+</head>
+<body>
 
-<section class="page-area bg-color1">
-   <div class="page-wrapper section-spacing">
-      <div class="container">
-         <div class="row">
-            <div class="col-md-12">
-               <div class="page-content-box">
-                  <p>The following questions are the ones that have shown up very frequently in regards to FlexGanttFX, its usage, licensing, etc...</p>
+<nav class="navbar">
+  <div class="container navbar-inner">
+    <div class="navbar-brand-group">
+    <a href="../index.html" class="navbar-logo">
+      <i class="fa-solid fa-chart-gantt logo-icon"></i>
+      FlexGanttFX
+    </a>
+    <span class="navbar-brand-sep"></span>
+    <a href="https://www.dlsc.com" class="navbar-dlsc-link" target="_blank" rel="noopener" title="DLSC Software &amp; Consulting GmbH">
+      <img src="../assets/images/dlsc-logo.png" alt="DLSC" class="navbar-dlsc-logo" />
+    </a>
+  </div>
+      <ul class="navbar-links">
+        <li><a href="../index.html">Home</a></li>
+        <li class="nav-dropdown">
+          <a href="demos.html">Demos</a>
+          <div class="dropdown-menu">
+            <a href="demos.html">Online Demos</a>
+            <a href="https://demos.jpro.one/flexganttfx.html">Emirates Demo ↗</a>
+            <a href="https://demos.jpro.one/msproject.html">MSProject Demo ↗</a>
+          </div>
+        </li>
+        <li class="nav-dropdown">
+          <a href="../manual/index.html">Manual</a>
+          <div class="dropdown-menu">
+            <a href="../manual/index.html">Table of Contents</a>
+            <a href="../manual/installation.html">Installation</a>
+            <a href="../manual/tutorial.html">Tutorial</a>
+            <a href="../manual/gantt-charts.html">Gantt Charts</a>
+            <a href="../manual/timeline.html">Timeline</a>
+            <a href="../manual/dateline.html">Dateline</a>
+            <a href="../manual/eventline.html">Eventline</a>
+            <a href="../manual/graphics.html">Graphics</a>
+            <a href="../manual/model.html">Model</a>
+            <a href="../manual/styling.html">Styling</a>
+            <a href="../manual/logging.html">Logging</a>
+          </div>
+        </li>
+        <li class="nav-dropdown">
+          <a href="#">Docs</a>
+          <div class="dropdown-menu">
+            <a href="faq.html">FAQs</a>
+            <a href="changelog.html">Release Notes</a>
+            <a href="licensing.html">Licensing</a>
+            <a href="../api/index.html">Javadocs / API</a>
+          </div>
+        </li>
+        <li><a href="downloads.html">Downloads</a></li>
+        <li><a href="mailto:dlemmermann@gmail.com" class="nav-cta"><i class="fa-solid fa-envelope" style="font-size:0.8rem"></i> Contact</a></li>
+      </ul>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="container">
+      <a href="../index.html">Home</a>
+      <a href="demos.html">Demos</a>
+      <a href="../manual/index.html">Documentation</a>
+      <a href="faq.html">FAQ</a>
+      <a href="changelog.html">Release Notes</a>
+      <a href="licensing.html">Licensing</a>
+    </div>
+  </div>
+</nav>
 
-                  {% assign x = 0 %}
-                  {% assign y = 0 %}
-                  {% for faq in site.data.faq_page %}
-                      {% assign y = y | plus:1 %}
-                     <h4 class="heading-4 pt-3">{{faq.title}}</h4>
-                     <div class="accordion faq-accordion mb-3" id="faqaccordion{{y}}">
-                        {% for questions in faq.subfaq %}
-                           {% assign x = x | plus:1 %} 
-                           <div class="card">
-                              <div class="card-header" id="headingOne{{x}}">
-                                 <h5 class="mb-0">
-                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne{{x}}" aria-expanded="true">
-                                    Q: {{questions.question}}
-                                    </button>
-                                 </h5>
-                              </div>
-                              <div id="collapseOne{{x}}" class="collapse" aria-labelledby="headingOne{{x}}" data-parent="#faqaccordion{{y}}">
-                                 <div class="card-body">
-                                    <b>Answer:</b> {{questions.answer}}
-                                 </div>
-                              </div>
-                           </div>
-                        {% endfor %}
-                     </div>
-                  {% endfor %}
-               </div>
-            </div>
-         </div>
+<!-- ══ HERO ═══════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container hero-container">
+    <div class="hero-content">
+      <div class="badge badge-dark"><i class="fa-solid fa-circle-question" style="font-size:0.7rem"></i> Support</div>
+      <h1>Frequently Asked <span>Questions</span></h1>
+      <p>Find answers to the most common questions about FlexGanttFX — licensing, platform support, Java versions, and more.</p>
+      <div class="hero-anchor-buttons">
+        <a href="#faq-general" class="btn btn-outline"><i class="fa-solid fa-circle-info"></i> General</a>
+        <a href="#faq-deployment" class="btn btn-outline"><i class="fa-solid fa-server"></i> Deployment</a>
+        <a href="#faq-features" class="btn btn-outline"><i class="fa-solid fa-star"></i> Features</a>
+        <a href="#faq-licensing" class="btn btn-outline"><i class="fa-solid fa-file-contract"></i> Licensing</a>
+        <a href="#faq-customization" class="btn btn-outline"><i class="fa-solid fa-paintbrush"></i> Customization</a>
       </div>
-   </div>
+    </div>
+  </div>
 </section>
-<!-- End Form Area -->
+
+<!-- ══ FAQ ════════════════════════════════════════════════════ -->
+<section class="section">
+  <div class="container" style="max-width:800px">
+
+    <!-- ── General ─────────────────────────────────────────── -->
+    <h2 class="faq-category-heading" id="faq-general">General</h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-question">
+          What is FlexGanttFX?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          FlexGanttFX is a very powerful and complex custom control for JavaFX applications. It is capable of displaying timeline-related data in an attractive visual way. FlexGanttFX allows the editing / modification of the data, hence enabling users to perform planning and scheduling operations. FlexGanttFX does not include any business logic, which means that it is up to the application to react properly when the user has performed a change.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          What can I build with FlexGanttFX?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          You can build any kind of application that requires activities to be shown below a timeline. In most cases our customers build planning and scheduling applications with it. Examples are ERP systems, manufacturing execution systems, etc...
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Is FlexGanttFX open source?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          No, FlexGanttFX is a commercial piece of software. Companies can acquire licenses in order to work with it and to deploy it as an integral part of their solutions.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Which versions of Java does FlexGanttFX support?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          FlexGanttFX supports Java 8 through Java 26. The Java 11+ version can be run with OpenJFX version 11 or higher.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Which versions of JavaFX / OpenJFX does FlexGanttFX support?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          For Java 8, FlexGanttFX works with the JavaFX release that comes bundled with the JDK. For Java 11 through 26, FlexGanttFX can be run with OpenJFX version 11 or higher.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          How do I add FlexGanttFX to my project?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          The FlexGanttFX distribution includes a lib folder. The four JAR files inside that folder need to be added to your application's classpath or module path. In addition a folder called "ext" contains two JAR files that are also required. One is the ControlsFX release needed for FlexGanttFX and one is used for supporting licensing keys.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Do you have a Swing version of FlexGanttFX?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          Yes. It is called FlexGantt and has been around for many years. You can <a href="https://dlsc.com/projects/flexgantt-swing.html" target="_blank"><u>download it from the DLSC website</u></a>. It is also a commercial product and requires licensing just like FlexGanttFX.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Do you have a JavaScript version of FlexGanttFX?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          Our partner AISO has re-implemented the FlexGanttFX API in JavaScript. You should visit their <a href="https://schedulejs.com/en/" target="_blank"><u>product website</u></a>. It is also a commercial product and requires licensing just like FlexGanttFX.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Deployment ───────────────────────────────────────── -->
+    <h2 class="faq-category-heading" id="faq-deployment">Deployment</h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Does FlexGanttFX run in browsers like Chrome or Safari?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          Yes it does but it requires the use of JPRO. You can find <a href="https://www.jpro.one" target="_blank"><u>more information about this product</u></a> on their website.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Does FlexGanttFX run on mobile devices like iPad, iPhone, Android, etc...?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          Yes it does but it requires the use of the <a href="https://gluonhq.com" target="_blank"><u>Gluon Client plugin in combination with the GraalVM</u></a>.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Does FlexGanttFX run on embedded devices?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          We think so because Java and JavaFX run on embedded devices. But to tell you the truth, we haven't had this use case, yet. No customer so far required this. So if you want to do this please give it a try and let us know.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Features ─────────────────────────────────────────── -->
+    <h2 class="faq-category-heading" id="faq-features">Features</h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Do you provide different ways of laying out the timeline data / the activities?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          Yes. FlexGanttFX supports three different layouts. The most used one is the standard Gantt chart layout where activities are shown as horizontal bars. In addition to that applications can display charts / histograms via the chart layout. A very unique layout is the agenda layout where activities are shown similar to a regular calendar view meaning that the y-axis is used for the time of day.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Does FlexGanttFX support printing?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          Not really. In the past we have seen that most applications did not require this feature and that the usability of a printed complex Gantt chart is somewhat limited. Very often the requirements for the printed version were very different to the requirements of the on-screen version. So we decided to leave this task up to the applications using FlexGanttFX. The only thing possible at the moment is to use the standard JavaFX printing approach where the application creates a snapshot of the view and sends that to the printer.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Can I synchronize scrolling between multiple Gantt charts (split screen)?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          Yes you can, simply by binding properties between two or more Gantt chart instances. However, we have already done this for you and added specialized containers that allow you to show two, four, or any number of charts at the same time. These containers are called DualGanttChartContainer, QuadGanttChartContainer, and MultiGanttChartContainer.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          How can the user scroll the timeline?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          The user can scroll via scrollbars that are showing at the bottom of the right-hand side of the Gantt chart. Two different types of scrollbars are supported. A regular scrollbar for a fixed time horizon (earliest and latest time) and a custom scrollbar based on the PlusMinusSlider of the ControlsFX project that allows the user to scroll indefinitely into the past and the future. These scrollbars auto-hide by default and only show up when the user moves the mouse cursor to the bottom edge of the graphics area (can be disabled). The user can also scroll via "panning" where he / she presses the mouse in the background and then drags to the left or right.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Is drag &amp; drop supported?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          Yes it is. You can drag activities between Gantt charts in the same window or more natively between different windows or to the desktop. All of that can be configured.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Is it possible to add controls to the rows?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          Yes it is. A controls factory callback can be registered that will be invoked by each row. The returned controls will be placed on top of the row. Another great feature is the ability to add a whole different UI for each row that becomes visible when the row gets flipped around, meaning this UI is actually "behind" the row and becomes visible upon request.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Licensing ─────────────────────────────────────────── -->
+    <h2 class="faq-category-heading" id="faq-licensing">Licensing</h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Which license types are available?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          We support two license types. A developer license and a runtime license. The <b><i>developer</i></b> license becomes necessary once the 30 day trial period has expired. A developer license allows you to continue using the product but you will see console output that the product can only be used for development purposes. Once your product is ready for release you have to use a <b><i>runtime</i></b> license. This is independent of whether the release will be in-house or to a third party.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Where can I purchase a license?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          You can order directly from <b>DLSC Software &amp; Consulting GmbH</b>. Just <a href="mailto:dlemmermann@gmail.com"><u>send us an email</u></a>.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          How do I set the license key?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          You have to call <code>FlexGanttFX.setLicenseKey("...")</code> before creating any FlexGanttFX controls. Ideally you call this immediately in your application's <code>main()</code> method. Alternatively you can pass the key as a system property called <code>flexganttfx.license</code>.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Customization ─────────────────────────────────────── -->
+    <h2 class="faq-category-heading" id="faq-customization">Customization</h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Can I change the editing behaviour when working with activities?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          Yes you can. A callback can be registered that specifies when exactly which editing operation becomes active. The default callback allows the user to change the start time when the mouse cursor is on the left edge of an activity, change the end time when the cursor is on the right edge of an activity, move the entire activity when the mouse cursor is in the middle. If the activity is a "completable" activity then the left edge will trigger an editing operation where the user can change the "percentage complete" value of the activity.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Can I change the visual appearance of activities?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          Absolutely. Activities in FlexGanttFX are drawn via the Canvas API of JavaFX. Different activity renderers can be registered for different types of activities. The renderers can use the information provided by the activity (e.g. a "status") to draw the activity differently. Renderers give you control over every single pixel on the screen.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Can I add visual information to the rows?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          Yes, this is done via so-called "system layers". FlexGanttFX ships with a standard set of these layers, e.g. a CalendarLayer that knows how to draw things like weekends (gray background). Another example is the GridLinesLayer that knows how to draw grid lines defined by the timeline at the top.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Does FlexGanttFX support layers?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          Yes, layers are first-class citizens in FlexGanttFX. You can have activities on different layers allowing you to overlay your primary activities with secondary activities that are simply used to annotate the primary activities. Layers can be shown or hidden at any time. API is available to also change the order of the layers. The standard Gantt chart toolbar provides a UI that allows you to manipulate the layer order and visibility.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Is the timeline customizable?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          Yes. The timeline consists of two sub-components. The first one, the <b>dateline</b>, is used for showing the actual time / dates / hours. A pluggable cell factory is used to create its UI. The second subcomponent is the <b>eventline</b>. It displays time cursors but also a single "frozen row" where applications can display global activities and events. Those can be customized via pluggable renderers.
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ CONTACT CTA ════════════════════════════════════════════ -->
+<section class="section section-dark" style="text-align:center">
+  <div class="container" style="max-width:600px">
+    <h2>Still have questions?</h2>
+    <p style="margin-bottom:2rem;color:rgba(255,255,255,0.7)">
+      Can't find the answer you're looking for? Get in touch with the team at DLSC.
+    </p>
+    <a href="mailto:dlemmermann@gmail.com" class="btn btn-primary">
+      <i class="fa-solid fa-envelope"></i> Contact Us
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3><i class="fa-solid fa-chart-gantt" style="color:#60A5FA;margin-right:8px"></i>FlexGanttFX</h3>
+        <p>The professional Gantt chart framework for JavaFX.</p>
+        <div style="margin-top:16px; display:flex; gap:12px">
+          <a href="https://www.dlsc.com" class="footer-social-link" title="dlsc.com"><i class="fa-solid fa-globe"></i></a>
+          <a href="https://github.com/dlsc-software-consulting-gmbh" class="footer-social-link" title="GitHub" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/dlemmermann/" class="footer-social-link" title="LinkedIn" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="https://bsky.app/profile/dlemmermann.bsky.social" class="footer-social-link" title="Bluesky" target="_blank" rel="noopener"><i class="fa-brands fa-bluesky"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="demos.html">Demos</a></li>
+          <li><a href="licensing.html">Licensing</a></li>
+          <li><a href="changelog.html">Release Notes</a></li>
+          <li><a href="faq.html">FAQs</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Documentation</h4>
+        <ul>
+          <li><a href="../manual/index.html">Overview</a></li>
+          <li><a href="../manual/installation.html">Installation</a></li>
+          <li><a href="../manual/tutorial.html">Tutorial</a></li>
+          <li><a href="../manual/gantt-charts.html">Gantt Charts</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <a href="https://www.dlsc.com" target="_blank" rel="noopener"><img src="../assets/images/dlsc-logo.png" alt="DLSC Software &amp; Consulting GmbH" class="footer-dlsc-logo" /></a>
+        <ul>
+          <li><a href="https://www.dlsc.com">dlsc.com</a></li>
+          <li><a href="mailto:dlemmermann@gmail.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="copyright-year">2024</span> DLSC Software &amp; Consulting GmbH. All rights reserved.</span>
+      <span>FlexGanttFX v11.12.8</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
