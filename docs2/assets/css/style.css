@@ -461,6 +461,7 @@ a:hover { color: var(--blue-dark); }
 .release-desc { font-size: 0.9rem; color: var(--gray-600); line-height: 1.6; }
 
 /* ── FAQ Accordion ────────────────────────────────────────── */
+.faq-category-heading { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); margin: 2.5rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--gray-200); }
 .faq-list { display: flex; flex-direction: column; gap: 12px; max-width: 800px; margin: 0 auto; }
 .faq-item {
   background: var(--white);
@@ -494,7 +495,7 @@ a:hover { color: var(--blue-dark); }
   padding: 0 20px;
 }
 .faq-answer a { color: var(--blue); }
-.faq-item.open .faq-answer { max-height: 400px; padding: 0 20px 20px; }
+.faq-item.open .faq-answer { max-height: 600px; padding: 0 20px 20px; }
 
 /* ── Testimonials ─────────────────────────────────────────── */
 .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
