@@ -1,0 +1,480 @@
+/*
+ * gantt-theme.css — adapts GanttChart and subcontrols to the active AtlantaFX theme.
+ *
+ * Uses AtlantaFX CSS variables so this file works with all themes
+ * (PrimerDark, PrimerLight, NordDark, NordLight, CupertinoDark, CupertinoLight, Dracula).
+ *
+ * AtlantaFX semantic variables used:
+ *   -color-bg-default        main background
+ *   -color-bg-subtle         slightly offset background (panels, cards)
+ *   -color-bg-inset          deepest / inset background
+ *   -color-fg-default        primary text
+ *   -color-fg-muted          muted / secondary text
+ *   -color-fg-subtle         subtle text
+ *   -color-fg-emphasis       high-contrast text (always readable on accent)
+ *   -color-border-default    standard border
+ *   -color-border-muted      lighter border
+ *   -color-accent-fg         accent foreground (links, icons)
+ *   -color-accent-emphasis   filled accent backgrounds (buttons, badges)
+ *   -color-accent-subtle     translucent accent (hover tints)
+ *   -color-accent-muted      accent selection / highlight
+ */
+
+/* ══════════════════════════════════════════════════════════════════════
+   GANTT CHART CONTAINER
+   ══════════════════════════════════════════════════════════════════════ */
+
+.gantt-chart {
+    -fx-background-color: -color-border-default;
+    -fx-padding: 1px;
+}
+
+/* ── Tree table ──────────────────────────────────────────────────────── */
+.gantt-chart .gantt-tree-table-view,
+.gantt-chart .gantt-tree-table-view:focused {
+    -fx-background-color: -color-bg-default;
+    -fx-border-color: transparent;
+    -fx-table-cell-border-color: -color-border-muted;
+}
+
+.gantt-chart .gantt-tree-table-view .column-header,
+.gantt-chart .gantt-tree-table-view .column-header-background,
+.gantt-chart .gantt-tree-table-view .filler {
+    -fx-background-color: -color-bg-subtle;
+    -fx-border-color: -color-border-default;
+}
+
+.gantt-chart .gantt-tree-table-view .column-header .label {
+    -fx-text-fill: -color-fg-muted;
+}
+
+.gantt-chart .gantt-tree-table-view .tree-table-row-cell {
+    -fx-text-fill: -color-fg-default;
+    -fx-border-color: transparent transparent -color-border-muted transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.gantt-chart .gantt-tree-table-view .tree-table-row-cell:even {
+    -fx-background-color: -color-bg-default;
+    -fx-control-inner-background: -color-bg-default;
+}
+
+.gantt-chart .gantt-tree-table-view .tree-table-row-cell:odd {
+    -fx-background-color: -color-bg-subtle;
+    -fx-control-inner-background: -color-bg-subtle;
+    -fx-control-inner-background-alt: -color-bg-subtle;
+}
+
+.gantt-chart .gantt-tree-table-view .tree-table-row-cell:selected,
+.gantt-chart .gantt-tree-table-view .tree-table-row-cell:selected:focused {
+    -fx-background-color: -color-accent-muted;
+    -fx-text-fill: -color-fg-default;
+}
+
+.gantt-chart .gantt-tree-table-view .tree-table-cell {
+    -fx-text-fill: -color-fg-default;
+}
+
+.gantt-chart .gantt-tree-table-view .tree-disclosure-node .arrow {
+    -fx-background-color: -color-fg-muted;
+}
+
+/* ── Row header ─────────────────────────────────────────────────────── */
+.gantt-chart .row-header-cell {
+    -fx-background-color: -color-border-default, -color-bg-subtle;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-text-fill: -color-fg-subtle;
+}
+
+/* ── Timeline ───────────────────────────────────────────────────────── */
+.gantt-chart .timeline {
+    -fx-background-color: -color-bg-subtle;
+}
+
+/* ── Dateline ───────────────────────────────────────────────────────── */
+.gantt-chart .dateline {
+    -fx-background-color: transparent;
+}
+
+.gantt-chart .dateline-cell {
+    -fx-background-color: -color-border-default, -color-bg-inset, -color-bg-subtle;
+    -fx-background-insets: 0, 0 1 1 0, 1 2 2 1;
+    -fx-font-size: .8em;
+    -fx-padding: 0 2 0 3;
+}
+
+.gantt-chart .dateline-cell > .text {
+    -fx-fill: -color-fg-muted;
+}
+
+.gantt-chart .dateline-cell:hover {
+    -fx-background-color: -color-bg-inset;
+    -fx-effect: innershadow(three-pass-box, rgba(0,0,0,0.4), 5, 0, 0, 1);
+}
+
+.gantt-chart .dateline-cell-selected {
+    -fx-background-color: -color-border-default, -color-bg-inset, -color-accent-muted;
+}
+
+.gantt-chart .scale-bottom > .saturday,
+.gantt-chart .scale-bottom > .sunday {
+    -weekend-color: -color-accent-emphasis;
+    -fx-color: ladder(-color-bg-subtle, -weekend-color 50%, -weekend-color 50%);
+}
+
+.gantt-chart .scale-bottom > .saturday > .text,
+.gantt-chart .scale-bottom > .sunday > .text {
+    -fx-fill: -color-fg-emphasis;
+}
+
+.gantt-chart .zone-id-label {
+    -fx-control-inner-background: -color-accent-emphasis;
+    -fx-text-fill: -color-fg-emphasis;
+    -fx-background-color: -fx-control-inner-background;
+    -fx-padding: .5em;
+}
+
+.gantt-chart .zoom-lasso {
+    -fx-opacity: 50%;
+    -fx-background-color: -color-accent-muted;
+}
+
+/* ── Eventline ──────────────────────────────────────────────────────── */
+.gantt-chart .eventline {
+    -fx-background-color: -color-border-default, -color-bg-inset, -color-bg-subtle;
+    -fx-background-insets: 0, 0 0 1 0, 1 0 2 0;
+}
+
+.gantt-chart .time-cursor {
+    -fx-font-size: .8em;
+    -fx-font-weight: bold;
+    -fx-background-color: -color-accent-emphasis;
+    -fx-text-fill: -color-fg-emphasis;
+    -fx-background-insets: 1 0 1 0;
+    -fx-padding: 0 .25em;
+}
+
+.gantt-chart .marked-time,
+.gantt-chart .marked-time-start,
+.gantt-chart .marked-time-end {
+    -fx-font-size: .8em;
+    -fx-font-weight: bold;
+    -fx-background-color: -color-accent-emphasis;
+    -fx-text-fill: -color-fg-emphasis;
+    -fx-background-insets: 1 0 1 0;
+    -fx-padding: 0 .25em;
+}
+
+.gantt-chart .dst-marker {
+    -fx-font-size: 0.8em;
+    -fx-font-weight: bold;
+    -fx-text-fill: -color-fg-emphasis;
+    -fx-background-color: -color-warning-emphasis;
+    -fx-border-color: -color-warning-fg;
+    -fx-background-insets: 1 0 1 0;
+    -fx-padding: 0 .25em;
+}
+
+/* ── Graphics view ──────────────────────────────────────────────────── */
+.gantt-chart .graphics {
+    -fx-grid-line-color1:  -color-bg-subtle;
+    -fx-grid-line-color2:  -color-border-muted;
+    -fx-grid-line-color3:  -color-border-default;
+    -fx-weekend-color:     -color-accent-subtle;
+    -fx-time-now-color:    -color-accent-fg;
+    -fx-inner-lines-color: -color-border-muted;
+}
+
+.gantt-chart .graphics-list-view {
+    -fx-background-color: -color-bg-default;
+}
+
+.gantt-chart .row-cell {
+    -fx-background-color: -color-bg-default;
+}
+
+.gantt-chart .single-row-pane,
+.gantt-chart .vbox-row-pane,
+.gantt-chart .splitpane-row-pane {
+    -fx-background-color: transparent;
+}
+
+.gantt-chart .row-header {
+    -fx-background-color: -color-border-default, -color-bg-subtle;
+    -fx-background-insets: 0, 0 1 1 0;
+    -fx-text-fill: -color-fg-subtle;
+}
+
+.gantt-chart .activities-lasso {
+    -fx-stroke: -color-accent-fg;
+    -fx-fill: -color-accent-subtle;
+}
+
+.gantt-chart .horizontal-cursor,
+.gantt-chart .vertical-cursor {
+    -fx-stroke: -color-accent-fg;
+}
+
+.gantt-chart .horizontal-cursor-indicator {
+    -fx-background-color: -color-accent-fg, -color-bg-default;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 5px;
+}
+
+.gantt-chart .marked-time-line {
+    -fx-stroke: -color-accent-emphasis;
+}
+
+/* ── Time slider ────────────────────────────────────────────────────── */
+.gantt-chart .time-slider:horizontal {
+    -fx-background-color: -color-bg-inset;
+}
+
+.gantt-chart .time-slider > * > .slider > .thumb {
+    -fx-background-color: -color-border-default, -color-bg-subtle, -color-bg-inset;
+    -fx-background-insets: 2, 3, 4;
+    -fx-background-radius: 3;
+}
+
+/* ── Graphic view header (multi-chart context) ──────────────────────── */
+.gantt-chart .graphic-view-header {
+    -fx-background-color: -color-bg-subtle;
+    -fx-border-color: -color-border-default;
+    -fx-border-width: 0 0 1 0;
+}
+
+/* ── Split pane divider inside GanttChart ───────────────────────────── */
+.gantt-chart > .split-pane > .split-pane-divider {
+    -fx-background-color: -color-border-default;
+    -fx-padding: 0 1 0 0;
+}
+
+/* ── GanttChartToolBar ──────────────────────────────────────────────── */
+.gantt-chart-tool-bar {
+    -fx-background-color: -color-bg-subtle;
+    -fx-border-color: transparent transparent -color-border-default transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+/* ── GanttChartStatusBar ────────────────────────────────────────────── */
+.gantt-chart-status-bar {
+    -fx-background-color: -color-bg-inset;
+    -fx-border-color: -color-border-default transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+    -fx-font-size: 11px;
+    -fx-padding: 4 8 4 8;
+}
+
+.gantt-chart-status-bar .label {
+    -fx-text-fill: -color-fg-muted;
+}
+
+/* ── Layers control ─────────────────────────────────────────────────── */
+.gantt-chart .layers-table-header {
+    -fx-text-fill: -color-fg-muted;
+    -fx-border-color: transparent transparent -color-border-default transparent;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   STANDALONE TIMELINE (not inside .gantt-chart)
+   ══════════════════════════════════════════════════════════════════════ */
+
+.timeline {
+    -fx-background-color: -color-bg-subtle;
+}
+
+.dateline {
+    -fx-background-color: transparent;
+}
+
+.dateline-cell {
+    -fx-background-color: -color-border-default, -color-bg-inset, -color-bg-subtle;
+    -fx-background-insets: 0, 0 1 1 0, 1 2 2 1;
+    -fx-font-size: .8em;
+    -fx-padding: 0 2 0 3;
+}
+
+.dateline-cell > .text {
+    -fx-fill: -color-fg-muted;
+}
+
+.dateline-cell:hover {
+    -fx-background-color: -color-bg-inset;
+    -fx-effect: innershadow(three-pass-box, rgba(0,0,0,0.4), 5, 0, 0, 1);
+}
+
+.dateline-cell-selected {
+    -fx-background-color: -color-border-default, -color-bg-inset, -color-accent-muted;
+}
+
+.scale-bottom > .saturday,
+.scale-bottom > .sunday {
+    -weekend-color: -color-accent-emphasis;
+    -fx-color: ladder(-color-bg-subtle, -weekend-color 50%, -weekend-color 50%);
+}
+
+.scale-bottom > .saturday > .text,
+.scale-bottom > .sunday > .text {
+    -fx-fill: -color-fg-emphasis;
+}
+
+.eventline {
+    -fx-background-color: -color-border-default, -color-bg-inset, -color-bg-subtle;
+    -fx-background-insets: 0, 0 0 1 0, 1 0 2 0;
+}
+
+.time-cursor {
+    -fx-font-size: .8em;
+    -fx-font-weight: bold;
+    -fx-background-color: -color-accent-emphasis;
+    -fx-text-fill: -color-fg-emphasis;
+    -fx-background-insets: 1 0 1 0;
+    -fx-padding: 0 .25em;
+}
+
+.marked-time {
+    -fx-font-size: .8em;
+    -fx-font-weight: bold;
+    -fx-background-color: -color-accent-emphasis;
+    -fx-text-fill: -color-fg-emphasis;
+    -fx-background-insets: 1 0 1 0;
+    -fx-padding: 0 .25em;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   SPLIT PANE (global — all SplitPanes in the app)
+   ══════════════════════════════════════════════════════════════════════ */
+
+.split-pane {
+    -fx-background-color: -color-bg-default;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}
+
+.split-pane > .split-pane-divider {
+    -fx-background-color: -color-border-default;
+    -fx-padding: 0 1 0 0;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   TAB PANE (GanttChartConfigurationView and others)
+   ══════════════════════════════════════════════════════════════════════ */
+
+.tab-pane .tab-header-area {
+    -fx-background-color: -color-bg-inset;
+    -fx-padding: 0;
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: -color-bg-inset;
+}
+
+.tab-pane .tab {
+    -fx-background-color: -color-bg-subtle;
+    -fx-background-radius: 0;
+    -fx-padding: 4 10 4 10;
+    -fx-border-color: transparent;
+}
+
+.tab-pane .tab .tab-label {
+    -fx-text-fill: -color-fg-muted;
+    -fx-font-size: 12px;
+}
+
+.tab-pane .tab:hover .tab-label {
+    -fx-text-fill: -color-fg-default;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: -color-bg-subtle;
+    -fx-border-color: transparent transparent -color-accent-emphasis transparent;
+    -fx-border-width: 0 0 2 0;
+}
+
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: -color-fg-emphasis;
+}
+
+.tab-pane .tab-content-area {
+    -fx-background-color: -color-bg-subtle;
+    -fx-padding: 0;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   PROPERTY SHEET (ControlsFX — GanttChartConfigurationView)
+   ══════════════════════════════════════════════════════════════════════ */
+
+.property-sheet {
+    -fx-background-color: -color-bg-subtle;
+}
+
+.property-sheet .scroll-pane,
+.property-sheet .scroll-pane .viewport,
+.property-sheet .scroll-pane .property-pane {
+    -fx-background-color: -color-bg-subtle;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+/* Category accordion headers */
+.property-sheet .accordion {
+    -fx-padding: 0;
+}
+
+.property-sheet .accordion .titled-pane > .title {
+    -fx-background-color: -color-bg-inset;
+    -fx-border-color: transparent transparent -color-border-default transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 6 10 6 10;
+}
+
+.property-sheet .accordion .titled-pane > .title > .text {
+    -fx-fill: -color-fg-default;
+    -fx-font-weight: bold;
+    -fx-font-size: 11px;
+}
+
+.property-sheet .accordion .titled-pane > .title .arrow {
+    -fx-background-color: -color-fg-muted;
+}
+
+.property-sheet .accordion .titled-pane > .content {
+    -fx-background-color: -color-bg-subtle;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+/* Property label rows */
+.property-sheet .property-pane .property-label {
+    -fx-background-color: -color-bg-subtle;
+    -fx-text-fill: -color-fg-default;
+    -fx-font-size: 12px;
+    -fx-padding: 4 8 4 8;
+    -fx-border-color: transparent transparent -color-border-muted transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.property-sheet .property-pane .property-label:hover {
+    -fx-background-color: -color-bg-inset;
+}
+
+/* ComboBox popup */
+.combo-box-popup .list-view {
+    -fx-background-color: -color-bg-subtle;
+    -fx-border-color: -color-border-default;
+}
+
+.combo-box-popup .list-view .list-cell {
+    -fx-background-color: -color-bg-subtle;
+    -fx-text-fill: -color-fg-default;
+    -fx-padding: 4 8 4 8;
+}
+
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: -color-bg-inset;
+}
+
+.combo-box-popup .list-view .list-cell:selected {
+    -fx-background-color: -color-accent-muted;
+    -fx-text-fill: -color-fg-default;
+}

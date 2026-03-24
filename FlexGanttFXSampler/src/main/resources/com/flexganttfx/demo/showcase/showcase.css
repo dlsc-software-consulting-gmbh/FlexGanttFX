@@ -1,5 +1,6 @@
 /* =====================================================================
    FlexGanttFX Feature Showcase — showcase.css
+   Uses AtlantaFX CSS variables so it adapts to every theme.
    ===================================================================== */
 
 /* ── Root / global ─────────────────────────────────────────────────── */
@@ -10,38 +11,40 @@
 
 /* ── Top bar ────────────────────────────────────────────────────────── */
 .showcase-top-bar {
-    -fx-background-color: #1E1F22;
+    -fx-background-color: -color-bg-inset;
     -fx-padding: 0 16 0 16;
     -fx-min-height: 56px;
     -fx-max-height: 56px;
     -fx-pref-height: 56px;
     -fx-alignment: CENTER_LEFT;
     -fx-spacing: 12;
+    -fx-border-color: transparent transparent -color-border-default transparent;
+    -fx-border-width: 0 0 1 0;
 }
 
 .showcase-logo-label {
-    -fx-text-fill: #FFFFFF;
+    -fx-text-fill: -color-fg-emphasis;
     -fx-font-size: 18px;
     -fx-font-weight: bold;
 }
 
 .showcase-version-badge {
-    -fx-background-color: #3574F0;
-    -fx-text-fill: #FFFFFF;
+    -fx-background-color: -color-accent-emphasis;
+    -fx-text-fill: -color-fg-emphasis;
     -fx-padding: 2 8 2 8;
     -fx-background-radius: 10;
     -fx-font-size: 11px;
 }
 
 .showcase-tagline {
-    -fx-text-fill: #9DA5B4;
+    -fx-text-fill: -color-fg-muted;
     -fx-font-size: 12px;
 }
 
 .showcase-website-btn {
     -fx-background-color: transparent;
-    -fx-text-fill: #4FC1FF;
-    -fx-border-color: #4FC1FF;
+    -fx-text-fill: -color-accent-fg;
+    -fx-border-color: -color-accent-fg;
     -fx-border-radius: 4;
     -fx-border-width: 1;
     -fx-padding: 4 12 4 12;
@@ -49,22 +52,28 @@
     -fx-font-size: 12px;
 }
 .showcase-website-btn:hover {
-    -fx-background-color: rgba(79, 193, 255, 0.15);
+    -fx-background-color: -color-accent-subtle;
+}
+
+.showcase-theme-combo {
+    -fx-font-size: 12px;
 }
 
 /* ── Sidebar ─────────────────────────────────────────────────────────── */
 .showcase-sidebar {
-    -fx-background-color: #2B2D30;
+    -fx-background-color: -color-bg-subtle;
     -fx-pref-width: 250px;
     -fx-min-width: 250px;
     -fx-max-width: 250px;
+    -fx-border-color: transparent -color-border-default transparent transparent;
+    -fx-border-width: 0 1 0 0;
 }
 
 .sidebar-search-field {
-    -fx-background-color: #3C3F41;
-    -fx-text-fill: #BBBBBB;
-    -fx-prompt-text-fill: #6B6B6B;
-    -fx-border-color: transparent;
+    -fx-background-color: -color-bg-inset;
+    -fx-text-fill: -color-fg-default;
+    -fx-prompt-text-fill: -color-fg-subtle;
+    -fx-border-color: -color-border-default;
     -fx-border-radius: 4;
     -fx-background-radius: 4;
     -fx-padding: 4 8 4 8;
@@ -72,7 +81,7 @@
 
 .sidebar-category-header {
     -fx-background-color: transparent;
-    -fx-text-fill: #9DA5B4;
+    -fx-text-fill: -color-fg-muted;
     -fx-font-size: 11px;
     -fx-font-weight: bold;
     -fx-padding: 10 12 4 12;
@@ -80,17 +89,17 @@
     -fx-cursor: hand;
 }
 .sidebar-category-header:hover {
-    -fx-text-fill: #CCCCCC;
+    -fx-text-fill: -color-fg-default;
 }
 
 .sidebar-category-icon {
     -fx-icon-size: 14px;
-    -fx-icon-color: #9DA5B4;
+    -fx-icon-color: -color-fg-muted;
 }
 
 .sidebar-sample-row {
     -fx-background-color: transparent;
-    -fx-text-fill: #BBBBBB;
+    -fx-text-fill: -color-fg-muted;
     -fx-font-size: 12px;
     -fx-padding: 5 12 5 32;
     -fx-alignment: CENTER_LEFT;
@@ -99,17 +108,17 @@
     -fx-max-width: 250px;
 }
 .sidebar-sample-row:hover {
-    -fx-background-color: #3C3F41;
-    -fx-text-fill: #FFFFFF;
+    -fx-background-color: -color-bg-inset;
+    -fx-text-fill: -color-fg-default;
 }
 .sidebar-sample-row.selected {
-    -fx-background-color: #214283;
-    -fx-text-fill: #FFFFFF;
+    -fx-background-color: -color-accent-subtle;
+    -fx-text-fill: -color-accent-fg;
 }
 
 /* ── Welcome view ──────────────────────────────────────────────────── */
 .welcome-root {
-    -fx-background-color: #1E1F22;
+    -fx-background-color: -color-bg-default;
 }
 
 .welcome-hero {
@@ -119,18 +128,18 @@
 }
 
 .welcome-product-name {
-    -fx-text-fill: #FFFFFF;
+    -fx-text-fill: -color-fg-emphasis;
     -fx-font-size: 48px;
     -fx-font-weight: bold;
 }
 
 .welcome-tagline {
-    -fx-text-fill: #9DA5B4;
+    -fx-text-fill: -color-fg-muted;
     -fx-font-size: 20px;
 }
 
 .welcome-description {
-    -fx-text-fill: #CCCCCC;
+    -fx-text-fill: -color-fg-default;
     -fx-font-size: 14px;
     -fx-text-alignment: CENTER;
     -fx-wrap-text: true;
@@ -139,8 +148,8 @@
 }
 
 .welcome-cta-btn {
-    -fx-background-color: #3574F0;
-    -fx-text-fill: #FFFFFF;
+    -fx-background-color: -color-accent-emphasis;
+    -fx-text-fill: -color-fg-emphasis;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-padding: 10 28 10 28;
@@ -148,7 +157,7 @@
     -fx-cursor: hand;
 }
 .welcome-cta-btn:hover {
-    -fx-background-color: #4A85F5;
+    -fx-opacity: 0.9;
 }
 
 .welcome-cards-area {
@@ -159,18 +168,20 @@
 }
 
 .feature-card {
-    -fx-background-color: #2B2D30;
+    -fx-background-color: -color-bg-subtle;
     -fx-background-radius: 10;
     -fx-padding: 24 20 24 20;
     -fx-spacing: 12;
     -fx-alignment: TOP_CENTER;
     -fx-pref-width: 180px;
     -fx-min-width: 160px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 8, 0, 0, 2);
+    -fx-border-color: -color-border-default;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
 }
 .feature-card:hover {
-    -fx-background-color: #313438;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 12, 0, 0, 4);
+    -fx-background-color: -color-bg-inset;
     -fx-translate-y: -2;
 }
 
@@ -179,14 +190,14 @@
 }
 
 .feature-card-title {
-    -fx-text-fill: #FFFFFF;
+    -fx-text-fill: -color-fg-default;
     -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-text-alignment: CENTER;
 }
 
 .feature-card-desc {
-    -fx-text-fill: #9DA5B4;
+    -fx-text-fill: -color-fg-muted;
     -fx-font-size: 11px;
     -fx-text-alignment: CENTER;
     -fx-wrap-text: true;
@@ -194,13 +205,13 @@
 
 /* ── Sample content view ───────────────────────────────────────────── */
 .sample-content-root {
-    -fx-background-color: #FAFAFA;
+    -fx-background-color: -color-bg-default;
 }
 
 .sample-header {
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: -color-bg-subtle;
     -fx-padding: 16 24 16 24;
-    -fx-border-color: #E0E0E0;
+    -fx-border-color: transparent transparent -color-border-default transparent;
     -fx-border-width: 0 0 1 0;
     -fx-spacing: 6;
 }
@@ -208,42 +219,42 @@
 .sample-header-title {
     -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-text-fill: #1A1A1A;
+    -fx-text-fill: -color-fg-emphasis;
 }
 
 .sample-header-desc {
     -fx-font-size: 13px;
-    -fx-text-fill: #666666;
+    -fx-text-fill: -color-fg-muted;
     -fx-wrap-text: true;
 }
 
 .sample-header-category {
     -fx-background-color: transparent;
-    -fx-text-fill: #888888;
+    -fx-text-fill: -color-fg-subtle;
     -fx-font-size: 11px;
     -fx-padding: 0;
 }
 
 .sample-split-pane {
-    -fx-background-color: #F5F5F5;
+    -fx-background-color: -color-bg-default;
     -fx-padding: 0;
 }
 
 .sample-split-pane > .split-pane-divider {
-    -fx-background-color: #E0E0E0;
+    -fx-background-color: -color-border-default;
     -fx-pref-width: 1px;
 }
 
 .control-panel-wrapper {
-    -fx-background-color: #FFFFFF;
-    -fx-border-color: transparent #E0E0E0 transparent transparent;
-    -fx-border-width: 0 1 0 0;
+    -fx-background-color: -color-bg-subtle;
+    -fx-border-color: transparent -color-border-default transparent transparent;
+    -fx-border-width: 0 0 0 1;
     -fx-padding: 12;
 }
 
 .control-panel-title {
     -fx-font-size: 11px;
     -fx-font-weight: bold;
-    -fx-text-fill: #888888;
+    -fx-text-fill: -color-fg-muted;
     -fx-padding: 0 0 8 0;
 }

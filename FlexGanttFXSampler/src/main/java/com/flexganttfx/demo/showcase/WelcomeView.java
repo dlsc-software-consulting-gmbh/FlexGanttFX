@@ -15,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
@@ -98,7 +99,8 @@ public class WelcomeView extends BorderPane {
     private VBox featureCard(MaterialDesign icon, String iconColor, String title, String description) {
         FontIcon fontIcon = new FontIcon(icon);
         fontIcon.getStyleClass().add("feature-card-icon");
-        fontIcon.setStyle("-fx-icon-color: " + iconColor + "; -fx-icon-size: 36px;");
+        fontIcon.setIconColor(Color.web(iconColor));
+        fontIcon.setIconSize(36);
 
         Label titleLabel = new Label(title);
         titleLabel.getStyleClass().add("feature-card-title");

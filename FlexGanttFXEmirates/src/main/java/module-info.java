@@ -2,7 +2,7 @@
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
  * This file is part of FlexGanttFX.
  */
-module com.flexganttfx.emirates {
+open module com.flexganttfx.emirates {
 
     requires jpro.webapi;
 
@@ -14,6 +14,6 @@ module com.flexganttfx.emirates {
     requires org.kordamp.ikonli.materialdesign;
 
     exports com.flexganttfx.emirates;
-
-    opens com.flexganttfx.emirates.model;
+    exports com.flexganttfx.emirates.model;
+    exports com.flexganttfx.emirates.view;
 }

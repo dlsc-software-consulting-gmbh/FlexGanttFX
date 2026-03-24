@@ -40,6 +40,24 @@
 		-->
 
 		<dependency>
+			<groupId>io.github.mkpaz</groupId>
+			<artifactId>devtoolsfx-connector</artifactId>
+			<version>${devtoolsfx.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.github.mkpaz</groupId>
+			<artifactId>devtoolsfx-gui</artifactId>
+			<version>${devtoolsfx.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.dlsc.gemsfx</groupId>
+			<artifactId>gemsfx</artifactId>
+			<version>${gemsfx.version}</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.flexganttfx</groupId>
 			<artifactId>view</artifactId>
 			<version>${project.parent.version}</version>
@@ -60,6 +78,18 @@
 		<dependency>
 			<groupId>com.flexganttfx</groupId>
 			<artifactId>extras</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.flexganttfx</groupId>
+			<artifactId>emirates</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.flexganttfx</groupId>
+			<artifactId>factory</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 
@@ -91,6 +121,12 @@
 			<groupId>org.kordamp.ikonli</groupId>
 			<artifactId>ikonli-javafx</artifactId>
 			<version>${ikonli.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.github.mkpaz</groupId>
+			<artifactId>atlantafx-base</artifactId>
+			<version>${atlantafx.version}</version>
 		</dependency>
 
 	</dependencies>

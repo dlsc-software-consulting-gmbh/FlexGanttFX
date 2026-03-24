@@ -5,6 +5,7 @@
 package com.flexganttfx.demo.showcase;
 
 import com.flexganttfx.demo.container.*;
+import com.flexganttfx.demo.demos.*;
 import com.flexganttfx.demo.gantt.*;
 import com.flexganttfx.demo.layout.*;
 import com.flexganttfx.demo.model.*;
@@ -74,6 +75,14 @@ public class SampleRegistry {
             List.of(
                 HelloChronoUnitTimeline::new,
                 HelloSimpleUnitTimeline::new
+            )
+        ),
+
+        new SampleCategory("Demos", MaterialDesign.MDI_ROCKET, "#FF6B35",
+            List.of(
+                EmiratesSample::new,
+                MSProjectSample::new,
+                FactorySample::new
             )
         )
     );

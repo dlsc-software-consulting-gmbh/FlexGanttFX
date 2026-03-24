@@ -4,6 +4,11 @@
  */
 open module com.flexganttfx.sampler {
 
+    requires atlantafx.base;
+    requires devtoolsfx.connector;
+    requires devtoolsfx.gui;
+    requires com.dlsc.gemsfx;
+    requires java.prefs;
     requires opencsv;
     requires org.kordamp.ikonli.core;
     requires org.kordamp.ikonli.javafx;
@@ -18,4 +23,6 @@ open module com.flexganttfx.sampler {
     requires com.flexganttfx.view;
     requires com.flexganttfx.extras;
     requires com.flexganttfx.msproject;
+    requires com.flexganttfx.emirates;
+    requires com.flexganttfx.factory;
 }

@@ -4,13 +4,18 @@
  */
 package com.flexganttfx.demo.showcase;
 
+import atlantafx.base.theme.*;
 import com.flexganttfx.core.FlexGanttFX;
+import devtoolsfx.gui.GUI;
 import fxsampler.Sample;
+import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -18,6 +23,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
@@ -25,11 +31,46 @@ import org.kordamp.ikonli.materialdesign.MaterialDesign;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
+import java.util.prefs.Preferences;
 
 /**
  * Root layout: top bar + sidebar + content area.
  */
 public class ShowcaseView extends BorderPane {
+
+    /** Sentinel theme that restores JavaFX's built-in Modena stylesheet. */
+    private static final Theme MODENA = Theme.of("Modena", Application.STYLESHEET_MODENA, false);
+
+    private static final List<Theme> THEMES = List.of(
+        new PrimerDark(),
+        new PrimerLight(),
+        new NordDark(),
+        new NordLight(),
+        new CupertinoDark(),
+        new CupertinoLight(),
+        new Dracula(),
+        MODENA
+    );
+
+    private static final Preferences PREFS = Preferences.userNodeForPackage(ShowcaseView.class);
+    private static final String PREF_THEME = "theme";
+
+    /** Applies the persisted theme (or PrimerDark) before the scene is created. */
+    public static void applyPersistedTheme() {
+        Application.setUserAgentStylesheet(resolvePersistedTheme().getUserAgentStylesheet());
+    }
+
+    private static Theme resolvePersistedTheme() {
+        String saved = PREFS.get(PREF_THEME, null);
+        if (saved != null) {
+            for (Theme t : THEMES) {
+                if (t.getName().equals(saved)) {
+                    return t;
+                }
+            }
+        }
+        return THEMES.get(0); // default: PrimerDark
+    }
 
     private final SampleContentView contentView;
     private final WelcomeView welcomeView;
@@ -42,21 +83,22 @@ public class ShowcaseView extends BorderPane {
         contentView = new SampleContentView(stage);
         welcomeView = new WelcomeView(this::selectFirstSample);
 
-        setTop(buildTopBar(hostServices));
+        setTop(buildTopBar(stage, hostServices));
         setLeft(buildSidebar());
         setCenter(welcomeView);
     }
 
     // ── Top bar ──────────────────────────────────────────────────────────
 
-    private HBox buildTopBar(HostServices hostServices) {
+    private HBox buildTopBar(Stage stage, HostServices hostServices) {
         HBox bar = new HBox();
         bar.getStyleClass().add("showcase-top-bar");
         bar.setAlignment(Pos.CENTER_LEFT);
         bar.setSpacing(10);
 
         FontIcon logoIcon = new FontIcon(MaterialDesign.MDI_CHART_GANTT);
-        logoIcon.setStyle("-fx-icon-color: #4A90D9; -fx-icon-size: 24px;");
+        logoIcon.setIconColor(Color.web("#4A90D9"));
+        logoIcon.setIconSize(24);
 
         Label logoLabel = new Label("FlexGanttFX");
         logoLabel.getStyleClass().add("showcase-logo-label");
@@ -70,6 +112,28 @@ public class ShowcaseView extends BorderPane {
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
+        // ── Theme switcher ────────────────────────────────────────────────
+        Label themeLabel = new Label("Theme:");
+        themeLabel.getStyleClass().add("showcase-tagline");
+
+        ComboBox<Theme> themeCombo = new ComboBox<>();
+        themeCombo.getItems().addAll(THEMES);
+        themeCombo.setValue(resolvePersistedTheme());
+        themeCombo.getStyleClass().add("showcase-theme-combo");
+        themeCombo.setPrefWidth(160);
+        themeCombo.setCellFactory(lv -> new ThemeCell());
+        themeCombo.setButtonCell(new ThemeCell());
+        themeCombo.valueProperty().addListener((obs, oldTheme, newTheme) -> {
+            if (newTheme != null) {
+                Application.setUserAgentStylesheet(newTheme.getUserAgentStylesheet());
+                PREFS.put(PREF_THEME, newTheme.getName());
+            }
+        });
+
+        Button scenicViewBtn = new Button("DevToolsFX");
+        scenicViewBtn.getStyleClass().add("showcase-website-btn");
+        scenicViewBtn.setOnAction(e -> GUI.openToolStage(stage, hostServices));
+
         Button websiteBtn = new Button("flexganttfx.com  ↗");
         websiteBtn.getStyleClass().add("showcase-website-btn");
         websiteBtn.setOnAction(e -> {
@@ -78,8 +142,17 @@ public class ShowcaseView extends BorderPane {
             }
         });
 
-        bar.getChildren().addAll(logoIcon, logoLabel, badge, tagline, spacer, websiteBtn);
+        bar.getChildren().addAll(logoIcon, logoLabel, badge, tagline, spacer, themeLabel, themeCombo, scenicViewBtn, websiteBtn);
         return bar;
+    }
+
+    /** Simple ListCell that shows the theme name. */
+    private static class ThemeCell extends ListCell<Theme> {
+        @Override
+        protected void updateItem(Theme theme, boolean empty) {
+            super.updateItem(theme, empty);
+            setText(empty || theme == null ? null : theme.getName());
+        }
     }
 
     // ── Sidebar ───────────────────────────────────────────────────────────
@@ -107,7 +180,7 @@ public class ShowcaseView extends BorderPane {
         ScrollPane scrollPane = new ScrollPane(categoriesBox);
         scrollPane.setFitToWidth(true);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setStyle("-fx-background-color: transparent; -fx-border-color: transparent; -fx-background: #2B2D30;");
+        scrollPane.setStyle("-fx-background-color: transparent; -fx-border-color: transparent; -fx-background: -color-bg-subtle;");
         VBox.setVgrow(scrollPane, Priority.ALWAYS);
 
         sidebar.getChildren().add(scrollPane);
@@ -129,13 +202,15 @@ public class ShowcaseView extends BorderPane {
 
         FontIcon catIcon = new FontIcon(category.getIcon());
         catIcon.getStyleClass().add("sidebar-category-icon");
-        catIcon.setStyle("-fx-icon-color: " + category.getAccentColor() + "; -fx-icon-size: 14px;");
+        catIcon.setIconColor(Color.web(category.getAccentColor()));
+        catIcon.setIconSize(14);
 
         Label catLabel = new Label(category.getName().toUpperCase());
         catLabel.setStyle("-fx-text-fill: " + category.getAccentColor() + "; -fx-font-size: 11px; -fx-font-weight: bold;");
 
         FontIcon expandIcon = new FontIcon(MaterialDesign.MDI_CHEVRON_DOWN);
-        expandIcon.setStyle("-fx-icon-color: #6B6B6B; -fx-icon-size: 12px;");
+        expandIcon.setIconColor(Color.web("#6B6B6B"));
+        expandIcon.setIconSize(12);
 
         Region headerSpacer = new Region();
         HBox.setHgrow(headerSpacer, Priority.ALWAYS);
