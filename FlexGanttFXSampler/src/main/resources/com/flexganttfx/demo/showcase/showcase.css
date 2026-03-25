@@ -11,14 +11,14 @@
 
 /* ── Top bar ────────────────────────────────────────────────────────── */
 .showcase-top-bar {
-    -fx-background-color: -color-bg-inset;
+    -fx-background-color: #0f172a;
     -fx-padding: 0 16 0 16;
     -fx-min-height: 56px;
     -fx-max-height: 56px;
     -fx-pref-height: 56px;
     -fx-alignment: CENTER_LEFT;
     -fx-spacing: 12;
-    -fx-border-color: transparent transparent -color-border-default transparent;
+    -fx-border-color: transparent transparent #1e3a5f transparent;
     -fx-border-width: 0 0 1 0;
 }
 

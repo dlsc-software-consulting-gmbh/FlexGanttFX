@@ -5,7 +5,6 @@
 package com.flexganttfx.demo.showcase;
 
 import atlantafx.base.theme.*;
-import com.flexganttfx.core.FlexGanttFX;
 import devtoolsfx.gui.GUI;
 import com.flexganttfx.demo.Sample;
 import javafx.application.Application;
@@ -99,25 +98,14 @@ public class ShowcaseView extends BorderPane {
         bar.setAlignment(Pos.CENTER_LEFT);
         bar.setSpacing(10);
 
-        FontIcon logoIcon = new FontIcon(MaterialDesign.MDI_CHART_GANTT);
-        logoIcon.setIconColor(Color.web("#4A90D9"));
-        logoIcon.setIconSize(24);
-
-        Label logoLabel = new Label("FlexGanttFX");
-        logoLabel.getStyleClass().add("showcase-logo-label");
-
-        Label badge = new Label("v" + FlexGanttFX.getVersion());
-        badge.getStyleClass().add("showcase-version-badge");
-
-        // Clicking the logo navigates back to the welcome view
-        HBox logoGroup = new HBox(8, logoIcon, logoLabel, badge);
-        logoGroup.setAlignment(Pos.CENTER_LEFT);
-        logoGroup.setCursor(Cursor.HAND);
-        logoGroup.getStyleClass().add("showcase-logo-group");
-        logoGroup.setOnMouseClicked(e -> showWelcome());
-
-        Label tagline = new Label("Feature Showcase");
-        tagline.getStyleClass().add("showcase-tagline");
+        // Logo PNG — clicking navigates home
+        ImageView logoImage = new ImageView(new Image(
+                ShowcaseView.class.getResourceAsStream("flexganttfx-logo.png")));
+        logoImage.setFitHeight(46);
+        logoImage.setPreserveRatio(true);
+        logoImage.setSmooth(true);
+        logoImage.setCursor(Cursor.HAND);
+        logoImage.setOnMouseClicked(e -> showWelcome());
 
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
@@ -152,13 +140,13 @@ public class ShowcaseView extends BorderPane {
             }
         });
 
-        ImageView dlscLogo = new ImageView(new Image(ShowcaseView.class.getResourceAsStream("/com/flexganttfx/demo/showcase/dlsc-logo.png")));
+        ImageView dlscLogo = new ImageView(new Image(ShowcaseView.class.getResourceAsStream("/com/flexganttfx/demo/showcase/dlsc-logo-small.png")));
         dlscLogo.setFitHeight(28);
         dlscLogo.setPreserveRatio(true);
         dlscLogo.setSmooth(true);
         HBox.setMargin(dlscLogo, new Insets(0, 0, 0, 24));
 
-        bar.getChildren().addAll(logoGroup, tagline, dlscLogo, spacer, themeLabel, themeCombo, scenicViewBtn, websiteBtn);
+        bar.getChildren().addAll(logoImage, dlscLogo, spacer, themeLabel, themeCombo, scenicViewBtn, websiteBtn);
         return bar;
     }
 
