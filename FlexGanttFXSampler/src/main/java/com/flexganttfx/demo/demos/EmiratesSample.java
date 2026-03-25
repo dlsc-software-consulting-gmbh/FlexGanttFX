@@ -79,30 +79,6 @@ public class EmiratesSample extends FlexGanttFXSampleBase {
     }
 
     @Override
-    public Node getControlPanel() {
-        if (gantt == null) {
-            return null;
-        }
-        Label label = new Label("Data Set:");
-        label.setStyle("-fx-font-weight: bold;");
-
-        ComboBox<DataSet> dataSetBox = new ComboBox<>();
-        dataSetBox.getItems().setAll(DataSet.values());
-        dataSetBox.getSelectionModel().selectFirst();
-        dataSetBox.setPrefWidth(200);
-        dataSetBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal != null) {
-                load(newVal);
-            }
-        });
-
-        HBox box = new HBox(10, label, dataSetBox);
-        box.setPadding(new Insets(12));
-        box.setAlignment(Pos.CENTER_LEFT);
-        return box;
-    }
-
-    @Override
     public void dispose() {
         super.dispose();
         gantt = null;

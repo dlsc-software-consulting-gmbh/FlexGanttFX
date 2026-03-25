@@ -78,11 +78,6 @@ public class MSProjectSample extends FlexGanttFXSampleBase {
     }
 
     @Override
-    public Node getControlPanel() {
-        return gantt != null ? new GanttChartConfigurationView(gantt) : null;
-    }
-
-    @Override
     public void dispose() {
         super.dispose();
         gantt = null;

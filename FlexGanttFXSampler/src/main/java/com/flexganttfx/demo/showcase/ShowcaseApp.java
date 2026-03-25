@@ -6,6 +6,7 @@ package com.flexganttfx.demo.showcase;
 
 import com.dlsc.gemsfx.util.StageManager;
 import com.flexganttfx.core.FlexGanttFX;
+import fr.brouillard.oss.cssfx.CSSFX;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
@@ -59,6 +60,7 @@ public class ShowcaseApp extends Application {
 
         stage.setTitle("FlexGanttFX — Feature Showcase");
         stage.setScene(scene);
+        CSSFX.start(scene);
         StageManager.install(stage, "flexganttfx-showcase");
         stage.show();
     }

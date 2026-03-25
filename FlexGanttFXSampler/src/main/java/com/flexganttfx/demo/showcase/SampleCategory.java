@@ -4,7 +4,7 @@
  */
 package com.flexganttfx.demo.showcase;
 
-import fxsampler.Sample;
+import com.flexganttfx.demo.Sample;
 import org.kordamp.ikonli.Ikon;
 
 import java.util.List;

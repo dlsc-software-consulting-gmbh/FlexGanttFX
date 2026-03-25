@@ -4,6 +4,7 @@
  */
 open module com.flexganttfx.sampler {
 
+    requires fr.brouillard.oss.cssfx;
     requires atlantafx.base;
     requires devtoolsfx.connector;
     requires devtoolsfx.gui;

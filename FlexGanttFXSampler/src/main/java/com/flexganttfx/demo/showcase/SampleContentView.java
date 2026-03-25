@@ -4,7 +4,7 @@
  */
 package com.flexganttfx.demo.showcase;
 
-import fxsampler.Sample;
+import com.flexganttfx.demo.Sample;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;

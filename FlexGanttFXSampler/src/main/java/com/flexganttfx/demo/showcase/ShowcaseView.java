@@ -7,7 +7,7 @@ package com.flexganttfx.demo.showcase;
 import atlantafx.base.theme.*;
 import com.flexganttfx.core.FlexGanttFX;
 import devtoolsfx.gui.GUI;
-import fxsampler.Sample;
+import com.flexganttfx.demo.Sample;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.geometry.Insets;
@@ -23,6 +23,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.Cursor;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -106,6 +109,13 @@ public class ShowcaseView extends BorderPane {
         Label badge = new Label("v" + FlexGanttFX.getVersion());
         badge.getStyleClass().add("showcase-version-badge");
 
+        // Clicking the logo navigates back to the welcome view
+        HBox logoGroup = new HBox(8, logoIcon, logoLabel, badge);
+        logoGroup.setAlignment(Pos.CENTER_LEFT);
+        logoGroup.setCursor(Cursor.HAND);
+        logoGroup.getStyleClass().add("showcase-logo-group");
+        logoGroup.setOnMouseClicked(e -> showWelcome());
+
         Label tagline = new Label("Feature Showcase");
         tagline.getStyleClass().add("showcase-tagline");
 
@@ -142,7 +152,13 @@ public class ShowcaseView extends BorderPane {
             }
         });
 
-        bar.getChildren().addAll(logoIcon, logoLabel, badge, tagline, spacer, themeLabel, themeCombo, scenicViewBtn, websiteBtn);
+        ImageView dlscLogo = new ImageView(new Image(ShowcaseView.class.getResourceAsStream("/com/flexganttfx/demo/showcase/dlsc-logo.png")));
+        dlscLogo.setFitHeight(28);
+        dlscLogo.setPreserveRatio(true);
+        dlscLogo.setSmooth(true);
+        HBox.setMargin(dlscLogo, new Insets(0, 0, 0, 24));
+
+        bar.getChildren().addAll(logoGroup, tagline, dlscLogo, spacer, themeLabel, themeCombo, scenicViewBtn, websiteBtn);
         return bar;
     }
 
@@ -282,6 +298,14 @@ public class ShowcaseView extends BorderPane {
             row.setVisible(matches);
             row.setManaged(matches);
         }
+    }
+
+    private void showWelcome() {
+        if (selectedLabel != null) {
+            selectedLabel.getStyleClass().remove("selected");
+            selectedLabel = null;
+        }
+        setCenter(welcomeView);
     }
 
     private void selectFirstSample() {

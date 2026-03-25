@@ -5,7 +5,6 @@
 package com.flexganttfx.demo;
 
 import com.flexganttfx.core.FlexGanttFX;
-import fxsampler.SampleBase;
 
 public abstract class FlexGanttFXSampleBase extends SampleBase {
 

@@ -128,7 +128,7 @@
 }
 
 .welcome-product-name {
-    -fx-text-fill: -color-fg-emphasis;
+    -fx-text-fill: -color-fg-default;
     -fx-font-size: 48px;
     -fx-font-weight: bold;
 }

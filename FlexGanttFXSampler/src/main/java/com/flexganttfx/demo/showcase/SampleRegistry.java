@@ -28,7 +28,6 @@ public class SampleRegistry {
                 HelloGanttChartEmpty::new,
                 HelloDragAndDrop::new,
                 HelloMultiLine::new,
-                HelloPopOver::new,
                 HelloLinksStressTest::new,
                 HelloRowHeaderColumn::new,
                 HelloScrollBars::new,

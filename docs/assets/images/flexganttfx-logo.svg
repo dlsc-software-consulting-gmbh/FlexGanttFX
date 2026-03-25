@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 100" width="440" height="100">
+  <defs>
+    <linearGradient id="bar-shine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="white" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="white" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="440" height="100" rx="16" fill="#0f172a"/>
+
+  <!-- ── Icon (scaled via nested SVG 80×80 at 10,10) ── -->
+  <svg x="10" y="10" width="80" height="80" viewBox="0 0 256 256">
+    <!-- Vertical grid -->
+    <line x1="104" y1="38" x2="104" y2="218" stroke="#1e3a5f" stroke-width="1"/>
+    <line x1="156" y1="38" x2="156" y2="218" stroke="#1e3a5f" stroke-width="1"/>
+    <line x1="208" y1="38" x2="208" y2="218" stroke="#1e3a5f" stroke-width="1"/>
+
+    <!-- Bars -->
+    <rect x="28" y="38"  width="164" height="32" rx="7" fill="#1d4ed8"/>
+    <rect x="28" y="38"  width="164" height="32" rx="7" fill="url(#bar-shine)"/>
+    <rect x="46" y="86"  width="112" height="32" rx="7" fill="#0369a1"/>
+    <rect x="46" y="86"  width="112" height="32" rx="7" fill="url(#bar-shine)"/>
+    <rect x="102" y="134" width="126" height="32" rx="7" fill="#0891b2"/>
+    <rect x="102" y="134" width="126" height="32" rx="7" fill="url(#bar-shine)"/>
+    <rect x="28" y="182" width="82"  height="32" rx="7" fill="#0d9488"/>
+    <rect x="28" y="182" width="82"  height="32" rx="7" fill="url(#bar-shine)"/>
+
+    <!-- Dependency arrow -->
+    <polyline points="158,102 158,150 107,150"
+      stroke="#f59e0b" stroke-width="3" fill="none"
+      stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="102,145 102,155 111,150" fill="#f59e0b"/>
+  </svg>
+
+  <!-- ── Wordmark ── -->
+  <!--
+    "Flex"   – muted slate, light weight   → suggests flexibility / lightness
+    "Gantt"  – white, semibold             → the core product noun
+    "FX"     – cyan accent, bold           → JavaFX heritage
+  -->
+  <text
+    x="104" y="58"
+    font-family="'Segoe UI','SF Pro Display',system-ui,-apple-system,sans-serif"
+    font-size="46"
+    dominant-baseline="middle"
+    letter-spacing="-0.5">
+    <tspan fill="#94a3b8" font-weight="300">Flex</tspan><tspan fill="white" font-weight="600">Gantt</tspan><tspan fill="#0ea5e9" font-weight="700">FX</tspan>
+  </text>
+</svg>

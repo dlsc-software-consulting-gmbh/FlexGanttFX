@@ -2,7 +2,7 @@
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
  * This file is part of FlexGanttFX.
  */
-package fxsampler;
+package com.flexganttfx.demo;
 
 import javafx.application.Application;
 import javafx.scene.Node;

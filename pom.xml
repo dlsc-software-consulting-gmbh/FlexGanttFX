@@ -37,6 +37,7 @@
         <atlantafx.version>2.1.0</atlantafx.version>
         <gemsfx.version>3.10.1</gemsfx.version>
         <devtoolsfx.version>1.0.1</devtoolsfx.version>
+        <cssfx.version>11.5.1</cssfx.version>
         <maven.javadoc.skip>false</maven.javadoc.skip>
         <jpro.version>2022.1.0</jpro.version>
         <client.plugin.version>0.1.36</client.plugin.version>

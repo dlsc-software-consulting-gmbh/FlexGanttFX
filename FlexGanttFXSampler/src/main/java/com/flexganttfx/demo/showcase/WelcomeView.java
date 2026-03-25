@@ -10,7 +10,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -18,8 +17,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
-
-import java.util.function.Supplier;
 
 /**
  * Fancy welcome screen shown when the Showcase first opens.
@@ -30,7 +27,7 @@ public class WelcomeView extends BorderPane {
         getStyleClass().add("welcome-root");
 
         VBox hero = buildHero(onExplore);
-        FlowPane cards = buildFeatureCards();
+        HBox cards = buildFeatureCards();
 
         VBox center = new VBox(0, hero, cards);
         center.setAlignment(Pos.TOP_CENTER);
@@ -67,13 +64,13 @@ public class WelcomeView extends BorderPane {
         return hero;
     }
 
-    private FlowPane buildFeatureCards() {
-        FlowPane cards = new FlowPane();
+    private HBox buildFeatureCards() {
+        HBox cards = new HBox();
         cards.getStyleClass().add("welcome-cards-area");
         cards.setAlignment(Pos.CENTER);
-        cards.setHgap(16);
-        cards.setVgap(16);
+        cards.setSpacing(16);
         cards.setPadding(new Insets(0, 60, 60, 60));
+        cards.setFillHeight(true);
 
         cards.getChildren().addAll(
             featureCard(MaterialDesign.MDI_SPEEDOMETER, "#4A90D9",
@@ -110,6 +107,7 @@ public class WelcomeView extends BorderPane {
         descLabel.getStyleClass().add("feature-card-desc");
         descLabel.setWrapText(true);
         descLabel.setPrefWidth(170);
+        descLabel.setMinHeight(Region.USE_PREF_SIZE);
 
         HBox iconBox = new HBox(fontIcon);
         iconBox.setAlignment(Pos.CENTER);

@@ -67,10 +67,11 @@ public abstract class FlexGanttFXSample extends FlexGanttFXSampleBase {
         statusbar = new GanttChartStatusBar<>(ganttChart);
 
         ganttPane = new BorderPane();
-        BorderPane.setMargin(ganttChart, new Insets(0));
         ganttPane.setTop(toolbar);
         ganttPane.setCenter(ganttChart);
         ganttPane.setBottom(statusbar);
+
+        BorderPane.setMargin(ganttChart, new Insets(0));
 
         TreeTableView<HelloRow> tableView = new TreeTableView<>();
         tableView.setFixedCellSize(-1);
@@ -132,21 +133,6 @@ public abstract class FlexGanttFXSample extends FlexGanttFXSampleBase {
         for (int i = 0; i < 500; i++) {
             listView.getItems().add("Row " + i);
         }
-
-        Button buttonScroll = new Button("scroll to");
-        buttonScroll.setOnAction(event -> {
-            int index = new Random().nextInt(200);
-            //listView.scrollTo(index);
-            //listView.getSelectionModel().select(index);
-//            tableView.scrollTo(index);
-//            tableView.getSelectionModel().selectIndices(index);
-            ((GanttChart) ganttChart).getTreeTable().scrollTo(index);
-            ((GanttChart) ganttChart).getTreeTable().getSelectionModel().clearAndSelect(index);
-            buttonScroll.setText("scrolled to: " + index);
-        });
-
-        //ganttPane.setCenter(tableView);
-        ganttPane.setBottom(buttonScroll);
 
         return ganttPane;
     }
