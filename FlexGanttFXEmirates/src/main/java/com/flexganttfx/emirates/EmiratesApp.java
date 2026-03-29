@@ -4,6 +4,14 @@
  */
 package com.flexganttfx.emirates;
 
+import atlantafx.base.theme.CupertinoDark;
+import atlantafx.base.theme.CupertinoLight;
+import atlantafx.base.theme.Dracula;
+import atlantafx.base.theme.NordDark;
+import atlantafx.base.theme.NordLight;
+import atlantafx.base.theme.PrimerDark;
+import atlantafx.base.theme.PrimerLight;
+import atlantafx.base.theme.Theme;
 import com.flexganttfx.core.FlexGanttFX;
 import com.flexganttfx.emirates.model.DataModel.DataSet;
 import com.flexganttfx.emirates.model.DataModel;
@@ -22,6 +30,8 @@ import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -30,9 +40,27 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.prefs.Preferences;
 
 public class EmiratesApp extends Application {
+
+    private static final Theme MODENA = Theme.of("Modena", Application.STYLESHEET_MODENA, false);
+
+    private static final List<Theme> THEMES = List.of(
+        new PrimerDark(),
+        new PrimerLight(),
+        new NordDark(),
+        new NordLight(),
+        new CupertinoDark(),
+        new CupertinoLight(),
+        new Dracula(),
+        MODENA
+    );
+
+    private static final Preferences PREFS = Preferences.userNodeForPackage(EmiratesApp.class);
+    private static final String PREF_THEME = "theme";
 
     private EmiratesAircraftGanttChart gantt;
     private Node introNode;
@@ -42,8 +70,22 @@ public class EmiratesApp extends Application {
         launch(args);
     }
 
+    private static Theme resolvePersistedTheme() {
+        String saved = PREFS.get(PREF_THEME, null);
+        if (saved != null) {
+            for (Theme t : THEMES) {
+                if (t.getName().equals(saved)) {
+                    return t;
+                }
+            }
+        }
+        return THEMES.get(0); // default: PrimerDark
+    }
+
     @Override
     public void start(Stage stage) {
+        Application.setUserAgentStylesheet(resolvePersistedTheme().getUserAgentStylesheet());
+
         if (!FlexGanttFX.isLicenseKeySet()) {
             FlexGanttFX.setLicenseKey("LIC=DLSC;VEN=DLSC;VER=12;PRO=STANDARD;RUN=no;CTR=1;SignCode=3F;Signature=302C02142BD7F914E6633D7DBA0B8564D8FC20EC249BCFD702142558B5C6FF46325A0A698A1E8036828E54D6FEC8");
         }
@@ -182,6 +224,21 @@ public class EmiratesApp extends Application {
         fileMenu.getItems().add(exit);
 
         menuBar.getMenus().add(fileMenu);
+
+        Menu themeMenu = new Menu("Theme");
+        ToggleGroup themeGroup = new ToggleGroup();
+        Theme activeTheme = resolvePersistedTheme();
+        for (Theme t : THEMES) {
+            RadioMenuItem item = new RadioMenuItem(t.getName());
+            item.setToggleGroup(themeGroup);
+            item.setSelected(t.getName().equals(activeTheme.getName()));
+            item.setOnAction(evt -> {
+                Application.setUserAgentStylesheet(t.getUserAgentStylesheet());
+                PREFS.put(PREF_THEME, t.getName());
+            });
+            themeMenu.getItems().add(item);
+        }
+        menuBar.getMenus().add(themeMenu);
 
         return menuBar;
     }

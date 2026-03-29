@@ -17,11 +17,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Skin;
 import org.controlsfx.control.MasterDetailPane;
 
-import java.util.Objects;
-
 /**
  * A specialization of {@link ContainerBase} capable of displaying
- * exactly two instances of {@link GanttChartBase} and keeping their layouts and
+ * exactly two instances of
  * their scrolling and zooming behavior in sync. The container distinguishes between
  * a primary and a secondary Gantt chart, where the secondary Gantt chart is located
  * in the detail node section of a {@link MasterDetailPane}. It can be hidden or shown
@@ -98,10 +96,8 @@ public abstract class DualGanttChartContainerBase<T extends GanttChartBase<?>> e
 
     @Override
     public String getUserAgentStylesheet() {
-        return Objects.requireNonNull(GanttChart.class.getResource("gantt.css")).toExternalForm();
-    }
-
-    private final MasterDetailPane masterDetailPane;
+        return super.getUserAgentStylesheet(GanttChart.class, "gantt.css");
+    }    private final MasterDetailPane masterDetailPane;
 
     /**
      * Returns the {@link MasterDetailPane} instance used by the skin of this

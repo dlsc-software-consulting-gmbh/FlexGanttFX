@@ -1,0 +1,146 @@
+/*
+ * graphics-atlantafx.css — AtlantaFX variant of graphics.css
+ *
+ * Used automatically by GraphicsBase when an AtlantaFX theme is the active
+ * user-agent stylesheet. Replaces Modena-specific lookup values with AtlantaFX
+ * semantic CSS variables.
+ *
+ * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
+ * This file is part of FlexGanttFX.
+ */
+
+.graphics {
+    -fx-grid-line-color1: -color-border-muted;
+    -fx-grid-line-color2: -color-border-default;
+    -fx-grid-line-color3: -color-border-subtle;
+
+    -fx-weekend-color: rgba(0, 0, 0, .06);
+    -fx-time-now-color: -color-accent-fg;
+    -fx-inner-lines-color: -color-border-default;
+}
+
+.graphics-list-view {
+    -fx-padding: 0;
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+}
+
+.graphics-list-view:focused {
+    -fx-padding: 0;
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+}
+
+.row-cell {
+    -fx-padding: 0 !important;
+    -fx-background-insets: 0 !important;
+    -fx-border-width: 0 !important;
+    -fx-pref-height: 24px;
+}
+
+.row-cell:focused,
+.row-cell:selected {
+}
+
+.row-cell > .row-pane {
+    -fx-background-color: transparent;
+}
+
+.single-row-pane,
+.vbox-row-pane,
+.splitpane-row-pane {
+    -fx-background-color: -color-bg-default;
+}
+
+.eventline .single-row-pane {
+    -fx-background-color: transparent;
+}
+
+.vbox-row-pane {
+    -fx-border-color: transparent transparent -color-border-muted transparent;
+    -fx-border-width: .25px;
+}
+
+.activities-lasso {
+    -fx-stroke: -color-accent-fg;
+    -fx-fill: -color-accent-subtle;
+}
+
+.horizontal-cursor,
+.vertical-cursor {
+    -fx-stroke: -color-accent-fg;
+    -fx-stroke-width: 1.5;
+}
+
+.horizontal-cursor-indicator {
+    -fx-background-color: -color-accent-fg, -color-bg-default;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+    -fx-pref-width: 8;
+    -fx-pref-height: 8;
+}
+
+.marked-time-line {
+    -fx-stroke-width: 1.5px;
+    -fx-stroke: -color-accent-fg;
+    -fx-stroke-dash-array: 4 3;
+}
+
+.marked-start-time-line {
+}
+
+.marked-end-time-line {
+}
+
+.row-controls-button {
+    -fx-padding: 5 9 7 7;
+    -fx-background-insets: 0 4 2 2;
+    -fx-background-color: rgba(0, 0, 0, .5);
+    -fx-background-radius: 0;
+    -fx-text-fill: white;
+    -fx-font-size: 8;
+    -fx-font-weight: bold;
+}
+
+.row-controls-button:hover,
+.row-controls-button:focused {
+    -fx-padding: 5 9 7 7;
+    -fx-background-insets: 0 4 2 2;
+    -fx-background-color: rgba(0, 0, 0, .6);
+    -fx-background-radius: 0;
+    -fx-text-fill: white;
+    -fx-font-size: 8;
+    -fx-font-weight: bold;
+}
+
+.row-controls-button:pressed,
+.row-controls-button:selected {
+    -fx-background-color: rgba(0, 0, 0, .7);
+}
+
+.graphics-lens {
+    -fx-effect: innershadow(gaussian, gray, 10, .1, 0, 0);
+    -fx-border-color: -color-border-default;
+    -fx-border-insets: 8px;
+}
+
+.graphics-lens-popover {
+    -fx-border-color: red;
+}
+
+.zone-id-label {
+    -fx-control-inner-background: -color-accent-fg;
+    -fx-text-fill: -color-fg-emphasis;
+    -fx-background-color: -color-accent-subtle;
+    -fx-background-insets: 0, 0 1 1 0, 1 2 2 1;
+    -fx-padding: .1em;
+    -fx-font-size: .8em;
+}
+
+.row-header {
+    -fx-text-fill: -color-fg-default;
+    -fx-background-color: -color-border-default, -color-bg-subtle;
+    -fx-background-insets: 0, 0 1 1 0;
+    -fx-font-size: .8em;
+}

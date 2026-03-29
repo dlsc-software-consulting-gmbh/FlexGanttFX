@@ -4,6 +4,14 @@
  */
 package com.flexganttfx.msproject;
 
+import atlantafx.base.theme.CupertinoDark;
+import atlantafx.base.theme.CupertinoLight;
+import atlantafx.base.theme.Dracula;
+import atlantafx.base.theme.NordDark;
+import atlantafx.base.theme.NordLight;
+import atlantafx.base.theme.PrimerDark;
+import atlantafx.base.theme.PrimerLight;
+import atlantafx.base.theme.Theme;
 import com.flexganttfx.core.FlexGanttFX;
 import com.flexganttfx.extras.GanttChartStatusBar;
 import com.flexganttfx.extras.GanttChartToolBar;
@@ -15,17 +23,16 @@ import com.flexganttfx.view.GanttChartBase;
 import com.flexganttfx.view.graphics.renderer.CurvedLinkRenderer;
 import com.jpro.webapi.WebAPI;
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.HBox;
+import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -34,8 +41,38 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
+import java.util.prefs.Preferences;
 
 public class MSProjectApp extends Application {
+
+	private static final Theme MODENA = Theme.of("Modena", Application.STYLESHEET_MODENA, false);
+
+	private static final List<Theme> THEMES = List.of(
+		new PrimerDark(),
+		new PrimerLight(),
+		new NordDark(),
+		new NordLight(),
+		new CupertinoDark(),
+		new CupertinoLight(),
+		new Dracula(),
+		MODENA
+	);
+
+	private static final Preferences PREFS = Preferences.userNodeForPackage(MSProjectApp.class);
+	private static final String PREF_THEME = "theme";
+
+	private static Theme resolvePersistedTheme() {
+		String saved = PREFS.get(PREF_THEME, null);
+		if (saved != null) {
+			for (Theme t : THEMES) {
+				if (t.getName().equals(saved)) {
+					return t;
+				}
+			}
+		}
+		return THEMES.get(0); // default: PrimerDark
+	}
 
 	private static final String STAGE_TITLE = "MSProject Reader";
 	private MSProjectGanttChart gantt;
@@ -44,6 +81,8 @@ public class MSProjectApp extends Application {
 
 	@Override
 	public void start(Stage stage) {
+		Application.setUserAgentStylesheet(resolvePersistedTheme().getUserAgentStylesheet());
+
 		if (!FlexGanttFX.isLicenseKeySet()) {
 			FlexGanttFX.setLicenseKey("LIC=DLSC;VEN=DLSC;VER=12;PRO=STANDARD;RUN=no;CTR=1;SignCode=3F;Signature=302C02142BD7F914E6633D7DBA0B8564D8FC20EC249BCFD702142558B5C6FF46325A0A698A1E8036828E54D6FEC8");
 		}
@@ -79,10 +118,6 @@ public class MSProjectApp extends Application {
 		MenuBar menuBar = createMenuBar();
 		vbox.getChildren().add(menuBar);
 
-		// Project selector bar
-		HBox selectorBar = buildSelectorBar();
-		vbox.getChildren().add(selectorBar);
-
 		GanttChartStatusBar<MSProjectTaskRow> statusBar = new GanttChartStatusBar<>(gantt);
 
 		Scene scene = new Scene(vbox);
@@ -105,29 +140,6 @@ public class MSProjectApp extends Application {
 		stage.show();
 	}
 
-	private HBox buildSelectorBar() {
-		Label label = new Label("Project:");
-		label.setStyle("-fx-font-weight: bold;");
-
-		ComboBox<SampleProject> projectBox = new ComboBox<>();
-		projectBox.getItems().setAll(SampleProjectFactory.ALL);
-		projectBox.getSelectionModel().selectFirst();
-		projectBox.setPrefWidth(260);
-
-		projectBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-			if (newVal != null) {
-				gantt.load(newVal.getFactory().get());
-				stage.setTitle(STAGE_TITLE + " – " + newVal.getName());
-			}
-		});
-
-		HBox bar = new HBox(10, label, projectBox);
-		bar.setAlignment(Pos.CENTER_LEFT);
-		bar.setPadding(new Insets(6, 12, 6, 12));
-		bar.setStyle("-fx-background-color: #F5F5F5; -fx-border-color: #DDDDDD; -fx-border-width: 0 0 1 0;");
-		return bar;
-	}
-
 	private MenuBar createMenuBar() {
 		MenuBar menuBar = new MenuBar();
 
@@ -135,7 +147,39 @@ public class MSProjectApp extends Application {
 		MenuItem openItem = new MenuItem("Open...");
 		openItem.setOnAction(event -> openFile());
 		fileMenu.getItems().add(openItem);
+
+		fileMenu.getItems().add(new SeparatorMenuItem());
+
+		ToggleGroup projectGroup = new ToggleGroup();
+		for (SampleProject project : SampleProjectFactory.ALL) {
+			RadioMenuItem item = new RadioMenuItem(project.getName());
+			item.setToggleGroup(projectGroup);
+			item.setOnAction(evt -> {
+				gantt.load(project.getFactory().get());
+				stage.setTitle(STAGE_TITLE + " – " + project.getName());
+			});
+			fileMenu.getItems().add(item);
+		}
+		// Select the first item to match the project loaded at startup
+		((RadioMenuItem) fileMenu.getItems().get(2)).setSelected(true);
+
 		menuBar.getMenus().add(fileMenu);
+
+		Menu themeMenu = new Menu("Theme");
+		ToggleGroup themeGroup = new ToggleGroup();
+		Theme activeTheme = resolvePersistedTheme();
+		for (Theme t : THEMES) {
+			RadioMenuItem item = new RadioMenuItem(t.getName());
+			item.setToggleGroup(themeGroup);
+			item.setSelected(t.getName().equals(activeTheme.getName()));
+			item.setOnAction(evt -> {
+				Application.setUserAgentStylesheet(t.getUserAgentStylesheet());
+				PREFS.put(PREF_THEME, t.getName());
+			});
+			themeMenu.getItems().add(item);
+		}
+		menuBar.getMenus().add(themeMenu);
+
 		return menuBar;
 	}
 

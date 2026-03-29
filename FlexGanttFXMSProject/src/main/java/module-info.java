@@ -13,6 +13,9 @@ module com.flexganttfx.msproject {
     requires javafx.swing;
     requires javafx.fxml;
 
+    requires atlantafx.base;
+    requires java.prefs;
+
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.materialdesign;
 

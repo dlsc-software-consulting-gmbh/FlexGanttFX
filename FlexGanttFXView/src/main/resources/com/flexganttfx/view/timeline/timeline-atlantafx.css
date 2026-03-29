@@ -1,0 +1,31 @@
+/*
+ * timeline-atlantafx.css — AtlantaFX variant of timeline.css
+ *
+ * Used automatically by Timeline when an AtlantaFX theme is the active
+ * user-agent stylesheet. Replaces Modena-specific lookup values with AtlantaFX
+ * semantic CSS variables.
+ *
+ * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
+ * This file is part of FlexGanttFX.
+ */
+
+.timeline {
+    -fx-background-color: -color-bg-subtle;
+    -fx-padding: 0;
+}
+
+.timeline-first {
+}
+
+.timeline-middle,
+.timeline-last {
+    -fx-pref-height: 24px;
+}
+
+.zone-id-label {
+    -fx-text-fill: -color-fg-emphasis;
+    -fx-background-color: -color-accent-emphasis;
+    -fx-background-insets: 0, 0 1 1 0, 1 2 2 1;
+    -fx-padding: .5em;
+    -fx-effect: dropshadow(gaussian, rgba(0.0, 0.0, 0.0, 0.5), 3.0, 0.5, 1.0, 1.0);
+}

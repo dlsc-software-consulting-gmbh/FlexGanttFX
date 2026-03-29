@@ -53,6 +53,12 @@
         </dependency>
 
         <dependency>
+            <groupId>io.github.mkpaz</groupId>
+            <artifactId>atlantafx-base</artifactId>
+            <version>${atlantafx.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.flexganttfx</groupId>
             <artifactId>extras</artifactId>
             <version>${project.parent.version}</version>

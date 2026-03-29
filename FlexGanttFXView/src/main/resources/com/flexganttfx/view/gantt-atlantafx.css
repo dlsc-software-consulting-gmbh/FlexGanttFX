@@ -1,0 +1,163 @@
+/*
+ * gantt-atlantafx.css — AtlantaFX variant of gantt.css
+ *
+ * Used automatically by GanttChartBase (and container controls) when an
+ * AtlantaFX theme is the active user-agent stylesheet. Replaces Modena-specific
+ * lookup values with AtlantaFX semantic CSS variables.
+ *
+ * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
+ * This file is part of FlexGanttFX.
+ */
+
+.gantt-chart {
+    -fx-background-color: -color-border-default;
+    -fx-padding: 1px;
+}
+
+.scroll-bar {
+    -fx-opacity: .75;
+}
+
+.split-pane {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.row-header-cell {
+    -fx-text-fill: -color-fg-default;
+    -fx-background-color: -color-border-default, -color-bg-subtle;
+    -fx-background-insets: 0, 0 0 1 0;
+}
+
+.eventline .row-header {
+    -fx-background-color: -color-border-default, -color-border-muted, -color-bg-subtle;
+    -fx-background-insets: 0, 0 1 1 0, 1 2 2 0;
+}
+
+.gantt-chart .show-hide-column-image {
+    -fx-background-color: -color-fg-default;
+}
+
+.gantt-tree-table-view {
+    -fx-padding: 0;
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+    -fx-table-cell-border-color: -color-border-muted;
+}
+
+.gantt-tree-table-view:focused {
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+}
+
+.gantt-tree-table-view .column-header,
+.gantt-tree-table-view-first .column-header {
+    -fx-pref-height: 4.5em;
+    -fx-background-color: -color-border-default, -color-bg-subtle;
+}
+
+.gantt-tree-table-view-middle .column-header,
+.gantt-tree-table-view-last .column-header {
+    -fx-pref-height: 2em;
+}
+
+.tree-table-view-standard-display-mode > .virtual-flow > .scroll-bar:vertical,
+.tree-table-view-standard-display-mode > .virtual-flow > .scroll-bar:vertical .decrement-arrow,
+.tree-table-view-standard-display-mode > .virtual-flow > .scroll-bar:vertical .increment-arrow {
+    -fx-pref-width: 0.0;
+    -fx-opacity: 0;
+}
+
+.gantt-tree-table-view > .virtual-flow > .scroll-bar:horizontal,
+.gantt-tree-table-view > .virtual-flow > .scroll-bar:horizontal .decrement-arrow,
+.gantt-tree-table-view > .virtual-flow > .scroll-bar:horizontal .increment-arrow {
+    -fx-pref-height: 0.0;
+    -fx-opacity: 0;
+}
+
+.gantt-tree-table-view .column-header .label {
+    -fx-alignment: center;
+}
+
+.gantt-tree-table-view .column-header, .gantt-tree-table-view .filler {
+    -fx-font-weight: normal;
+}
+
+.gantt-tree-table-view .tree-table-row-cell:even {
+    -fx-background-color: -color-bg-default;
+}
+
+.gantt-tree-table-view .tree-table-row-cell:odd {
+    -fx-background-color: -color-bg-subtle;
+}
+
+.gantt-tree-table-view > .virtual-flow > .clipped-container > .sheet > .tree-table-row-cell:selected {
+    -fx-background-color: -color-bg-inset;
+}
+
+.gantt-tree-table-view:focused > .virtual-flow > .clipped-container > .sheet > .tree-table-row-cell:selected {
+    -fx-background-color: -color-accent-subtle;
+}
+
+.layers-navigate-button {
+    -fx-background-insets: 0;
+    -fx-border-insets: null;
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.layers-table-header {
+    -fx-padding: 0 0 5 0;
+    -fx-text-fill: -color-fg-muted;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-border-color: transparent transparent -color-border-muted transparent;
+}
+
+.graphic-view-header {
+    -fx-background-color: -color-bg-subtle;
+    -fx-border-color: -color-border-muted;
+    -fx-border-width: 0 0 1 0;
+    -fx-pref-height: 26px;
+}
+
+.timeline-graphics-wrapper {
+}
+
+.time-slider {
+    -fx-opacity: .75;
+    -fx-background-radius: 0.0;
+    -fx-border-color: null;
+    -fx-border-radius: 0.0;
+}
+
+.time-slider:horizontal {
+    -fx-background-color: -color-bg-subtle;
+    -fx-pref-height: 16.0;
+    -fx-max-height: 16.0;
+}
+
+.time-slider > * > .slider {
+    -fx-show-tick-marks: false;
+}
+
+.time-slider > * > .slider > .track {
+    -fx-background-color: transparent;
+}
+
+.time-slider > * > .slider > .thumb {
+    -fx-pref-width: 100;
+    -fx-background-color: -color-border-default, -color-border-muted, -color-bg-subtle;
+    -fx-background-insets: 2.0, 3.0, 4.0;
+    -fx-background-radius: 3.0, 2.0, 1.0;
+}
+
+.time-slider > * > .adjust-plus {
+    -fx-pref-width: 0;
+    -fx-shape: null;
+}
+
+.time-slider > * > .adjust-minus {
+    -fx-pref-width: 0;
+    -fx-shape: null;
+}

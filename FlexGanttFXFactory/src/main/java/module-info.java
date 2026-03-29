@@ -11,6 +11,9 @@ module com.flexganttfx.factory {
     requires com.flexganttfx.view;
     requires com.flexganttfx.extras;
 
+    requires atlantafx.base;
+    requires java.prefs;
+
     exports com.flexganttfx.factory;
     exports com.flexganttfx.factory.model;
     exports com.flexganttfx.factory.view;

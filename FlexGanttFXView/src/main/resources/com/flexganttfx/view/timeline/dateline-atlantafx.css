@@ -1,0 +1,174 @@
+/*
+ * dateline-atlantafx.css — AtlantaFX variant of dateline.css
+ *
+ * Used automatically by Dateline when an AtlantaFX theme is the active
+ * user-agent stylesheet. Replaces Modena-specific lookup values with AtlantaFX
+ * semantic CSS variables.
+ *
+ * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
+ * This file is part of FlexGanttFX.
+ */
+.dateline {
+    -fx-background-color: transparent;
+    -fx-pref-height: 3em;
+}
+
+.dateline-content {
+}
+
+.dateline-cell {
+    -fx-font-size: .8em;
+    -fx-padding: 0 2 0 3;
+    -fx-background-color: -color-border-default, -color-bg-subtle;
+    -fx-background-insets: 0, 0 1 1 0;
+}
+
+.dateline-cell:hover {
+    -fx-background-color: -color-bg-inset;
+    -fx-effect: innershadow(three-pass-box, rgba(0.0, 0.0, 0.0, 0.3), 5.0, 0.0, 0.0, 1.0);
+}
+
+.dateline-cell:pressed {
+    -fx-background-color: -color-bg-inset;
+    -fx-opacity: 0.8;
+}
+
+.dateline-cell > .text {
+    -fx-fill: -color-fg-default;
+}
+
+.dateline-cell > .text:hover {
+}
+
+.dateline-cell-simple > .text {
+    -fx-alignment: baseline-left;
+}
+
+.dateline-cell-selected {
+    -fx-background-color: -color-border-default, -color-accent-subtle;
+    -fx-background-insets: 0, 0 1 1 0;
+}
+
+.dateline-cell.dst-start,
+.dateline-cell.dst-end {
+}
+
+.scale {
+    -fx-background-color: transparent;
+    -fx-cell-padding: 5px;
+}
+
+.scale-top,
+.scale-middle {
+}
+
+.scale-bottom {
+}
+
+.scale-only {
+}
+
+.centuries {
+}
+
+.days {
+}
+
+.decades {
+}
+
+.half_days {
+}
+
+.hours {
+}
+
+.months {
+}
+
+.micros {
+}
+
+.millenia {
+}
+
+.millis {
+}
+
+.minutes {
+}
+
+.nanos {
+}
+
+.seconds {
+}
+
+.weeks {
+}
+
+.years {
+}
+
+.scale-bottom > .saturday,
+.scale-bottom > .sunday {
+    -fx-background-color: -color-accent-emphasis;
+}
+
+.scale-bottom > .saturday:hover,
+.scale-bottom > .sunday:hover {
+    -fx-background-color: -color-accent-muted;
+}
+
+.scale-bottom > .saturday > .text,
+.scale-bottom > .sunday > .text {
+    -fx-fill: -color-fg-emphasis;
+}
+
+.january {
+}
+
+.february {
+}
+
+.march {
+}
+
+.april {
+}
+
+.may {
+}
+
+.june {
+}
+
+.july {
+}
+
+.august {
+}
+
+.september {
+}
+
+.october {
+}
+
+.november {
+}
+
+.december {
+}
+
+.am {
+}
+
+.pm {
+    -fx-background-color: rgba(255.0, 255.0, 255.0, 0.05);
+}
+
+.zoom-lasso {
+    -fx-opacity: 60%;
+    -fx-background-color: -color-accent-subtle;
+}

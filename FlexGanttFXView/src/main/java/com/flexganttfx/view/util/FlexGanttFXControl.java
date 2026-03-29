@@ -7,12 +7,15 @@ package com.flexganttfx.view.util;
 import com.flexganttfx.core.FlexGanttFX;
 import com.flexganttfx.core.LoggingDomain;
 import com.flexganttfx.view.GanttChart;
+import javafx.application.Application;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Control;
 
+import java.net.URL;
 import java.time.Instant;
 import java.time.Year;
+import java.util.Locale;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
@@ -32,25 +35,65 @@ public abstract class FlexGanttFXControl extends Control {
 	}
 
 	private String stylesheet;
+	private String stylesheetAtlantaFX;
+
+	/**
+	 * Returns {@code true} when the application is currently using an AtlantaFX
+	 * theme. Detection is done by checking whether the user-agent stylesheet URL
+	 * contains the string {@code "atlantafx"}. No compile-time dependency on the
+	 * AtlantaFX library is required.
+	 */
+	private static boolean isAtlantaFXActive() {
+		String uas = Application.getUserAgentStylesheet();
+		if (uas == null) {
+			return false;
+		}
+		return uas.toLowerCase(Locale.ROOT).contains("atlantafx");
+	}
 
 	/**
 	 * A helper method that ensures that the resource based lookup of the user
-	 * agent stylesheet only happens once. Caches the external form of the
-	 * resource.
+	 * agent stylesheet only happens once per theme type. When an AtlantaFX theme
+	 * is active it tries to load {@code <name>-atlantafx.css} from the same
+	 * package as {@code clazz} and falls back to the regular {@code fileName}
+	 * when no AtlantaFX variant exists.
 	 *
 	 * @param clazz
 	 *            the clazz used for the resource lookup
 	 * @param fileName
-	 *            the name of the user agent stylesheet
+	 *            the name of the default user agent stylesheet (e.g. {@code "gantt.css"})
 	 * @return the external form of the user agent stylesheet (the path)
 	 * @since 1.3
 	 */
 	protected String getUserAgentStylesheet(Class<?> clazz, String fileName) {
+		if (isAtlantaFXActive()) {
+			if (stylesheetAtlantaFX == null) {
+				String afxFileName = toAtlantaFXFileName(fileName);
+				URL afxResource = clazz.getResource(afxFileName);
+				if (afxResource != null) {
+					stylesheetAtlantaFX = afxResource.toExternalForm();
+				} else {
+					stylesheetAtlantaFX = resolveDefaultStylesheet(clazz, fileName);
+				}
+			}
+			return stylesheetAtlantaFX;
+		}
+		return resolveDefaultStylesheet(clazz, fileName);
+	}
+
+	private String resolveDefaultStylesheet(Class<?> clazz, String fileName) {
 		if (stylesheet == null) {
 			stylesheet = clazz.getResource(fileName).toExternalForm();
 		}
-
 		return stylesheet;
+	}
+
+	private static String toAtlantaFXFileName(String fileName) {
+		int dot = fileName.lastIndexOf('.');
+		if (dot >= 0) {
+			return fileName.substring(0, dot) + "-atlantafx" + fileName.substring(dot);
+		}
+		return fileName + "-atlantafx";
 	}
 
 	/*

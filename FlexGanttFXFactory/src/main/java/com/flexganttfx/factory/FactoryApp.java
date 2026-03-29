@@ -4,16 +4,61 @@
  */
 package com.flexganttfx.factory;
 
+import atlantafx.base.theme.CupertinoDark;
+import atlantafx.base.theme.CupertinoLight;
+import atlantafx.base.theme.Dracula;
+import atlantafx.base.theme.NordDark;
+import atlantafx.base.theme.NordLight;
+import atlantafx.base.theme.PrimerDark;
+import atlantafx.base.theme.PrimerLight;
+import atlantafx.base.theme.Theme;
 import com.flexganttfx.core.FlexGanttFX;
 import com.flexganttfx.factory.view.FactoryView;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.util.List;
+import java.util.prefs.Preferences;
 
 /**
  * Entry point for the FlexGanttFX Factory scheduling demo.
  */
 public class FactoryApp extends Application {
+
+    private static final Theme MODENA = Theme.of("Modena", Application.STYLESHEET_MODENA, false);
+
+    private static final List<Theme> THEMES = List.of(
+        new PrimerDark(),
+        new PrimerLight(),
+        new NordDark(),
+        new NordLight(),
+        new CupertinoDark(),
+        new CupertinoLight(),
+        new Dracula(),
+        MODENA
+    );
+
+    private static final Preferences PREFS = Preferences.userNodeForPackage(FactoryApp.class);
+    private static final String PREF_THEME = "theme";
+
+    private static Theme resolvePersistedTheme() {
+        String saved = PREFS.get(PREF_THEME, null);
+        if (saved != null) {
+            for (Theme t : THEMES) {
+                if (t.getName().equals(saved)) {
+                    return t;
+                }
+            }
+        }
+        return THEMES.get(0); // default: PrimerDark
+    }
 
     @Override
     public void init() throws Exception {
@@ -25,11 +70,38 @@ public class FactoryApp extends Application {
 
     @Override
     public void start(Stage stage) {
-        Scene scene = new Scene(new FactoryView(), 1200, 700);
+        Application.setUserAgentStylesheet(resolvePersistedTheme().getUserAgentStylesheet());
+
+        FactoryView factoryView = new FactoryView();
+        VBox.setVgrow(factoryView, Priority.ALWAYS);
+
+        VBox root = new VBox(createMenuBar(), factoryView);
+        Scene scene = new Scene(root, 1200, 700);
         stage.setScene(scene);
         stage.setTitle("FlexGanttFX – Factory Scheduling Demo");
         stage.centerOnScreen();
         stage.show();
+    }
+
+    private MenuBar createMenuBar() {
+        MenuBar menuBar = new MenuBar();
+
+        Menu themeMenu = new Menu("Theme");
+        ToggleGroup themeGroup = new ToggleGroup();
+        Theme activeTheme = resolvePersistedTheme();
+        for (Theme t : THEMES) {
+            RadioMenuItem item = new RadioMenuItem(t.getName());
+            item.setToggleGroup(themeGroup);
+            item.setSelected(t.getName().equals(activeTheme.getName()));
+            item.setOnAction(evt -> {
+                Application.setUserAgentStylesheet(t.getUserAgentStylesheet());
+                PREFS.put(PREF_THEME, t.getName());
+            });
+            themeMenu.getItems().add(item);
+        }
+        menuBar.getMenus().add(themeMenu);
+
+        return menuBar;
     }
 
     public static void main(String[] args) {

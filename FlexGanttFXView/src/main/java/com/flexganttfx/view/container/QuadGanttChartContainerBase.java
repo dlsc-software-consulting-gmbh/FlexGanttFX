@@ -17,8 +17,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Skin;
 import org.controlsfx.control.MasterDetailPane;
 
-import java.util.Objects;
-
 /**
  * A specialization of {@link ContainerBase} capable of displaying
  * exactly four instances of {@link GanttChartBase} and keeping their layouts and
@@ -115,10 +113,8 @@ public abstract class QuadGanttChartContainerBase<T extends GanttChartBase<?>> e
 
     @Override
     public String getUserAgentStylesheet() {
-        return Objects.requireNonNull(GanttChart.class.getResource("gantt.css")).toExternalForm();
-    }
-
-    private final MasterDetailPane upperLowerMasterDetailPane;
+        return super.getUserAgentStylesheet(GanttChart.class, "gantt.css");
+    }    private final MasterDetailPane upperLowerMasterDetailPane;
 
     /**
      * Returns the {@link MasterDetailPane} instance used by the skin of this

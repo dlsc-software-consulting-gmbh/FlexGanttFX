@@ -1,0 +1,42 @@
+/*
+ * virtualgrid-atlantafx.css — AtlantaFX variant of virtualgrid.css
+ *
+ * Used automatically by VirtualGridControl when an AtlantaFX theme is the
+ * active user-agent stylesheet. Replaces hard-coded Modena-era color values
+ * with AtlantaFX semantic CSS variables.
+ *
+ * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
+ * This file is part of FlexGanttFX.
+ */
+
+.grid-button,
+.grid-button:hover,
+.grid-button:selected,
+.grid-button:focused,
+.grid-button:pressed {
+    -fx-font-weight: bold;
+    -fx-font-size: 10px;
+    -fx-alignment: center-left;
+    -fx-label-padding: 2 0 2 0;
+    -fx-background-radius: 2;
+    -fx-background-insets: 4;
+}
+
+.grid-button {
+    -fx-background-color: -color-bg-default;
+    -fx-text-fill: -color-fg-default;
+}
+
+.grid-button:hover {
+    -fx-background-color: -color-bg-subtle;
+}
+
+.grid-button:pressed {
+    -fx-background-color: -color-bg-inset;
+    -fx-text-fill: -color-fg-default;
+}
+
+.grid-button:selected {
+    -fx-background-color: -color-accent-emphasis;
+    -fx-text-fill: -color-fg-emphasis;
+}

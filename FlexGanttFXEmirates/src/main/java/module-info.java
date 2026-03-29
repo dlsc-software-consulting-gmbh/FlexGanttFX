@@ -10,6 +10,9 @@ open module com.flexganttfx.emirates {
 
     requires com.flexganttfx.view;
     requires com.flexganttfx.extras;
+    requires atlantafx.base;
+    requires java.prefs;
+
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.materialdesign;
 
