@@ -187,6 +187,10 @@ public class RadarViewSkin<R extends Row<?, ?, ?>> extends SkinBase<RadarView<R>
             Timeline timeline = graphics.getTimeline();
             TimeInterval visibleTimeInterval = timeline.getVisibleTimeInterval();
 
+            if (visibleTimeInterval == null) {
+                return;
+            }
+
             Instant visibleStartTime = visibleTimeInterval.getStartTime();
             Instant visibleEndTime = visibleTimeInterval.getEndTime();
 
