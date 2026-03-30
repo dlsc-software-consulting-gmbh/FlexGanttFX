@@ -6,7 +6,10 @@ open module com.flexganttfx.emirates {
 
     requires jpro.webapi;
 
+    requires org.scenicview.scenicview;
+
     requires javafx.swing;
+    requires javafx.web;
 
     requires com.flexganttfx.view;
     requires com.flexganttfx.extras;

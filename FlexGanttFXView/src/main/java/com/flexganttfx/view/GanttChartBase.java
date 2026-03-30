@@ -75,13 +75,6 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
 
         getStyleClass().setAll(DEFAULT_STYLE_CLASS);
 
-        /**
-         * I do not know why but for some reason some of the styles inside gantt.css for
-         * controls like MasterDetailPane will only be applied if we add the stylesheet
-         * also like this.
-         */
-        getStylesheets().add(GanttChartBase.class.getResource("gantt.css").toExternalForm());
-
         // children controls
         timeline = createTimeline();
         setMasterTimeline(timeline);

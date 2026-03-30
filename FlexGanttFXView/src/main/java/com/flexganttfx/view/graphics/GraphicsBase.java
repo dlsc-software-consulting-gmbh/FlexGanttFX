@@ -65,6 +65,7 @@ import impl.com.flexganttfx.skin.graphics.RowCanvas;
 import impl.com.flexganttfx.skin.graphics.RowPane;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
+import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -136,6 +137,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -2510,6 +2512,33 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         }
 
         return false;
+    }
+
+    /**
+     * Returns {@code true} if the application is currently using a dark theme.
+     *
+     * <p>The default implementation inspects the application's user-agent
+     * stylesheet URL. It returns {@code true} when one of the AtlantaFX dark
+     * variants is active: <em>Primer Dark</em>, <em>Nord Dark</em>,
+     * <em>Cupertino Dark</em>, or <em>Dracula</em>. For the default Modena
+     * theme and for all AtlantaFX light themes this method returns
+     * {@code false}.</p>
+     *
+     * <p>Detection relies solely on string-matching the stylesheet URL and
+     * therefore requires no compile-time dependency on the AtlantaFX library.
+     * Subclasses may override this method to implement custom theme
+     * detection logic.</p>
+     *
+     * @return {@code true} if a dark theme is currently active
+     * @since 1.0
+     */
+    public boolean isDarkTheme() {
+        String uas = Application.getUserAgentStylesheet();
+        if (uas == null) {
+            return false;
+        }
+        String lower = uas.toLowerCase(Locale.ROOT);
+        return lower.contains("atlantafx") && (lower.contains("dark") || lower.contains("dracula"));
     }
 
     private class HighlightThread extends Thread {

@@ -7,13 +7,17 @@ package com.flexganttfx.view.util;
 import com.flexganttfx.core.LoggingDomain;
 import com.flexganttfx.model.timeline.TimelineModel;
 import com.flexganttfx.view.GanttChart;
+import com.flexganttfx.view.GanttChartBase;
 import com.flexganttfx.view.timeline.Timeline;
+import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import org.controlsfx.control.PlusMinusSlider;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.logging.Level;
 
 /**
@@ -32,8 +36,6 @@ public class TimelineScrollBar extends PlusMinusSlider {
      */
     public TimelineScrollBar() {
         getStyleClass().add("time-slider");
-
-        getStylesheets().add(GanttChart.class.getResource("gantt.css").toExternalForm());
 
         addEventHandler(PlusMinusEvent.VALUE_CHANGED,
                 evt -> {
@@ -62,6 +64,28 @@ public class TimelineScrollBar extends PlusMinusSlider {
                         model.setStartTime(time);
                     }
                 });
+    }
+
+    /**
+     * Returns {@code true} when the application is currently using an AtlantaFX
+     * theme. Detection is done by checking whether the user-agent stylesheet URL
+     * contains the string {@code "atlantafx"}. No compile-time dependency on the
+     * AtlantaFX library is required.
+     */
+    private boolean isAtlantaFXActive() {
+        String uas = Application.getUserAgentStylesheet();
+        if (uas == null) {
+            return false;
+        }
+        return uas.toLowerCase(Locale.ROOT).contains("atlantafx");
+    }
+
+    @Override
+    public String getUserAgentStylesheet() {
+        if (isAtlantaFXActive()) {
+            return Objects.requireNonNull(GanttChartBase.class.getResource("gantt-atlantafx.css")).toExternalForm();
+        }
+        return Objects.requireNonNull(GanttChartBase.class.getResource("gantt.css")).toExternalForm();
     }
 
     /**

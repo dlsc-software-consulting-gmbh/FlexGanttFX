@@ -20,7 +20,7 @@ import javafx.scene.control.*;
 import javafx.stage.PopupWindow.AnchorLocation;
 import javafx.util.StringConverter;
 import org.controlsfx.control.PopOver;
-import org.controlsfx.control.textfield.CustomTextField;
+import javafx.scene.control.TextField;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
@@ -100,6 +100,41 @@ public class GanttChartToolBar<R extends Row<?, ?, ?>> extends ToolBar {
 		ganttChartProperty().set(ganttChart);
 	}
 
+	private final ObjectProperty<ContentDisplay> contentDisplay = new SimpleObjectProperty<>(this, "contentDisplay", ContentDisplay.GRAPHIC_ONLY);
+
+	/**
+	 * Returns the value of {@link #contentDisplayProperty()}.
+	 *
+	 * @return the content display mode of the toolbar buttons
+	 * @since 1.0
+	 */
+	public final ContentDisplay getContentDisplay() {
+		return contentDisplay.get();
+	}
+
+	/**
+	 * A property used to control how the toolbar buttons display their content.
+	 * The value is bidirectionally bound to the {@code contentDisplay} property
+	 * of each button in the toolbar, so changing this property updates all
+	 * buttons at once. The default value is {@link ContentDisplay#GRAPHIC_ONLY}.
+	 *
+	 * @return the content display property
+	 * @since 1.0
+	 */
+	public final ObjectProperty<ContentDisplay> contentDisplayProperty() {
+		return contentDisplay;
+	}
+
+	/**
+	 * Sets the value of {@link #contentDisplayProperty()}.
+	 *
+	 * @param contentDisplay the content display mode to apply to all toolbar buttons
+	 * @since 1.0
+	 */
+	public final void setContentDisplay(ContentDisplay contentDisplay) {
+		this.contentDisplay.set(contentDisplay);
+	}
+
 	private void buildToolBar() {
 		getItems().clear();
 
@@ -113,35 +148,47 @@ public class GanttChartToolBar<R extends Row<?, ?, ?>> extends ToolBar {
 		if (ganttChart != null) {
 
 			Button timeNow = new Button(Messages.getString("GanttChartToolBar.BUTTON_NOW"));
+			timeNow.setTooltip(new Tooltip(Messages.getString("GanttChartToolBar.BUTTON_NOW_TOOLTIP")));
 			timeNow.setGraphic(new FontIcon(MaterialDesign.MDI_DEBUG_STEP_INTO));
 			timeNow.setOnAction(showTimeNow());
+			timeNow.contentDisplayProperty().bindBidirectional(contentDisplayProperty());
 			getItems().add(timeNow);
 
 			Button earliest = new Button(Messages.getString("GanttChartToolBar.BUTTON_EARLIEST"));
+			earliest.setTooltip(new Tooltip(Messages.getString("GanttChartToolBar.BUTTON_EARLIEST_TOOLTIP")));
 			earliest.setGraphic(new FontIcon(MaterialDesign.MDI_PAGE_FIRST));
 			earliest.setOnAction(showEarliestActivities());
+			earliest.contentDisplayProperty().bindBidirectional(contentDisplayProperty());
 			getItems().add(earliest);
 
 			Button latest = new Button(Messages.getString("GanttChartToolBar.BUTTON_LATEST"));
+			latest.setTooltip(new Tooltip(Messages.getString("GanttChartToolBar.BUTTON_LATEST_TOOLTIP")));
 			latest.setGraphic(new FontIcon(MaterialDesign.MDI_PAGE_LAST));
 			latest.setOnAction(showLatestActivities());
+			latest.contentDisplayProperty().bindBidirectional(contentDisplayProperty());
 			getItems().add(latest);
 
 			Button showAll = new Button(Messages.getString("GanttChartToolBar.BUTTON_ALL"));
+			showAll.setTooltip(new Tooltip(Messages.getString("GanttChartToolBar.BUTTON_ALL_TOOLTIP")));
 			showAll.setGraphic(new FontIcon(MaterialDesign.MDI_ARROW_COMPRESS_ALL));
 			showAll.setOnAction(showAllActivities());
+			showAll.contentDisplayProperty().bindBidirectional(contentDisplayProperty());
 			getItems().add(showAll);
 
-			getItems().add(new Separator());
+			getItems().add(new Separator(Orientation.VERTICAL));
 
 			Button zoomIn = new Button(Messages.getString("GanttChartToolBar.BUTTON_ZOOM_IN"));
+			zoomIn.setTooltip(new Tooltip(Messages.getString("GanttChartToolBar.BUTTON_ZOOM_IN_TOOLTIP")));
 			zoomIn.setGraphic(new FontIcon(MaterialDesign.MDI_MAGNIFY_PLUS));
 			zoomIn.setOnAction(zoomIn());
+			zoomIn.contentDisplayProperty().bindBidirectional(contentDisplayProperty());
 			getItems().add(zoomIn);
 
 			Button zoomOut = new Button(Messages.getString("GanttChartToolBar.BUTTON_ZOOM_OUT"));
+			zoomOut.setTooltip(new Tooltip(Messages.getString("GanttChartToolBar.BUTTON_ZOOM_OUT_TOOLTIP")));
 			zoomOut.setGraphic(new FontIcon(MaterialDesign.MDI_MAGNIFY_MINUS));
 			zoomOut.setOnAction(zoomOut());
+			zoomOut.contentDisplayProperty().bindBidirectional(contentDisplayProperty());
 			getItems().add(zoomOut);
 
 			ComboBox<ZoomMode> zoomModeBox = new ComboBox<>();
@@ -149,13 +196,13 @@ public class GanttChartToolBar<R extends Row<?, ?, ?>> extends ToolBar {
 				@Override
 				public String toString(ZoomMode mode) {
 					switch (mode) {
+						case KEEP_START_TIME:
+							return Messages.getString("GanttChartToolBar.ZOOM_MODE_KEEP_START");
+						case KEEP_END_TIME:
+							return Messages.getString("GanttChartToolBar.ZOOM_MODE_KEEP_END");
 						case CENTER:
 						default:
-							return "Keep Center";
-						case KEEP_START_TIME:
-							return "Keep Start";
-						case KEEP_END_TIME:
-							return "Keep End";
+							return Messages.getString("GanttChartToolBar.ZOOM_MODE_KEEP_CENTER");
 					}
 				}
 
@@ -166,48 +213,63 @@ public class GanttChartToolBar<R extends Row<?, ?, ?>> extends ToolBar {
 			});
 			zoomModeBox.getItems().setAll(ZoomMode.values());
 			zoomModeBox.valueProperty().bindBidirectional(getGanttChart().getTimeline().zoomModeProperty());
+			zoomModeBox.setTooltip(new Tooltip(Messages.getString("GanttChartToolBar.TOOLTIP_ZOOM_MODE")));
 			getItems().add(zoomModeBox);
 
-			getItems().add(new Separator());
+			getItems().add(new Separator(Orientation.VERTICAL));
 
 			ToggleButton links = new ToggleButton(Messages.getString("GanttChartToolBar.BUTTON_LINKS"));
+			links.setTooltip(new Tooltip(Messages.getString("GanttChartToolBar.BUTTON_LINKS_TOOLTIP")));
 			links.setGraphic(new FontIcon(MaterialDesign.MDI_VECTOR_LINE));
 			links.selectedProperty().bindBidirectional(ganttChart.getGraphics().showLinksProperty());
+			links.contentDisplayProperty().bindBidirectional(contentDisplayProperty());
 			getItems().add(links);
 
 			ToggleButton headers = new ToggleButton(Messages.getString("GanttChartToolBar.BUTTON_SCALE"));
+			headers.setTooltip(new Tooltip(Messages.getString("GanttChartToolBar.BUTTON_SCALE_TOOLTIP")));
 			headers.setGraphic(new FontIcon(MaterialDesign.MDI_RULER));
 			headers.selectedProperty().bindBidirectional(ganttChart.getGraphics().showRowHeadersProperty());
+			headers.contentDisplayProperty().bindBidirectional(contentDisplayProperty());
 			getItems().add(headers);
 
 			Button layers = new Button(Messages.getString("GanttChartToolBar.BUTTON_LAYERS"));
+			layers.setTooltip(new Tooltip(Messages.getString("GanttChartToolBar.BUTTON_LAYERS_TOOLTIP")));
 			layers.setGraphic(new FontIcon(MaterialDesign.MDI_LAYERS));
 			layers.setOnAction(showLayerControls(layers));
+			layers.contentDisplayProperty().bindBidirectional(contentDisplayProperty());
 			getItems().add(layers);
 
 			Button radar = new Button(Messages.getString("GanttChartToolBar.BUTTON_RADAR"));
+			radar.setTooltip(new Tooltip(Messages.getString("GanttChartToolBar.BUTTON_RADAR_TOOLTIP")));
 			radar.setGraphic(new FontIcon(MaterialDesign.MDI_RADAR));
 			radar.setOnAction(showRadarPopOver(radar));
+			radar.contentDisplayProperty().bindBidirectional(contentDisplayProperty());
 			getItems().add(radar);
 
 			if (ganttChart instanceof GanttChart) {
 				ToggleButton table = new ToggleButton(Messages.getString("GanttChartToolBar.BUTTON_TABLE"));
+				table.setTooltip(new Tooltip(Messages.getString("GanttChartToolBar.BUTTON_TABLE_TOOLTIP")));
 				table.setGraphic(new FontIcon(MaterialDesign.MDI_TABLE));
 				table.selectedProperty().bindBidirectional(((GanttChart)ganttChart).showTreeTableProperty());
+				table.contentDisplayProperty().bindBidirectional(contentDisplayProperty());
 				getItems().add(table);
 			}
 
-			getItems().add(new Separator());
+			getItems().add(new Separator(Orientation.VERTICAL));
 
 			ListViewGraphics<R> graphics = ganttChart.getGraphics();
 
 			ToggleButton cursor = new ToggleButton(Messages.getString("GanttChartToolBar.BUTTON_CURSOR"));
+			cursor.setTooltip(new Tooltip(Messages.getString("GanttChartToolBar.BUTTON_CURSOR_TOOLTIP")));
 			cursor.setGraphic(new FontIcon(MaterialDesign.MDI_CURSOR_TEXT));
 			cursor.selectedProperty().bindBidirectional(graphics.showVerticalCursorProperty());
+			cursor.contentDisplayProperty().bindBidirectional(contentDisplayProperty());
 			getItems().add(cursor);
 
 			MenuButton gridLines = new MenuButton(Messages.getString("GanttChartToolBar.BUTTON_GRID"));
+			gridLines.setTooltip(new Tooltip(Messages.getString("GanttChartToolBar.BUTTON_GRID_TOOLTIP")));
 			gridLines.setGraphic(new FontIcon(MaterialDesign.MDI_GRID));
+			gridLines.contentDisplayProperty().bindBidirectional(contentDisplayProperty());
 
 			MenuItem gridOff = new MenuItem(Messages.getString("GanttChartToolBar.MENU_ITEM_GRID_OFF"));
 			gridOff.setGraphic(new FontIcon(MaterialDesign.MDI_GRID_OFF));
@@ -223,23 +285,30 @@ public class GanttChartToolBar<R extends Row<?, ?, ?>> extends ToolBar {
 			getItems().add(gridLines);
 
 			ToggleButton calendars = new ToggleButton(Messages.getString("GanttChartToolBar.BUTTON_CALENDARS"));
+			calendars.setTooltip(new Tooltip(Messages.getString("GanttChartToolBar.BUTTON_CALENDARS_TOOLTIP")));
 			calendars.setGraphic(new FontIcon(MaterialDesign.MDI_CALENDAR));
 			calendars.selectedProperty().bindBidirectional(graphics.showCalendarLayerProperty());
+			calendars.contentDisplayProperty().bindBidirectional(contentDisplayProperty());
 			getItems().add(calendars);
 
 			ToggleButton nowLine = new ToggleButton(Messages.getString("GanttChartToolBar.BUTTON_NOW_LINE"));
+			nowLine.setTooltip(new Tooltip(Messages.getString("GanttChartToolBar.BUTTON_NOW_LINE_TOOLTIP")));
 			nowLine.setGraphic(new FontIcon(MaterialDesign.MDI_CLOCK));
 			nowLine.selectedProperty().bindBidirectional(graphics.showNowLineLayerProperty());
+			nowLine.contentDisplayProperty().bindBidirectional(contentDisplayProperty());
 			getItems().add(nowLine);
 
 			ToggleButton detail = new ToggleButton(Messages.getString("GanttChartToolBar.BUTTON_DETAIL"));
+			detail.setTooltip(new Tooltip(Messages.getString("GanttChartToolBar.BUTTON_DETAIL_TOOLTIP")));
 			detail.setGraphic(new FontIcon(MaterialDesign.MDI_BOOK_OPEN));
 			detail.selectedProperty().bindBidirectional(ganttChart.showDetailProperty());
+			detail.contentDisplayProperty().bindBidirectional(contentDisplayProperty());
 			getItems().add(detail);
 
-			getItems().add(new Separator());
+			getItems().add(new Separator(Orientation.VERTICAL));
 
-			CustomTextField filterField = new CustomTextField();
+			TextField filterField = new TextField();
+			filterField.setTooltip(new Tooltip(Messages.getString("GanttChartToolBar.TOOLTIP_FILTER")));
 			filterField.getStyleClass().add("search-field");
 			filterField.setPromptText("Filter");
 			filterField.textProperty().addListener(it -> filter(filterField.getText()));

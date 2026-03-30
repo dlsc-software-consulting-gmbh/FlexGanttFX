@@ -10,12 +10,15 @@ import com.flexganttfx.demo.HelloRow;
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.view.GanttChart;
 import com.flexganttfx.view.GanttChartBase;
+import com.flexganttfx.view.util.Messages;
 import javafx.application.Application;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.VBox;
+import javafx.util.StringConverter;
 
 import java.time.*;
 
@@ -69,8 +72,35 @@ public class HelloScrollBars extends FlexGanttFXSample {
     @Override
     public Node getControlPanel() {
         ComboBox<GanttChartBase.ScrollBarType> typeComboBox = new ComboBox<>();
+        typeComboBox.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(GanttChartBase.ScrollBarType type) {
+                if (type == null) return "";
+                switch (type) {
+                    case FIXED_HORIZON: return Messages.getString("GanttChartBase.SCROLL_BAR_TYPE_FIXED_HORIZON");
+                    case INFINITE:      return Messages.getString("GanttChartBase.SCROLL_BAR_TYPE_INFINITE");
+                    case NONE:
+                    default:            return Messages.getString("GanttChartBase.SCROLL_BAR_TYPE_NONE");
+                }
+            }
+
+            @Override
+            public GanttChartBase.ScrollBarType fromString(String string) {
+                return null;
+            }
+        });
         typeComboBox.getItems().setAll(GanttChartBase.ScrollBarType.values());
         typeComboBox.valueProperty().bindBidirectional(gc.scrollBarTypeProperty());
+        typeComboBox.valueProperty().addListener((obs, oldType, newType) -> {
+            if (oldType != null && newType != null) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle(Messages.getString("GanttChartBase.SCROLL_BAR_TYPE_DIALOG_TITLE"));
+                alert.setHeaderText(typeComboBox.getConverter().toString(newType));
+                alert.setContentText(scrollBarTypeDescription(newType));
+                alert.initOwner(typeComboBox.getScene().getWindow());
+                alert.show();
+            }
+        });
 
         CheckBox autoHideScrollBar = new CheckBox("Auto-Hide Scrollbars");
         autoHideScrollBar.selectedProperty().bindBidirectional(gc.autoHideScrollBarProperty());
@@ -92,5 +122,14 @@ public class HelloScrollBars extends FlexGanttFXSample {
 
     public static void main(String[] args) {
         Application.launch(args);
+    }
+
+    private static String scrollBarTypeDescription(GanttChartBase.ScrollBarType type) {
+        switch (type) {
+            case FIXED_HORIZON: return Messages.getString("GanttChartBase.SCROLL_BAR_TYPE_FIXED_HORIZON_DESCRIPTION");
+            case INFINITE:      return Messages.getString("GanttChartBase.SCROLL_BAR_TYPE_INFINITE_DESCRIPTION");
+            case NONE:
+            default:            return Messages.getString("GanttChartBase.SCROLL_BAR_TYPE_NONE_DESCRIPTION");
+        }
     }
 }
