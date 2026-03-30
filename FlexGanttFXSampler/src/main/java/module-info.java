@@ -8,7 +8,6 @@ open module com.flexganttfx.sampler {
     requires atlantafx.base;
     requires devtoolsfx.connector;
     requires devtoolsfx.gui;
-    requires com.dlsc.gemsfx;
     requires java.prefs;
     requires opencsv;
     requires org.kordamp.ikonli.core;

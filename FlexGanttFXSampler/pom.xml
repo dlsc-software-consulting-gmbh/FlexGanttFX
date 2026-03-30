@@ -50,12 +50,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.dlsc.gemsfx</groupId>
-			<artifactId>gemsfx</artifactId>
-			<version>${gemsfx.version}</version>
-		</dependency>
-
-		<dependency>
 			<groupId>com.flexganttfx</groupId>
 			<artifactId>view</artifactId>
 			<version>${project.parent.version}</version>

@@ -3,7 +3,6 @@
  * 
  * Copyright 2019 DLSC Software & Consulting GmbH
  */
-
 .graphics {
     -fx-grid-line-color1: derive(-fx-box-border, +60%);
     -fx-grid-line-color2: -fx-box-border;

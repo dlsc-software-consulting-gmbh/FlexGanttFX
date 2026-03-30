@@ -12,13 +12,14 @@ import atlantafx.base.theme.NordLight;
 import atlantafx.base.theme.PrimerDark;
 import atlantafx.base.theme.PrimerLight;
 import atlantafx.base.theme.Theme;
+import com.flexganttfx.extras.util.StageManager;
 import com.flexganttfx.core.FlexGanttFX;
 import com.flexganttfx.emirates.model.DataModel.DataSet;
 import com.flexganttfx.emirates.model.DataModel;
 import com.flexganttfx.emirates.view.EmiratesAircraftGanttChart;
-import com.flexganttfx.emirates.view.EmiratesToolBar;
 import com.flexganttfx.emirates.view.GlassPane;
 import com.flexganttfx.emirates.view.IntroPane;
+import com.flexganttfx.extras.GanttChartToolBar;
 import com.flexganttfx.view.GanttChartBase;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -34,6 +35,7 @@ import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import org.scenicview.ScenicView;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -41,6 +43,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.prefs.Preferences;
 
@@ -93,19 +96,21 @@ public class EmiratesApp extends Application {
         stage.setTitle("Emirates Aircraft Scheduling");
 
         StackPane stack = new StackPane();
-        Node ganttNode;
-        stack.getChildren().add(ganttNode = createGanttChart());
+
+        stack.getChildren().add(createGanttChart());
         stack.getChildren().add(introNode = createIntro());
         stack.getChildren().add(glassPane = new GlassPane());
 
         Scene scene = new Scene(stack);
-        scene.getStylesheets().add(EmiratesApp.class.getResource("emirates.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(EmiratesApp.class.getResource("emirates.css")).toExternalForm());
 
         stage.setScene(scene);
-        stage.setWidth(1400);
-        stage.setHeight(900);
         stage.centerOnScreen();
+
+        StageManager.install(stage, "emirates.demo.app", 1400, 900);
+
         stage.show();
+        ScenicView.show(scene);
     }
 
     public void load(final DataSet dataSet) {
@@ -168,7 +173,7 @@ public class EmiratesApp extends Application {
         MenuBar menuBar = createMenuBar();
         vbox.getChildren().add(menuBar);
 
-        EmiratesToolBar<?> toolBar = new EmiratesToolBar<>(gantt);
+        GanttChartToolBar<?> toolBar = new GanttChartToolBar<>(gantt);
         vbox.getChildren().add(toolBar);
         vbox.getChildren().add(gantt);
         return vbox;

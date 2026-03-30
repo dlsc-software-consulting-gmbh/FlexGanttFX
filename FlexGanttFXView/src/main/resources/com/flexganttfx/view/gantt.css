@@ -189,7 +189,7 @@
  * It becomes visible when the user moves the mouse cursor close to the
  * bottom edge of the graphics view.
  */
- 
+
 .time-slider {
 	-fx-opacity: .75;
     -fx-background-radius: 0.0;
@@ -213,7 +213,7 @@
 
 .time-slider > * > .slider > .thumb {
 	-fx-pref-width: 100;
-    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color; 
+    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
     -fx-background-insets: 2.0, 3.0, 4.0;
     -fx-background-radius: 3.0, 2.0, 1.0;
 }

@@ -1,4 +1,12 @@
 ----------------------------------------------------------------
+Release: 21.1.0, Date: April 2026
+----------------------------------------------------------------
+
+** Support for AtlantaFX theming
+** Support for "content display" property in GanttChartToolBar to show smaller buttons
+** New demos (space, sprint planning, project management)
+
+----------------------------------------------------------------
 Release: 11.12.8, Date: January 17th 2024
 ----------------------------------------------------------------
 
