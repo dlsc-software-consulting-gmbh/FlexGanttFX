@@ -26,4 +26,5 @@ open module com.flexganttfx.sampler {
     requires com.flexganttfx.msproject;
     requires com.flexganttfx.emirates;
     requires com.flexganttfx.factory;
+    requires com.flexganttfx.weather;
 }
