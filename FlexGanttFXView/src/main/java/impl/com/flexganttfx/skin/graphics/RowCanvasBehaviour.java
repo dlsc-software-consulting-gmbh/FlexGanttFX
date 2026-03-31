@@ -77,11 +77,11 @@ import static javafx.scene.paint.Color.TRANSPARENT;
 
 public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
-    private static final String DRAGANDDROPINFO = "com.flexganttfx.draganddropinfo";
+    private static final String DRAG_AND_DROP_INFO = "com.flexganttfx.draganddropinfo";
 
-    private static final String CURRENTEDITMODE = "com.flexganttfx.currenteditmode";
+    private static final String CURRENT_EDIT_MODE = "com.flexganttfx.currenteditmode";
 
-    private static final String CURRENTLYEDITEDACTIVITY = "com.flexganttfx.currentlyeditedactivity";
+    private static final String CURRENTLY_EDITED_ACTIVITY = "com.flexganttfx.currentlyeditedactivity";
 
     private static final Map<EditMode, Cursor> cursorMap = new HashMap<>();
 
@@ -157,7 +157,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
                     cursor = Cursor.E_RESIZE;
                     break;
                 case PERCENTAGE_COMPLETE_CHANGE:
-                    Image percentageImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-percentage.gif"));
+                    Image percentageImage = new Image(requireNonNull(GraphicsBase.class.getResourceAsStream("cursor-percentage.gif")));
                     cursor = new ImageCursor(percentageImage, percentageImage.getWidth(), percentageImage.getHeight() / 2);
                     break;
                 case DRAGGING_HORIZONTAL:
@@ -199,43 +199,43 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
         cursorMap.put(EditMode.NONE, Cursor.DEFAULT);
 
-        Image percentageImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-percentage.gif"));
+        Image percentageImage = new Image(requireNonNull(GraphicsBase.class.getResourceAsStream("cursor-percentage.gif")));
         ImageCursor percentageCursor = new ImageCursor(percentageImage, percentageImage.getWidth(), percentageImage.getHeight() / 2);
         cursorMap.put(EditMode.PERCENTAGE_COMPLETE_CHANGE, percentageCursor);
 
-        Image chartImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-chart-value.gif"));
+        Image chartImage = new Image(requireNonNull(GraphicsBase.class.getResourceAsStream("cursor-chart-value.gif")));
         ImageCursor chartValueCursor = new ImageCursor(chartImage, chartImage.getWidth() / 2, chartImage.getHeight() / 2);
         cursorMap.put(EditMode.CHART_VALUE_CHANGE, chartValueCursor);
 
-        Image dragImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-move.gif"));
+        Image dragImage = new Image(requireNonNull(GraphicsBase.class.getResourceAsStream("cursor-move.gif")));
         ImageCursor dragCursor = new ImageCursor(dragImage, dragImage.getWidth() / 2, dragImage.getHeight() / 2);
         cursorMap.put(EditMode.DRAGGING, dragCursor);
 
-        Image dragHorizontalImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-move-horizontal.gif"));
+        Image dragHorizontalImage = new Image(requireNonNull(GraphicsBase.class.getResourceAsStream("cursor-move-horizontal.gif")));
         ImageCursor dragHorizontalCursor = new ImageCursor(dragHorizontalImage, dragHorizontalImage.getWidth() / 2, dragHorizontalImage.getHeight() / 2);
         cursorMap.put(EditMode.DRAGGING_HORIZONTAL, dragHorizontalCursor);
 
-        Image dragVerticalImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-move-vertical.gif"));
+        Image dragVerticalImage = new Image(requireNonNull(GraphicsBase.class.getResourceAsStream("cursor-move-vertical.gif")));
         ImageCursor dragVerticalCursor = new ImageCursor(dragVerticalImage, dragVerticalImage.getWidth() / 2, dragVerticalImage.getHeight() / 2);
         cursorMap.put(EditMode.DRAGGING_VERTICAL, dragVerticalCursor);
 
-        Image endTimeImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-end-time.gif"));
+        Image endTimeImage = new Image(requireNonNull(GraphicsBase.class.getResourceAsStream("cursor-end-time.gif")));
         ImageCursor endTimeCursor = new ImageCursor(endTimeImage, endTimeImage.getWidth() / 2, endTimeImage.getHeight() / 2);
         cursorMap.put(EditMode.END_TIME_CHANGE, endTimeCursor);
 
-        Image startTimeImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-start-time.gif"));
+        Image startTimeImage = new Image(requireNonNull(GraphicsBase.class.getResourceAsStream("cursor-start-time.gif")));
         ImageCursor startTimeCursor = new ImageCursor(startTimeImage, startTimeImage.getWidth() / 2, startTimeImage.getHeight() / 2);
         cursorMap.put(EditMode.START_TIME_CHANGE, startTimeCursor);
 
-        Image endTimeAgendaImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-end-time-agenda.gif"));
+        Image endTimeAgendaImage = new Image(requireNonNull(GraphicsBase.class.getResourceAsStream("cursor-end-time-agenda.gif")));
         ImageCursor endTimeAgendaCursor = new ImageCursor(endTimeAgendaImage, endTimeAgendaImage.getWidth() / 2, endTimeAgendaImage.getHeight() / 2);
         cursorMap.put(EditMode.AGENDA_END_TIME_CHANGE, endTimeAgendaCursor);
 
-        Image startTimeAgendaImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-start-time-agenda.gif"));
+        Image startTimeAgendaImage = new Image(requireNonNull(GraphicsBase.class.getResourceAsStream("cursor-start-time-agenda.gif")));
         ImageCursor startTimeAgendaCursor = new ImageCursor(startTimeAgendaImage, startTimeAgendaImage.getWidth() / 2, startTimeAgendaImage.getHeight() / 2);
         cursorMap.put(EditMode.AGENDA_START_TIME_CHANGE, startTimeAgendaCursor);
 
-        Image draggingAgendaImage = new Image(GraphicsBase.class.getResourceAsStream("cursor-move-vertical.gif"));
+        Image draggingAgendaImage = new Image(requireNonNull(GraphicsBase.class.getResourceAsStream("cursor-move-vertical.gif")));
         ImageCursor draggingAgendaCursor = new ImageCursor(draggingAgendaImage, draggingAgendaImage.getWidth() / 2, draggingAgendaImage.getHeight() / 2);
         cursorMap.put(EditMode.AGENDA_DRAGGING, draggingAgendaCursor);
     }
@@ -449,7 +449,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
                 break;
         }
 
-        graphics.getProperties().put(DRAGANDDROPINFO, dragAndDropInfo);
+        graphics.getProperties().put(DRAG_AND_DROP_INFO, dragAndDropInfo);
 
         /*
          * Callback determines if drop is possible.
@@ -682,7 +682,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
     private void dragExited(DragEvent evt) {
         DND.fine("drag exited: " + evt);
-        canvas.getGraphics().getProperties().remove(DRAGANDDROPINFO);
+        canvas.getGraphics().getProperties().remove(DRAG_AND_DROP_INFO);
         clearDragCanvas();
     }
 
@@ -694,7 +694,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
         GraphicsBase<R> graphics = canvas.getGraphics();
 
-        graphics.getProperties().put(DRAGANDDROPINFO, null);
+        graphics.getProperties().put(DRAG_AND_DROP_INFO, null);
 
         clearDragCanvas();
 
@@ -1341,7 +1341,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
             /*
              * A little trick to make the graphics view update a read-only property.
              */
-            graphics.getProperties().put(CURRENTEDITMODE, editMode);
+            graphics.getProperties().put(CURRENT_EDIT_MODE, editMode);
 
             if (!editMode.equals(EditMode.NONE) && event.getButton().equals(PRIMARY)) {
 
@@ -1365,7 +1365,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
     private void updateCurrentlyEditedActivity() {
         if (activityBounds != null) {
             GraphicsBase<R> graphics = canvas.getGraphics();
-            graphics.getProperties().put(CURRENTLYEDITEDACTIVITY, activityBounds.getActivityRef());
+            graphics.getProperties().put(CURRENTLY_EDITED_ACTIVITY, activityBounds.getActivityRef());
         }
     }
 
@@ -1374,7 +1374,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
          * Passing anything else but an activity ref will clear the currently
          * edited activity property.
          */
-        canvas.getGraphics().getProperties().put(CURRENTLYEDITEDACTIVITY, "");
+        canvas.getGraphics().getProperties().put(CURRENTLY_EDITED_ACTIVITY, "");
     }
 
     private Eventline getEventline() {
@@ -1412,7 +1412,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         } else {
             editMode = NONE;
             graphics.getProperties().put("com.flexganttfx.hover.activity", null);
-            graphics.getProperties().put(CURRENTEDITMODE, editMode);
+            graphics.getProperties().put(CURRENT_EDIT_MODE, editMode);
             graphics.setCursor(Cursor.DEFAULT);
         }
     }
@@ -1421,7 +1421,7 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         if (activityBounds != null && lastMouseEvent != null) {
             GraphicsBase<R> graphics = canvas.getGraphics();
             editMode = lookupEditMode(activityBounds, lastMouseEvent);
-            graphics.getProperties().put(CURRENTEDITMODE, editMode);
+            graphics.getProperties().put(CURRENT_EDIT_MODE, editMode);
             graphics.setCursor(cursorMap.get(editMode));
         }
     }

@@ -77,8 +77,8 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
 
         /*
          * Determine the "hot" region that will trigger automatic scrolling.
-         * Ideally we use the clipped container of the list view skin but when
-         * the rows are empty the dimensions of the clipped container will be
+         * Ideally, we use the clipped container of the list view skin, but when
+         * the rows are empty, the dimensions of the clipped container will be
          * 0x0. In this case we try to use the virtual flow.
          */
         Region hotRegion = getClippedContainer();

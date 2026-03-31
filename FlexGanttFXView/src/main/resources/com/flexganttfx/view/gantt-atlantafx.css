@@ -10,12 +10,7 @@
  */
 
 .gantt-chart {
-    -fx-background-color: -color-border-default;
-    -fx-padding: 1px;
-}
-
-.scroll-bar {
-    -fx-opacity: .75;
+    -fx-border-color: -color-border-default;
 }
 
 .split-pane {
@@ -24,9 +19,9 @@
 }
 
 .row-header-cell {
-    -fx-text-fill: -color-fg-default;
-    -fx-background-color: -color-border-default, -color-bg-subtle;
-    -fx-background-insets: 0, 0 0 1 0;
+    -fx-text-fill: -color-fg-default !important;
+    -fx-background-color: -color-border-default, -color-bg-subtle !important;
+    -fx-background-insets: 0, 0 0 1 0 !important;
 }
 
 .eventline .row-header {
@@ -38,11 +33,14 @@
     -fx-background-color: -color-fg-default;
 }
 
+.gantt-chart .split-pane-divider {
+    -fx-background-color: -color-border-default;
+}
+
 .gantt-tree-table-view {
     -fx-padding: 0;
     -fx-border-width: 0;
     -fx-background-insets: 0;
-    -fx-table-cell-border-color: -color-border-muted;
 }
 
 .gantt-tree-table-view:focused {
@@ -53,7 +51,6 @@
 .gantt-tree-table-view .column-header,
 .gantt-tree-table-view-first .column-header {
     -fx-pref-height: 4.5em;
-    -fx-background-color: -color-border-default, -color-bg-subtle;
 }
 
 .gantt-tree-table-view-middle .column-header,
@@ -75,28 +72,29 @@
     -fx-opacity: 0;
 }
 
-.gantt-tree-table-view .column-header .label {
-    -fx-alignment: center;
+.gantt-tree-table-view .tree-table-cell {
+    -fx-border-color: -color-border-default !important;
+    -fx-border-width: 0 1 0 0 !important;
 }
 
-.gantt-tree-table-view .column-header, .gantt-tree-table-view .filler {
-    -fx-font-weight: normal;
+.gantt-tree-table-view .tree-table-row-cell {
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
 }
 
 .gantt-tree-table-view .tree-table-row-cell:even {
-    -fx-background-color: -color-bg-default;
-}
-
-.gantt-tree-table-view .tree-table-row-cell:odd {
     -fx-background-color: -color-bg-subtle;
 }
 
+.gantt-tree-table-view .tree-table-row-cell:odd {
+    -fx-background-color: -color-bg-muted;
+}
+
 .gantt-tree-table-view > .virtual-flow > .clipped-container > .sheet > .tree-table-row-cell:selected {
-    -fx-background-color: -color-bg-inset;
 }
 
 .gantt-tree-table-view:focused > .virtual-flow > .clipped-container > .sheet > .tree-table-row-cell:selected {
-    -fx-background-color: -color-accent-subtle;
 }
 
 .layers-navigate-button {

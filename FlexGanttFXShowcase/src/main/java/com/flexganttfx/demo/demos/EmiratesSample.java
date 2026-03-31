@@ -8,8 +8,8 @@ import com.flexganttfx.demo.FlexGanttFXSampleBase;
 import com.flexganttfx.emirates.model.DataModel;
 import com.flexganttfx.emirates.model.DataModel.DataSet;
 import com.flexganttfx.emirates.view.EmiratesAircraftGanttChart;
-import com.flexganttfx.emirates.view.EmiratesToolBar;
 import com.flexganttfx.emirates.view.GlassPane;
+import com.flexganttfx.extras.GanttChartToolBar;
 import com.flexganttfx.view.GanttChartBase;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -60,7 +60,7 @@ public class EmiratesSample extends FlexGanttFXSampleBase {
 
         glassPane = new GlassPane();
 
-        EmiratesToolBar<?> toolBar = new EmiratesToolBar<>(gantt);
+        GanttChartToolBar<?> toolBar = new GanttChartToolBar<>(gantt);
 
         HBox selectorBar = buildSelectorBar();
 

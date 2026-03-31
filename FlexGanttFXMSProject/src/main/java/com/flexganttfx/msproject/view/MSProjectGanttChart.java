@@ -37,6 +37,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static javafx.scene.control.ContentDisplay.GRAPHIC_ONLY;
 
@@ -49,7 +50,7 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
         setScrollBarType(ScrollBarType.FIXED_HORIZON);
         setAutoHideScrollBar(false);
 
-        getStylesheets().add(MSProjectGanttChart.class.getResource("msproject.css").toExternalForm());
+        getStylesheets().add(Objects.requireNonNull(MSProjectGanttChart.class.getResource("msproject.css")).toExternalForm());
 
         getGraphics().setActivityRenderer(MSProjectTaskActivity.class, GanttLayout.class, new MSProjectTaskActivityRenderer(getGraphics()));
 
@@ -125,10 +126,10 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
             TreeTableColumn<MSProjectTaskRow, Double> percentageCompleteColumn = new TreeTableColumn<>("%");
             TreeTableColumn<MSProjectTaskRow, Double> percentageCompleteVisualColumn = new TreeTableColumn<>("Complete");
 
-            startColumn.setPrefWidth(100);
-            finishColumn.setPrefWidth(100);
-            percentageCompleteColumn.setPrefWidth(40);
-            percentageCompleteVisualColumn.setPrefWidth(100);
+            startColumn.setPrefWidth(120);
+            finishColumn.setPrefWidth(120);
+            percentageCompleteColumn.setPrefWidth(50);
+            percentageCompleteVisualColumn.setPrefWidth(120);
 
             startColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("startTime"));
             finishColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("finishTime"));

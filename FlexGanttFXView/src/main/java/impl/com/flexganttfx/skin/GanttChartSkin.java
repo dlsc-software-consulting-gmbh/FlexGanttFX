@@ -52,7 +52,6 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
 
         ListView<R> listView = ganttChart.getGraphics().getListView();
         treeTable = ganttChart.getTreeTable();
-        treeTable.getStylesheets().add(GanttChart.class.getResource("gantt.css").toExternalForm());
         treeTable.fixedCellSizeProperty().bind(ganttChart.fixedCellSizeProperty());
         treeTable.setTableMenuButtonVisible(false);
         treeTable.setRowFactory(view -> new GanttChartTreeTableRow<>());
