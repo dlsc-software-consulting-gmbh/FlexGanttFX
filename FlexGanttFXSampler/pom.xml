@@ -92,6 +92,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.flexganttfx</groupId>
+			<artifactId>weather</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-web</artifactId>
 			<version>${javafx.version}</version>

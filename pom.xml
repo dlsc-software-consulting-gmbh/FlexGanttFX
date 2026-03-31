@@ -66,6 +66,7 @@
         <module>FlexGanttFXAssembly</module>
         <module>FlexGanttFXCovid</module>
         <module>FlexGanttFXFactory</module>
+        <module>FlexGanttFXWeather</module>
         <module>FlexGanttFXDemoLauncher</module>
         <module>FlexGanttFXSpaceMission</module>
         <module>FlexGanttFXAirport</module>
