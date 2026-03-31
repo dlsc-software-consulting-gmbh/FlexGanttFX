@@ -53,7 +53,7 @@
         <module>FlexGanttFXModel</module>
         <module>FlexGanttFXView</module>
         <module>FlexGanttFXExtras</module>
-        <module>FlexGanttFXSampler</module>
+        <module>FlexGanttFXShowcase</module>
         <module>FlexGanttFXProject</module>
         <module>FlexGanttFXMSProject</module>
         <module>FlexGanttFXiCal</module>

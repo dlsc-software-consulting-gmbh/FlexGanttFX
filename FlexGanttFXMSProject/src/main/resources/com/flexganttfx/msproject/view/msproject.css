@@ -1,50 +1,4 @@
-.scale-bottom > .saturday,
-.scale-bottom > .sunday {
-    -weekend-color: cadetblue;
-    -fx-color: ladder(-fx-base, -weekend-color 50%, -weekend-color 50%);
-}
 
-
-/*
- * The style used for the label that displays the time at the current
- * mouse cursor location.
- */
-.time-cursor {
-    -fx-control-inner-background: cadetblue;
-    -fx-text-fill: white;
-}
-
-/*
- * The style used for the two labels that display the start and end time
- * of the currently edited activity.
- */
-.marked-time {
-    -fx-control-inner-background: cadetblue;
-    -fx-text-fill: white;
-}
-
-.activities-lasso {
-    -fx-stroke: cadetblue;
-    -fx-fill: ladder(#aaa, cadetblue 0%, transparent 100%);
-}
-
-/*
- * The cursor lines.
- */
-.horizontal-cursor,
-.vertical-cursor {
-    -fx-stroke: cadetblue;
-    -fx-stroke-width: 1.5;
-}
-
-/*
- * Marked Time Interval
- */
-.marked-time-line {
-    -fx-stroke-width: 1.5px;
-    -fx-stroke: cadetblue;
-    -fx-stroke-dash-array: 4 3;
-}
 
 .task-name-cell.parent .ikonli-font-icon {
     -fx-icon-color: cadetblue;
@@ -52,9 +6,4 @@
 
 .task-name-cell.child .ikonli-font-icon {
     -fx-icon-color: coral;
-}
-
-.tree-table-view:focused .tree-table-row-cell:selected .task-name-cell.parent .ikonli-font-icon,
-.tree-table-view:focused .tree-table-row-cell:selected .task-name-cell.child .ikonli-font-icon {
-    -fx-icon-color: white;
 }

@@ -32,10 +32,18 @@
 }
 
 .row-cell {
-    -fx-padding: 0 !important;
-    -fx-background-insets: 0 !important;
-    -fx-border-width: 0 !important;
-    -fx-pref-height: 24px;
+    -fx-padding: 0px !important;
+    -fx-background-insets: 0px !important;
+    -fx-border-width: 0px !important;
+    -fx-pref-height: 24px !important;
+}
+
+.row-cell:even {
+    -fx-background-color: -color-bg-subtle !important;
+}
+
+.row-cell:odd {
+    -fx-background-color: -color-bg-muted !important;
 }
 
 .row-cell:focused,
@@ -63,7 +71,7 @@
 
 .activities-lasso {
     -fx-stroke: -color-accent-fg;
-    -fx-fill: -color-accent-subtle;
+    -fx-fill: #ffffffaa;
 }
 
 .horizontal-cursor,

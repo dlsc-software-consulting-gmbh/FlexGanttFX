@@ -50,7 +50,6 @@ public class GanttChartToolBar<R extends Row<?, ?, ?>> extends ToolBar {
 	 */
 	public GanttChartToolBar() {
 		setOrientation(Orientation.HORIZONTAL);
-		getStylesheets().add(GanttChartToolBar.class.getResource("toolbar.css").toExternalForm());
 		ganttChartProperty().addListener(observable -> buildToolBar());
 	}
 
@@ -63,6 +62,11 @@ public class GanttChartToolBar<R extends Row<?, ?, ?>> extends ToolBar {
 	public GanttChartToolBar(GanttChartBase<R> ganttChart) {
 		this();
 		setGanttChart(ganttChart);
+	}
+
+	@Override
+	public String getUserAgentStylesheet() {
+		return requireNonNull(GanttChartToolBar.class.getResource("toolbar.css")).toExternalForm();
 	}
 
 	private final ObjectProperty<GanttChartBase<R>> ganttChart = new SimpleObjectProperty<>(this, "ganttChart");

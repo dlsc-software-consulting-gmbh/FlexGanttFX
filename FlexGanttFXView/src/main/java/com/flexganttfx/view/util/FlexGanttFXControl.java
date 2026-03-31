@@ -16,6 +16,7 @@ import java.net.URL;
 import java.time.Instant;
 import java.time.Year;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
@@ -43,7 +44,7 @@ public abstract class FlexGanttFXControl extends Control {
 	 * contains the string {@code "atlantafx"}. No compile-time dependency on the
 	 * AtlantaFX library is required.
 	 */
-	private static boolean isAtlantaFXActive() {
+	public static boolean isAtlantaFXActive() {
 		String uas = Application.getUserAgentStylesheet();
 		if (uas == null) {
 			return false;
@@ -83,7 +84,7 @@ public abstract class FlexGanttFXControl extends Control {
 
 	private String resolveDefaultStylesheet(Class<?> clazz, String fileName) {
 		if (stylesheet == null) {
-			stylesheet = clazz.getResource(fileName).toExternalForm();
+			stylesheet = Objects.requireNonNull(clazz.getResource(fileName)).toExternalForm();
 		}
 		return stylesheet;
 	}

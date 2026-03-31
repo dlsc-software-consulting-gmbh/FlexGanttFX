@@ -38,10 +38,10 @@ import static javafx.scene.control.ContentDisplay.GRAPHIC_ONLY;
 import static javafx.scene.control.ContentDisplay.TEXT_ONLY;
 
 /**
- * The row header is a specialized column which is used for controlling the
+ * The row header is a specialized column used for controlling the
  * height of each row and for adding row numbers / row outline levels in front
- * of each row. Additionally it is possible to place an arbitrary node into each
- * row header cell. For this to work a row header node factory has to be
+ * of each row. Additionally, it is possible to place an arbitrary node into each
+ * row header cell. For this to work, a row header node factory has to be
  * registered with the Gantt chart control.<br>
  * <br>
  * <p>
