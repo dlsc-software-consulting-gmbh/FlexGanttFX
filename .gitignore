@@ -9,6 +9,4 @@ jdeploy-bundle/
 /.idea/
 /.idea/*
 /scenicView.properties
-/FlexGanttFXFactory/target/
-/FlexGanttFXDemoLauncher/target/
-/FlexGanttFXWeather/target/
+/*/target/
