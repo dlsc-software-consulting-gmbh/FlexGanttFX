@@ -14,9 +14,13 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Point2D;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.stage.PopupWindow.AnchorLocation;
 import javafx.util.StringConverter;
 import org.controlsfx.control.PopOver;
@@ -309,13 +313,16 @@ public class GanttChartToolBar<R extends Row<?, ?, ?>> extends ToolBar {
 			detail.contentDisplayProperty().bindBidirectional(contentDisplayProperty());
 			getItems().add(detail);
 
-			getItems().add(new Separator(Orientation.VERTICAL));
+			Region spacer = new Region();
+			HBox.setHgrow(spacer, Priority.ALWAYS);
+			getItems().add(spacer);
 
 			TextField filterField = new TextField();
 			filterField.setTooltip(new Tooltip(Messages.getString("GanttChartToolBar.TOOLTIP_FILTER")));
 			filterField.getStyleClass().add("search-field");
 			filterField.setPromptText("Filter");
 			filterField.textProperty().addListener(it -> filter(filterField.getText()));
+			HBox.setMargin(filterField, new Insets(0, 5, 0, 0));
 			getItems().add(filterField);
 		}
 	}

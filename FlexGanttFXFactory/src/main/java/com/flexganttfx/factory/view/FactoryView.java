@@ -30,6 +30,7 @@ public class FactoryView extends BorderPane {
         HBox legend = new HBox(16);
         legend.setPadding(new Insets(6, 12, 6, 12));
         legend.setAlignment(Pos.CENTER_LEFT);
+        legend.setStyle("-fx-background-color: -color-bg-subtle;");
 
         addLegendEntry(legend, "Scheduled",   Color.STEELBLUE);
         addLegendEntry(legend, "In Progress", Color.DARKORANGE);
