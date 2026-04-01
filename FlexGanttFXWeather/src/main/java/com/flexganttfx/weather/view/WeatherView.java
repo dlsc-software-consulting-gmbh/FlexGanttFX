@@ -183,10 +183,9 @@ public class WeatherView extends BorderPane {
         gc.getRows().setAll(cityRows);
         gc.getCalendars().clear();
 
-        gc.getTimeline().showTime(
-            ZonedDateTime.of(startDate, LocalTime.MIN, ZoneId.systemDefault()).toInstant());
-        gc.getTimeline().showTemporalUnit(ChronoUnit.MONTHS, 48);
-
+        gc.getTimeline().showTime(ZonedDateTime.of(startDate, LocalTime.MIN, ZoneId.systemDefault()).toInstant());
+        gc.getTimeline().showTemporalUnit(ChronoUnit.MONTHS, 100);
+        gc.getTimeline().setZoomAnimated(false);
         gc.getGraphics().setShowVerticalCursor(true);
         gc.getGraphics().setShowHorizontalCursor(true);
 
@@ -347,11 +346,12 @@ public class WeatherView extends BorderPane {
     class CityRowHeader extends GraphicsBase.RowHeader<CityRow> {
 
         // Layout constants (pixels)
-        private static final double SWATCH_W  = 18;   // colour swatch width
-        private static final double SCALE_X   = 22;   // start of tick marks
-        private static final double TICK_LEN  = 7;    // tick mark length
-        private static final double LABEL_X   = 88;   // right-align limit for scale labels
-        private static final double INFO_X    = 95;   // left edge of city info text
+        private static final double SWATCH_W     = 18;   // colour swatch width
+        private static final double SCALE_X      = 22;   // start of tick marks
+        private static final double TICK_LEN     = 7;    // tick mark length
+        private static final double LABEL_X      = 88;   // right-align limit for scale labels
+        private static final double INFO_X       = 95;   // left edge of city info text
+        private static final double LABEL_HALF_H = 6.0;  // half line-height for 9.5 px font (VPos.CENTER clamp)
 
         private final Canvas canvas;
 
@@ -479,7 +479,8 @@ public class WeatherView extends BorderPane {
                     gc.setFill(isZero
                         ? Color.color(0.6, 0.85, 1.0, 0.85)
                         : Color.color(1, 1, 1, isExtreme ? 0.80 : 0.55));
-                    gc.fillText(label, LABEL_X, y);
+                    double labelY = Math.max(LABEL_HALF_H, Math.min(y, tempH - LABEL_HALF_H));
+                    gc.fillText(label, LABEL_X, labelY);
                     prevLabelY = y;
                 }
             }

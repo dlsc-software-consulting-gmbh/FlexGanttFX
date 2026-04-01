@@ -105,15 +105,20 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
         connectHorizonScrollBarToTimeline(getMasterTimeline());
 
         horizonScrollBar.valueProperty().addListener(it -> {
-            Long value = Double.valueOf(horizonScrollBar.getValue()).longValue();
-            getMasterTimeline().getModel().setStartTime(timeline.getModel().getHorizonStartTime().plusMillis(value.longValue()));
+            long value = Double.valueOf(horizonScrollBar.getValue()).longValue();
+            getMasterTimeline().getModel().setStartTime(timeline.getModel().getHorizonStartTime().plusMillis(value));
         });
 
         Label noDetailsLabel = new Label("No Details");
         noDetailsLabel.setAlignment(Pos.CENTER);
         setDetail(noDetailsLabel);
 
-        graphicsMasterDetailPane = new MasterDetailPane(RIGHT);
+        graphicsMasterDetailPane = new MasterDetailPane(RIGHT) {
+            @Override
+            public String getUserAgentStylesheet() {
+                return null;
+            }
+        };
         graphicsMasterDetailPane.setDividerPosition(.8);
         graphicsMasterDetailPane.setId("graphics-master-detail-pane");
         Bindings.bindBidirectional(graphicsMasterDetailPane.showDetailNodeProperty(), showDetailProperty());

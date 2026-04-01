@@ -81,7 +81,11 @@ public class SampleRegistry {
             List.of(
                 EmiratesSample::new,
                 MSProjectSample::new,
-                FactorySample::new
+                FactorySample::new,
+                WeatherSample::new,
+                SpaceMissionSample::new,
+                AirportSample::new,
+                SprintSample::new
             )
         )
     );

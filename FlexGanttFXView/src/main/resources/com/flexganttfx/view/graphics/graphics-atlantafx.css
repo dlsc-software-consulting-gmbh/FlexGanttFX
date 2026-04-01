@@ -43,7 +43,7 @@
 }
 
 .row-cell:odd {
-    -fx-background-color: -color-bg-muted !important;
+    -fx-background-color: -color-bg-default !important;
 }
 
 .row-cell:focused,

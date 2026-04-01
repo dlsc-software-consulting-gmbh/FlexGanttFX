@@ -92,6 +92,24 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.flexganttfx</groupId>
+			<artifactId>space-mission</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.flexganttfx</groupId>
+			<artifactId>airport</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.flexganttfx</groupId>
+			<artifactId>sprint</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-web</artifactId>
 			<version>${javafx.version}</version>

@@ -25,6 +25,7 @@ import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
 
@@ -74,11 +75,11 @@ public class RowHeaderColumn<R extends Row<?, ?, ?>> extends TreeTableColumn<R, 
 
         setCellFactory(column -> new RowHeaderColumnCell());
 
-        setPrefWidth(30);
+        setPrefWidth(Region.USE_COMPUTED_SIZE);
+        setMinWidth(Region.USE_PREF_SIZE);
         setResizable(true);
         setSortable(false);
         setEditable(false);
-
         setReorderable(false);
 
         // build context menu
@@ -144,7 +145,7 @@ public class RowHeaderColumn<R extends Row<?, ?, ?>> extends TreeTableColumn<R, 
 
         setContextMenu(contextMenu);
 
-        cornerRegion.setPrefSize(20, 20);
+        cornerRegion.setMinSize(20, 20);
 
         setGraphic(cornerRegion);
     }

@@ -48,9 +48,14 @@
     -fx-background-insets: 0;
 }
 
+.gantt-tree-table-view > .column-header-background {
+    -fx-background-color: -color-bg-subtle !important;
+}
+
 .gantt-tree-table-view .column-header,
 .gantt-tree-table-view-first .column-header {
     -fx-pref-height: 4.5em;
+    -fx-background-color: -color-bg-subtle !important;
 }
 
 .gantt-tree-table-view-middle .column-header,
@@ -88,7 +93,7 @@
 }
 
 .gantt-tree-table-view .tree-table-row-cell:odd {
-    -fx-background-color: -color-bg-muted;
+    -fx-background-color: -color-bg-default;
 }
 
 .gantt-tree-table-view > .virtual-flow > .clipped-container > .sheet > .tree-table-row-cell:selected {

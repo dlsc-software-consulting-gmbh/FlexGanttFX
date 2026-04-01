@@ -10,7 +10,7 @@
  */
 
 .timeline {
-    -fx-background-color: -color-bg-subtle;
+    -fx-background-color: -color-bg-default;
     -fx-padding: 0;
 }
 

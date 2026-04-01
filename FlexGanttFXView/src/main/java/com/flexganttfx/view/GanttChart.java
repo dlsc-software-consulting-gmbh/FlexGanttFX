@@ -232,7 +232,13 @@ public class GanttChart<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
             }
         });
 
-        treeTableMasterDetailPane = new MasterDetailPane(LEFT);
+        treeTableMasterDetailPane = new MasterDetailPane(LEFT) {
+            @Override
+            public String getUserAgentStylesheet() {
+                return null;
+            }
+        };
+
         treeTableMasterDetailPane.setId("treetable-master-detail-pane");
         Bindings.bindBidirectional(treeTableMasterDetailPane.showDetailNodeProperty(), showTreeTableProperty());
 
@@ -891,8 +897,7 @@ public class GanttChart<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
 
         // RT-23486
         double widthMax = maxWidth + padding;
-        if (treeTableView
-                .getColumnResizePolicy() == TreeTableView.CONSTRAINED_RESIZE_POLICY) {
+        if (treeTableView.getColumnResizePolicy() == TreeTableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN) {
             widthMax = Math.max(widthMax, tc.getWidth());
         }
 
