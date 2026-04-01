@@ -48,6 +48,7 @@ public class MSProjectSample extends FlexGanttFXSampleBase {
     @Override
     public Node getPanel(Stage stage) {
         gantt = new MSProjectGanttChart();
+        gantt.getTreeTableMasterDetailPane().setDividerPosition(.41);
         gantt.getGraphics().setLinkRenderer(ActivityLink.class, new CurvedLinkRenderer<>(gantt.getGraphics(), "Link Renderer") {
             @Override
             public void draw(ActivityLink<?> link, GraphicsContext gc, Rectangle2D sourceBounds, Rectangle2D targetBounds) {
@@ -73,8 +74,7 @@ public class MSProjectSample extends FlexGanttFXSampleBase {
 
         HBox selectorBar = buildSelectorBar();
 
-        VBox root = new VBox(0, toolBar, selectorBar, gantt, statusBar);
-        return root;
+        return new VBox(0, toolBar, selectorBar, gantt, statusBar);
     }
 
     @Override
@@ -98,6 +98,7 @@ public class MSProjectSample extends FlexGanttFXSampleBase {
         });
 
         HBox bar = new HBox(10, label, projectBox);
+        bar.getStyleClass().add("showcase-gantt-toolbar");
         bar.setAlignment(Pos.CENTER_LEFT);
         bar.setPadding(new Insets(6, 12, 6, 12));
         return bar;

@@ -6,15 +6,16 @@ package com.flexganttfx.demo.showcase;
 
 import atlantafx.base.theme.*;
 import devtoolsfx.gui.GUI;
+import com.flexganttfx.core.FlexGanttFX;
 import com.flexganttfx.demo.Sample;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -71,7 +72,7 @@ public class ShowcaseView extends BorderPane {
                 }
             }
         }
-        return THEMES.get(0); // default: PrimerDark
+        return THEMES.get(3); // default: Nord Light
     }
 
     private final SampleContentView contentView;
@@ -98,39 +99,42 @@ public class ShowcaseView extends BorderPane {
         bar.setAlignment(Pos.CENTER_LEFT);
         bar.setSpacing(10);
 
-        // Logo PNG — clicking navigates home
-        ImageView logoImage = new ImageView(new Image(
-                ShowcaseView.class.getResourceAsStream("flexganttfx-logo.png")));
-        logoImage.setFitHeight(46);
-        logoImage.setPreserveRatio(true);
-        logoImage.setSmooth(true);
-        logoImage.setCursor(Cursor.HAND);
-        logoImage.setOnMouseClicked(e -> showWelcome());
+        FontIcon logoIcon = new FontIcon(MaterialDesign.MDI_CHART_GANTT);
+        logoIcon.getStyleClass().add("showcase-logo-icon");
+
+        Label logoLabel = new Label("FlexGanttFX");
+        logoLabel.getStyleClass().add("showcase-logo-label");
+
+        Label badge = new Label("v" + FlexGanttFX.getVersion());
+        badge.getStyleClass().add("showcase-version-badge");
+
+        HBox logoGroup = new HBox(8, logoIcon, logoLabel, badge);
+        logoGroup.setAlignment(Pos.CENTER_LEFT);
+        logoGroup.setCursor(Cursor.HAND);
+        logoGroup.getStyleClass().add("showcase-logo-group");
+        logoGroup.setOnMouseClicked(e -> showWelcome());
+
+        Label tagline = new Label("Feature Showcase");
+        tagline.getStyleClass().add("showcase-tagline");
 
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
         // ── Theme switcher ────────────────────────────────────────────────
-        Label themeLabel = new Label("Theme:");
-        themeLabel.getStyleClass().add("showcase-tagline");
+        MenuButton themeMenu = new MenuButton("Theme");
+        themeMenu.getStyleClass().add("showcase-website-btn");
+        for (Theme theme : THEMES) {
+            MenuItem item = new MenuItem(theme.getName());
+            item.setOnAction(e -> {
+                Application.setUserAgentStylesheet(theme.getUserAgentStylesheet());
+                PREFS.put(PREF_THEME, theme.getName());
+            });
+            themeMenu.getItems().add(item);
+        }
 
-        ComboBox<Theme> themeCombo = new ComboBox<>();
-        themeCombo.getItems().addAll(THEMES);
-        themeCombo.setValue(resolvePersistedTheme());
-        themeCombo.getStyleClass().add("showcase-theme-combo");
-        themeCombo.setPrefWidth(160);
-        themeCombo.setCellFactory(lv -> new ThemeCell());
-        themeCombo.setButtonCell(new ThemeCell());
-        themeCombo.valueProperty().addListener((obs, oldTheme, newTheme) -> {
-            if (newTheme != null) {
-                Application.setUserAgentStylesheet(newTheme.getUserAgentStylesheet());
-                PREFS.put(PREF_THEME, newTheme.getName());
-            }
-        });
-
-        Button scenicViewBtn = new Button("DevToolsFX");
-        scenicViewBtn.getStyleClass().add("showcase-website-btn");
-        scenicViewBtn.setOnAction(e -> GUI.openToolStage(stage, hostServices));
+        Button devToolsButton = new Button("DevToolsFX");
+        devToolsButton.getStyleClass().add("showcase-website-btn");
+        devToolsButton.setOnAction(e -> GUI.openToolStage(stage, hostServices));
 
         Button websiteBtn = new Button("flexganttfx.com  ↗");
         websiteBtn.getStyleClass().add("showcase-website-btn");
@@ -146,17 +150,8 @@ public class ShowcaseView extends BorderPane {
         dlscLogo.setSmooth(true);
         HBox.setMargin(dlscLogo, new Insets(0, 0, 0, 24));
 
-        bar.getChildren().addAll(logoImage, dlscLogo, spacer, themeLabel, themeCombo, scenicViewBtn, websiteBtn);
+        bar.getChildren().addAll(logoGroup, tagline, dlscLogo, spacer, themeMenu, devToolsButton, websiteBtn);
         return bar;
-    }
-
-    /** Simple ListCell that shows the theme name. */
-    private static class ThemeCell extends ListCell<Theme> {
-        @Override
-        protected void updateItem(Theme theme, boolean empty) {
-            super.updateItem(theme, empty);
-            setText(empty || theme == null ? null : theme.getName());
-        }
     }
 
     // ── Sidebar ───────────────────────────────────────────────────────────

@@ -102,6 +102,7 @@ public class EmiratesSample extends FlexGanttFXSampleBase {
         HBox bar = new HBox(10, label, dataSetBox);
         bar.setAlignment(Pos.CENTER_LEFT);
         bar.setPadding(new Insets(6, 12, 6, 12));
+        bar.getStyleClass().add("showcase-gantt-toolbar");
         return bar;
     }
 
