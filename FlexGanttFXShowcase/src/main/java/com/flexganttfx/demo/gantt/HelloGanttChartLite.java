@@ -6,7 +6,6 @@ package com.flexganttfx.demo.gantt;
 
 import com.flexganttfx.demo.FlexGanttFXSample;
 import com.flexganttfx.demo.HelloRow;
-import com.flexganttfx.extras.properties.view.GanttChartPropertySheet;
 import com.flexganttfx.view.GanttChartBase;
 import com.flexganttfx.view.GanttChartLite;
 import javafx.application.Application;
@@ -43,11 +42,6 @@ public class HelloGanttChartLite extends FlexGanttFXSample {
     @Override
     public String getSampleName() {
         return "Gantt Chart Lite";
-    }
-
-    @Override
-    public Node getControlPanel() {
-        return new GanttChartPropertySheet<>(gc);
     }
 
     public static void main(String[] args) {

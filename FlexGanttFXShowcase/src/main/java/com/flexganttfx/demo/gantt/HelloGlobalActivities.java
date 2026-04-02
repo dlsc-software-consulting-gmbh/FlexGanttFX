@@ -101,11 +101,6 @@ public class HelloGlobalActivities extends FlexGanttFXSample {
         return gc;
     }
 
-    @Override
-    public Node getControlPanel() {
-        return new GanttChartConfigurationView(gc);
-    }
-
     private void addPhase(String title, Instant st, Instant et) {
         st = dayGrid.adjustTime(st, ZoneId.systemDefault(), true, DayOfWeek.MONDAY);
         et = dayGrid.adjustTime(et, ZoneId.systemDefault(), true, DayOfWeek.MONDAY);

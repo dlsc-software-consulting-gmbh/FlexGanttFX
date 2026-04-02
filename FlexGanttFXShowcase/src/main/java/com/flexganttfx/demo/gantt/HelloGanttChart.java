@@ -62,11 +62,6 @@ public class HelloGanttChart extends FlexGanttFXSample {
         return "Gantt Chart";
     }
 
-    @Override
-    public Node getControlPanel() {
-        return new GanttChartConfigurationView(gc);
-    }
-
     public static void main(String[] args) {
         Application.launch(args);
     }

@@ -6,7 +6,6 @@ package com.flexganttfx.demo.gantt;
 
 import com.flexganttfx.demo.FlexGanttFXSample;
 import com.flexganttfx.demo.HelloRow;
-import com.flexganttfx.extras.properties.view.GanttChartPropertySheet;
 import com.flexganttfx.view.GanttChart;
 import javafx.application.Application;
 import javafx.scene.Node;
@@ -33,7 +32,7 @@ public class HelloGanttChartEmpty extends FlexGanttFXSample {
 
     @Override
     public Node getControlPanel() {
-        return new GanttChartPropertySheet<>(gc);
+        return null;
     }
 
     public static void main(String[] args) {

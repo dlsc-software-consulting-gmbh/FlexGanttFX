@@ -75,9 +75,9 @@ public class RowHeaderColumn<R extends Row<?, ?, ?>> extends TreeTableColumn<R, 
 
         setCellFactory(column -> new RowHeaderColumnCell());
 
-        setPrefWidth(Region.USE_COMPUTED_SIZE);
+        setPrefWidth(50);
         setMinWidth(Region.USE_PREF_SIZE);
-        setResizable(true);
+        setResizable(false);
         setSortable(false);
         setEditable(false);
         setReorderable(false);
@@ -132,8 +132,8 @@ public class RowHeaderColumn<R extends Row<?, ?, ?>> extends TreeTableColumn<R, 
 
         /*
          * We are using the tableMenuButtonVisible property of the gantt chart
-         * control and not the property with the same name from the tree table,
-         * because we only want OUR control to be visible, not the one that
+         * control and not the property with the same name from the tree table.
+         * We only want OUR control to be visible, not the one that
          * ships by default with JavaFX. That one always needs to be hidden as
          * we have styled away the vertical scrollbars.
          */
