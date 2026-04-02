@@ -95,9 +95,6 @@ public class HelloGlobalActivities extends FlexGanttFXSample {
         addPhase("Implementation", Instant.now().plus(8, ChronoUnit.DAYS), Instant.now().plus(16, ChronoUnit.DAYS));
         addPhase("Testing", Instant.now().plus(19, ChronoUnit.DAYS), Instant.now().plus(25, ChronoUnit.DAYS));
 
-        GanttChartConfigurationView view = (GanttChartConfigurationView) getControlPanel();
-        view.update(); // show the newly registered renderers
-
         return gc;
     }
 

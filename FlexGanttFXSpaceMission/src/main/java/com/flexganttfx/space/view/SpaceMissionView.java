@@ -6,8 +6,6 @@ package com.flexganttfx.space.view;
 
 import com.flexganttfx.extras.GanttChartStatusBar;
 import com.flexganttfx.extras.GanttChartToolBar;
-import com.flexganttfx.extras.LayersView;
-import com.flexganttfx.extras.RadarView;
 import com.flexganttfx.model.Activity;
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.model.layout.ChartLayout;
@@ -32,12 +30,6 @@ import com.flexganttfx.view.container.DualGanttChartContainer;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import javafx.animation.KeyFrame;
 import javafx.animation.Animation;
-import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
-import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
-import javafx.scene.control.TitledPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -50,7 +42,6 @@ import java.time.temporal.ChronoUnit;
  * <ul>
  *   <li>A {@link DualGanttChartContainer} with a spacecraft chart (top) and a
  *       ground-station chart (bottom).</li>
- *   <li>A right panel with a {@link RadarView} and a {@link LayersView}.</li>
  *   <li>A {@link GanttChartToolBar} and a {@link GanttChartStatusBar}.</li>
  *   <li>A real-time now-line that updates every second.</li>
  * </ul>
@@ -81,6 +72,7 @@ public class SpaceMissionView extends VBox {
         // fleet already has its children populated by SampleDataGenerator
         spacecraftChart = new GanttChart<>(fleet);
         spacecraftChart.getLayers().addAll(contactLayer, maneuverLayer, scienceLayer, maintenanceLayer, telemetryLayer);
+        spacecraftChart.getTimeline().showTemporalUnit(ChronoUnit.DAYS, 10);
 
         // Set ChartLayout on the dedicated telemetry row (last child of fleet)
         Spacecraft telemetryRow = fleet.getChildren().get(fleet.getChildren().size() - 1);
@@ -98,7 +90,6 @@ public class SpaceMissionView extends VBox {
         groundChart.getGraphics().setActivityRenderer(
                 ContactWindow.class, GanttLayout.class,
                 new ContactWindowRenderer(groundChart.getGraphics()));
-        groundChart.getTimeline().showTemporalUnit(ChronoUnit.DAYS, 30);
 
         // ---------- Activity links ----------
         data.getLinks().forEach(link -> spacecraftChart.getGraphics().getLinks().add(link));
@@ -111,17 +102,8 @@ public class SpaceMissionView extends VBox {
         toolBar   = new GanttChartToolBar<>(spacecraftChart);
         statusBar = new GanttChartStatusBar<>(spacecraftChart);
 
-        // ---------- Right panel: RadarView + LayersView ----------
-        VBox rightPanel = buildRightPanel(spacecraftChart.getGraphics());
-
-        // ---------- Center layout ----------
-        BorderPane center = new BorderPane();
-        center.setCenter(dual);
-        center.setRight(rightPanel);
-        VBox.setVgrow(center, Priority.ALWAYS);
-
         // ---------- Assemble ----------
-        getChildren().addAll(toolBar, center, statusBar);
+        getChildren().addAll(toolBar, dual, statusBar);
 
         // ---------- Real-time NowLine ----------
         startNowLineTimer();
@@ -146,37 +128,8 @@ public class SpaceMissionView extends VBox {
         graphics.setShowRowHeaders(true);
         graphics.setRowHeadersWidth(120);
 
-        chart.getTimeline().showTemporalUnit(ChronoUnit.DAYS, 30);
-        chart.getTimeline().getModel().setNow(Instant.now());
-
         // Show earliest activities so the data is visible on startup
         chart.getGraphics().showEarliestActivities();
-    }
-
-    private VBox buildRightPanel(GraphicsBase<Spacecraft> graphics) {
-        RadarView<Spacecraft>  radarView  = new RadarView<>();
-        LayersView<Spacecraft> layersView = new LayersView<>();
-
-        radarView.setGraphics(graphics);
-        layersView.setGraphics(graphics);
-
-        radarView.setPrefHeight(180);
-        radarView.setPrefWidth(220);
-        layersView.setPrefWidth(220);
-
-        TitledPane radarPane  = new TitledPane("Radar Overview", radarView);
-        TitledPane layersPane = new TitledPane("Layers", layersView);
-        radarPane.setCollapsible(false);
-        layersPane.setCollapsible(false);
-
-        Label title = new Label("Mission Control Panel");
-        title.setStyle("-fx-font-weight: bold; -fx-padding: 4 8 4 8;");
-
-        VBox panel = new VBox(4, title, new Separator(Orientation.HORIZONTAL),
-                radarPane, layersPane);
-        panel.setPadding(new Insets(4));
-        panel.setPrefWidth(240);
-        return panel;
     }
 
     private void startNowLineTimer() {

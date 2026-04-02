@@ -46,13 +46,10 @@ import java.util.List;
 
 public class HelloMultiLine extends FlexGanttFXSample {
 
-    private HelloRow row;
-
-    private EqualLinesManager<HelloRow, HelloActivity> equalLinesManager;
-
-    private AutoLinesManager<HelloRow, HelloActivity> autoLinesManager;
-
-    private RandomLinesManager randomLinesManager;
+    private final List<HelloRow> rows = new ArrayList<>();
+    private final List<EqualLinesManager<HelloRow, HelloActivity>> equalManagers = new ArrayList<>();
+    private final List<AutoLinesManager<HelloRow, HelloActivity>> autoManagers = new ArrayList<>();
+    private final List<RandomLinesManager> randomManagers = new ArrayList<>();
 
     private Layer layer;
 
@@ -83,21 +80,32 @@ public class HelloMultiLine extends FlexGanttFXSample {
         layers.add(layer = new Layer("Layer 1"));
         gc.getLayers().setAll(layers);
 
-        // the row
-        row = new HelloRow("Row");
-        row.setHeight(400);
-        row.setMaxHeight(2000);
-        row.setMinHeight(30);
-
-        // the line managers
-        autoLinesManager = new AutoLinesManager<>(row, gc.getGraphics());
-        equalLinesManager = new MyEqualLinesManager(row);
-        randomLinesManager = new RandomLinesManager(row);
-        row.setLinesManager(autoLinesManager);
-
-        gc.setRoot(row);
-
         ListViewGraphics<HelloRow> graphics = gc.getGraphics();
+
+        // Create an invisible root and add 5 named rows as children
+        HelloRow root = new HelloRow("ROOT");
+        String[] rowNames = {"Alpha", "Beta", "Gamma", "Delta", "Epsilon"};
+        for (String name : rowNames) {
+            HelloRow r = new HelloRow(name);
+            r.setHeight(200);
+            r.setMaxHeight(2000);
+            r.setMinHeight(30);
+
+            AutoLinesManager<HelloRow, HelloActivity> autoMgr = new AutoLinesManager<>(r, graphics);
+            EqualLinesManager<HelloRow, HelloActivity> equalMgr = new MyEqualLinesManager(r);
+            RandomLinesManager randMgr = new RandomLinesManager(r);
+
+            autoManagers.add(autoMgr);
+            equalManagers.add(equalMgr);
+            randomManagers.add(randMgr);
+
+            r.setLinesManager(autoMgr);
+            rows.add(r);
+            root.getChildren().add(r);
+        }
+
+        gc.setRoot(root);
+        gc.getTreeTable().setShowRoot(false);
         graphics.setAutoGridEnabled(true);
         graphics.setActivityRenderer(HelloActivity.class, GanttLayout.class, new HelloActivityRenderer(graphics, "Hello Activity Renderer"));
         graphics.setOnActivityChangeFinished(evt -> maybePerformLayout());
@@ -110,7 +118,9 @@ public class HelloMultiLine extends FlexGanttFXSample {
 
     private void maybePerformLayout() {
         if (autoButton == null || autoButton.isSelected()) {
-            autoLinesManager.layout();
+            for (AutoLinesManager<HelloRow, HelloActivity> mgr : autoManagers) {
+                mgr.layout();
+            }
         }
     }
 
@@ -130,7 +140,7 @@ public class HelloMultiLine extends FlexGanttFXSample {
 
         ToggleGroup toggleGroup = new ToggleGroup();
         toggleGroup.getToggles().addAll(equalButton, autoButton, randomButton);
-        toggleGroup.selectedToggleProperty().addListener(it -> applyLineCount(row.getLineCount()));
+        toggleGroup.selectedToggleProperty().addListener(it -> applyLineCount(rows.isEmpty() ? 25 : rows.get(0).getLineCount()));
         toggleGroup.selectedToggleProperty().addListener(it -> getGanttChart().getGraphics().showEarliestActivities());
 
         equalButton.setOnAction(evt -> applyEqualLinesManager());
@@ -169,30 +179,32 @@ public class HelloMultiLine extends FlexGanttFXSample {
     }
 
     private void applyLineCount(int count) {
-        row.setLineCount(count);
+        for (HelloRow r : rows) {
+            r.setLineCount(count);
 
-        LocalDate date = LocalDate.now();
+            LocalDate date = LocalDate.now();
 
-        row.clearActivities();
+            r.clearActivities();
 
-        for (int i = 0; i < 100; i++) {
-            for (int j = 0; j < Math.random() * row.getLineCount() / 2; j++) {
-                int duration = Math.max(1, (int) (Math.random() * 10));
+            for (int i = 0; i < 100; i++) {
+                for (int j = 0; j < Math.random() * r.getLineCount() / 2; j++) {
+                    int duration = Math.max(1, (int) (Math.random() * 10));
 
-                LocalTime time = LocalTime.MIN;
+                    LocalTime time = LocalTime.MIN;
 
-                Instant st = ZonedDateTime.of(date, time, ZoneId.systemDefault()).toInstant();
-                Instant et = ZonedDateTime.of(date.plusDays(duration), time, ZoneId.systemDefault()).toInstant();
+                    Instant st = ZonedDateTime.of(date, time, ZoneId.systemDefault()).toInstant();
+                    Instant et = ZonedDateTime.of(date.plusDays(duration), time, ZoneId.systemDefault()).toInstant();
 
-                HelloActivity activity = new HelloActivity();
-                activity.setColor(randomColor());
-                activity.setStartTime(st);
-                activity.setEndTime(et);
-                activity.setLineIndex((int) (Math.random() * row.getLineCount()));
+                    HelloActivity activity = new HelloActivity();
+                    activity.setColor(randomColor());
+                    activity.setStartTime(st);
+                    activity.setEndTime(et);
+                    activity.setLineIndex((int) (Math.random() * r.getLineCount()));
 
-                date = date.plusDays(Math.max(1, (int) (Math.random() * 3)));
+                    date = date.plusDays(Math.max(1, (int) (Math.random() * 3)));
 
-                row.addActivity(layer, activity);
+                    r.addActivity(layer, activity);
+                }
             }
         }
 
@@ -227,15 +239,21 @@ public class HelloMultiLine extends FlexGanttFXSample {
     }
 
     private void applyRandomLinesManager() {
-        row.setLinesManager(randomLinesManager);
+        for (int i = 0; i < rows.size(); i++) {
+            rows.get(i).setLinesManager(randomManagers.get(i));
+        }
     }
 
     private void applyEqualLinesManager() {
-        row.setLinesManager(equalLinesManager);
+        for (int i = 0; i < rows.size(); i++) {
+            rows.get(i).setLinesManager(equalManagers.get(i));
+        }
     }
 
     private void applyAutoLinesManager() {
-        row.setLinesManager(autoLinesManager);
+        for (int i = 0; i < rows.size(); i++) {
+            rows.get(i).setLinesManager(autoManagers.get(i));
+        }
     }
 
     class MyEqualLinesManager extends

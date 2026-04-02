@@ -29,6 +29,7 @@ import com.flexganttfx.extras.GanttChartToolBar;
 import com.flexganttfx.view.GanttChartLite;
 import com.flexganttfx.view.graphics.ActivityBounds;
 import com.flexganttfx.view.graphics.GraphicsBase;
+import com.flexganttfx.view.graphics.layer.InnerLinesLayer;
 import com.flexganttfx.view.graphics.renderer.ActivityRenderer;
 import com.flexganttfx.view.util.Position;
 import javafx.geometry.Insets;
@@ -198,6 +199,12 @@ public class WeatherView extends BorderPane {
             DailyWeather.class, ChartLayout.class, new TemperatureRenderer(gc.getGraphics()));
         gc.getGraphics().setActivityRenderer(
             DailyPrecip.class, ChartLayout.class, new PrecipitationRenderer(gc.getGraphics()));
+
+        // Draw a separator line at the bottom of each row to visually distinguish rows
+        InnerLinesLayer<CityRow> innerLines =
+                gc.getGraphics().getBackgroundSystemLayer(InnerLinesLayer.class);
+        innerLines.setDrawLastDividerLine(true);
+        innerLines.setStroke(Color.color(1, 1, 1, 0.30));
 
         return gc;
     }
@@ -513,6 +520,11 @@ public class WeatherView extends BorderPane {
             gc.setFont(Font.font("System", 9.5));
             gc.setFill(Color.color(1, 1, 1, 0.40));
             gc.fillText("(mm / day)", INFO_X, precipY + precipH * 0.72, w - INFO_X - 4);
+
+            // ── Row bottom separator ──────────────────────────────────────
+            gc.setStroke(Color.color(1, 1, 1, 0.30));
+            gc.setLineWidth(1.0);
+            gc.strokeLine(0, h - 0.5, w, h - 0.5);
         }
 
         /** Choose a tick interval that keeps the scale readable without crowding. */
