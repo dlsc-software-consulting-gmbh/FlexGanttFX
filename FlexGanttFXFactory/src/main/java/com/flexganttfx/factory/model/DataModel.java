@@ -60,8 +60,11 @@ public class DataModel {
         Instant windowStart = now.minus(DAYS_BEFORE, ChronoUnit.DAYS);
         Instant windowEnd   = now.plus(DAYS_AFTER,   ChronoUnit.DAYS);
 
+        root.setExpanded(true);
+
         for (int l = 0; l < LINE_NAMES.length; l++) {
             ProductionLine line = new ProductionLine(LINE_NAMES[l]);
+            line.setExpanded(true);
             productionLines.add(line);
 
             for (int m = 0; m < MACHINE_NAMES[l].length; m++) {

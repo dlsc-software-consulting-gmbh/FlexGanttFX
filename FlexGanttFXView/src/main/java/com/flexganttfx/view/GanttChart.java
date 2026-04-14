@@ -12,6 +12,7 @@ import com.flexganttfx.view.graphics.ListViewGraphics;
 import com.flexganttfx.view.timeline.Dateline;
 import com.flexganttfx.view.timeline.Eventline;
 import com.flexganttfx.view.timeline.Timeline;
+import com.flexganttfx.view.util.FlexGanttFXControl;
 import com.flexganttfx.view.util.Messages;
 import com.flexganttfx.view.util.Position;
 import com.flexganttfx.view.util.RowHeaderColumn;
@@ -214,7 +215,7 @@ public class GanttChart<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
         // children controls
 
         treeTableView = createTreeTable();
-        treeTableView.getStyleClass().add("gantt-tree-table-view");
+        treeTableView.getStyleClass().addAll("gantt-tree-table-view", "bordered", "dense"); // dense and bordered are AtlantaFX tweaks
 
         redrawObservable(treeTableView.sortModeProperty());
 
@@ -231,7 +232,13 @@ public class GanttChart<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
             }
         });
 
-        treeTableMasterDetailPane = new MasterDetailPane(LEFT);
+        treeTableMasterDetailPane = new MasterDetailPane(LEFT) {
+            @Override
+            public String getUserAgentStylesheet() {
+                return null;
+            }
+        };
+
         treeTableMasterDetailPane.setId("treetable-master-detail-pane");
         Bindings.bindBidirectional(treeTableMasterDetailPane.showDetailNodeProperty(), showTreeTableProperty());
 
@@ -353,7 +360,15 @@ public class GanttChart<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
      * @since 1.0
      */
     protected TreeTableView<R> createTreeTable() {
-        TreeTableView<R> table = new TreeTableView<>();
+        TreeTableView<R> table = new TreeTableView<>() {
+            @Override
+            public String getUserAgentStylesheet() {
+                if (FlexGanttFXControl.isAtlantaFXActive()) {
+                    return requireNonNull(GanttChartBase.class.getResource("gantt-atlantafx.css")).toExternalForm();
+                }
+                return requireNonNull(GanttChartBase.class.getResource("gantt.css")).toExternalForm();
+            }
+        };
         table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         table.setPlaceholder(new Label(Messages.getString("GanttChart.PLACEHOLDER_NO_DATA")));
         return table;
@@ -882,8 +897,7 @@ public class GanttChart<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
 
         // RT-23486
         double widthMax = maxWidth + padding;
-        if (treeTableView
-                .getColumnResizePolicy() == TreeTableView.CONSTRAINED_RESIZE_POLICY) {
+        if (treeTableView.getColumnResizePolicy() == TreeTableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN) {
             widthMax = Math.max(widthMax, tc.getWidth());
         }
 

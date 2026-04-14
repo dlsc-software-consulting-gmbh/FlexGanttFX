@@ -84,10 +84,12 @@ public class SampleDataGenerator {
 
         for (int t = 0; t < teamNames.length; t++) {
             TeamRow teamRow = new TeamRow(teamNames[t]);
+            teamRow.setExpanded(true);
             teamRoot.getChildren().add(teamRow);
 
             for (int e = 0; e < teamEpics[t].length; e++) {
                 EpicRow epicRow = new EpicRow(teamEpics[t][e]);
+                epicRow.setExpanded(true);
                 epicRow.setLayout(new ChartLayout());
                 teamRow.getChildren().add(epicRow);
 

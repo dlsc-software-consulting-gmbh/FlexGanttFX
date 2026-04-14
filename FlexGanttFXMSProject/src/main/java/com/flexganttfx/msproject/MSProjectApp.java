@@ -12,6 +12,7 @@ import atlantafx.base.theme.NordLight;
 import atlantafx.base.theme.PrimerDark;
 import atlantafx.base.theme.PrimerLight;
 import atlantafx.base.theme.Theme;
+import com.flexganttfx.extras.util.StageManager;
 import com.flexganttfx.core.FlexGanttFX;
 import com.flexganttfx.extras.GanttChartStatusBar;
 import com.flexganttfx.extras.GanttChartToolBar;
@@ -21,12 +22,15 @@ import com.flexganttfx.msproject.model.MSProjectTaskRow;
 import com.flexganttfx.msproject.view.MSProjectGanttChart;
 import com.flexganttfx.view.GanttChartBase;
 import com.flexganttfx.view.graphics.renderer.CurvedLinkRenderer;
+import com.flexganttfx.view.util.Messages;
 import com.jpro.webapi.WebAPI;
+import javafx.util.StringConverter;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -38,6 +42,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.scenicview.ScenicView;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -91,6 +96,7 @@ public class MSProjectApp extends Application {
 		this.stage.setTitle(STAGE_TITLE);
 
 		gantt = new MSProjectGanttChart();
+		gantt.setScrollBarType(GanttChartBase.ScrollBarType.INFINITE);
 		gantt.getGraphics().setLinkRenderer(ActivityLink.class, new CurvedLinkRenderer<>(gantt.getGraphics(), "Custom Link Renderer") {
 			@Override
 			public void draw(ActivityLink<?> link, GraphicsContext gc, Rectangle2D sourceBounds, Rectangle2D targetBounds) {
@@ -129,14 +135,46 @@ public class MSProjectApp extends Application {
 			vbox.getChildren().addAll(toolBar, gantt, statusBar);
 
 			ComboBox<GanttChartBase.ScrollBarType> box = new ComboBox<>();
+			box.setConverter(new StringConverter<>() {
+				@Override
+				public String toString(GanttChartBase.ScrollBarType type) {
+					if (type == null) return "";
+					switch (type) {
+						case FIXED_HORIZON: return Messages.getString("GanttChartBase.SCROLL_BAR_TYPE_FIXED_HORIZON");
+						case INFINITE:      return Messages.getString("GanttChartBase.SCROLL_BAR_TYPE_INFINITE");
+						case NONE:
+						default:            return Messages.getString("GanttChartBase.SCROLL_BAR_TYPE_NONE");
+					}
+				}
+
+				@Override
+				public GanttChartBase.ScrollBarType fromString(String string) {
+					return null;
+				}
+			});
 			box.getItems().setAll(GanttChartBase.ScrollBarType.values());
 			box.valueProperty().bindBidirectional(gantt.scrollBarTypeProperty());
+			box.valueProperty().addListener((obs, oldType, newType) -> {
+				if (oldType != null && newType != null) {
+					Alert alert = new Alert(Alert.AlertType.INFORMATION);
+					alert.setTitle(Messages.getString("GanttChartBase.SCROLL_BAR_TYPE_DIALOG_TITLE"));
+					alert.setHeaderText(box.getConverter().toString(newType));
+					alert.setContentText(scrollBarTypeDescription(newType));
+					alert.initOwner(box.getScene().getWindow());
+					alert.show();
+				}
+			});
 			toolBar.getItems().add(1, box);
 		}
 
 		stage.setScene(scene);
 		stage.sizeToScene();
 		stage.centerOnScreen();
+
+		StageManager.install(stage, "msproject-gantt", 1000, 800);
+
+		ScenicView.show(scene);
+
 		stage.show();
 	}
 
@@ -204,5 +242,14 @@ public class MSProjectApp extends Application {
 	 */
 	public static void main(String[] args) {
 		launch(args);
+	}
+
+	private static String scrollBarTypeDescription(GanttChartBase.ScrollBarType type) {
+		switch (type) {
+			case FIXED_HORIZON: return Messages.getString("GanttChartBase.SCROLL_BAR_TYPE_FIXED_HORIZON_DESCRIPTION");
+			case INFINITE:      return Messages.getString("GanttChartBase.SCROLL_BAR_TYPE_INFINITE_DESCRIPTION");
+			case NONE:
+			default:            return Messages.getString("GanttChartBase.SCROLL_BAR_TYPE_NONE_DESCRIPTION");
+		}
 	}
 }

@@ -3,7 +3,6 @@
  * 
  * Copyright 2019 DLSC Software & Consulting GmbH
  */
-
 .graphics {
     -fx-grid-line-color1: derive(-fx-box-border, +60%);
     -fx-grid-line-color2: -fx-box-border;
@@ -34,10 +33,18 @@
 }
 
 .row-cell {
-    -fx-padding: 0 !important;
-    -fx-background-insets: 0 !important;
-    -fx-border-width: 0 !important;
-    -fx-pref-height: 24px;
+    -fx-padding: 0px !important;
+    -fx-background-insets: 0px !important;
+    -fx-border-width: 0px !important;
+    -fx-pref-height: 24px !important;
+}
+
+.row-cell:even {
+    -fx-background-color: -fx-control-inner-background !important;
+}
+
+.row-cell:odd {
+    -fx-background-color: -fx-control-inner-background-alt !important;
 }
 
 .row-cell:focused,

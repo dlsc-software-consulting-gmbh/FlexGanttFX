@@ -29,6 +29,7 @@ import com.flexganttfx.extras.GanttChartToolBar;
 import com.flexganttfx.view.GanttChartLite;
 import com.flexganttfx.view.graphics.ActivityBounds;
 import com.flexganttfx.view.graphics.GraphicsBase;
+import com.flexganttfx.view.graphics.layer.InnerLinesLayer;
 import com.flexganttfx.view.graphics.renderer.ActivityRenderer;
 import com.flexganttfx.view.util.Position;
 import javafx.geometry.Insets;
@@ -183,10 +184,9 @@ public class WeatherView extends BorderPane {
         gc.getRows().setAll(cityRows);
         gc.getCalendars().clear();
 
-        gc.getTimeline().showTime(
-            ZonedDateTime.of(startDate, LocalTime.MIN, ZoneId.systemDefault()).toInstant());
-        gc.getTimeline().showTemporalUnit(ChronoUnit.MONTHS, 48);
-
+        gc.getTimeline().showTime(ZonedDateTime.of(startDate, LocalTime.MIN, ZoneId.systemDefault()).toInstant());
+        gc.getTimeline().showTemporalUnit(ChronoUnit.MONTHS, 100);
+        gc.getTimeline().setZoomAnimated(false);
         gc.getGraphics().setShowVerticalCursor(true);
         gc.getGraphics().setShowHorizontalCursor(true);
 
@@ -199,6 +199,12 @@ public class WeatherView extends BorderPane {
             DailyWeather.class, ChartLayout.class, new TemperatureRenderer(gc.getGraphics()));
         gc.getGraphics().setActivityRenderer(
             DailyPrecip.class, ChartLayout.class, new PrecipitationRenderer(gc.getGraphics()));
+
+        // Draw a separator line at the bottom of each row to visually distinguish rows
+        InnerLinesLayer<CityRow> innerLines =
+                gc.getGraphics().getBackgroundSystemLayer(InnerLinesLayer.class);
+        innerLines.setDrawLastDividerLine(true);
+        innerLines.setStroke(Color.color(1, 1, 1, 0.30));
 
         return gc;
     }
@@ -347,11 +353,12 @@ public class WeatherView extends BorderPane {
     class CityRowHeader extends GraphicsBase.RowHeader<CityRow> {
 
         // Layout constants (pixels)
-        private static final double SWATCH_W  = 18;   // colour swatch width
-        private static final double SCALE_X   = 22;   // start of tick marks
-        private static final double TICK_LEN  = 7;    // tick mark length
-        private static final double LABEL_X   = 88;   // right-align limit for scale labels
-        private static final double INFO_X    = 95;   // left edge of city info text
+        private static final double SWATCH_W     = 18;   // colour swatch width
+        private static final double SCALE_X      = 22;   // start of tick marks
+        private static final double TICK_LEN     = 7;    // tick mark length
+        private static final double LABEL_X      = 88;   // right-align limit for scale labels
+        private static final double INFO_X       = 95;   // left edge of city info text
+        private static final double LABEL_HALF_H = 6.0;  // half line-height for 9.5 px font (VPos.CENTER clamp)
 
         private final Canvas canvas;
 
@@ -479,7 +486,8 @@ public class WeatherView extends BorderPane {
                     gc.setFill(isZero
                         ? Color.color(0.6, 0.85, 1.0, 0.85)
                         : Color.color(1, 1, 1, isExtreme ? 0.80 : 0.55));
-                    gc.fillText(label, LABEL_X, y);
+                    double labelY = Math.max(LABEL_HALF_H, Math.min(y, tempH - LABEL_HALF_H));
+                    gc.fillText(label, LABEL_X, labelY);
                     prevLabelY = y;
                 }
             }
@@ -512,6 +520,11 @@ public class WeatherView extends BorderPane {
             gc.setFont(Font.font("System", 9.5));
             gc.setFill(Color.color(1, 1, 1, 0.40));
             gc.fillText("(mm / day)", INFO_X, precipY + precipH * 0.72, w - INFO_X - 4);
+
+            // ── Row bottom separator ──────────────────────────────────────
+            gc.setStroke(Color.color(1, 1, 1, 0.30));
+            gc.setLineWidth(1.0);
+            gc.strokeLine(0, h - 0.5, w, h - 0.5);
         }
 
         /** Choose a tick interval that keeps the scale readable without crowding. */

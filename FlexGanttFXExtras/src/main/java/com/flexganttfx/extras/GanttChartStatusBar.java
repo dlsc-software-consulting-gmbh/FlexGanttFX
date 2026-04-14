@@ -4,6 +4,7 @@
  */
 package com.flexganttfx.extras;
 
+import com.flexganttfx.core.FlexGanttFX;
 import com.flexganttfx.extras.util.Messages;
 import com.flexganttfx.model.Activity;
 import com.flexganttfx.model.ActivityRef;
@@ -11,6 +12,7 @@ import com.flexganttfx.model.Row;
 import com.flexganttfx.model.dateline.VirtualGrid;
 import com.flexganttfx.view.GanttChartBase;
 import com.flexganttfx.view.graphics.GraphicsBase;
+import com.flexganttfx.view.util.FlexGanttFXControl;
 import javafx.beans.InvalidationListener;
 import javafx.beans.WeakInvalidationListener;
 import javafx.beans.property.ObjectProperty;
@@ -44,7 +46,11 @@ public class GanttChartStatusBar<R extends Row<?, ?, ?>> extends StatusBar {
      * @since 1.0
      */
     public GanttChartStatusBar() {
-        getStylesheets().add(GanttChartStatusBar.class.getResource("statusbar.css").toExternalForm());
+        if (FlexGanttFXControl.isAtlantaFXActive()) {
+            getStylesheets().add(requireNonNull(GanttChartStatusBar.class.getResource("statusbar-atlantafx.css")).toExternalForm());
+        } else {
+            getStylesheets().add(requireNonNull(GanttChartStatusBar.class.getResource("statusbar.css")).toExternalForm());
+        }
 
         getStyleClass().add("gantt-chart-status-bar");
 

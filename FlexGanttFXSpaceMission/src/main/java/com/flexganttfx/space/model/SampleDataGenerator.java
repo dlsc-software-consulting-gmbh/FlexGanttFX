@@ -45,7 +45,10 @@ public class SampleDataGenerator {
         this.telemetryLayer  = telemetryLayer;
 
         fleet          = new SpaceFleet("Space Fleet");
+        fleet.setExpanded(true);
+
         missionControl = new MissionControl("Mission Control");
+        missionControl.setExpanded(true);
 
         generateSpacecraft();
         generateGroundStations();
@@ -115,6 +118,8 @@ public class SampleDataGenerator {
 
         // Add telemetry row for ISS using ChartLayout
         Spacecraft telemetryRow = new Spacecraft("ISS Telemetry");
+        telemetryRow.setHeight(150);
+
         fleet.getChildren().add(telemetryRow);
         addTelemetryData(telemetryRow, base, rng);
 

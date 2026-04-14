@@ -25,6 +25,7 @@ import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
 
@@ -38,10 +39,10 @@ import static javafx.scene.control.ContentDisplay.GRAPHIC_ONLY;
 import static javafx.scene.control.ContentDisplay.TEXT_ONLY;
 
 /**
- * The row header is a specialized column which is used for controlling the
+ * The row header is a specialized column used for controlling the
  * height of each row and for adding row numbers / row outline levels in front
- * of each row. Additionally it is possible to place an arbitrary node into each
- * row header cell. For this to work a row header node factory has to be
+ * of each row. Additionally, it is possible to place an arbitrary node into each
+ * row header cell. For this to work, a row header node factory has to be
  * registered with the Gantt chart control.<br>
  * <br>
  * <p>
@@ -74,11 +75,11 @@ public class RowHeaderColumn<R extends Row<?, ?, ?>> extends TreeTableColumn<R, 
 
         setCellFactory(column -> new RowHeaderColumnCell());
 
-        setPrefWidth(30);
-        setResizable(true);
+        setPrefWidth(50);
+        setMinWidth(Region.USE_PREF_SIZE);
+        setResizable(false);
         setSortable(false);
         setEditable(false);
-
         setReorderable(false);
 
         // build context menu
@@ -131,8 +132,8 @@ public class RowHeaderColumn<R extends Row<?, ?, ?>> extends TreeTableColumn<R, 
 
         /*
          * We are using the tableMenuButtonVisible property of the gantt chart
-         * control and not the property with the same name from the tree table,
-         * because we only want OUR control to be visible, not the one that
+         * control and not the property with the same name from the tree table.
+         * We only want OUR control to be visible, not the one that
          * ships by default with JavaFX. That one always needs to be hidden as
          * we have styled away the vertical scrollbars.
          */
@@ -144,7 +145,7 @@ public class RowHeaderColumn<R extends Row<?, ?, ?>> extends TreeTableColumn<R, 
 
         setContextMenu(contextMenu);
 
-        cornerRegion.setPrefSize(20, 20);
+        cornerRegion.setMinSize(20, 20);
 
         setGraphic(cornerRegion);
     }

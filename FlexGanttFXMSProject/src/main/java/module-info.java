@@ -18,6 +18,7 @@ module com.flexganttfx.msproject {
 
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.materialdesign;
+    requires org.scenicview.scenicview;
 
     exports com.flexganttfx.msproject;
     exports com.flexganttfx.msproject.model;

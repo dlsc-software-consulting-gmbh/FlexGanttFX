@@ -35,7 +35,6 @@
         <controlsfx.version>11.1.1</controlsfx.version>
         <ikonli.version>12.4.0</ikonli.version>
         <atlantafx.version>2.1.0</atlantafx.version>
-        <gemsfx.version>3.10.1</gemsfx.version>
         <devtoolsfx.version>1.0.1</devtoolsfx.version>
         <cssfx.version>11.5.1</cssfx.version>
         <maven.javadoc.skip>false</maven.javadoc.skip>
@@ -54,7 +53,7 @@
         <module>FlexGanttFXModel</module>
         <module>FlexGanttFXView</module>
         <module>FlexGanttFXExtras</module>
-        <module>FlexGanttFXSampler</module>
+        <module>FlexGanttFXShowcase</module>
         <module>FlexGanttFXProject</module>
         <module>FlexGanttFXMSProject</module>
         <module>FlexGanttFXiCal</module>
@@ -67,7 +66,6 @@
         <module>FlexGanttFXCovid</module>
         <module>FlexGanttFXFactory</module>
         <module>FlexGanttFXWeather</module>
-        <module>FlexGanttFXDemoLauncher</module>
         <module>FlexGanttFXSpaceMission</module>
         <module>FlexGanttFXAirport</module>
         <module>FlexGanttFXSprint</module>
@@ -181,6 +179,53 @@
         </plugins>
     </build>
 
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-base</artifactId>
+                <version>${javafx.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-controls</artifactId>
+                <version>${javafx.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-fxml</artifactId>
+                <version>${javafx.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-web</artifactId>
+                <version>${javafx.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-swing</artifactId>
+                <version>${javafx.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-media</artifactId>
+                <version>${javafx.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.openjfx</groupId>
+                <artifactId>jdk-jsobject</artifactId>
+                <version>${javafx.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
         <!-- Test Dependencies -->
 

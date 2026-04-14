@@ -53,6 +53,7 @@ public class SampleDataGenerator {
         this.groundOpsLayer = groundOpsLayer;
 
         fleetRoot = new AircraftRow("FRA Fleet");
+        fleetRoot.setExpanded(true);
         terminalsRoot = new Terminal("FRA Terminals");
         terminalsRoot.setExpanded(true);
 
