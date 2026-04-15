@@ -72,6 +72,12 @@ public class HelloChronoUnitTimeline extends FlexGanttFXSampleBase {
 		return "Chrono Unit";
 	}
 
+	@Override
+	public String getSampleDescription() {
+		return "A timeline with chrono units. The dateline model supports the following units: " +
+				"YEARS, MONTHS, WEEKS, DAYS, HOURS, MINUTES, SECONDS, MILLISECONDS, etc...";
+	}
+
 	public static void main(String[] args) {
 		Application.launch(args);
 	}

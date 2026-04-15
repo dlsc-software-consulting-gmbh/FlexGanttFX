@@ -138,12 +138,14 @@
 }
 
 .zone-id-label {
-    -fx-control-inner-background: -color-accent-fg;
     -fx-text-fill: -color-fg-emphasis;
-    -fx-background-color: -color-accent-subtle;
-    -fx-background-insets: 0, 0 1 1 0, 1 2 2 1;
-    -fx-padding: .1em;
+    -fx-background-color: -color-accent-emphasis;
+    -fx-background-insets: 0px;
+    -fx-background-radius: 2px;
+    -fx-padding: .2em;
     -fx-font-size: .8em;
+    -fx-translate-x: -4px;
+    -fx-translate-y: 2px;
 }
 
 .row-header {

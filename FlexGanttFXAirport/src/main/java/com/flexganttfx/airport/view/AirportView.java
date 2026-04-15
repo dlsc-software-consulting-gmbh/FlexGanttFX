@@ -104,6 +104,7 @@ public class AirportView extends BorderPane {
         });
 
         HBox simBox = new HBox(6, simButton, simLabel);
+        simBox.getStyleClass().add("showcase-gantt-toolbar");
         simBox.setAlignment(Pos.CENTER_LEFT);
         simBox.setPadding(new Insets(4, 8, 4, 8));
 

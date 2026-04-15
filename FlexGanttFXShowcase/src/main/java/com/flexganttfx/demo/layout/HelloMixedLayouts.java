@@ -26,6 +26,7 @@ import com.flexganttfx.view.graphics.renderer.ActivityRenderer;
 import com.flexganttfx.view.timeline.Timeline.ZoomMode;
 import com.flexganttfx.view.util.Position;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
@@ -48,6 +49,7 @@ import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -101,6 +103,7 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
 
         Label label = new Label("Filter");
         hbox.getChildren().addAll(label, box);
+        hbox.setAlignment(Pos.CENTER_LEFT);
 
         return hbox;
     }
@@ -111,6 +114,8 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
         ganttChart.getGraphics().setActivityRenderer(CapacityIndicator.class, GanttLayout.class, new CapacityIndicatorRenderer(ganttChart.getGraphics()));
         ganttChart.getTimeline().setZoomMode(ZoomMode.KEEP_START_TIME);
         ganttChart.getGraphics().setActivityRenderer(AgendaEntry.class, AgendaLayout.class, new AgendaEntryRenderer(ganttChart.getGraphics()));
+        ganttChart.getTreeTableMasterDetailPane().setDividerPosition(.1);
+        ganttChart.setDisplayMode(GanttChart.DisplayMode.GRAPHICS_ONLY);
 
         Layer capacitiesLayer = new Layer("Capacities");
         Layer agendaLayer = new Layer("Agenda");
@@ -118,10 +123,10 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
         ganttChart.getLayers().add(capacitiesLayer);
         ganttChart.getLayers().add(agendaLayer);
 
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 10; i++) {
 
             CapacityRow childRow = new CapacityRow();
-            childRow.setName("child row " + i);
+            childRow.setName("Row " + (i + 1));
 
             for (int j = 0; j < MAX_DAYS; j++) {
                 MutableChartActivityBase<String> capacity = new MutableChartActivityBase<>();
@@ -161,16 +166,15 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
                     }
                 }
 
-                if (startTime == null
-                        || startTime.isAfter(capacity.getStartTime())) {
+                if (startTime == null || startTime.isAfter(capacity.getStartTime())) {
                     startTime = capacity.getStartTime();
                 }
 
                 if (endTime == null || endTime.isBefore(capacity.getEndTime())) {
                     endTime = capacity.getEndTime();
                 }
-                if (startTime == null
-                        || startTime.isAfter(capacity.getStartTime())) {
+
+                if (startTime == null || startTime.isAfter(capacity.getStartTime())) {
                     startTime = capacity.getStartTime();
                 }
 
@@ -190,23 +194,20 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
 
         ganttChart.getTreeTable().setShowRoot(false);
         ganttChart.getRoot().setExpanded(true);
+        ganttChart.getTreeTable().getTreeColumn().setPrefWidth(100);
+
         ganttChart.getTimeline().getModel().setStartTime(startTime);
-        ganttChart.getTimeline().getModel()
-                .setNow(Instant.now().plus(Duration.ofDays(5)));
+        ganttChart.getTimeline().getModel().setNow(Instant.now().plus(Duration.ofDays(5)));
         ganttChart.getTimeline().setZoomAnimated(true);
 
-        ganttChart.getGraphics().setActivityEditingCallback(
-                CapacityIndicator.class, param -> false);
+        ganttChart.getGraphics().setActivityEditingCallback(CapacityIndicator.class, param -> false);
         ganttChart.getGraphics().setShowHorizontalCursor(true);
 
         return ganttChart;
     }
 
     private enum FilterMode {
-        NONE,
-        GANTT,
-        CAPACITY,
-        AGENDA
+        NONE, GANTT, CAPACITY, AGENDA
     }
 
     class AgendaEntry extends MutableActivityBase<String> {
@@ -234,10 +235,8 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
     }
 
     class AgendaEntryRenderer extends ActivityRenderer<AgendaEntry> {
-        private final DateTimeFormatter dateFormatter = DateTimeFormatter
-                .ofLocalizedDate(FormatStyle.MEDIUM);
-        private final DateTimeFormatter timeFormatter = DateTimeFormatter
-                .ofLocalizedTime(FormatStyle.SHORT);
+        private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM);
+        private final DateTimeFormatter timeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT);
 
         private final Map<Integer, Color> fillColorMap = new HashMap<>();
         private final Map<Integer, Color> strokeColorMap = new HashMap<>();
@@ -266,16 +265,12 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
             setCornerRadius(6);
             setPadding(new Insets(0, 3, 0, 2));
 
-            alarmImage = new Image(AgendaEntryRenderer.class.getResource("alarmclock.png").toExternalForm());
-            recurringImage = new Image(AgendaEntryRenderer.class.getResource("arrow_loop2.png").toExternalForm());
+            alarmImage = new Image(Objects.requireNonNull(AgendaEntryRenderer.class.getResource("alarmclock.png")).toExternalForm());
+            recurringImage = new Image(Objects.requireNonNull(AgendaEntryRenderer.class.getResource("arrow_loop2.png")).toExternalForm());
         }
 
         @Override
-        protected ActivityBounds drawActivity(
-                ActivityRef<AgendaEntry> activityRef, Position position,
-                GraphicsContext gc, double x, double y, double w, double h,
-                boolean selected, boolean hover, boolean highlighted,
-                boolean pressed) {
+        protected ActivityBounds drawActivity(ActivityRef<AgendaEntry> activityRef, Position position, GraphicsContext gc, double x, double y, double w, double h, boolean selected, boolean hover, boolean highlighted, boolean pressed) {
 
             AgendaEntry entry = activityRef.getActivity();
 
@@ -298,8 +293,7 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
 
             setAlpha(getAlpha() * activityRef.getLayer().getFadeInOutOpacity());
 
-            ActivityBounds bounds = super.drawActivity(activityRef, position,
-                    gc, x, y, w, h, selected, hover, highlighted, pressed);
+            ActivityBounds bounds = super.drawActivity(activityRef, position, gc, x, y, w, h, selected, hover, highlighted, pressed);
 
             if (w > 70) {
                 gc.setFont(font);
@@ -326,8 +320,7 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
                     gc.setTextAlign(TextAlignment.RIGHT);
 
                     if (w > 110) {
-                        gc.fillText(startText, snapPositionX(x + w - 4),
-                                snapPositionY(y + 4));
+                        gc.fillText(startText, snapPositionX(x + w - 4), snapPositionY(y + 4));
                     }
                 }
 
@@ -352,9 +345,7 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
                     }
 
                     if (entry.isRecurring() && h > 80) {
-                        gc.drawImage(recurringImage,
-                                snapPositionX(x + w / 2 - recurringImage.getWidth() / 2),
-                                snapPositionY(y + h / 2 - recurringImage.getHeight() / 2));
+                        gc.drawImage(recurringImage, snapPositionX(x + w / 2 - recurringImage.getWidth() / 2), snapPositionY(y + h / 2 - recurringImage.getHeight() / 2));
                     }
 
                     gc.restore();
@@ -412,18 +403,13 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
         }
 
         @Override
-        protected ActivityBounds drawActivity(
-                ActivityRef<CapacityIndicator> activityRef, Position position,
-                GraphicsContext gc, double x, double y, double w, double h,
-                boolean selected, boolean hover, boolean highlighted,
-                boolean pressed) {
+        protected ActivityBounds drawActivity(ActivityRef<CapacityIndicator> activityRef, Position position, GraphicsContext gc, double x, double y, double w, double h, boolean selected, boolean hover, boolean highlighted, boolean pressed) {
 
             CapacityIndicator indicator = activityRef.getActivity();
             ChartActivity capacity = indicator.getCapacity();
             double capacityUsed = capacity.getChartValue();
 
-            int limit = Math.max(0,
-                    Math.min(100, (int) (capacityUsed - capacityUsed % 10)));
+            int limit = Math.max(0, Math.min(100, (int) (capacityUsed - capacityUsed % 10)));
 
             gc.setFill(paintMap.get(limit));
 
@@ -493,8 +479,7 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
         }
 
         @Override
-        public double getLineHeight(int lineIndex, double rowHeight)
-                throws IllegalLineIndexException {
+        public double getLineHeight(int lineIndex, double rowHeight) throws IllegalLineIndexException {
             if (lineIndex == 0) {
                 return 20;
             } else if (lineIndex == 1) {
@@ -502,13 +487,11 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
             }
 
             // last line fills the row
-            return getRow().getHeight() - getLineHeight(0, rowHeight)
-                    - getLineHeight(1, rowHeight);
+            return getRow().getHeight() - getLineHeight(0, rowHeight) - getLineHeight(1, rowHeight);
         }
 
         @Override
-        public double getLineLocation(int lineIndex, double rowHeight)
-                throws IllegalLineIndexException {
+        public double getLineLocation(int lineIndex, double rowHeight) throws IllegalLineIndexException {
             switch (lineIndex) {
                 case 0:
                     return 0;
@@ -522,8 +505,7 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
         }
 
         @Override
-        public Layout getLineLayout(int lineIndex)
-                throws IllegalLineIndexException {
+        public Layout getLineLayout(int lineIndex) throws IllegalLineIndexException {
             switch (lineIndex) {
                 case 0:
                     return ganttLayout;

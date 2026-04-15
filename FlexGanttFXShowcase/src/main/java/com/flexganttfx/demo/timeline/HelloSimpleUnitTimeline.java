@@ -54,8 +54,7 @@ public class HelloSimpleUnitTimeline extends FlexGanttFXSampleBase {
 		StackPane stackPane = new StackPane();
 		stackPane.setPadding(new Insets(20));
 		stackPane.getChildren().add(timeline);
-		stackPane
-				.setStyle("-fx-background-color: white; -fx-border-color: lightgray;");
+		stackPane.setStyle("-fx-background-color: white; -fx-border-color: lightgray;");
 		GridPane.setFillWidth(stackPane, true);
 		GridPane.setFillHeight(stackPane, false);
 		GridPane.setMargin(stackPane, new Insets(20));
@@ -78,6 +77,12 @@ public class HelloSimpleUnitTimeline extends FlexGanttFXSampleBase {
 	@Override
 	public String getSampleName() {
 		return "Simple Unit";
+	}
+
+	@Override
+	public String getSampleDescription() {
+		return "A timeline with simple decimal unit. The dateline model supports the following units: " +
+				"one, ten, hundreds, thousands, etc...";
 	}
 
 	public static void main(String[] args) {

@@ -41,6 +41,9 @@ import java.util.prefs.Preferences;
  */
 public class ShowcaseView extends BorderPane {
 
+    private static final String ATLANTAFX_THEME_CLASS = "showcase-atlantafx-theme";
+    private static final String MODENA_THEME_CLASS = "showcase-modena-theme";
+
     /** Sentinel theme that restores JavaFX's built-in Modena stylesheet. */
     private static final Theme MODENA = Theme.of("Modena", Application.STYLESHEET_MODENA, false);
 
@@ -78,11 +81,15 @@ public class ShowcaseView extends BorderPane {
     private final SampleContentView contentView;
     private final WelcomeView welcomeView;
     private final List<Label> allSampleRows = new ArrayList<>();
+    private Theme currentTheme = resolvePersistedTheme();
 
     // Currently selected label (for deselection)
     private Label selectedLabel = null;
 
     public ShowcaseView(Stage stage, HostServices hostServices) {
+        getStyleClass().add("showcase-root");
+        sceneProperty().addListener((obs, oldScene, newScene) -> updateThemeStyleClass());
+
         contentView = new SampleContentView(stage);
         welcomeView = new WelcomeView(this::selectFirstSample);
 
@@ -125,10 +132,7 @@ public class ShowcaseView extends BorderPane {
         themeMenu.getStyleClass().add("showcase-website-btn");
         for (Theme theme : THEMES) {
             MenuItem item = new MenuItem(theme.getName());
-            item.setOnAction(e -> {
-                Application.setUserAgentStylesheet(theme.getUserAgentStylesheet());
-                PREFS.put(PREF_THEME, theme.getName());
-            });
+            item.setOnAction(e -> applyTheme(theme));
             themeMenu.getItems().add(item);
         }
 
@@ -179,7 +183,7 @@ public class ShowcaseView extends BorderPane {
         ScrollPane scrollPane = new ScrollPane(categoriesBox);
         scrollPane.setFitToWidth(true);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setStyle("-fx-background-color: transparent; -fx-border-color: transparent; -fx-background: -color-bg-subtle;");
+        scrollPane.getStyleClass().add("showcase-sidebar-scroll-pane");
         VBox.setVgrow(scrollPane, Priority.ALWAYS);
 
         sidebar.getChildren().add(scrollPane);
@@ -295,6 +299,22 @@ public class ShowcaseView extends BorderPane {
         if (!allSampleRows.isEmpty()) {
             handleSampleClick(allSampleRows.get(0));
         }
+    }
+
+    private void applyTheme(Theme theme) {
+        currentTheme = theme;
+        Application.setUserAgentStylesheet(theme.getUserAgentStylesheet());
+        PREFS.put(PREF_THEME, theme.getName());
+        updateThemeStyleClass();
+    }
+
+    private void updateThemeStyleClass() {
+        getStyleClass().removeAll(ATLANTAFX_THEME_CLASS, MODENA_THEME_CLASS);
+        getStyleClass().add(isModenaTheme(currentTheme) ? MODENA_THEME_CLASS : ATLANTAFX_THEME_CLASS);
+    }
+
+    private boolean isModenaTheme(Theme theme) {
+        return MODENA.getName().equals(theme.getName());
     }
 
     // ── Inner types ───────────────────────────────────────────────────────

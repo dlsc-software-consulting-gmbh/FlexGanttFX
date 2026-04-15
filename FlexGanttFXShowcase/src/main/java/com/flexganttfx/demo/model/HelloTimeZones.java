@@ -10,6 +10,7 @@ import com.flexganttfx.model.Layer;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.model.activity.CompletableActivityBase;
 import com.flexganttfx.view.GanttChart;
+import javafx.application.Platform;
 
 import java.time.Instant;
 import java.time.ZoneId;
@@ -48,17 +49,18 @@ public class HelloTimeZones extends FlexGanttFXSample {
 
         gantt.getTimeline().setZoneIdVisible(true);
         gantt.getGraphics().setShowZoneId(true);
-
         gantt.getTimeline().getDateline().setZoneId(ZoneId.of("Europe/Helsinki"));
         gantt.getTimeline().getModel().setStartTime(ZonedDateTime.of(2017, 10, 14, 0, 0, 0, 0, ZoneId.of("Europe/Helsinki")).toInstant());
+
+        gantt.getTreeTable().getTreeColumn().setMinWidth(260);
+
         return gantt;
     }
 
     public class ZoneIdRow extends Row<ZoneIdRow, ZoneIdRow, Activity> {
 
         public ZoneIdRow(ZoneId zoneId) {
-            super(zoneId.getDisplayName(TextStyle.FULL_STANDALONE,
-                    Locale.getDefault()));
+            super(zoneId.getDisplayName(TextStyle.FULL_STANDALONE, Locale.getDefault()));
 
             setZoneId(zoneId);
         }

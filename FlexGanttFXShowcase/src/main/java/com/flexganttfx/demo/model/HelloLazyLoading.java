@@ -23,6 +23,7 @@ import javafx.concurrent.WorkerStateEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TreeItem;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 import java.io.FileNotFoundException;
@@ -246,30 +247,36 @@ public class HelloLazyLoading extends FlexGanttFXSample {
         Button showRoot = new Button("Show Root");
         showRoot.setMaxWidth(Double.MAX_VALUE);
         showRoot.setOnAction(event -> gantt.getTreeTable().setShowRoot(!gantt.getTreeTable().isShowRoot()));
+        showRoot.setMinWidth(Region.USE_COMPUTED_SIZE);
 
         Button addSingleRow = new Button("Add Single Row");
         addSingleRow.setMaxWidth(Double.MAX_VALUE);
         addSingleRow.setOnAction(event -> addSingleRow());
+        addSingleRow.setMinWidth(Region.USE_COMPUTED_SIZE);
         addSingleRow.disableProperty().bind(Bindings.isNull(gantt.getTreeTable().getSelectionModel().selectedItemProperty()));
 
         Button addRows = new Button("Add Rows");
         addRows.setMaxWidth(Double.MAX_VALUE);
         addRows.setOnAction(event -> addRows());
+        addRows.setMinWidth(Region.USE_COMPUTED_SIZE);
         addRows.disableProperty().bind(Bindings.isNull(gantt.getTreeTable().getSelectionModel().selectedItemProperty()));
 
         Button setRows = new Button("Set Rows");
         setRows.setMaxWidth(Double.MAX_VALUE);
         setRows.setOnAction(event -> setRows());
+        setRows.setMinWidth(Region.USE_COMPUTED_SIZE);
         setRows.disableProperty().bind(Bindings.isNull(gantt.getTreeTable().getSelectionModel().selectedItemProperty()));
 
         Button clearRows = new Button("Clear Rows");
         clearRows.setMaxWidth(Double.MAX_VALUE);
         clearRows.setOnAction(event -> clearRows());
+        clearRows.setMinWidth(Region.USE_COMPUTED_SIZE);
         clearRows.disableProperty().bind(Bindings.isNull(gantt.getTreeTable().getSelectionModel().selectedItemProperty()));
 
         Button removeRows = new Button("Remove Selected Rows");
         removeRows.setMaxWidth(Double.MAX_VALUE);
         removeRows.setOnAction(event -> removeRows());
+        removeRows.setMinWidth(Region.USE_COMPUTED_SIZE);
         removeRows.disableProperty().bind(Bindings.isNull(gantt.getTreeTable().getSelectionModel().selectedItemProperty()));
 
         box.getChildren().addAll(showRoot, addSingleRow, addRows, setRows,

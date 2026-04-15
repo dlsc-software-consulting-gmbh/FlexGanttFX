@@ -168,9 +168,11 @@
     -fx-control-inner-background: -fx-accent;
     -fx-text-fill: -fx-text-inner-color;
     -fx-background-color: -fx-control-inner-background;
-    -fx-background-insets: 0, 0 1 1 0, 1 2 2 1;
-    -fx-padding: .1em;
+    -fx-background-insets: 0px;
+    -fx-padding: .2em;
     -fx-font-size: .8em;
+    -fx-translate-x: -4px;
+    -fx-translate-y: 2px;
 }
 
 .row-header {

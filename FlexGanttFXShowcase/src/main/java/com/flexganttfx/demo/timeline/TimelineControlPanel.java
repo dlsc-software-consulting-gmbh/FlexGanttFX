@@ -8,16 +8,14 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import com.flexganttfx.view.timeline.Timeline;
 
-public class TimelineControlPanel extends VBox {
+public class TimelineControlPanel extends HBox {
 
 	public TimelineControlPanel(Timeline timeline) {
-
-		setFillWidth(true);
-		setPadding(new Insets(10, 10, 10, 10));
 		setSpacing(10);
 
 		Button zoomIn = new Button("Zoom In");

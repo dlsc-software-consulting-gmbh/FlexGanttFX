@@ -16,6 +16,7 @@ import com.flexganttfx.view.GanttChart;
 import com.flexganttfx.view.graphics.renderer.ActivityBarRenderer;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
+import javafx.util.StringConverter;
 
 import java.time.Instant;
 
@@ -99,6 +100,23 @@ public class HelloLinks extends FlexGanttFXSample {
 		ComboBox<LinkType> box = new ComboBox<>();
 		box.getItems().addAll(LinkType.values());
 		box.setValue(link.getType());
+		box.setConverter(new StringConverter<LinkType>() {
+			@Override
+			public String toString(LinkType object) {
+				switch (object) {
+					case END_TO_START: return "End to Start";
+					case START_TO_END: return "Start to End";
+					case START_TO_START: return "Start to Start";
+					case END_TO_END: return "End to End";
+					default: return "";
+				}
+			}
+
+			@Override
+			public LinkType fromString(String string) {
+				return null;
+			}
+		});
 		box.valueProperty().addListener(it -> {
 			link.setType(box.getValue());
 			gantt.getGraphics().redraw();
@@ -113,7 +131,7 @@ public class HelloLinks extends FlexGanttFXSample {
 
 	@Override
 	public String getSampleDescription() {
-	    return "A sample to test the four different link types (E->S, S->E, E->E, S->S)";
+	    return "A sample to test the four different link types (end to start, start to end, start to start, end to end)";
 	}
 
 	public static void main(String[] args) {

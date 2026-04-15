@@ -44,7 +44,7 @@ import static java.util.Objects.requireNonNull;
  * public class Aircraft extends Row&lt;Fleet, CrewMember, Flight&gt; {
  * }
  * </pre>
- *
+ * <p>
  * This now allows you to call:
  *
  * <pre>
@@ -83,16 +83,13 @@ import static java.util.Objects.requireNonNull;
  * }
  * </pre>
  *
- * @param <P>
- *            the type of the parent row (example: row is of type "Building" and
+ * @param <P> the type of the parent row (example: row is of type "Building" and
  *            parent type is "Factory" to express that the factory consists of
  *            several buildings).
- * @param <C>
- *            the type of the children rows (example: row is of type "Building"
+ * @param <C> the type of the children rows (example: row is of type "Building"
  *            and children type is "Machine" to express that the building houses
  *            several machines).
- * @param <A>
- *            the type of the activities shown in this row (example: row is of
+ * @param <A> the type of the activities shown in this row (example: row is of
  *            type "Building", activities are "ProductionOrders" that are
  *            executed in this building).
  * @since 1.0
@@ -123,8 +120,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
      * Constructs a new row with an {@link IntervalTreeActivityRepository} and
      * an {@link EqualLinesManager} and the given name.
      *
-     * @param name
-     *            the name of the row (e.g. "Building 1")
+     * @param name the name of the row (e.g. "Building 1")
      * @since 1.0
      */
     public Row(String name) {
@@ -202,7 +198,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
     }
 
     // called whenever the contents of the children sequence changes
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     private final ListChangeListener<Row> childrenChangeListener = c -> {
         while (c.next()) {
             for (Row row : c.getRemoved()) {
@@ -220,7 +216,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
     // listener as those get called before change listeners. The GanttChartTreeItem only uses
     // an invalidation listener and would be executed before the code in this class, which can
     // cause all kinds of issues when updating the list of rows inside the GanttChartSkin class.
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     private final InvalidationListener childrenInvalidationListener = c -> {
 
         /*
@@ -362,8 +358,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
     /**
      * Sets the value of the {@link #expandedProperty()}.
      *
-     * @param expanded
-     *            the new value of the expanded property
+     * @param expanded the new value of the expanded property
      * @since 1.0
      */
     public final void setExpanded(boolean expanded) {
@@ -417,8 +412,8 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
      * The property used to store the layout used for laying out the activities
      * that are directly associated with the row (and not on an inner line).
      *
-     * @see #getLineLayout(int)
      * @return the row layer property
+     * @see #getLineLayout(int)
      * @since 1.0
      */
     public final ObjectProperty<Layout> layoutProperty() {
@@ -438,8 +433,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
     /**
      * Sets the value of the {@link #layoutProperty()}.
      *
-     * @param layout
-     *            the new row layout
+     * @param layout the new row layout
      * @since 1.0
      */
     public final void setLayout(Layout layout) {
@@ -477,8 +471,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
     /**
      * Sets the value of the {@link #repositoryProperty()}.
      *
-     * @param repository
-     *            the new repository to use
+     * @param repository the new repository to use
      * @since 1.0
      */
     public final void setRepository(ActivityRepository<A> repository) {
@@ -492,7 +485,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
      * delegating to {@link ActivityRepository#getEarliestTimeUsed()}.
      *
      * @return the earliest time used by the row / by the activities of the row
-     *         / earliest start time of any activity on the row
+     * / earliest start time of any activity on the row
      * @since {@link #getLatestTimeUsed()}
      * @since 1.0
      */
@@ -505,7 +498,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
      * delegating to {@link ActivityRepository#getLatestTimeUsed()}.
      *
      * @return the latest time used by the row / by the activities of the row /
-     *         earliest start time of any activity on the row
+     * earliest start time of any activity on the row
      * @since {@link #getEarliestTimeUsed()}
      * @since 1.0
      */
@@ -541,8 +534,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
     /**
      * Sets the value of the {@link #nameProperty()}.
      *
-     * @param name
-     *            the new name of the row
+     * @param name the new name of the row
      * @since 1.0
      */
     public final void setName(String name) {
@@ -568,8 +560,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
     /**
      * Sets the value of the {@link #heightProperty()}.
      *
-     * @param height
-     *            the new height of the row
+     * @param height the new height of the row
      * @since 1.0
      */
     public final void setHeight(double height) {
@@ -606,8 +597,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
     /**
      * Sets a new value for the {@link #minHeightProperty()}.
      *
-     * @param height
-     *            the new minimum height
+     * @param height the new minimum height
      * @since 1.0
      */
     public final void setMinHeight(double height) {
@@ -644,8 +634,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
     /**
      * Sets the value of the {@link #maxHeightProperty()}.
      *
-     * @param height
-     *            the maximum height of the row
+     * @param height the maximum height of the row
      * @since 1.0
      */
     public final void setMaxHeight(double height) {
@@ -693,8 +682,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
     /**
      * Sets the value of {@link #userObjectProperty()}.
      *
-     * @param obj
-     *            the new user object
+     * @param obj the new user object
      * @since 1.0
      */
     public final void setUserObject(Object obj) {
@@ -734,8 +722,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
     /**
      * Sets the value of {@link #linesManagerProperty()}.
      *
-     * @param manager
-     *            the new lines manager
+     * @param manager the new lines manager
      * @since 1.0
      */
     public final void setLinesManager(LinesManager<A> manager) {
@@ -776,8 +763,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
     /**
      * Sets the value of the {@link #zoneIdProperty()}.
      *
-     * @param zoneId
-     *            the new zone ID for this row
+     * @param zoneId the new zone ID for this row
      * @since 1.0
      */
     public final void setZoneId(ZoneId zoneId) {
@@ -819,8 +805,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
     /**
      * Sets the value of the {@link #lineCountProperty()}.
      *
-     * @param count
-     *            the new line count for the row
+     * @param count the new line count for the row
      * @since 1.0
      */
     public final void setLineCount(int count) {
@@ -846,7 +831,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
         throw new RepositoryException(
                 MessageFormat
                         .format("the repository used by the row with the name {0} is immutable and of type {1}, "
-                                + "activities can not be added or removed to the row / repository",
+                                        + "activities can not be added or removed to the row / repository",
                                 getName(), repository.getClass().getName()));
     }
 
@@ -854,10 +839,8 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
      * Adds the given activity for the given layer to this row. This method
      * delegates to {@link MutableActivityRepository#addActivity(ActivityRef)}.
      *
-     * @param layer
-     *            the layer where the activity will be displayed
-     * @param activity
-     *            the activity that will be added
+     * @param layer    the layer where the activity will be displayed
+     * @param activity the activity that will be added
      * @see MutableActivityRepository#addActivity(ActivityRef)
      * @since 1.0
      */
@@ -869,10 +852,8 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
     /**
      * Removes the given activity from the given layer from this row.
      *
-     * @param layer
-     *            the layer from which to remove the activity
-     * @param activity
-     *            the activity to remove
+     * @param layer    the layer from which to remove the activity
+     * @param activity the activity to remove
      * @see MutableActivityRepository#removeActivity(ActivityRef)
      * @since 1.0
      */
@@ -894,8 +875,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
     /**
      * Removes all activities on the given layer from the row.
      *
-     * @param layer
-     *            the layer from which to remove all activities
+     * @param layer the layer from which to remove all activities
      * @see MutableActivityRepository#clearActivities(Layer)
      * @since 1.0
      */
@@ -909,8 +889,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
      * Returns the line index for the given activity. This is a convenience
      * method delegating to {@link LinesManager#getLineIndex(Activity)}.
      *
-     * @param activity
-     *            the activity for which to return a line index
+     * @param activity the activity for which to return a line index
      * @return the line index for the given activity
      * @since 1.0
      */
@@ -922,8 +901,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
      * Returns the location of the given inner line. The value returned is
      * usually between 0 and {@link #getHeight()}.
      *
-     * @param lineIndex
-     *            the index of the line for which to return a location
+     * @param lineIndex the index of the line for which to return a location
      * @return the line location y-coordinate
      * @since 1.0
      */
@@ -935,8 +913,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
      * Returns the height of the given inner line. The value returned is usually
      * between 0 and {@link #getHeight()}.
      *
-     * @param lineIndex
-     *            the index of the line for which to return a height
+     * @param lineIndex the index of the line for which to return a height
      * @return the height of the line
      * @since 1.0
      */
@@ -947,8 +924,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
     /**
      * Returns a line-specific layout for the given line.
      *
-     * @param lineIndex
-     *            the index of the line
+     * @param lineIndex the index of the line
      * @return the line layout
      * @since 1.0
      */

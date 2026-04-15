@@ -33,6 +33,7 @@ import javafx.scene.control.Separator;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
@@ -126,13 +127,13 @@ public class HelloMultiLine extends FlexGanttFXSample {
 
     @Override
     public Node getControlPanel() {
-        VBox box = new VBox();
-        box.setSpacing(10);
-        box.setFillWidth(true);
-
         equalButton = new RadioButton("Equal Lines");
         autoButton = new RadioButton("Equal Lines (Auto Layout)");
         RadioButton randomButton = new RadioButton("Random Lines");
+
+        equalButton.setStyle("-fx-background-color: transparent;");
+        autoButton.setStyle("-fx-background-color: transparent;");
+        randomButton.setStyle("-fx-background-color: transparent;");
 
         equalButton.setTooltip(new Tooltip("Distribute available row height equally to all lines"));
         autoButton.setTooltip(new Tooltip("Equal line height, activities non overlapping"));
@@ -147,30 +148,27 @@ public class HelloMultiLine extends FlexGanttFXSample {
         autoButton.setOnAction(evt -> applyAutoLinesManager());
         randomButton.setOnAction(evt -> applyRandomLinesManager());
 
-        Label managerLabel = new Label("Manager");
-        managerLabel.setMaxWidth(Double.MAX_VALUE);
-        managerLabel.setAlignment(Pos.CENTER);
-        managerLabel.setStyle("-fx-font-weight: bold");
-
         Label sliderLabel = new Label("Number of Lines");
         sliderLabel.setMaxWidth(Double.MAX_VALUE);
         sliderLabel.setAlignment(Pos.CENTER);
-        sliderLabel.setStyle("-fx-font-weight: bold");
 
         slider = new Slider(1, 100, 25);
-        slider.setShowTickLabels(true);
-        slider.setShowTickMarks(true);
-        slider.setOrientation(Orientation.VERTICAL);
-        slider.setPrefHeight(400);
-        slider.setMaxWidth(Double.MAX_VALUE);
+        slider.setShowTickLabels(false);
+        slider.setShowTickMarks(false);
+        slider.setOrientation(Orientation.HORIZONTAL);
+        slider.setPrefWidth(250);
         slider.valueProperty().addListener(it -> applyLineCount((int) slider.getValue()));
 
         Button apply = new Button("Apply");
         apply.setMaxWidth(Double.MAX_VALUE);
         apply.setOnAction(evt -> applyLineCount((int) slider.getValue()));
 
-        box.getChildren().addAll(managerLabel, equalButton, autoButton,
-                randomButton, new Separator(Orientation.HORIZONTAL),
+        HBox box = new HBox();
+        box.setSpacing(10);
+        box.setFillHeight(true);
+        box.setAlignment(Pos.CENTER_LEFT);
+        box.getChildren().addAll(equalButton, autoButton,
+                randomButton, new Separator(Orientation.VERTICAL),
                 sliderLabel, slider, apply);
 
         Platform.runLater(() -> equalButton.fire());
@@ -179,6 +177,7 @@ public class HelloMultiLine extends FlexGanttFXSample {
     }
 
     private void applyLineCount(int count) {
+        System.out.println("count: " + count);
         for (HelloRow r : rows) {
             r.setLineCount(count);
 
