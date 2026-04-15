@@ -6,6 +6,7 @@ package com.flexganttfx.demo.showcase;
 
 import com.flexganttfx.demo.Sample;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -128,6 +129,7 @@ public class SampleContentView extends BorderPane {
         horizontalControlPanel.setId(verticalControlPanel.getId());
         horizontalControlPanel.setStyle(verticalControlPanel.getStyle());
         horizontalControlPanel.setFillHeight(false);
+        horizontalControlPanel.setAlignment(Pos.CENTER_LEFT);
 
         List<Node> children = new ArrayList<>(verticalControlPanel.getChildren());
         for (Node child : children) {

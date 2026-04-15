@@ -19,32 +19,24 @@ import com.flexganttfx.view.graphics.renderer.ActivityRenderer;
 import com.flexganttfx.view.util.Position;
 import javafx.application.Application;
 import javafx.beans.InvalidationListener;
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Control;
-import javafx.scene.control.Skin;
-import javafx.scene.control.SkinBase;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
-import org.controlsfx.control.PropertySheet;
-import org.controlsfx.control.PropertySheet.Item;
-import org.controlsfx.property.BeanPropertyUtils;
-import org.controlsfx.property.editor.AbstractPropertyEditor;
-import org.controlsfx.property.editor.DefaultPropertyEditorFactory;
-import org.controlsfx.property.editor.PropertyEditor;
+import javafx.util.StringConverter;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -92,6 +84,7 @@ public class HelloAgendaLayout extends FlexGanttFXSample {
         gc = new GanttChart<>(root);
         gc.getGraphics().setShowRowHeaders(true);
         gc.getGraphics().setShowHorizontalCursor(true);
+        gc.setDisplayMode(GanttChart.DisplayMode.GRAPHICS_ONLY);
 
         gc.getTimeline().showTemporalUnit(ChronoUnit.DAYS, 100);
         ListViewGraphics<AgendaRow> graphics = gc.getGraphics();
@@ -136,6 +129,8 @@ public class HelloAgendaLayout extends FlexGanttFXSample {
             createSchedule(date);
             date = date.with(TemporalAdjusters.next(MONDAY));
         }
+
+        gc.getTimeline().showTime(LocalDate.now().with(TemporalAdjusters.nextOrSame(MONDAY)).minusDays(1));
 
         return gc;
     }
@@ -220,96 +215,80 @@ public class HelloAgendaLayout extends FlexGanttFXSample {
 
     @Override
     public Node getControlPanel() {
-        PropertySheet sheet = new PropertySheet(BeanPropertyUtils.getProperties(layout));
-        DefaultPropertyEditorFactory factory = new DefaultPropertyEditorFactory() {
+        ComboBox<LocalTime> startTimeBox = createLocalTimeBox();
+        startTimeBox.setValue(layout.getStartTime());
+        startTimeBox.valueProperty().bindBidirectional(layout.startTimeProperty());
+
+        ComboBox<LocalTime> endTimeBox = createLocalTimeBox();
+        endTimeBox.setValue(layout.getEndTime());
+        endTimeBox.valueProperty().bindBidirectional(layout.endTimeProperty());
+
+        ComboBox<AgendaLayout.LayoutStrategy> strategyBox = new ComboBox<>();
+        strategyBox.getItems().addAll(AgendaLayout.LayoutStrategy.values());
+        strategyBox.setValue(layout.getLayoutStrategy());
+        strategyBox.valueProperty().bindBidirectional(layout.layoutStrategyProperty());
+        strategyBox.setConverter(new StringConverter<>() {
+
             @Override
-            public org.controlsfx.property.editor.PropertyEditor<?> call(Item item) {
-
-                if (item.getType() == LocalTime.class) {
-                    return new LocalTimePropertyEditor(item);
+            public String toString(AgendaLayout.LayoutStrategy object) {
+                switch (object) {
+                    case OVERLAPPING:
+                        return "Overlapping";
+                    case PARALLEL:
+                        return "Parallel";
+                    case PARALLEL_OVERLAPPING:
+                        return "Parallel Overlapping";
+                    default:
+                        return "";
                 }
-
-                return super.call(item);
             }
-        };
-        sheet.setPropertyEditorFactory(factory);
-        return sheet;
-    }
 
-    class LocalTimePropertyEditor extends AbstractPropertyEditor<LocalTime, LocalTimeEditor> {
-
-        public LocalTimePropertyEditor(Item item) {
-            super(item, new LocalTimeEditor());
-        }
-
-        @Override
-        public void setValue(LocalTime time) {
-            getEditor().setValue(time);
-        }
-
-        @Override
-        protected ObservableValue<LocalTime> getObservableValue() {
-            return getEditor().localTimeProperty();
-        }
-    }
-
-    class LocalTimeEditor extends Control implements PropertyEditor<LocalTime> {
-
-        public LocalTimeEditor() {
-        }
-
-        @Override
-        protected Skin<?> createDefaultSkin() {
-            return new LocalTimeEditorSkin(this);
-        }
-
-        private final ObjectProperty<LocalTime> localTime = new SimpleObjectProperty<>(this, "localTime", LocalTime.MIN);
-
-        public final ObjectProperty<LocalTime> localTimeProperty() {
-            return localTime;
-        }
-
-        public final void setLocalTime(LocalTime time) {
-            requireNonNull(time);
-            localTime.set(time);
-        }
-
-        public final LocalTime getLocalTime() {
-            return localTime.get();
-        }
-
-        @Override
-        public Node getEditor() {
-            return this;
-        }
-
-        @Override
-        public LocalTime getValue() {
-            return getLocalTime();
-        }
-
-        @Override
-        public void setValue(LocalTime time) {
-            localTime.set(time);
-        }
-    }
-
-    class LocalTimeEditorSkin extends SkinBase<LocalTimeEditor> {
-
-        public LocalTimeEditorSkin(LocalTimeEditor editor) {
-            super(editor);
-
-            ComboBox<LocalTime> box = new ComboBox<>();
-            box.setMaxWidth(Double.MAX_VALUE);
-
-            for (int i = 0; i <= 23; i++) {
-                box.getItems().add(LocalTime.of(i, 0));
-                box.getItems().add(LocalTime.of(i, 30));
+            @Override
+            public AgendaLayout.LayoutStrategy fromString(String string) {
+                return null;
             }
-            box.getItems().add(LocalTime.MAX);
-            Bindings.bindBidirectional(box.valueProperty(), editor.localTimeProperty());
-            getChildren().add(box);
+        });
+
+        CheckBox horizontalCursorBox = new CheckBox("Horizontal Cursor Line");
+        horizontalCursorBox.setSelected(gc.getGraphics().isShowHorizontalCursor());
+        horizontalCursorBox.selectedProperty().bindBidirectional(gc.getGraphics().showHorizontalCursorProperty());
+
+        HBox controlPanel = new HBox(10,
+                new Label("Start Time"), startTimeBox,
+                new Label("End Time"), endTimeBox,
+                new Label("Layout Strategy"), strategyBox,
+                horizontalCursorBox);
+        controlPanel.setAlignment(Pos.CENTER_LEFT);
+        return controlPanel;
+    }
+
+    private ComboBox<LocalTime> createLocalTimeBox() {
+        ComboBox<LocalTime> box = new ComboBox<>();
+        box.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(LocalTime time) {
+                if (time == null) {
+                    return "";
+                }
+                if (time.equals(LocalTime.MAX)) {
+                    return "End of Day";
+                }
+                return time.truncatedTo(ChronoUnit.MINUTES).toString();
+            }
+
+            @Override
+            public LocalTime fromString(String string) {
+                throw new UnsupportedOperationException("Not needed for combo box selection.");
+            }
+        });
+
+        for (int hour = 0; hour <= 23; hour++) {
+            box.getItems().add(LocalTime.of(hour, 0));
+            box.getItems().add(LocalTime.of(hour, 30));
         }
+        box.getItems().add(LocalTime.MAX);
+        box.setVisibleRowCount(10);
+        return box;
     }
 
     public enum Type {

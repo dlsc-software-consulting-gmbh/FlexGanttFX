@@ -45,6 +45,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -293,6 +294,25 @@ public class HelloChartLayout extends FlexGanttFXSample {
         ComboBox<RowEditingMode> box = new ComboBox<>();
         box.getItems().addAll(RowEditingMode.values());
         box.setValue(getGanttChart().getGraphics().getRowEditingMode());
+        box.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(RowEditingMode object) {
+                switch (object) {
+                    case NONE:
+                        return "Disabled";
+                    case SINGLE_ROW:
+                        return "Single Row";
+                    case MULTIPLE_ROWS:
+                        return "Multiple Rows";
+                }
+                return "";
+            }
+
+            @Override
+            public RowEditingMode fromString(String string) {
+                return null;
+            }
+        });
         Bindings.bindBidirectional(box.valueProperty(), getGanttChart().getGraphics().rowEditingModeProperty());
         return box;
     }

@@ -6,18 +6,15 @@ package com.flexganttfx.demo.container;
 
 import com.flexganttfx.demo.FlexGanttFXSampleBase;
 import com.flexganttfx.demo.HelloRow;
-import com.flexganttfx.extras.properties.QuadGanttChartContainerBaseItemProvider;
 import com.flexganttfx.view.GanttChartBase;
 import com.flexganttfx.view.GanttChartLite;
 import com.flexganttfx.view.container.QuadGanttChartLiteContainer;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Priority;
+import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.controlsfx.control.PropertySheet;
 
 public class HelloQuadGanttChartLiteContainer extends FlexGanttFXSampleBase {
 
@@ -106,12 +103,13 @@ public class HelloQuadGanttChartLiteContainer extends FlexGanttFXSampleBase {
         replaceLowerRight.setOnAction(evt -> replace(Corner.LOWER_RIGHT));
         vbox.getChildren().add(replaceLowerRight);
 
-        QuadGanttChartContainerBaseItemProvider provider = new QuadGanttChartContainerBaseItemProvider();
-        PropertySheet propertySheet = new PropertySheet(FXCollections.observableArrayList(provider.getPropertySheetItems(quad)));
+        CheckBox showLower = new CheckBox("Show Lower");
+        showLower.selectedProperty().bindBidirectional(quad.showLowerProperty());
+        vbox.getChildren().add(showLower);
 
-        VBox.setVgrow(propertySheet, Priority.ALWAYS);
-
-        vbox.getChildren().add(propertySheet);
+        CheckBox animated = new CheckBox("Animated");
+        animated.selectedProperty().bindBidirectional(quad.animatedProperty());
+        vbox.getChildren().add(animated);
 
         return vbox;
     }
