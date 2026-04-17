@@ -66,7 +66,7 @@ public class HelloScrollBars extends FlexGanttFXSample {
 
     @Override
     public String getSampleDescription() {
-        return "An example showing the two different scrollbar types: FIXED_HORIZON to scroll between a given start date and end date. INFINITE for scrolling endlessly into the future or the past (except if a horizon start date limits the past).\n\nAdditionally applications can specify whether the scrollbar should auto-hide or not when not used.";
+        return "An example showing the two different scrollbar types: FIXED_HORIZON to scroll between a given start date and end date. INFINITE for scrolling endlessly into the future or the past (except if a horizon start date limits the past). Additionally applications can specify whether the scrollbar should auto-hide or not when not used.";
     }
 
     @Override

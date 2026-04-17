@@ -1,9 +1,0 @@
-.gantt-chart {
-    -fx-base: rgba(255, 51, 51, 1.0);
-    -fx-accent: green;
-}
-
-.scale-bottom > .saturday,
-.scale-bottom > .sunday {
-    -weekend-color: -fx-accent;
-}

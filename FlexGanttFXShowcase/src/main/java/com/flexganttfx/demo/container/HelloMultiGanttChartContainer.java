@@ -12,16 +12,14 @@ import com.flexganttfx.view.GanttChart;
 import com.flexganttfx.view.container.MultiGanttChartContainer;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
 import javafx.scene.Node;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class HelloMultiGanttChartContainer extends FlexGanttFXSampleBase {
@@ -33,17 +31,13 @@ public class HelloMultiGanttChartContainer extends FlexGanttFXSampleBase {
     }
 
     private MultiGanttChartContainer multiGanttChart;
-    private ListView<Entry> listView;
+    private final List<Entry> entries = new ArrayList<>();
     private GanttChart<DemoRow> masterGC;
 
     @Override
     public Node getPanel(Stage stage) {
-        listView = new ListView<>();
-        listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        listView.getSelectionModel().getSelectedItems().addListener((InvalidationListener) observable -> updateContainer());
-        listView.setCellFactory(createCellFactory());
-
         multiGanttChart = new MultiGanttChartContainer();
+        entries.clear();
 
         masterGC = new GanttChart<>(new DemoRow("Master"));
         masterGC.getGraphics().setShowVerticalCursor(true);
@@ -56,10 +50,11 @@ public class HelloMultiGanttChartContainer extends FlexGanttFXSampleBase {
             Entry entry = new Entry();
             entry.name = "Gantt #" + (i + 1);
             entry.gc = gc;
-            listView.getItems().add(entry);
+            entries.add(entry);
         }
 
         multiGanttChart.getGanttCharts().add(masterGC);
+        multiGanttChart.getGanttCharts().addAll(entries.stream().map(entry -> entry.gc).collect(Collectors.toList()));
         multiGanttChart.resetDividerPositions();
 
         BorderPane borderPane = new BorderPane();
@@ -73,7 +68,7 @@ public class HelloMultiGanttChartContainer extends FlexGanttFXSampleBase {
     public void dispose() {
         super.dispose();
         multiGanttChart = null;
-        listView = null;
+        entries.clear();
         masterGC = null;
 
     }
@@ -81,45 +76,31 @@ public class HelloMultiGanttChartContainer extends FlexGanttFXSampleBase {
     class Entry {
         String name;
         GanttChart<DemoRow> gc;
+        ToggleButton toggleButton;
     }
 
     @Override
     public Node getControlPanel() {
-        return new StackPane(listView);
+        VBox box = new VBox(10);
+        box.setFillWidth(true);
+
+        for (Entry entry : entries) {
+            ToggleButton button = new ToggleButton(entry.name);
+            button.setMaxWidth(Double.MAX_VALUE);
+            button.setSelected(true);
+            button.selectedProperty().addListener(it -> updateContainer());
+            entry.toggleButton = button;
+            box.getChildren().add(button);
+        }
+
+        return box;
     }
-
-	private Callback<ListView<Entry>, ListCell<Entry>> createCellFactory() {
-		return new Callback<>() {
-
-				@Override
-				public ListCell<Entry> call(ListView<Entry> param) {
-					ListCell<Entry> cell = new ListCell<>() {
-
-						@Override
-						protected void updateItem(Entry item, boolean empty) {
-							super.updateItem(item, empty);
-							if (item != null) {
-								setText(item.name);
-							}
-						}
-
-						@Override
-						public void updateIndex(int i) {
-							super.updateIndex(i);
-
-							if (i == -1) {
-								setText("");
-							}
-						}
-					};
-					return cell;
-				}
-			};
-	}
 
 	private void updateContainer() {
         multiGanttChart.getGanttCharts().setAll(
-                listView.getSelectionModel().getSelectedItems().stream().map(entry -> entry.gc)
+                entries.stream()
+                        .filter(entry -> entry.toggleButton != null && entry.toggleButton.isSelected())
+                        .map(entry -> entry.gc)
                         .collect(Collectors.toList()));
         multiGanttChart.getGanttCharts().add(0, masterGC);
         Platform.runLater(() -> multiGanttChart.resetDividerPositions());
@@ -133,7 +114,7 @@ public class HelloMultiGanttChartContainer extends FlexGanttFXSampleBase {
     @Override
     public String getSampleDescription() {
         return "The multi Gantt chart container class can be used to display an arbitrary number "
-                + "of Gantt charts. The selected charts in the list view below will be shown inside "
+                + "of Gantt charts. The selected charts in the toggle buttons below will be shown inside "
                 + "the Gantt chart container";
     }
 

@@ -74,7 +74,8 @@ public class HelloSystemLayers extends FlexGanttFXSample {
         return gc;
     }
 
-    class CustomLinksLayer extends SystemLayer<HelloRow> {
+    static class CustomLinksLayer extends SystemLayer<HelloRow> {
+
         private final Map<String, Rectangle2D> boundsMap = new HashMap<>();
 
         public CustomLinksLayer(GraphicsBase<HelloRow> graphicsView) {
@@ -102,7 +103,7 @@ public class HelloSystemLayers extends FlexGanttFXSample {
                 TemporalUnit primaryTemporalUnit = dateline.getPrimaryTemporalUnit();
 
                 /*
-                 * I am only iterating over one (staticly defined) layer. In
+                 * I am only iterating over one (statically defined) layer. In
                  * your code you will most likely have another loop here so that
                  * you find all activities on all layers.
                  */

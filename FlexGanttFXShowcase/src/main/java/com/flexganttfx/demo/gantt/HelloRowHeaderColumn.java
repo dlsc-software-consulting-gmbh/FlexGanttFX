@@ -27,6 +27,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
@@ -103,6 +104,26 @@ public class HelloRowHeaderColumn extends FlexGanttFXSample {
         ComboBox<RowHeaderType> contentTypeBox = new ComboBox<>();
         contentTypeBox.getItems().addAll(RowHeaderType.values());
         contentTypeBox.setValue(gantt.getRowHeaderType());
+        contentTypeBox.setConverter(new StringConverter<RowHeaderType>() {
+            @Override
+            public String toString(RowHeaderType object) {
+                switch (object) {
+                    case ROW_NUMBER:
+                        return "Row Number";
+                    case LEVEL_NUMBER:
+                        return "Level Number";
+                    case GRAPHIC_NODE:
+                        return "Graphic Node";
+                    default:
+                        return "";
+                }
+            }
+
+            @Override
+            public RowHeaderType fromString(String string) {
+                return null;
+            }
+        });
         gantt.rowHeaderTypeProperty().bind(contentTypeBox.valueProperty());
         controlPane.getChildren().add(contentTypeBox);
 
@@ -110,6 +131,7 @@ public class HelloRowHeaderColumn extends FlexGanttFXSample {
         ToggleGroup group = new ToggleGroup();
 
         RadioButton colorCallback = new RadioButton("Color");
+        colorCallback.setStyle("-fx-background-color: transparent;");
         colorCallback.setToggleGroup(group);
         colorCallback.setOnAction(evt -> {
             gantt.setRowHeaderNodeFactory(new ColorCallback());
@@ -121,6 +143,7 @@ public class HelloRowHeaderColumn extends FlexGanttFXSample {
         controlPane.getChildren().add(colorCallback);
 
         RadioButton statusCallback = new RadioButton("Status");
+        statusCallback.setStyle("-fx-background-color: transparent;");
         statusCallback.setToggleGroup(group);
         statusCallback.setOnAction(evt -> {
             gantt.setRowHeaderNodeFactory(new StatusCallback());
@@ -131,6 +154,7 @@ public class HelloRowHeaderColumn extends FlexGanttFXSample {
         controlPane.getChildren().add(statusCallback);
 
         RadioButton controlCallback = new RadioButton("Control");
+        controlCallback.setStyle("-fx-background-color: transparent;");
         controlCallback.setToggleGroup(group);
         controlCallback.setOnAction(evt -> {
             gantt.setRowHeaderNodeFactory(new ControlCallback());

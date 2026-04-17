@@ -29,6 +29,7 @@ import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
@@ -36,12 +37,14 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
@@ -118,6 +121,11 @@ public class HelloCanvasBuffer extends FlexGanttFXSampleBase {
         addPhase("Implementation", Instant.now().plus(8, ChronoUnit.DAYS), Instant.now().plus(16, ChronoUnit.DAYS));
         addPhase("Testing", Instant.now().plus(19, ChronoUnit.DAYS), Instant.now().plus(25, ChronoUnit.DAYS));
 
+        Rectangle clip = new Rectangle();
+        clip.widthProperty().bind(stackPane.widthProperty());
+        clip.heightProperty().bind(stackPane.heightProperty());
+        stackPane.setClip(clip);
+
         return stackPane;
     }
 
@@ -139,36 +147,38 @@ public class HelloCanvasBuffer extends FlexGanttFXSampleBase {
 
         // canvas buffer
         Label canvasBufferSizeLabel = new Label("Canvas Buffer:");
-        Slider canvasBufferSlider = new Slider(0,250,vboxGraphics.getCanvasBuffer());
+        Slider canvasBufferSlider = new Slider(0, 250, vboxGraphics.getCanvasBuffer());
         canvasBufferSlider.valueProperty().bindBidirectional(vboxGraphics.canvasBufferProperty());
 
         Label canvasBufferValueLabel = new Label();
         canvasBufferValueLabel.setMinWidth(Region.USE_PREF_SIZE);
         canvasBufferValueLabel.textProperty().bind(Bindings.createStringBinding(() -> DecimalFormat.getIntegerInstance().format(vboxGraphics.getCanvasBuffer()), vboxGraphics.canvasBufferProperty()));
         HBox canvasBufferBox = new HBox(10, canvasBufferSlider, canvasBufferValueLabel);
+        canvasBufferBox.setAlignment(Pos.CENTER_LEFT);
 
         // eventline canvas buffer
         Label eventLineCanvasBufferSizeLabel = new Label("Eventline Canvas Buffer:");
-        Slider eventlineCanvasBufferSlider = new Slider(0,250,vboxGraphics.getCanvasBuffer());
+        Slider eventlineCanvasBufferSlider = new Slider(0, 250, vboxGraphics.getCanvasBuffer());
         eventlineCanvasBufferSlider.valueProperty().bindBidirectional(timeline.getEventline().getGraphics().canvasBufferProperty());
 
         Label eventlineCanvasBufferValueLabel = new Label();
         eventlineCanvasBufferValueLabel.setMinWidth(Region.USE_PREF_SIZE);
         eventlineCanvasBufferValueLabel.textProperty().bind(Bindings.createStringBinding(() -> DecimalFormat.getIntegerInstance().format(timeline.getEventline().getGraphics().getCanvasBuffer()), timeline.getEventline().getGraphics().canvasBufferProperty()));
         HBox eventlineBufferBox = new HBox(10, eventlineCanvasBufferSlider, eventlineCanvasBufferValueLabel);
+        eventlineBufferBox.setAlignment(Pos.CENTER_LEFT);
 
         // dateline buffer
         Label datelineBufferSizeLabel = new Label("Dateline Buffer:");
-        Slider datelineBufferSlider = new Slider(0,250,vboxGraphics.getCanvasBuffer());
+        Slider datelineBufferSlider = new Slider(0, 250, vboxGraphics.getCanvasBuffer());
         datelineBufferSlider.valueProperty().bindBidirectional(timeline.getDateline().datelineBufferProperty());
 
         Label datelineBufferValueLabel = new Label();
         datelineBufferValueLabel.setMinWidth(Region.USE_PREF_SIZE);
         datelineBufferValueLabel.textProperty().bind(Bindings.createStringBinding(() -> DecimalFormat.getIntegerInstance().format(timeline.getDateline().getDatelineBuffer()), timeline.getDateline().datelineBufferProperty()));
         HBox datelineBufferBox = new HBox(10, datelineBufferSlider, datelineBufferValueLabel);
+        datelineBufferBox.setAlignment(Pos.CENTER_LEFT);
 
-
-        VBox box = new VBox(10,
+        FlowPane box = new FlowPane(
                 debugMode,
                 showScale,
                 canvasBufferSizeLabel,
@@ -177,6 +187,11 @@ public class HelloCanvasBuffer extends FlexGanttFXSampleBase {
                 datelineBufferBox,
                 eventLineCanvasBufferSizeLabel,
                 eventlineBufferBox);
+
+        box.setVgap(10);
+        box.setHgap(10);
+
+        box.setAlignment(Pos.CENTER_LEFT);
 
         return box;
     }
@@ -273,7 +288,7 @@ public class HelloCanvasBuffer extends FlexGanttFXSampleBase {
 
     @Override
     public String getSampleDescription() {
-        return "This sample illustrates how the canvas and dateline buffer work.";
+        return "This sample illustrates how the canvas and dateline buffer work. Not everything gets recreated or redrawn when scrolling. Instead larger views are simply moved left or right via their translate-x property.";
     }
 
     @Override

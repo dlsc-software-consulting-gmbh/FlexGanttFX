@@ -6,14 +6,12 @@ package com.flexganttfx.demo.container;
 
 import com.flexganttfx.demo.FlexGanttFXSampleBase;
 import com.flexganttfx.demo.HelloRow;
-import com.flexganttfx.extras.properties.DualGanttChartContainerBaseItemProvider;
 import com.flexganttfx.view.container.DualGanttChartLiteContainer;
 import com.flexganttfx.view.GanttChartLite;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
 import javafx.scene.Node;
+import javafx.scene.control.CheckBox;
 import javafx.stage.Stage;
-import org.controlsfx.control.PropertySheet;
 
 public class HelloDualGanttChartLiteContainer extends FlexGanttFXSampleBase {
 
@@ -49,8 +47,9 @@ public class HelloDualGanttChartLiteContainer extends FlexGanttFXSampleBase {
 
 	@Override
 	public Node getControlPanel() {
-		DualGanttChartContainerBaseItemProvider provider = new DualGanttChartContainerBaseItemProvider();
-		return new PropertySheet(FXCollections.observableArrayList(provider.getPropertySheetItems(dual)));
+		CheckBox showSecondary = new CheckBox("Show Secondary");
+		showSecondary.selectedProperty().bindBidirectional(dual.showSecondaryProperty());
+		return showSecondary;
 	}
 
 	@Override

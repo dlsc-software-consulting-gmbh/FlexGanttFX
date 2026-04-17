@@ -64,7 +64,7 @@ public class HelloToolTip extends FlexGanttFXSample {
 		gc.setRoot(row);
 
 		ListViewGraphics<HelloRow> graphics = gc.getGraphics();
-		graphics.getListView().addEventHandler(MouseEvent.MOUSE_MOVED, evt -> mouseMoved(evt));
+		graphics.getListView().addEventHandler(MouseEvent.MOUSE_MOVED, this::mouseMoved);
 		return gc;
 	}
 

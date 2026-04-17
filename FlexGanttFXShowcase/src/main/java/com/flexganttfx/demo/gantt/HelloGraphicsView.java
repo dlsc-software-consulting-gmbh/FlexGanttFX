@@ -18,16 +18,19 @@ import com.flexganttfx.view.timeline.Timeline;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Separator;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -69,6 +72,11 @@ public class HelloGraphicsView extends FlexGanttFXSampleBase {
         RadioButton vBoxButton = new RadioButton("VBox");
         RadioButton splitPaneButton = new RadioButton("SplitPane");
 
+        singleRowButton.setStyle("-fx-background-color: transparent;");
+        listViewButton.setStyle("-fx-background-color: transparent;");
+        vBoxButton.setStyle("-fx-background-color: transparent;");
+        splitPaneButton.setStyle("-fx-background-color: transparent;");
+
         ToggleGroup toggleGroup = new ToggleGroup();
         toggleGroup.getToggles().addAll(singleRowButton, listViewButton, vBoxButton, splitPaneButton);
         singleRowButton.setSelected(true);
@@ -79,34 +87,24 @@ public class HelloGraphicsView extends FlexGanttFXSampleBase {
         prioBox.setOnAction(evt -> updatePriorityStrategy(prioBox.getValue()));
         prioBox.disableProperty().bind(Bindings.not(vBoxButton.selectedProperty()));
 
-        BorderPane priBoxPane = new BorderPane();
-        priBoxPane.setCenter(prioBox);
-        Label label = new Label("VBox Grow Priority:");
-        BorderPane.setMargin(label, new Insets(0, 6, 0, 0));
-        label.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        BorderPane.setAlignment(prioBox, Pos.CENTER_RIGHT);
-        priBoxPane.setLeft(label);
+        Label prioLabel = new Label("Grow Priority:");
+        prioLabel.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
         Slider heightSlider = new Slider(0, 1000, Row.DEFAULT_ROW_HEIGHT);
         heightSlider.valueProperty().addListener(evt -> updateRowHeight(heightSlider.getValue()));
         heightSlider.disableProperty().bind(Bindings.not(singleRowButton.selectedProperty()));
 
-        BorderPane sliderPane = new BorderPane();
-        sliderPane.setCenter(heightSlider);
-        sliderPane.setLeft(new Label("Row Height:"));
+        Label heightLabel = new Label("Height:");
 
         singleRowButton.setOnAction(evt -> singleRowNode.toFront());
         listViewButton.setOnAction(evt -> listViewNode.toFront());
         vBoxButton.setOnAction(evt -> vBoxNode.toFront());
         splitPaneButton.setOnAction(evt -> splitPaneNode.toFront());
 
-        VBox.setMargin(sliderPane, new Insets(0, 0, 0, 40));
-        VBox.setMargin(priBoxPane, new Insets(0, 0, 0, 40));
-
-        VBox controlPanel = new VBox();
-        controlPanel.setFillWidth(false);
-        controlPanel.getChildren().addAll(singleRowButton, sliderPane, listViewButton, vBoxButton, priBoxPane, splitPaneButton);
-        controlPanel.setSpacing(10);
+        HBox controlPanel = new HBox();
+        controlPanel.setAlignment(Pos.CENTER_LEFT);
+        controlPanel.getChildren().addAll(singleRowButton, heightLabel, heightSlider, new Separator(Orientation.VERTICAL), listViewButton, new Separator(Orientation.VERTICAL),vBoxButton, prioLabel, prioBox, new Separator(Orientation.VERTICAL), splitPaneButton);
+        controlPanel.setSpacing(4);
 
         return controlPanel;
     }
@@ -177,8 +175,8 @@ public class HelloGraphicsView extends FlexGanttFXSampleBase {
 
         SingleRowGraphics<HelloRow> graphics = new SingleRowGraphics<>();
         graphics.setTimeline(timeline);
-        graphics.setOnLassoSelection(evt -> info(evt));
-        graphics.setOnActivityChange(evt -> info(evt));
+        graphics.setOnLassoSelection(this::info);
+        graphics.setOnActivityChange(this::info);
         graphics.setActivityRenderer(HelloActivity.class, GanttLayout.class, new ActivityBarRenderer<>(graphics, "HelloActivityRenderer"));
         graphics.getLayers().add(HelloRow.layer);
         graphics.setDebugMode(DEBUG_MODE);
@@ -290,7 +288,7 @@ public class HelloGraphicsView extends FlexGanttFXSampleBase {
     public String getSampleName() {
         return "Graphics View";
     }
-    
+
     public static void main(String[] args) {
         Application.launch(args);
     }

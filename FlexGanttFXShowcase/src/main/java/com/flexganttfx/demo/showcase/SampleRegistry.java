@@ -43,7 +43,6 @@ public class SampleRegistry {
                             HelloLinksStressTest::new,
                             HelloRowHeaderColumn::new,
                             HelloScrollBars::new,
-                            HelloStylesheets::new,
                             HelloSystemLayers::new,
                             HelloToolTip::new,
                             HelloCanvasBuffer::new,
