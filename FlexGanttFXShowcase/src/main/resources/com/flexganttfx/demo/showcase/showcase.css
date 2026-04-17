@@ -411,9 +411,9 @@
 }
 
 .markdown-view.light .markdown-code-block {
-    -mdfx-code-theme: "/one/jpro/platform/mdfx/themes/github-dark-default.json";
+    -mdfx-code-theme: "/one/jpro/platform/mdfx/themes/github-light-default.json";
 }
 
 .markdown-view.dark .markdown-code-block {
-    -mdfx-code-theme: "/one/jpro/platform/mdfx/themes/github-light-default.json";
+    -mdfx-code-theme: "/one/jpro/platform/mdfx/themes/github-dark-default.json";
 }

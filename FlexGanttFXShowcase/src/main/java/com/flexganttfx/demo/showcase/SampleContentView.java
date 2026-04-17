@@ -24,6 +24,9 @@ import javafx.util.Duration;
 import one.jpro.platform.mdfx.MarkdownView;
 import org.controlsfx.control.HiddenSidesPane;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -59,7 +62,7 @@ public class SampleContentView extends BorderPane {
         }
         currentSample = sample;
 
-        String codeExample = sample.getCodeExample();
+        String codeExample = loadCodeExample(sample);
         boolean hasCodeExample = codeExample != null;
 
         // Header
@@ -156,6 +159,18 @@ public class SampleContentView extends BorderPane {
 
         examplePane.setContent(mainContent);
         setCenter(examplePane);
+    }
+
+    private String loadCodeExample(Sample sample) {
+        String markdownFileName = sample.getClass().getSimpleName() + ".md";
+        try (InputStream inputStream = sample.getClass().getResourceAsStream(markdownFileName)) {
+            if (inputStream == null) {
+                return null;
+            }
+            return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new IllegalStateException("Unable to load code example: " + markdownFileName, e);
+        }
     }
 
     private HiddenSidesPane createExamplePane(String codeExample) {

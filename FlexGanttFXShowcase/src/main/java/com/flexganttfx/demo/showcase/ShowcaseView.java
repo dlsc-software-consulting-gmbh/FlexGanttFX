@@ -18,6 +18,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -34,6 +35,7 @@ import org.kordamp.ikonli.materialdesign.MaterialDesign;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import java.util.prefs.Preferences;
 
 /**
@@ -248,10 +250,29 @@ public class ShowcaseView extends BorderPane {
             row.getStyleClass().add("sidebar-sample-row");
             row.setMaxWidth(Double.MAX_VALUE);
             row.setPrefWidth(250);
+            row.setFocusTraversable(true);
             row.setUserData(new SampleEntry(supplier, category, sampleName));
             allSampleRows.add(row);
 
-            row.setOnMouseClicked(e -> handleSampleClick(row));
+            row.setOnMouseClicked(e -> {
+                row.requestFocus();
+                handleSampleClick(row);
+            });
+            row.setOnKeyPressed(e -> {
+                if (e.getCode() == KeyCode.UP) {
+                    selectAdjacentSample(row, -1);
+                    e.consume();
+                } else if (e.getCode() == KeyCode.DOWN) {
+                    selectAdjacentSample(row, 1);
+                    e.consume();
+                } else if (e.getCode() == KeyCode.HOME) {
+                    selectBoundarySample(true);
+                    e.consume();
+                } else if (e.getCode() == KeyCode.END) {
+                    selectBoundarySample(false);
+                    e.consume();
+                }
+            });
             samplesBox.getChildren().add(row);
         }
 
@@ -287,6 +308,40 @@ public class ShowcaseView extends BorderPane {
         }
     }
 
+    private void selectAdjacentSample(Label currentRow, int delta) {
+        List<Label> visibleRows = getVisibleSampleRows();
+        int currentIndex = visibleRows.indexOf(currentRow);
+        if (currentIndex < 0) {
+            return;
+        }
+
+        int targetIndex = currentIndex + delta;
+        if (targetIndex < 0 || targetIndex >= visibleRows.size()) {
+            return;
+        }
+
+        Label targetRow = visibleRows.get(targetIndex);
+        targetRow.requestFocus();
+        handleSampleClick(targetRow);
+    }
+
+    private void selectBoundarySample(boolean first) {
+        List<Label> visibleRows = getVisibleSampleRows();
+        if (visibleRows.isEmpty()) {
+            return;
+        }
+
+        Label targetRow = first ? visibleRows.get(0) : visibleRows.get(visibleRows.size() - 1);
+        targetRow.requestFocus();
+        handleSampleClick(targetRow);
+    }
+
+    private List<Label> getVisibleSampleRows() {
+        return allSampleRows.stream()
+                .filter(Label::isVisible)
+                .collect(Collectors.toList());
+    }
+
     private void filterSamples(String filter) {
         String lower = filter == null ? "" : filter.toLowerCase();
         for (Label row : allSampleRows) {
@@ -306,9 +361,7 @@ public class ShowcaseView extends BorderPane {
     }
 
     private void selectFirstSample() {
-        if (!allSampleRows.isEmpty()) {
-            handleSampleClick(allSampleRows.get(0));
-        }
+        selectBoundarySample(true);
     }
 
     private void applyTheme(Theme theme) {

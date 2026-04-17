@@ -142,14 +142,4 @@ public class HelloScrollBars extends FlexGanttFXSample {
                 return Messages.getString("GanttChartBase.SCROLL_BAR_TYPE_NONE_DESCRIPTION");
         }
     }
-
-    @Override
-    public String getCodeExample() {
-        return "All that is needed is to change the scrollbar type on **GanttChart**. Ideally the application also sets limits on the horizon that can be scrolled or the user might get lost.\n" +
-                "```\n" +
-                code("GanttChart gc = new GanttChart<>();\n" +
-                        "gc.setScrollBarType(GanttChartBase.ScrollBarType.FIXED_HORIZON);\n" +
-                        "gc.getTimeline().getModel().setHorizonStartTime(ZonedDateTime.now().minusWeeks(1).toInstant());\n" +
-                        "gc.getTimeline().getModel().setHorizonEndTime(ZonedDateTime.now().plusYears(2).toInstant());");
-    }
 }

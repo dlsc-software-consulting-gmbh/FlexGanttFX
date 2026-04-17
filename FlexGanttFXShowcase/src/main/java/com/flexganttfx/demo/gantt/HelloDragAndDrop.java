@@ -598,18 +598,6 @@ public class HelloDragAndDrop extends FlexGanttFXSampleBase {
         }
     }
 
-    @Override
-    public String getCodeExample() {
-        return "**FlexGanttFX** uses the native / OS provided drag and drop facilities and supports it with drag and drop information that gets updated while such an operation is in progress. Applications can decide to use the platform provided feedback (a drag image) or if the chart should render the dragged activity itself.\n" +
-                code("GraphicsBase<Resource> g = gantt1.getGraphics();\n" +
-                        "g.setDragAndDropFeedback(DragAndDropFeedback.RENDERED_GRID_SNAPPED);\n" +
-                        "g.setAutoGridEnabled(true);\n" +
-                        "g.setOnDragOver(evt -> {...});\n" +
-                        "g.setOnDragDropped(evt -> {...});\n" +
-                        "g.setActivityRenderer(OrderAssignment.class, GanttLayout.class, new OrderAssignmentRenderer(g));\n" +
-                        "g.dragAndDropInfoProperty().addListener(evt -> {...});\n");
-    }
-
     public static void main(String[] args) {
         launch(args);
     }

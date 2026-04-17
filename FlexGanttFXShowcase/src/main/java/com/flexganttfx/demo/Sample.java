@@ -83,8 +83,6 @@ public interface Sample {
 
     /**
      * Returns URL for control's stylesheet.
-     * If the CSS resource is available on module-path,
-     * {@link FXSamplerProject#getModuleName() project's} module name should be defined.
      */
     String getControlStylesheetURL();
 
@@ -92,13 +90,6 @@ public interface Sample {
      * A full URL to a sample source code, which is assumed to be in java.
      */
     String getSampleSourceURL();
-
-    /**
-     * Returns markdown-formatted example code to show in the showcase UI.
-     */
-    default String getCodeExample() {
-        return null;
-    }
 
     /**
      * if true, this sample is shown to users, if false it is not.
