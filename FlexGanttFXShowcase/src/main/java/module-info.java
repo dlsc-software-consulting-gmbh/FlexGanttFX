@@ -18,6 +18,7 @@ open module com.flexganttfx.sampler {
     requires javafx.controls;
     requires javafx.web;
 
+    requires one.jpro.platform.mdfx;
     requires org.controlsfx.controls;
 
     requires com.flexganttfx.view;

@@ -23,6 +23,7 @@ import javafx.concurrent.WorkerStateEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TreeItem;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
@@ -240,9 +241,8 @@ public class HelloLazyLoading extends FlexGanttFXSample {
     @Override
     public Node getControlPanel() {
 
-        VBox box = new VBox();
+        HBox box = new HBox();
         box.setSpacing(10);
-        box.setFillWidth(true);
 
         Button showRoot = new Button("Show Root");
         showRoot.setMaxWidth(Double.MAX_VALUE);

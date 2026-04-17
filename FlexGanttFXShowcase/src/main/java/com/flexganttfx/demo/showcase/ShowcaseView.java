@@ -42,6 +42,8 @@ import java.util.prefs.Preferences;
 public class ShowcaseView extends BorderPane {
 
     private static final String ATLANTAFX_THEME_CLASS = "showcase-atlantafx-theme";
+    private static final String ATLANTAFX_DARK_THEME_CLASS = "showcase-atlantafx-dark-theme";
+    private static final String ATLANTAFX_LIGHT_THEME_CLASS = "showcase-atlantafx-light-theme";
     private static final String MODENA_THEME_CLASS = "showcase-modena-theme";
 
     /** Sentinel theme that restores JavaFX's built-in Modena stylesheet. */
@@ -309,8 +311,15 @@ public class ShowcaseView extends BorderPane {
     }
 
     private void updateThemeStyleClass() {
-        getStyleClass().removeAll(ATLANTAFX_THEME_CLASS, MODENA_THEME_CLASS);
-        getStyleClass().add(isModenaTheme(currentTheme) ? MODENA_THEME_CLASS : ATLANTAFX_THEME_CLASS);
+        getStyleClass().removeAll(ATLANTAFX_THEME_CLASS, ATLANTAFX_DARK_THEME_CLASS, ATLANTAFX_LIGHT_THEME_CLASS, MODENA_THEME_CLASS);
+        if (isModenaTheme(currentTheme)) {
+            getStyleClass().add(MODENA_THEME_CLASS);
+        } else {
+            getStyleClass().addAll(
+                    ATLANTAFX_THEME_CLASS,
+                    currentTheme.isDarkMode() ? ATLANTAFX_DARK_THEME_CLASS : ATLANTAFX_LIGHT_THEME_CLASS
+            );
+        }
     }
 
     private boolean isModenaTheme(Theme theme) {

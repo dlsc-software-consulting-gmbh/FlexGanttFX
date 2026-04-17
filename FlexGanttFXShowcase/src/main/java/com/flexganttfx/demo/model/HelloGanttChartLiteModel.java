@@ -14,6 +14,7 @@ import com.flexganttfx.view.GanttChartLite;
 import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.time.Duration;
@@ -53,10 +54,8 @@ public class HelloGanttChartLiteModel extends FlexGanttFXSample {
 
     @Override
     public Node getControlPanel() {
-
-        VBox box = new VBox();
+        HBox box = new HBox();
         box.setSpacing(10);
-        box.setFillWidth(true);
 
         Button newModel = new Button("Set New List");
         newModel.setOnAction(event -> setNewList());

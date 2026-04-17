@@ -16,6 +16,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.TreeItem;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import org.controlsfx.dialog.ProgressDialog;
@@ -65,9 +66,8 @@ public class HelloGanttChartModel extends FlexGanttFXSample {
     @Override
     public Node getControlPanel() {
 
-        VBox box = new VBox();
+        HBox box = new HBox();
         box.setSpacing(10);
-        box.setFillWidth(true);
 
         Button newModel = new Button("Set New Root");
         newModel.setOnAction(event -> setNewRoot());

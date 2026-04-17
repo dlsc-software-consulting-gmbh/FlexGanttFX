@@ -75,6 +75,7 @@ public class HelloMultiLine extends FlexGanttFXSample {
     @Override
     protected GanttChart<?> createGanttChart() throws Exception {
         GanttChart<HelloRow> gc = new GanttChart<>();
+        gc.setDisplayMode(GanttChart.DisplayMode.GRAPHICS_ONLY);
 
         // the layers
         List<Layer> layers = new ArrayList<>();

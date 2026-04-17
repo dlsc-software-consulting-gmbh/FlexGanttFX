@@ -67,6 +67,15 @@ public abstract class SampleBase extends Application implements Sample {
     }
 
     @Override
+    public String getCodeExample() {
+        return null;
+    }
+
+    @Override
     public void dispose() {
+    }
+
+    public String code(String code) {
+        return "```java\n" + code + "\n```";
     }
 }

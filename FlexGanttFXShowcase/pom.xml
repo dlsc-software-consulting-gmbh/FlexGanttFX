@@ -29,6 +29,13 @@
 
 	</pluginRepositories>
 
+	<repositories>
+		<repository>
+			<id>sandec-repo</id>
+			<url>https://sandec.jfrog.io/artifactory/repo</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
 
 		<dependency>
@@ -113,6 +120,12 @@
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-web</artifactId>
 			<version>${javafx.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>one.jpro.platform</groupId>
+			<artifactId>jpro-mdfx</artifactId>
+			<version>0.6.1</version>
 		</dependency>
 
 		<dependency>

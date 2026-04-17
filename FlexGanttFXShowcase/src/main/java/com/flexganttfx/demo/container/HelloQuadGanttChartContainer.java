@@ -12,6 +12,7 @@ import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -58,38 +59,38 @@ public class HelloQuadGanttChartContainer extends FlexGanttFXSampleBase {
 
     @Override
     public Node getControlPanel() {
-        VBox vbox = new VBox(10);
-        vbox.setFillWidth(true);
+        HBox box = new HBox(10);
+        box.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
 
         Button single = new Button("Single");
         single.setMaxWidth(Double.MAX_VALUE);
         single.setOnAction(evt -> quad.showSingleChart());
-        vbox.getChildren().add(single);
+        box.getChildren().add(single);
 
         Button horizontalSplit = new Button("Horiz. Split");
         horizontalSplit.setMaxWidth(Double.MAX_VALUE);
         horizontalSplit.setOnAction(evt -> quad.showHorizontalSplitScreen(true));
-        vbox.getChildren().add(horizontalSplit);
+        box.getChildren().add(horizontalSplit);
 
         Button verticalSplit = new Button("Vert. Split");
         verticalSplit.setMaxWidth(Double.MAX_VALUE);
         verticalSplit.setOnAction(evt -> quad.showVerticalSplitScreen(true));
-        vbox.getChildren().add(verticalSplit);
+        box.getChildren().add(verticalSplit);
 
         Button allFour = new Button("All Four");
         allFour.setMaxWidth(Double.MAX_VALUE);
         allFour.setOnAction(evt -> quad.showAllFour(true));
-        vbox.getChildren().add(allFour);
+        box.getChildren().add(allFour);
 
         CheckBox showLower = new CheckBox("Show Lower");
         showLower.selectedProperty().bindBidirectional(quad.showLowerProperty());
-        vbox.getChildren().add(showLower);
+        box.getChildren().add(showLower);
 
         CheckBox animated = new CheckBox("Animated");
         animated.selectedProperty().bindBidirectional(quad.animatedProperty());
-        vbox.getChildren().add(animated);
+        box.getChildren().add(animated);
 
-        return vbox;
+        return box;
     }
 
     @Override

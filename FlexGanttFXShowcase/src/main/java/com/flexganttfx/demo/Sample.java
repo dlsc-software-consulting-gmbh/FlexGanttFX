@@ -94,6 +94,13 @@ public interface Sample {
     String getSampleSourceURL();
 
     /**
+     * Returns markdown-formatted example code to show in the showcase UI.
+     */
+    default String getCodeExample() {
+        return null;
+    }
+
+    /**
      * if true, this sample is shown to users, if false it is not.
      */
     boolean isVisible();

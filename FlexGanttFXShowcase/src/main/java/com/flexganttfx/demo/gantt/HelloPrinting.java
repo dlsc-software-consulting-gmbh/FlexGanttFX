@@ -5,10 +5,11 @@
 package com.flexganttfx.demo.gantt;
 
 import com.flexganttfx.demo.FlexGanttFXSample;
-import com.flexganttfx.msproject.MSProjectApp;
+import com.flexganttfx.msproject.SampleProjectFactory;
 import com.flexganttfx.msproject.view.MSProjectGanttChart;
 import com.flexganttfx.view.GanttChart;
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.print.*;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -16,24 +17,19 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
-
-import java.io.FileNotFoundException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 
 public class HelloPrinting extends FlexGanttFXSample {
 
     private MSProjectGanttChart gc;
 
     @Override
-    protected GanttChart<?> createGanttChart() throws FileNotFoundException {
+    protected GanttChart<?> createGanttChart() {
         gc = new MSProjectGanttChart();
-        gc.load("com/flexganttfx/msproject/files/n0741.mpp", MSProjectApp.class.getResourceAsStream("/com/flexganttfx/msproject/files/n0741.mpp"));
+        loadSoftwareReleasePlan(gc);
         return gc;
     }
 
@@ -57,19 +53,20 @@ public class HelloPrinting extends FlexGanttFXSample {
 
     @Override
     public Node getControlPanel() {
-        VBox box = new VBox();
-        box.setFillWidth(true);
+        HBox box = new HBox();
+        box.setAlignment(Pos.CENTER_LEFT);
+        box.setSpacing(10);
+
         Button print = new Button("Print");
         print.setOnAction(evt -> print());
         box.getChildren().add(print);
+
         return box;
     }
 
     private void print() {
         MSProjectGanttChart newChart = new MSProjectGanttChart();
-        newChart.getTimeline().getModel().startTimeProperty().addListener(it -> System.out.println("st: " + newChart.getTimeline().getModel().getStartTime()));
-        newChart.getTimeline().getModel().setStartTime(ZonedDateTime.of(LocalDate.of(2004, 7, 5), LocalTime.MIDNIGHT, ZoneId.systemDefault()).toInstant());
-        newChart.load("com/flexganttfx/msproject/files/n0741.mpp", MSProjectApp.class.getResourceAsStream("/com/flexganttfx/msproject/files/n0741.mpp"));
+        loadSoftwareReleasePlan(newChart);
 
         Scene scene = new Scene(newChart, 2000, 1000);
         newChart.getGraphics().getRowPanes().forEach(pane -> pane.getCanvas().draw());
@@ -104,6 +101,10 @@ public class HelloPrinting extends FlexGanttFXSample {
                 }
             }
         }
+    }
+
+    private void loadSoftwareReleasePlan(MSProjectGanttChart chart) {
+        chart.load(SampleProjectFactory.ALL.get(0).getFactory().get());
     }
 
     public static void main(String[] args) {

@@ -15,6 +15,7 @@ import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -82,8 +83,8 @@ public class HelloMultiGanttChartLiteContainer extends FlexGanttFXSampleBase {
 
 	@Override
 	public Node getControlPanel() {
-		VBox box = new VBox(10);
-		box.setFillWidth(true);
+		HBox box = new HBox(10);
+		box.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
 
 		for (Entry entry : entries) {
 			ToggleButton button = new ToggleButton(entry.name);

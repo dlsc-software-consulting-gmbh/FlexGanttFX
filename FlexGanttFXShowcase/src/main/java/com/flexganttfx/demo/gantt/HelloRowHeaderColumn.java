@@ -22,6 +22,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -83,8 +84,9 @@ public class HelloRowHeaderColumn extends FlexGanttFXSample {
 
     @Override
     public Node getControlPanel() {
-        VBox controlPane = new VBox();
+        HBox controlPane = new HBox();
         controlPane.setSpacing(10);
+        controlPane.setAlignment(Pos.CENTER_LEFT);
 
         gantt.setRowHeaderNodeFactory(new ColorCallback());
         gantt.rowHeaderTypeProperty().addListener(evt -> {

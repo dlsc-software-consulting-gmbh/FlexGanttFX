@@ -17,6 +17,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 
@@ -39,6 +40,7 @@ public class HelloScrollBars extends FlexGanttFXSample {
         Layer layer = new Layer("layer");
 
         gc = new GanttChart<>();
+        gc.setAutoHideScrollBar(false);
         gc.setScrollBarType(GanttChartBase.ScrollBarType.FIXED_HORIZON);
         gc.getLayers().add(layer);
         gc.getTimeline().getModel().setHorizonStartTime(ZonedDateTime.now().minusWeeks(1).toInstant());
@@ -77,10 +79,13 @@ public class HelloScrollBars extends FlexGanttFXSample {
             public String toString(GanttChartBase.ScrollBarType type) {
                 if (type == null) return "";
                 switch (type) {
-                    case FIXED_HORIZON: return Messages.getString("GanttChartBase.SCROLL_BAR_TYPE_FIXED_HORIZON");
-                    case INFINITE:      return Messages.getString("GanttChartBase.SCROLL_BAR_TYPE_INFINITE");
+                    case FIXED_HORIZON:
+                        return Messages.getString("GanttChartBase.SCROLL_BAR_TYPE_FIXED_HORIZON");
+                    case INFINITE:
+                        return Messages.getString("GanttChartBase.SCROLL_BAR_TYPE_INFINITE");
                     case NONE:
-                    default:            return Messages.getString("GanttChartBase.SCROLL_BAR_TYPE_NONE");
+                    default:
+                        return Messages.getString("GanttChartBase.SCROLL_BAR_TYPE_NONE");
                 }
             }
 
@@ -117,7 +122,9 @@ public class HelloScrollBars extends FlexGanttFXSample {
         endPicker.visibleProperty().bind(gc.scrollBarTypeProperty().isEqualTo(GanttChartBase.ScrollBarType.FIXED_HORIZON));
         endPicker.managedProperty().bind(gc.scrollBarTypeProperty().isEqualTo(GanttChartBase.ScrollBarType.FIXED_HORIZON));
 
-        return new VBox(10, typeComboBox, autoHideScrollBar, startPicker, endPicker);
+        HBox box = new HBox(10, typeComboBox, autoHideScrollBar, startPicker, endPicker);
+        box.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+        return box;
     }
 
     public static void main(String[] args) {
@@ -126,10 +133,25 @@ public class HelloScrollBars extends FlexGanttFXSample {
 
     private static String scrollBarTypeDescription(GanttChartBase.ScrollBarType type) {
         switch (type) {
-            case FIXED_HORIZON: return Messages.getString("GanttChartBase.SCROLL_BAR_TYPE_FIXED_HORIZON_DESCRIPTION");
-            case INFINITE:      return Messages.getString("GanttChartBase.SCROLL_BAR_TYPE_INFINITE_DESCRIPTION");
+            case FIXED_HORIZON:
+                return Messages.getString("GanttChartBase.SCROLL_BAR_TYPE_FIXED_HORIZON_DESCRIPTION");
+            case INFINITE:
+                return Messages.getString("GanttChartBase.SCROLL_BAR_TYPE_INFINITE_DESCRIPTION");
             case NONE:
-            default:            return Messages.getString("GanttChartBase.SCROLL_BAR_TYPE_NONE_DESCRIPTION");
+            default:
+                return Messages.getString("GanttChartBase.SCROLL_BAR_TYPE_NONE_DESCRIPTION");
         }
+    }
+
+    @Override
+    public String getCodeExample() {
+        return "All that is needed is to change the scrollbar type on **GanttChart**. Ideally the application also sets limits on the horizon that can be scrolled or the user might get lost.\n" +
+                "```\n" +
+                code(
+                        "GanttChart gc = new GanttChart<>();\n" +
+                                "gc.setScrollBarType(GanttChartBase.ScrollBarType.FIXED_HORIZON);\n" +
+                                "gc.getTimeline().getModel().setHorizonStartTime(ZonedDateTime.now().minusWeeks(1).toInstant());\n" +
+                                "gc.getTimeline().getModel().setHorizonEndTime(ZonedDateTime.now().plusYears(2).toInstant());\n" +
+                                "```");
     }
 }

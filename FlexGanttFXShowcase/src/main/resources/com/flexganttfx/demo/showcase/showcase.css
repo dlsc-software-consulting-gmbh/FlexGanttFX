@@ -290,6 +290,14 @@
     -fx-spacing: 6;
 }
 
+.sample-header-main {
+    -fx-alignment: center-left;
+}
+
+.sample-header-text {
+    -fx-spacing: 4;
+}
+
 .sample-header-title {
     -fx-font-size: 20px;
     -fx-font-weight: bold;
@@ -307,6 +315,19 @@
     -fx-text-fill: -showcase-fg-subtle;
     -fx-font-size: 11px;
     -fx-padding: 0;
+}
+
+.sample-header-action {
+    -fx-background-color: -color-danger-emphasis;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 999px;
+    -fx-padding: 8 14 8 14;
+}
+
+.sample-header-action:hover {
+    -fx-opacity: 0.9;
 }
 
 .sample-content-box {
@@ -327,4 +348,72 @@
     -fx-font-weight: bold;
     -fx-text-fill: -showcase-fg-muted;
     -fx-padding: 0 0 8 0;
+}
+
+.sample-example-tray {
+    -fx-background-color: -showcase-bg-default;
+    -fx-border-color: -showcase-border-color transparent transparent -showcase-border-color;
+    -fx-border-width: 0 0 0 1;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.18), 18, 0.25, -4, 0);
+}
+
+.sample-example-header {
+    -fx-padding: 16 16 12 16;
+    -fx-border-color: transparent transparent -showcase-border-color transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: -showcase-bg-subtle;
+}
+
+.sample-example-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -showcase-fg-default;
+}
+
+.sample-example-close-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -showcase-fg-muted;
+}
+
+.sample-example-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-fit-to-width: true;
+    -fx-fit-to-height: true;
+}
+
+.sample-example-scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.sample-example-markdown {
+    -fx-padding: 16;
+}
+
+.sample-example-tray {
+    -fx-pref-width: 850px;
+}
+
+.markdown-view.atlantafx {
+    -mdfx-font-color: -color-fg-default;
+    -mdfx-link-color: -color-accent-emphasis;
+    -mdfx-border-color-1: -color-border-default;
+
+    -mdfx-bg-color-1: -colog-bg-default;
+    -mdfx-bg-color-2: -color-neutral-muted;
+    -mdfx-bg-color-3: -color-neutral-subtle;
+
+    -mdfx-bq-color-border: -color-accent-emphasis;
+    -mdfx-bq-color-background: -fx-accent-muted;
+    -mdfx-bq-text-fill: -fx-fg-default;
+
+    -mdfx-code-block-border: -color-accent-emphasis;
+    -mdfx-code-block-background: -color-fg-emphasis;
+}
+
+.markdown-view.light .markdown-code-block {
+    -mdfx-code-theme: "/one/jpro/platform/mdfx/themes/github-dark-default.json";
+}
+
+.markdown-view.dark .markdown-code-block {
+    -mdfx-code-theme: "/one/jpro/platform/mdfx/themes/github-light-default.json";
 }
