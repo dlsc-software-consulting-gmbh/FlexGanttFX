@@ -1,3 +1,5 @@
+This sample focuses on a container with several synchronized Gantt charts. It shows how multiple related views can be shown or hidden while still behaving like one coordinated scheduling surface.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)

@@ -1,3 +1,5 @@
+This sample focuses on tooltip support for chart content. It demonstrates how activities can surface richer contextual information on hover to make complex schedules easier to inspect.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)

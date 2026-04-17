@@ -1,3 +1,5 @@
+This sample focuses on creating a dashboard-style view with four synchronized Gantt charts. It demonstrates how FlexGanttFX containers can keep multiple charts aligned while still allowing layout-level configuration such as animation and lower-pane visibility.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)

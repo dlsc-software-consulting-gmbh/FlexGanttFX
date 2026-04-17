@@ -1,3 +1,5 @@
+This sample focuses on an empty chart setup. It is useful for seeing the minimal structure of a `GanttChart` before rows and activities are added, and for understanding the blank-state behavior of the control.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)

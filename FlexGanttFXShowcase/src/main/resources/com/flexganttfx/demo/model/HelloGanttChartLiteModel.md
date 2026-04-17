@@ -1,3 +1,5 @@
+This sample focuses on model-side changes in the lite chart variant. It mirrors the standard model sample but uses `GanttChartLite` to show how the lighter control responds to the same kinds of updates.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)

@@ -1,3 +1,5 @@
+This sample focuses on the canvas and dateline buffering strategy used by FlexGanttFX. It shows how scrolling can stay efficient because larger rendered areas are translated and reused instead of being rebuilt on every movement.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)

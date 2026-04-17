@@ -1,3 +1,5 @@
+This sample focuses on model-side changes and how the standard `GanttChart` reacts to them. It is useful for exploring how row, activity, and structural updates propagate through the control.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)

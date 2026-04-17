@@ -1,3 +1,5 @@
+This sample focuses on global activities displayed in the eventline rather than inside individual rows. It demonstrates how chart-wide events can be created and visualized independently of the regular row-based activity layout.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)

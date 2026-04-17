@@ -1,3 +1,5 @@
+This sample focuses on the standard timeline model based on chrono units such as years, months, weeks, days, and hours. It is a compact way to explore the timeline and dateline APIs without the rest of a full chart around it.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)

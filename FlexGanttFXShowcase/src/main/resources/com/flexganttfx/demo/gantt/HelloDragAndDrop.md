@@ -1,3 +1,5 @@
+This sample focuses on the built-in drag-and-drop support in FlexGanttFX. It shows how data can be dragged from external controls into a chart, moved within a chart, and exported again, while exposing the feedback, snapping, and event hooks involved in the interaction.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)

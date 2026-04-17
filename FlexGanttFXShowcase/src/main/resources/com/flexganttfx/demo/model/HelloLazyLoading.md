@@ -1,3 +1,5 @@
+This sample focuses on lazy loading of hierarchical data. It demonstrates how row children can be created on demand instead of upfront, which is an important pattern for large trees and remote or expensive data sources.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)

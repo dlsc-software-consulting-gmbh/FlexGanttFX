@@ -1,3 +1,5 @@
+This sample focuses on the `DualGanttChartContainer` and shows how a view with two synchronized Gantt charts can be created easily. It is useful for scenarios where two related schedules should scroll and zoom together while still being presented as separate charts.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)

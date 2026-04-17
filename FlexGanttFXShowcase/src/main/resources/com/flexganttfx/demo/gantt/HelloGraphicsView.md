@@ -1,3 +1,5 @@
+This sample focuses on the standalone graphics views that FlexGanttFX provides in addition to the full `GanttChart` control. It compares several arrangements, such as single-row, list-based, VBox, and split-pane graphics, to show how the rendering layer can be reused in custom compositions.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)

@@ -1,3 +1,5 @@
+This sample focuses on rendering a large number of dependency links. It is useful for exploring link performance and visual density when many relationships have to be drawn across the same chart.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)

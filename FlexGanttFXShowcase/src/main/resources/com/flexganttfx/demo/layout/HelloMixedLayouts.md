@@ -1,3 +1,5 @@
+This sample focuses on mixing several layout types in one view. It combines classic Gantt-style activities, chart-style capacity indicators, and agenda entries on the same timeline to show how different renderers and layouts can coexist in a single application.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)

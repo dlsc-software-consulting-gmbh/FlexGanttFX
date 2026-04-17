@@ -1,3 +1,5 @@
+This sample focuses on the lite version of the multi-chart container. It demonstrates how several `GanttChartLite` views can be composed into a synchronized layout for lightweight multi-view scenarios.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)

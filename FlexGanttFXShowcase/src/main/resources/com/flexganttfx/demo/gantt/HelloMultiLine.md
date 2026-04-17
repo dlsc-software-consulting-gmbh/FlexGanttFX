@@ -1,3 +1,5 @@
+This sample focuses on placing activities on multiple lines within the same row. It demonstrates different line-management strategies and shows how row height, line count, and activity placement can be combined to render dense schedules more clearly.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)

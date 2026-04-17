@@ -1,3 +1,5 @@
+This sample focuses on the row header column that can be shown alongside the main chart content. It demonstrates how additional row-oriented information can be presented and customized next to the scheduling view.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)

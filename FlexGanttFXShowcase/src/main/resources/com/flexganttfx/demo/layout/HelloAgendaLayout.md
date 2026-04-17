@@ -1,3 +1,5 @@
+This sample focuses on the `AgendaLayout`, where activities are presented more like agenda entries than traditional bars. It highlights how start time, end time, layout strategy, and cursor-line behavior influence this more calendar-like rendering style.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)

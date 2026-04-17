@@ -1,3 +1,5 @@
+This sample focuses on the lite dual-chart container. It demonstrates how two synchronized `GanttChartLite` instances can be combined in a compact view while keeping their timeline behavior coordinated.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)

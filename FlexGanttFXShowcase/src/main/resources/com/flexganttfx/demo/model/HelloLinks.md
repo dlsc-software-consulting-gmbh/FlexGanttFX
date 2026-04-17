@@ -1,3 +1,5 @@
+This sample focuses on activity links and the four standard dependency types. It is useful for understanding how start-to-start, start-to-end, end-to-start, and end-to-end relationships are represented and rendered in the chart.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)

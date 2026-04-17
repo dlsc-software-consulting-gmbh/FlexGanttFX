@@ -1,3 +1,5 @@
+This sample focuses on custom system layers. It shows how additional drawing logic can be placed on top of the normal activity rendering pipeline, here by drawing custom connecting lines between activities.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)

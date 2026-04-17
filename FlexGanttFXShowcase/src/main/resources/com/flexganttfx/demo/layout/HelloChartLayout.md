@@ -1,3 +1,5 @@
+This sample focuses on the `ChartLayout` with high-low style activities. Instead of standard Gantt bars, it uses chart-oriented rendering to combine time-based positioning with numeric values inside the same timeline.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)

@@ -1,3 +1,5 @@
+This sample focuses on printing a Gantt chart. It shows a simple workflow where the chart is rendered to an image snapshot, scaled to the printable area, and then sent to the JavaFX printing API.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)

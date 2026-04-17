@@ -393,6 +393,21 @@
     -fx-pref-width: 850px;
 }
 
+.markdown-view .markdown-code {
+    -fx-text-fill: white;
+    -fx-padding: 0px 4px;
+}
+
+.markdown-view .markdown-code-background {
+    -fx-background-color: -fx-accent;
+    -fx-background-radius: 2px;
+}
+
+.markdown-view .markdown-code,
+.markdown-view .markdown-code-block .code-text-flow {
+    -fx-font-family: "JetBrains Mono";
+}
+
 .markdown-view.atlantafx {
     -mdfx-font-color: -color-fg-default;
     -mdfx-link-color: -color-accent-emphasis;
@@ -408,6 +423,16 @@
 
     -mdfx-code-block-border: -color-accent-emphasis;
     -mdfx-code-block-background: -color-fg-emphasis;
+}
+
+.markdown-view.atlantafx .markdown-code {
+    -fx-text-fill: -color-fg-emphasis;
+    -fx-padding: 0px 4px;
+}
+
+.markdown-view.atlantafx .markdown-code-background {
+    -fx-background-color: -color-accent-emphasis;
+    -fx-background-radius: 2px;
 }
 
 .markdown-view.light .markdown-code-block {

@@ -1,3 +1,5 @@
+This sample focuses on the standard `GanttChart` control with its combined tree-table and graphics area. It is a good starting point for understanding how rows, layers, activities, and the timeline work together in the full-featured chart variant.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)

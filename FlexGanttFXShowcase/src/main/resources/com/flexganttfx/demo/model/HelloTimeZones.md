@@ -1,3 +1,5 @@
+This sample focuses on time-zone handling. It shows how the dateline can follow one specific zone while individual rows use their own zones, which is especially relevant for global scheduling scenarios.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)

@@ -1,3 +1,5 @@
+This sample focuses on the lite quad-chart container. It shows how four `GanttChartLite` instances can be arranged into a synchronized grid when an application needs several coordinated chart views at once.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)

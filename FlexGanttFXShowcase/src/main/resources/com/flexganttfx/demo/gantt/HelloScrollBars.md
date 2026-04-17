@@ -1,3 +1,5 @@
+This sample focuses on the different scrollbar modes available in FlexGanttFX. It compares fixed-horizon scrolling with infinite scrolling and highlights configuration options such as auto-hiding and horizon limits.
+
 ```java
 /**
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
