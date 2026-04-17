@@ -17,8 +17,8 @@
     -showcase-top-bar-hover-bg: rgba(255, 255, 255, 0.1);
     -showcase-accent-bg: -color-accent-emphasis;
     -showcase-accent-fg: -color-fg-emphasis;
-    -showcase-selection-bg: -color-accent-subtle;
-    -showcase-selection-fg: -color-accent-fg;
+    -showcase-selection-bg: -color-accent-emphasis;
+    -showcase-selection-fg: -color-fg-emphasis;
 }
 
 .root.showcase-modena-theme {

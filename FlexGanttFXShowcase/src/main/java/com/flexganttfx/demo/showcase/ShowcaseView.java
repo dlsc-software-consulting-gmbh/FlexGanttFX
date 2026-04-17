@@ -83,6 +83,7 @@ public class ShowcaseView extends BorderPane {
     private final SampleContentView contentView;
     private final WelcomeView welcomeView;
     private final List<Label> allSampleRows = new ArrayList<>();
+    private MenuButton themeMenu;
     private Theme currentTheme = resolvePersistedTheme();
 
     // Currently selected label (for deselection)
@@ -130,7 +131,8 @@ public class ShowcaseView extends BorderPane {
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
         // ── Theme switcher ────────────────────────────────────────────────
-        MenuButton themeMenu = new MenuButton("Theme");
+        themeMenu = new MenuButton();
+        updateThemeMenuText();
         themeMenu.getStyleClass().add("showcase-website-btn");
         for (Theme theme : THEMES) {
             MenuItem item = new MenuItem(theme.getName());
@@ -154,6 +156,12 @@ public class ShowcaseView extends BorderPane {
         dlscLogo.setFitHeight(28);
         dlscLogo.setPreserveRatio(true);
         dlscLogo.setSmooth(true);
+        dlscLogo.setCursor(Cursor.HAND);
+        dlscLogo.setOnMouseClicked(e -> {
+            if (hostServices != null) {
+                hostServices.showDocument("https://dlsc.com");
+            }
+        });
         HBox.setMargin(dlscLogo, new Insets(0, 0, 0, 24));
 
         bar.getChildren().addAll(logoGroup, tagline, dlscLogo, spacer, themeMenu, devToolsButton, websiteBtn);
@@ -307,7 +315,17 @@ public class ShowcaseView extends BorderPane {
         currentTheme = theme;
         Application.setUserAgentStylesheet(theme.getUserAgentStylesheet());
         PREFS.put(PREF_THEME, theme.getName());
+        updateThemeMenuText();
         updateThemeStyleClass();
+        if (selectedLabel != null) {
+            handleSampleClick(selectedLabel);
+        }
+    }
+
+    private void updateThemeMenuText() {
+        if (themeMenu != null) {
+            themeMenu.setText("Theme: " + currentTheme.getName());
+        }
     }
 
     private void updateThemeStyleClass() {

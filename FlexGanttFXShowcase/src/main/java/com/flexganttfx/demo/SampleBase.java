@@ -76,6 +76,6 @@ public abstract class SampleBase extends Application implements Sample {
     }
 
     public String code(String code) {
-        return "```java\n" + code + "\n```";
+        return "```" + code + "```";
     }
 }

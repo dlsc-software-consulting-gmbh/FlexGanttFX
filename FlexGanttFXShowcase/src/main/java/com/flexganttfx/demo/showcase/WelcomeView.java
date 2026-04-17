@@ -52,13 +52,10 @@ public class WelcomeView extends BorderPane {
         exploreBtn.getStyleClass().add("welcome-cta-btn");
         exploreBtn.setOnAction(e -> onExplore.run());
 
-        Label versionLabel = new Label("Version " + FlexGanttFX.getVersion());
-        versionLabel.getStyleClass().add("showcase-tagline");
-
         Region spacer = new Region();
         spacer.setPrefHeight(12);
 
-        VBox hero = new VBox(14, productName, tagline, description, spacer, exploreBtn, versionLabel);
+        VBox hero = new VBox(14, productName, tagline, description, spacer, exploreBtn);
         hero.getStyleClass().add("welcome-hero");
         hero.setAlignment(Pos.CENTER);
         return hero;
