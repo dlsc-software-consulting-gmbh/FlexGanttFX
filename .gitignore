@@ -1,4 +1,4 @@
-/target/
+/target/*
 /FlexGanttFXMSProject/logs/
 tmp/
 /docs-old/_site/*
@@ -9,11 +9,11 @@ jdeploy-bundle/
 /.idea/
 /.idea/*
 /scenicView.properties
-/FlexGanttFXFactory/target/
-/FlexGanttFXDemoLauncher/target/
-/FlexGanttFXWeather/target/
-/FlexGanttFXAirport/target/
-/FlexGanttFXDemoLauncher/
-/FlexGanttFXShowcase/target/
-/FlexGanttFXSpaceMission/target/
-/FlexGanttFXSprint/target/
+/FlexGanttFXFactory/target/*
+/FlexGanttFXDemoLauncher/target/*
+/FlexGanttFXWeather/target/*
+/FlexGanttFXAirport/target/*
+/FlexGanttFXDemoLauncher/*
+/FlexGanttFXShowcase/target/*
+/FlexGanttFXSpaceMission/target/*
+/FlexGanttFXSprint/target/*
