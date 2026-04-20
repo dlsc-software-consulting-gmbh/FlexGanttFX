@@ -36,7 +36,7 @@ jobs:
       - name: Update Emirates demo package.json version
         uses: jossef/action-set-json-field@v2.1
         with:
-          file: ./FlexGanttFXEmirates/package.json
+          file: ./FlexGanttFXDemos/FlexGanttFXEmirates/package.json
           field: jdeploy.jar
           value: target/crm-desktop-ui-client-senapt-${{ github.event.inputs.version }}.jar
 
@@ -46,7 +46,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.DEPLOY_GITHUB_TOKEN }}
 
       - name: Publish Emirates Demo with jDeploy
-        working-directory: ./FlexGanttFXEmirates/
+        working-directory: ./FlexGanttFXDemos/FlexGanttFXEmirates/
         run: |
           npm version "${{ github.event.inputs.version }}"
           npx jdeploy publish

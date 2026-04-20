@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.flexganttfx</groupId>
     <artifactId>gantt</artifactId>
-    <version>11.13.0</version>
+    <version>11.13.2</version>
     <packaging>pom</packaging>
     <name>FlexGanttFX</name>
     <description>The parent project for the various FlexGanttFX modules.</description>
@@ -55,20 +55,12 @@
         <module>FlexGanttFXExtras</module>
         <module>FlexGanttFXShowcase</module>
         <module>FlexGanttFXProject</module>
-        <module>FlexGanttFXMSProject</module>
         <module>FlexGanttFXiCal</module>
         <module>FlexGanttFXExperimental</module>
         <module>FlexGanttFXLicensing</module>
-        <module>FlexGanttFXEmirates</module>
         <module>FlexGanttFXTutorials</module>
-        <module>FlexGanttFXEditor</module>
         <module>FlexGanttFXAssembly</module>
-        <module>FlexGanttFXCovid</module>
-        <module>FlexGanttFXFactory</module>
-        <module>FlexGanttFXWeather</module>
-        <module>FlexGanttFXSpaceMission</module>
-        <module>FlexGanttFXAirport</module>
-        <module>FlexGanttFXSprint</module>
+        <module>FlexGanttFXDemos</module>
     </modules>
 
     <build>
@@ -231,9 +223,8 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    <dependencies>
-        <!-- Test Dependencies -->
 
+    <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -272,14 +263,14 @@
         <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-core</artifactId>
-            <version>4.0.16-alpha</version>
+            <version>4.0.18</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>de.sandec</groupId>
             <artifactId>JMemoryBuddy</artifactId>
-            <version>0.2.4</version>
+            <version>0.5.5</version>
             <scope>test</scope>
         </dependency>
 
