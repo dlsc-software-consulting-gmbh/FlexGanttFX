@@ -30,6 +30,7 @@ import com.flexganttfx.view.container.DualGanttChartContainer;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import javafx.animation.KeyFrame;
 import javafx.animation.Animation;
+import javafx.application.Platform;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -107,6 +108,8 @@ public class SpaceMissionView extends VBox {
 
         // ---------- Real-time NowLine ----------
         startNowLineTimer();
+
+        Platform.runLater(() -> groundChart.getGraphics().showAllActivities());
     }
 
     @SuppressWarnings("unchecked")

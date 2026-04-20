@@ -6,7 +6,7 @@
     <parent>
         <artifactId>gantt</artifactId>
         <groupId>com.flexganttfx</groupId>
-        <version>11.12.8</version>
+        <version>11.13.0</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>

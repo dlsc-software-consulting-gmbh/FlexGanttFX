@@ -5,12 +5,12 @@
     <artifactId>sprint</artifactId>
     <name>FlexGanttFXSprint</name>
     <description>Agile Sprint Planner demo</description>
-    <version>11.12.8</version>
+    <version>11.13.0</version>
 
     <parent>
         <groupId>com.flexganttfx</groupId>
         <artifactId>gantt</artifactId>
-        <version>11.12.8</version>
+        <version>11.13.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -19,20 +19,6 @@
         <maven.javadoc.skip>true</maven.javadoc.skip>
         <main.class>com.flexganttfx.sprint.SprintApp</main.class>
     </properties>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>jpro - sandec repository</id>
-            <url>https://sandec.jfrog.io/artifactory/repo</url>
-        </pluginRepository>
-    </pluginRepositories>
-
-    <repositories>
-        <repository>
-            <id>jpro - sandec repository</id>
-            <url>https://sandec.jfrog.io/artifactory/repo</url>
-        </repository>
-    </repositories>
 
     <dependencies>
 

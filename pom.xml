@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.flexganttfx</groupId>
     <artifactId>gantt</artifactId>
-    <version>11.12.8</version>
+    <version>11.13.0</version>
     <packaging>pom</packaging>
     <name>FlexGanttFX</name>
     <description>The parent project for the various FlexGanttFX modules.</description>
@@ -38,7 +38,7 @@
         <devtoolsfx.version>1.0.1</devtoolsfx.version>
         <cssfx.version>11.5.1</cssfx.version>
         <maven.javadoc.skip>false</maven.javadoc.skip>
-        <jpro.version>2022.1.0</jpro.version>
+        <jpro.version>2026.1.1</jpro.version>
         <client.plugin.version>0.1.36</client.plugin.version>
         <exec.maven.plugin.version>3.0.0</exec.maven.plugin.version>
         <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
@@ -224,6 +224,11 @@
                 <version>${javafx.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>one.jpro</groupId>
+                <artifactId>jmemorybuddy</artifactId>
+                <version>0.5.6</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <dependencies>
@@ -284,6 +289,12 @@
         <pluginRepository>
             <id>jpro - sandec repository</id>
             <url>https://sandec.jfrog.io/artifactory/repo</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>gluon-releases</id>
+            <url>
+                https://nexus.gluonhq.com/nexus/content/repositories/releases/
+            </url>
         </pluginRepository>
     </pluginRepositories>
 

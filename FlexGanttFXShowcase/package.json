@@ -1,21 +1,23 @@
 {
+    "license": "ISC",
     "bin": {"flexganttfxsampler": "jdeploy-bundle/jdeploy.js"},
     "author": "Dirk Lemmermann",
-    "description": "A set of demos highlighting various features and capabilities of the professional UI framework for production planning and scheduling applications.",
+    "name": "flexganttfxshowcase",
+    "description": "A showcase application highlighting various features and capabilities of FlexGanttFX, the UI framework for production planning and scheduling applications.",
+    "files": ["jdeploy-bundle"],
     "main": "index.js",
     "preferGlobal": true,
-    "repository": "",
-    "version": "1.0.10",
+    "scripts": {"test": "echo \"Error: no test specified\" && exit 1"},
+    "version": "11.13.0",
     "jdeploy": {
-        "jdk": false,
+        "singleton": true,
         "fallbackToUniversal": false,
         "publishTargets": [{
-            "name": "npm: flexganttfx-showcase",
+            "name": "npm: npm",
             "type": "NPM",
-            "url": "sampler"
+            "url": ""
         }],
         "javaVersion": "11",
-        "documentTypes": [],
         "jar": "target/showcase-11.12.8.jar",
         "javafx": true,
         "title": "FlexGanttFX Showcase",
@@ -25,9 +27,5 @@
     "dependencies": {
         "njre": "^0.2.0",
         "shelljs": "^0.8.4"
-    },
-    "license": "ISC",
-    "name": "flexganttfxshowcase",
-    "files": ["jdeploy-bundle"],
-    "scripts": {"test": "echo \"Error: no test specified\" && exit 1"}
+    }
 }

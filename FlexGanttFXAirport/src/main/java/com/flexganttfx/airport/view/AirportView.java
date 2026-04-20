@@ -20,6 +20,7 @@ import com.flexganttfx.view.container.DualGanttChartContainer;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -72,9 +73,6 @@ public class AirportView extends BorderPane {
         // Add sequencing links to the aircraft chart
         data.getLinks().forEach(link -> aircraftChart.getLinks().add(link));
 
-        aircraftChart.getTimeline().showTemporalUnit(ChronoUnit.HOURS, 12);
-        aircraftChart.getGraphics().showEarliestActivities();
-
         // ── Gate chart (bottom) ───────────────────────────────────────────────
         gateChart = new GanttChart<>(data.getTerminalsRoot());
         gateChart.getLayers().addAll(flightsLayer, groundOpsLayer);
@@ -91,7 +89,7 @@ public class AirportView extends BorderPane {
         // ── Toolbar & status bar ──────────────────────────────────────────────
         GanttChartToolBar<AircraftRow> toolBar = new GanttChartToolBar<>(aircraftChart);
 
-        Label simLabel = new Label("Sim: --:--");
+        Label simLabel = new Label("Time: --:--");
         simLabel.setPadding(new Insets(0, 8, 0, 8));
 
         ToggleButton simButton = new ToggleButton("▶ Simulate");
@@ -116,6 +114,13 @@ public class AirportView extends BorderPane {
         setTop(topArea);
         setCenter(container);
         setBottom(statusBar);
+
+        aircraftChart.expandRows();
+        gateChart.expandRows();
+
+        Platform.runLater(() -> {
+            aircraftChart.getGraphics().showAllActivities();
+        });
     }
 
     private void startSimulation(ToggleButton btn, Label label) {

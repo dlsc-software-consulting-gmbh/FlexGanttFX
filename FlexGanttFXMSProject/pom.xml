@@ -10,7 +10,7 @@
     <parent>
         <groupId>com.flexganttfx</groupId>
         <artifactId>gantt</artifactId>
-        <version>11.12.8</version>
+        <version>11.13.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -18,31 +18,6 @@
         <maven.deploy.skip>true</maven.deploy.skip>
         <maven.javadoc.skip>true</maven.javadoc.skip>
     </properties>
-
-    <pluginRepositories>
-
-        <pluginRepository>
-            <id>jpro - sandec repository</id>
-            <url>https://sandec.jfrog.io/artifactory/repo</url>
-        </pluginRepository>
-
-        <pluginRepository>
-            <id>gluon-releases</id>
-            <url>
-                https://nexus.gluonhq.com/nexus/content/repositories/releases/
-            </url>
-        </pluginRepository>
-
-    </pluginRepositories>
-
-    <repositories>
-
-        <repository>
-            <id>jpro - sandec repository</id>
-            <url>https://sandec.jfrog.io/artifactory/repo</url>
-        </repository>
-
-    </repositories>
 
     <dependencies>
 
@@ -97,7 +72,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.sandec.jpro</groupId>
+            <groupId>one.jpro</groupId>
             <artifactId>jpro-webapi</artifactId>
             <version>${jpro.version}</version>
         </dependency>
@@ -107,6 +82,7 @@
             <artifactId>atlantafx-base</artifactId>
             <version>${atlantafx.version}</version>
         </dependency>
+
         <dependency>
             <groupId>net.raumzeitfalle.fx</groupId>
             <artifactId>scenic-view</artifactId>
@@ -136,7 +112,7 @@
             </plugin>
 
             <plugin>
-                <groupId>com.sandec.jpro</groupId>
+                <groupId>one.jpro</groupId>
                 <artifactId>jpro-maven-plugin</artifactId>
                 <version>${jpro.version}</version>
                 <configuration>

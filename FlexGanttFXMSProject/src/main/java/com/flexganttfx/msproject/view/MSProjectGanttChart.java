@@ -13,6 +13,7 @@ import com.flexganttfx.msproject.model.MSProjectTaskRow;
 import com.flexganttfx.view.GanttChart;
 import com.flexganttfx.view.timeline.Timeline;
 import com.jpro.webapi.WebAPI;
+import javafx.application.Platform;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
@@ -49,6 +50,8 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
         setFixedCellSize(Row.DEFAULT_ROW_HEIGHT);
         setScrollBarType(ScrollBarType.FIXED_HORIZON);
         setAutoHideScrollBar(false);
+
+        getTreeTableMasterDetailPane().setDividerPosition(.15);
 
         getStylesheets().add(Objects.requireNonNull(MSProjectGanttChart.class.getResource("msproject.css")).toExternalForm());
 
@@ -217,6 +220,8 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
             timelineModel.setHorizonStartTime(horizonStart);
             timelineModel.setHorizonEndTime(horizonEnd);
             timelineModel.setStartTime(horizonStart);
+
+            Platform.runLater(() -> getGraphics().showAllActivities());
         } catch (Exception e) {
             e.printStackTrace();
         }

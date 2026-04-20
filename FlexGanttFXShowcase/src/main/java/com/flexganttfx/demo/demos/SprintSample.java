@@ -31,9 +31,4 @@ public class SprintSample extends FlexGanttFXSampleBase {
     public Node getPanel(Stage stage) {
         return new SprintView();
     }
-
-    @Override
-    public Node getControlPanel() {
-        return null;
-    }
 }

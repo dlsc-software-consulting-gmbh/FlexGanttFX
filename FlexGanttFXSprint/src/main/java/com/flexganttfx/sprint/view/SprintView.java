@@ -29,6 +29,7 @@ import com.flexganttfx.view.GanttChart;
 import com.flexganttfx.view.GanttChartBase;
 import com.flexganttfx.view.container.DualGanttChartContainer;
 import com.flexganttfx.view.graphics.GraphicsBase;
+import javafx.application.Platform;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -39,7 +40,6 @@ import java.time.temporal.ChronoUnit;
 public class SprintView extends BorderPane {
 
     private final GanttChart<TeamRoot> sprintChart;
-    private final GanttChart<EngineerFleet> teamLoadChart;
 
     public SprintView() {
         // --- Layers ---
@@ -56,7 +56,7 @@ public class SprintView extends BorderPane {
         sprintChart.setScrollBarType(GanttChartBase.ScrollBarType.FIXED_HORIZON);
 
         // --- Team-load chart ---
-        teamLoadChart = new GanttChart<>();
+        GanttChart<EngineerFleet> teamLoadChart = new GanttChart<>();
         teamLoadChart.getLayers().addAll(featuresLayer, bugsLayer, techDebtLayer, milestonesLayer, burnDownLayer);
         teamLoadChart.getTimeline().showTemporalUnit(ChronoUnit.DAYS, 30);
 
@@ -88,25 +88,21 @@ public class SprintView extends BorderPane {
         DualGanttChartContainer dualContainer = new DualGanttChartContainer(sprintChart, teamLoadChart);
         HBox.setHgrow(dualContainer, Priority.ALWAYS);
 
-        // --- LayersView ---
-        LayersView<TeamRoot> layersView = new LayersView<>();
-        layersView.setGraphics(sg);
-        layersView.setPrefWidth(200);
-        layersView.setMinWidth(160);
-
-        HBox center = new HBox(dualContainer, layersView);
-        HBox.setHgrow(dualContainer, Priority.ALWAYS);
-
         // --- Toolbar and StatusBar ---
         GanttChartToolBar<TeamRoot> toolBar = new GanttChartToolBar<>(sprintChart);
         GanttChartStatusBar<TeamRoot> statusBar = new GanttChartStatusBar<>(sprintChart);
 
         setTop(toolBar);
-        setCenter(center);
+        setCenter(dualContainer);
         setBottom(statusBar);
 
+        sprintChart.expandRows();
+        teamLoadChart.expandRows();
+
         // Navigate to today's activities on first show
-        sprintChart.getGraphics().showEarliestActivities();
+        Platform.runLater(() -> {
+            sprintChart.getGraphics().showAllActivities();
+        });
     }
 
     public GanttChart<TeamRoot> getSprintChart() {

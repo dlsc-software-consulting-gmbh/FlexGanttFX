@@ -5,7 +5,7 @@
     <parent>
         <artifactId>gantt</artifactId>
         <groupId>com.flexganttfx</groupId>
-        <version>11.12.8</version>
+        <version>11.13.0</version>
     </parent>
 
     <name>FlexGanttFXCovid</name>
@@ -24,13 +24,13 @@
         <dependency>
             <groupId>com.flexganttfx</groupId>
             <artifactId>view</artifactId>
-            <version>11.12.8</version>
+            <version>11.13.0</version>
         </dependency>
 
         <dependency>
             <groupId>com.flexganttfx</groupId>
             <artifactId>extras</artifactId>
-            <version>11.12.8</version>
+            <version>11.13.0</version>
         </dependency>
 
         <dependency>
@@ -70,7 +70,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.sandec.jpro</groupId>
+            <groupId>one.jpro</groupId>
             <artifactId>jpro-webapi</artifactId>
             <version>${jpro.version}</version>
         </dependency>
@@ -80,7 +80,7 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>com.sandec.jpro</groupId>
+                <groupId>one.jpro</groupId>
                 <artifactId>jpro-maven-plugin</artifactId>
                 <version>${jpro.version}</version>
                 <configuration>
