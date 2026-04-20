@@ -10,13 +10,19 @@ import de.sandec.jmemorybuddy.JMemoryBuddy;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
 public class IntervalTreeTest {
+
+    private static final Instant START = Instant.ofEpochMilli(0);
+    private static final Instant END = Instant.ofEpochMilli(10);
 
 	@Test
 	public void shouldCollectIntervalTree() {
@@ -98,4 +104,53 @@ public class IntervalTreeTest {
 			assertThat(result.size(), is(equalTo(1)));
 		}
 	}
+
+    @Test
+    public void shouldHandleHashCodeComparisonWithoutIntegerOverflow() {
+        IntervalTree<Activity> tree = new IntervalTree<>();
+
+        Activity lowHashActivity = new TestActivity("low", Integer.MIN_VALUE);
+        Activity rootActivity = new TestActivity("root", 1);
+
+        tree.add(rootActivity);
+        tree.add(lowHashActivity);
+
+        assertThat(tree.remove(lowHashActivity), is(true));
+        assertThat(tree.size(), is(equalTo(1L)));
+    }
+
+    @Test
+    public void shouldRemoveMatchingActivitiesViaRemoveIf() {
+        IntervalTree<Activity> tree = new IntervalTree<>();
+        TestActivity keep = new TestActivity("keep", 1);
+        TestActivity removeFirst = new TestActivity("remove-1", 2);
+        TestActivity removeSecond = new TestActivity("remove-2", 3);
+
+        tree.add(keep);
+        tree.add(removeFirst);
+        tree.add(removeSecond);
+
+        boolean removed = tree.removeIf(activity -> activity.getName().startsWith("remove"));
+
+        assertThat(removed, is(true));
+        assertThat(tree.size(), is(equalTo(1L)));
+
+        List<Activity> remaining = new ArrayList<>(tree.getIntersectingObjects(START.toEpochMilli(), END.toEpochMilli()));
+        assertThat(remaining, contains(keep));
+    }
+
+    private static final class TestActivity extends ActivityBase<String> {
+
+        private final int hashCode;
+
+        private TestActivity(String name, int hashCode) {
+            super(name, START, END);
+            this.hashCode = hashCode;
+        }
+
+        @Override
+        public int hashCode() {
+            return hashCode;
+        }
+    }
 }

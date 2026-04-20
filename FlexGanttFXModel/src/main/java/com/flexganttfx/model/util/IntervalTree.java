@@ -105,8 +105,18 @@ public class IntervalTree<A extends Activity> {
     }
 
     public final boolean removeIf(Predicate<A> predicate) {
-        // TODO: implement
-        return true;
+        Collection<A> matches = new ArrayList<>();
+        for (A activity : getIntersectingObjects(Long.MIN_VALUE, Long.MAX_VALUE)) {
+            if (predicate.test(activity)) {
+                matches.add(activity);
+            }
+        }
+
+        for (A activity : matches) {
+            remove(activity);
+        }
+
+        return !matches.isEmpty();
     }
 
     /**
@@ -252,10 +262,12 @@ public class IntervalTree<A extends Activity> {
         Entry<A> t = root;
         while (t != null) {
             int cmp = compareLongs(getLow(activity), t.low);
-            if (cmp == 0)
+            if (cmp == 0) {
                 cmp = compareLongs(getHigh(activity), t.high);
-            if (cmp == 0)
-                cmp = activity.hashCode() - t.value.hashCode();
+            }
+            if (cmp == 0) {
+                cmp = Integer.compare(activity.hashCode(), t.value.hashCode());
+            }
 
             if (cmp < 0) {
                 t = t.left;
@@ -270,7 +282,9 @@ public class IntervalTree<A extends Activity> {
     }
 
     private Entry<A> addEntry(A activity) {
-        if (activity == null) throw new IllegalArgumentException("null element is not supported");
+        if (activity == null) {
+            throw new IllegalArgumentException("null element is not supported");
+        }
 
         Entry<A> t = root;
         if (t == null) {
@@ -287,8 +301,9 @@ public class IntervalTree<A extends Activity> {
             cmp = compareLongs(getLow(activity), t.low);
             if (cmp == 0) {
                 cmp = compareLongs(getHigh(activity), t.high);
-                if (cmp == 0)
-                    cmp = activity.hashCode() - t.value.hashCode();
+                if (cmp == 0) {
+                    cmp = Integer.compare(activity.hashCode(), t.value.hashCode());
+                }
             }
 
             if (cmp < 0) {
