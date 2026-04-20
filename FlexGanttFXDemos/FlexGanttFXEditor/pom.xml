@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>editor</artifactId>
+	<name>FlexGanttFXEditor</name>
+	<description>An agenda editor.</description>
+
+	<parent>
+		<groupId>com.flexganttfx</groupId>
+		<artifactId>demos</artifactId>
+		<version>11.13.2</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<properties>
+		<maven.deploy.skip>true</maven.deploy.skip>
+		<maven.javadoc.skip>true</maven.javadoc.skip>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.flexganttfx</groupId>
+			<artifactId>experimental</artifactId>
+			<version>11.13.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.flexganttfx</groupId>
+			<artifactId>extras</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+	</dependencies>
+
+</project>

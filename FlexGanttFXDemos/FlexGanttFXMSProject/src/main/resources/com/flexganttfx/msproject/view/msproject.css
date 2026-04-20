@@ -1,0 +1,9 @@
+
+
+.task-name-cell.parent .ikonli-font-icon {
+    -fx-icon-color: cadetblue;
+}
+
+.task-name-cell.child .ikonli-font-icon {
+    -fx-icon-color: coral;
+}

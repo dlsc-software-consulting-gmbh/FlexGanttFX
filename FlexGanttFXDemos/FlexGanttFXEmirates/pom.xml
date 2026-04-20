@@ -1,0 +1,287 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>emirates</artifactId>
+    <name>FlexGanttFXEmirates</name>
+    <description>Use case study for Emirates airlines</description>
+    <version>11.13.2</version>
+
+    <parent>
+        <groupId>com.flexganttfx</groupId>
+        <artifactId>demos</artifactId>
+        <version>11.13.2</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <properties>
+        <maven.deploy.skip>true</maven.deploy.skip>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+        <main.class>com.flexganttfx.emirates.EmiratesApp</main.class>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>net.raumzeitfalle.fx</groupId>
+            <artifactId>scenic-view</artifactId>
+            <version>11.0.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.openjfx</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>one.jpro</groupId>
+            <artifactId>jpro-webapi</artifactId>
+            <version>${jpro.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.mkpaz</groupId>
+            <artifactId>atlantafx-base</artifactId>
+            <version>${atlantafx.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.flexganttfx</groupId>
+            <artifactId>extras</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.flexganttfx</groupId>
+            <artifactId>experimental</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.gluonhq</groupId>
+                <artifactId>client-maven-plugin</artifactId>
+                <version>${client.maven.plugin.version}</version>
+                <configuration>
+                    <target>${client.target}</target>
+                    <mainClass>${main.class}</mainClass>
+                    <nativeImageArgs>
+                        <nativeImageArg>
+                            -H:IncludeResourceBundles=com.flexganttfx.view.util.messages,com.flexganttfx.extras.util.messages,com.sun.xml.bind.v2.model.impl.Messages
+                        </nativeImageArg>
+                        <nativeImageArg>--allow-incomplete-classpath</nativeImageArg>
+                        <nativeImageArg>
+                            --trace-class-initialization=sun.instrument.InstrumentationImpl
+                        </nativeImageArg>
+                        <nativeImageArg>
+                            --initialize-at-build-time=sun.instrument.InstrumentationImpl
+                        </nativeImageArg>
+                    </nativeImageArgs>
+                    <reflectionList>
+                        <list>javafx.scene.control.TableColumnBase</list>
+                    </reflectionList>
+                    <resourcesList>
+                        <list>.*\\.properties$</list>
+                        <list>.*\\.png$</list>
+                        <list>.*\\.jpg$</list>
+                        <list>.*\\.jpeg$</list>
+                        <list>.*\\.zip$</list>
+                    </resourcesList>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>one.jpro</groupId>
+                <artifactId>jpro-maven-plugin</artifactId>
+                <version>${jpro.version}</version>
+                <configuration>
+                    <visible>false</visible>
+                    <!-- noRenderJobs>true</noRenderJobs -->
+                    <mainClassName>com.flexganttfx.emirates.EmiratesApp</mainClassName>
+                    <openingPath>/</openingPath>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/libs
+                            </outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                            <includeScope>compile</includeScope>
+                            <includeScope>runtime</includeScope>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <useUniqueVersions>false</useUniqueVersions>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>libs/</classpathPrefix>
+                            <mainClass>
+                                com.flexganttfx.emirates.EmiratesApp
+                            </mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>os.mac</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                </os>
+                <property>
+                    <name>installer</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <version>${exec.maven.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>Build Native Mac App</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <workingDirectory>${project.basedir}
+                            </workingDirectory>
+                            <executable>./build_app.sh</executable>
+                            <environmentVariables>
+                                <APP_VERSION>
+                                    1.0.0
+                                </APP_VERSION>
+                                <APP_NAME>
+                                    Aircraft Scheduler
+                                </APP_NAME>
+                                <PROJECT_VERSION>
+                                    ${project.version}
+                                </PROJECT_VERSION>
+                            </environmentVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>os.windows</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                </os>
+                <property>
+                    <name>installer</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <version>${exec.maven.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>Build Native Windows App</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <workingDirectory>${project.basedir}
+                            </workingDirectory>
+                            <executable>build_app.bat</executable>
+                            <environmentVariables>
+                                <APP_VERSION>
+                                    1.0.0
+                                </APP_VERSION>
+                                <APP_NAME>
+                                    Aircraft Scheduler
+                                </APP_NAME>
+                                <PROJECT_VERSION>
+                                    ${project.version}
+                                </PROJECT_VERSION>
+                            </environmentVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>desktop</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <client.target>host</client.target>
+            </properties>
+        </profile>
+        <profile>
+            <id>ios</id>
+            <properties>
+                <client.target>ios</client.target>
+            </properties>
+        </profile>
+        <profile>
+            <id>android</id>
+            <properties>
+                <client.target>android</client.target>
+            </properties>
+        </profile>
+
+    </profiles>
+</project>

@@ -1,0 +1,378 @@
+.root {
+    -fx-base: rgb(40,40,40);
+    -darkblue-color: rgb(50.0, 120.0, 200.0);
+    -green-color: rgb(128, 179, 27);
+    -orange-color: rgb(128, 179, 27);
+    -toolbar-text-color: rgb(216,216,216);
+    -toolbar-border-color: rgb(60,60,60);
+    -toolbar-border-active: rgb(128, 179, 27);
+    -black-color: rgb(40,40,40);
+    -fx-accent: -green-color;
+    -fx-focus-color: -green-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: -fx-accent;
+}
+
+.glass-pane {
+    -fx-background-color: black;
+}
+
+.about-pane {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .26), 20, 0.19, -1, 6);
+}
+
+.about-pane .image-view {
+}
+
+.controls-panel {
+    -fx-padding: 5px;
+}
+
+.controls-panel .button {
+    -fx-background-color: darkred;
+    -fx-text-fill: white;
+}
+
+.list-view {
+    -fx-background-color: -fx-background !important;
+}
+
+.settings-view {
+    -fx-padding: 20px;
+    -fx-spacing: 10px;
+    -fx-background-color: -fx-base, -fx-background;
+    -fx-background-insets: 0, 0 0 0 2;
+}
+
+.title {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-max-width: infinity;
+    -fx-alignment: center;
+}
+
+.tool-bar .ikonli-font-icon {
+    -fx-icon-color: white;
+}
+
+.gantt-chart {
+    -fx-padding: 0 !important;
+}
+
+.tree-table-view .show-hide-column-image {
+    -fx-background-color: white;
+}
+
+.simulation-gantt .collapsible-pane-container {
+    -fx-padding: 0.0;
+}
+
+.simulation-gantt .collapsible-pane-container .collapsible-pane > .collapsible-pane-header {
+    -fx-background-color: -fx-body-color;
+    -fx-background-insets: 0.0;
+    -fx-background-radius: 0.0;
+    -fx-padding: 0.3333em 0.75em 0.25em 0.75em;
+}
+
+.simulation-gantt .collapsible-pane-container .collapsible-pane > .collapsible-pane-header .collapsible-pane-title {
+    -fx-text-fill: white;
+    -fx-font-family: sans-serif;
+    -fx-font-size: 14.0px;
+}
+
+.simulation-gantt .collapsible-pane-container .collapsible-pane.blue-pane > .collapsible-pane-header {
+    -fx-body-color: -darkblue-color;
+    -fx-border-width: 8.0 0.0 8.0 0.0;
+    -fx-border-color: -darkblue-color;
+    -fx-max-height: 32.0px;
+    -fx-min-height: 32.0px;
+    -fx-pref-height: 32.0px;
+    -fx-padding: 0 0 0 0;
+}
+
+.simulation-gantt .collapsible-pane-container .collapsible-pane.green-pane > .collapsible-pane-header {
+    -fx-body-color: -green-color;
+    -fx-border-color: -green-color;
+    -fx-border-width: 0.0 0.0 8.0 0.0;
+    -fx-border-color: -green-color;
+    -fx-max-height: 33.0px;
+    -fx-min-height: 33.0px;
+    -fx-pref-height: 33.0px;
+    -fx-padding: 7 0 0 0;
+}
+
+.blue-pane-divider {
+    /*     -fx-background-color: -green-color; */
+    /*     -fx-border-color: -green-color; */
+    -fx-background-color: -black-color;
+    -fx-border-color: -black-color;
+}
+
+.green-pane-divider {
+    /*     -fx-background-color: -orange-color; */
+    /*     -fx-border-color: -orange-color; */
+    -fx-background-color: -black-color;
+    -fx-border-color: -black-color;
+}
+
+.simulation-gantt .collapsible-pane-container .collapsible-pane.orange-pane > .collapsible-pane-header {
+    -fx-body-color: -orange-color;
+    -fx-border-color: -orange-color;
+    -fx-border-width: 0.0 0.0 8.0 0.0;
+    -fx-border-color: -orange-color;
+    -fx-max-height: 33.0px;
+    -fx-min-height: 33.0px;
+    -fx-pref-height: 33.0px;
+    -fx-padding: 7 0 0 0;
+}
+
+.simulation-gantt .collapsible-pane-container .collapsible-pane > .collapsible-pane-header > .arrow-button > .arrow {
+    -fx-background-color: gray, white;
+    -fx-background-insets: 1.0 0.0 -1.0 0.0, 0.0;
+}
+
+.first-button {
+    -fx-background-radius: 4.0 0.0 0.0 4.0;
+    -fx-border-color: transparent rgba(255.0,255.0,255.0,0.5) transparent transparent;
+}
+
+.middle-button {
+    -fx-background-radius: 0.0;
+    -fx-border-color: transparent transparent transparent transparent;
+}
+
+.last-button {
+    -fx-background-radius: 0.0 4.0 4.0 0.0;
+    -fx-border-color: transparent transparent transparent rgba(255.0,255.0,255.0,0.2);
+}
+
+.button-container {
+    -fx-padding: 8;
+    -fx-alignment: center-right;
+}
+
+.blue-button {
+    -fx-padding: 0.25em 1.0em 0.25em 1.0em;
+    -fx-font-size: 12.0px;
+    -fx-background-color: derive(-darkblue-color, -20.0%);
+    -fx-text-fill: white;
+    -fx-pref-width: 76.0px;
+}
+
+.blue-button:pressed {
+    -fx-background-color: derive(-darkblue-color, -60.0%);
+}
+
+.blue-button:hover {
+    -fx-background-color: derive(-darkblue-color, -50.0%);
+}
+
+.blue-button:selected {
+    -fx-background-color: derive(-darkblue-color, -40.0%);
+}
+
+.green-button {
+    -fx-padding: 0.25em 1.0em 0.25em 1.0em;
+    -fx-font-size: 12.0px;
+    -fx-background-color: derive(-green-color, -20.0%);
+    -fx-text-fill: white;
+    -fx-pref-width: 76.0px;
+}
+
+.green-button:pressed {
+    -fx-background-color: derive(-green-color, -60.0%);
+}
+
+.green-button:hover {
+    -fx-background-color: derive(-green-color, -50.0%);
+}
+
+.green-button:selected {
+    -fx-background-color: derive(-green-color, -40.0%);
+}
+
+.orange-button {
+    -fx-padding: 0.25em 1.0em 0.25em 1.0em;
+    -fx-font-size: 12.0px;
+    -fx-background-color: derive(-orange-color, -20.0%);
+    -fx-text-fill: white;
+    -fx-pref-width: 76.0px;
+}
+
+.orange-button:pressed {
+    -fx-background-color: derive(-orange-color, -60.0%);
+}
+
+.orange-button:hover {
+    -fx-background-color: derive(-orange-color, -50.0%);
+}
+
+.orange-button:selected {
+    -fx-background-color: derive(-orange-color, -40.0%);
+}
+
+.split-pane > .split-pane-divider {
+    -fx-padding: 0.0 0.5 0.0 0.0;
+    -fx-background-color: #c2c2c2;
+}
+
+.master-detail-pane>.split-pane, .split-pane {
+    -fx-background-insets: 0, 0;
+    -fx-padding: 0;
+}
+
+.gantt-chart {
+    -fx-padding: 0.0px;
+}
+
+.timeline {
+    -fx-background-color: rgb(64,64,64);
+    -fx-border-width: 0px;
+}
+
+.dateline-cell {
+    -fx-text-fill: #505050;
+    -fx-padding: 0.0 3.0 0.0 3.0;
+    -fx-background-color: transparent;
+    -fx-border-color: #c2c2c2 #c2c2c2 transparent transparent;
+    -fx-border-insets: 0.0;
+    -fx-border-width: 1;
+    -fx-border-color: rgb(40,40,40);
+}
+
+.dateline-cell > .text {
+    -fx-fill: white;
+}
+
+.eventline {
+    -fx-background-color: transparent;
+    /*     -fx-border-color: #c2c2c2; */
+    -fx-border-width: 1 0 1 0;
+    -fx-border-color: rgb(40,40,40);
+}
+
+.graphics-list-view {
+    -fx-border-width: 0px;
+    -fx-background-color: white;
+    -fx-padding: 0.0 !important;
+}
+
+.graphics-list-view:focused {
+    -fx-padding: 0.0 !important;
+}
+
+/*
+ * The container "around" the timeline and the graphics area.
+ */
+.timeline-graphics-wrapper {
+    -fx-background-insets: 0.0;
+    -fx-padding: 0.0;
+    -fx-border-width: 0px;
+}
+
+/*
+ * The blank area on top of the graphics view that becomes visible
+ * for Gantt charts in the middle or last position in a multi Gantt
+ * chart container context.
+ */
+.projekt-pro-timeline-replacement {
+    -fx-background-color: rgb(64,64,64) !important;
+    -fx-border-color:#c2c2c2 transparent #c2c2c2 transparent !important;
+    -fx-border-insets: 0.0 !important;
+    -fx-border-width: 0px !important;
+}
+
+/*
+ * Style of tree-table-view
+ */
+.gantt-tree-table-view {
+    -fx-border-width: 0;
+    -fx-padding: 0.0;
+    -fx-pref-width: 700;
+}
+
+.gantt-tree-table-view .column-header-background {
+    -fx-background-color: rgb(64,64,64);
+}
+
+.gantt-tree-table-view .column-header .label {
+    -fx-alignment: center-left;
+    -fx-text-fill: white;
+}
+
+.gantt-tree-table-view .column-header, .gantt-tree-table-view .filler {
+    -fx-background-color: transparent;
+    -fx-border-width: 2 2 2 0.0;
+    -fx-border-color: rgb(40,40,40);
+}
+
+.gantt-tree-table-view .tree-table-row-cell:filled:selected > .tree-disclosure-node > .arrow {
+    -fx-background-color: white;
+    -fx-text-fill: white;
+}
+
+.gantt-tree-table-view .tree-table-row-cell:filled:selected .tree-table-cell {
+    -fx-text-fill: white !important;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #e5f4fb; /* cdedfc*/
+    -fx-text-background-color: #505050;
+    -fx-table-cell-border-color: #EAEAEA;
+}
+
+.record-view {
+    -fx-hgap: 5px;
+    -fx-vgap: 5px;
+}
+
+.cases-view {
+    -fx-padding: 5px;
+    -fx-background-color: rgba(255,255,255,.3);
+    -fx-background-radius: 2px;
+    -fx-alignment: top-left;
+    -fx-spacing: 5px;
+}
+
+.cases-view .name-label {
+    -fx-text-fill: black;
+}
+
+.cases-view .value-label {
+    -fx-font-family: Monospaced;
+    -fx-text-fill: darkred;
+    -fx-font-size: 1.2em;
+    -fx-font-weight: bold;
+}
+
+.tool-bar .button,
+.tool-bar .toggle-button,
+.tool-bar .menu-button {
+}
+
+.tool-bar .toggle-button:selected {
+    -fx-background-color: -green-color;
+}
+
+.tool-bar #dataset-menu-button {
+    -fx-background-color: darkred;
+}
+
+.tool-bar #comparison-button {
+}
+
+.tool-bar #comparison-button:selected {
+}
+
+.eventline-row-header {
+    -fx-background-color: -black-color, rgb(64,64,64) !important;
+    -fx-border-width: 0px;
+    -fx-background-insets: 0, 0 2 0 0 !important;
+}
+
+.location-title {
+    -fx-padding: 10px 0px;
+    -fx-font-size: 1.5em;
+}

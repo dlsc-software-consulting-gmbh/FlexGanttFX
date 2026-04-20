@@ -1,0 +1,33 @@
+{
+    "bin": {"flexganttfxsampler": "jdeploy-bundle/jdeploy.js"},
+    "author": "Dirk Lemmermann",
+    "description": "A simple demo application for FlexGanttFX showing how to use it to visualize a project plan (e.g., a file from MSProject)",
+    "main": "index.js",
+    "preferGlobal": true,
+    "repository": "",
+    "version": "1.0.11",
+    "jdeploy": {
+        "jdk": false,
+        "fallbackToUniversal": false,
+        "publishTargets": [{
+            "name": "npm: flexganttfx-project",
+            "type": "NPM",
+            "url": "flexganttfx-project"
+        }],
+        "javaVersion": "11",
+        "documentTypes": [],
+        "jar": "target/msproject-11.12.8.jar",
+        "javafx": true,
+        "title": "FlexGanttFX MSProject Demo",
+        "downloadPage": {"platforms": ["default"]},
+        "platformBundlesEnabled": false
+    },
+    "dependencies": {
+        "njre": "^0.2.0",
+        "shelljs": "^0.8.4"
+    },
+    "license": "ISC",
+    "name": "flexganttfxproject",
+    "files": ["jdeploy-bundle"],
+    "scripts": {"test": "echo \"Error: no test specified\" && exit 1"}
+}

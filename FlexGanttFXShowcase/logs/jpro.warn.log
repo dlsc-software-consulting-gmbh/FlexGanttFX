@@ -1,0 +1,175 @@
+2026-04-20 13:53:04,691 [ERROR] from com.jpro.internal.server.JProInitializer$ in scala-execution-context-global-34 - JavaFX classes are loaded by the SystemClassLoader. This typically happens, when using a JDK/JRE which bundles JavaFX. Please use a JDK/JRE which does not bundle JavaFX.
+2026-04-20 13:53:19,765 [ERROR] from com.jpro.internal.server.JProInitializer$ in scala-execution-context-global-34 - JavaFX classes are loaded by the SystemClassLoader. This typically happens, when using a JDK/JRE which bundles JavaFX. Please use a JDK/JRE which does not bundle JavaFX.
+2026-04-20 13:53:55,689 [ERROR] from com.jpro.internal.server.JProInitializer$ in scala-execution-context-global-34 - JavaFX classes are loaded by the SystemClassLoader. This typically happens, when using a JDK/JRE which bundles JavaFX. Please use a JDK/JRE which does not bundle JavaFX.
+2026-04-20 13:54:52,442 [ERROR] from com.jpro.internal.server.JProInitializer$ in scala-execution-context-global-34 - JavaFX classes are loaded by the SystemClassLoader. This typically happens, when using a JDK/JRE which bundles JavaFX. Please use a JDK/JRE which does not bundle JavaFX.
+2026-04-20 13:59:12,112 [ERROR] from com.jpro.internal.server.JProInitializer$ in scala-execution-context-global-34 - JavaFX classes are loaded by the SystemClassLoader. This typically happens, when using a JDK/JRE which bundles JavaFX. Please use a JDK/JRE which does not bundle JavaFX.
+2026-04-20 13:59:42,591 [ERROR] from com.jpro.internal.server.JProInitializer$ in scala-execution-context-global-34 - JavaFX classes are loaded by the SystemClassLoader. This typically happens, when using a JDK/JRE which bundles JavaFX. Please use a JDK/JRE which does not bundle JavaFX.
+2026-04-20 14:02:45,138 [WARN] from com.jpro.internal.server.Route$ in [0x68056ea0 0x54127bc1] WebServer socket - jpro.plainFile - Couldn't get resource for: 'jpro/html/apple-touch-icon-precomposed.png'
+2026-04-20 14:02:45,211 [WARN] from com.jpro.internal.server.Route$ in [0x68056ea0 0x54127bc1] WebServer socket - jpro.plainFile - Couldn't get resource for: 'jpro/html/apple-touch-icon.png'
+2026-04-20 14:16:50,946 [WARN] from io.helidon.webserver.http.DirectHandlers in [0x2384f7e6 0x194aeff8] WebServer socket - Internal server error
+io.helidon.http.RequestException: assertion failed: Access to file:/var/folders/mm/6t26yvjx36b58td313l73tvc0000gn/T/+JXF1326975574504615970.tmp is forbidden!
+	at io.helidon.http.RequestException$Builder.build(RequestException.java:139)
+	at io.helidon.webserver.http.ErrorHandlers.unhandledError(ErrorHandlers.java:204)
+	at io.helidon.webserver.http.ErrorHandlers.lambda$handleError$1(ErrorHandlers.java:179)
+	at java.base/java.util.Optional.ifPresentOrElse(Optional.java:198)
+	at io.helidon.webserver.http.ErrorHandlers.handleError(ErrorHandlers.java:178)
+	at io.helidon.webserver.http.ErrorHandlers.runWithErrorHandling(ErrorHandlers.java:118)
+	at io.helidon.webserver.http.Filters.filter(Filters.java:83)
+	at io.helidon.webserver.http.HttpRoutingImpl.route(HttpRoutingImpl.java:74)
+	at io.helidon.webserver.http1.Http1Connection.route(Http1Connection.java:544)
+	at io.helidon.webserver.http1.Http1Connection.handle(Http1Connection.java:224)
+	at io.helidon.webserver.ConnectionHandler.run(ConnectionHandler.java:176)
+	at io.helidon.common.task.InterruptableTask.call(InterruptableTask.java:47)
+	at io.helidon.webserver.ThreadPerTaskExecutor$ThreadBoundFuture.run(ThreadPerTaskExecutor.java:239)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:456)
+Caused by: java.lang.AssertionError: assertion failed: Access to file:/var/folders/mm/6t26yvjx36b58td313l73tvc0000gn/T/+JXF1326975574504615970.tmp is forbidden!
+	at scala.Predef$.assert(Predef.scala:223)
+	at com.jpro.internal.server.RouteResources.genURLFun(RouteResources.scala:128)
+	at com.jpro.internal.server.RouteResources.genURLFun$(RouteResources.scala:111)
+	at com.jpro.internal.server.Route$.genURLFun(Route.scala:38)
+	at com.jpro.internal.server.RouteResources.genURL(RouteResources.scala:34)
+	at com.jpro.internal.server.RouteResources.genURL$(RouteResources.scala:33)
+	at com.jpro.internal.server.Route$.genURL(Route.scala:38)
+	at com.jpro.internal.server.RouteResources.genURLName(RouteResources.scala:31)
+	at com.jpro.internal.server.RouteResources.genURLName$(RouteResources.scala:30)
+	at com.jpro.internal.server.Route$.genURLName(Route.scala:38)
+	at com.jpro.internal.server.Route$$anon$1.$anonfun$routing$47(Route.scala:200)
+	at com.jpro.internal.server.Route$.handleError(Route.scala:268)
+	at com.jpro.internal.server.Route$$anon$1.$anonfun$routing$46(Route.scala:196)
+	at io.helidon.webserver.http.HttpRoutingImpl$RoutingExecutor.doRoute(HttpRoutingImpl.java:173)
+	at io.helidon.webserver.http.HttpRoutingImpl$RoutingExecutor.call(HttpRoutingImpl.java:132)
+	at io.helidon.webserver.http.HttpRoutingImpl$RoutingExecutor.call(HttpRoutingImpl.java:110)
+	at io.helidon.webserver.http.ErrorHandlers.runWithErrorHandling(ErrorHandlers.java:76)
+	... 8 common frames omitted
+2026-04-20 14:16:50,946 [WARN] from io.helidon.webserver.http.DirectHandlers in [0x2384f7e6 0x5b1806af] WebServer socket - Internal server error
+io.helidon.http.RequestException: assertion failed: Access to file:/var/folders/mm/6t26yvjx36b58td313l73tvc0000gn/T/jpro-2276444bf9601d3e9ef882e182285fe0.png is forbidden!
+	at io.helidon.http.RequestException$Builder.build(RequestException.java:139)
+	at io.helidon.webserver.http.ErrorHandlers.unhandledError(ErrorHandlers.java:204)
+	at io.helidon.webserver.http.ErrorHandlers.lambda$handleError$1(ErrorHandlers.java:179)
+	at java.base/java.util.Optional.ifPresentOrElse(Optional.java:198)
+	at io.helidon.webserver.http.ErrorHandlers.handleError(ErrorHandlers.java:178)
+	at io.helidon.webserver.http.ErrorHandlers.runWithErrorHandling(ErrorHandlers.java:118)
+	at io.helidon.webserver.http.Filters.filter(Filters.java:83)
+	at io.helidon.webserver.http.HttpRoutingImpl.route(HttpRoutingImpl.java:74)
+	at io.helidon.webserver.http1.Http1Connection.route(Http1Connection.java:544)
+	at io.helidon.webserver.http1.Http1Connection.handle(Http1Connection.java:224)
+	at io.helidon.webserver.ConnectionHandler.run(ConnectionHandler.java:176)
+	at io.helidon.common.task.InterruptableTask.call(InterruptableTask.java:47)
+	at io.helidon.webserver.ThreadPerTaskExecutor$ThreadBoundFuture.run(ThreadPerTaskExecutor.java:239)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:456)
+Caused by: java.lang.AssertionError: assertion failed: Access to file:/var/folders/mm/6t26yvjx36b58td313l73tvc0000gn/T/jpro-2276444bf9601d3e9ef882e182285fe0.png is forbidden!
+	at scala.Predef$.assert(Predef.scala:223)
+	at com.jpro.internal.server.RouteResources.genURLFun(RouteResources.scala:128)
+	at com.jpro.internal.server.RouteResources.genURLFun$(RouteResources.scala:111)
+	at com.jpro.internal.server.Route$.genURLFun(Route.scala:38)
+	at com.jpro.internal.server.RouteResources.genURL(RouteResources.scala:34)
+	at com.jpro.internal.server.RouteResources.genURL$(RouteResources.scala:33)
+	at com.jpro.internal.server.Route$.genURL(Route.scala:38)
+	at com.jpro.internal.server.RouteResources.genURLName(RouteResources.scala:31)
+	at com.jpro.internal.server.RouteResources.genURLName$(RouteResources.scala:30)
+	at com.jpro.internal.server.Route$.genURLName(Route.scala:38)
+	at com.jpro.internal.server.Route$$anon$1.$anonfun$routing$47(Route.scala:200)
+	at com.jpro.internal.server.Route$.handleError(Route.scala:268)
+	at com.jpro.internal.server.Route$$anon$1.$anonfun$routing$46(Route.scala:196)
+	at io.helidon.webserver.http.HttpRoutingImpl$RoutingExecutor.doRoute(HttpRoutingImpl.java:173)
+	at io.helidon.webserver.http.HttpRoutingImpl$RoutingExecutor.call(HttpRoutingImpl.java:132)
+	at io.helidon.webserver.http.HttpRoutingImpl$RoutingExecutor.call(HttpRoutingImpl.java:110)
+	at io.helidon.webserver.http.ErrorHandlers.runWithErrorHandling(ErrorHandlers.java:76)
+	... 8 common frames omitted
+2026-04-20 14:16:50,946 [WARN] from io.helidon.webserver.http.DirectHandlers in [0x2384f7e6 0x6301cd17] WebServer socket - Internal server error
+io.helidon.http.RequestException: assertion failed: Access to file:/var/folders/mm/6t26yvjx36b58td313l73tvc0000gn/T/+JXF13472134211524384570.tmp is forbidden!
+	at io.helidon.http.RequestException$Builder.build(RequestException.java:139)
+	at io.helidon.webserver.http.ErrorHandlers.unhandledError(ErrorHandlers.java:204)
+	at io.helidon.webserver.http.ErrorHandlers.lambda$handleError$1(ErrorHandlers.java:179)
+	at java.base/java.util.Optional.ifPresentOrElse(Optional.java:198)
+	at io.helidon.webserver.http.ErrorHandlers.handleError(ErrorHandlers.java:178)
+	at io.helidon.webserver.http.ErrorHandlers.runWithErrorHandling(ErrorHandlers.java:118)
+	at io.helidon.webserver.http.Filters.filter(Filters.java:83)
+	at io.helidon.webserver.http.HttpRoutingImpl.route(HttpRoutingImpl.java:74)
+	at io.helidon.webserver.http1.Http1Connection.route(Http1Connection.java:544)
+	at io.helidon.webserver.http1.Http1Connection.handle(Http1Connection.java:224)
+	at io.helidon.webserver.ConnectionHandler.run(ConnectionHandler.java:176)
+	at io.helidon.common.task.InterruptableTask.call(InterruptableTask.java:47)
+	at io.helidon.webserver.ThreadPerTaskExecutor$ThreadBoundFuture.run(ThreadPerTaskExecutor.java:239)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:456)
+Caused by: java.lang.AssertionError: assertion failed: Access to file:/var/folders/mm/6t26yvjx36b58td313l73tvc0000gn/T/+JXF13472134211524384570.tmp is forbidden!
+	at scala.Predef$.assert(Predef.scala:223)
+	at com.jpro.internal.server.RouteResources.genURLFun(RouteResources.scala:128)
+	at com.jpro.internal.server.RouteResources.genURLFun$(RouteResources.scala:111)
+	at com.jpro.internal.server.Route$.genURLFun(Route.scala:38)
+	at com.jpro.internal.server.RouteResources.genURL(RouteResources.scala:34)
+	at com.jpro.internal.server.RouteResources.genURL$(RouteResources.scala:33)
+	at com.jpro.internal.server.Route$.genURL(Route.scala:38)
+	at com.jpro.internal.server.RouteResources.genURLName(RouteResources.scala:31)
+	at com.jpro.internal.server.RouteResources.genURLName$(RouteResources.scala:30)
+	at com.jpro.internal.server.Route$.genURLName(Route.scala:38)
+	at com.jpro.internal.server.Route$$anon$1.$anonfun$routing$47(Route.scala:200)
+	at com.jpro.internal.server.Route$.handleError(Route.scala:268)
+	at com.jpro.internal.server.Route$$anon$1.$anonfun$routing$46(Route.scala:196)
+	at io.helidon.webserver.http.HttpRoutingImpl$RoutingExecutor.doRoute(HttpRoutingImpl.java:173)
+	at io.helidon.webserver.http.HttpRoutingImpl$RoutingExecutor.call(HttpRoutingImpl.java:132)
+	at io.helidon.webserver.http.HttpRoutingImpl$RoutingExecutor.call(HttpRoutingImpl.java:110)
+	at io.helidon.webserver.http.ErrorHandlers.runWithErrorHandling(ErrorHandlers.java:76)
+	... 8 common frames omitted
+2026-04-20 14:16:50,946 [WARN] from io.helidon.webserver.http.DirectHandlers in [0x2384f7e6 0x30e21436] WebServer socket - Internal server error
+io.helidon.http.RequestException: assertion failed: Access to file:/var/folders/mm/6t26yvjx36b58td313l73tvc0000gn/T/+JXF3051339457011610491.tmp is forbidden!
+	at io.helidon.http.RequestException$Builder.build(RequestException.java:139)
+	at io.helidon.webserver.http.ErrorHandlers.unhandledError(ErrorHandlers.java:204)
+	at io.helidon.webserver.http.ErrorHandlers.lambda$handleError$1(ErrorHandlers.java:179)
+	at java.base/java.util.Optional.ifPresentOrElse(Optional.java:198)
+	at io.helidon.webserver.http.ErrorHandlers.handleError(ErrorHandlers.java:178)
+	at io.helidon.webserver.http.ErrorHandlers.runWithErrorHandling(ErrorHandlers.java:118)
+	at io.helidon.webserver.http.Filters.filter(Filters.java:83)
+	at io.helidon.webserver.http.HttpRoutingImpl.route(HttpRoutingImpl.java:74)
+	at io.helidon.webserver.http1.Http1Connection.route(Http1Connection.java:544)
+	at io.helidon.webserver.http1.Http1Connection.handle(Http1Connection.java:224)
+	at io.helidon.webserver.ConnectionHandler.run(ConnectionHandler.java:176)
+	at io.helidon.common.task.InterruptableTask.call(InterruptableTask.java:47)
+	at io.helidon.webserver.ThreadPerTaskExecutor$ThreadBoundFuture.run(ThreadPerTaskExecutor.java:239)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:456)
+Caused by: java.lang.AssertionError: assertion failed: Access to file:/var/folders/mm/6t26yvjx36b58td313l73tvc0000gn/T/+JXF3051339457011610491.tmp is forbidden!
+	at scala.Predef$.assert(Predef.scala:223)
+	at com.jpro.internal.server.RouteResources.genURLFun(RouteResources.scala:128)
+	at com.jpro.internal.server.RouteResources.genURLFun$(RouteResources.scala:111)
+	at com.jpro.internal.server.Route$.genURLFun(Route.scala:38)
+	at com.jpro.internal.server.RouteResources.genURL(RouteResources.scala:34)
+	at com.jpro.internal.server.RouteResources.genURL$(RouteResources.scala:33)
+	at com.jpro.internal.server.Route$.genURL(Route.scala:38)
+	at com.jpro.internal.server.RouteResources.genURLName(RouteResources.scala:31)
+	at com.jpro.internal.server.RouteResources.genURLName$(RouteResources.scala:30)
+	at com.jpro.internal.server.Route$.genURLName(Route.scala:38)
+	at com.jpro.internal.server.Route$$anon$1.$anonfun$routing$47(Route.scala:200)
+	at com.jpro.internal.server.Route$.handleError(Route.scala:268)
+	at com.jpro.internal.server.Route$$anon$1.$anonfun$routing$46(Route.scala:196)
+	at io.helidon.webserver.http.HttpRoutingImpl$RoutingExecutor.doRoute(HttpRoutingImpl.java:173)
+	at io.helidon.webserver.http.HttpRoutingImpl$RoutingExecutor.call(HttpRoutingImpl.java:132)
+	at io.helidon.webserver.http.HttpRoutingImpl$RoutingExecutor.call(HttpRoutingImpl.java:110)
+	at io.helidon.webserver.http.ErrorHandlers.runWithErrorHandling(ErrorHandlers.java:76)
+	... 8 common frames omitted
+2026-04-20 14:18:25,773 [WARN] from javafx.css in JavaFX Application Thread - Could not resolve '-fx-accent' while resolving lookups for '-fx-icon-color' from rule '*.error *.ikonli-font-icon' in stylesheet file:/Users/lemmi/git/FlexGanttFX/FlexGanttFXShowcase/target/classes/com/flexganttfx/demo/gantt/row-header.css
+2026-04-20 14:18:25,995 [WARN] from javafx.css in JavaFX Application Thread - Could not resolve '-fx-accent' while resolving lookups for '-fx-icon-color' from rule '*.error *.ikonli-font-icon' in stylesheet file:/Users/lemmi/git/FlexGanttFX/FlexGanttFXShowcase/target/classes/com/flexganttfx/demo/gantt/row-header.css
+2026-04-20 14:18:25,997 [WARN] from javafx.css in JavaFX Application Thread - Could not resolve '-fx-accent' while resolving lookups for '-fx-icon-color' from rule '*.error *.ikonli-font-icon' in stylesheet file:/Users/lemmi/git/FlexGanttFX/FlexGanttFXShowcase/target/classes/com/flexganttfx/demo/gantt/row-header.css
+2026-04-20 14:18:26,000 [WARN] from javafx.css in JavaFX Application Thread - Could not resolve '-fx-accent' while resolving lookups for '-fx-icon-color' from rule '*.error *.ikonli-font-icon' in stylesheet file:/Users/lemmi/git/FlexGanttFX/FlexGanttFXShowcase/target/classes/com/flexganttfx/demo/gantt/row-header.css
+2026-04-20 14:18:26,001 [WARN] from javafx.css in JavaFX Application Thread - Could not resolve '-fx-accent' while resolving lookups for '-fx-icon-color' from rule '*.warning *.ikonli-font-icon' in stylesheet file:/Users/lemmi/git/FlexGanttFX/FlexGanttFXShowcase/target/classes/com/flexganttfx/demo/gantt/row-header.css
+2026-04-20 14:18:26,002 [WARN] from javafx.css in JavaFX Application Thread - Could not resolve '-fx-accent' while resolving lookups for '-fx-icon-color' from rule '*.error *.ikonli-font-icon' in stylesheet file:/Users/lemmi/git/FlexGanttFX/FlexGanttFXShowcase/target/classes/com/flexganttfx/demo/gantt/row-header.css
+2026-04-20 14:18:26,004 [WARN] from javafx.css in JavaFX Application Thread - Could not resolve '-fx-accent' while resolving lookups for '-fx-icon-color' from rule '*.warning *.ikonli-font-icon' in stylesheet file:/Users/lemmi/git/FlexGanttFX/FlexGanttFXShowcase/target/classes/com/flexganttfx/demo/gantt/row-header.css
+2026-04-20 14:18:26,006 [WARN] from javafx.css in JavaFX Application Thread - Could not resolve '-fx-accent' while resolving lookups for '-fx-icon-color' from rule '*.error *.ikonli-font-icon' in stylesheet file:/Users/lemmi/git/FlexGanttFX/FlexGanttFXShowcase/target/classes/com/flexganttfx/demo/gantt/row-header.css
+2026-04-20 14:18:26,008 [WARN] from javafx.css in JavaFX Application Thread - Could not resolve '-fx-accent' while resolving lookups for '-fx-icon-color' from rule '*.warning *.ikonli-font-icon' in stylesheet file:/Users/lemmi/git/FlexGanttFX/FlexGanttFXShowcase/target/classes/com/flexganttfx/demo/gantt/row-header.css
+2026-04-20 14:18:26,009 [WARN] from javafx.css in JavaFX Application Thread - Could not resolve '-fx-accent' while resolving lookups for '-fx-icon-color' from rule '*.warning *.ikonli-font-icon' in stylesheet file:/Users/lemmi/git/FlexGanttFX/FlexGanttFXShowcase/target/classes/com/flexganttfx/demo/gantt/row-header.css
+2026-04-20 14:18:26,011 [WARN] from javafx.css in JavaFX Application Thread - Could not resolve '-fx-accent' while resolving lookups for '-fx-icon-color' from rule '*.warning *.ikonli-font-icon' in stylesheet file:/Users/lemmi/git/FlexGanttFX/FlexGanttFXShowcase/target/classes/com/flexganttfx/demo/gantt/row-header.css
+2026-04-20 14:18:26,013 [WARN] from javafx.css in JavaFX Application Thread - Could not resolve '-fx-accent' while resolving lookups for '-fx-icon-color' from rule '*.other *.ikonli-font-icon' in stylesheet file:/Users/lemmi/git/FlexGanttFX/FlexGanttFXShowcase/target/classes/com/flexganttfx/demo/gantt/row-header.css
+2026-04-20 14:18:26,014 [WARN] from javafx.css in JavaFX Application Thread - Could not resolve '-fx-accent' while resolving lookups for '-fx-icon-color' from rule '*.error *.ikonli-font-icon' in stylesheet file:/Users/lemmi/git/FlexGanttFX/FlexGanttFXShowcase/target/classes/com/flexganttfx/demo/gantt/row-header.css
+2026-04-20 14:18:26,017 [WARN] from javafx.css in JavaFX Application Thread - Could not resolve '-fx-accent' while resolving lookups for '-fx-icon-color' from rule '*.error *.ikonli-font-icon' in stylesheet file:/Users/lemmi/git/FlexGanttFX/FlexGanttFXShowcase/target/classes/com/flexganttfx/demo/gantt/row-header.css
+2026-04-20 14:18:26,019 [WARN] from javafx.css in JavaFX Application Thread - Could not resolve '-fx-accent' while resolving lookups for '-fx-icon-color' from rule '*.error *.ikonli-font-icon' in stylesheet file:/Users/lemmi/git/FlexGanttFX/FlexGanttFXShowcase/target/classes/com/flexganttfx/demo/gantt/row-header.css
+2026-04-20 14:18:26,116 [WARN] from javafx.css in JavaFX Application Thread - Could not resolve '-fx-accent' while resolving lookups for '-fx-icon-color' from rule '*.error *.ikonli-font-icon' in stylesheet file:/Users/lemmi/git/FlexGanttFX/FlexGanttFXShowcase/src/main/resources/com/flexganttfx/demo/gantt/row-header.css
+2026-04-20 14:18:26,116 [WARN] from javafx.css in JavaFX Application Thread - Could not resolve '-fx-accent' while resolving lookups for '-fx-icon-color' from rule '*.error *.ikonli-font-icon' in stylesheet file:/Users/lemmi/git/FlexGanttFX/FlexGanttFXShowcase/src/main/resources/com/flexganttfx/demo/gantt/row-header.css
+2026-04-20 14:18:26,117 [WARN] from javafx.css in JavaFX Application Thread - Could not resolve '-fx-accent' while resolving lookups for '-fx-icon-color' from rule '*.warning *.ikonli-font-icon' in stylesheet file:/Users/lemmi/git/FlexGanttFX/FlexGanttFXShowcase/src/main/resources/com/flexganttfx/demo/gantt/row-header.css
+2026-04-20 14:18:26,117 [WARN] from javafx.css in JavaFX Application Thread - Could not resolve '-fx-accent' while resolving lookups for '-fx-icon-color' from rule '*.warning *.ikonli-font-icon' in stylesheet file:/Users/lemmi/git/FlexGanttFX/FlexGanttFXShowcase/src/main/resources/com/flexganttfx/demo/gantt/row-header.css
+2026-04-20 14:18:26,118 [WARN] from javafx.css in JavaFX Application Thread - Could not resolve '-fx-accent' while resolving lookups for '-fx-icon-color' from rule '*.other *.ikonli-font-icon' in stylesheet file:/Users/lemmi/git/FlexGanttFX/FlexGanttFXShowcase/src/main/resources/com/flexganttfx/demo/gantt/row-header.css
+2026-04-20 14:18:26,119 [WARN] from javafx.css in JavaFX Application Thread - Could not resolve '-fx-accent' while resolving lookups for '-fx-icon-color' from rule '*.error *.ikonli-font-icon' in stylesheet file:/Users/lemmi/git/FlexGanttFX/FlexGanttFXShowcase/src/main/resources/com/flexganttfx/demo/gantt/row-header.css
+2026-04-20 14:18:54,255 [WARN] from javafx.scene.PerspectiveCamera in JavaFX Application Thread - System can't support ConditionalFeature.SCENE3D
+2026-04-20 14:18:54,255 [WARN] from javafx.scene.Scene in JavaFX Application Thread - System can't support ConditionalFeature.SCENE3D
+2026-04-20 14:18:54,579 [WARN] from com.jpro.meta.stream.Util$ in JavaFX Application Thread - We don't support fonts with the file extension ttc: /System/Library/Fonts/Helvetica.ttc
+2026-04-20 14:18:59,722 [WARN] from javafx.scene.PerspectiveCamera in JavaFX Application Thread - System can't support ConditionalFeature.SCENE3D
+2026-04-20 14:18:59,722 [WARN] from javafx.scene.Scene in JavaFX Application Thread - System can't support ConditionalFeature.SCENE3D
+2026-04-20 14:19:00,044 [WARN] from com.jpro.meta.stream.Util$ in JavaFX Application Thread - We don't support fonts with the file extension ttc: /System/Library/Fonts/Helvetica.ttc
