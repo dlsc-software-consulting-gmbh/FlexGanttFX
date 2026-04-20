@@ -36,6 +36,7 @@ public final class ActivityRef<A extends Activity> {
 	 */
 	public ActivityRef(Row<?, ?, A> row, Layer layer, A activity) {
 
+		requireNonNull(row);
 		requireNonNull(activity);
 
 		this.row = row;
