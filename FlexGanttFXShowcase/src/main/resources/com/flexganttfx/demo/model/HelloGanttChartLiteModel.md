@@ -1,53 +1,23 @@
 This sample focuses on model-side changes in the lite chart variant. It mirrors the standard model sample but uses `GanttChartLite` to show how the lighter control responds to the same kinds of updates.
 
 ```java
-/**
- * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- * This file is part of FlexGanttFX.
- */
-package com.flexganttfx.demo.model;
-
-import com.flexganttfx.demo.FlexGanttFXSample;
-import com.flexganttfx.demo.HelloActivity;
-import com.flexganttfx.model.Activity;
-import com.flexganttfx.model.Layer;
-import com.flexganttfx.model.Row;
-import com.flexganttfx.view.GanttChartBase;
-import com.flexganttfx.view.GanttChartLite;
-import javafx.collections.FXCollections;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-
-import java.time.Duration;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
 public class HelloGanttChartLiteModel extends FlexGanttFXSample {
 
     private int layerCounter;
     private GanttChartLite<HelloRow> gantt;
     private final Layer layer = new Layer("Default");
 
+    public HelloGanttChartLiteModel() {
+        HelloRow root = new HelloRow("Initial Root");
+        root.setExpanded(true);
+    }
+    
     class HelloRow extends Row<HelloRow, HelloRow, Activity> {
         public HelloRow(String name) {
             super(name);
         }
     }
-
-    public HelloGanttChartLiteModel() {
-        HelloRow root = new HelloRow("Initial Root");
-        root.setExpanded(true);
-    }
-
-    @Override
-    public void dispose() {
-        super.dispose();
-        gantt = null;
-    }
-
+    
     @Override
     protected GanttChartBase<?> createGanttChart() throws Exception {
         gantt = new GanttChartLite<>();
@@ -96,12 +66,7 @@ public class HelloGanttChartLiteModel extends FlexGanttFXSample {
 
         return box;
     }
-
-    @Override
-    public String getSampleName() {
-        return "Gantt Chart Model Lite";
-    }
-
+    
     private void addLayer() {
         layerCounter++;
         Layer layer = new Layer("Layer " + layerCounter);
@@ -171,15 +136,6 @@ public class HelloGanttChartLiteModel extends FlexGanttFXSample {
         }
 
         gantt.getRows().setAll(topLevelRows);
-    }
-
-    @Override
-    public String getSampleDescription() {
-        return "A couple of model-related actions to verify the behaviour of the control related to model changes.";
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }
 ```

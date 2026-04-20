@@ -47,7 +47,7 @@ public class HelloChronoUnitTimeline extends FlexGanttFXSampleBase {
 		StackPane stackPane = new StackPane();
 		stackPane.setPadding(new Insets(20));
 		stackPane.getChildren().add(timeline);
-		stackPane.setStyle("-fx-background-color: white; -fx-border-color: lightgray;");
+
 		GridPane.setFillWidth(stackPane, true);
 		GridPane.setFillHeight(stackPane, false);
 		GridPane.setMargin(stackPane, new Insets(20));

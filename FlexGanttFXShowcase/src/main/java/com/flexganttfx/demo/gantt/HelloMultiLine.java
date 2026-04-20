@@ -178,7 +178,6 @@ public class HelloMultiLine extends FlexGanttFXSample {
     }
 
     private void applyLineCount(int count) {
-        System.out.println("count: " + count);
         for (HelloRow r : rows) {
             r.setLineCount(count);
 

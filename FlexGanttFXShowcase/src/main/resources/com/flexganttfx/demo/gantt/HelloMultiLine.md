@@ -1,53 +1,6 @@
 This sample focuses on placing activities on multiple lines within the same row. It demonstrates different line-management strategies and shows how row height, line count, and activity placement can be combined to render dense schedules more clearly.
 
 ```java
-/**
- * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- * This file is part of FlexGanttFX.
- */
-package com.flexganttfx.demo.gantt;
-
-import com.flexganttfx.demo.FlexGanttFXSample;
-import com.flexganttfx.demo.HelloActivity;
-import com.flexganttfx.demo.HelloRow;
-import com.flexganttfx.model.ActivityRef;
-import com.flexganttfx.model.Layer;
-import com.flexganttfx.model.Layout;
-import com.flexganttfx.model.LinesManager;
-import com.flexganttfx.model.Row;
-import com.flexganttfx.model.layout.EqualLinesManager;
-import com.flexganttfx.model.layout.GanttLayout;
-import com.flexganttfx.view.GanttChart;
-import com.flexganttfx.view.graphics.ActivityBounds;
-import com.flexganttfx.view.graphics.GraphicsBase;
-import com.flexganttfx.view.graphics.ListViewGraphics;
-import com.flexganttfx.view.graphics.renderer.ActivityBarRenderer;
-import com.flexganttfx.view.util.AutoLinesManager;
-import com.flexganttfx.view.util.Position;
-import javafx.application.Platform;
-import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Separator;
-import javafx.scene.control.Slider;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.Tooltip;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
 public class HelloMultiLine extends FlexGanttFXSample {
 
     private final List<HelloRow> rows = new ArrayList<>();
@@ -62,19 +15,7 @@ public class HelloMultiLine extends FlexGanttFXSample {
     private RadioButton equalButton;
 
     private RadioButton autoButton;
-
-    @Override
-    public String getSampleName() {
-        return "Multi Line";
-    }
-
-    @Override
-    public String getSampleDescription() {
-        return "This sample demonstrates how activities can be placed on multiple lines "
-                + "within the same row. Different line managers can be used to place the "
-                + "activities with different strategies.";
-    }
-
+    
     @Override
     protected GanttChart<?> createGanttChart() throws Exception {
         GanttChart<HelloRow> gc = new GanttChart<>();
@@ -181,7 +122,6 @@ public class HelloMultiLine extends FlexGanttFXSample {
     }
 
     private void applyLineCount(int count) {
-        System.out.println("count: " + count);
         for (HelloRow r : rows) {
             r.setLineCount(count);
 
@@ -259,8 +199,7 @@ public class HelloMultiLine extends FlexGanttFXSample {
         }
     }
 
-    class MyEqualLinesManager extends
-            EqualLinesManager<HelloRow, HelloActivity> {
+    class MyEqualLinesManager extends EqualLinesManager<HelloRow, HelloActivity> {
 
         public MyEqualLinesManager(HelloRow row) {
             super(row);
@@ -365,13 +304,8 @@ public class HelloMultiLine extends FlexGanttFXSample {
                 setBarHeight(16);
             }
 
-            return super.drawActivity(activityRef, position, gc, x, y, w, h,
-                    selected, hover, highlighted, pressed);
+            return super.drawActivity(activityRef, position, gc, x, y, w, h, selected, hover, highlighted, pressed);
         }
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }
 ```

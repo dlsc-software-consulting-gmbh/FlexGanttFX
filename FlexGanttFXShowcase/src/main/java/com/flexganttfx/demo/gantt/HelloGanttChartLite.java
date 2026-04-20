@@ -40,6 +40,11 @@ public class HelloGanttChartLite extends FlexGanttFXSample {
     }
 
     @Override
+    public String getSampleDescription() {
+        return "A Gantt chart without a tree table on its left-hand side.";
+    }
+
+    @Override
     public String getSampleName() {
         return "Gantt Chart Lite";
     }

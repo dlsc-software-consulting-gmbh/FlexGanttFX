@@ -78,6 +78,11 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
     }
 
     @Override
+    public String getSampleDescription() {
+        return "Shows how to use multiple layout types in the same row of a GanttChart.";
+    }
+
+    @Override
     public Node getControlPanel() {
         ComboBox<FilterMode> box = new ComboBox<>();
         box.getItems().addAll(FilterMode.values());

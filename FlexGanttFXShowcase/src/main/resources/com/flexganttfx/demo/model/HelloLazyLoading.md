@@ -1,54 +1,12 @@
 This sample focuses on lazy loading of hierarchical data. It demonstrates how row children can be created on demand instead of upfront, which is an important pattern for large trees and remote or expensive data sources.
 
 ```java
-/**
- * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- * This file is part of FlexGanttFX.
- */
-package com.flexganttfx.demo.model;
-
-import com.flexganttfx.demo.FlexGanttFXSample;
-import com.flexganttfx.demo.HelloActivity;
-import com.flexganttfx.model.Layer;
-import com.flexganttfx.model.Row;
-import com.flexganttfx.model.repository.MutableActivityRepositoryBase;
-import com.flexganttfx.model.util.TimeInterval;
-import com.flexganttfx.view.GanttChart;
-import com.flexganttfx.view.GanttChart.RowHeaderType;
-import com.flexganttfx.view.timeline.Timeline;
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
-import javafx.collections.ObservableList;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.TreeItem;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-
-import java.io.FileNotFoundException;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
 public class HelloLazyLoading extends FlexGanttFXSample {
 
     private final Layer layer = new Layer("Default Layer");
 
     private GanttChart<HelloLazyRow> gantt;
-
-    @Override
-    public void dispose() {
-        super.dispose();
-        gantt = null;
-    }
-
+    
     @Override
     protected GanttChart<?> createGanttChart() throws FileNotFoundException {
         gantt = new GanttChart<>();
@@ -282,8 +240,7 @@ public class HelloLazyLoading extends FlexGanttFXSample {
         removeRows.setMinWidth(Region.USE_COMPUTED_SIZE);
         removeRows.disableProperty().bind(Bindings.isNull(gantt.getTreeTable().getSelectionModel().selectedItemProperty()));
 
-        box.getChildren().addAll(showRoot, addSingleRow, addRows, setRows,
-                removeRows, clearRows);
+        box.getChildren().addAll(showRoot, addSingleRow, addRows, setRows, removeRows, clearRows);
 
         return box;
     }
@@ -304,8 +261,7 @@ public class HelloLazyLoading extends FlexGanttFXSample {
     }
 
     private void removeRows() {
-        ObservableList<TreeItem<HelloLazyRow>> selectedItems = gantt.getTreeTable().getSelectionModel()
-                .getSelectedItems();
+        ObservableList<TreeItem<HelloLazyRow>> selectedItems = gantt.getTreeTable().getSelectionModel().getSelectedItems();
         // working with copy to avoid side effects when working on same list
         ArrayList<TreeItem<HelloLazyRow>> arrayList = new ArrayList<>(selectedItems);
         gantt.getTreeTable().getSelectionModel().clearSelection();
@@ -334,22 +290,6 @@ public class HelloLazyLoading extends FlexGanttFXSample {
     private void addSingleRow() {
         HelloLazyRow row = new HelloLazyRow("Added Row " + rowCounter++);
         getSelectedRow().getChildren().add(row);
-    }
-
-    @Override
-    public String getSampleName() {
-        return "Lazy Loading";
-    }
-
-    @Override
-    public String getSampleDescription() {
-        return "This sample shows how a lazy loading strategy can be implemented. The children items in the "
-                + "tree view on the left-hand side are added when the user expands a tree node (vertical lazy loading)."
-                + "The activities on the right-hand side are generated when the user scrolls horizontally (horizontal lazy loading).";
-    }
-
-    public static void main(String[] args) {
-        Application.launch(args);
     }
 }
 ```

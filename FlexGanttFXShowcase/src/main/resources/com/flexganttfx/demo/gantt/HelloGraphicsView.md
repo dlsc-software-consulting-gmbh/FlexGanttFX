@@ -1,49 +1,6 @@
-This sample focuses on the standalone graphics views that FlexGanttFX provides in addition to the full `GanttChart` control. It compares several arrangements, such as single-row, list-based, VBox, and split-pane graphics, to show how the rendering layer can be reused in custom compositions.
+This sample focuses on the standalone graphics views that **FlexGanttFX** provides in addition to the full `GanttChart` control. It compares several arrangements, such as single-row, list-based, VBox, and split-pane graphics, to show how the rendering layer can be reused in custom compositions.
 
 ```java
-/**
- * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- * This file is part of FlexGanttFX.
- */
-package com.flexganttfx.demo.gantt;
-
-import com.flexganttfx.demo.FlexGanttFXSampleBase;
-import com.flexganttfx.demo.HelloActivity;
-import com.flexganttfx.demo.HelloRow;
-import com.flexganttfx.model.Row;
-import com.flexganttfx.model.layout.GanttLayout;
-import com.flexganttfx.view.graphics.ListViewGraphics;
-import com.flexganttfx.view.graphics.SingleRowGraphics;
-import com.flexganttfx.view.graphics.SplitPaneGraphics;
-import com.flexganttfx.view.graphics.VBoxGraphics;
-import com.flexganttfx.view.graphics.renderer.ActivityBarRenderer;
-import com.flexganttfx.view.timeline.Timeline;
-import javafx.application.Application;
-import javafx.beans.binding.Bindings;
-import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
-import javafx.geometry.Side;
-import javafx.scene.Node;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Separator;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import org.controlsfx.control.MasterDetailPane;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class HelloGraphicsView extends FlexGanttFXSampleBase {
 
     enum PriorityStrategy {

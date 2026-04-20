@@ -1,54 +1,6 @@
 This sample focuses on global activities displayed in the eventline rather than inside individual rows. It demonstrates how chart-wide events can be created and visualized independently of the regular row-based activity layout.
 
 ```java
-/**
- * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- * This file is part of FlexGanttFX.
- */
-package com.flexganttfx.demo.gantt;
-
-import com.flexganttfx.demo.FlexGanttFXSample;
-import com.flexganttfx.demo.HelloRow;
-import com.flexganttfx.extras.properties.view.GanttChartConfigurationView;
-import com.flexganttfx.model.ActivityRef;
-import com.flexganttfx.model.Layer;
-import com.flexganttfx.model.Row;
-import com.flexganttfx.model.calendar.CalendarBase;
-import com.flexganttfx.model.calendar.MutableCalendarActivityBase;
-import com.flexganttfx.model.dateline.ChronoUnitGrid;
-import com.flexganttfx.model.layout.GanttLayout;
-import com.flexganttfx.model.repository.RepositoryEvent;
-import com.flexganttfx.view.GanttChart;
-import com.flexganttfx.view.graphics.ActivityBounds;
-import com.flexganttfx.view.graphics.GraphicsBase;
-import com.flexganttfx.view.graphics.LassoEvent;
-import com.flexganttfx.view.graphics.layer.CalendarLayer;
-import com.flexganttfx.view.graphics.renderer.ActivityRenderer;
-import com.flexganttfx.view.graphics.renderer.CalendarActivityRenderer;
-import com.flexganttfx.view.timeline.Eventline;
-import com.flexganttfx.view.timeline.Timeline;
-import com.flexganttfx.view.util.Position;
-import javafx.application.Application;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.geometry.VPos;
-import javafx.scene.Node;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.TextInputDialog;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.text.TextAlignment;
-
-import java.time.DayOfWeek;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-
 public class HelloGlobalActivities extends FlexGanttFXSample {
 
     private GanttChart<HelloRow> gc;
@@ -56,13 +8,7 @@ public class HelloGlobalActivities extends FlexGanttFXSample {
     private final Layer layer = new Layer("Default Layer");
     private final PhaseRow frozenRow = new PhaseRow();
     private final ChronoUnitGrid dayGrid = new ChronoUnitGrid("Day Grid", ChronoUnit.DAYS, 1);
-
-    @Override
-    public void dispose() {
-        super.dispose();
-        gc = null;
-    }
-
+    
     @Override
     protected GanttChart<?> createGanttChart() {
         gc = new GanttChart<>();
@@ -180,29 +126,12 @@ public class HelloGlobalActivities extends FlexGanttFXSample {
     }
 
     class PhaseRow extends Row<PhaseRow, PhaseRow, Phase> {
-
     }
 
     class Phase extends MutableCalendarActivityBase<String> {
-
-
         public Phase(String name) {
             super(name);
         }
-    }
-
-    @Override
-    public String getSampleName() {
-        return "Global Activities";
-    }
-
-    @Override
-    public String getSampleDescription() {
-        return "This demo shows how the graphics node inside the eventline can be used to display global events. To add your own event, simply use the lasso inside the eventline (press and wait or SHIFT and drag).";
-    }
-
-    public static void main(String[] args) {
-        Application.launch(args);
     }
 }
 ```

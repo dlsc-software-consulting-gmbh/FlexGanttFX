@@ -1,58 +1,10 @@
 This sample focuses on the row header column that can be shown alongside the main chart content. It demonstrates how additional row-oriented information can be presented and customized next to the scheduling view.
 
 ```java
-/**
- * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- * This file is part of FlexGanttFX.
- */
-package com.flexganttfx.demo.gantt;
-
-import com.flexganttfx.demo.FlexGanttFXSample;
-import com.flexganttfx.model.Activity;
-import com.flexganttfx.model.Row;
-import com.flexganttfx.view.GanttChart;
-import com.flexganttfx.view.GanttChart.RowHeaderType;
-import javafx.beans.binding.Bindings;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.util.Callback;
-import javafx.util.StringConverter;
-import org.kordamp.ikonli.javafx.FontIcon;
-import org.kordamp.ikonli.materialdesign.MaterialDesign;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class HelloRowHeaderColumn extends FlexGanttFXSample {
 
     private GanttChart<MyRow> gantt;
-
-    @Override
-    public String getSampleName() {
-        return "Row Header Column";
-    }
-
-    @Override
-    public void dispose() {
-        super.dispose();
-        gantt = null;
-    }
-
+    
     @Override
     protected GanttChart<?> createGanttChart() {
         gantt = new GanttChart<>();
@@ -172,14 +124,7 @@ public class HelloRowHeaderColumn extends FlexGanttFXSample {
 
         return controlPane;
     }
-
-    @Override
-    public String getSampleDescription() {
-        return "The first column of the tree table is the row header. "
-                + "The header can be used to display lines numbers, indentation levels, "
-                + "or arbitrary nodes.";
-    }
-
+    
     enum Status {
         OK, WARNING, ERROR, OTHER
     }
@@ -279,11 +224,6 @@ public class HelloRowHeaderColumn extends FlexGanttFXSample {
             }
             return box;
         }
-
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }
 ```

@@ -90,7 +90,7 @@ public class SampleContentView extends BorderPane {
 
         HiddenSidesPane examplePane = createExamplePane(codeExample);
         if (hasCodeExample) {
-            Button exampleCodeButton = new Button("Example Code");
+            Button exampleCodeButton = new Button("Read More");
             exampleCodeButton.getStyleClass().add("sample-header-action");
             exampleCodeButton.setOnAction(evt -> toggleExamplePane(examplePane));
             headerMain.getChildren().add(exampleCodeButton);

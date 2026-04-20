@@ -1,111 +1,15 @@
-This sample focuses on creating a dashboard-style view with four synchronized Gantt charts. It demonstrates how FlexGanttFX containers can keep multiple charts aligned while still allowing layout-level configuration such as animation and lower-pane visibility.
+This sample focuses on creating a dashboard-style view with four synchronized Gantt charts. It demonstrates how **FlexGanttFX** containers can keep multiple charts aligned while still allowing layout-level configuration such as animation and lower-pane visibility.
 
 ```java
-/**
- * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- * This file is part of FlexGanttFX.
- */
-package com.flexganttfx.demo.container;
+QuadGanttChartContainer quad = new QuadGanttChartContainer();
 
-import com.flexganttfx.demo.FlexGanttFXSampleBase;
-import com.flexganttfx.model.Row;
-import com.flexganttfx.view.GanttChart;
-import com.flexganttfx.view.container.QuadGanttChartContainer;
-import javafx.application.Application;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+GanttChart gc1 = new GanttChart();
+GanttChart gc2 = new GanttChart();
+GanttChart gc3 = new GanttChart();
+GanttChart gc4 = new GanttChart();
 
-public class HelloQuadGanttChartContainer extends FlexGanttFXSampleBase {
-
-    private QuadGanttChartContainer quad;
-
-    @Override
-    public String getSampleName() {
-        return "Quad";
-    }
-
-    @Override
-    public void dispose() {
-        super.dispose();
-        quad = null;
-    }
-
-    @Override
-    public Node getPanel(Stage panel) {
-        quad = new QuadGanttChartContainer();
-        quad.getUpperLeftGanttChart().getGraphics().setShowRowHeaders(true);
-        quad.getUpperLeftGanttChart().getGraphics().setRowHeadersWidth(200);
-
-        GanttChart gc1 = new GanttChart();
-        GanttChart gc2 = new GanttChart();
-        GanttChart gc3 = new GanttChart();
-        GanttChart gc4 = new GanttChart();
-
-        gc1.setRoot(new Row<>() {});
-        gc2.setRoot(new Row<>() {});
-        gc3.setRoot(new Row<>() {});
-        gc4.setRoot(new Row<>() {});
-
-        quad.setUpperLeftGanttChart(gc1);
-        quad.setLowerLeftGanttChart(gc2);
-        quad.setUpperRightGanttChart(gc3);
-        quad.setLowerRightGanttChart(gc4);
-
-        quad.getUpperLeftGanttChart().getGraphics().setShowRowHeaders(true);
-
-        return quad;
-    }
-
-    @Override
-    public Node getControlPanel() {
-        HBox box = new HBox(10);
-        box.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
-
-        Button single = new Button("Single");
-        single.setMaxWidth(Double.MAX_VALUE);
-        single.setOnAction(evt -> quad.showSingleChart());
-        box.getChildren().add(single);
-
-        Button horizontalSplit = new Button("Horiz. Split");
-        horizontalSplit.setMaxWidth(Double.MAX_VALUE);
-        horizontalSplit.setOnAction(evt -> quad.showHorizontalSplitScreen(true));
-        box.getChildren().add(horizontalSplit);
-
-        Button verticalSplit = new Button("Vert. Split");
-        verticalSplit.setMaxWidth(Double.MAX_VALUE);
-        verticalSplit.setOnAction(evt -> quad.showVerticalSplitScreen(true));
-        box.getChildren().add(verticalSplit);
-
-        Button allFour = new Button("All Four");
-        allFour.setMaxWidth(Double.MAX_VALUE);
-        allFour.setOnAction(evt -> quad.showAllFour(true));
-        box.getChildren().add(allFour);
-
-        CheckBox showLower = new CheckBox("Show Lower");
-        showLower.selectedProperty().bindBidirectional(quad.showLowerProperty());
-        box.getChildren().add(showLower);
-
-        CheckBox animated = new CheckBox("Animated");
-        animated.selectedProperty().bindBidirectional(quad.animatedProperty());
-        box.getChildren().add(animated);
-
-        return box;
-    }
-
-    @Override
-    public String getSampleDescription() {
-        return "A special multi Gantt chart container that is capable of displaying "
-                + "exactly four Gantt charts and keeping their layouts (same "
-                + "table width, same timeline) and their scrolling and zooming behavior in "
-                + "synch.";
-    }
-
-    public static void main(String[] args) {
-        Application.launch(args);
-    }
-}
+quad.setUpperLeftGanttChart(gc1);
+quad.setLowerLeftGanttChart(gc2);
+quad.setUpperRightGanttChart(gc3);
+quad.setLowerRightGanttChart(gc4);
 ```

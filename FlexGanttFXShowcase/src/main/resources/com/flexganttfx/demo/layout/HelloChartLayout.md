@@ -1,78 +1,10 @@
 This sample focuses on the `ChartLayout` with high-low style activities. Instead of standard Gantt bars, it uses chart-oriented rendering to combine time-based positioning with numeric values inside the same timeline.
 
 ```java
-/**
- * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- * This file is part of FlexGanttFX.
- */
-package com.flexganttfx.demo.layout;
-
-import com.flexganttfx.demo.FlexGanttFXSample;
-import com.flexganttfx.extras.RowControls;
-import com.flexganttfx.model.ActivityRef;
-import com.flexganttfx.model.Layer;
-import com.flexganttfx.model.Layout;
-import com.flexganttfx.model.LinesManager;
-import com.flexganttfx.model.Row;
-import com.flexganttfx.model.activity.MutableActivity;
-import com.flexganttfx.model.activity.MutableChartActivityBase;
-import com.flexganttfx.model.activity.MutableHighLowChartActivityBase;
-import com.flexganttfx.model.layout.ChartLayout;
-import com.flexganttfx.view.GanttChart;
-import com.flexganttfx.view.graphics.ActivityBounds;
-import com.flexganttfx.view.graphics.GraphicsBase;
-import com.flexganttfx.view.graphics.GraphicsBase.RowEditingMode;
-import com.flexganttfx.view.graphics.renderer.ActivityRenderer;
-import com.flexganttfx.view.util.Position;
-import com.opencsv.CSVReader;
-import javafx.application.Application;
-import javafx.beans.binding.Bindings;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TreeTableCell;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TreeItemPropertyValueFactory;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.util.StringConverter;
-
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
-import static java.time.format.DateTimeFormatter.ofPattern;
-
 public class HelloChartLayout extends FlexGanttFXSample {
 
     private final DateTimeFormatter formatter = ofPattern("yyyy-MM-dd");
-
-    public static void main(String[] args) {
-        Application.launch(args);
-    }
-
+    
     @Override
     protected GanttChart<?> createGanttChart() {
         Properties props = new Properties();
@@ -281,17 +213,7 @@ public class HelloChartLayout extends FlexGanttFXSample {
 
         return gc;
     }
-
-    @Override
-    public String getSampleDescription() {
-        return "This sample highlights the High / Low charting capabilities and also the"
-                + " row editing and row controls feature. Each row can have its own hidden controls, which"
-                + " can be revealed with a nice flip animation. In most cases the editing will be started"
-                + " by pressing on a control provided by the row controls feature. This feature adds controls"
-                + " to a row when the mouse cursor hovers over it. Row editing can be restricted"
-                + " to one row at a time, multiple rows at the same time, or completely disabled.";
-    }
-
+    
     @Override
     public Node getControlPanel() {
         ComboBox<RowEditingMode> box = new ComboBox<>();
@@ -319,12 +241,7 @@ public class HelloChartLayout extends FlexGanttFXSample {
         Bindings.bindBidirectional(box.valueProperty(), getGanttChart().getGraphics().rowEditingModeProperty());
         return box;
     }
-
-    @Override
-    public String getSampleName() {
-        return "Chart: High Low";
-    }
-
+    
     class SymbolTreeTableCell extends TreeTableCell<Symbol, String> {
         public SymbolTreeTableCell() {
             setStyle("-fx-font-size: 32;");

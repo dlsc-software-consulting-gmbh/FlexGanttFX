@@ -1,61 +1,6 @@
 This sample focuses on mixing several layout types in one view. It combines classic Gantt-style activities, chart-style capacity indicators, and agenda entries on the same timeline to show how different renderers and layouts can coexist in a single application.
 
 ```java
-/**
- * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- * This file is part of FlexGanttFX.
- */
-package com.flexganttfx.demo.layout;
-
-import com.flexganttfx.demo.FlexGanttFXSample;
-import com.flexganttfx.model.Activity;
-import com.flexganttfx.model.ActivityRef;
-import com.flexganttfx.model.Layer;
-import com.flexganttfx.model.Layout;
-import com.flexganttfx.model.Row;
-import com.flexganttfx.model.activity.ChartActivity;
-import com.flexganttfx.model.activity.MutableActivityBase;
-import com.flexganttfx.model.activity.MutableChartActivityBase;
-import com.flexganttfx.model.exception.IllegalLineIndexException;
-import com.flexganttfx.model.layout.AgendaLayout;
-import com.flexganttfx.model.layout.ChartLayout;
-import com.flexganttfx.model.layout.GanttLayout;
-import com.flexganttfx.model.layout.LinesManagerBase;
-import com.flexganttfx.view.GanttChart;
-import com.flexganttfx.view.graphics.ActivityBounds;
-import com.flexganttfx.view.graphics.GraphicsBase;
-import com.flexganttfx.view.graphics.renderer.ActivityBarRenderer;
-import com.flexganttfx.view.graphics.renderer.ActivityRenderer;
-import com.flexganttfx.view.timeline.Timeline.ZoomMode;
-import com.flexganttfx.view.util.Position;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.geometry.VPos;
-import javafx.scene.Node;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.TextAlignment;
-
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalTime;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-
-import static java.time.temporal.ChronoUnit.DAYS;
-
 public class HelloMixedLayouts extends FlexGanttFXSample {
 
     private static final long MAX_DAYS = 700;
@@ -64,22 +9,7 @@ public class HelloMixedLayouts extends FlexGanttFXSample {
     private Instant endTime;
 
     private GanttChart<CapacityRow> ganttChart;
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    @Override
-    public void dispose() {
-        super.dispose();
-        ganttChart = null;
-    }
-
-    @Override
-    public String getSampleName() {
-        return "Mixed";
-    }
-
+    
     @Override
     public Node getControlPanel() {
         ComboBox<FilterMode> box = new ComboBox<>();

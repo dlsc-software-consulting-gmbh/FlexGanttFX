@@ -1,85 +1,19 @@
 This sample focuses on the `AgendaLayout`, where activities are presented more like agenda entries than traditional bars. It highlights how start time, end time, layout strategy, and cursor-line behavior influence this more calendar-like rendering style.
 
 ```java
-/**
- * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- * This file is part of FlexGanttFX.
- */
-package com.flexganttfx.demo.layout;
-
-import com.flexganttfx.demo.FlexGanttFXSample;
-import com.flexganttfx.model.ActivityRef;
-import com.flexganttfx.model.Layer;
-import com.flexganttfx.model.Row;
-import com.flexganttfx.model.activity.MutableActivityBase;
-import com.flexganttfx.model.dateline.ChronoUnitGrid;
-import com.flexganttfx.model.layout.AgendaLayout;
-import com.flexganttfx.view.GanttChart;
-import com.flexganttfx.view.graphics.ActivityBounds;
-import com.flexganttfx.view.graphics.GraphicsBase;
-import com.flexganttfx.view.graphics.ListViewGraphics;
-import com.flexganttfx.view.graphics.renderer.ActivityRenderer;
-import com.flexganttfx.view.util.Position;
-import javafx.application.Application;
-import javafx.beans.InvalidationListener;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.geometry.VPos;
-import javafx.scene.Node;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.TextAlignment;
-import javafx.util.StringConverter;
-
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalAdjusters;
-import java.util.HashMap;
-import java.util.Map;
-
-import static java.time.DayOfWeek.MONDAY;
-import static java.util.Objects.requireNonNull;
-
 public class HelloAgendaLayout extends FlexGanttFXSample {
 
     private GanttChart<AgendaRow> gc;
     private AgendaLayout layout;
     private Layer layer;
     private AgendaRow row;
-
-    @Override
-    public String getSampleName() {
-        return "Agenda";
-    }
-
+    
     static class AgendaRow extends Row<AgendaRow, AgendaRow, MutableActivityBase<String>> {
         public AgendaRow(String name) {
             super(name);
         }
     }
-
-    @Override
-    public void dispose() {
-        super.dispose();
-        gc = null;
-    }
-
+    
     @Override
     protected GanttChart<?> createGanttChart() {
         AgendaRow root = new AgendaRow("Root");
@@ -209,13 +143,7 @@ public class HelloAgendaLayout extends FlexGanttFXSample {
             }
         }
     }
-
-    @Override
-    public String getSampleDescription() {
-        return "The agenda layout class is used to layout activities vertically in a way "
-                + "that is similar to regular calendars. Double click to create new activities.";
-    }
-
+    
     @Override
     public Node getControlPanel() {
         ComboBox<LocalTime> startTimeBox = createLocalTimeBox();
@@ -516,10 +444,6 @@ public class HelloAgendaLayout extends FlexGanttFXSample {
 
             return bounds;
         }
-    }
-
-    public static void main(String[] args) {
-        Application.launch(args);
     }
 }
 ```

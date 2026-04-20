@@ -1,38 +1,6 @@
 This sample focuses on model-side changes and how the standard `GanttChart` reacts to them. It is useful for exploring how row, activity, and structural updates propagate through the control.
 
 ```java
-/**
- * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- * This file is part of FlexGanttFX.
- */
-package com.flexganttfx.demo.model;
-
-import com.flexganttfx.demo.FlexGanttFXSample;
-import com.flexganttfx.demo.HelloActivity;
-import com.flexganttfx.model.Activity;
-import com.flexganttfx.model.Layer;
-import com.flexganttfx.model.Row;
-import com.flexganttfx.view.GanttChart;
-import javafx.beans.binding.Bindings;
-import javafx.concurrent.Task;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.TreeItem;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import org.controlsfx.dialog.ProgressDialog;
-
-import java.time.Duration;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-import static javafx.scene.control.SelectionMode.MULTIPLE;
-
 public class HelloGanttChartModel extends FlexGanttFXSample {
 
     private HelloRow root;
@@ -40,24 +8,18 @@ public class HelloGanttChartModel extends FlexGanttFXSample {
     private int layerCounter;
     private GanttChart<HelloRow> gantt;
     private final Layer layer = new Layer("Default");
+    
+    public HelloGanttChartModel() {
+        root = new HelloRow("Initial Root");
+        root.setExpanded(true);
+    }
 
     class HelloRow extends Row<HelloRow, HelloRow, Activity> {
         public HelloRow(String name) {
             super(name);
         }
     }
-
-    public HelloGanttChartModel() {
-        root = new HelloRow("Initial Root");
-        root.setExpanded(true);
-    }
-
-    @Override
-    public void dispose() {
-        super.dispose();
-        gantt = null;
-    }
-
+    
     @Override
     protected GanttChart<?> createGanttChart() {
         gantt = new GanttChart<>(root);
@@ -68,7 +30,6 @@ public class HelloGanttChartModel extends FlexGanttFXSample {
 
     @Override
     public Node getControlPanel() {
-
         HBox box = new HBox();
         box.setSpacing(10);
 
@@ -127,12 +88,7 @@ public class HelloGanttChartModel extends FlexGanttFXSample {
 
         return box;
     }
-
-    @Override
-    public String getSampleName() {
-        return "Gantt Chart Model";
-    }
-
+    
     private void setNewRoot() {
         rootCounter++;
         root = new HelloRow("Root #" + rootCounter);
@@ -233,15 +189,6 @@ public class HelloGanttChartModel extends FlexGanttFXSample {
         progressDialog.show();
 
         executor.execute(task);
-    }
-
-    @Override
-    public String getSampleDescription() {
-        return "A couple of model-related actions to verify the behaviour of the control related to model changes.";
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }
 ```

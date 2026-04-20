@@ -68,6 +68,11 @@ public class HelloToolTip extends FlexGanttFXSample {
 		return gc;
 	}
 
+	@Override
+	public String getSampleDescription() {
+		return "Shows how to add tooltip support to the Gantt Chart.";
+	}
+
 	private void mouseMoved(MouseEvent evt) {
 		ActivityRef<?> ref = gc.getGraphics().getActivityRefAt(evt.getX(), evt.getY());
 		if (ref != null) {

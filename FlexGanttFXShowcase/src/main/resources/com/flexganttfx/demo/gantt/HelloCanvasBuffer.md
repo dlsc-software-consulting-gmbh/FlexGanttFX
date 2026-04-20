@@ -1,66 +1,6 @@
-This sample focuses on the canvas and dateline buffering strategy used by FlexGanttFX. It shows how scrolling can stay efficient because larger rendered areas are translated and reused instead of being rebuilt on every movement.
+This sample focuses on the canvas and dateline buffering strategy used by **FlexGanttFX**. It shows how scrolling can stay efficient because larger rendered areas are translated and reused instead of being rebuilt on every movement.
 
 ```java
-/**
- * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- * This file is part of FlexGanttFX.
- */
-package com.flexganttfx.demo.gantt;
-
-import com.flexganttfx.demo.FlexGanttFXSampleBase;
-import com.flexganttfx.demo.HelloActivity;
-import com.flexganttfx.demo.HelloRow;
-import com.flexganttfx.model.ActivityRef;
-import com.flexganttfx.model.Layer;
-import com.flexganttfx.model.Row;
-import com.flexganttfx.model.calendar.CalendarBase;
-import com.flexganttfx.model.calendar.MutableCalendarActivityBase;
-import com.flexganttfx.model.dateline.ChronoUnitGrid;
-import com.flexganttfx.model.layout.GanttLayout;
-import com.flexganttfx.model.repository.RepositoryEvent;
-import com.flexganttfx.view.graphics.ActivityBounds;
-import com.flexganttfx.view.graphics.GraphicsBase;
-import com.flexganttfx.view.graphics.VBoxGraphics;
-import com.flexganttfx.view.graphics.layer.CalendarLayer;
-import com.flexganttfx.view.graphics.renderer.ActivityBarRenderer;
-import com.flexganttfx.view.graphics.renderer.ActivityRenderer;
-import com.flexganttfx.view.graphics.renderer.CalendarActivityRenderer;
-import com.flexganttfx.view.timeline.Eventline;
-import com.flexganttfx.view.timeline.Timeline;
-import com.flexganttfx.view.util.Position;
-import javafx.application.Application;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.geometry.Pos;
-import javafx.geometry.VPos;
-import javafx.scene.Node;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
-
-import java.text.DecimalFormat;
-import java.time.DayOfWeek;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 public class HelloCanvasBuffer extends FlexGanttFXSampleBase {
 
     private final HelloCanvasBuffer.EventlineCalendar calendar = new HelloCanvasBuffer.EventlineCalendar();

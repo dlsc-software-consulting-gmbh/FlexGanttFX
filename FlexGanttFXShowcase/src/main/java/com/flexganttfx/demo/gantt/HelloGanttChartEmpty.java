@@ -31,6 +31,11 @@ public class HelloGanttChartEmpty extends FlexGanttFXSample {
     }
 
     @Override
+    public String getSampleDescription() {
+        return "A simple Gantt chart with no layers and no activities.";
+    }
+
+    @Override
     public Node getControlPanel() {
         return null;
     }

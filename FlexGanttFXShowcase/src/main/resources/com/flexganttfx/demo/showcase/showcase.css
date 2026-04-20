@@ -371,8 +371,6 @@
 }
 
 .sample-example-close-button {
-    -fx-background-color: transparent;
-    -fx-text-fill: -showcase-fg-muted;
 }
 
 .sample-example-scroll-pane {

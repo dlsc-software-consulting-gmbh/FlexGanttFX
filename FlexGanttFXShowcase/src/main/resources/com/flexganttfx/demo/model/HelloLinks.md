@@ -1,28 +1,6 @@
 This sample focuses on activity links and the four standard dependency types. It is useful for understanding how start-to-start, start-to-end, end-to-start, and end-to-end relationships are represented and rendered in the chart.
 
 ```java
-/**
- * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- * This file is part of FlexGanttFX.
- */
-package com.flexganttfx.demo.model;
-
-import com.flexganttfx.demo.FlexGanttFXSample;
-import com.flexganttfx.demo.HelloActivity;
-import com.flexganttfx.model.ActivityLink;
-import com.flexganttfx.model.ActivityLink.LinkType;
-import com.flexganttfx.model.ActivityRef;
-import com.flexganttfx.model.Layer;
-import com.flexganttfx.model.Row;
-import com.flexganttfx.model.layout.GanttLayout;
-import com.flexganttfx.view.GanttChart;
-import com.flexganttfx.view.graphics.renderer.ActivityBarRenderer;
-import javafx.scene.Node;
-import javafx.scene.control.ComboBox;
-import javafx.util.StringConverter;
-
-import java.time.Instant;
-
 public class HelloLinks extends FlexGanttFXSample {
 
 	private static final long ONE_DAY = 24 * 60 * 60 * 1000;
@@ -32,25 +10,19 @@ public class HelloLinks extends FlexGanttFXSample {
 	private Layer layer;
 
 	private ActivityLink<HelloActivity> link;
-
-	@Override
-	public void dispose() {
-		super.dispose();
-		gantt = null;
-	}
-
-	class HelloRow extends Row<HelloRow, HelloRow, HelloActivity> {
-		public HelloRow(String name) {
-			super(name);
-		}
-	}
-
+    
     public HelloLinks() {
 		root = new HelloRow("Initial Root");
 		root.setExpanded(true);
 	}
 
-	@Override
+    class HelloRow extends Row<HelloRow, HelloRow, HelloActivity> {
+        public HelloRow(String name) {
+            super(name);
+        }
+    }
+
+    @Override
 	protected GanttChart<?> createGanttChart() throws Exception {
 		gantt = new GanttChart<>(root);
 
@@ -125,20 +97,6 @@ public class HelloLinks extends FlexGanttFXSample {
 			gantt.getGraphics().redraw();
 		});
 		return box;
-	}
-
-	@Override
-	public String getSampleName() {
-		return "Links";
-	}
-
-	@Override
-	public String getSampleDescription() {
-	    return "A sample to test the four different link types (end to start, start to end, start to start, end to end)";
-	}
-
-	public static void main(String[] args) {
-		launch(args);
 	}
 }
 ```

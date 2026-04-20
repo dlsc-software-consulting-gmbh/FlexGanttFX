@@ -142,6 +142,11 @@ public class HelloLinksStressTest extends FlexGanttFXSample {
         return "Links Stress Test";
     }
 
+    @Override
+    public String getSampleDescription() {
+        return "A Gantt chart with a large number of activities and links, testing performance and functionality.";
+    }
+
     class Data {
         Instant start;
         Instant end;

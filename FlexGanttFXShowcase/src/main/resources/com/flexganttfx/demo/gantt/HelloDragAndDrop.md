@@ -1,71 +1,6 @@
-This sample focuses on the built-in drag-and-drop support in FlexGanttFX. It shows how data can be dragged from external controls into a chart, moved within a chart, and exported again, while exposing the feedback, snapping, and event hooks involved in the interaction.
+This sample focuses on the built-in drag-and-drop support in **FlexGanttFX**. It shows how data can be dragged from external controls into a chart, moved within a chart, and exported again, while exposing the feedback, snapping, and event hooks involved in the interaction.
 
 ```java
-/**
- * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- * This file is part of FlexGanttFX.
- */
-package com.flexganttfx.demo.gantt;
-
-import com.flexganttfx.demo.FlexGanttFXSampleBase;
-import com.flexganttfx.model.Activity;
-import com.flexganttfx.model.ActivityRef;
-import com.flexganttfx.model.Layer;
-import com.flexganttfx.model.Row;
-import com.flexganttfx.model.activity.MutableActivityBase;
-import com.flexganttfx.model.dateline.ChronoUnitGrid;
-import com.flexganttfx.model.dateline.VirtualGrid;
-import com.flexganttfx.model.layout.GanttLayout;
-import com.flexganttfx.view.GanttChart;
-import com.flexganttfx.view.container.DualGanttChartContainer;
-import com.flexganttfx.view.graphics.ActivityBounds;
-import com.flexganttfx.view.graphics.GraphicsBase;
-import com.flexganttfx.view.graphics.GraphicsBase.DragAndDropFeedback;
-import com.flexganttfx.view.graphics.GraphicsBase.DragAndDropInfo;
-import com.flexganttfx.view.graphics.renderer.ActivityRenderer;
-import com.flexganttfx.view.util.Position;
-import impl.com.flexganttfx.skin.graphics.RowCanvas;
-import javafx.beans.binding.Bindings;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
-import javafx.geometry.VPos;
-import javafx.scene.Node;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
-
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringTokenizer;
-
 public class HelloDragAndDrop extends FlexGanttFXSampleBase {
 
     private TableView<Order> orderTable;
@@ -81,23 +16,7 @@ public class HelloDragAndDrop extends FlexGanttFXSampleBase {
     private Map<String, Order> orders;
     private Map<String, Person> people;
     private Layer layer;
-
-    @Override
-    public void dispose() {
-        super.dispose();
-        gantt1 = null;
-        gantt2 = null;
-        dualContainer = null;
-        orderTable = null;
-        personTable = null;
-        textDropArea = null;
-        textEventsArea = null;
-        dragInfoPane = null;
-        orders = null;
-        people = null;
-        layer = null;
-    }
-
+    
     @Override
     public Node getControlPanel() {
         VBox box = new VBox();
@@ -150,12 +69,7 @@ public class HelloDragAndDrop extends FlexGanttFXSampleBase {
             Bindings.bindBidirectional(gridBox.valueProperty(), graphics.virtualGridProperty());
         }
     }
-
-    @Override
-    public String getSampleDescription() {
-        return "This sample highlights various aspects of the drag and drop support " + "that is built into FlexGanttFX. The user can drag elements from " + "the tables to the Gantt chart and also (by pressing SHIFT) from the Gantt chart to " + "the text area on the right-hand side. At the same time the text " + "area at the bottom shows the events that are being generated while " + "dragging.";
-    }
-
+    
     private void setupOrderTable() {
         TableColumn<Order, String> nameColumn = new TableColumn<>("Order");
         TableColumn<Order, LocalDate> startColumn = new TableColumn<>("Start");
@@ -302,7 +216,7 @@ public class HelloDragAndDrop extends FlexGanttFXSampleBase {
         evt.acceptTransferModes(TransferMode.ANY);
 
         if (evt.getTarget() instanceof RowCanvas) {
-            @SuppressWarnings("unchecked") RowCanvas<Resource> canvas = (RowCanvas<Resource>) evt.getTarget();
+            RowCanvas<Resource> canvas = (RowCanvas<Resource>) evt.getTarget();
             GraphicsBase<Resource> graphics = canvas.getGraphics();
             Resource resource = graphics.getRowAt(evt.getY());
 

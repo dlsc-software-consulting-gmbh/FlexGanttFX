@@ -1,51 +1,14 @@
 This sample focuses on custom system layers. It shows how additional drawing logic can be placed on top of the normal activity rendering pipeline, here by drawing custom connecting lines between activities.
 
 ```java
-/**
- * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- * This file is part of FlexGanttFX.
- */
-package com.flexganttfx.demo.gantt;
-
-import com.flexganttfx.demo.FlexGanttFXSample;
-import com.flexganttfx.demo.HelloActivity;
-import com.flexganttfx.demo.HelloRow;
-import com.flexganttfx.model.ActivityRepository;
-import com.flexganttfx.model.Layer;
-import com.flexganttfx.model.repository.ListActivityRepository;
-import com.flexganttfx.view.GanttChart;
-import com.flexganttfx.view.graphics.GraphicsBase;
-import com.flexganttfx.view.graphics.layer.SystemLayer;
-import com.flexganttfx.view.timeline.Dateline;
-import com.flexganttfx.view.timeline.Timeline;
-import impl.com.flexganttfx.skin.graphics.RowCanvas;
-import javafx.application.Application;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-
-import java.io.FileNotFoundException;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
 public class HelloSystemLayers extends FlexGanttFXSample {
 
     private static final Layer layer = new Layer("Flights");
 
     private GanttChart<HelloRow> gc;
-
+    
     @Override
-    public void dispose() {
-        super.dispose();
-        gc = null;
-    }
-
-    @Override
-    protected GanttChart<?> createGanttChart() throws FileNotFoundException {
+    protected GanttChart<?> createGanttChart() {
         gc = new GanttChart<>();
 
         gc.getLayers().add(layer);
@@ -141,21 +104,6 @@ public class HelloSystemLayers extends FlexGanttFXSample {
                 }
             }
         }
-    }
-
-    @Override
-    public String getSampleName() {
-        return "System Layers";
-    }
-
-    @Override
-    public String getSampleDescription() {
-        return "This sample shows how to create a custom system layer for drawing "
-                + "connecting lines between activities.";
-    }
-
-    public static void main(String[] args) {
-        Application.launch(args);
     }
 }
 ```

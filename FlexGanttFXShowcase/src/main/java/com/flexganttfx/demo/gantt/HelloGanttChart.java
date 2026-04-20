@@ -62,6 +62,11 @@ public class HelloGanttChart extends FlexGanttFXSample {
         return "Gantt Chart";
     }
 
+    @Override
+    public String getSampleDescription() {
+        return "A simple Gantt chart with a single layer.";
+    }
+
     public static void main(String[] args) {
         Application.launch(args);
     }

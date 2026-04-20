@@ -1,48 +1,6 @@
 This sample focuses on rendering a large number of dependency links. It is useful for exploring link performance and visual density when many relationships have to be drawn across the same chart.
 
 ```java
-/**
- * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- * This file is part of FlexGanttFX.
- */
-package com.flexganttfx.demo.gantt;
-
-import com.flexganttfx.demo.FlexGanttFXSample;
-import com.flexganttfx.model.ActivityLink;
-import com.flexganttfx.model.ActivityRef;
-import com.flexganttfx.model.Layer;
-import com.flexganttfx.model.Row;
-import com.flexganttfx.model.activity.ActivityBase;
-import com.flexganttfx.model.activity.CompletableActivity;
-import com.flexganttfx.model.activity.MutableCompletableActivityBase;
-import com.flexganttfx.view.GanttChart;
-import com.flexganttfx.view.GanttChartBase;
-import com.flexganttfx.view.graphics.ActivityBounds;
-import com.flexganttfx.view.graphics.GraphicsBase;
-import com.flexganttfx.view.graphics.ListViewGraphics;
-import com.flexganttfx.view.graphics.renderer.CompletableActivityRenderer;
-import com.flexganttfx.view.graphics.renderer.StraightLinkRenderer;
-import com.flexganttfx.view.util.Position;
-import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableView;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneOffset;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.ThreadLocalRandom;
-
 public class HelloLinksStressTest extends FlexGanttFXSample {
 
     private final ArrayList<ActivityLink<?>> links = new ArrayList<>();

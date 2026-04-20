@@ -1,27 +1,6 @@
 This sample focuses on tooltip support for chart content. It demonstrates how activities can surface richer contextual information on hover to make complex schedules easier to inspect.
 
 ```java
-/**
- * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- * This file is part of FlexGanttFX.
- */
-package com.flexganttfx.demo.gantt;
-
-import com.flexganttfx.demo.FlexGanttFXSample;
-import com.flexganttfx.demo.HelloActivity;
-import com.flexganttfx.demo.HelloRow;
-import com.flexganttfx.model.ActivityRef;
-import com.flexganttfx.model.Layer;
-import com.flexganttfx.view.GanttChart;
-import com.flexganttfx.view.graphics.ListViewGraphics;
-import javafx.application.Application;
-import javafx.scene.control.Tooltip;
-import javafx.scene.input.MouseEvent;
-
-import java.io.FileNotFoundException;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-
 public class HelloToolTip extends FlexGanttFXSample {
 
 	private static final Layer layer = new Layer("Flights");
@@ -29,15 +8,9 @@ public class HelloToolTip extends FlexGanttFXSample {
 	private GanttChart<HelloRow> gc;
 
 	private Tooltip tooltip;
-
+    
 	@Override
-	public void dispose() {
-		super.dispose();
-		gc = null;
-	}
-
-	@Override
-	protected GanttChart<?> createGanttChart() throws FileNotFoundException {
+	protected GanttChart<?> createGanttChart() {
 		gc = new GanttChart<>();
 
 		tooltip = new Tooltip("");
@@ -76,15 +49,6 @@ public class HelloToolTip extends FlexGanttFXSample {
 		if (ref != null) {
 			tooltip.setText(ref.getActivity().getName());
 		}
-	}
-
-	@Override
-	public String getSampleName() {
-		return "Tooltips";
-	}
-
-	public static void main(String[] args) {
-		Application.launch(args);
 	}
 }
 ```
