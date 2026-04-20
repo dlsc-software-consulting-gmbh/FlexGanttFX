@@ -865,3 +865,15 @@ Caused by: java.lang.AssertionError: assertion failed: Access to file:/var/folde
 2026-04-20 15:15:37,785 [INFO] from com.jpro.internal.stats.ViewInfo$ in JavaFX Application Thread - zipped         : 19915506
 2026-04-20 15:15:37,785 [INFO] from com.jpro.internal.stats.ViewInfo$ in JavaFX Application Thread - 
 2026-04-20 15:15:38,550 [INFO] from com.jpro.internal.communicator.InstanceImpl in JavaFX Application Thread - [JPro] -> Instance closed: {app_name: default, host_name: localhost:8099, instance_id: egrymstczkts77t92hi17fyw1, browser: Safari 605.1.15, browser_url: http://localhost:8099/, client_ip: 0:0:0:0:0:0:0:1, reason: close-tab-closed}
+2026-04-20 15:45:19,859 [INFO] from io.helidon.Main in helidon-shutdown-thread - Shutdown requested by JVM shutting down
+2026-04-20 15:45:19,865 [INFO] from io.helidon.webserver.ServerListener in server-@default-listener - [0x6c40ec14] @default socket closed.
+2026-04-20 15:45:19,872 [INFO] from io.helidon.Main in helidon-shutdown-thread - Shutdown finished
+2026-04-20 15:45:20,252 [INFO] from com.jpro.activity in scala-execution-context-global-34 - Starting the server
+2026-04-20 15:45:20,254 [INFO] from com.jpro.internal.server.JProInitializer$ in scala-execution-context-global-34 -  *** Starting JPro: https://www.jpro.one/ ***
+2026-04-20 15:45:20,254 [INFO] from com.jpro.internal.server.JProInitializer$ in scala-execution-context-global-34 - OS: Mac OS X
+2026-04-20 15:45:20,258 [INFO] from com.jpro.internal.server.JProInitializer$ in scala-execution-context-global-34 - JPro: 2026.1.1
+2026-04-20 15:45:20,258 [INFO] from com.jpro.internal.server.JProInitializer$ in scala-execution-context-global-34 - Java version: 25
+2026-04-20 15:45:20,258 [INFO] from com.jpro.internal.server.JProInitializer$ in scala-execution-context-global-34 - JVM: 25 Azul Systems, Inc.
+2026-04-20 15:45:20,258 [INFO] from com.jpro.internal.server.JProInitializer$ in scala-execution-context-global-34 - JavaFX jar: jrt:/javafx.graphics
+2026-04-20 15:45:20,259 [INFO] from com.jpro.internal.server.JProInitializer$ in scala-execution-context-global-34 - Configuring logging from url: 'jar:file:/Users/lemmi/.m2/repository/one/jpro/jpro-server_2.12/2026.1.1/jpro-server_2.12-2026.1.1.jar!/logback-jpro-default.xml'
+2026-04-20 15:45:20,284 [ERROR] from com.jpro.internal.server.JProInitializer$ in scala-execution-context-global-34 - JavaFX classes are loaded by the SystemClassLoader. This typically happens, when using a JDK/JRE which bundles JavaFX. Please use a JDK/JRE which does not bundle JavaFX.

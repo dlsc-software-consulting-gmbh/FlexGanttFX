@@ -173,3 +173,4 @@ Caused by: java.lang.AssertionError: assertion failed: Access to file:/var/folde
 2026-04-20 14:18:59,722 [WARN] from javafx.scene.PerspectiveCamera in JavaFX Application Thread - System can't support ConditionalFeature.SCENE3D
 2026-04-20 14:18:59,722 [WARN] from javafx.scene.Scene in JavaFX Application Thread - System can't support ConditionalFeature.SCENE3D
 2026-04-20 14:19:00,044 [WARN] from com.jpro.meta.stream.Util$ in JavaFX Application Thread - We don't support fonts with the file extension ttc: /System/Library/Fonts/Helvetica.ttc
+2026-04-20 15:45:20,284 [ERROR] from com.jpro.internal.server.JProInitializer$ in scala-execution-context-global-34 - JavaFX classes are loaded by the SystemClassLoader. This typically happens, when using a JDK/JRE which bundles JavaFX. Please use a JDK/JRE which does not bundle JavaFX.

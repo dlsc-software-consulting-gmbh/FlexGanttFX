@@ -3108,3 +3108,17 @@
 2026-04-20 15:15:37,785 [INFO] in AsyncAppender-Worker-ASYNCSTDOUT - 15:15:37.785 [+1479366 ms] INFO  c.j.i.s.ViewInfo$ - zipped         : 19915506 - AsyncAppender-Worker-ASYNCSTDOUT
 2026-04-20 15:15:37,785 [INFO] in AsyncAppender-Worker-ASYNCSTDOUT - 15:15:37.785 [+1479366 ms] INFO  c.j.i.s.ViewInfo$ -  - AsyncAppender-Worker-ASYNCSTDOUT
 2026-04-20 15:15:38,551 [INFO] in AsyncAppender-Worker-ASYNCSTDOUT - 15:15:38.550 [+1480131 ms] INFO  c.j.i.c.InstanceImpl - [JPro] -> Instance closed: {app_name: default, host_name: localhost:8099, instance_id: egrymstczkts77t92hi17fyw1, browser: Safari 605.1.15, browser_url: http://localhost:8099/, client_ip: 0:0:0:0:0:0:0:1, reason: close-tab-closed} - AsyncAppender-Worker-ASYNCSTDOUT
+2026-04-20 15:45:19,859 [INFO] in Thread-1 - Deleted pid file: /Users/lemmi/git/FlexGanttFX/FlexGanttFXShowcase/RUNNING_PID - Thread-1
+2026-04-20 15:45:19,863 [INFO] in AsyncAppender-Worker-ASYNCSTDOUT - 15:45:19.859 [+3261440 ms] INFO  i.helidon.Main - Shutdown requested by JVM shutting down - AsyncAppender-Worker-ASYNCSTDOUT
+2026-04-20 15:45:19,866 [INFO] in AsyncAppender-Worker-ASYNCSTDOUT - 15:45:19.865 [+3261446 ms] INFO  i.h.w.ServerListener - [0x6c40ec14] @default socket closed. - AsyncAppender-Worker-ASYNCSTDOUT
+2026-04-20 15:45:19,872 [INFO] in AsyncAppender-Worker-ASYNCSTDOUT - 15:45:19.872 [+3261453 ms] INFO  i.helidon.Main - Shutdown finished - AsyncAppender-Worker-ASYNCSTDOUT
+2026-04-20 15:45:20,255 [INFO] in AsyncAppender-Worker-ASYNCSTDOUT - 15:45:20.252 [+154 ms] INFO  c.jpro.activity - Starting the server - AsyncAppender-Worker-ASYNCSTDOUT
+2026-04-20 15:45:20,255 [INFO] in AsyncAppender-Worker-ASYNCSTDOUT - 15:45:20.254 [+156 ms] INFO  c.j.i.s.JProInitializer$ -  *** Starting JPro: https://www.jpro.one/ *** - AsyncAppender-Worker-ASYNCSTDOUT
+2026-04-20 15:45:20,255 [INFO] in AsyncAppender-Worker-ASYNCSTDOUT - 15:45:20.254 [+156 ms] INFO  c.j.i.s.JProInitializer$ - OS: Mac OS X - AsyncAppender-Worker-ASYNCSTDOUT
+2026-04-20 15:45:20,258 [INFO] in AsyncAppender-Worker-ASYNCSTDOUT - 15:45:20.258 [+160 ms] INFO  c.j.i.s.JProInitializer$ - JPro: 2026.1.1 - AsyncAppender-Worker-ASYNCSTDOUT
+2026-04-20 15:45:20,258 [INFO] in AsyncAppender-Worker-ASYNCSTDOUT - 15:45:20.258 [+160 ms] INFO  c.j.i.s.JProInitializer$ - Java version: 25 - AsyncAppender-Worker-ASYNCSTDOUT
+2026-04-20 15:45:20,258 [INFO] in AsyncAppender-Worker-ASYNCSTDOUT - 15:45:20.258 [+160 ms] INFO  c.j.i.s.JProInitializer$ - JVM: 25 Azul Systems, Inc. - AsyncAppender-Worker-ASYNCSTDOUT
+2026-04-20 15:45:20,258 [INFO] in AsyncAppender-Worker-ASYNCSTDOUT - 15:45:20.258 [+160 ms] INFO  c.j.i.s.JProInitializer$ - JavaFX jar: jrt:/javafx.graphics - AsyncAppender-Worker-ASYNCSTDOUT
+2026-04-20 15:45:20,260 [INFO] in AsyncAppender-Worker-ASYNCSTDOUT - 15:45:20.259 [+161 ms] INFO  c.j.i.s.JProInitializer$ - Configuring logging from url: 'jar:file:/Users/lemmi/.m2/repository/one/jpro/jpro-server_2.12/2026.1.1/jpro-server_2.12-2026.1.1.jar!/logback-jpro-default.xml' - AsyncAppender-Worker-ASYNCSTDOUT
+2026-04-20 15:45:20,284 [INFO] in AsyncAppender-Worker-ASYNCSTDOUT - 15:45:20.284 [+186 ms] ERROR c.j.i.s.JProInitializer$ - JavaFX classes are loaded by the SystemClassLoader. This typically happens, when using a JDK/JRE which bundles JavaFX. Please use a JDK/JRE which does not bundle JavaFX. - AsyncAppender-Worker-ASYNCSTDOUT
+2026-04-20 15:45:20,284 [INFO] in Thread-1 - Deleted pid file: /Users/lemmi/git/FlexGanttFX/FlexGanttFXShowcase/RUNNING_PID - Thread-1
