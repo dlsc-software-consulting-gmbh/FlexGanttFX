@@ -28,7 +28,6 @@ public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends Gantt
     private final MasterDetailPane graphicsMasterDetailPane;
     private final TimelineScrollBar timelineScrollBar;
     private final ScrollBar horizonScrollBar;
-    private final Node detailNode;
     private final HiddenSidesPane rightHandSideHiddenSidesPane;
     private final VBox rightHandSideBox;
 
@@ -40,7 +39,6 @@ public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends Gantt
         Timeline timeline = control.getTimeline();
         timelineScrollBar = control.getTimelineScrollBar();
         horizonScrollBar = control.getHorizonScrollBar();
-        detailNode = control.getDetail();
 
         control.setMinSize(0, 0);
 
@@ -117,7 +115,7 @@ public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends Gantt
         Node detail = getSkinnable().getDetail();
         if (detail != null) {
             SplitPane.setResizableWithParent(detail, false);
-            graphicsMasterDetailPane.setDetailNode(detailNode);
+            graphicsMasterDetailPane.setDetailNode(detail);
         } else {
             graphicsMasterDetailPane.setDetailNode(new Label());
         }

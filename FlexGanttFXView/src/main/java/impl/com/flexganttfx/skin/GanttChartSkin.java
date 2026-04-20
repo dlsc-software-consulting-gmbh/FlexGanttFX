@@ -42,7 +42,6 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
     private final ScrollBar treeTableScrollBar;
     private final MasterDetailPane treeTableMasterDetailPane;
     private final MasterDetailPane graphicsMasterDetailPane;
-    private final Node detailNode;
     private final RowHeaderColumn<R> rowHeader;
     private final HiddenSidesPane leftHandSideHiddenSidesPane;
     private final VBox leftHandSideBox;
@@ -66,7 +65,7 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
         treeTableMasterDetailPane = ganttChart.getTreeTableMasterDetailPane();
         graphicsMasterDetailPane = ganttChart.getGraphicsMasterDetailPane();
         treeTableScrollBar = ganttChart.getTreeTableScrollBar();
-        detailNode = ganttChart.getDetail();
+        Node detailNode = ganttChart.getDetail();
 
         treeTable.setMinWidth(0);
         graphics.setMinSize(0, 0);
@@ -155,7 +154,7 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
             graphicsMasterDetailPane.setMasterNode(leftHandSideBox);
         }
 
-        graphicsMasterDetailPane.setDetailNode(detailNode);
+        graphicsMasterDetailPane.setDetailNode(getSkinnable().getDetail());
 
         getChildren().add(graphicsMasterDetailPane);
     }
@@ -169,7 +168,7 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
         } else { // NONE or HORIZON
             graphicsMasterDetailPane.setMasterNode(getRightHandSideBox());
         }
-        graphicsMasterDetailPane.setDetailNode(detailNode);
+        graphicsMasterDetailPane.setDetailNode(getSkinnable().getDetail());
 
         getChildren().add(graphicsMasterDetailPane);
     }
@@ -194,7 +193,7 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
         graphicsMasterDetailPane.setMasterNode(new Label("Placeholder"));
 
         graphicsMasterDetailPane.setMasterNode(treeTableMasterDetailPane);
-        graphicsMasterDetailPane.setDetailNode(detailNode);
+        graphicsMasterDetailPane.setDetailNode(getSkinnable().getDetail());
 
         getChildren().add(graphicsMasterDetailPane);
     }
