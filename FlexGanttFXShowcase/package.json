@@ -8,7 +8,7 @@
     "main": "index.js",
     "preferGlobal": true,
     "scripts": {"test": "echo \"Error: no test specified\" && exit 1"},
-    "version": "11.13.2",
+    "version": "11.13.3",
     "jdeploy": {
         "singleton": true,
         "fallbackToUniversal": false,
@@ -18,7 +18,7 @@
             "url": ""
         }],
         "javaVersion": "11",
-        "jar": "target/showcase-11.13.2.jar",
+        "jar": "target/showcase-11.13.3.jar",
         "javafx": true,
         "title": "FlexGanttFX Showcase",
         "downloadPage": {"platforms": ["default"]},

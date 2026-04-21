@@ -5,7 +5,7 @@
     <parent>
         <artifactId>demos</artifactId>
         <groupId>com.flexganttfx</groupId>
-        <version>11.13.2</version>
+        <version>11.13.4</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -25,13 +25,13 @@
         <dependency>
             <groupId>com.flexganttfx</groupId>
             <artifactId>view</artifactId>
-            <version>11.13.2</version>
+            <version>11.13.4</version>
         </dependency>
 
         <dependency>
             <groupId>com.flexganttfx</groupId>
             <artifactId>extras</artifactId>
-            <version>11.13.2</version>
+            <version>11.13.4</version>
         </dependency>
 
         <dependency>
