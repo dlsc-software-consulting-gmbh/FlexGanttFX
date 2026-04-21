@@ -18,7 +18,6 @@
 
     <modules>
         <module>FlexGanttFXAirport</module>
-        <module>FlexGanttFXCovid</module>
         <module>FlexGanttFXEditor</module>
         <module>FlexGanttFXEmirates</module>
         <module>FlexGanttFXFactory</module>
