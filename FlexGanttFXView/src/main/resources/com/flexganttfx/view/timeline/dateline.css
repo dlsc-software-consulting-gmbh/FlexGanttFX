@@ -1,9 +1,8 @@
 /*
  * dateline.css file of FlexGanttFX
  * 
- * Copyright 2019 DLSC Software & Consulting GmbH
+ * Copyright 2019 - 2026 DLSC Software & Consulting GmbH
  */
-
 .dateline {
     -fx-background-color: transparent;
     -fx-pref-height: 3em;

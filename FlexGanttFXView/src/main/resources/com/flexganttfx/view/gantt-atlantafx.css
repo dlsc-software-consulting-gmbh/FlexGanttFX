@@ -2,8 +2,8 @@
  * gantt-atlantafx.css — AtlantaFX variant of gantt.css
  *
  * Used automatically by GanttChartBase (and container controls) when an
- * AtlantaFX theme is the active user-agent stylesheet. Replaces Modena-specific
- * lookup values with AtlantaFX semantic CSS variables.
+ * AtlantaFX theme is being used. Replaces Modena-specific lookup values with
+ * AtlantaFX semantic CSS variables.
  *
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
  * This file is part of FlexGanttFX.

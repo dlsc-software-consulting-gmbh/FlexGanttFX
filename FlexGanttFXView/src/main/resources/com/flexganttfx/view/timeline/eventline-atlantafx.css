@@ -1,9 +1,8 @@
 /*
  * eventline-atlantafx.css — AtlantaFX variant of eventline.css
  *
- * Used automatically by Eventline when an AtlantaFX theme is the active
- * user-agent stylesheet. Replaces Modena-specific lookup values with AtlantaFX
- * semantic CSS variables.
+ * Used automatically by the Eventline control when an AtlantaFX theme is being
+ * used. Replaces Modena-specific lookup values with AtlantaFX semantic CSS variables.
  *
  * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
  * This file is part of FlexGanttFX.
