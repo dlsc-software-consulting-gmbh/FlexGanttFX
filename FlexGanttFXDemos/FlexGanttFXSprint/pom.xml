@@ -5,12 +5,12 @@
     <artifactId>sprint</artifactId>
     <name>FlexGanttFXSprint</name>
     <description>Agile Sprint Planner demo</description>
-    <version>11.13.4</version>
+    <version>11.13.5</version>
 
     <parent>
         <groupId>com.flexganttfx</groupId>
         <artifactId>demos</artifactId>
-        <version>11.13.4</version>
+        <version>11.13.5</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 

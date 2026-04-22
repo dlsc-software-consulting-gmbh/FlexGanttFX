@@ -1,0 +1,9 @@
+.hospital-app {
+}
+
+.hospital-view {
+}
+
+.hospital-conflict-detail-label {
+    -fx-text-fill: -fx-text-inner-color;
+}

@@ -26,6 +26,7 @@ public class SampleRegistry {
                             EmiratesSample::new,
                             MSProjectSample::new,
                             FactorySample::new,
+                            HospitalSample::new,
                             WeatherSample::new,
                             SpaceMissionSample::new,
                             AirportSample::new,

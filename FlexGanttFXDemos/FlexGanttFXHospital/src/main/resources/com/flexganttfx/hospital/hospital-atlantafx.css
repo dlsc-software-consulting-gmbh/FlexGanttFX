@@ -1,0 +1,24 @@
+.hospital-app {
+}
+
+.hospital-view {
+}
+
+.hospital-conflict-detail-label {
+    -fx-text-fill: -color-fg-subtle;
+}
+
+.selection-detail-box {
+    -fx-background-color: -color-bg-default;
+    -fx-border-color: -color-border-default;
+    -fx-border-width: 1px;
+}
+
+.action-bar {
+    -fx-background-color: -color-bg-subtle;
+}
+
+.tab-pane {
+    -fx-border-color: -color-border-default;
+    -fx-padding: 10px;
+}

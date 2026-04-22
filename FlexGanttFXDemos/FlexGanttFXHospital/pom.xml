@@ -12,14 +12,14 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>factory</artifactId>
-    <name>FlexGanttFXFactory</name>
-    <description>Manufacturing floor scheduling demo for FlexGanttFX</description>
+    <artifactId>hospital</artifactId>
+    <name>FlexGanttFXHospital</name>
+    <description>Interactive operating room scheduling demo for FlexGanttFX</description>
 
     <properties>
         <maven.deploy.skip>true</maven.deploy.skip>
         <maven.javadoc.skip>true</maven.javadoc.skip>
-        <main.class>com.flexganttfx.factory.FactoryApp</main.class>
+        <main.class>com.flexganttfx.hospital.HospitalApp</main.class>
     </properties>
 
     <dependencies>
@@ -40,6 +40,24 @@
             <groupId>io.github.mkpaz</groupId>
             <artifactId>atlantafx-base</artifactId>
             <version>${atlantafx.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.calendarfx</groupId>
+            <artifactId>view</artifactId>
+            <version>12.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-javafx</artifactId>
+            <version>${ikonli.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-materialdesign-pack</artifactId>
+            <version>${ikonli.version}</version>
         </dependency>
 
     </dependencies>
@@ -79,7 +97,7 @@
                             <useUniqueVersions>false</useUniqueVersions>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>libs/</classpathPrefix>
-                            <mainClass>com.flexganttfx.factory.FactoryAppLauncher</mainClass>
+                            <mainClass>com.flexganttfx.hospital.HospitalAppLauncher</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

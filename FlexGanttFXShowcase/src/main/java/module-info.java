@@ -29,5 +29,6 @@ open module com.flexganttfx.sampler {
     requires com.flexganttfx.weather;
     requires com.flexganttfx.space;
     requires com.flexganttfx.airport;
+    requires com.flexganttfx.hospital;
     requires com.flexganttfx.sprint;
 }
