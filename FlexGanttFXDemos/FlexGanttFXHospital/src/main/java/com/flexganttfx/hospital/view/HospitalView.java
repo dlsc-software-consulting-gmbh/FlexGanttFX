@@ -90,6 +90,7 @@ public class HospitalView extends BorderPane {
     private final Label selectionLabel = new Label("Select a case to inspect assignments and calendar details.");
     private final Label conflictLabel = new Label();
     private final ListView<ScheduleConflict> conflictList = new ListView<>();
+    private final Tab conflictsTab = new Tab(conflictTabTitle(0));
 
     private HospitalCase selectedCase;
     private boolean updatingDayView;
@@ -237,8 +238,8 @@ public class HospitalView extends BorderPane {
         VBox conflictsBox = new VBox(4, conflictLabel, conflictList);
         VBox.setVgrow(conflictList, Priority.ALWAYS);
 
-        Tab conflictsTab = new Tab("Conflicts", conflictsBox);
         conflictsTab.setClosable(false);
+        conflictsTab.setContent(conflictsBox);
 
         TabPane tabPane = new TabPane(dayViewTab, conflictsTab);
         tabPane.getSelectionModel().select(dayViewTab);
@@ -466,6 +467,7 @@ public class HospitalView extends BorderPane {
     private void refreshDetailPane() {
         List<ScheduleConflict> conflicts = model.findConflicts();
         conflictList.getItems().setAll(conflicts);
+        conflictsTab.setText(conflictTabTitle(conflicts.size()));
 
         if (selectedCase == null) {
             selectionLabel.setText("Select a surgery or resource assignment to inspect its room, staff, equipment, and day plan.");
@@ -495,6 +497,10 @@ public class HospitalView extends BorderPane {
         } finally {
             updatingDayView = false;
         }
+    }
+
+    private static String conflictTabTitle(int conflictCount) {
+        return "Conflicts (" + conflictCount + ")";
     }
 
     private CalendarSource buildCalendarSource(HospitalCase hospitalCase) {
