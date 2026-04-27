@@ -39,6 +39,7 @@
         <cssfx.version>11.5.1</cssfx.version>
         <maven.javadoc.skip>false</maven.javadoc.skip>
         <jpro.version>2026.1.1</jpro.version>
+        <jpro-platform.version>0.6.1</jpro-platform.version>
         <client.plugin.version>0.1.36</client.plugin.version>
         <exec.maven.plugin.version>3.0.0</exec.maven.plugin.version>
         <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>

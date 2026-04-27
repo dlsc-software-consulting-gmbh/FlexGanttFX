@@ -7,6 +7,7 @@ open module com.flexganttfx.space {
     requires com.flexganttfx.extras;
     requires atlantafx.base;
     requires java.prefs;
+    requires one.jpro.platform.utils;
     exports com.flexganttfx.space;
     exports com.flexganttfx.space.model;
     exports com.flexganttfx.space.view;

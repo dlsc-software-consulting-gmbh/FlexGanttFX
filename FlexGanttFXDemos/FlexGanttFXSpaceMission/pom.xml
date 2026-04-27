@@ -41,6 +41,11 @@
             <artifactId>atlantafx-base</artifactId>
             <version>${atlantafx.version}</version>
         </dependency>
+        <dependency>
+            <groupId>one.jpro.platform</groupId>
+            <artifactId>jpro-utils</artifactId>
+            <version>${jpro-platform.version}</version>
+        </dependency>
 
     </dependencies>
 

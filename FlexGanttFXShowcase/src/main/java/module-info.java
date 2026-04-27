@@ -31,4 +31,5 @@ open module com.flexganttfx.sampler {
     requires com.flexganttfx.airport;
     requires com.flexganttfx.hospital;
     requires com.flexganttfx.sprint;
+    requires jpro.webapi;
 }

@@ -30,10 +30,12 @@ import com.flexganttfx.view.container.DualGanttChartContainer;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import javafx.animation.KeyFrame;
 import javafx.animation.Animation;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import one.jpro.platform.utils.TreeShowing;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -53,6 +55,7 @@ public class SpaceMissionView extends VBox {
     private final GanttChart<GroundStation> groundChart;
     private final GanttChartToolBar<Spacecraft>    toolBar;
     private final GanttChartStatusBar<Spacecraft>  statusBar;
+    private Timeline timer;
 
     public SpaceMissionView() {
         // ---------- Layers ----------
@@ -107,7 +110,17 @@ public class SpaceMissionView extends VBox {
         getChildren().addAll(toolBar, dual, statusBar);
 
         // ---------- Real-time NowLine ----------
-        startNowLineTimer();
+        TreeShowing.treeShowing(this).subscribe(v -> {
+            if(v) {
+                startNowLineTimer();
+            } else {
+                if(timer != null) {
+                    timer.stop();
+                    timer = null;
+                }
+            }
+        });
+
 
         Platform.runLater(() -> groundChart.getGraphics().showAllActivities());
     }
@@ -136,7 +149,7 @@ public class SpaceMissionView extends VBox {
     }
 
     private void startNowLineTimer() {
-        javafx.animation.Timeline timer = new javafx.animation.Timeline(
+        timer = new javafx.animation.Timeline(
                 new KeyFrame(Duration.seconds(1), e -> {
                     Instant now = Instant.now();
                     spacecraftChart.getTimeline().getModel().setNow(now);
