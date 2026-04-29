@@ -166,7 +166,7 @@ public class HospitalView extends BorderPane {
 
     public void applyThemeStylesheet() {
         String stylesheet = Objects.requireNonNull(CalendarView.class.getResource(CALENDARFX_ATLANTAFX_STYLESHEET)).toExternalForm();
-        if (FlexGanttFXControl.isAtlantaFXActive()) {
+        if (FlexGanttFXControl.isAtlantaFXActive(getScene())) {
             if (!dayView.getStylesheets().contains(stylesheet)) {
                 dayView.getStylesheets().add(stylesheet);
             }

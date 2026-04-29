@@ -32,7 +32,6 @@ import static java.util.Objects.requireNonNull;
  * purpose.
  *
  * @param <R> the type of the rows in the Gantt chart
- *
  * @since 1.0
  */
 public class GanttChartStatusBar<R extends Row<?, ?, ?>> extends StatusBar {
@@ -46,12 +45,6 @@ public class GanttChartStatusBar<R extends Row<?, ?, ?>> extends StatusBar {
      * @since 1.0
      */
     public GanttChartStatusBar() {
-        if (FlexGanttFXControl.isAtlantaFXActive()) {
-            getStylesheets().add(requireNonNull(GanttChartStatusBar.class.getResource("statusbar-atlantafx.css")).toExternalForm());
-        } else {
-            getStylesheets().add(requireNonNull(GanttChartStatusBar.class.getResource("statusbar.css")).toExternalForm());
-        }
-
         getStyleClass().add("gantt-chart-status-bar");
 
         gridLabel = new Label();
@@ -83,14 +76,22 @@ public class GanttChartStatusBar<R extends Row<?, ?, ?>> extends StatusBar {
     /**
      * Constructs a new statusbar control.
      *
-     * @param ganttChart
-     *            the Gantt chart for which the statusbar will be used
+     * @param ganttChart the Gantt chart for which the statusbar will be used
      * @since 1.0
      */
     public GanttChartStatusBar(GanttChartBase<R> ganttChart) {
         this();
 
         setGanttChart(ganttChart);
+    }
+
+    @Override
+    public String getUserAgentStylesheet() {
+        if (FlexGanttFXControl.isAtlantaFXActive(getScene())) {
+            return requireNonNull(GanttChartStatusBar.class.getResource("statusbar-atlantafx.css")).toExternalForm();
+        } else {
+            return requireNonNull(GanttChartStatusBar.class.getResource("statusbar.css")).toExternalForm();
+        }
     }
 
     private final InvalidationListener focusedActivityListener = observable -> {
@@ -148,8 +149,7 @@ public class GanttChartStatusBar<R extends Row<?, ?, ?>> extends StatusBar {
     /**
      * Sets the value of {@link #ganttChartProperty()}.
      *
-     * @param ganttChart
-     *            the Gantt chart
+     * @param ganttChart the Gantt chart
      * @since 1.0
      */
     public final void setGanttChart(GanttChartBase<R> ganttChart) {

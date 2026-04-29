@@ -26,6 +26,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.prefs.Preferences;
 
 public class HospitalApp extends Application {
@@ -101,8 +102,8 @@ public class HospitalApp extends Application {
     }
 
     private void applyThemeStylesheet(Scene scene) {
-        String stylesheet = FlexGanttFXControl.isAtlantaFXActive() ? ATLANTAFX_STYLESHEET : DEFAULT_STYLESHEET;
-        scene.getStylesheets().setAll(HospitalApp.class.getResource(stylesheet).toExternalForm());
+        String stylesheet = FlexGanttFXControl.isAtlantaFXActive(scene) ? ATLANTAFX_STYLESHEET : DEFAULT_STYLESHEET;
+        scene.getStylesheets().setAll(Objects.requireNonNull(HospitalApp.class.getResource(stylesheet)).toExternalForm());
     }
 
     private Theme resolvePersistedTheme() {

@@ -69,8 +69,8 @@ public class ShowcaseView extends BorderPane {
     private static final String PREF_THEME = "theme";
 
     /** Applies the persisted theme (or PrimerDark) before the scene is created. */
-    public static void applyPersistedTheme() {
-        Application.setUserAgentStylesheet(resolvePersistedTheme().getUserAgentStylesheet());
+    public static void applyPersistedTheme(Scene scene) {
+        scene.setUserAgentStylesheet(resolvePersistedTheme().getUserAgentStylesheet());
     }
 
     private static Theme resolvePersistedTheme() {
@@ -386,7 +386,7 @@ public class ShowcaseView extends BorderPane {
 
     private void applyTheme(Theme theme) {
         currentTheme = theme;
-        Application.setUserAgentStylesheet(theme.getUserAgentStylesheet());
+        getScene().setUserAgentStylesheet(theme.getUserAgentStylesheet());
         PREFS.put(PREF_THEME, theme.getName());
         updateThemeMenuText();
         updateThemeStyleClass();

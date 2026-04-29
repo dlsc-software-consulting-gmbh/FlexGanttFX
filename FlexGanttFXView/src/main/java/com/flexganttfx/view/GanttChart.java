@@ -363,7 +363,7 @@ public class GanttChart<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
         TreeTableView<R> table = new TreeTableView<>() {
             @Override
             public String getUserAgentStylesheet() {
-                if (FlexGanttFXControl.isAtlantaFXActive()) {
+                if (isAtlantaFXActive(getScene())) {
                     return requireNonNull(GanttChartBase.class.getResource("gantt-atlantafx.css")).toExternalForm();
                 }
                 return requireNonNull(GanttChartBase.class.getResource("gantt.css")).toExternalForm();

@@ -6,8 +6,10 @@ package com.flexganttfx.view.util;
 
 import com.flexganttfx.core.FlexGanttFX;
 import com.flexganttfx.core.LoggingDomain;
+import com.flexganttfx.core.StringUtils;
 import com.flexganttfx.view.GanttChart;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Control;
@@ -43,12 +45,24 @@ public abstract class FlexGanttFXControl extends Control {
 	 * theme. Detection is done by checking whether the user-agent stylesheet URL
 	 * contains the string {@code "atlantafx"}. No compile-time dependency on the
 	 * AtlantaFX library is required.
+	 *
+	 * @param scene optional
 	 */
-	public static boolean isAtlantaFXActive() {
-		String uas = Application.getUserAgentStylesheet();
+	public static boolean isAtlantaFXActive(Scene scene) {
+		String uas = null;
+
+		if (scene != null) {
+			uas = scene.getUserAgentStylesheet();
+		}
+
+		if (StringUtils.isBlank(uas)) {
+			uas = Application.getUserAgentStylesheet();
+		}
+
 		if (uas == null) {
 			return false;
 		}
+
 		return uas.toLowerCase(Locale.ROOT).contains("atlantafx");
 	}
 
@@ -67,7 +81,7 @@ public abstract class FlexGanttFXControl extends Control {
 	 * @since 1.3
 	 */
 	protected String getUserAgentStylesheet(Class<?> clazz, String fileName) {
-		if (isAtlantaFXActive()) {
+		if (isAtlantaFXActive(getScene())) {
 			if (stylesheetAtlantaFX == null) {
 				String afxFileName = toAtlantaFXFileName(fileName);
 				URL afxResource = clazz.getResource(afxFileName);
