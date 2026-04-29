@@ -5,6 +5,7 @@
 package com.flexganttfx.demo.showcase;
 
 import atlantafx.base.theme.*;
+import com.jpro.webapi.WebAPI;
 import devtoolsfx.gui.GUI;
 import com.flexganttfx.core.FlexGanttFX;
 import com.flexganttfx.demo.Sample;
@@ -12,6 +13,7 @@ import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -29,6 +31,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
@@ -144,7 +147,19 @@ public class ShowcaseView extends BorderPane {
 
         Button devToolsButton = new Button("DevToolsFX");
         devToolsButton.getStyleClass().add("showcase-website-btn");
-        devToolsButton.setOnAction(e -> GUI.openToolStage(stage, hostServices));
+        devToolsButton.setOnAction(e -> {
+            if(WebAPI.isBrowser()) {
+                var webAPI = WebAPI.getWebAPI(this.getScene());
+                var stage2 = new Stage();
+                var toolPane = GUI.createToolPane(stage, hostServices);
+                stage2.setScene(new Scene(toolPane));
+                stage2.setOnShown((e2) -> toolPane.getConnector().start());
+                stage2.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, (event) -> toolPane.getConnector().stop());
+                webAPI.openStageAsPopup(stage2);
+            } else {
+                GUI.openToolStage(stage, hostServices);
+            }
+        });
 
         Button websiteBtn = new Button("flexganttfx.com  ↗");
         websiteBtn.getStyleClass().add("showcase-website-btn");
@@ -166,7 +181,12 @@ public class ShowcaseView extends BorderPane {
         });
         HBox.setMargin(dlscLogo, new Insets(0, 0, 0, 24));
 
-        bar.getChildren().addAll(logoGroup, tagline, dlscLogo, spacer, themeMenu, devToolsButton, websiteBtn);
+        bar.getChildren().addAll(logoGroup, tagline, dlscLogo, spacer, themeMenu);
+        if(!WebAPI.isBrowser()) {
+            // Remove from web for now, because it leaks
+            bar.getChildren().add(devToolsButton);
+        }
+        bar.getChildren().add(websiteBtn);
         return bar;
     }
 
