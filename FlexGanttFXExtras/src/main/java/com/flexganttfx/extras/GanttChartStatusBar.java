@@ -12,7 +12,7 @@ import com.flexganttfx.model.Row;
 import com.flexganttfx.model.dateline.VirtualGrid;
 import com.flexganttfx.view.GanttChartBase;
 import com.flexganttfx.view.graphics.GraphicsBase;
-import com.flexganttfx.view.util.FlexGanttFXControl;
+import com.flexganttfx.view.util.ThemingUtil;
 import javafx.beans.InvalidationListener;
 import javafx.beans.WeakInvalidationListener;
 import javafx.beans.property.ObjectProperty;
@@ -71,6 +71,12 @@ public class GanttChartStatusBar<R extends Row<?, ?, ?>> extends StatusBar {
 
             updateGridLabel();
         });
+
+        if (ThemingUtil.isAtlantaFXActive(getScene())) {
+            getStylesheets().add(requireNonNull(GanttChartStatusBar.class.getResource("statusbar-atlantafx.css")).toExternalForm());
+        } else {
+            getStylesheets().add(requireNonNull(GanttChartStatusBar.class.getResource("statusbar.css")).toExternalForm());
+        }
     }
 
     /**
@@ -83,15 +89,6 @@ public class GanttChartStatusBar<R extends Row<?, ?, ?>> extends StatusBar {
         this();
 
         setGanttChart(ganttChart);
-    }
-
-    @Override
-    public String getUserAgentStylesheet() {
-        if (FlexGanttFXControl.isAtlantaFXActive(getScene())) {
-            return requireNonNull(GanttChartStatusBar.class.getResource("statusbar-atlantafx.css")).toExternalForm();
-        } else {
-            return requireNonNull(GanttChartStatusBar.class.getResource("statusbar.css")).toExternalForm();
-        }
     }
 
     private final InvalidationListener focusedActivityListener = observable -> {

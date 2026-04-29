@@ -37,6 +37,7 @@ import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.prefs.Preferences;
@@ -70,7 +71,12 @@ public class ShowcaseView extends BorderPane {
 
     /** Applies the persisted theme (or PrimerDark) before the scene is created. */
     public static void applyPersistedTheme(Scene scene) {
-        scene.setUserAgentStylesheet(resolvePersistedTheme().getUserAgentStylesheet());
+        Theme theme = resolvePersistedTheme();
+        if (theme.equals(MODENA)) {
+            scene.setUserAgentStylesheet(null);
+        } else {
+            scene.setUserAgentStylesheet(theme.getUserAgentStylesheet());
+        }
     }
 
     private static Theme resolvePersistedTheme() {
@@ -88,6 +94,8 @@ public class ShowcaseView extends BorderPane {
     private final SampleContentView contentView;
     private final WelcomeView welcomeView;
     private final List<Label> allSampleRows = new ArrayList<>();
+    private final Stage stage;
+    private final HostServices hostServices;
     private MenuButton themeMenu;
     private Theme currentTheme = resolvePersistedTheme();
 
@@ -95,13 +103,15 @@ public class ShowcaseView extends BorderPane {
     private Label selectedLabel = null;
 
     public ShowcaseView(Stage stage, HostServices hostServices) {
+        this.stage = stage;
+        this.hostServices = hostServices;
         getStyleClass().add("showcase-root");
         sceneProperty().addListener((obs, oldScene, newScene) -> updateThemeStyleClass());
 
         contentView = new SampleContentView(stage);
         welcomeView = new WelcomeView(this::selectFirstSample);
 
-        setTop(buildTopBar(stage, hostServices));
+        rebuildTopBar();
         setLeft(buildSidebar());
         setCenter(welcomeView);
     }
@@ -169,7 +179,7 @@ public class ShowcaseView extends BorderPane {
             }
         });
 
-        ImageView dlscLogo = new ImageView(new Image(ShowcaseView.class.getResourceAsStream("/com/flexganttfx/demo/showcase/dlsc-logo-small.png")));
+        ImageView dlscLogo = new ImageView(new Image(Objects.requireNonNull(ShowcaseView.class.getResourceAsStream("/com/flexganttfx/demo/showcase/dlsc-logo-small.png"))));
         dlscLogo.setFitHeight(28);
         dlscLogo.setPreserveRatio(true);
         dlscLogo.setSmooth(true);
@@ -188,6 +198,10 @@ public class ShowcaseView extends BorderPane {
         }
         bar.getChildren().add(websiteBtn);
         return bar;
+    }
+
+    private void rebuildTopBar() {
+        setTop(buildTopBar(stage, hostServices));
     }
 
     // ── Sidebar ───────────────────────────────────────────────────────────
@@ -386,10 +400,16 @@ public class ShowcaseView extends BorderPane {
 
     private void applyTheme(Theme theme) {
         currentTheme = theme;
-        getScene().setUserAgentStylesheet(theme.getUserAgentStylesheet());
+        if (theme.equals(MODENA)) {
+            getScene().setUserAgentStylesheet(null);
+        } else {
+            getScene().setUserAgentStylesheet(theme.getUserAgentStylesheet());
+        }
         PREFS.put(PREF_THEME, theme.getName());
-        updateThemeMenuText();
+
+        rebuildTopBar();
         updateThemeStyleClass();
+
         if (selectedLabel != null) {
             handleSampleClick(selectedLabel);
         }

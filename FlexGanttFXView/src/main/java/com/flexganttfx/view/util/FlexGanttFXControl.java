@@ -6,10 +6,7 @@ package com.flexganttfx.view.util;
 
 import com.flexganttfx.core.FlexGanttFX;
 import com.flexganttfx.core.LoggingDomain;
-import com.flexganttfx.core.StringUtils;
 import com.flexganttfx.view.GanttChart;
-import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Control;
@@ -17,7 +14,6 @@ import javafx.scene.control.Control;
 import java.net.URL;
 import java.time.Instant;
 import java.time.Year;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
@@ -41,32 +37,6 @@ public abstract class FlexGanttFXControl extends Control {
 	private String stylesheetAtlantaFX;
 
 	/**
-	 * Returns {@code true} when the application is currently using an AtlantaFX
-	 * theme. Detection is done by checking whether the user-agent stylesheet URL
-	 * contains the string {@code "atlantafx"}. No compile-time dependency on the
-	 * AtlantaFX library is required.
-	 *
-	 * @param scene optional
-	 */
-	public static boolean isAtlantaFXActive(Scene scene) {
-		String uas = null;
-
-		if (scene != null) {
-			uas = scene.getUserAgentStylesheet();
-		}
-
-		if (StringUtils.isBlank(uas)) {
-			uas = Application.getUserAgentStylesheet();
-		}
-
-		if (uas == null) {
-			return false;
-		}
-
-		return uas.toLowerCase(Locale.ROOT).contains("atlantafx");
-	}
-
-	/**
 	 * A helper method that ensures that the resource based lookup of the user
 	 * agent stylesheet only happens once per theme type. When an AtlantaFX theme
 	 * is active it tries to load {@code <name>-atlantafx.css} from the same
@@ -81,7 +51,7 @@ public abstract class FlexGanttFXControl extends Control {
 	 * @since 1.3
 	 */
 	protected String getUserAgentStylesheet(Class<?> clazz, String fileName) {
-		if (isAtlantaFXActive(getScene())) {
+		if (ThemingUtil.isAtlantaFXActive(getScene())) {
 			if (stylesheetAtlantaFX == null) {
 				String afxFileName = toAtlantaFXFileName(fileName);
 				URL afxResource = clazz.getResource(afxFileName);

@@ -16,6 +16,7 @@ import com.flexganttfx.view.util.FlexGanttFXControl;
 import com.flexganttfx.view.util.Messages;
 import com.flexganttfx.view.util.Position;
 import com.flexganttfx.view.util.RowHeaderColumn;
+import com.flexganttfx.view.util.ThemingUtil;
 import impl.com.flexganttfx.skin.GanttChartSkin;
 import impl.com.flexganttfx.skin.treetable.GanttChartTreeItem;
 import javafx.beans.binding.Bindings;
@@ -363,7 +364,7 @@ public class GanttChart<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
         TreeTableView<R> table = new TreeTableView<>() {
             @Override
             public String getUserAgentStylesheet() {
-                if (isAtlantaFXActive(getScene())) {
+                if (ThemingUtil.isAtlantaFXActive(getScene())) {
                     return requireNonNull(GanttChartBase.class.getResource("gantt-atlantafx.css")).toExternalForm();
                 }
                 return requireNonNull(GanttChartBase.class.getResource("gantt.css")).toExternalForm();

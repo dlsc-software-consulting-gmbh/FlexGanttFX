@@ -14,7 +14,7 @@ import atlantafx.base.theme.PrimerLight;
 import atlantafx.base.theme.Theme;
 import com.flexganttfx.core.FlexGanttFX;
 import com.flexganttfx.hospital.view.HospitalView;
-import com.flexganttfx.view.util.FlexGanttFXControl;
+import com.flexganttfx.view.util.ThemingUtil;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
@@ -102,7 +102,7 @@ public class HospitalApp extends Application {
     }
 
     private void applyThemeStylesheet(Scene scene) {
-        String stylesheet = FlexGanttFXControl.isAtlantaFXActive(scene) ? ATLANTAFX_STYLESHEET : DEFAULT_STYLESHEET;
+        String stylesheet = ThemingUtil.isAtlantaFXActive(scene) ? ATLANTAFX_STYLESHEET : DEFAULT_STYLESHEET;
         scene.getStylesheets().setAll(Objects.requireNonNull(HospitalApp.class.getResource(stylesheet)).toExternalForm());
     }
 

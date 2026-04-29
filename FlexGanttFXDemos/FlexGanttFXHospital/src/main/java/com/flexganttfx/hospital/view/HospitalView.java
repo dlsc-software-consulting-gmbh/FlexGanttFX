@@ -29,7 +29,7 @@ import com.flexganttfx.view.graphics.ActivityEvent;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.graphics.layer.InnerLinesLayer;
 import com.flexganttfx.view.util.AutoLinesManager;
-import com.flexganttfx.view.util.FlexGanttFXControl;
+import com.flexganttfx.view.util.ThemingUtil;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
@@ -166,7 +166,7 @@ public class HospitalView extends BorderPane {
 
     public void applyThemeStylesheet() {
         String stylesheet = Objects.requireNonNull(CalendarView.class.getResource(CALENDARFX_ATLANTAFX_STYLESHEET)).toExternalForm();
-        if (FlexGanttFXControl.isAtlantaFXActive(getScene())) {
+        if (ThemingUtil.isAtlantaFXActive(getScene())) {
             if (!dayView.getStylesheets().contains(stylesheet)) {
                 dayView.getStylesheets().add(stylesheet);
             }

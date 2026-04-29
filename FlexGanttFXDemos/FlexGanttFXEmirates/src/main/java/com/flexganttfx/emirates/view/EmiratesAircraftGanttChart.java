@@ -35,8 +35,6 @@ public class EmiratesAircraftGanttChart extends GanttChartLite<ModelObject<?, ?,
     public EmiratesAircraftGanttChart() {
         setAutoHideScrollBar(false);
 
-        backgroundProperty().addListener(it -> Thread.dumpStack());
-
         Timeline timeline = getTimeline();
         timeline.showTemporalUnit(ChronoUnit.HOURS, 50);
         timeline.setMoveAnimated(!WebAPI.isBrowser());
