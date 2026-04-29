@@ -55,12 +55,11 @@ public class ShowcaseApp extends Application {
         ShowcaseView view = new ShowcaseView(stage, getHostServices());
 
         Scene scene = new Scene(view, 1400, 900);
+
         scene.getStylesheets().add(Objects.requireNonNull(ShowcaseApp.class.getResource("/com/flexganttfx/demo/showcase/showcase.css")).toExternalForm());
 
         stage.setTitle("FlexGanttFX — Feature Showcase");
         stage.setScene(scene);
-        CSSFX.start(scene);
-        StageManager.install(stage, "flexganttfx-showcase");
         stage.show();
     }
 

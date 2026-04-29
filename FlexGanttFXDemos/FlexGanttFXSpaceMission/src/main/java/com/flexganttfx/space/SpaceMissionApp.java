@@ -105,15 +105,16 @@ public class SpaceMissionApp extends Application {
         MenuBar menuBar = new MenuBar();
 
         // File menu
-        Menu fileMenu = new Menu("File");
         MenuItem showEarliest = new MenuItem("Show Earliest Activities");
-        showEarliest.setOnAction(evt ->
-                view.getSpacecraftChart().getGraphics().showEarliestActivities());
+        showEarliest.setOnAction(evt -> view.getSpacecraftChart().getGraphics().showEarliestActivities());
+
         MenuItem showNow = new MenuItem("Show Now");
-        showNow.setOnAction(evt ->
-                view.getSpacecraftChart().getTimeline().showNow());
+        showNow.setOnAction(evt -> view.getSpacecraftChart().getTimeline().showNow());
+
         MenuItem exit = new MenuItem("Exit");
         exit.setOnAction(evt -> Platform.exit());
+
+        Menu fileMenu = new Menu("File");
         fileMenu.getItems().addAll(showEarliest, showNow, new SeparatorMenuItem(), exit);
 
         // Theme menu

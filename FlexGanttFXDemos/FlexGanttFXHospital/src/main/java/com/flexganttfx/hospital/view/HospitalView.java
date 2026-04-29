@@ -158,6 +158,7 @@ public class HospitalView extends BorderPane {
         dayView.setShowAgendaView(false);
         dayView.setShowScrollBar(true);
         dayView.getWeekendDays().clear(); // hide weekend background colors
+        dayView.setEntryDetailsCallback(param -> false); // do not show popover
         dayView.setEarlyLateHoursStrategy(DayViewBase.EarlyLateHoursStrategy.SHOW_COMPRESSED);
         dayView.setEntryEditPolicy(param -> param.getEntry() != null && param.getEntry().getUserObject() instanceof HospitalCase);
         applyThemeStylesheet();

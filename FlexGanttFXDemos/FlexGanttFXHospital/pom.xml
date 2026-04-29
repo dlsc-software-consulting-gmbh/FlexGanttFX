@@ -6,7 +6,7 @@
     <parent>
         <artifactId>demos</artifactId>
         <groupId>com.flexganttfx</groupId>
-        <version>11.13.5</version>
+        <version>11.13.13</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 

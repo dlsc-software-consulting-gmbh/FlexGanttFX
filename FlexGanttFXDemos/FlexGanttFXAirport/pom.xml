@@ -6,12 +6,12 @@
     <artifactId>airport</artifactId>
     <name>FlexGanttFXAirport</name>
     <description>Airport Ground Operations demo for Frankfurt International Airport</description>
-    <version>11.13.5</version>
+    <version>11.13.13</version>
 
     <parent>
         <groupId>com.flexganttfx</groupId>
         <artifactId>demos</artifactId>
-        <version>11.13.5</version>
+        <version>11.13.13</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
