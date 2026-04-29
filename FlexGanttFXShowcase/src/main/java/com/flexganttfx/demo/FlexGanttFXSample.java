@@ -73,67 +73,6 @@ public abstract class FlexGanttFXSample extends FlexGanttFXSampleBase {
 
         BorderPane.setMargin(ganttChart, new Insets(0));
 
-        TreeTableView<HelloRow> tableView = new TreeTableView<>();
-        tableView.setFixedCellSize(-1);
-        tableView.setShowRoot(true);
-
-        TreeTableColumn<HelloRow, String> col1 = new TreeTableColumn<>("Name");
-        col1.setCellValueFactory(new TreeItemPropertyValueFactory<>("name"));
-        col1.setCellFactory(column -> new TreeTableCell<>() {
-            {
-                indexProperty().addListener(it -> {
-                    if (getIndex() == 0) {
-                        setPrefHeight(20);
-                    } else {
-                        setPrefHeight(50);
-                    }
-                });
-            }
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                setText(item);
-            }
-        });
-
-        tableView.getColumns().setAll(col1);
-
-        HelloRow rootRow = new HelloRow("Root");
-        TreeItem<HelloRow> rootItem = new TreeItem<>(rootRow);
-        tableView.setRoot(rootItem);
-
-        for (int i = 0; i < 500; i++) {
-            HelloRow row = new HelloRow("Row " + i);
-            row.setHeight(50);
-            TreeItem<HelloRow> child = new TreeItem<>(row);
-            rootItem.getChildren().add(child);
-        }
-
-        ListView<String> listView = new ListView<>();
-        listView.setFixedCellSize(Region.USE_COMPUTED_SIZE);
-        listView.setCellFactory(view -> new ListCell<>() {
-            {
-                indexProperty().addListener(it -> {
-                    if (getIndex() == 0) {
-                        setPrefHeight(20);
-                    } else {
-                        setPrefHeight(50);
-                    }
-                });
-            }
-
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-
-                setText(item);
-            }
-        });
-
-        for (int i = 0; i < 500; i++) {
-            listView.getItems().add("Row " + i);
-        }
-
         return ganttPane;
     }
 
