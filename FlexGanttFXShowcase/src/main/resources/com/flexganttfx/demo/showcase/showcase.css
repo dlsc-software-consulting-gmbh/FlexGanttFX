@@ -112,6 +112,24 @@
     -fx-background-color: -showcase-top-bar-fg;
 }
 
+.showcase-footer {
+    -fx-background-color: -showcase-top-bar-bg;
+    -fx-padding: 8 16 8 16;
+    -fx-alignment: center;
+    -fx-spacing: 4;
+}
+
+.showcase-footer-link {
+    -fx-text-fill: -showcase-top-bar-fg;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-underline: true;
+}
+
+.showcase-footer-link:hover {
+    -fx-opacity: 0.85;
+}
+
 .showcase-gantt-toolbar {
     -fx-background-color: -showcase-border-color, -showcase-bg-subtle;
     -fx-background-insets: 0px, 0px 0px 1px 0px;

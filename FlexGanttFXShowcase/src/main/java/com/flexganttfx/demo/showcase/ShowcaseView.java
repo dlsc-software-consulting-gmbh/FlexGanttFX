@@ -9,6 +9,7 @@ import com.jpro.webapi.WebAPI;
 import devtoolsfx.gui.GUI;
 import com.flexganttfx.core.FlexGanttFX;
 import com.flexganttfx.demo.Sample;
+import devtoolsfx.gui.ToolPane;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.geometry.Insets;
@@ -52,24 +53,28 @@ public class ShowcaseView extends BorderPane {
     private static final String ATLANTAFX_LIGHT_THEME_CLASS = "showcase-atlantafx-light-theme";
     private static final String MODENA_THEME_CLASS = "showcase-modena-theme";
 
-    /** Sentinel theme that restores JavaFX's built-in Modena stylesheet. */
+    /**
+     * Sentinel theme that restores JavaFX's built-in Modena stylesheet.
+     */
     private static final Theme MODENA = Theme.of("Modena", Application.STYLESHEET_MODENA, false);
 
     private static final List<Theme> THEMES = List.of(
-        new PrimerDark(),
-        new PrimerLight(),
-        new NordDark(),
-        new NordLight(),
-        new CupertinoDark(),
-        new CupertinoLight(),
-        new Dracula(),
-        MODENA
+            new PrimerDark(),
+            new PrimerLight(),
+            new NordDark(),
+            new NordLight(),
+            new CupertinoDark(),
+            new CupertinoLight(),
+            new Dracula(),
+            MODENA
     );
 
     private static final Preferences PREFS = Preferences.userNodeForPackage(ShowcaseView.class);
     private static final String PREF_THEME = "theme";
 
-    /** Applies the persisted theme (or PrimerDark) before the scene is created. */
+    /**
+     * Applies the persisted theme (or PrimerDark) before the scene is created.
+     */
     public static void applyPersistedTheme(Scene scene) {
         Theme theme = resolvePersistedTheme();
         if (theme.equals(MODENA)) {
@@ -114,6 +119,9 @@ public class ShowcaseView extends BorderPane {
         rebuildTopBar();
         setLeft(buildSidebar());
         setCenter(welcomeView);
+        if (WebAPI.isBrowser()) {
+            setBottom(buildBrowserFooter());
+        }
     }
 
     // ── Top bar ──────────────────────────────────────────────────────────
@@ -158,10 +166,10 @@ public class ShowcaseView extends BorderPane {
         Button devToolsButton = new Button("DevToolsFX");
         devToolsButton.getStyleClass().add("showcase-website-btn");
         devToolsButton.setOnAction(e -> {
-            if(WebAPI.isBrowser()) {
-                var webAPI = WebAPI.getWebAPI(this.getScene());
-                var stage2 = new Stage();
-                var toolPane = GUI.createToolPane(stage, hostServices);
+            if (WebAPI.isBrowser()) {
+                WebAPI webAPI = WebAPI.getWebAPI(this.getScene());
+                Stage stage2 = new Stage();
+                ToolPane toolPane = GUI.createToolPane(stage, hostServices);
                 stage2.setScene(new Scene(toolPane));
                 stage2.setOnShown((e2) -> toolPane.getConnector().start());
                 stage2.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, (event) -> toolPane.getConnector().stop());
@@ -192,7 +200,7 @@ public class ShowcaseView extends BorderPane {
         HBox.setMargin(dlscLogo, new Insets(0, 0, 0, 24));
 
         bar.getChildren().addAll(logoGroup, tagline, dlscLogo, spacer, themeMenu);
-        if(!WebAPI.isBrowser()) {
+        if (!WebAPI.isBrowser()) {
             // Remove from web for now, because it leaks
             bar.getChildren().add(devToolsButton);
         }
@@ -202,6 +210,24 @@ public class ShowcaseView extends BorderPane {
 
     private void rebuildTopBar() {
         setTop(buildTopBar(stage, hostServices));
+    }
+
+    private HBox buildBrowserFooter() {
+        HBox footer = new HBox(4);
+        footer.getStyleClass().add("showcase-footer");
+        footer.setAlignment(Pos.CENTER);
+
+        Label poweredByLabel = new Label("Powered by JPro");
+        poweredByLabel.getStyleClass().add("showcase-footer-link");
+        poweredByLabel.setCursor(Cursor.HAND);
+        poweredByLabel.setOnMouseClicked(evt -> {
+            if (hostServices != null) {
+                hostServices.showDocument("https://www.jpro.one");
+            }
+        });
+
+        footer.getChildren().add(poweredByLabel);
+        return footer;
     }
 
     // ── Sidebar ───────────────────────────────────────────────────────────
@@ -278,7 +304,10 @@ public class ShowcaseView extends BorderPane {
                 continue;
             }
             String sampleName = tempInstance.getSampleName();
-            try { tempInstance.dispose(); } catch (Exception ignored) {}
+            try {
+                tempInstance.dispose();
+            } catch (Exception ignored) {
+            }
 
             Label row = new Label(sampleName);
             row.getStyleClass().add("sidebar-sample-row");
@@ -450,8 +479,16 @@ public class ShowcaseView extends BorderPane {
             this.name = name;
         }
 
-        Supplier<Sample> supplier() { return supplier; }
-        SampleCategory category()   { return category; }
-        String name()               { return name; }
+        Supplier<Sample> supplier() {
+            return supplier;
+        }
+
+        SampleCategory category() {
+            return category;
+        }
+
+        String name() {
+            return name;
+        }
     }
 }
