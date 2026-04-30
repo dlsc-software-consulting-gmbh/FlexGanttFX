@@ -122,74 +122,71 @@ public class MSProjectGanttChart extends GanttChart<MSProjectTaskRow> {
 
         columns.add(nameColumn);
 
-        if (!WebAPI.isBrowser()) {
+        TreeTableColumn<MSProjectTaskRow, Instant> startColumn = new TreeTableColumn<>("Start");
+        TreeTableColumn<MSProjectTaskRow, Instant> finishColumn = new TreeTableColumn<>("Finish");
+        TreeTableColumn<MSProjectTaskRow, Double> percentageCompleteColumn = new TreeTableColumn<>("%");
+        TreeTableColumn<MSProjectTaskRow, Double> percentageCompleteVisualColumn = new TreeTableColumn<>("Complete");
 
-            TreeTableColumn<MSProjectTaskRow, Instant> startColumn = new TreeTableColumn<>("Start");
-            TreeTableColumn<MSProjectTaskRow, Instant> finishColumn = new TreeTableColumn<>("Finish");
-            TreeTableColumn<MSProjectTaskRow, Double> percentageCompleteColumn = new TreeTableColumn<>("%");
-            TreeTableColumn<MSProjectTaskRow, Double> percentageCompleteVisualColumn = new TreeTableColumn<>("Complete");
+        startColumn.setPrefWidth(120);
+        finishColumn.setPrefWidth(120);
+        percentageCompleteColumn.setPrefWidth(50);
+        percentageCompleteVisualColumn.setPrefWidth(120);
 
-            startColumn.setPrefWidth(120);
-            finishColumn.setPrefWidth(120);
-            percentageCompleteColumn.setPrefWidth(50);
-            percentageCompleteVisualColumn.setPrefWidth(120);
+        startColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("startTime"));
+        finishColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("finishTime"));
+        percentageCompleteColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("percentageComplete"));
 
-            startColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("startTime"));
-            finishColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("finishTime"));
-            percentageCompleteColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("percentageComplete"));
+        percentageCompleteVisualColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("percentageComplete"));
 
-            percentageCompleteVisualColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("percentageComplete"));
+        startColumn.setCellFactory(dateTimeCellFactory);
+        finishColumn.setCellFactory(dateTimeCellFactory);
 
-            startColumn.setCellFactory(dateTimeCellFactory);
-            finishColumn.setCellFactory(dateTimeCellFactory);
+        Callback<TreeTableColumn<MSProjectTaskRow, Double>, TreeTableCell<MSProjectTaskRow, Double>> percentageCellFactory = new Callback<TreeTableColumn<MSProjectTaskRow, Double>, TreeTableCell<MSProjectTaskRow, Double>>() {
+            private final NumberFormat formatter = DecimalFormat.getPercentInstance();
 
-            Callback<TreeTableColumn<MSProjectTaskRow, Double>, TreeTableCell<MSProjectTaskRow, Double>> percentageCellFactory = new Callback<TreeTableColumn<MSProjectTaskRow, Double>, TreeTableCell<MSProjectTaskRow, Double>>() {
-                private final NumberFormat formatter = DecimalFormat.getPercentInstance();
-
-                @Override
-                public TreeTableCell<MSProjectTaskRow, Double> call(TreeTableColumn<MSProjectTaskRow, Double> param) {
-                    return new TreeTableCell<>() {
-                        @Override
-                        protected void updateItem(Double item, boolean empty) {
-                            if (item != null) {
-                                setText(formatter.format(item.doubleValue() / 100));
-                            } else {
-                                setText(null);
-                            }
+            @Override
+            public TreeTableCell<MSProjectTaskRow, Double> call(TreeTableColumn<MSProjectTaskRow, Double> param) {
+                return new TreeTableCell<>() {
+                    @Override
+                    protected void updateItem(Double item, boolean empty) {
+                        if (item != null) {
+                            setText(formatter.format(item.doubleValue() / 100));
+                        } else {
+                            setText(null);
                         }
-                    };
-                }
-            };
-
-            percentageCompleteColumn.setCellFactory(percentageCellFactory);
-
-            Callback<TreeTableColumn<MSProjectTaskRow, Double>, TreeTableCell<MSProjectTaskRow, Double>> percentageVisualCellFactory = param -> new TreeTableCell<MSProjectTaskRow, Double>() {
-                private ProgressBar progressBar;
-
-                @Override
-                protected void updateItem(Double item, boolean empty) {
-
-                    if (progressBar == null) {
-                        progressBar = new ProgressBar();
-                        setContentDisplay(GRAPHIC_ONLY);
                     }
+                };
+            }
+        };
 
-                    if (item != null) {
-                        progressBar.setProgress(item / 100);
-                        setGraphic(progressBar);
-                    } else {
-                        setGraphic(null);
-                    }
+        percentageCompleteColumn.setCellFactory(percentageCellFactory);
+
+        Callback<TreeTableColumn<MSProjectTaskRow, Double>, TreeTableCell<MSProjectTaskRow, Double>> percentageVisualCellFactory = param -> new TreeTableCell<MSProjectTaskRow, Double>() {
+            private ProgressBar progressBar;
+
+            @Override
+            protected void updateItem(Double item, boolean empty) {
+
+                if (progressBar == null) {
+                    progressBar = new ProgressBar();
+                    setContentDisplay(GRAPHIC_ONLY);
                 }
-            };
 
-            percentageCompleteVisualColumn.setCellFactory(percentageVisualCellFactory);
+                if (item != null) {
+                    progressBar.setProgress(item / 100);
+                    setGraphic(progressBar);
+                } else {
+                    setGraphic(null);
+                }
+            }
+        };
 
-            columns.add(percentageCompleteColumn);
-            columns.add(percentageCompleteVisualColumn);
-            columns.add(startColumn);
-            columns.add(finishColumn);
-        }
+        percentageCompleteVisualColumn.setCellFactory(percentageVisualCellFactory);
+
+        columns.add(percentageCompleteColumn);
+        columns.add(percentageCompleteVisualColumn);
+        columns.add(startColumn);
+        columns.add(finishColumn);
 
         getTreeTable().getColumns().setAll(columns);
         getTreeTable().setTreeColumn(nameColumn);
