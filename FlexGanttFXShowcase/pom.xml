@@ -21,6 +21,12 @@
 	<dependencies>
 
 		<dependency>
+			<groupId>com.dlsc.atlantafx</groupId>
+			<artifactId>themes</artifactId>
+			<version>1.0.3</version>
+		</dependency>
+
+		<dependency>
 			<groupId>fr.brouillard.oss</groupId>
 			<artifactId>cssfx</artifactId>
 			<version>${cssfx.version}</version>

@@ -5,6 +5,20 @@
 package com.flexganttfx.demo.showcase;
 
 import atlantafx.base.theme.*;
+import com.dlsc.atlantafx.themes.ArmyDark;
+import com.dlsc.atlantafx.themes.ArmyLight;
+import com.dlsc.atlantafx.themes.Autumn;
+import com.dlsc.atlantafx.themes.Blacky;
+import com.dlsc.atlantafx.themes.Browny;
+import com.dlsc.atlantafx.themes.GithubSoftDark;
+import com.dlsc.atlantafx.themes.Graphite;
+import com.dlsc.atlantafx.themes.NavyDark;
+import com.dlsc.atlantafx.themes.NavyLight;
+import com.dlsc.atlantafx.themes.News;
+import com.dlsc.atlantafx.themes.Seashell;
+import com.dlsc.atlantafx.themes.WipDark;
+import com.dlsc.atlantafx.themes.WipLight;
+import com.dlsc.atlantafx.themes.Yacht;
 import com.jpro.webapi.WebAPI;
 import devtoolsfx.gui.GUI;
 import com.flexganttfx.core.FlexGanttFX;
@@ -66,6 +80,20 @@ public class ShowcaseView extends BorderPane {
             new CupertinoDark(),
             new CupertinoLight(),
             new Dracula(),
+            new Browny(),
+            new NavyLight(),
+            new NavyDark(),
+            new ArmyLight(),
+            new ArmyDark(),
+            new Autumn(),
+            new Blacky(),
+            new WipDark(),
+            new WipLight(),
+            new News(),
+            new Seashell(),
+            new Yacht(),
+            new Graphite(),
+            new GithubSoftDark(),
             MODENA
     );
 
