@@ -49,6 +49,7 @@ import com.flexganttfx.view.graphics.layer.SelectedTimeIntervalsLayer;
 import com.flexganttfx.view.graphics.layer.SystemLayer;
 import com.flexganttfx.view.graphics.layer.ZoomTimeIntervalLayer;
 import com.flexganttfx.view.graphics.renderer.ActivityRenderer;
+import com.flexganttfx.view.graphics.renderer.CalendarActivityRenderer;
 import com.flexganttfx.view.graphics.renderer.ChartActivityRenderer;
 import com.flexganttfx.view.graphics.renderer.CompletableActivityRenderer;
 import com.flexganttfx.view.graphics.renderer.CurvedLinkRenderer;
@@ -95,12 +96,16 @@ import javafx.beans.value.WeakChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ListChangeListener.Change;
+import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 import javafx.css.CssMetaData;
+import javafx.css.SimpleStyleableObjectProperty;
+import javafx.css.StyleConverter;
 import javafx.css.Styleable;
 import javafx.css.StyleableObjectProperty;
+import javafx.css.StyleableProperty;
 import javafx.css.converter.PaintConverter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -519,7 +524,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
          * We are "abusing" the properties map to pass new values of read-only
          * properties from the skin to the control.
          */
-        getProperties().addListener((javafx.collections.MapChangeListener.Change<?, ?> change) -> {
+        getProperties().addListener((MapChangeListener.Change<?, ?> change) -> {
             if (change.getKey().equals("com.flexganttfx.currenteditmode")) {
                 if (change.getValueAdded() != null) {
                     EditMode mode = (EditMode) change.getValueAdded();
@@ -1091,7 +1096,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
      * @since 1.6
      */
     public final void setRows(ObservableList<R> rows) {
-        Objects.requireNonNull(rows);
+        requireNonNull(rows);
         this.rows.set(rows);
     }
 
@@ -3185,7 +3190,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
      *
      * @return the calendars drawn by the graphics view
      * @see CalendarLayer#setCalendarActivityRenderer(Class,
-     * com.flexganttfx.view.graphics.renderer.CalendarActivityRenderer)
+     * CalendarActivityRenderer)
      * @since 1.0
      */
     public final ObservableList<Calendar<? extends CalendarActivity>> getCalendars() {
@@ -4455,7 +4460,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         private double startY;
 
         public RowHeader(GraphicsBase<R> graphics) {
-            this.graphics = Objects.requireNonNull(graphics, "graphics can not be null");
+            this.graphics = requireNonNull(graphics, "graphics can not be null");
 
             setAlignment(Pos.CENTER);
             getStyleClass().add("row-header");
@@ -4600,8 +4605,8 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
      * in front of every row inside the graphics area. For proper layout the width of all row headers
      * has to be the same.
      *
-     * @see #setRowHeaderFactory(Callback)
      * @return the width in pixels used for all row headers
+     * @see #setRowHeaderFactory(Callback)
      * @since 11.11.0
      */
     public final DoubleProperty rowHeadersWidthProperty() {
@@ -5466,8 +5471,38 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         innerLinesColorProperty().set(color);
     }
 
+    // text fill color
+
+    private final ObjectProperty<Color> textFill = new SimpleStyleableObjectProperty<>(StyleableProperties.TEXT_FILL, this, "textFill", Color.BLACK);
+
+    public final Color getTextFill() {
+        return textFill.get();
+    }
+
+    public final void setTextFill(Color value) {
+        textFill.set(value);
+    }
+
+    public final ObjectProperty<Color> textFillProperty() {
+        return textFill;
+    }
+
+
     private static class StyleableProperties {
 
+        private static final CssMetaData<GraphicsBase, Color> TEXT_FILL =
+                new CssMetaData<>("-fx-text-fill",
+                        StyleConverter.getColorConverter(), Color.BLACK) {
+                    @Override
+                    public boolean isSettable(GraphicsBase node) {
+                        return node.textFill == null || !node.textFill.isBound();
+                    }
+
+                    @Override
+                    public StyleableProperty<Color> getStyleableProperty(GraphicsBase node) {
+                        return (StyleableProperty<Color>) node.textFillProperty();
+                    }
+                };
         private static final List<CssMetaData<? extends Styleable, ?>> STYLEABLES;
 
         private static final CssMetaData<GraphicsBase, Paint> INNER_LINES_COLOR = new CssMetaData<GraphicsBase, Paint>(
@@ -5593,12 +5628,13 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
             styleables.add(GRID_LINE_COLOR3);
             styleables.add(WEEKEND_COLOR);
             styleables.add(TIME_NOW_COLOR);
+            styleables.add(TEXT_FILL);
             STYLEABLES = Collections.unmodifiableList(styleables);
         }
     }
 
     public static List<CssMetaData<? extends Styleable, ?>> getClassCssMetaData() {
-        return GraphicsBase.StyleableProperties.STYLEABLES;
+        return StyleableProperties.STYLEABLES;
     }
 
     @Override

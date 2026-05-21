@@ -36,12 +36,6 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
     public ActivityBarRenderer(GraphicsBase<?> graphics, String name) {
         super(graphics, name);
 
-        setTextFill(Color.BLACK);
-        setTextFillHover(Color.BLACK);
-        setTextFillHighlight(Color.BLACK);
-        setTextFillSelected(Color.BLACK);
-        setTextFillPressed(Color.BLACK);
-
         redrawObservable(autoFixText);
         redrawObservable(barHeight);
         redrawObservable(font);
@@ -281,7 +275,11 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
             bh = barHeight;
         }
 
-        gc.setFill(getTextFill(selected, hover, highlighted, pressed));
+        Paint textFill = getTextFill(selected, hover, highlighted, pressed);
+        if (textFill != null) {
+            textFill = getGraphics().getTextFill();
+        }
+        gc.setFill(textFill);
 
         double textX = 0;
         double textY = 0;

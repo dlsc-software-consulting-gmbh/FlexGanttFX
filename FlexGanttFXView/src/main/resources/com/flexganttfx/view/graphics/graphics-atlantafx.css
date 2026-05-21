@@ -13,6 +13,7 @@
     -fx-grid-line-color1: -color-border-muted;
     -fx-grid-line-color2: -color-border-default;
     -fx-grid-line-color3: -color-border-subtle;
+    -fx-text-fill: -color-fg-default;
 
     -fx-weekend-color: rgba(0, 0, 0, .06);
     -fx-time-now-color: -color-accent-fg;

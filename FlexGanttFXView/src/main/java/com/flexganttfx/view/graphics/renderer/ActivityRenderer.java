@@ -51,10 +51,7 @@ public class ActivityRenderer<A extends Activity> extends Renderer {
         redrawObservable(lineWidth);
     }
 
-    public final ActivityBounds draw(ActivityRef<A> activityRef,
-                                     Position position, GraphicsContext gc, double x, double y,
-                                     double w, double h, boolean selected, boolean hover,
-                                     boolean highlighted, boolean pressed) {
+    public final ActivityBounds draw(ActivityRef<A> activityRef, Position position, GraphicsContext gc, double x, double y, double w, double h, boolean selected, boolean hover, boolean highlighted, boolean pressed) {
 
         final GraphicsBase<?> graphics = getGraphics();
 
@@ -77,10 +74,7 @@ public class ActivityRenderer<A extends Activity> extends Renderer {
         }
     }
 
-    protected ActivityBounds drawActivity(ActivityRef<A> activityRef,
-                                          Position position, GraphicsContext gc, double x, double y,
-                                          double w, double h, boolean selected, boolean hover,
-                                          boolean highlighted, boolean pressed) {
+    protected ActivityBounds drawActivity(ActivityRef<A> activityRef, Position position, GraphicsContext gc, double x, double y, double w, double h, boolean selected, boolean hover, boolean highlighted, boolean pressed) {
 
         final GraphicsBase<?> graphics = getGraphics();
 
@@ -117,10 +111,7 @@ public class ActivityRenderer<A extends Activity> extends Renderer {
         return new ActivityBounds(activityRef, x, y, w, h);
     }
 
-    protected void drawBackground(ActivityRef<A> activityRef,
-                                  Position position, GraphicsContext gc, double x, double y,
-                                  double w, double h, boolean selected, boolean hover,
-                                  boolean highlighted, boolean pressed) {
+    protected void drawBackground(ActivityRef<A> activityRef, Position position, GraphicsContext gc, double x, double y, double w, double h, boolean selected, boolean hover, boolean highlighted, boolean pressed) {
 
         gc.setFill(getFill(selected, hover, highlighted, pressed));
 
@@ -137,10 +128,7 @@ public class ActivityRenderer<A extends Activity> extends Renderer {
         }
     }
 
-    protected void drawBorder(ActivityRef<A> activityRef, Position position,
-                              GraphicsContext gc, double x, double y, double w, double h,
-                              boolean selected, boolean hover, boolean highlighted,
-                              boolean pressed) {
+    protected void drawBorder(ActivityRef<A> activityRef, Position position, GraphicsContext gc, double x, double y, double w, double h, boolean selected, boolean hover, boolean highlighted, boolean pressed) {
 
         gc.setStroke(getStroke(selected, hover, highlighted, pressed));
 
@@ -157,8 +145,7 @@ public class ActivityRenderer<A extends Activity> extends Renderer {
         }
     }
 
-    protected Paint getStroke(boolean selected, boolean hover,
-                              boolean highlighted, boolean pressed) {
+    protected Paint getStroke(boolean selected, boolean hover, boolean highlighted, boolean pressed) {
         if (pressed) {
             return getStrokePressed();
         } else if (highlighted) {
@@ -172,29 +159,21 @@ public class ActivityRenderer<A extends Activity> extends Renderer {
         }
     }
 
-    private final BooleanProperty cornersRounded = new SimpleBooleanProperty(this,
-            "cornersRounded", false);
+    private final BooleanProperty cornersRounded = new SimpleBooleanProperty(this, "cornersRounded", false);
 
-    private final DoubleProperty cornerRadius = new SimpleDoubleProperty(this,
-            "cornerRadius", 6);
+    private final DoubleProperty cornerRadius = new SimpleDoubleProperty(this, "cornerRadius", 6);
 
-    private final ObjectProperty<Paint> stroke = new SimpleObjectProperty<>(this,
-            "stroke");
+    private final ObjectProperty<Paint> stroke = new SimpleObjectProperty<>(this, "stroke");
 
-    private final ObjectProperty<Paint> strokePressed = new SimpleObjectProperty<>(
-            this, "strokePressed");
+    private final ObjectProperty<Paint> strokePressed = new SimpleObjectProperty<>(this, "strokePressed");
 
-    private final ObjectProperty<Paint> strokeHighlight = new SimpleObjectProperty<>(
-            this, "strokeHighlight");
+    private final ObjectProperty<Paint> strokeHighlight = new SimpleObjectProperty<>(this, "strokeHighlight");
 
-    private final ObjectProperty<Paint> strokeSelected = new SimpleObjectProperty<>(
-            this, "strokeSelected");
+    private final ObjectProperty<Paint> strokeSelected = new SimpleObjectProperty<>(this, "strokeSelected");
 
-    private final ObjectProperty<Paint> strokeHover = new SimpleObjectProperty<>(
-            this, "strokeHover");
+    private final ObjectProperty<Paint> strokeHover = new SimpleObjectProperty<>(this, "strokeHover");
 
-    private final DoubleProperty lineWidth = new SimpleDoubleProperty(this,
-            "lineWidth", .5);
+    private final DoubleProperty lineWidth = new SimpleDoubleProperty(this, "lineWidth", .5);
 
     public final BooleanProperty cornersRoundedProperty() {
         return cornersRounded;

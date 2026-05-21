@@ -1,8 +1,9 @@
 ----------------------------------------------------------------
-Release: 11.13, Date: April 2026
+Release: 11.13, Date: June 2026
 ----------------------------------------------------------------
 
 ** Support for AtlantaFX theming
+** Added new stylable property "-fx-text-fill" to GraphicsBase to ease styling for different themes
 ** Support for "content display" property in GanttChartToolBar to show smaller buttons
 ** New demos (space, sprint planning, project management)
 ** Implemented IntervalTree.removeIf(Predicate)
