@@ -12,10 +12,18 @@ import com.dlsc.atlantafx.themes.Blacky;
 import com.dlsc.atlantafx.themes.BlueDark;
 import com.dlsc.atlantafx.themes.BlueLight;
 import com.dlsc.atlantafx.themes.Browny;
+import com.dlsc.atlantafx.themes.FallDark;
+import com.dlsc.atlantafx.themes.FallLight;
 import com.dlsc.atlantafx.themes.GithubSoftDark;
 import com.dlsc.atlantafx.themes.NavyDark;
 import com.dlsc.atlantafx.themes.NavyLight;
 import com.dlsc.atlantafx.themes.News;
+import com.dlsc.atlantafx.themes.SpringDark;
+import com.dlsc.atlantafx.themes.SpringLight;
+import com.dlsc.atlantafx.themes.SummerDark;
+import com.dlsc.atlantafx.themes.SummerLight;
+import com.dlsc.atlantafx.themes.WinterDark;
+import com.dlsc.atlantafx.themes.WinterLight;
 import com.dlsc.atlantafx.themes.Yacht;
 import com.jpro.webapi.WebAPI;
 import devtoolsfx.gui.GUI;
@@ -90,6 +98,14 @@ public class ShowcaseView extends BorderPane {
             new News(),
             new Yacht(),
             new GithubSoftDark(),
+            new SpringLight(),
+            new SpringDark(),
+            new SummerLight(),
+            new SummerDark(),
+            new FallLight(),
+            new FallDark(),
+            new WinterLight(),
+            new WinterDark(),
             MODENA
     );
 
