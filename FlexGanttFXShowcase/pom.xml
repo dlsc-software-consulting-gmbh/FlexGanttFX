@@ -23,7 +23,7 @@
 		<dependency>
 			<groupId>com.dlsc.atlantafx</groupId>
 			<artifactId>themes</artifactId>
-			<version>1.0.3</version>
+			<version>1.5.0</version>
 		</dependency>
 
 		<dependency>
