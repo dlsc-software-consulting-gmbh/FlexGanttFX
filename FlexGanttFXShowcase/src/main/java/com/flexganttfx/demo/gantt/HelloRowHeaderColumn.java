@@ -9,10 +9,14 @@ import com.flexganttfx.model.Activity;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.view.GanttChart;
 import com.flexganttfx.view.GanttChart.RowHeaderType;
+import com.flexganttfx.view.GanttChartBase;
+import com.flexganttfx.view.util.ThemingUtil;
 import javafx.beans.binding.Bindings;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContentDisplay;
@@ -34,6 +38,7 @@ import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class HelloRowHeaderColumn extends FlexGanttFXSample {
 
@@ -54,6 +59,7 @@ public class HelloRowHeaderColumn extends FlexGanttFXSample {
     protected GanttChart<?> createGanttChart() {
         gantt = new GanttChart<>();
         gantt.getStylesheets().add(HelloRowHeaderColumn.class.getResource("row-header.css").toExternalForm());
+        gantt.sceneProperty().addListener((obs, oldScene, newScene) -> updateRowHeaderStylesheet(newScene, gantt));
         gantt.setRowHeaderType(RowHeaderType.GRAPHIC_NODE);
 
         List<MyRow> rows = new ArrayList<>();
@@ -80,6 +86,23 @@ public class HelloRowHeaderColumn extends FlexGanttFXSample {
         gantt.setRoot(root);
 
         return gantt;
+    }
+
+    private void updateRowHeaderStylesheet(Scene scene, GanttChartBase gantt) {
+        String plain = Objects.requireNonNull(HelloRowHeaderColumn.class.getResource("row-header.css")).toExternalForm();
+        String atlantafx = Objects.requireNonNull(HelloRowHeaderColumn.class.getResource("row-header-atlantafx.css")).toExternalForm();
+        ObservableList<String> sheets = gantt.getStylesheets();
+        if (ThemingUtil.isAtlantaFXActive(scene)) {
+            sheets.remove(plain);
+            if (!sheets.contains(atlantafx)) {
+                sheets.add(atlantafx);
+            }
+        } else {
+            sheets.remove(atlantafx);
+            if (!sheets.contains(plain)) {
+                sheets.add(plain);
+            }
+        }
     }
 
     @Override

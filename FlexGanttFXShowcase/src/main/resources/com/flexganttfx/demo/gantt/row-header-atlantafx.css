@@ -1,0 +1,14 @@
+.warning .ikonli-font-icon {
+	-fx-icon-size: 16px;
+	-fx-icon-color: -color-accent-emphasis;
+}
+
+.error .ikonli-font-icon {
+	-fx-icon-size: 16px;
+	-fx-icon-color: -color-accent-emphasis;
+}
+
+.other .ikonli-font-icon {
+	-fx-icon-size: 16px;
+	-fx-icon-color: -color-accent-emphasis;
+}

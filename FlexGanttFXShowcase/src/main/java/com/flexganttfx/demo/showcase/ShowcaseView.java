@@ -34,6 +34,7 @@ import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -111,17 +112,17 @@ public class ShowcaseView extends BorderPane {
 
     private static final Preferences PREFS = Preferences.userNodeForPackage(ShowcaseView.class);
     private static final String PREF_THEME = "theme";
+    private static final String CONTROLSFX_ATLANTAFX_CSS =
+            ShowcaseView.class.getResource("controlsfx-atlantafx.css").toExternalForm();
 
     /**
      * Applies the persisted theme (or PrimerDark) before the scene is created.
      */
     public static void applyPersistedTheme(Scene scene) {
         Theme theme = resolvePersistedTheme();
-        if (theme.equals(MODENA)) {
-            scene.setUserAgentStylesheet(null);
-        } else {
-            scene.setUserAgentStylesheet(theme.getUserAgentStylesheet());
-        }
+        String uas = theme.equals(MODENA) ? null : theme.getUserAgentStylesheet();
+        scene.setUserAgentStylesheet(uas);
+        Application.setUserAgentStylesheet(uas);
     }
 
     private static Theme resolvePersistedTheme() {
@@ -151,7 +152,10 @@ public class ShowcaseView extends BorderPane {
         this.stage = stage;
         this.hostServices = hostServices;
         getStyleClass().add("showcase-root");
-        sceneProperty().addListener((obs, oldScene, newScene) -> updateThemeStyleClass());
+        sceneProperty().addListener((obs, oldScene, newScene) -> {
+            updateThemeStyleClass();
+            updateControlsFXStylesheet(newScene);
+        });
 
         contentView = new SampleContentView(stage);
         welcomeView = new WelcomeView(this::selectFirstSample);
@@ -469,15 +473,14 @@ public class ShowcaseView extends BorderPane {
 
     private void applyTheme(Theme theme) {
         currentTheme = theme;
-        if (theme.equals(MODENA)) {
-            getScene().setUserAgentStylesheet(null);
-        } else {
-            getScene().setUserAgentStylesheet(theme.getUserAgentStylesheet());
-        }
+        String uas = theme.equals(MODENA) ? null : theme.getUserAgentStylesheet();
+        getScene().setUserAgentStylesheet(uas);
+        Application.setUserAgentStylesheet(uas);
         PREFS.put(PREF_THEME, theme.getName());
 
         rebuildTopBar();
         updateThemeStyleClass();
+        updateControlsFXStylesheet(getScene());
 
         if (selectedLabel != null) {
             handleSampleClick(selectedLabel);
@@ -499,6 +502,20 @@ public class ShowcaseView extends BorderPane {
                     ATLANTAFX_THEME_CLASS,
                     currentTheme.isDarkMode() ? ATLANTAFX_DARK_THEME_CLASS : ATLANTAFX_LIGHT_THEME_CLASS
             );
+        }
+    }
+
+    private void updateControlsFXStylesheet(Scene scene) {
+        if (scene == null) {
+            return;
+        }
+        ObservableList<String> sheets = scene.getStylesheets();
+        if (!isModenaTheme(currentTheme)) {
+            if (!sheets.contains(CONTROLSFX_ATLANTAFX_CSS)) {
+                sheets.add(CONTROLSFX_ATLANTAFX_CSS);
+            }
+        } else {
+            sheets.remove(CONTROLSFX_ATLANTAFX_CSS);
         }
     }
 

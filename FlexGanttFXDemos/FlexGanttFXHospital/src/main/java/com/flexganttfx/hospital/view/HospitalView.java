@@ -617,6 +617,7 @@ public class HospitalView extends BorderPane {
         Dialog<CaseDraft> dialog = new Dialog<>();
         dialog.setTitle(existingCase == null ? (emergencyDefault ? "Emergency Admission" : "Schedule Case") : "Edit Case");
         dialog.initOwner(getScene().getWindow());
+        applyCurrentTheme(dialog);
 
         ButtonType saveButton = new ButtonType(existingCase == null ? "Create" : "Save", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(saveButton, ButtonType.CANCEL);
@@ -728,13 +729,17 @@ public class HospitalView extends BorderPane {
     private void showConflictResolver() {
         List<ScheduleConflict> conflicts = model.findConflicts();
         if (conflicts.isEmpty()) {
-            new Alert(Alert.AlertType.INFORMATION, "No conflicts detected right now. Try dragging a case into another booking window.").showAndWait();
+            Alert noConflictsAlert = new Alert(Alert.AlertType.INFORMATION, "No conflicts detected right now. Try dragging a case into another booking window.");
+            noConflictsAlert.initOwner(getScene().getWindow());
+            applyCurrentTheme(noConflictsAlert);
+            noConflictsAlert.showAndWait();
             return;
         }
 
         Dialog<ScheduleConflict> dialog = new Dialog<>();
         dialog.setTitle("Conflict Resolver");
         dialog.initOwner(getScene().getWindow());
+        applyCurrentTheme(dialog);
         ButtonType resolveButton = new ButtonType("Apply Suggestion", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(resolveButton, ButtonType.CLOSE);
 
@@ -767,7 +772,10 @@ public class HospitalView extends BorderPane {
         }
 
         if (selectedCase == null) {
-            new Alert(Alert.AlertType.INFORMATION, "Select a case or resource assignment first.").showAndWait();
+            Alert noSelectionAlert = new Alert(Alert.AlertType.INFORMATION, "Select a case or resource assignment first.");
+            noSelectionAlert.initOwner(getScene().getWindow());
+            applyCurrentTheme(noSelectionAlert);
+            noSelectionAlert.showAndWait();
             return;
         }
 
@@ -780,6 +788,7 @@ public class HospitalView extends BorderPane {
         dialog.setTitle("Resource Details");
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
         dialog.initOwner(getScene().getWindow());
+        applyCurrentTheme(dialog);
 
         TextArea textArea = new TextArea();
         textArea.setEditable(false);
@@ -938,6 +947,15 @@ public class HospitalView extends BorderPane {
     private String durationLabel(Duration duration) {
         long minutes = Math.max(duration.toMinutes(), 0);
         return minutes + " min";
+    }
+
+    private void applyCurrentTheme(Dialog<?> dialog) {
+        String uas = getScene().getUserAgentStylesheet();
+        dialog.getDialogPane().sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (newScene != null) {
+                newScene.setUserAgentStylesheet(uas);
+            }
+        });
     }
 
     private static final class CaseDraft {
