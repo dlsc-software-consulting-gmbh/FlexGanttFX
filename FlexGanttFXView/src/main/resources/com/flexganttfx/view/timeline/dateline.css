@@ -14,8 +14,9 @@
 .dateline-cell {
     -fx-font-size: .8em;
     -fx-padding: 0 2 0 3;
-    -fx-background-color: -fx-box-border, -fx-inner-border, -fx-body-color;
-    -fx-background-insets: 0, 0 1 1 0, 1 2 2 1;
+    -fx-background: -fx-color;
+    -fx-background-color: -fx-box-border, -fx-background;
+    -fx-background-insets: 0, 0 1 1 0;
 }
 
 .dateline-cell:hover {
@@ -105,18 +106,19 @@
 
 .scale-bottom > .saturday,
 .scale-bottom > .sunday {
-    -weekend-color: -fx-accent;
-    -fx-color: ladder(-fx-base, -weekend-color 50%, -weekend-color 50%);
+    -weekend-color: -fx-selection-bar;
+    -fx-background: -weekend-color;
+    -fx-background-color: -fx-box-border, -fx-background;
 }
 
 .scale-bottom > .saturday:hover,
 .scale-bottom > .sunday:hover {
-    -fx-color: derive(-fx-base, -20%);
+    -fx-background: derive(-weekend-color, -20%);
 }
 
 .scale-bottom > .saturday > .text,
 .scale-bottom > .sunday > .text {
-    -fx-fill: white;
+    -fx-fill: -fx-selection-bar-text;
 }
 
 .january {

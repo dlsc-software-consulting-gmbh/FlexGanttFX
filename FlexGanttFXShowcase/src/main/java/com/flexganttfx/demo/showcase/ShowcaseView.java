@@ -1,6 +1,18 @@
 /**
- * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- * This file is part of FlexGanttFX.
+ * License Notice for FlexGanttFX
+ *
+ * The FlexGanttFX software library is distributed under a dual licensing model.
+ *
+ * 1. Commercial Use
+ *    Use of FlexGanttFX in proprietary or commercial applications requires the purchase of a commercial license.
+ *    The applicable terms and conditions can be found on the product's homepage at <https://www.flexganttfx.com/pages/licensing/>.
+ *
+ * 2. Open Source Use
+ *    For use in open source projects, FlexGanttFX is made available under the **GNU AFFERO GENERAL PUBLIC LICENSE V3**.
+ *    The full text of the license is available at:
+ *    <https://github.com/dlemmermann/FlexGanttFX/blob/master/LICENSE>
+ *
+ * By using FlexGanttFX, the licensee accepts and agrees to the applicable licensing terms.
  */
 package com.flexganttfx.demo.showcase;
 
@@ -140,6 +152,7 @@ public class ShowcaseView extends BorderPane {
     private final SampleContentView contentView;
     private final WelcomeView welcomeView;
     private final List<Label> allSampleRows = new ArrayList<>();
+    private final List<Label> atlantafxOnlyRows = new ArrayList<>();
     private final Stage stage;
     private final HostServices hostServices;
     private MenuButton themeMenu;
@@ -361,6 +374,13 @@ public class ShowcaseView extends BorderPane {
             row.setUserData(new SampleEntry(supplier, category, sampleName));
             allSampleRows.add(row);
 
+            if (tempInstance.requiresAtlantaFX()) {
+                atlantafxOnlyRows.add(row);
+                boolean atlantafxActive = !isModenaTheme(currentTheme);
+                row.setVisible(atlantafxActive);
+                row.setManaged(atlantafxActive);
+            }
+
             row.setOnMouseClicked(e -> {
                 row.requestFocus();
                 handleSampleClick(row);
@@ -481,9 +501,22 @@ public class ShowcaseView extends BorderPane {
         rebuildTopBar();
         updateThemeStyleClass();
         updateControlsFXStylesheet(getScene());
+        updateAtlantafxOnlyRowVisibility();
 
-        if (selectedLabel != null) {
+        if (selectedLabel != null && selectedLabel.isVisible()) {
             handleSampleClick(selectedLabel);
+        } else if (selectedLabel != null && !selectedLabel.isVisible()) {
+            selectedLabel.getStyleClass().remove("selected");
+            selectedLabel = null;
+            setCenter(welcomeView);
+        }
+    }
+
+    private void updateAtlantafxOnlyRowVisibility() {
+        boolean atlantafxActive = !isModenaTheme(currentTheme);
+        for (Label row : atlantafxOnlyRows) {
+            row.setVisible(atlantafxActive);
+            row.setManaged(atlantafxActive);
         }
     }
 

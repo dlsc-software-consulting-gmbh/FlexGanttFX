@@ -1,12 +1,23 @@
 /**
- * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- * This file is part of FlexGanttFX.
+ * License Notice for FlexGanttFX
+ * <p>
+ * The FlexGanttFX software library is distributed under a dual licensing model.
+ * <p>
+ * 1. Commercial Use
+ * Use of FlexGanttFX in proprietary or commercial applications requires the purchase of a commercial license.
+ * The applicable terms and conditions can be found on the product's homepage at <https://www.flexganttfx.com/pages/licensing/>.
+ * <p>
+ * 2. Open Source Use
+ * For use in open source projects, FlexGanttFX is made available under the **GNU AFFERO GENERAL PUBLIC LICENSE V3**.
+ * The full text of the license is available at:
+ * <https://github.com/dlemmermann/FlexGanttFX/blob/master/LICENSE>
+ * <p>
+ * By using FlexGanttFX, the licensee accepts and agrees to the applicable licensing terms.
  */
 package com.flexganttfx.sprint.view;
 
 import com.flexganttfx.extras.GanttChartStatusBar;
 import com.flexganttfx.extras.GanttChartToolBar;
-import com.flexganttfx.extras.LayersView;
 import com.flexganttfx.model.ActivityLink;
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.model.layout.ChartLayout;
@@ -17,8 +28,8 @@ import com.flexganttfx.sprint.model.EngineerFleet;
 import com.flexganttfx.sprint.model.MilestoneActivity;
 import com.flexganttfx.sprint.model.SampleDataGenerator;
 import com.flexganttfx.sprint.model.TaskActivity;
-import com.flexganttfx.sprint.model.TechDebtActivity;
 import com.flexganttfx.sprint.model.TeamRoot;
+import com.flexganttfx.sprint.model.TechDebtActivity;
 import com.flexganttfx.sprint.model.UserStory;
 import com.flexganttfx.sprint.renderer.BugRenderer;
 import com.flexganttfx.sprint.renderer.BurnDownRenderer;
@@ -34,7 +45,6 @@ import javafx.application.Platform;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 
 import java.time.temporal.ChronoUnit;
 
@@ -44,11 +54,11 @@ public class SprintView extends BorderPane {
 
     public SprintView() {
         // --- Layers ---
-        Layer featuresLayer  = new Layer("Features");
-        Layer bugsLayer      = new Layer("Bugs");
-        Layer techDebtLayer  = new Layer("TechDebt");
+        Layer featuresLayer = new Layer("Features");
+        Layer bugsLayer = new Layer("Bugs");
+        Layer techDebtLayer = new Layer("TechDebt");
         Layer milestonesLayer = new Layer("Milestones");
-        Layer burnDownLayer  = new Layer("Burn-Down");
+        Layer burnDownLayer = new Layer("Burn-Down");
 
         // --- Sprint chart ---
         sprintChart = new GanttChart<>();
@@ -70,8 +80,8 @@ public class SprintView extends BorderPane {
 
         // --- Register renderers on sprint chart ---
         GraphicsBase<TeamRoot> sg = sprintChart.getGraphics();
-        sg.setActivityRenderer(UserStory.class,       GanttLayout.class, new UserStoryRenderer(sg));
-        sg.setActivityRenderer(BugActivity.class,     GanttLayout.class, new BugRenderer(sg));
+        sg.setActivityRenderer(UserStory.class, GanttLayout.class, new UserStoryRenderer(sg));
+        sg.setActivityRenderer(BugActivity.class, GanttLayout.class, new BugRenderer(sg));
         sg.setActivityRenderer(TechDebtActivity.class, GanttLayout.class, new TechDebtRenderer(sg));
         sg.setActivityRenderer(MilestoneActivity.class, GanttLayout.class, new MilestoneRenderer(sg));
         sg.setActivityRenderer(BurnDownActivity.class, ChartLayout.class, new BurnDownRenderer(sg));

@@ -39,16 +39,19 @@
     -fx-pref-height: 24px !important;
 }
 
-.row-cell:even {
-    -fx-background-color: -color-bg-subtle !important;
-}
-
-.row-cell:odd {
-    -fx-background-color: -color-bg-default !important;
-}
-
 .row-cell:focused,
 .row-cell:selected {
+}
+
+/* needed or only filled cells with have an alt row color */
+.list-view.striped .row-cell:odd {
+    -fx-background-color: -color-cell-bg-odd;
+}
+
+.list-view.bordered .row-cell:filled,
+.list-view.bordered .row-cell:empty {
+    -fx-border-color: transparent transparent -color-cell-border transparent !important;
+    -fx-border-width: 1px !important;
 }
 
 .row-cell > .row-pane {

@@ -111,7 +111,8 @@
 
 .scale-bottom > .saturday,
 .scale-bottom > .sunday {
-    -fx-background-color: -color-accent-emphasis;
+    -fx-background-color: -color-border-default, -color-accent-emphasis;
+    -fx-background-insets: 0, 0 1 1 0;
 }
 
 .scale-bottom > .saturday:hover,

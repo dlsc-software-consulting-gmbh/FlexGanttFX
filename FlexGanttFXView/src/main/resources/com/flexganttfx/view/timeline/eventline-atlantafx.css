@@ -26,7 +26,6 @@
 
 .time-cursor {
     -fx-font-size: .8em;
-    -fx-font-weight: bold;
     -fx-text-fill: -color-fg-emphasis;
     -fx-background-color: -color-accent-emphasis;
     -fx-background-insets: 1 0 1 0;

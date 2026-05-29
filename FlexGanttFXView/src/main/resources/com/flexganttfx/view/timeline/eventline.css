@@ -9,6 +9,13 @@
  * is based on the default modena style of the table column headers.
  */
 .eventline {
+    -fx-background: -fx-color;
+    -fx-background-color: -fx-box-border, -fx-background;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-pref-height: 1.5em;
+}
+
+.eventline.classic {
     -fx-background-color: -fx-box-border, -fx-inner-border, -fx-body-color;
     -fx-background-insets: 0, 0 0 1 0, 1 0 2 0;
     -fx-pref-height: 1.5em;
@@ -16,7 +23,6 @@
 
 .dst-marker {
     -fx-font-size: 0.8em;
-    -fx-font-weight: bold;
     -fx-text-fill: white;
     -fx-background-color: darkorange;
     -fx-background-insets: 1 0 1 0;
@@ -31,10 +37,9 @@
 .time-cursor {
     -fx-font-size: .8em;
     -fx-control-inner-background: -fx-accent;
-    -fx-font-weight: bold;
     -fx-text-fill: -fx-text-inner-color;
     -fx-background-color: -fx-control-inner-background;
-    -fx-background-insets: 1 0 1 0;
+    -fx-background-insets: 0 0 1 0;
     -fx-padding: 0 .25em 0 .25em;
 }
 

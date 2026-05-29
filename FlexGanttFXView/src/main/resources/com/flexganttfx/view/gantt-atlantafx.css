@@ -11,6 +11,7 @@
 
 .gantt-chart {
     -fx-border-color: -color-border-default;
+    -fx-border-width: 1;
 }
 
 .split-pane {
@@ -21,7 +22,7 @@
 .row-header-cell {
     -fx-text-fill: -color-fg-default !important;
     -fx-background-color: -color-border-default, -color-bg-subtle !important;
-    -fx-background-insets: 0, 0 0 1 0 !important;
+    -fx-background-insets: 0, 0 1 1 0 !important;
 }
 
 .eventline .row-header {
@@ -63,6 +64,10 @@
     -fx-pref-height: 2em;
 }
 
+.gantt-tree-table-view.bordered .tree-table-row-cell > .tree-table-cell:empty {
+    -fx-border-color: transparent -color-cell-border transparent transparent;
+}
+
 .tree-table-view-standard-display-mode > .virtual-flow > .scroll-bar:vertical,
 .tree-table-view-standard-display-mode > .virtual-flow > .scroll-bar:vertical .decrement-arrow,
 .tree-table-view-standard-display-mode > .virtual-flow > .scroll-bar:vertical .increment-arrow {
@@ -78,9 +83,8 @@
 }
 
 .gantt-tree-table-view .tree-table-cell {
-    -fx-border-color: -color-border-default !important;
-    -fx-border-width: 0 1 0 0 !important;
 }
+
 
 .gantt-tree-table-view .tree-table-row-cell {
     -fx-padding: 0;
@@ -88,12 +92,14 @@
     -fx-border-width: 0;
 }
 
-.gantt-tree-table-view .tree-table-row-cell:even {
-    -fx-background-color: -color-bg-subtle;
+.gantt-tree-table-view.bordered .tree-table-row-cell {
+    -fx-border-width: 0 1 1 0;
+    -fx-border-color: transparent -color-cell-border -color-cell-border transparent;
 }
 
-.gantt-tree-table-view .tree-table-row-cell:odd {
-    -fx-background-color: -color-bg-default;
+/* needed or only filled cells with have an alt row color */
+.gantt-tree-table-view.striped .tree-table-row-cell:odd {
+    -fx-background-color: -color-cell-bg-odd;
 }
 
 .gantt-tree-table-view > .virtual-flow > .clipped-container > .sheet > .tree-table-row-cell:selected {

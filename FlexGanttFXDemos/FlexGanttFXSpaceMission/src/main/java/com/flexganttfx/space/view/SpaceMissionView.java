@@ -1,12 +1,23 @@
 /**
- * Copyright (C) 2014 - 2026 DLSC Software & Consulting GmbH (dlsc.com)
- * This file is part of FlexGanttFX.
+ * License Notice for FlexGanttFX
+ * <p>
+ * The FlexGanttFX software library is distributed under a dual licensing model.
+ * <p>
+ * 1. Commercial Use
+ * Use of FlexGanttFX in proprietary or commercial applications requires the purchase of a commercial license.
+ * The applicable terms and conditions can be found on the product's homepage at <https://www.flexganttfx.com/pages/licensing/>.
+ * <p>
+ * 2. Open Source Use
+ * For use in open source projects, FlexGanttFX is made available under the **GNU AFFERO GENERAL PUBLIC LICENSE V3**.
+ * The full text of the license is available at:
+ * <https://github.com/dlemmermann/FlexGanttFX/blob/master/LICENSE>
+ * <p>
+ * By using FlexGanttFX, the licensee accepts and agrees to the applicable licensing terms.
  */
 package com.flexganttfx.space.view;
 
 import com.flexganttfx.extras.GanttChartStatusBar;
 import com.flexganttfx.extras.GanttChartToolBar;
-import com.flexganttfx.model.Activity;
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.model.layout.ChartLayout;
 import com.flexganttfx.model.layout.GanttLayout;
@@ -17,8 +28,8 @@ import com.flexganttfx.space.model.Maneuver;
 import com.flexganttfx.space.model.MissionControl;
 import com.flexganttfx.space.model.SampleDataGenerator;
 import com.flexganttfx.space.model.ScienceOp;
-import com.flexganttfx.space.model.Spacecraft;
 import com.flexganttfx.space.model.SpaceFleet;
+import com.flexganttfx.space.model.Spacecraft;
 import com.flexganttfx.space.model.TelemetryActivity;
 import com.flexganttfx.space.renderer.ContactWindowRenderer;
 import com.flexganttfx.space.renderer.MaintenanceOpRenderer;
@@ -28,8 +39,8 @@ import com.flexganttfx.space.renderer.TelemetryRenderer;
 import com.flexganttfx.view.GanttChart;
 import com.flexganttfx.view.container.DualGanttChartContainer;
 import com.flexganttfx.view.graphics.GraphicsBase;
-import javafx.animation.KeyFrame;
 import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.scene.layout.Priority;
@@ -51,25 +62,25 @@ import java.time.temporal.ChronoUnit;
  */
 public class SpaceMissionView extends VBox {
 
-    private final GanttChart<Spacecraft>    spacecraftChart;
+    private final GanttChart<Spacecraft> spacecraftChart;
     private final GanttChart<GroundStation> groundChart;
-    private final GanttChartToolBar<Spacecraft>    toolBar;
-    private final GanttChartStatusBar<Spacecraft>  statusBar;
+    private final GanttChartToolBar<Spacecraft> toolBar;
+    private final GanttChartStatusBar<Spacecraft> statusBar;
     private Timeline timer;
 
     public SpaceMissionView() {
         // ---------- Layers ----------
-        Layer contactLayer    = new Layer("Contact Windows");
-        Layer maneuverLayer   = new Layer("Maneuvers");
-        Layer scienceLayer    = new Layer("Science Ops");
+        Layer contactLayer = new Layer("Contact Windows");
+        Layer maneuverLayer = new Layer("Maneuvers");
+        Layer scienceLayer = new Layer("Science Ops");
         Layer maintenanceLayer = new Layer("Maintenance");
-        Layer telemetryLayer  = new Layer("Telemetry");
+        Layer telemetryLayer = new Layer("Telemetry");
 
         // ---------- Sample data ----------
         SampleDataGenerator data = new SampleDataGenerator(
                 contactLayer, maneuverLayer, scienceLayer, maintenanceLayer, telemetryLayer);
 
-        SpaceFleet    fleet          = data.getFleet();
+        SpaceFleet fleet = data.getFleet();
         MissionControl missionControl = data.getMissionControl();
 
         // ---------- Spacecraft chart (primary / top) ----------
@@ -103,7 +114,7 @@ public class SpaceMissionView extends VBox {
         VBox.setVgrow(dual, Priority.ALWAYS);
 
         // ---------- Toolbar & status bar ----------
-        toolBar   = new GanttChartToolBar<>(spacecraftChart);
+        toolBar = new GanttChartToolBar<>(spacecraftChart);
         statusBar = new GanttChartStatusBar<>(spacecraftChart);
 
         // ---------- Assemble ----------
@@ -111,10 +122,10 @@ public class SpaceMissionView extends VBox {
 
         // ---------- Real-time NowLine ----------
         TreeShowing.treeShowing(this).subscribe(v -> {
-            if(v) {
+            if (v) {
                 startNowLineTimer();
             } else {
-                if(timer != null) {
+                if (timer != null) {
                     timer.stop();
                     timer = null;
                 }
@@ -129,13 +140,13 @@ public class SpaceMissionView extends VBox {
     private void configureSpacecraftChart(GanttChart<Spacecraft> chart) {
         GraphicsBase<Spacecraft> graphics = chart.getGraphics();
 
-        graphics.setActivityRenderer(ContactWindow.class,  GanttLayout.class,
+        graphics.setActivityRenderer(ContactWindow.class, GanttLayout.class,
                 new ContactWindowRenderer(graphics));
-        graphics.setActivityRenderer(Maneuver.class,       GanttLayout.class,
+        graphics.setActivityRenderer(Maneuver.class, GanttLayout.class,
                 new ManeuverRenderer(graphics));
-        graphics.setActivityRenderer(ScienceOp.class,      GanttLayout.class,
+        graphics.setActivityRenderer(ScienceOp.class, GanttLayout.class,
                 new ScienceOpRenderer(graphics));
-        graphics.setActivityRenderer(MaintenanceOp.class,  GanttLayout.class,
+        graphics.setActivityRenderer(MaintenanceOp.class, GanttLayout.class,
                 new MaintenanceOpRenderer(graphics));
         graphics.setActivityRenderer(TelemetryActivity.class, ChartLayout.class,
                 new TelemetryRenderer(graphics));
