@@ -1,0 +1,53 @@
+/**
+ * License Notice for FlexGanttFX
+ *
+ * The FlexGanttFX software library is distributed under a dual licensing model.
+ *
+ * 1. Commercial Use
+ *    Use of FlexGanttFX in proprietary or commercial applications requires the purchase of a commercial license.
+ *    The applicable terms and conditions can be found on the product's homepage at <https://www.flexganttfx.com/pages/licensing/>.
+ *
+ * 2. Open Source Use
+ *    For use in open source projects, FlexGanttFX is made available under the **GNU AFFERO GENERAL PUBLIC LICENSE V3**.
+ *    The full text of the license is available at:
+ *    <https://github.com/dlemmermann/FlexGanttFX/blob/master/LICENSE>
+ *
+ * By using FlexGanttFX, the licensee accepts and agrees to the applicable licensing terms.
+ */
+package com.flexganttfx.f1;
+
+import atlantafx.base.theme.PrimerDark;
+import com.flexganttfx.core.FlexGanttFX;
+import com.flexganttfx.f1.view.F1View;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+public class F1App extends Application {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage stage) {
+        if (!FlexGanttFX.isLicenseKeySet()) {
+            FlexGanttFX.setLicenseKey("LIC=DLSC;VEN=DLSC;VER=12;PRO=STANDARD;RUN=no;CTR=1;SignCode=3F;Signature=302C02142BD7F914E6633D7DBA0B8564D8FC20EC249BCFD702142558B5C6FF46325A0A698A1E8036828E54D6FEC8");
+        }
+
+        Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
+
+        F1View view = new F1View();
+        VBox root = new VBox(view);
+        VBox.setVgrow(view, Priority.ALWAYS);
+
+        stage.setTitle("Formula 1 Race Strategy — FlexGanttFX Demo");
+        stage.setScene(new Scene(root, 1400, 900));
+        stage.setWidth(1400);
+        stage.setHeight(900);
+        stage.centerOnScreen();
+        stage.show();
+    }
+}

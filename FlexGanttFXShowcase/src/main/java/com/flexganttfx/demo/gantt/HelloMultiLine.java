@@ -39,12 +39,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Slider;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -68,9 +66,7 @@ public class HelloMultiLine extends FlexGanttFXSample {
 
     private Slider slider;
 
-    private RadioButton equalButton;
-
-    private RadioButton autoButton;
+    private ComboBox<String> layoutCombo;
 
     @Override
     public String getSampleName() {
@@ -131,7 +127,7 @@ public class HelloMultiLine extends FlexGanttFXSample {
     }
 
     private void maybePerformLayout() {
-        if (autoButton == null || autoButton.isSelected()) {
+        if (layoutCombo == null || "Auto Layout".equals(layoutCombo.getValue())) {
             for (AutoLinesManager<HelloRow, HelloActivity> mgr : autoManagers) {
                 mgr.layout();
             }
@@ -140,26 +136,18 @@ public class HelloMultiLine extends FlexGanttFXSample {
 
     @Override
     public Node getControlPanel() {
-        equalButton = new RadioButton("Equal Lines");
-        autoButton = new RadioButton("Equal Lines (Auto Layout)");
-        RadioButton randomButton = new RadioButton("Random Lines");
-
-        equalButton.setStyle("-fx-background-color: transparent;");
-        autoButton.setStyle("-fx-background-color: transparent;");
-        randomButton.setStyle("-fx-background-color: transparent;");
-
-        equalButton.setTooltip(new Tooltip("Distribute available row height equally to all lines"));
-        autoButton.setTooltip(new Tooltip("Equal line height, activities non overlapping"));
-        randomButton.setTooltip(new Tooltip("Randomly place lines and allocate line height"));
-
-        ToggleGroup toggleGroup = new ToggleGroup();
-        toggleGroup.getToggles().addAll(equalButton, autoButton, randomButton);
-        toggleGroup.selectedToggleProperty().addListener(it -> applyLineCount(rows.isEmpty() ? 25 : rows.get(0).getLineCount()));
-        toggleGroup.selectedToggleProperty().addListener(it -> getGanttChart().getGraphics().showEarliestActivities());
-
-        equalButton.setOnAction(evt -> applyEqualLinesManager());
-        autoButton.setOnAction(evt -> applyAutoLinesManager());
-        randomButton.setOnAction(evt -> applyRandomLinesManager());
+        layoutCombo = new ComboBox<>();
+        layoutCombo.getItems().addAll("Equal (Static)", "Auto Layout", "Random");
+        layoutCombo.setValue("Equal (Static)");
+        layoutCombo.valueProperty().addListener(it -> {
+            switch (layoutCombo.getValue()) {
+                case "Equal (Static)": applyEqualLinesManager(); break;
+                case "Auto Layout":    applyAutoLinesManager();  break;
+                case "Random":         applyRandomLinesManager(); break;
+            }
+            applyLineCount(rows.isEmpty() ? 25 : rows.get(0).getLineCount());
+            getGanttChart().getGraphics().showEarliestActivities();
+        });
 
         Label sliderLabel = new Label("Number of Lines");
         sliderLabel.setMaxWidth(Double.MAX_VALUE);
@@ -172,21 +160,32 @@ public class HelloMultiLine extends FlexGanttFXSample {
         slider.setPrefWidth(250);
         slider.valueProperty().addListener(it -> applyLineCount((int) slider.getValue()));
 
-        Button apply = new Button("Apply");
-        apply.setMaxWidth(Double.MAX_VALUE);
-        apply.setOnAction(evt -> applyLineCount((int) slider.getValue()));
+        Label descLabel = new Label(descriptionFor("Equal (Static)"));
+        descLabel.setStyle("-fx-font-style: italic; -fx-text-fill: -color-fg-default;");
+        layoutCombo.valueProperty().addListener(it -> descLabel.setText(descriptionFor(layoutCombo.getValue())));
 
         HBox box = new HBox();
         box.setSpacing(10);
         box.setFillHeight(true);
         box.setAlignment(Pos.CENTER_LEFT);
-        box.getChildren().addAll(equalButton, autoButton,
-                randomButton, new Separator(Orientation.VERTICAL),
-                sliderLabel, slider, apply);
+        box.getChildren().addAll(new Label("Layout:"), layoutCombo,
+                new Separator(Orientation.VERTICAL),
+                sliderLabel, slider);
 
-        Platform.runLater(() -> equalButton.fire());
+        VBox vbox = new VBox(4, box, descLabel);
 
-        return box;
+        Platform.runLater(() -> layoutCombo.setValue("Equal (Static)"));
+
+        return vbox;
+    }
+
+    private static String descriptionFor(String layout) {
+        switch (layout) {
+            case "Equal (Static)": return "Distributes the available row height equally to all lines. Activities are placed on manually assigned line indices.";
+            case "Auto Layout":    return "Equal line heights with automatic placement — activities are rearranged to avoid overlapping.";
+            case "Random":         return "Assigns random heights and positions to lines. Activities are placed on manually assigned line indices.";
+            default:               return "";
+        }
     }
 
     private void applyLineCount(int count) {
@@ -219,7 +218,7 @@ public class HelloMultiLine extends FlexGanttFXSample {
             }
         }
 
-        if (autoButton == null || autoButton.isSelected()) {
+        if (layoutCombo == null || "Auto Layout".equals(layoutCombo.getValue())) {
             maybePerformLayout();
         }
     }
