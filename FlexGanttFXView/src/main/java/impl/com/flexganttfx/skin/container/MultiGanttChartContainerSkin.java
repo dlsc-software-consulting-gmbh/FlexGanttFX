@@ -21,6 +21,11 @@ import javafx.scene.control.SplitPane;
 
 import com.flexganttfx.view.container.MultiGanttChartContainerBase;
 
+/**
+ * Skin for {@link com.flexganttfx.view.container.MultiGanttChartContainerBase}. It installs
+ * the split pane used to display the contained charts and keeps its items in sync with the
+ * container's chart list.
+ */
 public class MultiGanttChartContainerSkin extends MultiGanttChartContainerSkinBase<MultiGanttChartContainerBase> {
 
 	public MultiGanttChartContainerSkin(MultiGanttChartContainerBase container) {

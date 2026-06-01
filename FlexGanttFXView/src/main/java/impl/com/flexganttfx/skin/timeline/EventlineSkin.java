@@ -39,6 +39,11 @@ import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
 import java.time.zone.ZoneOffsetTransition;
 
+/**
+ * Skin for {@link com.flexganttfx.view.timeline.Eventline}. It lays out the event timeline for
+ * the visible range and updates additional markers such as the current time and daylight
+ * saving transitions.
+ */
 public class EventlineSkin extends SkinBase<Eventline> {
 
     private final Label timeCursor;

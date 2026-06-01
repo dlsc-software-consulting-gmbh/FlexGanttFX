@@ -35,6 +35,10 @@ import java.util.Collection;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 
+/**
+ * Canvas responsible for drawing visible activity links. It batches redraw requests and
+ * rebuilds the link shapes from the current graphics state during layout pulses.
+ */
 public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
     private final GraphicsBase<R> graphics;

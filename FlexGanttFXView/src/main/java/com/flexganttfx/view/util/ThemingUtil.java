@@ -22,6 +22,10 @@ import javafx.scene.Scene;
 
 import java.util.Locale;
 
+/**
+ * Utility methods for working with the active application theme.
+ * The current implementation focuses on detecting whether AtlantaFX styling is in use.
+ */
 public final class ThemingUtil {
 
     private ThemingUtil() {

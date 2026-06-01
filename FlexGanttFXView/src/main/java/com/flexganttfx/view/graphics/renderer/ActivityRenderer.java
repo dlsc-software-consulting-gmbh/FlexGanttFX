@@ -33,11 +33,10 @@ import javafx.scene.paint.Paint;
 
 import java.util.Objects;
 
-import static javafx.scene.paint.Color.BLUE;
-import static javafx.scene.paint.Color.GREEN;
-import static javafx.scene.paint.Color.RED;
-import static javafx.scene.paint.Color.YELLOW;
-
+/**
+ * Base renderer for drawing activities as filled and stroked shapes.
+ * It manages state-specific styling, safe graphics context handling, and returns the bounds of the rendered activity.
+ */
 public class ActivityRenderer<A extends Activity> extends Renderer {
 
     public ActivityRenderer(GraphicsBase<?> graphics, String name) {

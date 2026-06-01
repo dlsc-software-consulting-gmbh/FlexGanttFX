@@ -38,6 +38,10 @@ import javafx.util.Duration;
 import static java.lang.Double.MAX_VALUE;
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Pane that flips between a front and back node with a rotation animation. It is used by row
+ * panes to switch between normal content and the row editor.
+ */
 public class FlipPane<R extends Row<?, ?, ?>> extends StackPane {
     private final StackPane front;
     private final StackPane back;

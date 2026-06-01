@@ -27,6 +27,10 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.BorderPane;
 import org.controlsfx.control.MasterDetailPane;
 
+/**
+ * Skin for a container that shows four Gantt charts. It arranges the charts in upper and
+ * lower master-detail panes and synchronizes their split positions and shared state.
+ */
 public class QuadGanttChartContainerSkin extends ContainerSkinBase<QuadGanttChartContainerBase> {
 
     private enum Corner {

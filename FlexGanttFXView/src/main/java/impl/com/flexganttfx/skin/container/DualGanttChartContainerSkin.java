@@ -22,6 +22,10 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.BorderPane;
 import org.controlsfx.control.MasterDetailPane;
 
+/**
+ * Skin for a container that shows two Gantt charts. It arranges the primary and secondary
+ * charts in a master-detail pane and binds their shared state.
+ */
 public class DualGanttChartContainerSkin extends MultiGanttChartContainerSkinBase<DualGanttChartContainerBase> {
 
     public DualGanttChartContainerSkin(DualGanttChartContainerBase container) {

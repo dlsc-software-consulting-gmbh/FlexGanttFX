@@ -28,6 +28,10 @@ import java.time.Instant;
 import java.time.LocalTime;
 import java.time.ZoneId;
 
+/**
+ * Utility methods for snapping times to the current or virtual grid. The graphics skins and
+ * row canvas behaviors use this helper when positioning or resizing activities.
+ */
 public final class GridHelper {
 
 	private GridHelper() {

@@ -46,6 +46,11 @@ import static com.flexganttfx.model.dateline.Resolution.Position.MIDDLE;
 import static com.flexganttfx.model.dateline.Resolution.Position.ONLY;
 import static com.flexganttfx.model.dateline.Resolution.Position.TOP;
 
+/**
+ * Skin for {@link com.flexganttfx.view.timeline.Dateline}. It builds the visible scale rows
+ * from the configured resolutions and keeps their layout aligned with the timeline and lasso
+ * overlay.
+ */
 public class DatelineSkin extends SkinBase<Dateline> {
 
     protected final Region lasso;

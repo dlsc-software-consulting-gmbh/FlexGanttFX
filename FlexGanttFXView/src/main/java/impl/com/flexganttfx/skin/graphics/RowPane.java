@@ -50,6 +50,10 @@ import java.util.Locale;
 import static javafx.scene.input.MouseEvent.MOUSE_ENTERED;
 import static javafx.scene.input.MouseEvent.MOUSE_EXITED;
 
+/**
+ * Container representing one row inside a graphics skin. It combines the row canvas, optional
+ * header content, controls, and flip editor pane for the row.
+ */
 public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
 
     private final RowCanvas<R> canvas;

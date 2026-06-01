@@ -34,6 +34,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Graphics skin that stacks {@link RowPane} instances in a {@link javafx.scene.layout.VBox}.
+ * It provides a simple multi-row layout and resolves lasso selections across the visible rows.
+ */
 public class VBoxGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSkin<VBoxGraphics<R>, R> {
 
 	private VBox vbox;

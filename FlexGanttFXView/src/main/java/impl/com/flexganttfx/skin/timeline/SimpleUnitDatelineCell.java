@@ -24,6 +24,10 @@ import com.flexganttfx.view.timeline.DatelineCell;
 
 import java.time.Instant;
 
+/**
+ * Dateline cell implementation for {@link com.flexganttfx.model.util.SimpleUnit}-based
+ * resolutions. It updates its label and boundaries from the visible timeline interval.
+ */
 public class SimpleUnitDatelineCell extends DatelineCell<SimpleUnit> {
 
 	/**

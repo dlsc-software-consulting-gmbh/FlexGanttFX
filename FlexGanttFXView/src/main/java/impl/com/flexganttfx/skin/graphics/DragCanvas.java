@@ -35,6 +35,10 @@ import java.util.List;
 
 import static com.flexganttfx.view.util.Position.ONLY;
 
+/**
+ * Canvas used to render drag visuals for activities. It can paint the dragged activity
+ * together with the current selection to produce the drag image shown during drag and drop.
+ */
 public class DragCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
     private final GraphicsBase<R> graphics;

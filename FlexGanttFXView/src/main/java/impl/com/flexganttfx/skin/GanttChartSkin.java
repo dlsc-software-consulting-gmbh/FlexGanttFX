@@ -47,6 +47,11 @@ import org.controlsfx.control.MasterDetailPane;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Default skin for {@link com.flexganttfx.view.GanttChart}. It combines the tree table, row
+ * header, graphics area, and detail panes into the full chart presentation and coordinates
+ * their shared state.
+ */
 public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R, GanttChart<R>> {
 
     private final TreeTableView<R> treeTable;

@@ -27,6 +27,10 @@ import java.util.logging.Level;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * List cell implementation that hosts a {@link RowPane}. It keeps the row pane bound to the
+ * current row item and sized to fill the list cell.
+ */
 public class RowCell<R extends Row<?, ?, ?>> extends ListCell<R> {
 
     private static final String DEFAULT_STYLE_CLASS = "row-cell";

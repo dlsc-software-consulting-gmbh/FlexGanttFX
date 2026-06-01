@@ -1047,6 +1047,10 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final WeakChangeListener<Boolean> weakLayerVisibilityListener = new WeakChangeListener<>(layerVisibilityListener);
 
+    /**
+     * Listens to layer visibility changes and updates the layer opacity accordingly.
+     * It applies the configured fade animation when layers are shown or hidden.
+     */
     private class LayerVisibilityListener implements ChangeListener<Boolean> {
 
         /**
@@ -1466,6 +1470,10 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         layers.add(newIndex, layer);
     }
 
+    /**
+     * Property implementation for activity event handlers registered on this graphics view.
+     * Updating the property automatically installs the handler for the associated activity event type.
+     */
     private class ActivityEventHandlerProperty
             extends SimpleObjectProperty<EventHandler<ActivityEvent>> {
 
@@ -2494,6 +2502,10 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
                 : onActivityStartTimeChangeFinished.get();
     }
 
+    /**
+     * Property implementation for lasso event handlers registered on this graphics view.
+     * Updating the property automatically installs the handler for the associated lasso event type.
+     */
     private class LassoEventHandlerProperty
             extends SimpleObjectProperty<EventHandler<LassoEvent>> {
 
@@ -2811,6 +2823,10 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         return lower.contains("atlantafx") && (lower.contains("dark") || lower.contains("dracula"));
     }
 
+    /**
+     * Background thread that toggles the highlighted state while the control is showing.
+     * It drives the blinking highlight effect used by the graphics view.
+     */
     private class HighlightThread extends Thread {
 
         private boolean running = true;
@@ -5352,6 +5368,10 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         return null;
     }
 
+    /**
+     * Default callback for determining how an activity can be edited from mouse input.
+     * It chooses between resizing and dragging modes based on the pointer position and modifier keys.
+     */
     class ActivityEditModeCallback implements Callback<EditModeCallbackParameter, EditMode> {
 
         /**
@@ -5385,6 +5405,10 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         }
     }
 
+    /**
+     * Callback for determining edit modes for activities rendered in an agenda layout.
+     * It interprets vertical handles and drag gestures for stacked agenda activity blocks.
+     */
     class ActivityInAgendaLayoutEditModeCallback implements Callback<EditModeCallbackParameter, EditMode> {
 
         /**
@@ -5442,6 +5466,10 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         }
     }
 
+    /**
+     * Edit mode callback for completable activities.
+     * It enables percentage-complete editing when the pointer is near the completion marker of a selected activity.
+     */
     class CompletableActivityEditModeCallback extends ActivityEditModeCallback {
 
         /**
@@ -5472,6 +5500,10 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         }
     }
 
+    /**
+     * Edit mode callback for chart activities.
+     * It allows chart values to be edited from the top or bottom edge depending on whether the value is positive or negative.
+     */
     class ChartActivityEditModeCallback extends ActivityEditModeCallback {
 
         /**
@@ -5501,6 +5533,10 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         }
     }
 
+    /**
+     * Edit mode callback for high-low chart activities.
+     * It maps drags near the top and bottom edges to high-value and low-value edits before falling back to the default behavior.
+     */
     class ChartHighLowEditModeCallback extends ActivityEditModeCallback {
 
         /**
@@ -5527,6 +5563,10 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         }
     }
 
+    /**
+     * Context-menu submenu that lists the calendars available for the current graphics context.
+     * It binds each calendar's visibility to a check menu item so users can toggle calendars on and off.
+     */
     private class CalendarMenu extends Menu {
 
         private ObservableList<Calendar<?>> calendars;
@@ -5567,6 +5607,10 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         }
     }
 
+    /**
+     * Context-menu submenu for selecting the active virtual grid.
+     * It also provides actions for disabling the grid or switching automatic grid selection on and off.
+     */
     private class GridMenu extends Menu {
 
         private ObservableList<VirtualGrid<?>> grids;
@@ -5624,6 +5668,10 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         }
     }
 
+    /**
+     * Default context menu for the graphics view.
+     * It offers highlight actions and embeds the calendar and grid submenus for the current row context.
+     */
     private class GraphicsViewMenu extends ContextMenu {
 
         public GraphicsViewMenu(final ContextMenuParameter<R> input) {
@@ -6283,6 +6331,10 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
      */
     public final ObjectProperty<Color> activityTextFillSelectedProperty() { return activityTextFillSelected; }
 
+    /**
+     * Holder for the CSS metadata exposed by {@link GraphicsBase}.
+     * The JavaFX CSS engine uses these definitions to resolve the control's styleable properties.
+     */
     private static class StyleableProperties {
 
         private static final CssMetaData<GraphicsBase, Color> ACTIVITY_TEXT_FILL =

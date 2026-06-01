@@ -24,6 +24,10 @@ import javafx.scene.canvas.GraphicsContext;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.view.graphics.GraphicsBase;
 
+/**
+ * Renders the background area of a row.
+ * It fills the row bounds with the state-dependent paint configured on the renderer while respecting padding.
+ */
 public class RowRenderer<R extends Row<?, ?, ?>> extends Renderer {
 
 	public RowRenderer(GraphicsBase<?> graphics, String name) {

@@ -27,6 +27,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
+/**
+ * Renders completable activities with an additional completion overlay.
+ * The overlay width reflects the activity's percentage complete and can be styled for the different interaction states.
+ */
 public class CompletableActivityRenderer<A extends CompletableActivity> extends
 		ActivityBarRenderer<A> {
 

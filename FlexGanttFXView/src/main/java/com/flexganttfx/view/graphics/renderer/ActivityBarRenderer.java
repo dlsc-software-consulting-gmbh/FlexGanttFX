@@ -31,8 +31,16 @@ import javafx.scene.text.TextAlignment;
 
 import java.util.Objects;
 
+/**
+ * Renders activities as bars or milestone diamonds and can paint labels around them.
+ * It adds bar-specific styling such as bar height, glossy fills, and text placement support on top of {@link ActivityRenderer}.
+ */
 public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A> {
 
+    /**
+     * Defines the supported positions for text relative to a rendered activity bar or milestone.
+     * Values cover placements inside the activity, above or below it, and on its leading or trailing side.
+     */
     public enum TextPosition {
         LEFT, CENTER, RIGHT,
 

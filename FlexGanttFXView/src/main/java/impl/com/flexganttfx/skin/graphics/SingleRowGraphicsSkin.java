@@ -28,6 +28,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Graphics skin for controls that show a single row. It hosts one {@link RowPane} and maps
+ * lasso selection results back to the activities of that row.
+ */
 public class SingleRowGraphicsSkin<R extends Row<?, ?, ?>>
 		extends GraphicsBaseSkin<SingleRowGraphics<R>, R> {
 

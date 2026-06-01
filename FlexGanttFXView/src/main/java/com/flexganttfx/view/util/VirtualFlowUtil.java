@@ -28,6 +28,10 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * Utility methods for working with JavaFX {@link VirtualFlow} instances.
+ * These helpers keep the visible row position of multiple virtualized controls in sync.
+ */
 public class VirtualFlowUtil {
 
     /**
@@ -136,6 +140,10 @@ public class VirtualFlowUtil {
         }
     }
 
+    /**
+     * Stores the scroll position of a {@link VirtualFlow} as a visible cell index and pixel offset.
+     * Instances of this class are used to transfer the current viewport position to another flow.
+     */
     private static class VirtualFlowPosition {
 
         private final int index;

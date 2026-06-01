@@ -26,6 +26,10 @@ import javafx.beans.Observable;
 
 import java.util.List;
 
+/**
+ * Base skin implementation for containers that manage multiple Gantt charts. It assigns chart
+ * positions, shares the master timeline, and binds related state across the charts.
+ */
 public abstract class MultiGanttChartContainerSkinBase<T extends ContainerBase> extends ContainerSkinBase<T> {
 
     public MultiGanttChartContainerSkinBase(T container) {

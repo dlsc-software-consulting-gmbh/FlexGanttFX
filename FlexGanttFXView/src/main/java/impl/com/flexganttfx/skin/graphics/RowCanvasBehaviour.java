@@ -87,6 +87,10 @@ import static java.util.logging.Level.FINEST;
 import static javafx.scene.input.MouseButton.PRIMARY;
 import static javafx.scene.paint.Color.TRANSPARENT;
 
+/**
+ * Behavior controller for a {@link RowCanvas}. It handles mouse and drag interactions for
+ * creating, moving, resizing, and selecting activities on the row canvas.
+ */
 public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
     private static final String DRAG_AND_DROP_INFO = "com.flexganttfx.draganddropinfo";

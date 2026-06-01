@@ -22,6 +22,10 @@ import com.flexganttfx.view.graphics.GraphicsBase;
 import static javafx.scene.paint.Color.CADETBLUE;
 import static javafx.scene.paint.Color.TRANSPARENT;
 
+/**
+ * Renders chart activities as simple semi-transparent bars.
+ * The renderer uses a flat fill, no border stroke, and disabled corner rounding to visualize chart values.
+ */
 public class ChartActivityRenderer<A extends ChartActivity> extends ActivityRenderer<A> {
 
 	public ChartActivityRenderer(GraphicsBase<?> graphics, String name) {

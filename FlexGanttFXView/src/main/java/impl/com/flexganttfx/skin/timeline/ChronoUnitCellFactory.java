@@ -20,6 +20,10 @@ import java.time.temporal.ChronoUnit;
 
 import javafx.util.Callback;
 
+/**
+ * Factory for creating {@link ChronoUnitDatelineCell} instances. It binds a dateline scale to
+ * a specific {@link java.time.temporal.ChronoUnit} resolution.
+ */
 public class ChronoUnitCellFactory
 		implements Callback<ChronoUnit, ChronoUnitDatelineCell> {
 

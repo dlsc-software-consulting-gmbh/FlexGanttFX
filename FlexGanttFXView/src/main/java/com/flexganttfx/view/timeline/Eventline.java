@@ -368,7 +368,11 @@ public class Eventline extends FlexGanttFXControl {
         markedTimeInterval.set(timeInterval);
     }
 
-    class EventlineActivityRenderer extends ActivityRenderer {
+    /**
+     * Activity renderer used by the eventline's embedded graphics view.
+     * It renders frozen-row activities without a stroke so they match the eventline presentation.
+     */
+    static class EventlineActivityRenderer extends ActivityRenderer {
 
         /**
          * Constructs a new event line activity renderer.

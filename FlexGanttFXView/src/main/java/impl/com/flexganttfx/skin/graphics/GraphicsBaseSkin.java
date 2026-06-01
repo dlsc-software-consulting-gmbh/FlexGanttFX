@@ -75,6 +75,11 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Callback;
 
+/**
+ * Abstract base skin for graphics controls. It installs the shared overlays, listeners,
+ * cursors, keyboard handling, lasso selection, and drag feedback used by concrete graphics
+ * skins.
+ */
 public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<?, ?, ?>> extends SkinBase<C> {
 
     private final Line verticalCursorLine = new Line(); // early init because it is being used in listener

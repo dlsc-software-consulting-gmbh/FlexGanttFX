@@ -22,6 +22,11 @@ import com.flexganttfx.model.Activity;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.view.graphics.renderer.ActivityRenderer;
 
+/**
+ * Exception thrown when an activity renderer does not provide bounds after drawing an
+ * activity. Link routing and related layout code use it to signal that rendering cannot
+ * continue with incomplete geometry information.
+ */
 public class MissingActivityBoundsException extends Exception {
 
 	private static final long serialVersionUID = -6806986448373406748L;

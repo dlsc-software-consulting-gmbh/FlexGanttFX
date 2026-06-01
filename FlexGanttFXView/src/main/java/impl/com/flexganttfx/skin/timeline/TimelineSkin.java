@@ -37,6 +37,11 @@ import java.util.Locale;
 
 import static java.time.format.TextStyle.FULL;
 
+/**
+ * Skin for {@link com.flexganttfx.view.timeline.Timeline}. It composes the dateline and
+ * eventline nodes, updates the time-zone label, and handles keyboard-driven timeline
+ * scrolling.
+ */
 public class TimelineSkin extends SkinBase<Timeline> {
 
     private final Dateline dateline;

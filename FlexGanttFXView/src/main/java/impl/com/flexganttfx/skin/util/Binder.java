@@ -22,6 +22,10 @@ import com.flexganttfx.view.graphics.ListViewGraphics;
 import com.flexganttfx.view.timeline.Timeline;
 import javafx.beans.binding.Bindings;
 
+/**
+ * Utility for binding two Gantt charts together. It synchronizes timelines, display options,
+ * detail panes, graphics settings, and optional layer and interval configuration.
+ */
 public class Binder {
 
     /**

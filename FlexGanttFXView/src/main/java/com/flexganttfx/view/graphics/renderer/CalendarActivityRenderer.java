@@ -24,6 +24,10 @@ import com.flexganttfx.view.util.Position;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+/**
+ * Renders calendar activities as row-spanning background fills.
+ * It paints translucent blocks and borders for calendar entries without producing interactive activity bounds.
+ */
 public class CalendarActivityRenderer<A extends CalendarActivity> extends ActivityRenderer<A> {
 
     public CalendarActivityRenderer(GraphicsBase<?> graphics, String name) {

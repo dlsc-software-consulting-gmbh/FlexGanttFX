@@ -21,6 +21,11 @@ import com.flexganttfx.view.GanttChartLite;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
+/**
+ * Skin for {@link com.flexganttfx.view.GanttChartLite}. It binds the control's rows to the
+ * graphics node through a filtered list so row filter changes and row list replacement stay
+ * in sync with the lightweight chart view.
+ */
 public class GanttChartLiteSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R, GanttChartLite<R>> {
 
 	public GanttChartLiteSkin(GanttChartLite<R> control) {

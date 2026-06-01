@@ -34,6 +34,11 @@ import javafx.scene.layout.VBox;
 import org.controlsfx.control.HiddenSidesPane;
 import org.controlsfx.control.MasterDetailPane;
 
+/**
+ * Base skin implementation for {@link com.flexganttfx.view.GanttChartBase}. It assembles the
+ * timeline, graphics area, scroll bars, and master-detail panes and keeps them synchronized
+ * with the control state.
+ */
 public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends GanttChartBase<R>> extends SkinBase<C> {
 
     private final BorderPane timelineGraphicsPane;

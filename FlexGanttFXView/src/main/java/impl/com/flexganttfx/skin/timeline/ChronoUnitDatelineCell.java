@@ -29,6 +29,11 @@ import java.time.temporal.ChronoUnit;
 
 import static java.time.temporal.ChronoField.AMPM_OF_DAY;
 
+/**
+ * Dateline cell implementation for {@link java.time.temporal.ChronoUnit}-based resolutions.
+ * It formats labels and boundaries for the represented time interval and updates itself from
+ * the visible timeline range.
+ */
 public class ChronoUnitDatelineCell extends DatelineCell<ChronoUnit> {
 
 	/**

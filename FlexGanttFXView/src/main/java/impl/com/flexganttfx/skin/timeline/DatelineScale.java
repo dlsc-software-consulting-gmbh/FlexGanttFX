@@ -50,6 +50,10 @@ import java.util.List;
 import static javafx.scene.control.SelectionMode.SINGLE;
 import static javafx.scene.input.MouseButton.PRIMARY;
 
+/**
+ * Control that manages one scale row of dateline cells. It creates and reuses cells for the
+ * current resolution and handles interaction and styling for the scale.
+ */
 final class DatelineScale extends Region {
 
     private static final String DEFAULT_STYLE_CLASS = "scale";

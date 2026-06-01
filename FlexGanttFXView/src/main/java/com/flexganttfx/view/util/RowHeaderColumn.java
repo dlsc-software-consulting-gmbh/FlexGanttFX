@@ -193,6 +193,10 @@ public class RowHeaderColumn<R extends Row<?, ?, ?>> extends TreeTableColumn<R, 
         return ganttChart;
     }
 
+    /**
+     * Cell implementation used by the row header column to render row labels and handle row resizing.
+     * It mirrors row header state from the owning Gantt chart and updates row heights in response to mouse gestures.
+     */
     class RowHeaderColumnCell extends TreeTableCell<R, R> {
         private static final String DEFAULT_STYLE_CLASS = "row-header-cell";
 

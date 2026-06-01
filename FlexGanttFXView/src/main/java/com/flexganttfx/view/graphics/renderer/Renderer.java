@@ -20,13 +20,16 @@ import com.flexganttfx.view.graphics.GraphicsBase;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Insets;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 import java.util.Objects;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Abstract base class for renderers that paint filled shapes with optional padding.
+ * It centralizes fill configuration for the normal, hover, selected, highlighted, and pressed states.
+ */
 public abstract class Renderer extends RendererBase {
 
 	public Renderer(GraphicsBase<?> graphics, String name) {

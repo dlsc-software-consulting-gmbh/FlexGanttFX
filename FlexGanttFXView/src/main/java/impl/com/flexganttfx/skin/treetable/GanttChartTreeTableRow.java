@@ -22,6 +22,11 @@ import com.flexganttfx.model.Row;
 
 import javafx.scene.control.TreeTableRow;
 
+/**
+ * Custom {@link javafx.scene.control.TreeTableRow} used by the Gantt chart tree table. It
+ * derives its height from the backing row when possible and otherwise falls back to the
+ * default row sizing.
+ */
 public class GanttChartTreeTableRow<R extends Row<?, ?, ?>> extends
 		TreeTableRow<R> implements Serializable {
 

@@ -16,14 +16,14 @@
  */
 package com.flexganttfx.view.graphics.renderer;
 
-import com.flexganttfx.model.ActivityRef;
 import com.flexganttfx.model.calendar.WeekendCalendarActivity;
-import com.flexganttfx.view.graphics.ActivityBounds;
 import com.flexganttfx.view.graphics.GraphicsBase;
-import com.flexganttfx.view.util.Position;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+/**
+ * Specialized calendar activity renderer for weekend intervals.
+ * It binds its fill and opacity to the graphics view's weekend styling properties and omits a visible stroke.
+ */
 public class WeekendCalendarActivityRenderer<A extends WeekendCalendarActivity>
 		extends CalendarActivityRenderer<A> {
 

@@ -20,6 +20,10 @@ import javafx.util.Callback;
 
 import com.flexganttfx.model.util.SimpleUnit;
 
+/**
+ * Factory for creating {@link SimpleUnitDatelineCell} instances. It binds a dateline scale to
+ * a specific {@link com.flexganttfx.model.util.SimpleUnit} resolution.
+ */
 public class SimpleUnitCellFactory implements
 		Callback<SimpleUnit, SimpleUnitDatelineCell> {
 
