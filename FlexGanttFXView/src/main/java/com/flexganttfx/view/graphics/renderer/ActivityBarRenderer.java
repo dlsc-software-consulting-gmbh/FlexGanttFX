@@ -48,6 +48,8 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
     public ActivityBarRenderer(GraphicsBase<?> graphics, String name) {
         super(graphics, name);
 
+        // text fill properties default to null; getTextFill() falls back to GraphicsBase
+
         redrawObservable(autoFixText);
         redrawObservable(barHeight);
         redrawObservable(font);
@@ -288,13 +290,6 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
         }
 
         Paint textFill = getTextFill(selected, hover, highlighted, pressed);
-        if (textFill == null) {
-            textFill = getGraphics().getTextFill();
-        }
-        if (textFill == null) {
-            textFill = Color.BLACK;
-        }
-
         gc.setFill(textFill);
 
         double textX = 0;
@@ -419,16 +414,22 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
     }
 
     protected Paint getTextFill(boolean selected, boolean hover, boolean highlighted, boolean pressed) {
+        GraphicsBase<?> graphics = getGraphics();
         if (pressed) {
-            return getTextFillPressed();
+            Paint c = getTextFillPressed();
+            return c != null ? c : graphics.getActivityTextFillPressed();
         } else if (highlighted) {
-            return getTextFillHighlight();
+            Paint c = getTextFillHighlight();
+            return c != null ? c : graphics.getActivityTextFillHighlight();
         } else if (hover) {
-            return getTextFillHover();
+            Paint c = getTextFillHover();
+            return c != null ? c : graphics.getActivityTextFillHover();
         } else if (selected) {
-            return getTextFillSelected();
+            Paint c = getTextFillSelected();
+            return c != null ? c : graphics.getActivityTextFillSelected();
         } else {
-            return getTextFill();
+            Paint c = getTextFill();
+            return c != null ? c : graphics.getActivityTextFill();
         }
     }
 

@@ -10,14 +10,35 @@
  */
 
 .graphics {
-    -fx-grid-line-color1: -color-border-muted;
-    -fx-grid-line-color2: -color-border-default;
-    -fx-grid-line-color3: -color-border-subtle;
-    -fx-text-fill: -color-fg-default;
+    -fx-grid-line-color1:    -color-border-muted;
+    -fx-grid-line-color2:    -color-border-default;
+    -fx-grid-line-color3:    -color-border-subtle;
+    -fx-inner-lines-color:   -color-border-default;
 
-    -fx-weekend-color: rgba(0, 0, 0, .06);
-    -fx-time-now-color: -color-accent-fg;
-    -fx-inner-lines-color: -color-border-default;
+    -fx-weekend-color:       -color-border-default;
+    -fx-weekend-opacity:     .5;
+    -fx-time-now-color:      -color-accent-fg;
+
+    /* ── Activity fill (normal + state variants) ─────────────────────── */
+    -fx-activity-fill:       -color-neutral-emphasis;
+    -fx-activity-pressed:    -color-accent-emphasis;
+    -fx-activity-highlight:  -color-warning-emphasis;
+    -fx-activity-selected:   -color-danger-emphasis;
+    -fx-activity-hover:      -color-success-emphasis;
+
+    /* ── Activity stroke (normal + state variants) ───────────────────── */
+    -fx-activity-stroke:              -color-fg-emphasis;
+    -fx-activity-stroke-pressed:      -color-fg-emphasis;
+    -fx-activity-stroke-highlight:    -color-fg-emphasis;
+    -fx-activity-stroke-selected:     -color-fg-emphasis;
+    -fx-activity-stroke-hover:        -color-fg-emphasis;
+
+    /* ── Activity text fill (normal + state variants) ────────────────── */
+    -fx-activity-text-fill:           -color-fg-default;
+    -fx-activity-text-fill-pressed:   -color-fg-default;
+    -fx-activity-text-fill-highlight: -color-fg-default;
+    -fx-activity-text-fill-selected:  -color-fg-default;
+    -fx-activity-text-fill-hover:     -color-fg-default;
 }
 
 .graphics-list-view {

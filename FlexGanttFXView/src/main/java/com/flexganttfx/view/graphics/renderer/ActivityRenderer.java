@@ -42,24 +42,13 @@ public class ActivityRenderer<A extends Activity> extends Renderer {
 
     public ActivityRenderer(GraphicsBase<?> graphics, String name) {
         super(graphics, name);
-
-        setStroke(BLUE);
-        setStrokePressed(BLUE.darker());
-        setStrokeHighlight(YELLOW.darker());
-        setStrokeSelected(RED);
-        setStrokeHover(GREEN);
-
-        // Listener support / Redraw
-
         redrawObservable(stroke);
         redrawObservable(strokePressed);
         redrawObservable(strokeHighlight);
         redrawObservable(strokeSelected);
         redrawObservable(strokeHover);
-
         redrawObservable(cornerRadius);
         redrawObservable(cornersRounded);
-
         redrawObservable(lineWidth);
     }
 
@@ -158,16 +147,22 @@ public class ActivityRenderer<A extends Activity> extends Renderer {
     }
 
     protected Paint getStroke(boolean selected, boolean hover, boolean highlighted, boolean pressed) {
+        GraphicsBase<?> g = getGraphics();
         if (pressed) {
-            return getStrokePressed();
+            Paint c = getStrokePressed();
+            return c != null ? c : g.getActivityStrokePressed();
         } else if (highlighted) {
-            return getStrokeHighlight();
+            Paint c = getStrokeHighlight();
+            return c != null ? c : g.getActivityStrokeHighlight();
         } else if (hover) {
-            return getStrokeHover();
+            Paint c = getStrokeHover();
+            return c != null ? c : g.getActivityStrokeHover();
         } else if (selected) {
-            return getStrokeSelected();
+            Paint c = getStrokeSelected();
+            return c != null ? c : g.getActivityStrokeSelected();
         } else {
-            return getStroke();
+            Paint c = getStroke();
+            return c != null ? c : g.getActivityStroke();
         }
     }
 

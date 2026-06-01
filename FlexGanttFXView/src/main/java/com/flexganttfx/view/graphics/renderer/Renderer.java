@@ -31,13 +31,6 @@ public abstract class Renderer extends RendererBase {
 
 	public Renderer(GraphicsBase<?> graphics, String name) {
 		super(graphics, name);
-
-		setFill(Color.LIGHTBLUE);
-		setFillPressed(Color.LIGHTBLUE.darker());
-		setFillHighlight(Color.YELLOW.deriveColor(1, 1, 1, .5));
-		setFillSelected(Color.valueOf("#F21B1BBB"));
-		setFillHover(Color.GREEN);
-
 		redrawObservable(padding);
 		redrawObservable(fill);
 		redrawObservable(fillHighlight);
@@ -47,16 +40,22 @@ public abstract class Renderer extends RendererBase {
 	}
 
 	protected Paint getFill(boolean selected, boolean hover, boolean highlighted, boolean pressed) {
+		GraphicsBase<?> g = getGraphics();
 		if (pressed) {
-			return getFillPressed();
+			Paint c = getFillPressed();
+			return c != null ? c : g.getActivityPressed();
 		} else if (highlighted) {
-			return getFillHighlight();
+			Paint c = getFillHighlight();
+			return c != null ? c : g.getActivityHighlight();
 		} else if (hover) {
-			return getFillHover();
+			Paint c = getFillHover();
+			return c != null ? c : g.getActivityHover();
 		} else if (selected) {
-			return getFillSelected();
+			Paint c = getFillSelected();
+			return c != null ? c : g.getActivitySelected();
 		} else {
-			return getFill();
+			Paint c = getFill();
+			return c != null ? c : g.getActivityFill();
 		}
 	}
 

@@ -114,11 +114,13 @@ import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 import javafx.css.CssMetaData;
 import javafx.css.SimpleStyleableObjectProperty;
+import javafx.css.StyleableDoubleProperty;
 import javafx.css.StyleConverter;
 import javafx.css.Styleable;
 import javafx.css.StyleableObjectProperty;
 import javafx.css.StyleableProperty;
 import javafx.css.converter.PaintConverter;
+import javafx.css.converter.SizeConverter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -156,7 +158,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 
@@ -3591,11 +3592,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         rendererMap.put(activityType, renderer);
     }
 
-    private final ActivityRenderer<?> defaultGanttActivityRenderer = new ChartActivityRenderer<>(this, "Default Gantt Activity Renderer");
+    private ActivityRenderer<?> defaultGanttActivityRenderer;
 
-    private final ActivityRenderer<?> defaultChartActivityRenderer = new ChartActivityRenderer<>(this, "Default Chart Activity Renderer");
+    private ActivityRenderer<?> defaultChartActivityRenderer;
 
-    private final ActivityRenderer<?> defaultAgendaActivityRenderer = new ChartActivityRenderer<>(this, "Default Agenda Activity Renderer");
+    private ActivityRenderer<?> defaultAgendaActivityRenderer;
 
     @SuppressWarnings("unchecked")
     public final <A extends Activity> ActivityRenderer<? extends A> getActivityRenderer(Class<? extends A> activityType, Class<? extends Layout> layoutType) {
@@ -3614,10 +3615,19 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
         if (renderer == null) {
             if (layoutType.equals(ChartLayout.class)) {
+                if (defaultChartActivityRenderer == null) {
+                    defaultChartActivityRenderer = new ChartActivityRenderer<>(this, "Default Chart Activity Renderer");
+                }
                 return (ActivityRenderer<? extends A>) defaultChartActivityRenderer;
             } else if (layoutType.equals(GanttLayout.class)) {
+                if (defaultGanttActivityRenderer == null) {
+                    defaultGanttActivityRenderer = new ActivityRenderer<>(this, "Default Gantt Activity Renderer");
+                }
                 return (ActivityRenderer<? extends A>) defaultGanttActivityRenderer;
             } else if (layoutType.equals(AgendaLayout.class)) {
+                if (defaultAgendaActivityRenderer == null) {
+                    defaultAgendaActivityRenderer = new ActivityRenderer<>(this, "Default Agenda Activity Renderer");
+                }
                 return (ActivityRenderer<? extends A>) defaultAgendaActivityRenderer;
             }
         }
@@ -5413,7 +5423,35 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         weekendColorProperty().set(color);
     }
 
-    // time now color
+    private StyleableDoubleProperty weekendOpacity;
+
+    public final StyleableDoubleProperty weekendOpacityProperty() {
+        if (weekendOpacity == null) {
+            weekendOpacity = new StyleableDoubleProperty(1.0) {
+                @Override
+                public CssMetaData<GraphicsBase, Number> getCssMetaData() {
+                    return StyleableProperties.WEEKEND_OPACITY;
+                }
+                @Override
+                public Object getBean() {
+                    return GraphicsBase.this;
+                }
+                @Override
+                public String getName() {
+                    return "weekendOpacity";
+                }
+            };
+        }
+        return weekendOpacity;
+    }
+
+    public final double getWeekendOpacity() {
+        return weekendOpacityProperty().get();
+    }
+
+    public final void setWeekendOpacity(double opacity) {
+        weekendOpacityProperty().set(opacity);
+    }
 
     private StyleableObjectProperty<Paint> timeNowColor;
 
@@ -5485,39 +5523,293 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     // text fill color
 
-    private final ObjectProperty<Color> textFill = new SimpleStyleableObjectProperty<>(StyleableProperties.TEXT_FILL, this, "textFill", Color.BLACK);
+    private final ObjectProperty<Color> activityTextFill = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_TEXT_FILL, this, "textFill", Color.BLACK);
 
-    public final Color getTextFill() {
-        return textFill.get();
+    public final Color getActivityTextFill() {
+        return activityTextFill.get();
     }
 
-    public final void setTextFill(Color value) {
-        textFill.set(value);
+    public final void setActivityTextFill(Color value) {
+        activityTextFill.set(value);
     }
 
-    public final ObjectProperty<Color> textFillProperty() {
-        return textFill;
+    public final ObjectProperty<Color> activityTextFillProperty() {
+        return activityTextFill;
     }
 
+    // ── Activity colour properties ────────────────────────────────────────
+
+    private final ObjectProperty<Color> activityFill = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_FILL, this, "activityFill", Color.LIGHTBLUE);
+
+    public final Color getActivityFill() { return activityFill.get(); }
+    public final void setActivityFill(Color value) { activityFill.set(value); }
+    public final ObjectProperty<Color> activityFillProperty() { return activityFill; }
+
+    private final ObjectProperty<Color> activityStroke = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_STROKE, this, "activityStroke", Color.BLUE);
+
+    public final Color getActivityStroke() { return activityStroke.get(); }
+    public final void setActivityStroke(Color value) { activityStroke.set(value); }
+    public final ObjectProperty<Color> activityStrokeProperty() { return activityStroke; }
+
+    private final ObjectProperty<Color> activityPressed = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_PRESSED, this, "activityPressed", Color.LIGHTBLUE.darker());
+
+    public final Color getActivityPressed() { return activityPressed.get(); }
+    public final void setActivityPressed(Color value) { activityPressed.set(value); }
+    public final ObjectProperty<Color> activityPressedProperty() { return activityPressed; }
+
+    private final ObjectProperty<Color> activityHighlight = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_HIGHLIGHT, this, "activityHighlight", Color.YELLOW.deriveColor(1, 1, 1, .5));
+
+    public final Color getActivityHighlight() { return activityHighlight.get(); }
+    public final void setActivityHighlight(Color value) { activityHighlight.set(value); }
+    public final ObjectProperty<Color> activityHighlightProperty() { return activityHighlight; }
+
+    private final ObjectProperty<Color> activitySelected = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_SELECTED, this, "activitySelected", Color.valueOf("#F21B1BBB"));
+
+    public final Color getActivitySelected() { return activitySelected.get(); }
+    public final void setActivitySelected(Color value) { activitySelected.set(value); }
+    public final ObjectProperty<Color> activitySelectedProperty() { return activitySelected; }
+
+    private final ObjectProperty<Color> activityHover = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_HOVER, this, "activityHover", Color.GREEN);
+
+    public final Color getActivityHover() { return activityHover.get(); }
+    public final void setActivityHover(Color value) { activityHover.set(value); }
+    public final ObjectProperty<Color> activityHoverProperty() { return activityHover; }
+
+    private final ObjectProperty<Color> activityStrokePressed = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_STROKE_PRESSED, this, "activityStrokePressed", Color.BLUE.darker());
+
+    public final Color getActivityStrokePressed() { return activityStrokePressed.get(); }
+    public final void setActivityStrokePressed(Color value) { activityStrokePressed.set(value); }
+    public final ObjectProperty<Color> activityStrokePressedProperty() { return activityStrokePressed; }
+
+    private final ObjectProperty<Color> activityStrokeHighlight = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_STROKE_HIGHLIGHT, this, "activityStrokeHighlight", Color.YELLOW.darker());
+
+    public final Color getActivityStrokeHighlight() { return activityStrokeHighlight.get(); }
+    public final void setActivityStrokeHighlight(Color value) { activityStrokeHighlight.set(value); }
+    public final ObjectProperty<Color> activityStrokeHighlightProperty() { return activityStrokeHighlight; }
+
+    private final ObjectProperty<Color> activityStrokeSelected = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_STROKE_SELECTED, this, "activityStrokeSelected", Color.RED);
+
+    public final Color getActivityStrokeSelected() { return activityStrokeSelected.get(); }
+    public final void setActivityStrokeSelected(Color value) { activityStrokeSelected.set(value); }
+    public final ObjectProperty<Color> activityStrokeSelectedProperty() { return activityStrokeSelected; }
+
+    private final ObjectProperty<Color> activityStrokeHover = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_STROKE_HOVER, this, "activityStrokeHover", Color.GREEN);
+
+    public final Color getActivityStrokeHover() { return activityStrokeHover.get(); }
+    public final void setActivityStrokeHover(Color value) { activityStrokeHover.set(value); }
+    public final ObjectProperty<Color> activityStrokeHoverProperty() { return activityStrokeHover; }
+
+    private final ObjectProperty<Color> activityTextFillHover = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_TEXT_FILL_HOVER, this, "activityTextFillHover", Color.BLACK);
+
+    public final Color getActivityTextFillHover() { return activityTextFillHover.get(); }
+    public final void setActivityTextFillHover(Color value) { activityTextFillHover.set(value); }
+    public final ObjectProperty<Color> activityTextFillHoverProperty() { return activityTextFillHover; }
+
+    private final ObjectProperty<Color> activityTextFillHighlight = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_TEXT_FILL_HIGHLIGHT, this, "activityTextFillHighlight", Color.BLACK);
+
+    public final Color getActivityTextFillHighlight() { return activityTextFillHighlight.get(); }
+    public final void setActivityTextFillHighlight(Color value) { activityTextFillHighlight.set(value); }
+    public final ObjectProperty<Color> activityTextFillHighlightProperty() { return activityTextFillHighlight; }
+
+    private final ObjectProperty<Color> activityTextFillPressed = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_TEXT_FILL_PRESSED, this, "activityTextFillPressed", Color.BLACK);
+
+    public final Color getActivityTextFillPressed() { return activityTextFillPressed.get(); }
+    public final void setActivityTextFillPressed(Color value) { activityTextFillPressed.set(value); }
+    public final ObjectProperty<Color> activityTextFillPressedProperty() { return activityTextFillPressed; }
+
+    private final ObjectProperty<Color> activityTextFillSelected = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_TEXT_FILL_SELECTED, this, "activityTextFillSelected", Color.BLACK);
+
+    public final Color getActivityTextFillSelected() { return activityTextFillSelected.get(); }
+    public final void setActivityTextFillSelected(Color value) { activityTextFillSelected.set(value); }
+    public final ObjectProperty<Color> activityTextFillSelectedProperty() { return activityTextFillSelected; }
 
     private static class StyleableProperties {
 
-        private static final CssMetaData<GraphicsBase, Color> TEXT_FILL =
-                new CssMetaData<>("-fx-text-fill",
+        private static final CssMetaData<GraphicsBase, Color> ACTIVITY_TEXT_FILL =
+                new CssMetaData<>("-fx-activity-text-fill",
                         StyleConverter.getColorConverter(), Color.BLACK) {
                     @Override
                     public boolean isSettable(GraphicsBase node) {
-                        return node.textFill == null || !node.textFill.isBound();
+                        return node.activityTextFill == null || !node.activityTextFill.isBound();
                     }
 
                     @Override
                     public StyleableProperty<Color> getStyleableProperty(GraphicsBase node) {
-                        return (StyleableProperty<Color>) node.textFillProperty();
+                        return (StyleableProperty<Color>) node.activityTextFillProperty();
                     }
                 };
+
+        private static final CssMetaData<GraphicsBase, Color> ACTIVITY_FILL =
+                new CssMetaData<>("-fx-activity-fill", StyleConverter.getColorConverter(), Color.LIGHTBLUE) {
+                    @Override
+                    public boolean isSettable(GraphicsBase node) {
+                        return node.activityFill == null || !node.activityFill.isBound();
+                    }
+                    @Override
+                    public StyleableProperty<Color> getStyleableProperty(GraphicsBase node) {
+                        return (StyleableProperty<Color>) node.activityFillProperty();
+                    }
+                };
+
+        private static final CssMetaData<GraphicsBase, Color> ACTIVITY_STROKE =
+                new CssMetaData<>("-fx-activity-stroke", StyleConverter.getColorConverter(), Color.BLUE) {
+                    @Override
+                    public boolean isSettable(GraphicsBase node) {
+                        return node.activityStroke == null || !node.activityStroke.isBound();
+                    }
+                    @Override
+                    public StyleableProperty<Color> getStyleableProperty(GraphicsBase node) {
+                        return (StyleableProperty<Color>) node.activityStrokeProperty();
+                    }
+                };
+
+        private static final CssMetaData<GraphicsBase, Color> ACTIVITY_PRESSED =
+                new CssMetaData<>("-fx-activity-pressed", StyleConverter.getColorConverter(), Color.LIGHTBLUE.darker()) {
+                    @Override
+                    public boolean isSettable(GraphicsBase node) {
+                        return node.activityPressed == null || !node.activityPressed.isBound();
+                    }
+                    @Override
+                    public StyleableProperty<Color> getStyleableProperty(GraphicsBase node) {
+                        return (StyleableProperty<Color>) node.activityPressedProperty();
+                    }
+                };
+
+        private static final CssMetaData<GraphicsBase, Color> ACTIVITY_HIGHLIGHT =
+                new CssMetaData<>("-fx-activity-highlight", StyleConverter.getColorConverter(), Color.YELLOW.deriveColor(1, 1, 1, .5)) {
+                    @Override
+                    public boolean isSettable(GraphicsBase node) {
+                        return node.activityHighlight == null || !node.activityHighlight.isBound();
+                    }
+                    @Override
+                    public StyleableProperty<Color> getStyleableProperty(GraphicsBase node) {
+                        return (StyleableProperty<Color>) node.activityHighlightProperty();
+                    }
+                };
+
+        private static final CssMetaData<GraphicsBase, Color> ACTIVITY_SELECTED =
+                new CssMetaData<>("-fx-activity-selected", StyleConverter.getColorConverter(), Color.valueOf("#F21B1BBB")) {
+                    @Override
+                    public boolean isSettable(GraphicsBase node) {
+                        return node.activitySelected == null || !node.activitySelected.isBound();
+                    }
+                    @Override
+                    public StyleableProperty<Color> getStyleableProperty(GraphicsBase node) {
+                        return (StyleableProperty<Color>) node.activitySelectedProperty();
+                    }
+                };
+
+        private static final CssMetaData<GraphicsBase, Color> ACTIVITY_HOVER =
+                new CssMetaData<>("-fx-activity-hover", StyleConverter.getColorConverter(), Color.GREEN) {
+                    @Override
+                    public boolean isSettable(GraphicsBase node) {
+                        return node.activityHover == null || !node.activityHover.isBound();
+                    }
+                    @Override
+                    public StyleableProperty<Color> getStyleableProperty(GraphicsBase node) {
+                        return (StyleableProperty<Color>) node.activityHoverProperty();
+                    }
+                };
+
+        private static final CssMetaData<GraphicsBase, Color> ACTIVITY_STROKE_PRESSED =
+                new CssMetaData<>("-fx-activity-stroke-pressed", StyleConverter.getColorConverter(), Color.BLUE.darker()) {
+                    @Override
+                    public boolean isSettable(GraphicsBase node) {
+                        return node.activityStrokePressed == null || !node.activityStrokePressed.isBound();
+                    }
+                    @Override
+                    public StyleableProperty<Color> getStyleableProperty(GraphicsBase node) {
+                        return (StyleableProperty<Color>) node.activityStrokePressedProperty();
+                    }
+                };
+
+        private static final CssMetaData<GraphicsBase, Color> ACTIVITY_STROKE_HIGHLIGHT =
+                new CssMetaData<>("-fx-activity-stroke-highlight", StyleConverter.getColorConverter(), Color.YELLOW.darker()) {
+                    @Override
+                    public boolean isSettable(GraphicsBase node) {
+                        return node.activityStrokeHighlight == null || !node.activityStrokeHighlight.isBound();
+                    }
+                    @Override
+                    public StyleableProperty<Color> getStyleableProperty(GraphicsBase node) {
+                        return (StyleableProperty<Color>) node.activityStrokeHighlightProperty();
+                    }
+                };
+
+        private static final CssMetaData<GraphicsBase, Color> ACTIVITY_STROKE_SELECTED =
+                new CssMetaData<>("-fx-activity-stroke-selected", StyleConverter.getColorConverter(), Color.RED) {
+                    @Override
+                    public boolean isSettable(GraphicsBase node) {
+                        return node.activityStrokeSelected == null || !node.activityStrokeSelected.isBound();
+                    }
+                    @Override
+                    public StyleableProperty<Color> getStyleableProperty(GraphicsBase node) {
+                        return (StyleableProperty<Color>) node.activityStrokeSelectedProperty();
+                    }
+                };
+
+        private static final CssMetaData<GraphicsBase, Color> ACTIVITY_STROKE_HOVER =
+                new CssMetaData<>("-fx-activity-stroke-hover", StyleConverter.getColorConverter(), Color.GREEN) {
+                    @Override
+                    public boolean isSettable(GraphicsBase node) {
+                        return node.activityStrokeHover == null || !node.activityStrokeHover.isBound();
+                    }
+                    @Override
+                    public StyleableProperty<Color> getStyleableProperty(GraphicsBase node) {
+                        return (StyleableProperty<Color>) node.activityStrokeHoverProperty();
+                    }
+                };
+
+        private static final CssMetaData<GraphicsBase, Color> ACTIVITY_TEXT_FILL_HOVER =
+                new CssMetaData<>("-fx-activity-text-fill-hover", StyleConverter.getColorConverter(), Color.BLACK) {
+                    @Override
+                    public boolean isSettable(GraphicsBase node) {
+                        return node.activityTextFillHover == null || !node.activityTextFillHover.isBound();
+                    }
+                    @Override
+                    public StyleableProperty<Color> getStyleableProperty(GraphicsBase node) {
+                        return (StyleableProperty<Color>) node.activityTextFillHoverProperty();
+                    }
+                };
+
+        private static final CssMetaData<GraphicsBase, Color> ACTIVITY_TEXT_FILL_HIGHLIGHT =
+                new CssMetaData<>("-fx-activity-text-fill-highlight", StyleConverter.getColorConverter(), Color.BLACK) {
+                    @Override
+                    public boolean isSettable(GraphicsBase node) {
+                        return node.activityTextFillHighlight == null || !node.activityTextFillHighlight.isBound();
+                    }
+                    @Override
+                    public StyleableProperty<Color> getStyleableProperty(GraphicsBase node) {
+                        return (StyleableProperty<Color>) node.activityTextFillHighlightProperty();
+                    }
+                };
+
+        private static final CssMetaData<GraphicsBase, Color> ACTIVITY_TEXT_FILL_PRESSED =
+                new CssMetaData<>("-fx-activity-text-fill-pressed", StyleConverter.getColorConverter(), Color.BLACK) {
+                    @Override
+                    public boolean isSettable(GraphicsBase node) {
+                        return node.activityTextFillPressed == null || !node.activityTextFillPressed.isBound();
+                    }
+                    @Override
+                    public StyleableProperty<Color> getStyleableProperty(GraphicsBase node) {
+                        return (StyleableProperty<Color>) node.activityTextFillPressedProperty();
+                    }
+                };
+
+        private static final CssMetaData<GraphicsBase, Color> ACTIVITY_TEXT_FILL_SELECTED =
+                new CssMetaData<>("-fx-activity-text-fill-selected", StyleConverter.getColorConverter(), Color.BLACK) {
+                    @Override
+                    public boolean isSettable(GraphicsBase node) {
+                        return node.activityTextFillSelected == null || !node.activityTextFillSelected.isBound();
+                    }
+                    @Override
+                    public StyleableProperty<Color> getStyleableProperty(GraphicsBase node) {
+                        return (StyleableProperty<Color>) node.activityTextFillSelectedProperty();
+                    }
+                };
+
         private static final List<CssMetaData<? extends Styleable, ?>> STYLEABLES;
 
-        private static final CssMetaData<GraphicsBase, Paint> INNER_LINES_COLOR = new CssMetaData<GraphicsBase, Paint>(
+        private static final CssMetaData<GraphicsBase, Paint> INNER_LINES_COLOR = new CssMetaData<>(
                 "-fx-inner-lines-color", PaintConverter.getInstance(), Color.LIGHTGRAY) {
 
             @Override
@@ -5536,7 +5828,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
             }
         };
 
-        private static final CssMetaData<GraphicsBase, Paint> GRID_LINE_COLOR1 = new CssMetaData<GraphicsBase, Paint>(
+        private static final CssMetaData<GraphicsBase, Paint> GRID_LINE_COLOR1 = new CssMetaData<>(
                 "-fx-grid-line-color1", PaintConverter.getInstance(), Color.LIGHTGRAY) {
 
             @Override
@@ -5555,7 +5847,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
             }
         };
 
-        private static final CssMetaData<GraphicsBase, Paint> GRID_LINE_COLOR2 = new CssMetaData<GraphicsBase, Paint>(
+        private static final CssMetaData<GraphicsBase, Paint> GRID_LINE_COLOR2 = new CssMetaData<>(
                 "-fx-grid-line-color2", PaintConverter.getInstance(), Color.GRAY) {
 
             @Override
@@ -5574,7 +5866,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
             }
         };
 
-        private static final CssMetaData<GraphicsBase, Paint> GRID_LINE_COLOR3 = new CssMetaData<GraphicsBase, Paint>(
+        private static final CssMetaData<GraphicsBase, Paint> GRID_LINE_COLOR3 = new CssMetaData<>(
                 "-fx-grid-line-color3", PaintConverter.getInstance(), Color.DARKGRAY) {
 
             @Override
@@ -5593,7 +5885,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
             }
         };
 
-        private static final CssMetaData<GraphicsBase, Paint> WEEKEND_COLOR = new CssMetaData<GraphicsBase, Paint>(
+        private static final CssMetaData<GraphicsBase, Paint> WEEKEND_COLOR = new CssMetaData<>(
                 "-fx-weekend-color", PaintConverter.getInstance(), Color.LIGHTGRAY) {
 
             @Override
@@ -5612,7 +5904,19 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
             }
         };
 
-        private static final CssMetaData<GraphicsBase, Paint> TIME_NOW_COLOR = new CssMetaData<GraphicsBase, Paint>(
+        private static final CssMetaData<GraphicsBase, Number> WEEKEND_OPACITY =
+                new CssMetaData<>("-fx-weekend-opacity", SizeConverter.getInstance(), 1.0) {
+                    @Override
+                    public boolean isSettable(GraphicsBase n) {
+                        return n.weekendOpacity == null || !n.weekendOpacity.isBound();
+                    }
+                    @Override
+                    public StyleableProperty<Number> getStyleableProperty(GraphicsBase n) {
+                        return n.weekendOpacityProperty();
+                    }
+                };
+
+        private static final CssMetaData<GraphicsBase, Paint> TIME_NOW_COLOR = new CssMetaData<>(
                 "-fx-time-now-color", PaintConverter.getInstance(), Color.RED) {
 
             @Override
@@ -5632,15 +5936,29 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         };
 
         static {
-            final List<CssMetaData<? extends Styleable, ?>> styleables = new ArrayList<>(
-                    Region.getClassCssMetaData());
+            final List<CssMetaData<? extends Styleable, ?>> styleables = new ArrayList<>(Region.getClassCssMetaData());
             styleables.add(INNER_LINES_COLOR);
             styleables.add(GRID_LINE_COLOR1);
             styleables.add(GRID_LINE_COLOR2);
             styleables.add(GRID_LINE_COLOR3);
             styleables.add(WEEKEND_COLOR);
+            styleables.add(WEEKEND_OPACITY);
             styleables.add(TIME_NOW_COLOR);
-            styleables.add(TEXT_FILL);
+            styleables.add(ACTIVITY_TEXT_FILL);
+            styleables.add(ACTIVITY_FILL);
+            styleables.add(ACTIVITY_STROKE);
+            styleables.add(ACTIVITY_PRESSED);
+            styleables.add(ACTIVITY_HIGHLIGHT);
+            styleables.add(ACTIVITY_SELECTED);
+            styleables.add(ACTIVITY_HOVER);
+            styleables.add(ACTIVITY_STROKE_PRESSED);
+            styleables.add(ACTIVITY_STROKE_HIGHLIGHT);
+            styleables.add(ACTIVITY_STROKE_SELECTED);
+            styleables.add(ACTIVITY_STROKE_HOVER);
+            styleables.add(ACTIVITY_TEXT_FILL_HOVER);
+            styleables.add(ACTIVITY_TEXT_FILL_HIGHLIGHT);
+            styleables.add(ACTIVITY_TEXT_FILL_PRESSED);
+            styleables.add(ACTIVITY_TEXT_FILL_SELECTED);
             STYLEABLES = Collections.unmodifiableList(styleables);
         }
     }

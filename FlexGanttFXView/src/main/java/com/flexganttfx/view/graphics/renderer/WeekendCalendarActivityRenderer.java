@@ -16,8 +16,12 @@
  */
 package com.flexganttfx.view.graphics.renderer;
 
+import com.flexganttfx.model.ActivityRef;
 import com.flexganttfx.model.calendar.WeekendCalendarActivity;
+import com.flexganttfx.view.graphics.ActivityBounds;
 import com.flexganttfx.view.graphics.GraphicsBase;
+import com.flexganttfx.view.util.Position;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class WeekendCalendarActivityRenderer<A extends WeekendCalendarActivity>
@@ -26,6 +30,7 @@ public class WeekendCalendarActivityRenderer<A extends WeekendCalendarActivity>
 	public WeekendCalendarActivityRenderer(GraphicsBase<?> graphics, String name) {
 		super(graphics, name);
 		fillProperty().bindBidirectional(graphics.weekendColorProperty());
+		alphaProperty().bindBidirectional(graphics.weekendOpacityProperty());
 		setStroke(Color.TRANSPARENT);
 	}
 }

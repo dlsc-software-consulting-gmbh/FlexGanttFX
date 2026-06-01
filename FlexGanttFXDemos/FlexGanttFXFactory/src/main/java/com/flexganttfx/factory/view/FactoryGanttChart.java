@@ -39,7 +39,7 @@ public class FactoryGanttChart extends GanttChart<Machine> {
     public FactoryGanttChart(DataModel dataModel) {
         super(dataModel.getRoot());
 
-        getGraphics().setTextFill(Color.WHITE);
+        getGraphics().setActivityTextFill(Color.WHITE);
 
         getLayers().add(dataModel.getLayer());
         getRoot().getChildren().setAll(dataModel.getProductionLines());
