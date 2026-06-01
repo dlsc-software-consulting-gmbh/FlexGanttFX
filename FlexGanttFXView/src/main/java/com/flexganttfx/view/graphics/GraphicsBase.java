@@ -2949,7 +2949,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
          * @return the graphics view
          * @since 1.0
          */
-        public final GraphicsBase<R> getGraphics() {
+        public GraphicsBase<R> getGraphics() {
             return graphics;
         }
 
@@ -2959,7 +2959,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
          * @return the row
          * @since 1.0
          */
-        public final R getRow() {
+        public R getRow() {
             return row;
         }
 
@@ -2970,7 +2970,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
          * @return the activities
          * @since 1.0
          */
-        public final List<ActivityRef<?>> getActivities() {
+        public List<ActivityRef<?>> getActivities() {
             return activities;
         }
 
@@ -4128,11 +4128,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
          *
          * @return the activity reference
          */
-        public final ActivityRef<?> getActivityRef() {
+        public ActivityRef<?> getActivityRef() {
             return activityRef;
         }
 
-        public final EditMode getEditMode() {
+        public EditMode getEditMode() {
             return editMode;
         }
     }

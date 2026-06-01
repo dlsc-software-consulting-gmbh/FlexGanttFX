@@ -999,12 +999,9 @@ public class Timeline extends FlexGanttFXControl {
         double mppMax = timelineModel.getMaximumMillisPerPixel();
         double mpp = Math.max(mppMin, Math.min(mppMax, (et - st) / width));
 
-        boolean limitReached = false;
+        boolean limitReached = mpp == mppMin || mpp == mppMax;
 
         // Fix for FLEXFX-332: "Timeline scrolls to the right when trying to zoom in with "frozen" time over the set zoom limit"
-        if (mpp == mppMin || mpp == mppMax) {
-            limitReached = true;
-        }
 
         if (!limitReached && isZoomAnimated()) {
             // animate start time

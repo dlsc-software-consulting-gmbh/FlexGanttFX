@@ -217,15 +217,15 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
      *
      * @return the row property
      */
-    public final ObjectProperty<R> rowProperty() {
+    public ObjectProperty<R> rowProperty() {
         return row;
     }
 
-    public final void setRow(R row) {
+    public void setRow(R row) {
         rowProperty().set(row);
     }
 
-    public final R getRow() {
+    public R getRow() {
         return rowProperty().get();
     }
 
@@ -1184,15 +1184,15 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
      *
      * @return the snap to pixel property
      */
-    public final BooleanProperty snapToPixelProperty() {
+    public BooleanProperty snapToPixelProperty() {
         return snapToPixel;
     }
 
-    public final void setSnapToPixel(boolean snap) {
+    public void setSnapToPixel(boolean snap) {
         snapToPixel.set(snap);
     }
 
-    public final boolean isSnapToPixel() {
+    public boolean isSnapToPixel() {
         return snapToPixel.get();
     }
 
