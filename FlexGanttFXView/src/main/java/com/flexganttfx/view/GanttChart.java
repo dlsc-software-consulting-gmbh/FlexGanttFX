@@ -926,7 +926,7 @@ public class GanttChart<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
 
         // RT-23486
         double widthMax = maxWidth + padding;
-        if (treeTableView.getColumnResizePolicy() == TreeTableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN) {
+        if (treeTableView.getColumnResizePolicy() == TreeTableView.CONSTRAINED_RESIZE_POLICY) {
             widthMax = Math.max(widthMax, tc.getWidth());
         }
 
