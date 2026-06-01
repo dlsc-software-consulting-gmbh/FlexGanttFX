@@ -52,6 +52,11 @@ import java.util.Objects;
  */
 public class DSTLineLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
+	/**
+	 * Constructs a new daylight-saving marker layer.
+	 *
+	 * @param graphics the graphics view that owns the layer
+	 */
 	public DSTLineLayer(GraphicsBase<R> graphics) {
 		super("DST Line", graphics);
 
@@ -66,6 +71,11 @@ public class DSTLineLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
 	private final ObjectProperty<Paint> stroke = new SimpleObjectProperty<>(this, "stroke");
 
+	/**
+	 * The stroke property. Stores the paint used for the daylight-saving marker.
+	 *
+	 * @return the stroke property
+	 */
 	public final ObjectProperty<Paint> strokeProperty() {
 		return stroke;
 	}
@@ -81,6 +91,11 @@ public class DSTLineLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
 	private final DoubleProperty lineWidth = new SimpleDoubleProperty(this, "lineWidth");
 
+	/**
+	 * The lineWidth property. Stores the stroke width of the daylight-saving marker.
+	 *
+	 * @return the lineWidth property
+	 */
 	public final DoubleProperty lineWidthProperty() {
 		return lineWidth;
 	}
@@ -93,6 +108,13 @@ public class DSTLineLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 		lineWidthProperty().set(lineWidth);
 	}
 
+	/**
+	 * Draws a marker at the next daylight-saving transition when applicable.
+	 *
+	 * @param canvas the canvas to draw on
+	 * @param startTime the visible start time
+	 * @param endTime the visible end time
+	 */
 	@Override
 	public void drawLayer(RowCanvas<R> canvas, Instant startTime, Instant endTime) {
 		GraphicsContext gc = canvas.getGraphicsContext2D();

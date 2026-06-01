@@ -123,6 +123,7 @@ public class LassoEvent extends InputEvent {
 		return info;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toString() {
 		return ("type = " + getEventType()) + ", source = " + getSource() + ", target = " + getTarget() + ", info = " + getInfo();
@@ -254,6 +255,7 @@ public class LassoEvent extends InputEvent {
 			return inverse;
 		}
 
+		/** {@inheritDoc} */
 		@Override
 		public String toString() {
 			StringBuilder sb = new StringBuilder();

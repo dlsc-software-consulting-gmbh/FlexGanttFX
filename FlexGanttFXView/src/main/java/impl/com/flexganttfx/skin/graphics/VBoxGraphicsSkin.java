@@ -69,6 +69,11 @@ public class VBoxGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSkin<V
 		}
 	}
 
+	/**
+	 * Creates the row pane region.
+	 *
+	 * @return the row pane region
+	 */
 	@Override
 	protected Region createRowPaneRegion() {
 		VBoxGraphics<R> graphics = getSkinnable();
@@ -77,6 +82,13 @@ public class VBoxGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSkin<V
 		return vbox;
 	}
 
+	/**
+	 * Returns the row pane at the given y coordinate.
+	 *
+	 * @param y the y coordinate
+	 *
+	 * @return the row pane at the given y coordinate
+	 */
 	@Override
 	protected RowPane<R> getRowPaneAt(double y) {
 		for (Node node : vbox.getChildren()) {
@@ -92,11 +104,23 @@ public class VBoxGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSkin<V
 		return null;
 	}
 
+	/**
+	 * Returns whether the given row is above the viewport.
+	 *
+	 * @param row the row
+	 *
+	 * @return true if the row is above the viewport
+	 */
 	@Override
 	protected boolean isRowAboveViewport(R row) {
 		return false;
 	}
 
+	/**
+	 * Finds the rows inside the lasso selection.
+	 *
+	 * @return the selected rows
+	 */
 	@Override
 	protected List<Row<?, ?, ?>> findLassoSelectedRows() {
 		List<Row<?, ?, ?>> rows = new ArrayList<>();
@@ -121,6 +145,11 @@ public class VBoxGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSkin<V
 		return rows;
 	}
 
+	/**
+	 * Finds the activities inside the lasso selection.
+	 *
+	 * @return the selected activities
+	 */
 	@Override
 	protected List<ActivityRef<?>> findLassoSelectedActivities() {
 		List<ActivityRef<?>> selection = new ArrayList<>();

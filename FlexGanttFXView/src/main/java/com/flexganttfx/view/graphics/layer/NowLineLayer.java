@@ -49,6 +49,11 @@ import java.util.Objects;
  */
 public class NowLineLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
+	/**
+	 * Constructs a new now-line layer.
+	 *
+	 * @param graphics the graphics view that owns the layer
+	 */
 	public NowLineLayer(GraphicsBase<R> graphics) {
 		super("Now Line", graphics);
 
@@ -64,6 +69,11 @@ public class NowLineLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
 	private final ObjectProperty<Paint> stroke = new SimpleObjectProperty<>(this, "stroke");
 
+	/**
+	 * The stroke property. Stores the paint used for the current-time marker.
+	 *
+	 * @return the stroke property
+	 */
 	public final ObjectProperty<Paint> strokeProperty() {
 		return stroke;
 	}
@@ -79,6 +89,11 @@ public class NowLineLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
 	private final DoubleProperty lineWidth = new SimpleDoubleProperty(this, "lineWidth");
 
+	/**
+	 * The lineWidth property. Stores the stroke width of the current-time marker.
+	 *
+	 * @return the lineWidth property
+	 */
 	public final DoubleProperty lineWidthProperty() {
 		return lineWidth;
 	}
@@ -91,6 +106,13 @@ public class NowLineLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 		lineWidthProperty().set(lineWidth);
 	}
 
+	/**
+	 * Draws the marker line at the current time location.
+	 *
+	 * @param canvas the canvas to draw on
+	 * @param startTime the visible start time
+	 * @param endTime the visible end time
+	 */
 	@Override
 	public void drawLayer(RowCanvas<R> canvas, Instant startTime, Instant endTime) {
 		GraphicsContext gc = canvas.getGraphicsContext2D();

@@ -48,6 +48,11 @@ import java.util.Objects;
  */
 public class ZoomTimeIntervalLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
+	/**
+	 * Constructs a new zoom time-interval layer.
+	 *
+	 * @param graphics the graphics view that owns the layer
+	 */
 	public ZoomTimeIntervalLayer(GraphicsBase<R> graphics) {
 		super("Zoom Time Interval", graphics);
 
@@ -61,6 +66,11 @@ public class ZoomTimeIntervalLayer<R extends Row<?, ?, ?>> extends SystemLayer<R
 
 	private final ObjectProperty<Paint> zoomTimeIntervalFill = new SimpleObjectProperty<>(this, "zoomTimeIntervalFill");
 
+	/**
+	 * The zoomTimeIntervalFill property. Stores the fill used for the zoom lasso interval.
+	 *
+	 * @return the zoomTimeIntervalFill property
+	 */
 	public final ObjectProperty<Paint> zoomTimeIntervalFillProperty() {
 		return zoomTimeIntervalFill;
 	}
@@ -74,6 +84,13 @@ public class ZoomTimeIntervalLayer<R extends Row<?, ?, ?>> extends SystemLayer<R
 		zoomTimeIntervalFillProperty().set(fill);
 	}
 
+	/**
+	 * Draws the temporary zoom interval selected in the dateline.
+	 *
+	 * @param canvas the canvas to draw on
+	 * @param startTime the visible start time
+	 * @param endTime the visible end time
+	 */
 	@Override
 	public void drawLayer(RowCanvas<R> canvas, Instant startTime, Instant endTime) {
 		GraphicsBase graphics = getGraphics();

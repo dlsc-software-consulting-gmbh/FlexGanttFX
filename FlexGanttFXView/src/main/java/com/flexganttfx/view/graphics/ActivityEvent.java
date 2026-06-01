@@ -434,6 +434,11 @@ public class ActivityEvent extends InputEvent {
 		this.oldValue = oldValue;
 	}
 
+	/**
+	 * Returns the activity reference associated with this event.
+	 *
+	 * @return the activity reference
+	 */
 	public final ActivityRef<?> getActivityRef() {
 		return activityRef;
 	}
@@ -610,6 +615,7 @@ public class ActivityEvent extends InputEvent {
 				|| type.equals(DRAG_FINISHED);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public final String toString() {
 		StringBuilder sb = new StringBuilder();

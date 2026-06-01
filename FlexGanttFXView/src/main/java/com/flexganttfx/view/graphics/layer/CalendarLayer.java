@@ -66,6 +66,11 @@ import static java.util.Objects.requireNonNull;
  */
 public class CalendarLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
+	/**
+	 * Constructs a new calendar layer.
+	 *
+	 * @param graphics the graphics view that owns the layer
+	 */
 	public CalendarLayer(GraphicsBase<R> graphics) {
 		super("Calendar", graphics);
 
@@ -86,6 +91,13 @@ public class CalendarLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 		fadeInOutObservable(graphics.showCalendarLayerProperty());
 	}
 
+	/**
+	 * Draws the visible calendar activities for the current row and time range.
+	 *
+	 * @param canvas the canvas to draw on
+	 * @param startTime the visible start time
+	 * @param endTime the visible end time
+	 */
 	@Override
 	public void drawLayer(RowCanvas<R> canvas, Instant startTime, Instant endTime) {
 		Row<?, ?, ?> row = canvas.getRow();
@@ -160,6 +172,13 @@ public class CalendarLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
 	private final ObservableMap<Class<?>, CalendarActivityRenderer<?>> calendarRendererMap = FXCollections.observableHashMap();
 
+	/**
+	 * Associates a renderer with the given calendar activity type.
+	 *
+	 * @param clazz the activity type
+	 * @param renderer the renderer to associate with the type
+	 * @param <A> the activity type
+	 */
 	public final <A extends Activity> void setCalendarActivityRenderer(
 			Class<? extends A> clazz,
 			CalendarActivityRenderer<? extends A> renderer) {
@@ -176,6 +195,13 @@ public class CalendarLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 		calendarRendererMap.put(clazz, renderer);
 	}
 
+	/**
+	 * Returns the renderer registered for the given calendar activity type.
+	 *
+	 * @param clazz the activity type
+	 * @param <A> the activity type
+	 * @return the matching renderer, or {@code null} if none is registered
+	 */
 	@SuppressWarnings("unchecked")
 	public final <A extends CalendarActivity> CalendarActivityRenderer<? extends A> getCalendarActivityRenderer(
 			Class<? extends A> clazz) {

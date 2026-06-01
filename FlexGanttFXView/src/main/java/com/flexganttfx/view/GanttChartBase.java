@@ -126,6 +126,11 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
         setDetail(noDetailsLabel);
 
         graphicsMasterDetailPane = new MasterDetailPane(RIGHT) {
+            /**
+             * Returns no user agent stylesheet for the graphics master detail pane.
+             *
+             * @return {@code null}
+             */
             @Override
             public String getUserAgentStylesheet() {
                 return null;
@@ -222,6 +227,11 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
         return scrollBar;
     }
 
+    /**
+     * Returns the user agent stylesheet for the Gantt chart base control.
+     *
+     * @return the user agent stylesheet URL
+     */
     @Override
     public String getUserAgentStylesheet() {
         return super.getUserAgentStylesheet(GanttChartBase.class, "gantt.css");
@@ -323,6 +333,11 @@ public abstract class GanttChartBase<R extends Row<?, ?, ?>> extends FlexGanttFX
 
     private final InvalidationListener weakRedrawListener = new WeakInvalidationListener(redrawListener);
 
+    /**
+     * Registers an observable so changes to it trigger a graphics redraw.
+     *
+     * @param property the observable to monitor
+     */
     protected void redrawObservable(Observable property) {
         property.addListener(weakRedrawListener);
     }

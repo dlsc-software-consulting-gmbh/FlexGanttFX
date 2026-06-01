@@ -57,6 +57,11 @@ import java.util.Objects;
  */
 public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
+    /**
+     * Constructs a new grid lines layer.
+     *
+     * @param graphics the graphics view that owns the layer
+     */
     public GridLinesLayer(GraphicsBase<R> graphics) {
         super("Grid Lines", graphics);
 
@@ -85,6 +90,11 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
     private final ObjectProperty<Paint> lineStroke1 = new SimpleObjectProperty<>(
             this, "lineStroke1");
 
+    /**
+     * The lineStroke1 property. Stores the stroke used for the first grid line level.
+     *
+     * @return the lineStroke1 property
+     */
     public final ObjectProperty<Paint> lineStroke1Property() {
         return lineStroke1;
     }
@@ -100,6 +110,11 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
     private final ObjectProperty<Paint> lineStroke2 = new SimpleObjectProperty<>(this, "lineStroke2");
 
+    /**
+     * The lineStroke2 property. Stores the stroke used for the second grid line level.
+     *
+     * @return the lineStroke2 property
+     */
     public final ObjectProperty<Paint> lineStroke2Property() {
         return lineStroke2;
     }
@@ -115,6 +130,11 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
     private final ObjectProperty<Paint> lineStroke3 = new SimpleObjectProperty<>(this, "lineStroke3");
 
+    /**
+     * The lineStroke3 property. Stores the stroke used for the third grid line level.
+     *
+     * @return the lineStroke3 property
+     */
     public final ObjectProperty<Paint> lineStroke3Property() {
         return lineStroke3;
     }
@@ -130,6 +150,11 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
     private final DoubleProperty lineWidth1 = new SimpleDoubleProperty(this, "lineWidth1");
 
+    /**
+     * The lineWidth1 property. Stores the line width used for the first grid line level.
+     *
+     * @return the lineWidth1 property
+     */
     public final DoubleProperty lineWidth1Property() {
         return lineWidth1;
     }
@@ -145,6 +170,11 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
     private final DoubleProperty lineWidth2 = new SimpleDoubleProperty(this,
             "lineWidth2");
 
+    /**
+     * The lineWidth2 property. Stores the line width used for the second grid line level.
+     *
+     * @return the lineWidth2 property
+     */
     public final DoubleProperty lineWidth2Property() {
         return lineWidth2;
     }
@@ -159,6 +189,11 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
     private final DoubleProperty lineWidth3 = new SimpleDoubleProperty(this, "lineWidth3");
 
+    /**
+     * The lineWidth3 property. Stores the line width used for the third grid line level.
+     *
+     * @return the lineWidth3 property
+     */
     public final DoubleProperty lineWidth3Property() {
         return lineWidth3;
     }
@@ -171,6 +206,13 @@ public class GridLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         lineWidth3.set(width);
     }
 
+    /**
+     * Draws the configured vertical grid lines for the visible time range.
+     *
+     * @param canvas the canvas to draw on
+     * @param startTime the visible start time
+     * @param endTime the visible end time
+     */
     @Override
     public void drawLayer(RowCanvas<R> canvas, Instant startTime, Instant endTime) {
         Dateline dateline = canvas.getGraphics().getTimeline().getDateline();

@@ -129,6 +129,12 @@ public class AutoLinesManager<R extends Row<?, ?, A>, A extends Activity>
 		row.setLineCount(resolverResult.getMaxColumns());
 	}
 
+	/**
+	 * Returns the line index assigned to the given activity.
+	 *
+	 * @param activity the activity whose line index should be returned
+	 * @return the assigned line index, or {@code -1} if no line index is available
+	 */
 	@Override
 	public final int getLineIndex(A activity) {
 		if (resolverResult != null) {

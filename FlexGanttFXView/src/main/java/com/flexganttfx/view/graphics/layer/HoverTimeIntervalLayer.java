@@ -48,6 +48,11 @@ import java.util.Objects;
  */
 public class HoverTimeIntervalLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
+    /**
+     * Constructs a new hover time-interval layer.
+     *
+     * @param graphics the graphics view that owns the layer
+     */
     public HoverTimeIntervalLayer(GraphicsBase<R> graphics) {
         super("Hover Time Interval", graphics);
 
@@ -60,6 +65,11 @@ public class HoverTimeIntervalLayer<R extends Row<?, ?, ?>> extends SystemLayer<
 
     private final ObjectProperty<Paint> hoverTimeIntervalFill = new SimpleObjectProperty<>(this, "hoverTimeIntervalFill");
 
+    /**
+     * The hoverTimeIntervalFill property. Stores the fill used for the hovered time interval.
+     *
+     * @return the hoverTimeIntervalFill property
+     */
     public final ObjectProperty<Paint> hoverTimeIntervalFillProperty() {
         return hoverTimeIntervalFill;
     }
@@ -73,6 +83,13 @@ public class HoverTimeIntervalLayer<R extends Row<?, ?, ?>> extends SystemLayer<
         hoverTimeIntervalFillProperty().set(fill);
     }
 
+    /**
+     * Draws the time interval currently hovered in the dateline.
+     *
+     * @param canvas the canvas to draw on
+     * @param startTime the visible start time
+     * @param endTime the visible end time
+     */
     @Override
     public void drawLayer(RowCanvas<R> canvas, Instant startTime, Instant endTime) {
         GraphicsBase graphics = getGraphics();

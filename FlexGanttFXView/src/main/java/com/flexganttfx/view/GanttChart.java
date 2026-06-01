@@ -246,6 +246,11 @@ public class GanttChart<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
         });
 
         treeTableMasterDetailPane = new MasterDetailPane(LEFT) {
+            /**
+             * Returns no user agent stylesheet for the tree table master detail pane.
+             *
+             * @return {@code null}
+             */
             @Override
             public String getUserAgentStylesheet() {
                 return null;
@@ -275,6 +280,11 @@ public class GanttChart<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
         graphics.rowFilterProperty().bindBidirectional(rowFilterProperty());
     }
 
+    /**
+     * Creates the default skin for this Gantt chart.
+     *
+     * @return the default skin
+     */
     @Override
     protected Skin<?> createDefaultSkin() {
         return new GanttChartSkin<>(this);
@@ -374,6 +384,11 @@ public class GanttChart<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
      */
     protected TreeTableView<R> createTreeTable() {
         TreeTableView<R> table = new TreeTableView<>() {
+            /**
+             * Returns the user agent stylesheet for the tree table view.
+             *
+             * @return the user agent stylesheet URL
+             */
             @Override
             public String getUserAgentStylesheet() {
                 if (ThemingUtil.isAtlantaFXActive(getScene())) {

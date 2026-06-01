@@ -73,6 +73,11 @@ public class SplitPaneGraphicsSkin<R extends Row<?, ?, ?>> extends
 		}
 	}
 
+	/**
+	 * Creates the row pane region.
+	 *
+	 * @return the row pane region
+	 */
 	@Override
 	protected Region createRowPaneRegion() {
 		SplitPaneGraphics<R> graphics = getSkinnable();
@@ -81,6 +86,13 @@ public class SplitPaneGraphicsSkin<R extends Row<?, ?, ?>> extends
 		return splitPane;
 	}
 
+	/**
+	 * Returns the row pane at the given y coordinate.
+	 *
+	 * @param y the y coordinate
+	 *
+	 * @return the row pane at the given y coordinate
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	protected RowPane<R> getRowPaneAt(double y) {
@@ -98,11 +110,23 @@ public class SplitPaneGraphicsSkin<R extends Row<?, ?, ?>> extends
 		return null;
 	}
 
+	/**
+	 * Returns whether the given row is above the viewport.
+	 *
+	 * @param row the row
+	 *
+	 * @return true if the row is above the viewport
+	 */
 	@Override
 	protected boolean isRowAboveViewport(R row) {
 		return false;
 	}
 
+	/**
+	 * Finds the rows inside the lasso selection.
+	 *
+	 * @return the selected rows
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	protected List<Row<?, ?, ?>> findLassoSelectedRows() {
@@ -128,6 +152,11 @@ public class SplitPaneGraphicsSkin<R extends Row<?, ?, ?>> extends
 		return rows;
 	}
 
+	/**
+	 * Finds the activities inside the lasso selection.
+	 *
+	 * @return the selected activities
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	protected List<ActivityRef<?>> findLassoSelectedActivities() {

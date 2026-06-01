@@ -187,6 +187,11 @@ public class GanttChartLite<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
     public GanttChartLite() {
     }
 
+    /**
+     * Creates the default skin for this lite Gantt chart.
+     *
+     * @return the default skin
+     */
     @Override
     protected Skin<?> createDefaultSkin() {
         return new GanttChartLiteSkin<>(this);

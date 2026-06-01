@@ -34,6 +34,22 @@ public class CalendarActivityRenderer<A extends CalendarActivity> extends Activi
         setCornersRounded(false);
     }
 
+    /**
+     * Draws the calendar activity and returns the resulting bounds.
+     *
+     * @param activityRef the activity reference to render
+     * @param position the activity position
+     * @param gc the graphics context
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @param w the width
+     * @param h the height
+     * @param selected whether the activity is selected
+     * @param hover whether the activity is hovered
+     * @param highlighted whether the activity is highlighted
+     * @param pressed whether the activity is pressed
+     * @return the bounds of the rendered activity, or {@code null} for background fills
+     */
     @Override
     protected ActivityBounds drawActivity(ActivityRef<A> activityRef,
                                           Position position, GraphicsContext gc, double x, double y, double w,

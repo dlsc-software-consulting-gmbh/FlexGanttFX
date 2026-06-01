@@ -65,6 +65,12 @@ public abstract class SystemLayer<R extends Row<?, ?, ?>> extends RendererBase {
 
 	private final ChangeListener<Boolean> weakFadeInOutListener = new WeakChangeListener<>(fadeInOutListener);
 
+	/**
+	 * Constructs a new system layer for the given graphics view.
+	 *
+	 * @param name the layer name
+	 * @param graphicsView the owning graphics view
+	 */
 	public SystemLayer(String name, GraphicsBase<R> graphicsView) {
 		super(graphicsView, name);
 
@@ -72,6 +78,11 @@ public abstract class SystemLayer<R extends Row<?, ?, ?>> extends RendererBase {
 		redrawObservable(opacityProperty());
 	}
 
+	/**
+	 * Registers an observable that triggers fade animations when its value changes.
+	 *
+	 * @param observable the visibility observable to monitor
+	 */
 	protected void fadeInOutObservable(ObservableBooleanValue observable) {
 		requireNonNull(observable);
 		observable.addListener(weakFadeInOutListener);
@@ -94,6 +105,11 @@ public abstract class SystemLayer<R extends Row<?, ?, ?>> extends RendererBase {
 
 	private final BooleanProperty visible = new SimpleBooleanProperty(this, "visible", true);
 
+	/**
+	 * The visible property. Controls whether the layer is rendered.
+	 *
+	 * @return the visible property
+	 */
 	public final BooleanProperty visibleProperty() {
 		return visible;
 	}
@@ -108,6 +124,11 @@ public abstract class SystemLayer<R extends Row<?, ?, ?>> extends RendererBase {
 
 	private final ReadOnlyDoubleWrapper opacity = new ReadOnlyDoubleWrapper(this, "opacity", 1);
 
+	/**
+	 * The opacity property. Exposes the opacity used to paint the layer.
+	 *
+	 * @return the opacity property
+	 */
 	public final ReadOnlyDoubleProperty opacityProperty() {
 		return opacity.getReadOnlyProperty();
 	}
@@ -116,5 +137,12 @@ public abstract class SystemLayer<R extends Row<?, ?, ?>> extends RendererBase {
 		return opacityProperty().get();
 	}
 
+	/**
+	 * Draws the layer for the given row canvas and visible time range.
+	 *
+	 * @param canvas the canvas to draw on
+	 * @param startTime the visible start time
+	 * @param endTime the visible end time
+	 */
 	public abstract void drawLayer(RowCanvas<R> canvas, Instant startTime, Instant endTime);
 }

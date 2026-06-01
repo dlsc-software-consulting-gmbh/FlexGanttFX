@@ -46,6 +46,11 @@ import static java.util.Objects.requireNonNull;
  */
 public class RowLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
+	/**
+	 * Constructs a new row layer.
+	 *
+	 * @param graphics the graphics view that owns the layer
+	 */
 	public RowLayer(GraphicsBase<R> graphics) {
 		super("Row", graphics);
 
@@ -56,6 +61,13 @@ public class RowLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 		redrawObservable(rowRendererMap);
 	}
 
+	/**
+	 * Draws the background renderer for the current row.
+	 *
+	 * @param canvas the canvas to draw on
+	 * @param startTime the visible start time
+	 * @param endTime the visible end time
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public void drawLayer(RowCanvas<R> canvas, Instant startTime, Instant endTime) {
@@ -84,6 +96,12 @@ public class RowLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
 	private final ObservableMap<Class<?>, RowRenderer<?>> rendererCache = FXCollections.observableHashMap();
 
+	/**
+	 * Associates a row renderer with the given row type.
+	 *
+	 * @param clazz the row type
+	 * @param renderer the renderer to use for that type
+	 */
 	public final void setRowRenderer(Class<Row> clazz, RowRenderer<?> renderer) {
 		rendererCache.clear();
 
@@ -99,6 +117,13 @@ public class RowLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 		rowRendererMap.put(clazz, renderer);
 	}
 
+	/**
+	 * Returns the renderer registered for the given row type.
+	 *
+	 * @param clazz the row type
+	 * @param <RT> the row type
+	 * @return the matching renderer, or {@code null} if none is registered
+	 */
 	@SuppressWarnings("unchecked")
 	public final <RT extends Row<?, ?, ?>> RowRenderer<RT> getRowRenderer(Class<RT> clazz) {
 		RowRenderer<RT> cachedRenderer = (RowRenderer<RT>) rendererCache.get(clazz);

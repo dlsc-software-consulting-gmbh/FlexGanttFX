@@ -75,6 +75,11 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
         });
     }
 
+    /**
+     * Returns whether this canvas is resizable.
+     *
+     * @return true if this canvas is resizable
+     */
     @Override
     public boolean isResizable() {
         return true;
@@ -91,10 +96,20 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
     private static int drawCounter;
     private static int doDrawCounter;
 
+    /**
+     * Returns whether a redraw is pending.
+     *
+     * @return true if a redraw is pending
+     */
     public final boolean isDirty() {
         return dirty;
     }
 
+    /**
+     * Requests a redraw for the given reason.
+     *
+     * @param reason the redraw reason
+     */
     public void requestRedraw(String reason) {
         this.reason = reason;
         this.dirty = true;
@@ -116,6 +131,9 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
         }
     }
 
+    /**
+     * Draws the canvas contents.
+     */
     public final void draw() {
         dirty = false;
 

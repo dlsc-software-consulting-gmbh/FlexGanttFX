@@ -244,10 +244,20 @@ public abstract class RendererBase {
         observable.addListener(redrawListener);
     }
 
+    /**
+     * Returns the renderer name.
+     *
+     * @return the renderer name
+     */
     public final String getName() {
         return name;
     }
 
+    /**
+     * Returns the graphics control that owns this renderer.
+     *
+     * @return the owning graphics control
+     */
     public final GraphicsBase<?> getGraphics() {
         return graphics;
     }
@@ -289,6 +299,11 @@ public abstract class RendererBase {
 
 	private final BooleanProperty enabled = new SimpleBooleanProperty(this, "enabled", true);
 
+	/**
+	 * The enabled property. Determines whether this renderer is active during rendering.
+	 *
+	 * @return the enabled property
+	 */
 	public final BooleanProperty enabledProperty() {
         return enabled;
     }
@@ -305,6 +320,11 @@ public abstract class RendererBase {
 
 	private final BooleanProperty snapToPixel = new SimpleBooleanProperty(this, "snapToPixel", true);
 
+    /**
+     * The snapToPixel property. Controls whether coordinates and sizes are snapped to device pixels.
+     *
+     * @return the snapToPixel property
+     */
     public final BooleanProperty snapToPixelProperty() {
         return snapToPixel;
     }
@@ -321,6 +341,11 @@ public abstract class RendererBase {
 
 	private final DoubleProperty alpha = new SimpleDoubleProperty(this, "alpha", 1);
 
+    /**
+     * The alpha property. Controls the opacity used when this renderer draws content.
+     *
+     * @return the alpha property
+     */
     public final DoubleProperty alphaProperty() {
         return alpha;
     }

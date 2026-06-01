@@ -48,42 +48,88 @@ public final class ActivityBounds extends Rectangle2D {
 		this.activityRef = requireNonNull(activityRef);
 	}
 
+	/**
+	 * Returns the activity stored inside these bounds.
+	 *
+	 * @return the activity
+	 */
 	public Activity getActivity() {
 		return activityRef.getActivity();
 	}
 
+	/**
+	 * Returns the layer that contains the activity.
+	 *
+	 * @return the activity layer
+	 */
 	public Layer getLayer() {
 		return activityRef.getLayer();
 	}
 
+	/**
+	 * Returns the line index of the activity.
+	 *
+	 * @return the line index
+	 */
 	public int getLineIndex() {
 		return activityRef.getLineIndex();
 	}
 
+	/**
+	 * Returns the row that contains the activity.
+	 *
+	 * @return the parent row
+	 */
 	public Row<?, ?, ?> getRow() {
 		return activityRef.getRow();
 	}
 
+	/**
+	 * Returns the activity reference stored inside these bounds.
+	 *
+	 * @return the activity reference
+	 */
 	public ActivityRef<?> getActivityRef() {
 		return activityRef;
 	}
 
+	/**
+	 * Sets the position of the activity within a sequence of activities.
+	 *
+	 * @param position the position to store
+	 */
 	public void setPosition(Position position) {
 		this.position = position;
 	}
 
+	/**
+	 * Returns the position of the activity within a sequence of activities.
+	 *
+	 * @return the position
+	 */
 	public Position getPosition() {
 		return position;
 	}
 
+	/**
+	 * Sets the layout associated with these bounds.
+	 *
+	 * @param layout the layout to store
+	 */
 	public void setLayout(Layout layout) {
 		this.layout = layout;
 	}
 
+	/**
+	 * Returns the layout associated with these bounds.
+	 *
+	 * @return the layout
+	 */
 	public Layout getLayout() {
 		return layout;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -94,6 +140,7 @@ public final class ActivityBounds extends Rectangle2D {
 		return result;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -116,6 +163,7 @@ public final class ActivityBounds extends Rectangle2D {
 		return position == other.position;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toString() {
 		return "ActivityBounds [bounds = " + super.toString()

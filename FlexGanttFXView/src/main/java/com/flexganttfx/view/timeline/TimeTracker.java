@@ -55,6 +55,11 @@ public class TimeTracker extends Thread {
 
     private final ReadOnlyObjectWrapper<Instant> time = new ReadOnlyObjectWrapper<>(this, "time", Instant.now());
 
+    /**
+     * The time property. Exposes the current tracked time.
+     *
+     * @return the time property
+     */
     public final ReadOnlyObjectProperty<Instant> timeProperty() {
         return time.getReadOnlyProperty();
     }
@@ -106,6 +111,9 @@ public class TimeTracker extends Thread {
         }
     }
 
+    /**
+     * Updates the tracked time with the current instant.
+     */
     @Override
     public void run() {
         while (running) {

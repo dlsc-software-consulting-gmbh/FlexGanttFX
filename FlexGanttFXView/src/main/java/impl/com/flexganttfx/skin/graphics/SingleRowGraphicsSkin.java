@@ -37,6 +37,11 @@ public class SingleRowGraphicsSkin<R extends Row<?, ?, ?>>
 		super(graphics);
 	}
 
+	/**
+	 * Creates the row pane region.
+	 *
+	 * @return the row pane region
+	 */
 	@Override
 	protected final Region createRowPaneRegion() {
 		rowPane = new RowPane<>(getSkinnable());
@@ -48,6 +53,11 @@ public class SingleRowGraphicsSkin<R extends Row<?, ?, ?>>
 		return rowPane;
 	}
 
+	/**
+	 * Finds the rows inside the lasso selection.
+	 *
+	 * @return the selected rows
+	 */
 	@Override
 	protected final List<Row<?, ?, ?>> findLassoSelectedRows() {
 		List<Row<?, ?, ?>> list = new ArrayList<>();
@@ -58,6 +68,11 @@ public class SingleRowGraphicsSkin<R extends Row<?, ?, ?>>
 		return list;
 	}
 
+	/**
+	 * Finds the activities inside the lasso selection.
+	 *
+	 * @return the selected activities
+	 */
 	@Override
 	protected final List<ActivityRef<?>> findLassoSelectedActivities() {
 		Rectangle lasso = getLasso();
@@ -74,11 +89,25 @@ public class SingleRowGraphicsSkin<R extends Row<?, ?, ?>>
 		return selections.stream().map(ActivityBounds::getActivityRef).collect(Collectors.toList());
 	}
 
+	/**
+	 * Returns the row pane at the given y coordinate.
+	 *
+	 * @param y the y coordinate
+	 *
+	 * @return the row pane at the given y coordinate
+	 */
 	@Override
 	protected final RowPane<R> getRowPaneAt(double y) {
 		return rowPane;
 	}
 
+	/**
+	 * Returns whether the given row is above the viewport.
+	 *
+	 * @param row the row
+	 *
+	 * @return true if the row is above the viewport
+	 */
 	@Override
 	protected boolean isRowAboveViewport(R row) {
 		return false;

@@ -56,6 +56,11 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
         listView.skinProperty().addListener((observable, oldValue, newValue) -> getClippedContent().setClip(createClip()));
     }
 
+    /**
+     * Creates the row pane region.
+     *
+     * @return the row pane region
+     */
     @Override
     protected Region createRowPaneRegion() {
         ListViewGraphics<R> graphics = getSkinnable();
@@ -170,6 +175,9 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
             setDaemon(true);
         }
 
+        /**
+         * Runs the auto-scrolling task.
+         */
         @Override
         public void run() {
 
@@ -210,10 +218,19 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
             flow.scrollPixels(yOffset);
         }
 
+        /**
+         * Stops the auto-scrolling thread.
+         */
         public void stopRunning() {
             this.running = false;
         }
 
+        /**
+         * Sets the auto-scrolling delta.
+         *
+         * @param xOffset the horizontal scroll delta
+         * @param yOffset the vertical scroll delta
+         */
         public void setDelta(double xOffset, double yOffset) {
             this.xOffset = xOffset;
             this.yOffset = yOffset;
@@ -262,6 +279,11 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
         }
     }
 
+    /**
+     * Finds the rows inside the lasso selection.
+     *
+     * @return the selected rows
+     */
     @Override
     protected List<Row<?, ?, ?>> findLassoSelectedRows() {
         List<Row<?, ?, ?>> rows = new ArrayList<>();
@@ -284,6 +306,11 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
         return rows;
     }
 
+    /**
+     * Finds the activities inside the lasso selection.
+     *
+     * @return the selected activities
+     */
     @Override
     protected List<ActivityRef<?>> findLassoSelectedActivities() {
         List<ActivityRef<?>> selection = new ArrayList<>();
@@ -316,6 +343,13 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
         return selection;
     }
 
+    /**
+     * Returns the row pane at the given y coordinate.
+     *
+     * @param y the y coordinate
+     *
+     * @return the row pane at the given y coordinate
+     */
     @Override
     protected final RowPane<R> getRowPaneAt(double y) {
         /*
@@ -333,6 +367,13 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
         return null;
     }
 
+    /**
+     * Returns whether the given row is above the viewport.
+     *
+     * @param row the row
+     *
+     * @return true if the row is above the viewport
+     */
     @Override
     protected boolean isRowAboveViewport(R row) {
         VirtualFlow<?> flow = (VirtualFlow<?>) listView.lookup("#virtual-flow");
@@ -352,66 +393,132 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
             super.setSelectedItem(null);
         }
 
+        /**
+         * Returns the selected indices.
+         *
+         * @return the selected indices
+         */
         @Override
         public ObservableList<Integer> getSelectedIndices() {
             return FXCollections.emptyObservableList();
         }
 
+        /**
+         * Returns the selected items.
+         *
+         * @return the selected items
+         */
         @Override
         public ObservableList<T> getSelectedItems() {
             return FXCollections.emptyObservableList();
         }
 
+        /**
+         * Selects all items.
+         */
         @Override
         public void selectAll() {
         }
 
+        /**
+         * Selects the first item.
+         */
         @Override
         public void selectFirst() {
         }
 
+        /**
+         * Selects the given indices.
+         *
+         * @param index the index
+         * @param indicies the additional indices
+         */
         @Override
         public void selectIndices(int index, int... indicies) {
         }
 
+        /**
+         * Selects the last item.
+         */
         @Override
         public void selectLast() {
         }
 
+        /**
+         * Clears the current selection and selects the given index.
+         *
+         * @param index the index
+         */
         @Override
         public void clearAndSelect(int index) {
         }
 
+        /**
+         * Clears the selection.
+         */
         @Override
         public void clearSelection() {
         }
 
+        /**
+         * Clears the selection at the given index.
+         *
+         * @param index the index
+         */
         @Override
         public void clearSelection(int index) {
         }
 
+        /**
+         * Returns whether the selection is empty.
+         *
+         * @return true if the selection is empty
+         */
         @Override
         public boolean isEmpty() {
             return true;
         }
 
+        /**
+         * Returns whether the given index is selected.
+         *
+         * @param index the index
+         *
+         * @return true if the given index is selected
+         */
         @Override
         public boolean isSelected(int index) {
             return false;
         }
 
+        /**
+         * Selects the item at the given index.
+         *
+         * @param index the index
+         */
         @Override
         public void select(int index) {
         }
 
+        /**
+         * Selects the given item.
+         *
+         * @param item the item
+         */
         @Override
         public void select(T item) {
         }
 
+        /**
+         * Selects the next item.
+         */
         @Override
         public void selectNext() {
         }
 
+        /**
+         * Selects the previous item.
+         */
         @Override
         public void selectPrevious() {
         }

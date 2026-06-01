@@ -75,12 +75,20 @@ public class RowCell<R extends Row<?, ?, ?>> extends ListCell<R> {
         });
     }
 
+    /**
+     * Lays out the row cell children.
+     */
     @Override
     protected void layoutChildren() {
         super.layoutChildren();
         rowPane.resizeRelocate(0, 0, getWidth(), getHeight());
     }
 
+    /**
+     * Returns the row pane.
+     *
+     * @return the row pane
+     */
     public final RowPane<R> getRowPane() {
         return rowPane;
     }

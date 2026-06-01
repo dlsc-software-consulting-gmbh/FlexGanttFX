@@ -24,6 +24,13 @@ import javafx.beans.binding.Bindings;
 
 public class Binder {
 
+    /**
+     * Binds the given gantt charts.
+     *
+     * @param gantt1 the first gantt chart
+     * @param gantt2 the second gantt chart
+     * @param autoBinding whether automatic binding should be enabled
+     */
     public static void bind(GanttChartBase<?> gantt1, GanttChartBase<?> gantt2, boolean autoBinding) {
         // sync timeline model
         final Timeline timeline2 = gantt2.getTimeline();

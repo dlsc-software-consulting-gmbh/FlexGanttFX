@@ -49,6 +49,11 @@ import static java.util.Objects.requireNonNull;
  */
 public class AgendaLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
+	/**
+	 * Constructs a new agenda lines layer.
+	 *
+	 * @param graphics the graphics view that owns the layer
+	 */
 	public AgendaLinesLayer(GraphicsBase<R> graphics) {
 		super("Agenda Lines", graphics);
 
@@ -71,6 +76,11 @@ public class AgendaLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 	private final BooleanProperty majorLinesVisible = new SimpleBooleanProperty(this,
 			"majorLinesVisible", true);
 
+	/**
+	 * The majorLinesVisible property. Controls whether major agenda lines are drawn.
+	 *
+	 * @return the majorLinesVisible property
+	 */
 	public final BooleanProperty majorLinesVisibleProperty() {
 		return majorLinesVisible;
 	}
@@ -86,6 +96,11 @@ public class AgendaLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 	private final ObjectProperty<Paint> majorLinesStroke = new SimpleObjectProperty<>(
 			this, "majorLinesStroke");
 
+	/**
+	 * The majorLinesStroke property. Stores the stroke used for major agenda lines.
+	 *
+	 * @return the majorLinesStroke property
+	 */
 	public final ObjectProperty<Paint> majorLinesStrokeProperty() {
 		return majorLinesStroke;
 	}
@@ -102,6 +117,11 @@ public class AgendaLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 	private final DoubleProperty majorLinesLineWidth = new SimpleDoubleProperty(
 			this, "majorLinesLineWidth");
 
+	/**
+	 * The majorLinesLineWidth property. Stores the line width used for major agenda lines.
+	 *
+	 * @return the majorLinesLineWidth property
+	 */
 	public final DoubleProperty majorLinesLineWidthProperty() {
 		return majorLinesLineWidth;
 	}
@@ -117,6 +137,11 @@ public class AgendaLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 	private final BooleanProperty minorLinesVisible = new SimpleBooleanProperty(this,
 			"minorLinesVisible", true);
 
+	/**
+	 * The minorLinesVisible property. Controls whether minor agenda lines are drawn.
+	 *
+	 * @return the minorLinesVisible property
+	 */
 	public final BooleanProperty minorLinesVisibleProperty() {
 		return minorLinesVisible;
 	}
@@ -132,6 +157,11 @@ public class AgendaLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 	private final ObjectProperty<Paint> minorLinesStroke = new SimpleObjectProperty<>(
 			this, "minorLinesStroke");
 
+	/**
+	 * The minorLinesStroke property. Stores the stroke used for minor agenda lines.
+	 *
+	 * @return the minorLinesStroke property
+	 */
 	public final ObjectProperty<Paint> minorLinesStrokeProperty() {
 		return minorLinesStroke;
 	}
@@ -148,6 +178,11 @@ public class AgendaLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 	private final DoubleProperty minorLinesLineWidth = new SimpleDoubleProperty(
 			this, "minorLinesLineWidth");
 
+	/**
+	 * The minorLinesLineWidth property. Stores the line width used for minor agenda lines.
+	 *
+	 * @return the minorLinesLineWidth property
+	 */
 	public final DoubleProperty minorLinesLineWidthProperty() {
 		return minorLinesLineWidth;
 	}
@@ -162,6 +197,11 @@ public class AgendaLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
 	private final ObjectProperty<double[]> majorLineDashes = new SimpleObjectProperty<>(this, "majorLineDashes");
 
+	/**
+	 * The majorLineDashes property. Stores the dash pattern used for major agenda lines.
+	 *
+	 * @return the majorLineDashes property
+	 */
 	public final ObjectProperty<double[]> majorLineDashesProperty() {
 		return majorLineDashes;
 	}
@@ -176,6 +216,11 @@ public class AgendaLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
 	private final ObjectProperty<double[]> minorLineDashes = new SimpleObjectProperty<>(this, "minorLineDashes", new double[]{4, 4});
 
+	/**
+	 * The minorLineDashes property. Stores the dash pattern used for minor agenda lines.
+	 *
+	 * @return the minorLineDashes property
+	 */
 	public final ObjectProperty<double[]> minorLineDashesProperty() {
 		return minorLineDashes;
 	}
@@ -188,6 +233,13 @@ public class AgendaLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 		return minorLineDashesProperty().get();
 	}
 
+	/**
+	 * Draws agenda grid lines for the row and its inner line layouts.
+	 *
+	 * @param canvas the canvas to draw on
+	 * @param startTime the visible start time
+	 * @param endTime the visible end time
+	 */
 	@Override
 	public void drawLayer(RowCanvas<R> canvas, Instant startTime, Instant endTime) {
 

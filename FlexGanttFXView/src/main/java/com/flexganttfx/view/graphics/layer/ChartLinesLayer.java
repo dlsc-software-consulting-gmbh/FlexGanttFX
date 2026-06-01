@@ -46,6 +46,11 @@ import static java.util.Objects.requireNonNull;
  */
 public class ChartLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
+	/**
+	 * Constructs a new chart lines layer.
+	 *
+	 * @param graphics the graphics view that owns the layer
+	 */
 	public ChartLinesLayer(GraphicsBase<R> graphics) {
 		super("Chart Lines", graphics);
 
@@ -73,6 +78,11 @@ public class ChartLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 	private final BooleanProperty majorLinesVisible = new SimpleBooleanProperty(this,
 			"majorLinesVisible", true);
 
+	/**
+	 * The majorLinesVisible property. Controls whether major chart grid lines are drawn.
+	 *
+	 * @return the majorLinesVisible property
+	 */
 	public final BooleanProperty majorLinesVisibleProperty() {
 		return majorLinesVisible;
 	}
@@ -88,6 +98,11 @@ public class ChartLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 	private final ObjectProperty<Paint> majorLinesStroke = new SimpleObjectProperty<>(
 			this, "majorLinesStroke");
 
+	/**
+	 * The majorLinesStroke property. Stores the stroke used for major chart grid lines.
+	 *
+	 * @return the majorLinesStroke property
+	 */
 	public final ObjectProperty<Paint> majorLinesStrokeProperty() {
 		return majorLinesStroke;
 	}
@@ -104,6 +119,11 @@ public class ChartLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 	private final DoubleProperty majorLinesLineWidth = new SimpleDoubleProperty(
 			this, "majorLinesLineWidth");
 
+	/**
+	 * The majorLinesLineWidth property. Stores the line width used for major chart grid lines.
+	 *
+	 * @return the majorLinesLineWidth property
+	 */
 	public final DoubleProperty majorLinesLineWidthProperty() {
 		return majorLinesLineWidth;
 	}
@@ -119,6 +139,11 @@ public class ChartLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 	private final BooleanProperty minorLinesVisible = new SimpleBooleanProperty(this,
 			"minorLinesVisible", true);
 
+	/**
+	 * The minorLinesVisible property. Controls whether minor chart grid lines are drawn.
+	 *
+	 * @return the minorLinesVisible property
+	 */
 	public final BooleanProperty minorLinesVisibleProperty() {
 		return minorLinesVisible;
 	}
@@ -134,6 +159,11 @@ public class ChartLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 	private final ObjectProperty<Paint> minorLinesStroke = new SimpleObjectProperty<>(
 			this, "minorLinesStroke");
 
+	/**
+	 * The minorLinesStroke property. Stores the stroke used for minor chart grid lines.
+	 *
+	 * @return the minorLinesStroke property
+	 */
 	public final ObjectProperty<Paint> minorLinesStrokeProperty() {
 		return minorLinesStroke;
 	}
@@ -150,6 +180,11 @@ public class ChartLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 	private final DoubleProperty minorLinesLineWidth = new SimpleDoubleProperty(
 			this, "minorLinesLineWidth");
 
+	/**
+	 * The minorLinesLineWidth property. Stores the line width used for minor chart grid lines.
+	 *
+	 * @return the minorLinesLineWidth property
+	 */
 	public final DoubleProperty minorLinesLineWidthProperty() {
 		return minorLinesLineWidth;
 	}
@@ -164,6 +199,11 @@ public class ChartLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
 	private final ObjectProperty<double[]> majorLineDashes = new SimpleObjectProperty<>(this, "majorLineDashes");
 
+	/**
+	 * The majorLineDashes property. Stores the dash pattern used for major chart grid lines.
+	 *
+	 * @return the majorLineDashes property
+	 */
 	public final ObjectProperty<double[]> majorLineDashesProperty() {
 		return majorLineDashes;
 	}
@@ -178,6 +218,11 @@ public class ChartLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
 	private final ObjectProperty<double[]> minorLineDashes = new SimpleObjectProperty<>(this, "minorLineDashes", new double[]{4, 4});
 
+	/**
+	 * The minorLineDashes property. Stores the dash pattern used for minor chart grid lines.
+	 *
+	 * @return the minorLineDashes property
+	 */
 	public final ObjectProperty<double[]> minorLineDashesProperty() {
 		return minorLineDashes;
 	}
@@ -190,6 +235,13 @@ public class ChartLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 		return minorLineDashesProperty().get();
 	}
 
+	/**
+	 * Draws chart grid lines for the row and its inner line layouts.
+	 *
+	 * @param canvas the canvas to draw on
+	 * @param startTime the visible start time
+	 * @param endTime the visible end time
+	 */
 	@Override
 	public void drawLayer(RowCanvas<R> canvas, Instant startTime,
 			Instant endTime) {

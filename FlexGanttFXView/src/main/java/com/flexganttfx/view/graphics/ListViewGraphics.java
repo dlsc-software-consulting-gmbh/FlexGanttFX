@@ -45,6 +45,9 @@ import java.util.stream.Collectors;
  */
 public class ListViewGraphics<R extends Row<?, ?, ?>> extends GraphicsBase<R> {
 
+	/**
+	 * Creates a new list view graphics control and configures its internal list view.
+	 */
 	public ListViewGraphics() {
 		getStyleClass().add("list-view-graphics");
 
@@ -66,6 +69,11 @@ public class ListViewGraphics<R extends Row<?, ?, ?>> extends GraphicsBase<R> {
 		enableRowResizingProperty().bind(Bindings.createBooleanBinding(() -> getFixedCellSize() == -1, fixedCellSizeProperty()));
 	}
 
+	/**
+	 * Creates the default skin used by this graphics view.
+	 *
+	 * @return the default skin
+	 */
 	@Override
 	protected Skin<?> createDefaultSkin() {
 		return new ListViewGraphicsSkin<>(this);
@@ -96,6 +104,11 @@ public class ListViewGraphics<R extends Row<?, ?, ?>> extends GraphicsBase<R> {
 		return listView;
 	}
 
+	/**
+	 * Returns the row panes currently created for the visible list view rows.
+	 *
+	 * @return the visible row panes
+	 */
 	@Override
 	public List<RowPane<R>> getRowPanes() {
 		ListView<R> listView = getListView();
@@ -144,6 +157,7 @@ public class ListViewGraphics<R extends Row<?, ?, ?>> extends GraphicsBase<R> {
 
 	private final DoubleProperty scrollValue = new SimpleDoubleProperty(this,
 			"scrollValue", Row.DEFAULT_ROW_HEIGHT) {
+		/** {@inheritDoc} */
 		@Override
 		public void set(double newValue) {
 			if (newValue < 1) {

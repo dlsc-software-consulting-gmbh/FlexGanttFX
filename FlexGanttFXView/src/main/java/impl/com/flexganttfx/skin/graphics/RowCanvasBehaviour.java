@@ -103,6 +103,12 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
     private static List<ActivityBounds> selectedBounds;
 
+    /**
+     * Sets the cursor for the given edit mode.
+     *
+     * @param editMode the edit mode
+     * @param cursor the cursor
+     */
     public static void setCursor(EditMode editMode, Cursor cursor) {
         requireNonNull(editMode);
         requireNonNull(cursor);
@@ -311,22 +317,47 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
             this.altDown = altDown;
         }
 
+        /**
+         * Returns the current edit mode.
+         *
+         * @return the current edit mode
+         */
         public EditMode getEditMode() {
             return editMode;
         }
 
+        /**
+         * Returns the current offset.
+         *
+         * @return the current offset
+         */
         public double getOffset() {
             return xOffset;
         }
 
+        /**
+         * Returns whether the shortcut modifier is pressed.
+         *
+         * @return true if the shortcut modifier is pressed
+         */
         public boolean isShortcutDown() {
             return shortcutDown;
         }
 
+        /**
+         * Returns whether the shift key is pressed.
+         *
+         * @return true if the shift key is pressed
+         */
         public boolean isShiftDown() {
             return shiftDown;
         }
 
+        /**
+         * Returns whether the alt key is pressed.
+         *
+         * @return true if the alt key is pressed
+         */
         public boolean isAltDown() {
             return altDown;
         }
@@ -830,6 +861,9 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
             setDaemon(true);
         }
 
+        /**
+         * Runs the auto-scrolling task.
+         */
         @Override
         public void run() {
             while (running) {
@@ -877,15 +911,29 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
             return (VirtualFlow<?>) canvas.getGraphics().lookup("VirtualFlow");
         }
 
+        /**
+         * Stops the auto-scrolling thread.
+         */
         public void stopRunning() {
             this.running = false;
         }
 
+        /**
+         * Sets the auto-scrolling delta.
+         *
+         * @param xOffset the horizontal scroll delta
+         * @param yOffset the vertical scroll delta
+         */
         public void setDelta(double xOffset, double yOffset) {
             this.xOffset = xOffset;
             this.yOffset = yOffset;
         }
 
+        /**
+         * Sets the current mouse event.
+         *
+         * @param event the mouse event
+         */
         public void setMouseEvent(MouseEvent event) {
             this.evt = event;
         }

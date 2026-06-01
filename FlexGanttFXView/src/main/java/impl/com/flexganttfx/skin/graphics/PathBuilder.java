@@ -48,26 +48,56 @@ public class PathBuilder {
 			this.close = close;
 		}
 
+		/**
+		 * Returns the start point.
+		 *
+		 * @return the start point
+		 */
 		public Point2D getStart() {
 			return start;
 		}
 
+		/**
+		 * Returns the end point.
+		 *
+		 * @return the end point
+		 */
 		public Point2D getEnd() {
 			return end;
 		}
 
+		/**
+		 * Returns the path.
+		 *
+		 * @return the path
+		 */
 		public Path getPath() {
 			return path;
 		}
 
+		/**
+		 * Returns the arrow direction.
+		 *
+		 * @return the arrow direction
+		 */
 		public ArrowDirection getArrowDirection() {
 			return arrowDirection;
 		}
 
+		/**
+		 * Returns whether the path should be closed.
+		 *
+		 * @return true if the path should be closed
+		 */
 		public boolean isClose() {
 			return close;
 		}
 
+		/**
+		 * Returns a string representation of this result.
+		 *
+		 * @return a string representation of this result
+		 */
 		@Override
 		public String toString() {
 			return "start = " + start.toString() + ", end = " + end.toString()

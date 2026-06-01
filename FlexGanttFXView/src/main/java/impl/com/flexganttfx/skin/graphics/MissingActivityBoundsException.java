@@ -44,18 +44,38 @@ public class MissingActivityBoundsException extends Exception {
 		this.lineIndex = lineIndex;
 	}
 
+	/**
+	 * Returns the unresolved activity.
+	 *
+	 * @return the unresolved activity
+	 */
 	public Activity getActivity() {
 		return activity;
 	}
 
+	/**
+	 * Returns the row containing the unresolved activity.
+	 *
+	 * @return the row containing the unresolved activity
+	 */
 	public Row<?, ?, ?> getRow() {
 		return row;
 	}
 
+	/**
+	 * Returns the renderer that failed to resolve the activity bounds.
+	 *
+	 * @return the renderer that failed to resolve the activity bounds
+	 */
 	public ActivityRenderer<?> getRenderer() {
 		return renderer;
 	}
 
+	/**
+	 * Returns the line index of the unresolved activity.
+	 *
+	 * @return the line index
+	 */
 	public int getLineIndex() {
 		return lineIndex;
 	}

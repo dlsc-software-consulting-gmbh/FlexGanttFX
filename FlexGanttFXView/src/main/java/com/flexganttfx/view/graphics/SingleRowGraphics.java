@@ -40,6 +40,11 @@ public class SingleRowGraphics<R extends Row<?, ?, ?>> extends GraphicsBase<R> {
 		getStyleClass().add("single-row-graphics");
 	}
 
+	/**
+	 * Creates the default skin used by this graphics view.
+	 *
+	 * @return the default skin
+	 */
 	@Override
 	protected Skin<?> createDefaultSkin() {
 		return new SingleRowGraphicsSkin<>(this);
@@ -47,6 +52,11 @@ public class SingleRowGraphics<R extends Row<?, ?, ?>> extends GraphicsBase<R> {
 
 	private final List<RowPane<R>> rowPanes = new ArrayList<>();
 
+	/**
+	 * Returns the row pane used by this graphics view.
+	 *
+	 * @return the row panes
+	 */
 	@Override
 	public List<RowPane<R>> getRowPanes() {
 		return rowPanes;

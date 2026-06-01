@@ -64,6 +64,22 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
         redrawObservable(textFillHighlight);
     }
 
+    /**
+     * Draws the activity bar or milestone and returns the resulting bounds.
+     *
+     * @param activityRef the activity reference to render
+     * @param position the activity position
+     * @param gc the graphics context
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @param w the width
+     * @param h the height
+     * @param selected whether the activity is selected
+     * @param hover whether the activity is hovered
+     * @param highlighted whether the activity is highlighted
+     * @param pressed whether the activity is pressed
+     * @return the bounds of the rendered activity
+     */
     @Override
     protected ActivityBounds drawActivity(ActivityRef<A> activityRef,
                                           Position position, GraphicsContext gc, double x, double y, double w,
@@ -91,6 +107,21 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
         return new ActivityBounds(activityRef, x, my, w, mh);
     }
 
+    /**
+     * Draws the background for the activity bar or milestone.
+     *
+     * @param activityRef the activity reference to render
+     * @param position the activity position
+     * @param gc the graphics context
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @param w the width
+     * @param h the height
+     * @param selected whether the activity is selected
+     * @param hover whether the activity is hovered
+     * @param highlighted whether the activity is highlighted
+     * @param pressed whether the activity is pressed
+     */
     @Override
     protected void drawBackground(ActivityRef<A> activityRef, Position position,
                                   GraphicsContext gc, double x, double y, double w, double h,
@@ -196,6 +227,21 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
         }
     }
 
+    /**
+     * Draws the border for the activity bar or milestone.
+     *
+     * @param activityRef the activity reference to render
+     * @param position the activity position
+     * @param gc the graphics context
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @param w the width
+     * @param h the height
+     * @param selected whether the activity is selected
+     * @param hover whether the activity is hovered
+     * @param highlighted whether the activity is highlighted
+     * @param pressed whether the activity is pressed
+     */
     @Override
     protected void drawBorder(ActivityRef<A> activityRef, Position position,
                               GraphicsContext gc, double x, double y, double w, double h,
@@ -255,6 +301,22 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
         gc.strokePolygon(xx, yy, 5);
     }
 
+    /**
+     * Draws the given text at the requested position around the activity.
+     *
+     * @param activityRef the activity reference to render
+     * @param text the text to draw
+     * @param position the text position
+     * @param gc the graphics context
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @param w the width
+     * @param h the height
+     * @param selected whether the activity is selected
+     * @param hover whether the activity is hovered
+     * @param highlighted whether the activity is highlighted
+     * @param pressed whether the activity is pressed
+     */
     protected void drawText(ActivityRef<A> activityRef, String text,
                             TextPosition position, GraphicsContext gc, double x, double y,
                             double w, double h, boolean selected, boolean hover,
@@ -413,6 +475,15 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
         return !(availableWidth < 10) && text != null && !(text.length() * 3 > availableWidth);
     }
 
+    /**
+     * Returns the text fill paint for the given activity state.
+     *
+     * @param selected whether the activity is selected
+     * @param hover whether the activity is hovered
+     * @param highlighted whether the activity is highlighted
+     * @param pressed whether the activity is pressed
+     * @return the text fill paint to use
+     */
     protected Paint getTextFill(boolean selected, boolean hover, boolean highlighted, boolean pressed) {
         GraphicsBase<?> graphics = getGraphics();
         if (pressed) {
@@ -449,6 +520,11 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
 
     // @formatter:on
 
+    /**
+     * The barHeight property. Controls the height of the rendered activity bar inside the row.
+     *
+     * @return the barHeight property
+     */
     public final DoubleProperty barHeightProperty() {
         return barHeight;
     }
@@ -461,6 +537,11 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
         barHeightProperty().set(height);
     }
 
+    /**
+     * The textGap property. Controls the gap between the activity bar and its text.
+     *
+     * @return the textGap property
+     */
     public final DoubleProperty textGapProperty() {
         return textGap;
     }
@@ -473,6 +554,11 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
         return textGapProperty().get();
     }
 
+    /**
+     * The textFill property. Defines the default text fill paint used for activity labels.
+     *
+     * @return the textFill property
+     */
     public final ObjectProperty<Paint> textFillProperty() {
         return textFill;
     }
@@ -486,6 +572,11 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
         return textFillProperty().get();
     }
 
+    /**
+     * The textFillHover property. Defines the text fill paint used while an activity is hovered.
+     *
+     * @return the textFillHover property
+     */
     public final ObjectProperty<Paint> textFillHoverProperty() {
         return textFillHover;
     }
@@ -499,6 +590,11 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
         return textFillHover.get();
     }
 
+    /**
+     * The textFillHighlight property. Defines the text fill paint used while an activity is highlighted.
+     *
+     * @return the textFillHighlight property
+     */
     public final ObjectProperty<Paint> textFillHighlightProperty() {
         return textFillHighlight;
     }
@@ -512,6 +608,11 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
         return textFillHighlightProperty().get();
     }
 
+    /**
+     * The textFillPressed property. Defines the text fill paint used while an activity is pressed.
+     *
+     * @return the textFillPressed property
+     */
     public final ObjectProperty<Paint> textFillPressedProperty() {
         return textFillPressed;
     }
@@ -525,6 +626,11 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
         return textFillPressedProperty().get();
     }
 
+    /**
+     * The textFillSelected property. Defines the text fill paint used while an activity is selected.
+     *
+     * @return the textFillSelected property
+     */
     public final ObjectProperty<Paint> textFillSelectedProperty() {
         return textFillSelected;
     }
@@ -538,6 +644,11 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
         return textFillSelectedProperty().get();
     }
 
+    /**
+     * The font property. Controls the font used to render activity text.
+     *
+     * @return the font property
+     */
     public final ObjectProperty<Font> fontProperty() {
         return font;
     }
@@ -551,6 +662,11 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
         return fontProperty().get();
     }
 
+    /**
+     * The glossy property. Controls whether a glossy highlight is painted on activity bars.
+     *
+     * @return the glossy property
+     */
     public final BooleanProperty glossyProperty() {
         return glossy;
     }
@@ -563,6 +679,11 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
         return glossyProperty().get();
     }
 
+    /**
+     * The autoFixText property. Controls whether text positions are adjusted to stay within the visible canvas when possible.
+     *
+     * @return the autoFixText property
+     */
     public final BooleanProperty autoFixTextProperty() {
         return autoFixText;
     }

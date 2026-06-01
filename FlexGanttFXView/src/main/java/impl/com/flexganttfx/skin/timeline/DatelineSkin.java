@@ -284,6 +284,14 @@ public class DatelineSkin extends SkinBase<Dateline> {
         dateline.requestLayout();
     }
 
+    /**
+     * Lays out the children of this skin.
+     *
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @param width the width
+     * @param height the height
+     */
     @Override
     protected void layoutChildren(double x, double y, double width, double height) {
         if (!initialSetup) {

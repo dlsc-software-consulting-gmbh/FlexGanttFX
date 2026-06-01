@@ -123,16 +123,31 @@ public class Eventline extends FlexGanttFXControl {
                 });
     }
 
+    /**
+     * Creates the default skin for the event line control.
+     *
+     * @return the default skin
+     */
     @Override
     protected Skin<?> createDefaultSkin() {
         return new EventlineSkin(this);
     }
 
+    /**
+     * Returns the user agent stylesheet for the event line control.
+     *
+     * @return the stylesheet URL
+     */
     @Override
     public String getUserAgentStylesheet() {
         return super.getUserAgentStylesheet(Eventline.class, "eventline.css");
     }
 
+    /**
+     * Returns the graphics view shown inside the event line.
+     *
+     * @return the embedded graphics view
+     */
     public final SingleRowGraphics<Row<?, ?, ?>> getGraphics() {
         return graphics;
     }
@@ -198,6 +213,11 @@ public class Eventline extends FlexGanttFXControl {
         }
     }
 
+    /**
+     * Returns the timeline used by the event line.
+     *
+     * @return the timeline
+     */
     public final Timeline getTimeline() {
         return timeline;
     }
@@ -205,6 +225,11 @@ public class Eventline extends FlexGanttFXControl {
     // Frozen row support
     private final ObjectProperty<Row<?, ?, ?>> frozenRow = new SimpleObjectProperty<>(this, "frozenRow");
 
+    /**
+     * The frozenRow property. Stores the row currently pinned in the event line.
+     *
+     * @return the frozenRow property
+     */
     public final ObjectProperty<Row<?, ?, ?>> frozenRowProperty() {
         return frozenRow;
     }
@@ -217,6 +242,11 @@ public class Eventline extends FlexGanttFXControl {
         this.frozenRow.set(frozenRow);
     }
 
+    /**
+     * The cursorLocation property. Exposes the horizontal location of the time cursor.
+     *
+     * @return the cursorLocation property
+     */
     public final ReadOnlyDoubleProperty cursorLocationProperty() {
         return cursorLocation;
     }
@@ -225,6 +255,11 @@ public class Eventline extends FlexGanttFXControl {
         return cursorLocationProperty().get();
     }
 
+    /**
+     * The cursorTime property. Exposes the time shown by the time cursor.
+     *
+     * @return the cursorTime property
+     */
     public final ReadOnlyObjectProperty<Instant> cursorTimeProperty() {
         return cursorTime;
     }
@@ -237,6 +272,11 @@ public class Eventline extends FlexGanttFXControl {
 
     private final BooleanProperty showTimeCursor = new SimpleBooleanProperty(this, "showTimeCursor", true);
 
+    /**
+     * The showTimeCursor property. Controls whether the time cursor is shown.
+     *
+     * @return the showTimeCursor property
+     */
     public final BooleanProperty showTimeCursorProperty() {
         return showTimeCursor;
     }
@@ -252,6 +292,11 @@ public class Eventline extends FlexGanttFXControl {
     // DST marker support.
     private final BooleanProperty showDSTMarker = new SimpleBooleanProperty(this, "showDSTMarker", true);
 
+    /**
+     * The showDSTMarker property. Controls whether daylight-saving markers are shown.
+     *
+     * @return the showDSTMarker property
+     */
     public final BooleanProperty showDSTMarkerProperty() {
         return showDSTMarker;
     }
@@ -267,6 +312,11 @@ public class Eventline extends FlexGanttFXControl {
     // Date formatter support.
     private final ObjectProperty<DateTimeFormatter> dateTimeFormatter = new SimpleObjectProperty<>(this, "dateTimeFormatter", DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM));
 
+    /**
+     * The dateTimeFormatter property. Stores the formatter used for event line time labels.
+     *
+     * @return the dateTimeFormatter property
+     */
     public final ObjectProperty<DateTimeFormatter> dateTimeFormatterProperty() {
         return dateTimeFormatter;
     }
@@ -282,6 +332,11 @@ public class Eventline extends FlexGanttFXControl {
     // Marked time interval support.
     private final BooleanProperty showMarkedTimeInterval = new SimpleBooleanProperty(this, "showMarkedTimeInterval", true);
 
+    /**
+     * The showMarkedTimeInterval property. Controls whether the marked interval is shown.
+     *
+     * @return the showMarkedTimeInterval property
+     */
     public final BooleanProperty showMarkedTimeIntervalProperty() {
         return showMarkedTimeInterval;
     }
@@ -296,6 +351,11 @@ public class Eventline extends FlexGanttFXControl {
 
     private final ObjectProperty<TimeInterval> markedTimeInterval = new SimpleObjectProperty<>(this, "markedTimeInterval");
 
+    /**
+     * The markedTimeInterval property. Stores the interval highlighted in the event line.
+     *
+     * @return the markedTimeInterval property
+     */
     public final ObjectProperty<TimeInterval> markedTimeIntervalProperty() {
         return markedTimeInterval;
     }
@@ -310,6 +370,12 @@ public class Eventline extends FlexGanttFXControl {
 
     class EventlineActivityRenderer extends ActivityRenderer {
 
+        /**
+         * Constructs a new event line activity renderer.
+         *
+         * @param graphics the graphics view that owns the renderer
+         * @param name the renderer name
+         */
         public EventlineActivityRenderer(GraphicsBase graphics, String name) {
             super(graphics, name);
             setStroke(Color.TRANSPARENT);

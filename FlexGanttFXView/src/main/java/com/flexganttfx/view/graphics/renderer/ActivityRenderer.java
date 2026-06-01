@@ -52,6 +52,22 @@ public class ActivityRenderer<A extends Activity> extends Renderer {
         redrawObservable(lineWidth);
     }
 
+    /**
+     * Draws the given activity and returns the resulting bounds.
+     *
+     * @param activityRef the activity reference to render
+     * @param position the activity position
+     * @param gc the graphics context
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @param w the width
+     * @param h the height
+     * @param selected whether the activity is selected
+     * @param hover whether the activity is hovered
+     * @param highlighted whether the activity is highlighted
+     * @param pressed whether the activity is pressed
+     * @return the bounds of the rendered activity
+     */
     public final ActivityBounds draw(ActivityRef<A> activityRef, Position position, GraphicsContext gc, double x, double y, double w, double h, boolean selected, boolean hover, boolean highlighted, boolean pressed) {
 
         final GraphicsBase<?> graphics = getGraphics();
@@ -75,6 +91,22 @@ public class ActivityRenderer<A extends Activity> extends Renderer {
         }
     }
 
+    /**
+     * Draws the activity contents and returns the resulting bounds.
+     *
+     * @param activityRef the activity reference to render
+     * @param position the activity position
+     * @param gc the graphics context
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @param w the width
+     * @param h the height
+     * @param selected whether the activity is selected
+     * @param hover whether the activity is hovered
+     * @param highlighted whether the activity is highlighted
+     * @param pressed whether the activity is pressed
+     * @return the bounds of the rendered activity
+     */
     protected ActivityBounds drawActivity(ActivityRef<A> activityRef, Position position, GraphicsContext gc, double x, double y, double w, double h, boolean selected, boolean hover, boolean highlighted, boolean pressed) {
 
         final GraphicsBase<?> graphics = getGraphics();
@@ -112,6 +144,21 @@ public class ActivityRenderer<A extends Activity> extends Renderer {
         return new ActivityBounds(activityRef, x, y, w, h);
     }
 
+    /**
+     * Draws the activity background.
+     *
+     * @param activityRef the activity reference to render
+     * @param position the activity position
+     * @param gc the graphics context
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @param w the width
+     * @param h the height
+     * @param selected whether the activity is selected
+     * @param hover whether the activity is hovered
+     * @param highlighted whether the activity is highlighted
+     * @param pressed whether the activity is pressed
+     */
     protected void drawBackground(ActivityRef<A> activityRef, Position position, GraphicsContext gc, double x, double y, double w, double h, boolean selected, boolean hover, boolean highlighted, boolean pressed) {
 
         gc.setFill(getFill(selected, hover, highlighted, pressed));
@@ -129,6 +176,21 @@ public class ActivityRenderer<A extends Activity> extends Renderer {
         }
     }
 
+    /**
+     * Draws the activity border.
+     *
+     * @param activityRef the activity reference to render
+     * @param position the activity position
+     * @param gc the graphics context
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @param w the width
+     * @param h the height
+     * @param selected whether the activity is selected
+     * @param hover whether the activity is hovered
+     * @param highlighted whether the activity is highlighted
+     * @param pressed whether the activity is pressed
+     */
     protected void drawBorder(ActivityRef<A> activityRef, Position position, GraphicsContext gc, double x, double y, double w, double h, boolean selected, boolean hover, boolean highlighted, boolean pressed) {
 
         gc.setStroke(getStroke(selected, hover, highlighted, pressed));
@@ -146,6 +208,15 @@ public class ActivityRenderer<A extends Activity> extends Renderer {
         }
     }
 
+    /**
+     * Returns the stroke paint for the given activity state.
+     *
+     * @param selected whether the activity is selected
+     * @param hover whether the activity is hovered
+     * @param highlighted whether the activity is highlighted
+     * @param pressed whether the activity is pressed
+     * @return the stroke paint to use
+     */
     protected Paint getStroke(boolean selected, boolean hover, boolean highlighted, boolean pressed) {
         GraphicsBase<?> g = getGraphics();
         if (pressed) {
@@ -182,34 +253,74 @@ public class ActivityRenderer<A extends Activity> extends Renderer {
 
     private final DoubleProperty lineWidth = new SimpleDoubleProperty(this, "lineWidth", .5);
 
+    /**
+     * The cornersRounded property. Controls whether activity corners are rendered rounded.
+     *
+     * @return the cornersRounded property
+     */
     public final BooleanProperty cornersRoundedProperty() {
         return cornersRounded;
     }
 
+    /**
+     * The cornerRadius property. Controls the radius used for rounded activity corners.
+     *
+     * @return the cornerRadius property
+     */
     public final DoubleProperty cornerRadiusProperty() {
         return cornerRadius;
     }
 
+    /**
+     * The lineWidth property. Controls the stroke width used to draw activity borders.
+     *
+     * @return the lineWidth property
+     */
     public final DoubleProperty lineWidthProperty() {
         return lineWidth;
     }
 
+    /**
+     * The stroke property. Defines the default stroke paint used for activities.
+     *
+     * @return the stroke property
+     */
     public final ObjectProperty<Paint> strokeProperty() {
         return stroke;
     }
 
+    /**
+     * The strokePressed property. Defines the stroke paint used while an activity is pressed.
+     *
+     * @return the strokePressed property
+     */
     public final ObjectProperty<Paint> strokePressedProperty() {
         return strokePressed;
     }
 
+    /**
+     * The strokeHover property. Defines the stroke paint used while an activity is hovered.
+     *
+     * @return the strokeHover property
+     */
     public final ObjectProperty<Paint> strokeHoverProperty() {
         return strokeHover;
     }
 
+    /**
+     * The strokeSelected property. Defines the stroke paint used while an activity is selected.
+     *
+     * @return the strokeSelected property
+     */
     public final ObjectProperty<Paint> strokeSelectedProperty() {
         return strokeSelected;
     }
 
+    /**
+     * The strokeHighlight property. Defines the stroke paint used while an activity is highlighted.
+     *
+     * @return the strokeHighlight property
+     */
     public final ObjectProperty<Paint> strokeHighlightProperty() {
         return strokeHighlight;
     }

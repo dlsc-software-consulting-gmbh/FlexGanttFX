@@ -78,6 +78,9 @@ public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends Gantt
         updatePosition();
     }
 
+    /**
+     * Configures the master node.
+     */
     protected void configureMasterNode() {
         if (getSkinnable().isAutoHideScrollBar()) {
             graphicsMasterDetailPane.setMasterNode(new Label(""));
@@ -123,6 +126,9 @@ public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends Gantt
         }
     }
 
+    /**
+     * Configures the detail node.
+     */
     protected void configureDetailNode() {
         Node detail = getSkinnable().getDetail();
         if (detail != null) {
@@ -164,10 +170,20 @@ public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends Gantt
         return rightHandSideBox;
     }
 
+    /**
+     * Returns the timeline graphics pane.
+     *
+     * @return the timeline graphics pane
+     */
     protected final BorderPane getTimelineGraphicsPane() {
         return timelineGraphicsPane;
     }
 
+    /**
+     * Returns the timeline scroll bar.
+     *
+     * @return the timeline scroll bar
+     */
     protected final TimelineScrollBar getTimelineScrollBar() {
         return timelineScrollBar;
     }

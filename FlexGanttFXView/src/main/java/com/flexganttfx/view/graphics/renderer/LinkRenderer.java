@@ -172,6 +172,15 @@ public abstract class LinkRenderer<T extends ActivityLink<?>> extends RendererBa
         super(graphics, name);
     }
 
+    /**
+     * Determines the target location relative to the source coordinates.
+     *
+     * @param sx the source x coordinate
+     * @param sy the source y coordinate
+     * @param tx the target x coordinate
+     * @param ty the target y coordinate
+     * @return the relative target location
+     */
     protected final TargetLocation calculateTargetLocation(double sx, double sy, double tx, double ty) {
         double xDelta = tx - sx;
         if (sy < ty) {
@@ -275,6 +284,14 @@ public abstract class LinkRenderer<T extends ActivityLink<?>> extends RendererBa
      */
     protected abstract void drawEndToStart(GraphicsContext gc, Rectangle2D sourceRect, Rectangle2D targetRect);
 
+    /**
+     * Draws an arrow head at the specified location.
+     *
+     * @param direction the arrow direction
+     * @param gc the graphics context
+     * @param x the x coordinate
+     * @param y the y coordinate
+     */
     protected void drawArrowHead(ArrowDirection direction, GraphicsContext gc, double x, double y) {
         final int s = getArrowSize();
 
@@ -301,6 +318,11 @@ public abstract class LinkRenderer<T extends ActivityLink<?>> extends RendererBa
         return strokeWidth.get();
     }
 
+    /**
+     * The strokeWidth property. Controls the line width used to draw links.
+     *
+     * @return the strokeWidth property
+     */
     public final DoubleProperty strokeWidthProperty() {
         return strokeWidth;
     }
@@ -317,6 +339,11 @@ public abstract class LinkRenderer<T extends ActivityLink<?>> extends RendererBa
         return strokeColor.get();
     }
 
+    /**
+     * The strokeColor property. Defines the stroke color used to draw links.
+     *
+     * @return the strokeColor property
+     */
     public final ObjectProperty<Color> strokeColorProperty() {
         return strokeColor;
     }
@@ -333,6 +360,11 @@ public abstract class LinkRenderer<T extends ActivityLink<?>> extends RendererBa
         return arrowHeadColor.get();
     }
 
+    /**
+     * The arrowHeadColor property. Defines the fill and stroke color used to draw arrow heads.
+     *
+     * @return the arrowHeadColor property
+     */
     public final ObjectProperty<Color> arrowHeadColorProperty() {
         return arrowHeadColor;
     }
@@ -411,7 +443,7 @@ public abstract class LinkRenderer<T extends ActivityLink<?>> extends RendererBa
      * The gap determines how far the line is drawn away from the bounds of the
      * source or target timeline object.
      */
-    public DoubleProperty gapProperty() {
+    public final DoubleProperty gapProperty() {
         return gap;
     }
 

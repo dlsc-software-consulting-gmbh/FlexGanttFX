@@ -77,6 +77,7 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
     private final ObjectProperty<DateTimeFormatter> dateTimeFormatter = new SimpleObjectProperty<>(this, "dateTimeFormatter", DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT));
     private final ObjectProperty<NumberFormat> numberFormat = new SimpleObjectProperty<NumberFormat>(this, "numberFormat") {
 
+        /** {@inheritDoc} */
         @Override
         public void set(NumberFormat newValue) {
             if (newValue == null) {
@@ -87,21 +88,29 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
 
     };
 
+    /**
+     * Creates a new scale row header for the given graphics.
+     *
+     * @param graphics the graphics that own this row header
+     */
     public ScaleRowHeader(GraphicsBase<R> graphics) {
         super(graphics);
 
         this.canvas = new Canvas() {
 
+            /** {@inheritDoc} */
             @Override
             public boolean isResizable() {
                 return true;
             }
 
+            /** {@inheritDoc} */
             @Override
             public double prefWidth(double height) {
                 return getWidth();
             }
 
+            /** {@inheritDoc} */
             @Override
             public double prefHeight(double width) {
                 return getHeight();
@@ -365,6 +374,11 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         return ((int) (zeroLineLocation - value * ppv)) + .5;
     }
 
+    /**
+     * The divider line stroke property.
+     *
+     * @return the divider line stroke property
+     */
     public final ObjectProperty<Paint> dividerLineStrokeProperty() {
         return dividerLineStroke;
     }
@@ -378,6 +392,11 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         dividerLineStrokeProperty().set(stroke);
     }
 
+    /**
+     * The major chart labels visible property.
+     *
+     * @return the major chart labels visible property
+     */
     public final BooleanProperty majorChartLabelsVisibleProperty() {
         return majorChartLabelsVisible;
     }
@@ -390,6 +409,11 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         majorChartLabelsVisibleProperty().set(visible);
     }
 
+    /**
+     * The minor chart labels visible property.
+     *
+     * @return the minor chart labels visible property
+     */
     public final BooleanProperty minorChartLabelsVisibleProperty() {
         return minorChartLabelsVisible;
     }
@@ -402,6 +426,11 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         minorChartLabelsVisibleProperty().set(visible);
     }
 
+    /**
+     * The major chart lines visible property.
+     *
+     * @return the major chart lines visible property
+     */
     public final BooleanProperty majorChartLinesVisibleProperty() {
         return majorChartLinesVisible;
     }
@@ -414,6 +443,11 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         majorChartLinesVisibleProperty().set(visible);
     }
 
+    /**
+     * The major chart lines stroke property.
+     *
+     * @return the major chart lines stroke property
+     */
     public final ObjectProperty<Paint> majorChartLinesStrokeProperty() {
         return majorChartLinesStroke;
     }
@@ -427,6 +461,11 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         majorChartLinesStrokeProperty().set(stroke);
     }
 
+    /**
+     * The major chart lines line width property.
+     *
+     * @return the major chart lines line width property
+     */
     public final DoubleProperty majorChartLinesLineWidthProperty() {
         return majorChartLinesLineWidth;
     }
@@ -439,6 +478,11 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         majorChartLinesLineWidthProperty().set(lineWidth);
     }
 
+    /**
+     * The major chart lines size property.
+     *
+     * @return the major chart lines size property
+     */
     public final DoubleProperty majorChartLinesSizeProperty() {
         return majorChartLinesSize;
     }
@@ -451,6 +495,11 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         majorChartLinesSizeProperty().set(size);
     }
 
+    /**
+     * The minor chart lines visible property.
+     *
+     * @return the minor chart lines visible property
+     */
     public final BooleanProperty minorChartLinesVisibleProperty() {
         return minorChartLinesVisible;
     }
@@ -463,6 +512,11 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         minorChartLinesVisibleProperty().set(visible);
     }
 
+    /**
+     * The minor chart lines stroke property.
+     *
+     * @return the minor chart lines stroke property
+     */
     public final ObjectProperty<Paint> minorChartLinesStrokeProperty() {
         return minorChartLinesStroke;
     }
@@ -478,6 +532,11 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         minorChartLinesStrokeProperty().set(stroke);
     }
 
+    /**
+     * The minor chart lines line width property.
+     *
+     * @return the minor chart lines line width property
+     */
     public final DoubleProperty minorChartLinesLineWidthProperty() {
         return minorChartLinesLineWidth;
     }
@@ -490,6 +549,11 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         minorChartLinesLineWidthProperty().set(lineWidth);
     }
 
+    /**
+     * The minor chart lines size property.
+     *
+     * @return the minor chart lines size property
+     */
     public final DoubleProperty minorChartLinesSizeProperty() {
         return minorChartLinesSize;
     }
@@ -502,6 +566,11 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         minorChartLinesSizeProperty().set(size);
     }
 
+    /**
+     * The agenda labels visible property.
+     *
+     * @return the agenda labels visible property
+     */
     public final BooleanProperty agendaLabelsVisibleProperty() {
         return agendaLabelsVisible;
     }
@@ -514,6 +583,11 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         agendaLabelsVisibleProperty().set(visible);
     }
 
+    /**
+     * The agenda lines line width property.
+     *
+     * @return the agenda lines line width property
+     */
     public final DoubleProperty agendaLinesLineWidthProperty() {
         return agendaLinesLineWidth;
     }
@@ -526,6 +600,11 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         agendaLinesLineWidthProperty().set(lineWidth);
     }
 
+    /**
+     * The agenda lines size property.
+     *
+     * @return the agenda lines size property
+     */
     public final DoubleProperty agendaLinesSizeProperty() {
         return agendaLinesSize;
     }
@@ -538,6 +617,11 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         agendaLinesSizeProperty().set(size);
     }
 
+    /**
+     * The agenda lines stroke property.
+     *
+     * @return the agenda lines stroke property
+     */
     public final ObjectProperty<Paint> agendaLinesStrokeProperty() {
         return agendaLinesStroke;
     }
@@ -551,6 +635,11 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         agendaLinesStrokeProperty().set(stroke);
     }
 
+    /**
+     * The agenda lines visible property.
+     *
+     * @return the agenda lines visible property
+     */
     public final BooleanProperty agendaLinesVisibleProperty() {
         return agendaLinesVisible;
     }
@@ -565,6 +654,11 @@ public class ScaleRowHeader<R extends Row<?, ?, ?>> extends RowHeader<R> {
         agendaLinesVisibleProperty().set(visible);
     }
 
+    /**
+     * The date time formatter property.
+     *
+     * @return the date time formatter property
+     */
     public final ObjectProperty<DateTimeFormatter> dateTimeFormatterProperty() {
         return dateTimeFormatter;
     }

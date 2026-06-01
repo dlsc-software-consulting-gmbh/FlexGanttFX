@@ -23,6 +23,13 @@ import com.flexganttfx.model.util.SimpleUnit;
 public class SimpleUnitCellFactory implements
 		Callback<SimpleUnit, SimpleUnitDatelineCell> {
 
+	/**
+	 * Creates a dateline cell for the given unit.
+	 *
+	 * @param param the unit
+	 *
+	 * @return the dateline cell
+	 */
 	@Override
 	public SimpleUnitDatelineCell call(SimpleUnit param) {
 		return new SimpleUnitDatelineCell();

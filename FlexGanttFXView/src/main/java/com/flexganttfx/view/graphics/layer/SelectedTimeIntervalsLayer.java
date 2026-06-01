@@ -49,6 +49,11 @@ import java.util.Objects;
  */
 public class SelectedTimeIntervalsLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
+	/**
+	 * Constructs a new selected time-intervals layer.
+	 *
+	 * @param graphics the graphics view that owns the layer
+	 */
 	public SelectedTimeIntervalsLayer(GraphicsBase<R> graphics) {
 		super("Selected Time Intervals", graphics);
 
@@ -61,6 +66,11 @@ public class SelectedTimeIntervalsLayer<R extends Row<?, ?, ?>> extends SystemLa
 
 	private final ObjectProperty<Paint> selectedTimeIntervalFill = new SimpleObjectProperty<>(this, "selectedTimeIntervalFill");
 
+	/**
+	 * The selectedTimeIntervalFill property. Stores the fill used for selected time intervals.
+	 *
+	 * @return the selectedTimeIntervalFill property
+	 */
 	public final ObjectProperty<Paint> selectedTimeIntervalFillProperty() {
 		return selectedTimeIntervalFill;
 	}
@@ -74,6 +84,13 @@ public class SelectedTimeIntervalsLayer<R extends Row<?, ?, ?>> extends SystemLa
 		selectedTimeIntervalFillProperty().set(fill);
 	}
 
+	/**
+	 * Draws the time intervals selected in the dateline.
+	 *
+	 * @param canvas the canvas to draw on
+	 * @param startTime the visible start time
+	 * @param endTime the visible end time
+	 */
 	@Override
 	public void drawLayer(RowCanvas<R> canvas, Instant startTime, Instant endTime) {
 		GraphicsBase graphics = getGraphics();

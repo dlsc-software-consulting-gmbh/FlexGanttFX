@@ -82,6 +82,11 @@ public final class Placement<A extends Activity> {
 		return columnCount;
 	}
 
+	/**
+	 * Returns a string representation of this placement.
+	 *
+	 * @return a string representation of this placement
+	 */
 	@Override
 	public String toString() {
 		return "Placement [columnIndex=" + columnIndex + ", columnCount="

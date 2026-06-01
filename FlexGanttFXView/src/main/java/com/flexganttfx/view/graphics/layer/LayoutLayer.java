@@ -47,6 +47,11 @@ import static java.util.Objects.requireNonNull;
  */
 public class LayoutLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
+	/**
+	 * Constructs a new layout layer.
+	 *
+	 * @param graphics the graphics view that owns the layer
+	 */
 	public LayoutLayer(GraphicsBase<R> graphics) {
 		super("Layout", graphics);
 
@@ -58,6 +63,11 @@ public class LayoutLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 	private final ObjectProperty<Paint> paddingFill = new SimpleObjectProperty<>(
 			this, "fill", new Color(0, 0, 0, .1));
 
+	/**
+	 * The paddingFill property. Stores the fill used for layout padding areas.
+	 *
+	 * @return the paddingFill property
+	 */
 	public final ObjectProperty<Paint> paddingFillProperty() {
 		return paddingFill;
 	}
@@ -71,6 +81,13 @@ public class LayoutLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 		paddingFillProperty().set(fill);
 	}
 
+	/**
+	 * Draws padding areas for the row layout and its inner line layouts.
+	 *
+	 * @param canvas the canvas to draw on
+	 * @param startTime the visible start time
+	 * @param endTime the visible end time
+	 */
 	@Override
 	public void drawLayer(RowCanvas<R> canvas, Instant startTime,
 			Instant endTime) {

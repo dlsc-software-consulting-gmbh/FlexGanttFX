@@ -154,11 +154,21 @@ public class Timeline extends FlexGanttFXControl {
         eventline = new Eventline(this);
     }
 
+    /**
+     * Creates the default skin for the timeline control.
+     *
+     * @return the default skin
+     */
     @Override
     protected Skin<?> createDefaultSkin() {
         return new TimelineSkin(this);
     }
 
+    /**
+     * Returns the user agent stylesheet for the timeline control.
+     *
+     * @return the stylesheet URL
+     */
     @Override
     public String getUserAgentStylesheet() {
         return super.getUserAgentStylesheet(Timeline.class, "timeline.css");
@@ -770,6 +780,11 @@ public class Timeline extends FlexGanttFXControl {
     // zoom factor support
 
     private final DoubleProperty zoomFactor = new SimpleDoubleProperty(this, "zoomFactor", .5) {
+        /**
+         * Updates the timeline offset using the given numeric value.
+         *
+         * @param number the new offset value
+         */
         @Override
         public void setValue(Number number) {
             if (number.doubleValue() <= 0) {

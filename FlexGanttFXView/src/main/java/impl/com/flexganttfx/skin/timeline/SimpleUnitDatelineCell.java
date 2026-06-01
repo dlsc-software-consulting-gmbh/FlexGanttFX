@@ -26,6 +26,15 @@ import java.time.Instant;
 
 public class SimpleUnitDatelineCell extends DatelineCell<SimpleUnit> {
 
+	/**
+	 * Updates the dateline cell.
+	 *
+	 * @param startTime the start time
+	 * @param endTime the end time
+	 * @param resolution the resolution
+	 * @param dateline the dateline
+	 * @param scalePosition the scale position
+	 */
 	@Override
 	public void update(Instant startTime, Instant endTime, Resolution<SimpleUnit> resolution, Dateline dateline, Position scalePosition) {
 		super.update(startTime, endTime, resolution, dateline, scalePosition);

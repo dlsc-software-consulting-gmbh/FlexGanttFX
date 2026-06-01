@@ -39,6 +39,15 @@ public abstract class Renderer extends RendererBase {
 		redrawObservable(fillHover);
 	}
 
+	/**
+	 * Returns the fill paint for the given renderer state.
+	 *
+	 * @param selected whether the item is selected
+	 * @param hover whether the item is hovered
+	 * @param highlighted whether the item is highlighted
+	 * @param pressed whether the item is pressed
+	 * @return the fill paint to use
+	 */
 	protected Paint getFill(boolean selected, boolean hover, boolean highlighted, boolean pressed) {
 		GraphicsBase<?> g = getGraphics();
 		if (pressed) {
@@ -65,10 +74,35 @@ public abstract class Renderer extends RendererBase {
 	private final ObjectProperty<Paint> fillSelected = new SimpleObjectProperty<>(this, "fillSelected");
 	private final ObjectProperty<Paint> fillHover = new SimpleObjectProperty<>(this,"fillHover");
 
+	/**
+	 * The fill property. Defines the default fill paint used by this renderer.
+	 *
+	 * @return the fill property
+	 */
 	public final ObjectProperty<Paint> fillProperty() { return fill; }
+	/**
+	 * The fillPressed property. Defines the fill paint used while the rendered item is pressed.
+	 *
+	 * @return the fillPressed property
+	 */
 	public final ObjectProperty<Paint> fillPressedProperty() { return fillPressed; }
+	/**
+	 * The fillHover property. Defines the fill paint used while the rendered item is hovered.
+	 *
+	 * @return the fillHover property
+	 */
 	public final ObjectProperty<Paint> fillHoverProperty() { return fillHover; }
+	/**
+	 * The fillSelected property. Defines the fill paint used while the rendered item is selected.
+	 *
+	 * @return the fillSelected property
+	 */
 	public final ObjectProperty<Paint> fillSelectedProperty() { return fillSelected; }
+	/**
+	 * The fillHighlight property. Defines the fill paint used while the rendered item is highlighted.
+	 *
+	 * @return the fillHighlight property
+	 */
 	public final ObjectProperty<Paint> fillHighlightProperty() { return fillHighlight; }
 
 	public final Paint getFill() {
@@ -120,6 +154,11 @@ public abstract class Renderer extends RendererBase {
 
 	private final ObjectProperty<Insets> padding = new SimpleObjectProperty<>(this, "padding", Insets.EMPTY);
 
+	/**
+	 * The padding property. Controls the insets applied before shapes are drawn.
+	 *
+	 * @return the padding property
+	 */
 	public final ObjectProperty<Insets> paddingProperty() {
 		return padding;
 	}

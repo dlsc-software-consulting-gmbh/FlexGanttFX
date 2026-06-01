@@ -30,6 +30,12 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class VirtualFlowUtil {
 
+    /**
+     * Binds the vertical virtual flows of the given controls so they scroll together.
+     *
+     * @param control1 the first control
+     * @param control2 the second control
+     */
     public static void bindVirtualFlows(Control control1, Control control2) {
 
         AtomicReference<InvalidationListener> skinListener = new AtomicReference<>();
@@ -140,11 +146,13 @@ public class VirtualFlowUtil {
             this.offset = offset;
         }
 
+        /** {@inheritDoc} */
         @Override
         public String toString() {
             return "VBosPosition{" + "index=" + index + ", offset=" + offset + '}';
         }
 
+        /** {@inheritDoc} */
         @Override
         public boolean equals(Object o) {
             if (this == o) {
@@ -159,6 +167,7 @@ public class VirtualFlowUtil {
             return index == that.index && Double.compare(that.offset, offset) == 0;
         }
 
+        /** {@inheritDoc} */
         @Override
         public int hashCode() {
             return Objects.hash(index, offset);

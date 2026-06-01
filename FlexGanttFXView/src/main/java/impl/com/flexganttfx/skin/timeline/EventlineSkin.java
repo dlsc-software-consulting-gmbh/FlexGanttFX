@@ -123,6 +123,14 @@ public class EventlineSkin extends SkinBase<Eventline> {
         getSkinnable().getGraphics().getRows().setAll(getSkinnable().getFrozenRow());
     }
 
+    /**
+     * Lays out the children of this skin.
+     *
+     * @param contentX the content x coordinate
+     * @param contentY the content y coordinate
+     * @param contentWidth the content width
+     * @param contentHeight the content height
+     */
     @Override
     protected void layoutChildren(double contentX, double contentY, double contentWidth, double contentHeight) {
         graphics.resizeRelocate(contentX, contentY, contentWidth, contentHeight);

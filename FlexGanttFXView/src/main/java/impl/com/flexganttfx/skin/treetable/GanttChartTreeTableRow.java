@@ -30,6 +30,13 @@ public class GanttChartTreeTableRow<R extends Row<?, ?, ?>> extends
 	public GanttChartTreeTableRow() {
 	}
 
+	/**
+	 * Computes the minimum height for the given width.
+	 *
+	 * @param width the width
+	 *
+	 * @return the minimum height
+	 */
 	@Override
 	protected double computeMinHeight(double width) {
 		if (getItem() != null) {
@@ -39,6 +46,13 @@ public class GanttChartTreeTableRow<R extends Row<?, ?, ?>> extends
 		return Row.DEFAULT_ROW_HEIGHT;
 	}
 
+	/**
+	 * Computes the preferred height for the given width.
+	 *
+	 * @param width the width
+	 *
+	 * @return the preferred height
+	 */
 	@Override
 	protected double computePrefHeight(double width) {
 		if (getItem() != null) {
@@ -48,6 +62,13 @@ public class GanttChartTreeTableRow<R extends Row<?, ?, ?>> extends
 		return Row.DEFAULT_ROW_HEIGHT;
 	}
 
+	/**
+	 * Computes the maximum height for the given width.
+	 *
+	 * @param width the width
+	 *
+	 * @return the maximum height
+	 */
 	@Override
 	protected double computeMaxHeight(double width) {
 		if (getItem() != null) {

@@ -49,6 +49,11 @@ public class VBoxGraphics<R extends Row<?, ?, ?>> extends GraphicsBase<R> {
 		setPriorityCallback(row -> Priority.ALWAYS);
 	}
 
+	/**
+	 * Creates the default skin used by this graphics view.
+	 *
+	 * @return the default skin
+	 */
 	@Override
 	protected Skin<?> createDefaultSkin() {
 		return new VBoxGraphicsSkin<>(this);
@@ -56,6 +61,11 @@ public class VBoxGraphics<R extends Row<?, ?, ?>> extends GraphicsBase<R> {
 
 	private final List<RowPane<R>> rowPanes = new ArrayList<>();
 
+	/**
+	 * Returns the row panes currently managed by this graphics view.
+	 *
+	 * @return the row panes
+	 */
 	@Override
 	public List<RowPane<R>> getRowPanes() {
 		return rowPanes;

@@ -33,6 +33,14 @@ public final class GridHelper {
 	private GridHelper() {
 	}
 
+	/**
+	 * Returns the nearest grid-aligned instant for the given time.
+	 *
+	 * @param graphics the graphics control
+	 * @param time the time
+	 *
+	 * @return the grid-aligned instant
+	 */
 	public static Instant grid(GraphicsBase<?> graphics, Instant time) {
 		Instant time1 = GridHelper.grid(graphics, time, false);
 		Instant time2 = GridHelper.grid(graphics, time, true);
@@ -47,6 +55,15 @@ public final class GridHelper {
 		}
 	}
 
+	/**
+	 * Returns the grid-aligned instant for the given time.
+	 *
+	 * @param graphics the graphics control
+	 * @param time the time
+	 * @param roundUp whether the result should be rounded up
+	 *
+	 * @return the grid-aligned instant
+	 */
 	public static Instant grid(GraphicsBase<?> graphics, Instant time, boolean roundUp) {
 
 		VirtualGrid<?> grid;
@@ -71,6 +88,15 @@ public final class GridHelper {
 		return time;
 	}
 
+	/**
+	 * Returns the grid-aligned local time for the given time.
+	 *
+	 * @param graphics the graphics control
+	 * @param time the time
+	 * @param roundUp whether the result should be rounded up
+	 *
+	 * @return the grid-aligned local time
+	 */
 	public static LocalTime grid(GraphicsBase<?> graphics, LocalTime time, boolean roundUp) {
 		/*
 		 * There is no auto-grid for vertical local time calculations.

@@ -132,6 +132,7 @@ public class RowHeaderColumn<R extends Row<?, ?, ?>> extends TreeTableColumn<R, 
         image.setSnapToPixel(false);
         image.getStyleClass().setAll("show-hide-column-image");
         cornerRegion = new StackPane() {
+            /** {@inheritDoc} */
             @Override
             protected void layoutChildren() {
                 double imageWidth = image.snappedLeftInset() + image.snappedRightInset();
@@ -201,6 +202,9 @@ public class RowHeaderColumn<R extends Row<?, ?, ?>> extends TreeTableColumn<R, 
 
         private boolean empty;
 
+        /**
+         * Creates a row header cell and installs the listeners needed for row header rendering and resizing.
+         */
         public RowHeaderColumnCell() {
 
             InvalidationListener typeListener = observable -> {
@@ -266,10 +270,16 @@ public class RowHeaderColumn<R extends Row<?, ?, ?>> extends TreeTableColumn<R, 
             setContentDisplay(ContentDisplay.CENTER);
         }
 
+        /**
+         * Returns the row shown by this cell.
+         *
+         * @return the row shown by this cell
+         */
         public Row<?, ?, ?> getRow() {
             return row;
         }
 
+        /** {@inheritDoc} */
         @Override
         public void updateIndex(int i) {
             super.updateIndex(i);
@@ -289,6 +299,7 @@ public class RowHeaderColumn<R extends Row<?, ?, ?>> extends TreeTableColumn<R, 
             }
         }
 
+        /** {@inheritDoc} */
         @Override
         protected void updateItem(R row, boolean empty) {
             super.updateItem(row, empty);

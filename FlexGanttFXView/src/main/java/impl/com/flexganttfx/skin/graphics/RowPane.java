@@ -210,6 +210,11 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
         }
     }
 
+    /**
+     * Returns the graphics control.
+     *
+     * @return the graphics control
+     */
     public final GraphicsBase<R> getGraphics() {
         return graphics;
     }
@@ -232,12 +237,22 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
         }
     }
 
+    /**
+     * Returns the controls node.
+     *
+     * @return the controls node
+     */
     public final Node getControlsNode() {
         return controlsNode;
     }
 
     private final ObjectProperty<R> row = new SimpleObjectProperty<>(this, "row");
 
+    /**
+     * The row property.
+     *
+     * @return the row property
+     */
     public final ObjectProperty<R> rowProperty() {
         return row;
     }
@@ -250,10 +265,18 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
         return rowProperty().get();
     }
 
+    /**
+     * Returns the row canvas.
+     *
+     * @return the row canvas
+     */
     public final RowCanvas<R> getCanvas() {
         return canvas;
     }
 
+    /**
+     * Starts editing the row.
+     */
     public final void startEditing() {
         flipPane.setRow(getRow());
         if (graphics.isAnimateRowEditor()) {
@@ -264,6 +287,9 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
         }
     }
 
+    /**
+     * Stops editing the row.
+     */
     public final void stopEditing() {
         if (graphics.isAnimateRowEditor()) {
             flipPane.flipToFront();

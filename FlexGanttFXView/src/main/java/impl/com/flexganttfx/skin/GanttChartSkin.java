@@ -110,6 +110,11 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
         VirtualFlowUtil.bindVirtualFlows(treeTable, listView);
     }
 
+    /**
+     * Returns the left-hand-side hidden sides pane.
+     *
+     * @return the left-hand-side hidden sides pane
+     */
     public HiddenSidesPane getLeftHandSideHiddenSidesPane() {
         return leftHandSideHiddenSidesPane;
     }

@@ -149,6 +149,14 @@ public class TimelineSkin extends SkinBase<Timeline> {
         updateVisibilities();
     }
 
+    /**
+     * Lays out the children of this skin.
+     *
+     * @param contentX the content x coordinate
+     * @param contentY the content y coordinate
+     * @param contentWidth the content width
+     * @param contentHeight the content height
+     */
     @Override
     protected void layoutChildren(double contentX, double contentY, double contentWidth, double contentHeight) {
         super.layoutChildren(contentX, contentY, contentWidth, contentHeight);
@@ -172,6 +180,11 @@ public class TimelineSkin extends SkinBase<Timeline> {
         }
     }
 
+    /**
+     * Returns the timeline control.
+     *
+     * @return the timeline control
+     */
     public Timeline getTimeline() {
         return getSkinnable();
     }

@@ -130,6 +130,12 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         }
     }
 
+    /**
+     * Requests a redraw for the given reason.
+     *
+     * @param reason the redraw reason
+     * @param oldTime the previous time
+     */
     public void requestRedraw(String reason, Instant oldTime) {
         final Timeline timeline = graphics.getTimeline();
 
@@ -183,6 +189,11 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         }
     };
 
+    /**
+     * Returns the graphics control.
+     *
+     * @return the graphics control
+     */
     public GraphicsBase<R> getGraphics() {
         return graphics;
     }
@@ -191,32 +202,61 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
     private final ObjectProperty<R> row = new SimpleObjectProperty<>(this, "row");
 
-    public ObjectProperty<R> rowProperty() {
+    /**
+     * The row property.
+     *
+     * @return the row property
+     */
+    public final ObjectProperty<R> rowProperty() {
         return row;
     }
 
-    public void setRow(R row) {
+    public final void setRow(R row) {
         rowProperty().set(row);
     }
 
-    public R getRow() {
+    public final R getRow() {
         return rowProperty().get();
     }
 
+    /**
+     * Returns the timeline model.
+     *
+     * @return the timeline model
+     */
     public TimelineModel<?> getTimelineModel() {
         return graphics.getTimeline().getModel();
     }
 
+    /**
+     * Returns whether this canvas is resizable.
+     *
+     * @return true if this canvas is resizable
+     */
     @Override
     public boolean isResizable() {
         return true;
     }
 
+    /**
+     * Returns the preferred height for the given width.
+     *
+     * @param width the width
+     *
+     * @return the preferred height
+     */
     @Override
     public double prefHeight(double width) {
         return getHeight();
     }
 
+    /**
+     * Returns the preferred width for the given height.
+     *
+     * @param height the height
+     *
+     * @return the preferred width
+     */
     @Override
     public double prefWidth(double height) {
         return getWidth();
@@ -230,10 +270,20 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
     private static int drawCounter;
     private static int doDrawCounter;
 
+    /**
+     * Returns whether a redraw is pending.
+     *
+     * @return true if a redraw is pending
+     */
     public boolean isDirty() {
         return dirty;
     }
 
+    /**
+     * Requests a redraw for the given reason.
+     *
+     * @param reason the redraw reason
+     */
     public void requestRedraw(String reason) {
         this.reason = reason;
 
@@ -256,6 +306,9 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         }
     }
 
+    /**
+     * Draws the canvas contents.
+     */
     public void draw() {
         if (doDrawCounter < Integer.MAX_VALUE) {
             doDrawCounter++;
@@ -888,10 +941,23 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         return Math.min(availableHeight, Math.max(0, (time.get(ChronoField.MILLI_OF_DAY) - st.get(ChronoField.MILLI_OF_DAY)) / mpp));
     }
 
+    /**
+     * Returns all activity bounds.
+     *
+     * @return all activity bounds
+     */
     public List<ActivityBounds> getAllActivityBounds() {
         return activityBounds;
     }
 
+    /**
+     * Returns all activity bounds at the given coordinates.
+     *
+     * @param x the x coordinate
+     * @param y the y coordinate
+     *
+     * @return the activity bounds at the given coordinates
+     */
     public List<ActivityBounds> getAllActivityBounds(double x, double y) {
         List<ActivityBounds> result = new ArrayList<>();
         for (ActivityBounds bounds : activityBounds) {
@@ -902,6 +968,14 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         return result;
     }
 
+    /**
+     * Returns the activity bounds at the given coordinates.
+     *
+     * @param x the x coordinate
+     * @param y the y coordinate
+     *
+     * @return the activity bounds at the given coordinates
+     */
     public ActivityBounds getActivityBounds(double x, double y) {
         List<ActivityBounds> allBounds = getAllActivityBounds(x, y);
 
@@ -913,6 +987,13 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         return null;
     }
 
+    /**
+     * Returns the activity bounds for the given activity reference.
+     *
+     * @param activityRef the activity reference
+     *
+     * @return the activity bounds for the activity reference
+     */
     public ActivityBounds getActivityBounds(ActivityRef<?> activityRef) {
         if (activityRef.getRow().equals(getRow())) {
             for (ActivityBounds bounds : activityBounds) {
@@ -960,6 +1041,16 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
     private Rectangle2D lookupBounds;
 
+    /**
+     * Returns the activity bounds within the given area.
+     *
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @param w the width
+     * @param h the height
+     *
+     * @return the activity bounds within the given area
+     */
     public List<ActivityBounds> getActivityBounds(double x, double y, double w, double h) {
 
         if (graphics.isDebugMode()) {
@@ -1008,6 +1099,13 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         return result;
     }
 
+    /**
+     * Returns the layout at the given y coordinate.
+     *
+     * @param y the y coordinate
+     *
+     * @return the layout at the given y coordinate
+     */
     public Layout getLayoutAt(double y) {
         Layout layout = null;
 
@@ -1031,6 +1129,13 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
         return layout;
     }
 
+    /**
+     * Returns the layout bounds at the given y coordinate.
+     *
+     * @param y the y coordinate
+     *
+     * @return the layout bounds at the given y coordinate
+     */
     public Rectangle2D getLayoutBoundsAt(double y) {
         Rectangle2D bounds = null;
 
@@ -1064,15 +1169,20 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
     private final BooleanProperty snapToPixel = new SimpleBooleanProperty(this, "snapToPixel", true);
 
-    public BooleanProperty snapToPixelProperty() {
+    /**
+     * The snap to pixel property.
+     *
+     * @return the snap to pixel property
+     */
+    public final BooleanProperty snapToPixelProperty() {
         return snapToPixel;
     }
 
-    public void setSnapToPixel(boolean snap) {
+    public final void setSnapToPixel(boolean snap) {
         snapToPixel.set(snap);
     }
 
-    public boolean isSnapToPixel() {
+    public final boolean isSnapToPixel() {
         return snapToPixel.get();
     }
 

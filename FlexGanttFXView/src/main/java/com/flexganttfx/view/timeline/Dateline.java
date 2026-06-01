@@ -226,11 +226,21 @@ public class Dateline extends FlexGanttFXControl {
                 });
     }
 
+    /**
+     * Creates the default skin for the dateline control.
+     *
+     * @return the default skin
+     */
     @Override
     protected Skin<?> createDefaultSkin() {
         return new DatelineSkin(this);
     }
 
+    /**
+     * Returns the user agent stylesheet for the dateline control.
+     *
+     * @return the stylesheet URL
+     */
     @Override
     public String getUserAgentStylesheet() {
         return super.getUserAgentStylesheet(Dateline.class, "dateline.css");
@@ -557,6 +567,11 @@ public class Dateline extends FlexGanttFXControl {
         return datelineBuffer.get();
     }
 
+    /**
+     * The datelineBuffer property. Controls the buffer reserved around the dateline during layout.
+     *
+     * @return the datelineBuffer property
+     */
     public DoubleProperty datelineBufferProperty() {
         return datelineBuffer;
     }

@@ -44,6 +44,11 @@ import java.util.Objects;
  */
 public class InnerLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
+    /**
+     * Constructs a new inner lines layer.
+     *
+     * @param graphics the graphics view that owns the layer
+     */
     public InnerLinesLayer(GraphicsBase<R> graphics) {
         super("Inner Lines", graphics);
 
@@ -60,6 +65,11 @@ public class InnerLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
     private final ObjectProperty<Paint> stroke = new SimpleObjectProperty<>(this, "stroke");
 
+    /**
+     * The stroke property. Stores the paint used for inner divider lines.
+     *
+     * @return the stroke property
+     */
     public final ObjectProperty<Paint> strokeProperty() {
         return stroke;
     }
@@ -75,6 +85,11 @@ public class InnerLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
     private final DoubleProperty lineWidth = new SimpleDoubleProperty(this, "lineWidth");
 
+    /**
+     * The lineWidth property. Stores the stroke width of the inner divider lines.
+     *
+     * @return the lineWidth property
+     */
     public final DoubleProperty lineWidthProperty() {
         return lineWidth;
     }
@@ -90,6 +105,11 @@ public class InnerLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
     private final BooleanProperty drawLastDividerLine = new SimpleBooleanProperty(
             this, "drawLastDividerLine", false);
 
+    /**
+     * The drawLastDividerLine property. Controls whether the last divider line is drawn.
+     *
+     * @return the drawLastDividerLine property
+     */
     public final BooleanProperty drawLastDividerLineProperty() {
         return drawLastDividerLine;
     }
@@ -104,6 +124,11 @@ public class InnerLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
 
     private final ObjectProperty<double[]> lineDashes = new SimpleObjectProperty<>(this, "lineDashes");
 
+    /**
+     * The lineDashes property. Stores the dash pattern used for inner divider lines.
+     *
+     * @return the lineDashes property
+     */
     public final ObjectProperty<double[]> lineDashesProperty() {
         return lineDashes;
     }
@@ -116,6 +141,13 @@ public class InnerLinesLayer<R extends Row<?, ?, ?>> extends SystemLayer<R> {
         return lineDashesProperty().get();
     }
 
+    /**
+     * Draws divider lines between the visible inner lines of the current row.
+     *
+     * @param canvas the canvas to draw on
+     * @param startTime the visible start time
+     * @param endTime the visible end time
+     */
     @Override
     public void drawLayer(RowCanvas<R> canvas, Instant startTime, Instant endTime) {
 

@@ -36,6 +36,18 @@ public class RowRenderer<R extends Row<?, ?, ?>> extends Renderer {
 		setFillHover(TRANSPARENT);
 	}
 
+	/**
+	 * Draws the given row.
+	 *
+	 * @param row the row to render
+	 * @param gc the graphics context
+	 * @param w the width
+	 * @param h the height
+	 * @param selected whether the row is selected
+	 * @param hover whether the row is hovered
+	 * @param highlighted whether the row is highlighted
+	 * @param pressed whether the row is pressed
+	 */
 	public final void draw(R row, GraphicsContext gc, double w, double h,
 			boolean selected, boolean hover, boolean highlighted,
 			boolean pressed) {
@@ -49,6 +61,18 @@ public class RowRenderer<R extends Row<?, ?, ?>> extends Renderer {
 		}
 	}
 
+	/**
+	 * Draws the row contents into the graphics context.
+	 *
+	 * @param row the row to render
+	 * @param gc the graphics context
+	 * @param w the width
+	 * @param h the height
+	 * @param selected whether the row is selected
+	 * @param hover whether the row is hovered
+	 * @param highlighted whether the row is highlighted
+	 * @param pressed whether the row is pressed
+	 */
 	protected void drawRow(R row, GraphicsContext gc, double w, double h,
 			boolean selected, boolean hover, boolean highlighted,
 			boolean pressed) {

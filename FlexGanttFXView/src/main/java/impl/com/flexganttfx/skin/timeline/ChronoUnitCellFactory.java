@@ -23,6 +23,13 @@ import javafx.util.Callback;
 public class ChronoUnitCellFactory
 		implements Callback<ChronoUnit, ChronoUnitDatelineCell> {
 
+	/**
+	 * Creates a dateline cell for the given unit.
+	 *
+	 * @param unit the unit
+	 *
+	 * @return the dateline cell
+	 */
 	@Override
 	public ChronoUnitDatelineCell call(ChronoUnit unit) {
 		return new ChronoUnitDatelineCell();

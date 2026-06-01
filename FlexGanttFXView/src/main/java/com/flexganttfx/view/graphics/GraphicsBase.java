@@ -273,6 +273,14 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     private final WeakInvalidationListener weakRedrawListener = new WeakInvalidationListener(redrawListener);
 
     private final ChangeListener<Instant> redrawNowListener = new ChangeListener<>() {
+        /**
+         * Responds to changes in the current time and redraws the graphics when the visible range
+         * is affected.
+         *
+         * @param observable the observed current-time value
+         * @param oldNow the previous current time
+         * @param newNow the new current time
+         */
         @Override
         public void changed(ObservableValue<? extends Instant> observable, Instant oldNow, Instant newNow) {
 
@@ -668,6 +676,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         });
     }
 
+    /**
+     * Returns the user agent stylesheet used by this graphics control.
+     *
+     * @return the user agent stylesheet
+     */
     @Override
     public String getUserAgentStylesheet() {
         return super.getUserAgentStylesheet(GraphicsBase.class, "graphics.css");
@@ -1036,6 +1049,13 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private class LayerVisibilityListener implements ChangeListener<Boolean> {
 
+        /**
+         * Updates a layer's fade state when its visibility changes.
+         *
+         * @param observable the observed visibility value
+         * @param oldValue the previous visibility state
+         * @param newValue the new visibility state
+         */
         @Override
         public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
             Property<?> property = (Property<?>) observable;
@@ -1457,6 +1477,9 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
             this.eventType = eventType;
         }
 
+        /**
+         * Updates the event handler registration after the property value changes.
+         */
         @Override
         protected void invalidated() {
             setEventHandler(eventType, get());
@@ -1467,6 +1490,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityDeleted;
 
+    /**
+     * The onActivityDeleted property. Stores the handler that is invoked when an activity has been
+     * deleted.
+     *
+     * @return the onActivityDeleted property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityDeletedProperty() {
         if (onActivityDeleted == null) {
             onActivityDeleted = new ActivityEventHandlerProperty(
@@ -1489,6 +1518,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityChange;
 
+    /**
+     * The onActivityChange property. Stores the handler that is invoked for activity change events.
+     *
+     * @return the onActivityChange property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityChangeProperty() {
         if (onActivityChange == null) {
             onActivityChange = new ActivityEventHandlerProperty(
@@ -1510,6 +1544,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityChangeStarted;
 
+    /**
+     * The onActivityChangeStarted property. Stores the handler that is invoked when an activity
+     * change starts.
+     *
+     * @return the onActivityChangeStarted property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityChangeStartedProperty() {
         if (onActivityChangeStarted == null) {
             onActivityChangeStarted = new ActivityEventHandlerProperty(
@@ -1534,6 +1574,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityChangeOngoing;
 
+    /**
+     * The onActivityChangeOngoing property. Stores the handler that is invoked while an activity
+     * change is ongoing.
+     *
+     * @return the onActivityChangeOngoing property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityChangeOngoingProperty() {
         if (onActivityChangeOngoing == null) {
             onActivityChangeOngoing = new ActivityEventHandlerProperty(
@@ -1558,6 +1604,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityChangeFinished;
 
+    /**
+     * The onActivityChangeFinished property. Stores the handler that is invoked when an activity
+     * change has finished.
+     *
+     * @return the onActivityChangeFinished property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityChangeFinishedProperty() {
         if (onActivityChangeFinished == null) {
             onActivityChangeFinished = new ActivityEventHandlerProperty(
@@ -1582,6 +1634,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityDragStarted;
 
+    /**
+     * The onActivityDragStarted property. Stores the handler that is invoked when an activity drag
+     * starts.
+     *
+     * @return the onActivityDragStarted property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityDragStartedProperty() {
         if (onActivityDragStarted == null) {
             onActivityDragStarted = new ActivityEventHandlerProperty(
@@ -1605,6 +1663,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityDragOngoing;
 
+    /**
+     * The onActivityDragOngoing property. Stores the handler that is invoked while an activity drag
+     * is ongoing.
+     *
+     * @return the onActivityDragOngoing property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityDragOngoingProperty() {
         if (onActivityDragOngoing == null) {
             onActivityDragOngoing = new ActivityEventHandlerProperty(
@@ -1628,6 +1692,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityDragFinished;
 
+    /**
+     * The onActivityDragFinished property. Stores the handler that is invoked when an activity drag
+     * has finished.
+     *
+     * @return the onActivityDragFinished property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityDragFinishedProperty() {
         if (onActivityDragFinished == null) {
             onActivityDragFinished = new ActivityEventHandlerProperty(
@@ -1651,6 +1721,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityDragDone;
 
+    /**
+     * The onActivityDragDone property. Stores the handler that is invoked after an activity drag
+     * has been completed.
+     *
+     * @return the onActivityDragDone property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityDragDoneProperty() {
         if (onActivityDragDone == null) {
             onActivityDragDone = new ActivityEventHandlerProperty(
@@ -1672,6 +1748,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityChartValueChangeStarted;
 
+    /**
+     * The onActivityChartValueChangeStarted property. Stores the handler that is invoked when a
+     * chart value change starts.
+     *
+     * @return the onActivityChartValueChangeStarted property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityChartValueChangeStartedProperty() {
         if (onActivityChartValueChangeFinished == null) {
             onActivityChartValueChangeStarted = new ActivityEventHandlerProperty(
@@ -1696,6 +1778,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityChartValueChangeOngoing;
 
+    /**
+     * The onActivityChartValueChangeOngoing property. Stores the handler that is invoked while a
+     * chart value change is ongoing.
+     *
+     * @return the onActivityChartValueChangeOngoing property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityChartValueChangeOngoingProperty() {
         if (onActivityChartValueChangeOngoing == null) {
             onActivityChartValueChangeOngoing = new ActivityEventHandlerProperty(
@@ -1720,6 +1808,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityChartValueChangeFinished;
 
+    /**
+     * The onActivityChartValueChangeFinished property. Stores the handler that is invoked when a
+     * chart value change has finished.
+     *
+     * @return the onActivityChartValueChangeFinished property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityChartValueChangeFinishedProperty() {
         if (onActivityChartValueChangeFinished == null) {
             onActivityChartValueChangeFinished = new ActivityEventHandlerProperty(
@@ -1744,6 +1838,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityChartHighValueChangeStarted;
 
+    /**
+     * The onActivityChartHighValueChangeStarted property. Stores the handler that is invoked when a
+     * chart high value change starts.
+     *
+     * @return the onActivityChartHighValueChangeStarted property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityChartHighValueChangeStartedProperty() {
         if (onActivityChartHighValueChangeStarted == null) {
             onActivityChartHighValueChangeStarted = new ActivityEventHandlerProperty(
@@ -1768,6 +1868,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityChartHighValueChangeOngoing;
 
+    /**
+     * The onActivityChartHighValueChangeOngoing property. Stores the handler that is invoked while
+     * a chart high value change is ongoing.
+     *
+     * @return the onActivityChartHighValueChangeOngoing property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityChartHighValueChangeOngoingProperty() {
         if (onActivityChartHighValueChangeOngoing == null) {
             onActivityChartHighValueChangeOngoing = new ActivityEventHandlerProperty(
@@ -1792,6 +1898,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityChartHighValueChangeFinished;
 
+    /**
+     * The onActivityChartHighValueChangeFinished property. Stores the handler that is invoked when
+     * a chart high value change has finished.
+     *
+     * @return the onActivityChartHighValueChangeFinished property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityChartHighValueChangeFinishedProperty() {
         if (onActivityChartHighValueChangeFinished == null) {
             onActivityChartHighValueChangeFinished = new ActivityEventHandlerProperty(
@@ -1816,6 +1928,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityChartLowValueChangeStarted;
 
+    /**
+     * The onActivityChartLowValueChangeStarted property. Stores the handler that is invoked when a
+     * chart low value change starts.
+     *
+     * @return the onActivityChartLowValueChangeStarted property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityChartLowValueChangeStartedProperty() {
         if (onActivityChartLowValueChangeStarted == null) {
             onActivityChartLowValueChangeStarted = new ActivityEventHandlerProperty(
@@ -1840,6 +1958,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityChartLowValueChangeOngoing;
 
+    /**
+     * The onActivityChartLowValueChangeOngoing property. Stores the handler that is invoked while a
+     * chart low value change is ongoing.
+     *
+     * @return the onActivityChartLowValueChangeOngoing property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityChartLowValueChangeOngoingProperty() {
         if (onActivityChartLowValueChangeOngoing == null) {
             onActivityChartLowValueChangeOngoing = new ActivityEventHandlerProperty(
@@ -1864,6 +1988,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityChartLowValueChangeFinished;
 
+    /**
+     * The onActivityChartLowValueChangeFinished property. Stores the handler that is invoked when a
+     * chart low value change has finished.
+     *
+     * @return the onActivityChartLowValueChangeFinished property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityChartLowValueChangeFinishedProperty() {
         if (onActivityChartLowValueChangeFinished == null) {
             onActivityChartLowValueChangeFinished = new ActivityEventHandlerProperty(
@@ -1888,6 +2018,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityHorizontalDragStarted;
 
+    /**
+     * The onActivityHorizontalDragStarted property. Stores the handler that is invoked when a
+     * horizontal activity drag starts.
+     *
+     * @return the onActivityHorizontalDragStarted property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityHorizontalDragStartedProperty() {
         if (onActivityHorizontalDragStarted == null) {
             onActivityHorizontalDragStarted = new ActivityEventHandlerProperty(
@@ -1912,6 +2048,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityHorizontalDragOngoing;
 
+    /**
+     * The onActivityHorizontalDragOngoing property. Stores the handler that is invoked while a
+     * horizontal activity drag is ongoing.
+     *
+     * @return the onActivityHorizontalDragOngoing property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityHorizontalDragOngoingProperty() {
         if (onActivityHorizontalDragOngoing == null) {
             onActivityHorizontalDragOngoing = new ActivityEventHandlerProperty(
@@ -1936,6 +2078,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityHorizontalDragFinished;
 
+    /**
+     * The onActivityHorizontalDragFinished property. Stores the handler that is invoked when a
+     * horizontal activity drag has finished.
+     *
+     * @return the onActivityHorizontalDragFinished property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityHorizontalDragFinishedProperty() {
         if (onActivityHorizontalDragFinished == null) {
             onActivityHorizontalDragFinished = new ActivityEventHandlerProperty(
@@ -1960,6 +2108,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityVerticalDragStarted;
 
+    /**
+     * The onActivityVerticalDragStarted property. Stores the handler that is invoked when a
+     * vertical activity drag starts.
+     *
+     * @return the onActivityVerticalDragStarted property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityVerticalDragStartedProperty() {
         if (onActivityVerticalDragStarted == null) {
             onActivityVerticalDragStarted = new ActivityEventHandlerProperty(
@@ -1984,6 +2138,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityVerticalDragOngoing;
 
+    /**
+     * The onActivityVerticalDragOngoing property. Stores the handler that is invoked while a
+     * vertical activity drag is ongoing.
+     *
+     * @return the onActivityVerticalDragOngoing property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityVerticalDragOngoingProperty() {
         if (onActivityVerticalDragOngoing == null) {
             onActivityVerticalDragOngoing = new ActivityEventHandlerProperty(
@@ -2008,6 +2168,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityVerticalDragFinished;
 
+    /**
+     * The onActivityVerticalDragFinished property. Stores the handler that is invoked when a
+     * vertical activity drag has finished.
+     *
+     * @return the onActivityVerticalDragFinished property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityVerticalDragFinishedProperty() {
         if (onActivityVerticalDragFinished == null) {
             onActivityVerticalDragFinished = new ActivityEventHandlerProperty(
@@ -2032,6 +2198,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityVerticalDragDone;
 
+    /**
+     * The onActivityVerticalDragDone property. Stores the handler that is invoked after a vertical
+     * activity drag has been completed.
+     *
+     * @return the onActivityVerticalDragDone property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityVerticalDragDoneProperty() {
         if (onActivityVerticalDragDone == null) {
             onActivityVerticalDragDone = new ActivityEventHandlerProperty(
@@ -2056,6 +2228,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityEndTimeChangeStarted;
 
+    /**
+     * The onActivityEndTimeChangeStarted property. Stores the handler that is invoked when an
+     * activity end time change starts.
+     *
+     * @return the onActivityEndTimeChangeStarted property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityEndTimeChangeStartedProperty() {
         if (onActivityEndTimeChangeStarted == null) {
             onActivityEndTimeChangeStarted = new ActivityEventHandlerProperty(
@@ -2080,6 +2258,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityEndTimeChangeOngoing;
 
+    /**
+     * The onActivityEndTimeChangeOngoing property. Stores the handler that is invoked while an
+     * activity end time change is ongoing.
+     *
+     * @return the onActivityEndTimeChangeOngoing property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityEndTimeChangeOngoingProperty() {
         if (onActivityEndTimeChangeOngoing == null) {
             onActivityEndTimeChangeOngoing = new ActivityEventHandlerProperty(
@@ -2104,6 +2288,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityEndTimeChangeFinished;
 
+    /**
+     * The onActivityEndTimeChangeFinished property. Stores the handler that is invoked when an
+     * activity end time change has finished.
+     *
+     * @return the onActivityEndTimeChangeFinished property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityEndTimeChangeFinishedProperty() {
         if (onActivityEndTimeChangeFinished == null) {
             onActivityEndTimeChangeFinished = new ActivityEventHandlerProperty(
@@ -2128,6 +2318,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityPercentageChangeStarted;
 
+    /**
+     * The onActivityPercentageChangeStarted property. Stores the handler that is invoked when an
+     * activity percentage change starts.
+     *
+     * @return the onActivityPercentageChangeStarted property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityPercentageChangeStartedProperty() {
         if (onActivityPercentageChangeStarted == null) {
             onActivityPercentageChangeStarted = new ActivityEventHandlerProperty(
@@ -2152,6 +2348,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityPercentageChangeOngoing;
 
+    /**
+     * The onActivityPercentageChangeOngoing property. Stores the handler that is invoked while an
+     * activity percentage change is ongoing.
+     *
+     * @return the onActivityPercentageChangeOngoing property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityPercentageChangeOngoingProperty() {
         if (onActivityPercentageChangeOngoing == null) {
             onActivityPercentageChangeOngoing = new ActivityEventHandlerProperty(
@@ -2176,6 +2378,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityPercentageChangeFinished;
 
+    /**
+     * The onActivityPercentageChangeFinished property. Stores the handler that is invoked when an
+     * activity percentage change has finished.
+     *
+     * @return the onActivityPercentageChangeFinished property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityPercentageChangeFinishedProperty() {
         if (onActivityPercentageChangeFinished == null) {
             onActivityPercentageChangeFinished = new ActivityEventHandlerProperty(
@@ -2200,6 +2408,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityStartTimeChangeStarted;
 
+    /**
+     * The onActivityStartTimeChangeStarted property. Stores the handler that is invoked when an
+     * activity start time change starts.
+     *
+     * @return the onActivityStartTimeChangeStarted property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityStartTimeChangeStartedProperty() {
         if (onActivityStartTimeChangeStarted == null) {
             onActivityStartTimeChangeStarted = new ActivityEventHandlerProperty(
@@ -2224,6 +2438,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityStartTimeChangeOngoing;
 
+    /**
+     * The onActivityStartTimeChangeOngoing property. Stores the handler that is invoked while an
+     * activity start time change is ongoing.
+     *
+     * @return the onActivityStartTimeChangeOngoing property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityStartTimeChangeOngoingProperty() {
         if (onActivityStartTimeChangeOngoing == null) {
             onActivityStartTimeChangeOngoing = new ActivityEventHandlerProperty(
@@ -2248,6 +2468,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityEventHandlerProperty onActivityStartTimeChangeFinished;
 
+    /**
+     * The onActivityStartTimeChangeFinished property. Stores the handler that is invoked when an
+     * activity start time change has finished.
+     *
+     * @return the onActivityStartTimeChangeFinished property
+     */
     public final ObjectProperty<EventHandler<ActivityEvent>> onActivityStartTimeChangeFinishedProperty() {
         if (onActivityStartTimeChangeFinished == null) {
             onActivityStartTimeChangeFinished = new ActivityEventHandlerProperty(
@@ -2279,6 +2505,9 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
             this.eventType = eventType;
         }
 
+        /**
+         * Updates the event handler registration after the property value changes.
+         */
         @Override
         protected void invalidated() {
             setEventHandler(eventType, get());
@@ -2289,6 +2518,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private LassoEventHandlerProperty onLassoSelection;
 
+    /**
+     * The onLassoSelection property. Stores the handler that is invoked for lasso selection events.
+     *
+     * @return the onLassoSelection property
+     */
     public final ObjectProperty<EventHandler<LassoEvent>> onLassoSelectionProperty() {
         if (onLassoSelection == null) {
             onLassoSelection = new LassoEventHandlerProperty("onLassoSelection",
@@ -2310,6 +2544,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private LassoEventHandlerProperty onLassoSelectionStarted;
 
+    /**
+     * The onLassoSelectionStarted property. Stores the handler that is invoked when a lasso
+     * selection starts.
+     *
+     * @return the onLassoSelectionStarted property
+     */
     public final ObjectProperty<EventHandler<LassoEvent>> onLassoSelectionStartedProperty() {
         if (onLassoSelectionStarted == null) {
             onLassoSelectionStarted = new LassoEventHandlerProperty(
@@ -2333,6 +2573,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private LassoEventHandlerProperty onLassoSelectionOngoing;
 
+    /**
+     * The onLassoSelectionOngoing property. Stores the handler that is invoked while a lasso
+     * selection is ongoing.
+     *
+     * @return the onLassoSelectionOngoing property
+     */
     public final ObjectProperty<EventHandler<LassoEvent>> onLassoSelectionOngoingProperty() {
         if (onLassoSelectionOngoing == null) {
             onLassoSelectionOngoing = new LassoEventHandlerProperty(
@@ -2356,6 +2602,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private LassoEventHandlerProperty onLassoSelectionFinished;
 
+    /**
+     * The onLassoSelectionFinished property. Stores the handler that is invoked when a lasso
+     * selection has finished.
+     *
+     * @return the onLassoSelectionFinished property
+     */
     public final ObjectProperty<EventHandler<LassoEvent>> onLassoSelectionFinishedProperty() {
         if (onLassoSelectionFinished == null) {
             onLassoSelectionFinished = new LassoEventHandlerProperty("onLassoSelectionFinished", LassoEvent.SELECTION_FINISHED);
@@ -2568,6 +2820,9 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
             setDaemon(true);
         }
 
+        /**
+         * Runs the highlight loop while this thread remains active and the control is showing.
+         */
         @Override
         public final void run() {
             while (running && isShowing()) {
@@ -2588,10 +2843,18 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
             Platform.runLater(() -> setHighlighted(highlight));
         }
 
+        /**
+         * Stops this highlight thread.
+         */
         public final void stopRunning() {
             running = false;
         }
 
+        /**
+         * Checks whether this highlight thread is still running.
+         *
+         * @return {@code true} if the highlight thread is running
+         */
         public final boolean isRunning() {
             return running;
         }
@@ -3325,6 +3588,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final ReadOnlyObjectWrapper<ActivityRef<?>> hoverActivity = new ReadOnlyObjectWrapper<>(this, "hoverActivity");
 
+    /**
+     * The hoverActivity property. Stores the activity currently under the mouse pointer.
+     *
+     * @return the hoverActivity property
+     */
     public final ReadOnlyObjectProperty<ActivityRef<?>> hoverActivityProperty() {
         return hoverActivity;
     }
@@ -3337,6 +3605,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final ReadOnlyObjectWrapper<R> hoverRow = new ReadOnlyObjectWrapper<>(this, "hoverRow");
 
+    /**
+     * The hoverRow property. Stores the row currently under the mouse pointer.
+     *
+     * @return the hoverRow property
+     */
     public final ReadOnlyObjectProperty<R> hoverRowProperty() {
         return hoverRow;
     }
@@ -3349,6 +3622,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final ReadOnlyObjectWrapper<Layout> hoverLayout = new ReadOnlyObjectWrapper<>(this, "hoverLayout");
 
+    /**
+     * The hoverLayout property. Stores the layout currently under the mouse pointer.
+     *
+     * @return the hoverLayout property
+     */
     public final ReadOnlyObjectProperty<Layout> hoverLayoutProperty() {
         return hoverLayout;
     }
@@ -3361,6 +3639,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final ReadOnlyObjectWrapper<ActivityRef<?>> editedActivity = new ReadOnlyObjectWrapper<>(this, "editedActivity");
 
+    /**
+     * The editedActivity property. Stores the activity that is currently being edited.
+     *
+     * @return the editedActivity property
+     */
     public final ReadOnlyObjectProperty<ActivityRef<?>> editedActivityProperty() {
         return editedActivity.getReadOnlyProperty();
     }
@@ -3373,6 +3656,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final ReadOnlyObjectWrapper<ActivityRef<?>> pressedActivity = new ReadOnlyObjectWrapper<>(this, "pressedActivity");
 
+    /**
+     * The pressedActivity property. Stores the activity that is currently pressed.
+     *
+     * @return the pressedActivity property
+     */
     public final ReadOnlyObjectProperty<ActivityRef<?>> pressedActivityProperty() {
         return pressedActivity;
     }
@@ -3385,6 +3673,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final ObjectProperty<VirtualGrid<?>> virtualGrid = new SimpleObjectProperty<>(this, "virtualGrid");
 
+    /**
+     * The virtualGrid property. Stores the virtual grid currently used by the graphics view.
+     *
+     * @return the virtualGrid property
+     */
     public final ObjectProperty<VirtualGrid<?>> virtualGridProperty() {
         return virtualGrid;
     }
@@ -3400,6 +3693,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     private final ObservableList<VirtualGrid<?>> virtualGrids = FXCollections
             .observableArrayList();
 
+    /**
+     * Returns the available virtual grids.
+     *
+     * @return the available virtual grids
+     */
     public final ObservableList<VirtualGrid<?>> getVirtualGrids() {
         return virtualGrids;
     }
@@ -3408,6 +3706,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final ObjectProperty<Node> placeholder = new SimpleObjectProperty<>(this, "node");
 
+    /**
+     * The placeholder property. Stores the placeholder node shown when the graphics view has no
+     * content to display.
+     *
+     * @return the placeholder property
+     */
     public final ObjectProperty<Node> placeholderProperty() {
         return placeholder;
     }
@@ -3598,6 +3902,13 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private ActivityRenderer<?> defaultAgendaActivityRenderer;
 
+    /**
+     * Returns the renderer registered for the given activity and layout types.
+     *
+     * @param activityType the activity type
+     * @param layoutType the layout type
+     * @return the matching activity renderer, or {@code null} if no renderer is registered
+     */
     @SuppressWarnings("unchecked")
     public final <A extends Activity> ActivityRenderer<? extends A> getActivityRenderer(Class<? extends A> activityType, Class<? extends Layout> layoutType) {
 
@@ -3775,6 +4086,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
             this.editMode = editMode;
         }
 
+        /**
+         * Returns the activity reference associated with this callback parameter.
+         *
+         * @return the activity reference
+         */
         public final ActivityRef<?> getActivityRef() {
             return activityRef;
         }
@@ -3896,6 +4212,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final ObjectProperty<Callback<ActivityRef<?>, Image>> dragImageProvider = new SimpleObjectProperty<>(this, "dragImageProvider");
 
+    /**
+     * The dragImageProvider property. Stores the callback used to create drag images for activity
+     * drag and drop operations.
+     *
+     * @return the dragImageProvider property
+     */
     public final ObjectProperty<Callback<ActivityRef<?>, Image>> dragImageProviderProperty() {
         return dragImageProvider;
     }
@@ -4015,6 +4337,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
             return offset;
         }
 
+        /**
+         * Returns a string representation of this drag and drop information.
+         *
+         * @return a string representation of this drag and drop information
+         */
         @Override
         public String toString() {
             return "drag info = target row: "
@@ -4062,10 +4389,20 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         return layer;
     }
 
+    /**
+     * Returns the system layers rendered behind the activities.
+     *
+     * @return the background system layers
+     */
     public final ObservableList<SystemLayer<R>> getBackgroundSystemLayers() {
         return backgroundLayers;
     }
 
+    /**
+     * Returns the system layers rendered in front of the activities.
+     *
+     * @return the foreground system layers
+     */
     public final ObservableList<SystemLayer<R>> getForegroundSystemLayers() {
         return foregroundLayers;
     }
@@ -4075,6 +4412,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     private final BooleanProperty showAgendaLinesLayer = new SimpleBooleanProperty(
             this, "showAgendaLinesLayer", true);
 
+    /**
+     * The showAgendaLinesLayer property. Controls whether the agenda lines layer is shown.
+     *
+     * @return the showAgendaLinesLayer property
+     */
     public final BooleanProperty showAgendaLinesLayerProperty() {
         return showAgendaLinesLayer;
     }
@@ -4092,6 +4434,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     private final BooleanProperty showCalendarLayer = new SimpleBooleanProperty(this,
             "showCalendarLayer", true);
 
+    /**
+     * The showCalendarLayer property. Controls whether the calendar layer is shown.
+     *
+     * @return the showCalendarLayer property
+     */
     public final BooleanProperty showCalendarLayerProperty() {
         return showCalendarLayer;
     }
@@ -4108,6 +4455,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final BooleanProperty showLayoutLayer = new SimpleBooleanProperty(this, "showLayoutLayer", true);
 
+    /**
+     * The showLayoutLayer property. Controls whether the layout layer is shown.
+     *
+     * @return the showLayoutLayer property
+     */
     public final BooleanProperty showLayoutLayerProperty() {
         return showLayoutLayer;
     }
@@ -4124,6 +4476,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final BooleanProperty showChartLinesLayer = new SimpleBooleanProperty(this, "showChartLinesLayer", true);
 
+    /**
+     * The showChartLinesLayer property. Controls whether the chart lines layer is shown.
+     *
+     * @return the showChartLinesLayer property
+     */
     public final BooleanProperty showChartLinesLayerProperty() {
         return showChartLinesLayer;
     }
@@ -4141,6 +4498,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     private final BooleanProperty showGridLineLayer = new SimpleBooleanProperty(this,
             "showGridLineLayer", true);
 
+    /**
+     * The showGridLineLayer property. Controls whether the grid lines layer is shown.
+     *
+     * @return the showGridLineLayer property
+     */
     public final BooleanProperty showGridLineLayerProperty() {
         return showGridLineLayer;
     }
@@ -4157,6 +4519,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final BooleanProperty showHoverTimeIntervalLayer = new SimpleBooleanProperty(this, "showHoverTimeIntervalLayer", false);
 
+    /**
+     * The showHoverTimeIntervalLayer property. Controls whether the hover time interval layer is
+     * shown.
+     *
+     * @return the showHoverTimeIntervalLayer property
+     */
     public final BooleanProperty showHoverTimeIntervalLayerProperty() {
         return showHoverTimeIntervalLayer;
     }
@@ -4173,6 +4541,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final BooleanProperty showInnerLinesLayer = new SimpleBooleanProperty(this, "showInnerLinesLayer", true);
 
+    /**
+     * The showInnerLinesLayer property. Controls whether the inner lines layer is shown.
+     *
+     * @return the showInnerLinesLayer property
+     */
     public final BooleanProperty showInnerLinesLayerProperty() {
         return showInnerLinesLayer;
     }
@@ -4189,6 +4562,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final BooleanProperty showNowLineLayer = new SimpleBooleanProperty(this, "showNowLineLayer", true);
 
+    /**
+     * The showNowLineLayer property. Controls whether the now line layer is shown.
+     *
+     * @return the showNowLineLayer property
+     */
     public final BooleanProperty showNowLineLayerProperty() {
         return showNowLineLayer;
     }
@@ -4205,6 +4583,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final BooleanProperty showDSTLineLayer = new SimpleBooleanProperty(this, "showDSTLineLayer", true);
 
+    /**
+     * The showDSTLineLayer property. Controls whether the daylight saving time line layer is shown.
+     *
+     * @return the showDSTLineLayer property
+     */
     public final BooleanProperty showDSTLineLayerProperty() {
         return showDSTLineLayer;
     }
@@ -4221,6 +4604,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final BooleanProperty showRowLayer = new SimpleBooleanProperty(this, "showRowLayer", true);
 
+    /**
+     * The showRowLayer property. Controls whether the row layer is shown.
+     *
+     * @return the showRowLayer property
+     */
     public final BooleanProperty showRowLayerProperty() {
         return showRowLayer;
     }
@@ -4237,6 +4625,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final BooleanProperty showSelectedTimeIntervalsLayer = new SimpleBooleanProperty(this, "showSelectedTimeIntervals", true);
 
+    /**
+     * The showSelectedTimeIntervalsLayer property. Controls whether the selected time intervals
+     * layer is shown.
+     *
+     * @return the showSelectedTimeIntervalsLayer property
+     */
     public final BooleanProperty showSelectedTimeIntervalsLayerProperty() {
         return showSelectedTimeIntervalsLayer;
     }
@@ -4253,6 +4647,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final BooleanProperty showZoomTimeIntervalLayer = new SimpleBooleanProperty(this, "showZoomTimeIntervalLayer", true);
 
+    /**
+     * The showZoomTimeIntervalLayer property. Controls whether the zoom time interval layer is
+     * shown.
+     *
+     * @return the showZoomTimeIntervalLayer property
+     */
     public final BooleanProperty showZoomTimeIntervalLayerProperty() {
         return showZoomTimeIntervalLayer;
     }
@@ -4269,6 +4669,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final BooleanProperty showZoneId = new SimpleBooleanProperty(this, "showZoneId", false);
 
+    /**
+     * The showZoneId property. Controls whether row time zone identifiers are shown.
+     *
+     * @return the showZoneId property
+     */
     public final BooleanProperty showZoneIdProperty() {
         return showZoneId;
     }
@@ -4285,6 +4690,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final BooleanProperty fadeInOutVisibilityChanges = new SimpleBooleanProperty(this, "fadeInOutVisibilityChanges", true);
 
+    /**
+     * The fadeInOutVisibilityChanges property. Controls whether visibility changes are animated
+     * with fade transitions.
+     *
+     * @return the fadeInOutVisibilityChanges property
+     */
     public final BooleanProperty fadeInOutVisibilityChangesProperty() {
         return fadeInOutVisibilityChanges;
     }
@@ -4299,6 +4710,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final DoubleProperty fadeInOutVisibilityChangesDuration = new SimpleDoubleProperty(this, "fadeInOutVisibilityChangesDuration", 200);
 
+    /**
+     * The fadeInOutVisibilityChangesDuration property. Controls the duration of fade transitions
+     * used for visibility changes.
+     *
+     * @return the fadeInOutVisibilityChangesDuration property
+     */
     public final DoubleProperty fadeInOutVisibilityChangesDurationProperty() {
         return fadeInOutVisibilityChangesDuration;
     }
@@ -4383,6 +4800,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
             this, "dragAndDropFeedback", DragAndDropFeedback.RENDERED);
 
     // since 1.1
+    /**
+     * The dragAndDropFeedback property. Controls how drag and drop feedback is rendered.
+     *
+     * @return the dragAndDropFeedback property
+     */
     public final ObjectProperty<DragAndDropFeedback> dragAndDropFeedbackProperty() {
         return dragAndDropFeedback;
     }
@@ -4402,6 +4824,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final ObjectProperty<Callback<RowControlsParameter<R>, Node>> rowControlsFactory = new SimpleObjectProperty<>(this, "rowControls");
 
+    /**
+     * The rowControlsFactory property. Stores the factory used to create row control nodes.
+     *
+     * @return the rowControlsFactory property
+     */
     public final ObjectProperty<Callback<RowControlsParameter<R>, Node>> rowControlsFactoryProperty() {
         return rowControlsFactory;
     }
@@ -4434,10 +4861,20 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
             this.row = row;
         }
 
+        /**
+         * Returns the row associated with this row controls parameter.
+         *
+         * @return the row
+         */
         public R getRow() {
             return row;
         }
 
+        /**
+         * Returns the graphics view associated with this row controls parameter.
+         *
+         * @return the graphics view
+         */
         public GraphicsBase<R> getGraphics() {
             return graphics;
         }
@@ -4547,12 +4984,22 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
             });
         }
 
+        /**
+         * Returns the graphics view associated with this row header.
+         *
+         * @return the graphics view
+         */
         public final GraphicsBase<R> getGraphics() {
             return graphics;
         }
 
         private final ObjectProperty<R> item = new SimpleObjectProperty<>(this, "item");
 
+        /**
+         * The item property. Stores the row currently displayed by this row header.
+         *
+         * @return the item property
+         */
         public final ObjectProperty<R> itemProperty() {
             return item;
         }
@@ -4647,6 +5094,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final ObjectProperty<Callback<RowEditorParameter<R>, Node>> rowEditorFactory = new SimpleObjectProperty<>(this, "rowEditor", param -> null);
 
+    /**
+     * The rowEditorFactory property. Stores the factory used to create row editor nodes.
+     *
+     * @return the rowEditorFactory property
+     */
     public final ObjectProperty<Callback<RowEditorParameter<R>, Node>> rowEditorFactoryProperty() {
         return rowEditorFactory;
     }
@@ -4680,14 +5132,27 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
             this.row = row;
         }
 
+        /**
+         * Returns the row associated with this row editor parameter.
+         *
+         * @return the row
+         */
         public R getRow() {
             return row;
         }
 
+        /**
+         * Returns the graphics view associated with this row editor parameter.
+         *
+         * @return the graphics view
+         */
         public GraphicsBase<R> getGraphics() {
             return graphics;
         }
 
+        /**
+         * Stops editing for the associated row.
+         */
         public void stopEditing() {
             graphics.stopRowEditing(row);
         }
@@ -4706,6 +5171,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final ObjectProperty<RowEditingMode> rowEditingMode = new SimpleObjectProperty<>(this, "rowEditingMode", RowEditingMode.SINGLE_ROW);
 
+    /**
+     * The rowEditingMode property. Controls how many row editors can be shown at the same time.
+     *
+     * @return the rowEditingMode property
+     */
     public final ObjectProperty<RowEditingMode> rowEditingModeProperty() {
         return rowEditingMode;
     }
@@ -4720,14 +5190,27 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final ObservableList<R> rowsEditing = FXCollections.observableArrayList();
 
+    /**
+     * Returns the rows that are currently showing a row editor.
+     *
+     * @return the rows currently being edited
+     */
     public final ObservableList<R> getRowsEditing() {
         return rowsEditing;
     }
 
+    /**
+     * Stops row editing for all rows.
+     */
     public final void stopRowEditing() {
         rowsEditing.forEach(this::stopRowEditing);
     }
 
+    /**
+     * Stops row editing for the given row.
+     *
+     * @param row the row to stop editing
+     */
     public final void stopRowEditing(R row) {
         getRowPanes().stream().filter(pane -> pane.getRow() == row)
                 .forEach(pane -> {
@@ -4736,6 +5219,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
                 });
     }
 
+    /**
+     * Starts row editing for the given row.
+     *
+     * @param row the row to start editing
+     */
     public final void startRowEditing(R row) {
         switch (getRowEditingMode()) {
             case NONE:
@@ -4757,6 +5245,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final BooleanProperty animateRowEditor = new SimpleBooleanProperty(this, "animateRowEditor", true);
 
+    /**
+     * The animateRowEditor property. Controls whether row editors are shown and hidden with
+     * animation.
+     *
+     * @return the animateRowEditor property
+     */
     public final BooleanProperty animateRowEditorProperty() {
         return animateRowEditor;
     }
@@ -4831,6 +5325,13 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         layoutMap.put(activityType, callback);
     }
 
+    /**
+     * Returns the edit mode callback registered for the given activity and layout types.
+     *
+     * @param activityType the activity type
+     * @param layoutType the layout type
+     * @return the matching edit mode callback, or {@code null} if no callback is registered
+     */
     public final Callback<EditModeCallbackParameter, EditMode> getEditModeCallback(Class<? extends MutableActivity> activityType, Class<? extends Layout> layoutType) {
         return doGetEditModeCallback(activityType, layoutType);
     }
@@ -4853,6 +5354,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     class ActivityEditModeCallback implements Callback<EditModeCallbackParameter, EditMode> {
 
+        /**
+         * Determines the edit mode for the given callback input.
+         *
+         * @param input the callback input
+         * @return the determined edit mode
+         */
         @Override
         public EditMode call(EditModeCallbackParameter input) {
             ActivityBounds bounds = input.getActivityBounds();
@@ -4880,6 +5387,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     class ActivityInAgendaLayoutEditModeCallback implements Callback<EditModeCallbackParameter, EditMode> {
 
+        /**
+         * Determines the edit mode for the given callback input.
+         *
+         * @param input the callback input
+         * @return the determined edit mode
+         */
         @Override
         public EditMode call(EditModeCallbackParameter input) {
             ActivityBounds bounds = input.getActivityBounds();
@@ -4931,6 +5444,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     class CompletableActivityEditModeCallback extends ActivityEditModeCallback {
 
+        /**
+         * Determines the edit mode for the given callback input.
+         *
+         * @param input the callback input
+         * @return the determined edit mode
+         */
         @Override
         public EditMode call(EditModeCallbackParameter input) {
             ActivityBounds bounds = input.getActivityBounds();
@@ -4955,6 +5474,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     class ChartActivityEditModeCallback extends ActivityEditModeCallback {
 
+        /**
+         * Determines the edit mode for the given callback input.
+         *
+         * @param input the callback input
+         * @return the determined edit mode
+         */
         @Override
         public EditMode call(EditModeCallbackParameter input) {
             ActivityBounds bounds = input.getActivityBounds();
@@ -4978,6 +5503,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     class ChartHighLowEditModeCallback extends ActivityEditModeCallback {
 
+        /**
+         * Determines the edit mode for the given callback input.
+         *
+         * @param input the callback input
+         * @return the determined edit mode
+         */
         @Override
         public EditMode call(EditModeCallbackParameter input) {
             ActivityBounds bounds = input.getActivityBounds();
@@ -5007,6 +5538,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         public CalendarMenu() {
         }
 
+        /**
+         * Sets the calendars shown by this menu.
+         *
+         * @param calendars the calendars to show in the menu
+         */
         public void setCalendars(ObservableList<Calendar<?>> calendars) {
             requireNonNull(calendars);
 
@@ -5044,6 +5580,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         public GridMenu() {
         }
 
+        /**
+         * Sets the virtual grids shown by this menu.
+         *
+         * @param grids the virtual grids to show in the menu
+         */
         public void setVirtualGrids(ObservableList<VirtualGrid<?>> grids) {
             requireNonNull(grids);
 
@@ -5287,6 +5828,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     // Grid line color support
     private StyleableObjectProperty<Paint> gridLineColor1;
 
+    /**
+     * The gridLineColor1 property. Stores the paint used for first-level grid lines.
+     *
+     * @return the gridLineColor1 property
+     */
     public final StyleableObjectProperty<Paint> gridLineColor1Property() {
         if (gridLineColor1 == null) {
             gridLineColor1 = new StyleableObjectProperty() {
@@ -5322,6 +5868,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private StyleableObjectProperty<Paint> gridLineColor2;
 
+    /**
+     * The gridLineColor2 property. Stores the paint used for second-level grid lines.
+     *
+     * @return the gridLineColor2 property
+     */
     public final StyleableObjectProperty<Paint> gridLineColor2Property() {
         if (gridLineColor2 == null) {
             gridLineColor2 = new StyleableObjectProperty() {
@@ -5357,6 +5908,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private StyleableObjectProperty<Paint> gridLineColor3;
 
+    /**
+     * The gridLineColor3 property. Stores the paint used for third-level grid lines.
+     *
+     * @return the gridLineColor3 property
+     */
     public final StyleableObjectProperty<Paint> gridLineColor3Property() {
         if (gridLineColor3 == null) {
             gridLineColor3 = new StyleableObjectProperty() {
@@ -5392,6 +5948,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private StyleableObjectProperty<Paint> weekendColor;
 
+    /**
+     * The weekendColor property. Stores the paint used to render weekend background areas.
+     *
+     * @return the weekendColor property
+     */
     public final StyleableObjectProperty<Paint> weekendColorProperty() {
         if (weekendColor == null) {
             weekendColor = new StyleableObjectProperty() {
@@ -5425,6 +5986,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private StyleableDoubleProperty weekendOpacity;
 
+    /**
+     * The weekendOpacity property. Controls the opacity used when rendering weekend background
+     * areas.
+     *
+     * @return the weekendOpacity property
+     */
     public final StyleableDoubleProperty weekendOpacityProperty() {
         if (weekendOpacity == null) {
             weekendOpacity = new StyleableDoubleProperty(1.0) {
@@ -5455,6 +6022,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private StyleableObjectProperty<Paint> timeNowColor;
 
+    /**
+     * The timeNowColor property. Stores the paint used to render the current time indicator.
+     *
+     * @return the timeNowColor property
+     */
     public final StyleableObjectProperty<Paint> timeNowColorProperty() {
         if (timeNowColor == null) {
             timeNowColor = new StyleableObjectProperty() {
@@ -5490,6 +6062,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private StyleableObjectProperty<Paint> innerLinesColor;
 
+    /**
+     * The innerLinesColor property. Stores the paint used to render inner row lines.
+     *
+     * @return the innerLinesColor property
+     */
     public final StyleableObjectProperty<Paint> innerLinesColorProperty() {
         if (innerLinesColor == null) {
             innerLinesColor = new StyleableObjectProperty() {
@@ -5533,6 +6110,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         activityTextFill.set(value);
     }
 
+    /**
+     * The activityTextFill property. Stores the text fill used to render activities in their normal
+     * state.
+     *
+     * @return the activityTextFill property
+     */
     public final ObjectProperty<Color> activityTextFillProperty() {
         return activityTextFill;
     }
@@ -5543,84 +6126,161 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     public final Color getActivityFill() { return activityFill.get(); }
     public final void setActivityFill(Color value) { activityFill.set(value); }
+    /**
+     * The activityFill property. Stores the fill color used to render activities in their normal
+     * state.
+     *
+     * @return the activityFill property
+     */
     public final ObjectProperty<Color> activityFillProperty() { return activityFill; }
 
     private final ObjectProperty<Color> activityStroke = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_STROKE, this, "activityStroke", Color.BLUE);
 
     public final Color getActivityStroke() { return activityStroke.get(); }
     public final void setActivityStroke(Color value) { activityStroke.set(value); }
+    /**
+     * The activityStroke property. Stores the stroke color used to render activities in their
+     * normal state.
+     *
+     * @return the activityStroke property
+     */
     public final ObjectProperty<Color> activityStrokeProperty() { return activityStroke; }
 
     private final ObjectProperty<Color> activityPressed = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_PRESSED, this, "activityPressed", Color.LIGHTBLUE.darker());
 
     public final Color getActivityPressed() { return activityPressed.get(); }
     public final void setActivityPressed(Color value) { activityPressed.set(value); }
+    /**
+     * The activityPressed property. Stores the fill color used to render pressed activities.
+     *
+     * @return the activityPressed property
+     */
     public final ObjectProperty<Color> activityPressedProperty() { return activityPressed; }
 
     private final ObjectProperty<Color> activityHighlight = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_HIGHLIGHT, this, "activityHighlight", Color.YELLOW.deriveColor(1, 1, 1, .5));
 
     public final Color getActivityHighlight() { return activityHighlight.get(); }
     public final void setActivityHighlight(Color value) { activityHighlight.set(value); }
+    /**
+     * The activityHighlight property. Stores the fill color used to render highlighted activities.
+     *
+     * @return the activityHighlight property
+     */
     public final ObjectProperty<Color> activityHighlightProperty() { return activityHighlight; }
 
     private final ObjectProperty<Color> activitySelected = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_SELECTED, this, "activitySelected", Color.valueOf("#F21B1BBB"));
 
     public final Color getActivitySelected() { return activitySelected.get(); }
     public final void setActivitySelected(Color value) { activitySelected.set(value); }
+    /**
+     * The activitySelected property. Stores the fill color used to render selected activities.
+     *
+     * @return the activitySelected property
+     */
     public final ObjectProperty<Color> activitySelectedProperty() { return activitySelected; }
 
     private final ObjectProperty<Color> activityHover = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_HOVER, this, "activityHover", Color.GREEN);
 
     public final Color getActivityHover() { return activityHover.get(); }
     public final void setActivityHover(Color value) { activityHover.set(value); }
+    /**
+     * The activityHover property. Stores the fill color used to render hovered activities.
+     *
+     * @return the activityHover property
+     */
     public final ObjectProperty<Color> activityHoverProperty() { return activityHover; }
 
     private final ObjectProperty<Color> activityStrokePressed = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_STROKE_PRESSED, this, "activityStrokePressed", Color.BLUE.darker());
 
     public final Color getActivityStrokePressed() { return activityStrokePressed.get(); }
     public final void setActivityStrokePressed(Color value) { activityStrokePressed.set(value); }
+    /**
+     * The activityStrokePressed property. Stores the stroke color used to render pressed
+     * activities.
+     *
+     * @return the activityStrokePressed property
+     */
     public final ObjectProperty<Color> activityStrokePressedProperty() { return activityStrokePressed; }
 
     private final ObjectProperty<Color> activityStrokeHighlight = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_STROKE_HIGHLIGHT, this, "activityStrokeHighlight", Color.YELLOW.darker());
 
     public final Color getActivityStrokeHighlight() { return activityStrokeHighlight.get(); }
     public final void setActivityStrokeHighlight(Color value) { activityStrokeHighlight.set(value); }
+    /**
+     * The activityStrokeHighlight property. Stores the stroke color used to render highlighted
+     * activities.
+     *
+     * @return the activityStrokeHighlight property
+     */
     public final ObjectProperty<Color> activityStrokeHighlightProperty() { return activityStrokeHighlight; }
 
     private final ObjectProperty<Color> activityStrokeSelected = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_STROKE_SELECTED, this, "activityStrokeSelected", Color.RED);
 
     public final Color getActivityStrokeSelected() { return activityStrokeSelected.get(); }
     public final void setActivityStrokeSelected(Color value) { activityStrokeSelected.set(value); }
+    /**
+     * The activityStrokeSelected property. Stores the stroke color used to render selected
+     * activities.
+     *
+     * @return the activityStrokeSelected property
+     */
     public final ObjectProperty<Color> activityStrokeSelectedProperty() { return activityStrokeSelected; }
 
     private final ObjectProperty<Color> activityStrokeHover = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_STROKE_HOVER, this, "activityStrokeHover", Color.GREEN);
 
     public final Color getActivityStrokeHover() { return activityStrokeHover.get(); }
     public final void setActivityStrokeHover(Color value) { activityStrokeHover.set(value); }
+    /**
+     * The activityStrokeHover property. Stores the stroke color used to render hovered activities.
+     *
+     * @return the activityStrokeHover property
+     */
     public final ObjectProperty<Color> activityStrokeHoverProperty() { return activityStrokeHover; }
 
     private final ObjectProperty<Color> activityTextFillHover = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_TEXT_FILL_HOVER, this, "activityTextFillHover", Color.BLACK);
 
     public final Color getActivityTextFillHover() { return activityTextFillHover.get(); }
     public final void setActivityTextFillHover(Color value) { activityTextFillHover.set(value); }
+    /**
+     * The activityTextFillHover property. Stores the text fill used to render hovered activities.
+     *
+     * @return the activityTextFillHover property
+     */
     public final ObjectProperty<Color> activityTextFillHoverProperty() { return activityTextFillHover; }
 
     private final ObjectProperty<Color> activityTextFillHighlight = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_TEXT_FILL_HIGHLIGHT, this, "activityTextFillHighlight", Color.BLACK);
 
     public final Color getActivityTextFillHighlight() { return activityTextFillHighlight.get(); }
     public final void setActivityTextFillHighlight(Color value) { activityTextFillHighlight.set(value); }
+    /**
+     * The activityTextFillHighlight property. Stores the text fill used to render highlighted
+     * activities.
+     *
+     * @return the activityTextFillHighlight property
+     */
     public final ObjectProperty<Color> activityTextFillHighlightProperty() { return activityTextFillHighlight; }
 
     private final ObjectProperty<Color> activityTextFillPressed = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_TEXT_FILL_PRESSED, this, "activityTextFillPressed", Color.BLACK);
 
     public final Color getActivityTextFillPressed() { return activityTextFillPressed.get(); }
     public final void setActivityTextFillPressed(Color value) { activityTextFillPressed.set(value); }
+    /**
+     * The activityTextFillPressed property. Stores the text fill used to render pressed activities.
+     *
+     * @return the activityTextFillPressed property
+     */
     public final ObjectProperty<Color> activityTextFillPressedProperty() { return activityTextFillPressed; }
 
     private final ObjectProperty<Color> activityTextFillSelected = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_TEXT_FILL_SELECTED, this, "activityTextFillSelected", Color.BLACK);
 
     public final Color getActivityTextFillSelected() { return activityTextFillSelected.get(); }
     public final void setActivityTextFillSelected(Color value) { activityTextFillSelected.set(value); }
+    /**
+     * The activityTextFillSelected property. Stores the text fill used to render selected
+     * activities.
+     *
+     * @return the activityTextFillSelected property
+     */
     public final ObjectProperty<Color> activityTextFillSelectedProperty() { return activityTextFillSelected; }
 
     private static class StyleableProperties {
@@ -5963,10 +6623,20 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         }
     }
 
+    /**
+     * Returns the CSS metadata supported by this control class.
+     *
+     * @return the supported CSS metadata
+     */
     public static List<CssMetaData<? extends Styleable, ?>> getClassCssMetaData() {
         return StyleableProperties.STYLEABLES;
     }
 
+    /**
+     * Returns the CSS metadata supported by this control instance.
+     *
+     * @return the supported CSS metadata
+     */
     @Override
     public final List<CssMetaData<? extends Styleable, ?>> getControlCssMetaData() {
         return getClassCssMetaData();

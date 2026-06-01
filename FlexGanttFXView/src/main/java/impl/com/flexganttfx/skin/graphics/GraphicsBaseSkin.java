@@ -321,26 +321,56 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         updateMarkedTimeLines();
     }
 
+    /**
+     * Returns the clipped content node.
+     *
+     * @return the clipped content node
+     */
     protected Node getClippedContent() {
         return clippedContent;
     }
 
+    /**
+     * Creates the drag canvas.
+     *
+     * @return the drag canvas
+     */
     protected DragCanvas<R> createDragCanvas() {
         return new DragCanvas<>(getSkinnable());
     }
 
+    /**
+     * Creates the links canvas.
+     *
+     * @return the links canvas
+     */
     protected LinksCanvas<R> createLinksCanvas() {
         return new LinksCanvas<>(getSkinnable());
     }
 
+    /**
+     * Returns the drag canvas.
+     *
+     * @return the drag canvas
+     */
     public final DragCanvas<R> getDragCanvas() {
         return dragCanvas;
     }
 
+    /**
+     * Returns the lasso rectangle.
+     *
+     * @return the lasso rectangle
+     */
     protected final Rectangle getLasso() {
         return lasso;
     }
 
+    /**
+     * Returns the links canvas.
+     *
+     * @return the links canvas
+     */
     protected final LinksCanvas<R> getLinksCanvas() {
         return linksCanvas;
     }
@@ -373,6 +403,13 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         view.getSelectedActivities().addAll(selection);
     }
 
+    /**
+     * Creates lasso information for the given mouse event.
+     *
+     * @param evt the mouse event
+     *
+     * @return the lasso information
+     */
     protected final LassoInfo createLassoInfo(MouseEvent evt) {
 
         LocalTime localStartTime = getLocalTimeAt(Math.min(lassoY1, lassoY2));
@@ -400,6 +437,13 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         return new LassoInfo(evt, lassoEndTime, lassoStartTime, localStartTime, localEndTime, rows, activities, true);
     }
 
+    /**
+     * Returns the row pane for the given activity reference.
+     *
+     * @param ref the activity reference
+     *
+     * @return the row pane for the activity reference
+     */
     protected final RowPane<R> getRowPane(ActivityRef<?> ref) {
         for (RowPane<R> pane : getSkinnable().getRowPanes()) {
             if (pane.getRow() != null && pane.getRow().isShowing() && pane.getRow() == ref.getRow()) {
@@ -410,6 +454,13 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         return null;
     }
 
+    /**
+     * Returns the row canvas for the given activity reference.
+     *
+     * @param ref the activity reference
+     *
+     * @return the row canvas for the activity reference
+     */
     public final RowCanvas<R> getRowCanvas(ActivityRef<?> ref) {
         RowPane<R> rowPane = getRowPane(ref);
         if (rowPane != null) {
@@ -419,6 +470,13 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         return null;
     }
 
+    /**
+     * Returns the activity bounds for the given activity reference.
+     *
+     * @param ref the activity reference
+     *
+     * @return the activity bounds for the activity reference
+     */
     public final Rectangle2D getActivityBounds(ActivityRef<?> ref) {
         RowCanvas<R> canvas = getRowCanvas(ref);
 
@@ -467,6 +525,14 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         return new Rectangle2D(x, y, w, h);
     }
 
+    /**
+     * Returns the activity bounds at the given coordinates.
+     *
+     * @param x the x coordinate
+     * @param y the y coordinate
+     *
+     * @return the activity bounds at the given coordinates
+     */
     public final ActivityBounds getActivityBoundsAt(double x, double y) {
         Point2D localToScene = getSkinnable().localToScene(x, y);
         RowCanvas<R> canvas = getRowCanvasAt(y);
@@ -480,6 +546,14 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         return null;
     }
 
+    /**
+     * Returns the activity reference at the given coordinates.
+     *
+     * @param x the x coordinate
+     * @param y the y coordinate
+     *
+     * @return the activity reference at the given coordinates
+     */
     public final ActivityRef<?> getActivityRefAt(double x, double y) {
         ActivityBounds bounds = getActivityBoundsAt(x, y);
         if (bounds != null) {
@@ -489,6 +563,14 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         return null;
     }
 
+    /**
+     * Returns all activity bounds at the given coordinates.
+     *
+     * @param x the x coordinate
+     * @param y the y coordinate
+     *
+     * @return the activity bounds at the given coordinates
+     */
     public final List<ActivityBounds> getAllActivityBoundsAt(double x,
                                                              double y) {
         Point2D localToScene = getSkinnable().localToScene(x, y);
@@ -503,6 +585,14 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         return Collections.emptyList();
     }
 
+    /**
+     * Returns all activity references at the given coordinates.
+     *
+     * @param x the x coordinate
+     * @param y the y coordinate
+     *
+     * @return the activity references at the given coordinates
+     */
     public final List<ActivityRef<?>> getAllActivityRefsAt(double x, double y) {
         List<ActivityRef<?>> result = new ArrayList<>();
         List<ActivityBounds> bounds = getAllActivityBoundsAt(x, y);
@@ -510,6 +600,14 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         return result;
     }
 
+    /**
+     * Returns all calendar activities at the given coordinates.
+     *
+     * @param x the x coordinate
+     * @param y the y coordinate
+     *
+     * @return the calendar activities at the given coordinates
+     */
     public final List<CalendarActivity> getAllCalendarActivitiesAt(double x, double y) {
 
         List<CalendarActivity> result = new ArrayList<>();
@@ -543,6 +641,13 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         }
     }
 
+    /**
+     * Returns the row at the given y coordinate.
+     *
+     * @param y the y coordinate
+     *
+     * @return the row at the given y coordinate
+     */
     public final R getRowAt(double y) {
         RowPane<R> pane = getRowPaneAt(y);
         if (pane != null) {
@@ -556,6 +661,13 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
 
     protected abstract boolean isRowAboveViewport(R row);
 
+    /**
+     * Returns the row canvas at the given y coordinate.
+     *
+     * @param y the y coordinate
+     *
+     * @return the row canvas at the given y coordinate
+     */
     protected final RowCanvas<R> getRowCanvasAt(double y) {
         RowPane<R> pane = getRowPaneAt(y);
         if (pane != null) {
@@ -565,6 +677,13 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         return null;
     }
 
+    /**
+     * Returns the layout at the given y coordinate.
+     *
+     * @param y the y coordinate
+     *
+     * @return the layout at the given y coordinate
+     */
     public final Layout getLayoutAt(double y) {
         Point2D localToScene = getSkinnable().localToScene(0, y);
         RowCanvas<R> canvas = getRowCanvasAt(y);
@@ -576,6 +695,13 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         return null;
     }
 
+    /**
+     * Returns the layout bounds at the given y coordinate.
+     *
+     * @param y the y coordinate
+     *
+     * @return the layout bounds at the given y coordinate
+     */
     protected final Rectangle2D getLayoutBoundsAt(double y) {
         Point2D localToScene = getSkinnable().localToScene(0, y);
         RowCanvas<R> canvas = getRowCanvasAt(y);
@@ -587,6 +713,13 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         return null;
     }
 
+    /**
+     * Returns the local time at the given y coordinate.
+     *
+     * @param y the y coordinate
+     *
+     * @return the local time at the given y coordinate
+     */
     public final LocalTime getLocalTimeAt(double y) {
         Layout layout = getLayoutAt(y);
         Rectangle2D layoutBounds = getLayoutBoundsAt(y);
@@ -615,10 +748,23 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         return null;
     }
 
+    /**
+     * Returns the row header width.
+     *
+     * @return the row header width
+     */
     protected double getRowHeaderWidth() {
         return getSkinnable().isShowRowHeaders() ? getSkinnable().getRowHeadersWidth() : 0;
     }
 
+    /**
+     * Lays out the children of this skin.
+     *
+     * @param contentX the content x coordinate
+     * @param contentY the content y coordinate
+     * @param contentWidth the content width
+     * @param contentHeight the content height
+     */
     @Override
     protected void layoutChildren(double contentX, double contentY, double contentWidth, double contentHeight) {
         super.layoutChildren(contentX, contentY, contentWidth, contentHeight);
@@ -940,6 +1086,11 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         }
     }
 
+    /**
+     * Returns the timeline control.
+     *
+     * @return the timeline control
+     */
     protected final Timeline getTimeline() {
         return getSkinnable().getTimeline();
     }
@@ -992,10 +1143,16 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
             this.mouseEvent = evt;
         }
 
+        /**
+         * Cancels the lasso start task.
+         */
         public void cancel() {
             cancelled = true;
         }
 
+        /**
+         * Runs the lasso start task.
+         */
         @Override
         public void run() {
             try {

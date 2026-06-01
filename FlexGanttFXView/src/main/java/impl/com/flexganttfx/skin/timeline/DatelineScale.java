@@ -166,16 +166,31 @@ final class DatelineScale extends Region {
         if (cellPadding == null) {
             cellPadding = new StyleableDoubleProperty() {
 
+                /**
+                 * Returns the CSS metadata.
+                 *
+                 * @return the CSS metadata
+                 */
                 @Override
                 public CssMetaData<DatelineScale, Number> getCssMetaData() {
                     return StyleableProperties.CELL_PADDING;
                 }
 
+                /**
+                 * Returns the bean.
+                 *
+                 * @return the bean
+                 */
                 @Override
                 public Object getBean() {
                     return DatelineScale.this;
                 }
 
+                /**
+                 * Returns the name.
+                 *
+                 * @return the name
+                 */
                 @Override
                 public String getName() {
                     return "cellPadding";
@@ -185,6 +200,11 @@ final class DatelineScale extends Region {
         return cellPadding;
     }
 
+    /**
+     * Returns the cell padding.
+     *
+     * @return the cell padding
+     */
     public double getCellPadding() {
         return cellPaddingProperty().get();
     }
@@ -197,16 +217,37 @@ final class DatelineScale extends Region {
         private static final CssMetaData<DatelineScale, Number> CELL_PADDING = new CssMetaData<DatelineScale, Number>(
                 "-fx-cell-padding", SizeConverter.getInstance(), 5) {
 
+            /**
+             * Returns the initial value for the given dateline scale.
+             *
+             * @param node the dateline scale
+             *
+             * @return the initial value
+             */
             @Override
             public Double getInitialValue(DatelineScale node) {
                 return node.getCellPadding();
             }
 
+            /**
+             * Returns whether the value is settable on the given dateline scale.
+             *
+             * @param n the dateline scale
+             *
+             * @return true if the value is settable
+             */
             @Override
             public boolean isSettable(DatelineScale n) {
                 return n.cellPadding == null || !n.cellPadding.isBound();
             }
 
+            /**
+             * Returns the styleable property for the given dateline scale.
+             *
+             * @param n the dateline scale
+             *
+             * @return the styleable property
+             */
             @Override
             public StyleableProperty<Number> getStyleableProperty(
                     DatelineScale n) {
@@ -222,10 +263,20 @@ final class DatelineScale extends Region {
         }
     }
 
+    /**
+     * Returns the class CSS metadata.
+     *
+     * @return the class CSS metadata
+     */
     public static List<CssMetaData<? extends Styleable, ?>> getClassCssMetaData() {
         return StyleableProperties.STYLEABLES;
     }
 
+    /**
+     * Returns the CSS metadata.
+     *
+     * @return the CSS metadata
+     */
     @Override
     public List<CssMetaData<? extends Styleable, ?>> getCssMetaData() {
         return getClassCssMetaData();

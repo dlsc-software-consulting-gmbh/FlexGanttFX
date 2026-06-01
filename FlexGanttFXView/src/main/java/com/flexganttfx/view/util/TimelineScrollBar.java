@@ -76,6 +76,11 @@ public class TimelineScrollBar extends PlusMinusSlider {
                 });
     }
 
+    /**
+     * Returns the user agent stylesheet used by this scroll bar.
+     *
+     * @return the stylesheet URL
+     */
     @Override
     public String getUserAgentStylesheet() {
         if (ThemingUtil.isAtlantaFXActive(getScene())) {

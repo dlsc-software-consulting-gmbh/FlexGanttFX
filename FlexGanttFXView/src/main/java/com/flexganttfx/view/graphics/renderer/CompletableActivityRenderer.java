@@ -46,6 +46,22 @@ public class CompletableActivityRenderer<A extends CompletableActivity> extends
 		redrawObservable(fillCompletionHighlightProperty());
 	}
 
+	/**
+	 * Draws the activity, including its completion overlay, and returns the resulting bounds.
+	 *
+	 * @param path the activity reference to render
+	 * @param position the activity position
+	 * @param gc the graphics context
+	 * @param x the x coordinate
+	 * @param y the y coordinate
+	 * @param w the width
+	 * @param h the height
+	 * @param selected whether the activity is selected
+	 * @param hover whether the activity is hovered
+	 * @param highlighted whether the activity is highlighted
+	 * @param pressed whether the activity is pressed
+	 * @return the bounds of the rendered activity
+	 */
 	@Override
 	protected ActivityBounds drawActivity(ActivityRef<A> path,
 			Position position, GraphicsContext gc, double x, double y,
@@ -61,6 +77,20 @@ public class CompletableActivityRenderer<A extends CompletableActivity> extends
 		return bounds;
 	}
 
+	/**
+	 * Draws the completion overlay for the activity.
+	 *
+	 * @param activityRef the activity reference to render
+	 * @param gc the graphics context
+	 * @param x the x coordinate
+	 * @param y the y coordinate
+	 * @param w the width
+	 * @param h the height
+	 * @param selected whether the activity is selected
+	 * @param hover whether the activity is hovered
+	 * @param highlighted whether the activity is highlighted
+	 * @param pressed whether the activity is pressed
+	 */
 	protected void drawCompletion(ActivityRef<A> activityRef,
 			GraphicsContext gc, double x, double y, double w, double h,
 			boolean selected, boolean hover, boolean highlighted,
@@ -81,6 +111,15 @@ public class CompletableActivityRenderer<A extends CompletableActivity> extends
 		}
 	}
 
+	/**
+	 * Returns the completion fill paint for the given activity state.
+	 *
+	 * @param selected whether the activity is selected
+	 * @param hover whether the activity is hovered
+	 * @param highlighted whether the activity is highlighted
+	 * @param pressed whether the activity is pressed
+	 * @return the completion fill paint to use
+	 */
 	protected Paint getFillCompletion(boolean selected, boolean hover,
 			boolean highlighted, boolean pressed) {
 
@@ -100,6 +139,11 @@ public class CompletableActivityRenderer<A extends CompletableActivity> extends
 	private final ObjectProperty<Paint> fillCompletion = new SimpleObjectProperty<>(
 			this, "fillCompletion");
 
+	/**
+	 * The fillCompletion property. Defines the default fill paint for the completion overlay.
+	 *
+	 * @return the fillCompletion property
+	 */
 	public final ObjectProperty<Paint> fillCompletionProperty() {
 		return fillCompletion;
 	}
@@ -115,6 +159,11 @@ public class CompletableActivityRenderer<A extends CompletableActivity> extends
 	private final ObjectProperty<Paint> fillCompletionHover = new SimpleObjectProperty<>(
 			this, "fillCompletionHover");
 
+	/**
+	 * The fillCompletionHover property. Defines the completion fill paint used while an activity is hovered.
+	 *
+	 * @return the fillCompletionHover property
+	 */
 	public final ObjectProperty<Paint> fillCompletionHoverProperty() {
 		return fillCompletionHover;
 	}
@@ -130,6 +179,11 @@ public class CompletableActivityRenderer<A extends CompletableActivity> extends
 	private final ObjectProperty<Paint> fillCompletionHighlight = new SimpleObjectProperty<>(
 			this, "fillCompletionHighlight");
 
+	/**
+	 * The fillCompletionHighlight property. Defines the completion fill paint used while an activity is highlighted.
+	 *
+	 * @return the fillCompletionHighlight property
+	 */
 	public final ObjectProperty<Paint> fillCompletionHighlightProperty() {
 		return fillCompletionHighlight;
 	}
@@ -145,6 +199,11 @@ public class CompletableActivityRenderer<A extends CompletableActivity> extends
 	private final ObjectProperty<Paint> fillCompletionSelected = new SimpleObjectProperty<>(
 			this, "fillCompletionSelected");
 
+	/**
+	 * The fillCompletionSelected property. Defines the completion fill paint used while an activity is selected.
+	 *
+	 * @return the fillCompletionSelected property
+	 */
 	public final ObjectProperty<Paint> fillCompletionSelectedProperty() {
 		return fillCompletionSelected;
 	}
@@ -160,6 +219,11 @@ public class CompletableActivityRenderer<A extends CompletableActivity> extends
 	private final ObjectProperty<Paint> fillCompletionPressed = new SimpleObjectProperty<>(
 			this, "fillCompletionPressed");
 
+	/**
+	 * The fillCompletionPressed property. Defines the completion fill paint used while an activity is pressed.
+	 *
+	 * @return the fillCompletionPressed property
+	 */
 	public final ObjectProperty<Paint> fillCompletionPressedProperty() {
 		return fillCompletionPressed;
 	}

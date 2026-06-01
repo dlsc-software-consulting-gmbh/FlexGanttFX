@@ -49,16 +49,35 @@ public class DragCanvas<R extends Row<?, ?, ?>> extends Canvas {
         setMouseTransparent(true);
     }
 
+    /**
+     * Returns whether this canvas is resizable.
+     *
+     * @return true if this canvas is resizable
+     */
     @Override
     public boolean isResizable() {
         return true;
     }
 
+    /**
+     * Returns the preferred width for the given height.
+     *
+     * @param height the height
+     *
+     * @return the preferred width
+     */
     @Override
     public double prefWidth(double height) {
         return getWidth();
     }
 
+    /**
+     * Returns the preferred height for the given width.
+     *
+     * @param width the width
+     *
+     * @return the preferred height
+     */
     @Override
     public double prefHeight(double width) {
         return getHeight();
@@ -118,14 +137,29 @@ public class DragCanvas<R extends Row<?, ?, ?>> extends Canvas {
         renderedBounds.add(new ActivityBounds(ref, x, y, bounds.getWidth(), bounds.getHeight()));
     }
 
+    /**
+     * Returns the rendered bounds.
+     *
+     * @return the rendered bounds
+     */
     protected final List<ActivityBounds> getRenderedBounds() {
         return renderedBounds;
     }
 
+    /**
+     * Sets whether selected activities should be included in the drag operation.
+     *
+     * @param include whether selected activities should be included in the drag operation
+     */
     public final void setIncludeSelectedActivitiesInDrag(boolean include) {
         this.includeSelectedActivitiesInDrag = include;
     }
 
+    /**
+     * Returns whether selected activities are included in the drag operation.
+     *
+     * @return true if selected activities are included in the drag operation
+     */
     public final boolean isIncludeSelectedActivitiesInDrag() {
         return includeSelectedActivitiesInDrag;
     }

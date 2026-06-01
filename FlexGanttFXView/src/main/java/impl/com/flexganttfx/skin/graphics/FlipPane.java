@@ -99,6 +99,11 @@ public class FlipPane<R extends Row<?, ?, ?>> extends StackPane {
         setMaxSize(MAX_VALUE, MAX_VALUE);
     }
 
+    /**
+     * Sets the row shown by this pane.
+     *
+     * @param row the row
+     */
     public final void setRow(R row) {
         if (this.row != row) {
             this.row = row;
@@ -151,14 +156,27 @@ public class FlipPane<R extends Row<?, ?, ?>> extends StackPane {
         }
     }
 
+    /**
+     * Returns the front node.
+     *
+     * @return the front node
+     */
     public final StackPane getFront() {
         return front;
     }
 
+    /**
+     * Returns the back node.
+     *
+     * @return the back node
+     */
     public final StackPane getBack() {
         return back;
     }
 
+    /**
+     * Flips to the front side immediately.
+     */
     public final void flipToFrontImmediately() {
         showControlsNode();
 
@@ -169,6 +187,9 @@ public class FlipPane<R extends Row<?, ?, ?>> extends StackPane {
         front.setVisible(true);
     }
 
+    /**
+     * Flips to the back side immediately.
+     */
     public final void flipToBackImmediately() {
         hideControlsNode();
 
@@ -181,6 +202,9 @@ public class FlipPane<R extends Row<?, ?, ?>> extends StackPane {
         front.setVisible(false);
     }
 
+    /**
+     * Flips to the front side.
+     */
     public final void flipToFront() {
         if (Double.compare(rotate.getAngle(), 0) == 0) {
             return;
@@ -219,6 +243,9 @@ public class FlipPane<R extends Row<?, ?, ?>> extends StackPane {
         flipToFront.play();
     }
 
+    /**
+     * Flips to the back side.
+     */
     public final void flipToBack() {
         hideControlsNode();
 
@@ -267,14 +294,29 @@ public class FlipPane<R extends Row<?, ?, ?>> extends StackPane {
         return getBack().getChildren().get(0).prefHeight(rowPane.getWidth());
     }
 
+    /**
+     * Returns whether the front side is visible.
+     *
+     * @return true if the front side is visible
+     */
     public final boolean isFrontVisible() {
         return front.isVisible();
     }
 
+    /**
+     * Returns whether the back side is visible.
+     *
+     * @return true if the back side is visible
+     */
     public final boolean isBackVisible() {
         return back.isVisible();
     }
 
+    /**
+     * Sets the flip time.
+     *
+     * @param FLIP_TIME the flip time
+     */
     public final void setFlipTime(final double FLIP_TIME) {
         flipTime = clamp(100, 2000, FLIP_TIME);
     }

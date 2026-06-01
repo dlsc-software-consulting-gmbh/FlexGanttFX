@@ -90,6 +90,11 @@ public final class GanttChartTreeItem<R extends Row<?, ?, ?>> extends TreeItem<R
 		return filter.get();
 	}
 
+	/**
+	 * Returns whether this tree item is a leaf.
+	 *
+	 * @return true if this tree item is a leaf
+	 */
 	@Override
 	public boolean isLeaf() {
 		return getValue().isLeaf();
