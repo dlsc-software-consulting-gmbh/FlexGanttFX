@@ -119,7 +119,6 @@ public abstract class Renderer extends RendererBase {
 	}
 
 	public final void setFill(Paint paint) {
-		Objects.nonNull(paint);
 		this.fill.set(paint);
 	}
 
@@ -128,7 +127,6 @@ public abstract class Renderer extends RendererBase {
 	}
 
 	public final void setFillPressed(Paint paint) {
-		Objects.nonNull(paint);
 		this.fillPressed.set(paint);
 	}
 
@@ -137,7 +135,6 @@ public abstract class Renderer extends RendererBase {
 	}
 
 	public final void setFillHighlight(Paint paint) {
-		Objects.nonNull(paint);
 		this.fillHighlight.set(paint);
 	}
 
@@ -146,7 +143,6 @@ public abstract class Renderer extends RendererBase {
 	}
 
 	public final void setFillSelected(Paint paint) {
-		Objects.nonNull(paint);
 		this.fillSelected.set(paint);
 	}
 
@@ -155,7 +151,6 @@ public abstract class Renderer extends RendererBase {
 	}
 
 	public final void setFillHover(Paint paint) {
-		Objects.nonNull(paint);
 		this.fillHover.set(paint);
 	}
 

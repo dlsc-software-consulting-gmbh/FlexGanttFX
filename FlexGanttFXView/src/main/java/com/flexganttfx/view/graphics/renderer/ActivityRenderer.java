@@ -337,7 +337,6 @@ public class ActivityRenderer<A extends Activity> extends Renderer {
     }
 
     public final void setStroke(Paint paint) {
-        Objects.nonNull(paint);
         this.stroke.set(paint);
     }
 
@@ -346,7 +345,6 @@ public class ActivityRenderer<A extends Activity> extends Renderer {
     }
 
     public final void setStrokePressed(Paint paint) {
-        Objects.nonNull(paint);
         this.strokePressed.set(paint);
     }
 
@@ -355,7 +353,6 @@ public class ActivityRenderer<A extends Activity> extends Renderer {
     }
 
     public final void setStrokeHighlight(Paint paint) {
-        Objects.nonNull(paint);
         this.strokeHighlight.set(paint);
     }
 
@@ -364,7 +361,6 @@ public class ActivityRenderer<A extends Activity> extends Renderer {
     }
 
     public final void setStrokeSelected(Paint paint) {
-        Objects.nonNull(paint);
         this.strokeSelected.set(paint);
     }
 
@@ -373,7 +369,6 @@ public class ActivityRenderer<A extends Activity> extends Renderer {
     }
 
     public final void setStrokeHover(Paint paint) {
-        Objects.nonNull(paint);
         this.strokeHover.set(paint);
     }
 

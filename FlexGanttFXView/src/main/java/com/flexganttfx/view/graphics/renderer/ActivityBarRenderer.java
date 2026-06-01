@@ -578,7 +578,6 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
     }
 
     public final void setTextFill(Paint fill) {
-        Objects.nonNull(fill);
         textFillProperty().set(fill);
     }
 
@@ -596,7 +595,6 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
     }
 
     public final void setTextFillHover(Paint fill) {
-        Objects.nonNull(fill);
         textFillHoverProperty().set(fill);
     }
 
@@ -614,7 +612,6 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
     }
 
     public final void setTextFillHighlight(Paint fill) {
-        Objects.nonNull(fill);
         textFillHighlightProperty().set(fill);
     }
 
@@ -632,7 +629,6 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
     }
 
     public final void setTextFillPressed(Paint fill) {
-        Objects.nonNull(fill);
         textFillPressedProperty().set(fill);
     }
 
@@ -650,7 +646,6 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
     }
 
     public final void setTextFillSelected(Paint fill) {
-        Objects.nonNull(fill);
         textFillSelectedProperty().set(fill);
     }
 
@@ -668,7 +663,6 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
     }
 
     public final void setFont(Font font) {
-        Objects.nonNull(font);
         fontProperty().set(font);
     }
 
