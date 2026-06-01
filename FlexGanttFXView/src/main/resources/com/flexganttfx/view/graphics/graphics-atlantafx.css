@@ -17,7 +17,7 @@
 
     -fx-weekend-color:       -color-border-default;
     -fx-weekend-opacity:     .5;
-    -fx-time-now-color:      -color-accent-fg;
+    -fx-time-now-color:      -color-accent-emphasis;
 
     /* ── Activity fill (normal + state variants) ─────────────────────── */
     -fx-activity-fill:       -color-neutral-emphasis;
