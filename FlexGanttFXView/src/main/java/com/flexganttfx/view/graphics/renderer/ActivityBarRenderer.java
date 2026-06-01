@@ -53,6 +53,12 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
 
     private static final Color WHITE = new Color(1, 1, 1, .3);
 
+    /**
+     * Constructs an activity bar renderer and registers its bar and text styling properties for redraws.
+     *
+     * @param graphics the graphics control that uses this renderer
+     * @param name the renderer name
+     */
     public ActivityBarRenderer(GraphicsBase<?> graphics, String name) {
         super(graphics, name);
 

@@ -30,6 +30,12 @@ import javafx.scene.paint.Color;
  */
 public class CalendarActivityRenderer<A extends CalendarActivity> extends ActivityRenderer<A> {
 
+    /**
+     * Constructs a calendar activity renderer with the default fill and stroke styling for calendar entries.
+     *
+     * @param graphics the graphics control that uses this renderer
+     * @param name the renderer name
+     */
     public CalendarActivityRenderer(GraphicsBase<?> graphics, String name) {
         super(graphics, name);
 

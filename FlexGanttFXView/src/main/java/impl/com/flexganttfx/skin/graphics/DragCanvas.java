@@ -47,6 +47,12 @@ public class DragCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
     private final List<ActivityBounds> renderedBounds = new ArrayList<>();
 
+    /**
+     * Constructs a new drag canvas for the given graphics control.
+     *
+     * @param graphics
+     *            the graphics control
+     */
     public DragCanvas(GraphicsBase<R> graphics) {
         this.graphics = graphics;
 

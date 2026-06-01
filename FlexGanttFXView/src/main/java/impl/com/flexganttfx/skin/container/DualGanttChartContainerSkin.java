@@ -28,6 +28,12 @@ import org.controlsfx.control.MasterDetailPane;
  */
 public class DualGanttChartContainerSkin extends MultiGanttChartContainerSkinBase<DualGanttChartContainerBase> {
 
+    /**
+     * Constructs a new skin for the given dual Gantt chart container.
+     *
+     * @param container
+     *            the container
+     */
     public DualGanttChartContainerSkin(DualGanttChartContainerBase container) {
         super(container);
 
@@ -44,6 +50,12 @@ public class DualGanttChartContainerSkin extends MultiGanttChartContainerSkinBas
 
     private class Wrapper extends BorderPane {
 
+        /**
+         * Constructs a new wrapper pane.
+         *
+         * @param primary
+         *            whether to wrap the primary chart
+         */
         public Wrapper(boolean primary) {
             if (primary) {
 

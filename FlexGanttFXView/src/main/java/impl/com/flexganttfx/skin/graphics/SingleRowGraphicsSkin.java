@@ -37,6 +37,12 @@ public class SingleRowGraphicsSkin<R extends Row<?, ?, ?>>
 
 	private RowPane<R> rowPane;
 
+	/**
+	 * Constructs a new skin for the given single-row graphics.
+	 *
+	 * @param graphics
+	 *            the graphics control
+	 */
 	public SingleRowGraphicsSkin(SingleRowGraphics<R> graphics) {
 		super(graphics);
 	}

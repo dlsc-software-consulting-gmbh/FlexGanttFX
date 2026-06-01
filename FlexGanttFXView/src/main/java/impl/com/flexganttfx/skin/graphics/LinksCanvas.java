@@ -43,6 +43,12 @@ public class LinksCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
     private final GraphicsBase<R> graphics;
 
+    /**
+     * Constructs a new links canvas for the given graphics control.
+     *
+     * @param graphics
+     *            the graphics control
+     */
     public LinksCanvas(GraphicsBase<R> graphics) {
         this.graphics = graphics;
 

@@ -50,6 +50,12 @@ public class TimelineSkin extends SkinBase<Timeline> {
 
     private final VBox vbox;
 
+    /**
+     * Constructs a new skin for the given timeline.
+     *
+     * @param timeline
+     *            the timeline
+     */
     public TimelineSkin(final Timeline timeline) {
         super(timeline);
 

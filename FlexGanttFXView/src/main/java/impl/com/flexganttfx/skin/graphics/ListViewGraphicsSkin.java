@@ -54,6 +54,12 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
 
     private ListView<R> listView;
 
+    /**
+     * Constructs a new skin for the given list view graphics.
+     *
+     * @param graphics
+     *            the graphics control
+     */
     public ListViewGraphicsSkin(ListViewGraphics<R> graphics) {
         super(graphics);
 
@@ -175,6 +181,9 @@ public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSk
         private double xOffset;
         private double yOffset;
 
+        /**
+         * Constructs a new scroll thread.
+         */
         public ScrollThread() {
             super("Autoscrolling List View");
             setDaemon(true);

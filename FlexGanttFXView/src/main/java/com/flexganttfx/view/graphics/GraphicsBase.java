@@ -1479,6 +1479,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
         private final EventType<ActivityEvent> eventType;
 
+        /**
+         * Creates an activity event handler property for the given event type.
+         *
+         * @param name the property name
+         * @param eventType the associated activity event type
+         */
         public ActivityEventHandlerProperty(final String name,
                                             final EventType<ActivityEvent> eventType) {
             super(GraphicsBase.this, name);
@@ -2511,6 +2517,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
         private final EventType<LassoEvent> eventType;
 
+        /**
+         * Creates a lasso event handler property for the given event type.
+         *
+         * @param name the property name
+         * @param eventType the associated lasso event type
+         */
         public LassoEventHandlerProperty(final String name,
                                          final EventType<LassoEvent> eventType) {
             super(GraphicsBase.this, name);
@@ -2831,6 +2843,9 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
         private boolean running = true;
 
+        /**
+         * Creates the highlight thread used by this graphics view.
+         */
         public HighlightThread() {
             super("Highlight Thread");
             setDaemon(true);
@@ -4092,6 +4107,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
         private final EditMode editMode;
 
+        /**
+         * Creates editing callback parameters for the given activity and edit mode.
+         *
+         * @param activityRef the activity reference
+         * @param editMode the edit mode
+         */
         public EditingCallbackParameter(ActivityRef<?> activityRef,
                                         EditMode editMode) {
 
@@ -4267,6 +4288,16 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         private final Point2D offset;
         private final List<ActivityBounds> selectedActivities;
 
+        /**
+         * Creates drag-and-drop information for the current drop target.
+         *
+         * @param row the row where the drop might occur, may be null
+         * @param activityBounds the bounds of the dragged activity
+         * @param selectedActivities the selected activity bounds involved in the drag operation
+         * @param dropInterval the time interval where the drop might occur
+         * @param dragEvent the drag event
+         * @param offset the drag offset
+         */
         public DragAndDropInfo(Row<?, ?, ?> row, ActivityBounds activityBounds, List<ActivityBounds> selectedActivities,
                                TimeInterval dropInterval, DragEvent dragEvent,
                                Point2D offset) {
@@ -4869,6 +4900,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         private final R row;
         private final GraphicsBase<R> graphics;
 
+        /**
+         * Creates row controls parameters for the given graphics view and row.
+         *
+         * @param graphics the graphics view
+         * @param row the row
+         */
         public RowControlsParameter(GraphicsBase<R> graphics, R row) {
             requireNonNull(graphics);
             requireNonNull(row);
@@ -4934,6 +4971,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
         private double startY;
 
+        /**
+         * Creates a row header for the given graphics view.
+         *
+         * @param graphics the graphics view
+         */
         public RowHeader(GraphicsBase<R> graphics) {
             this.graphics = requireNonNull(graphics, "graphics can not be null");
 
@@ -5140,6 +5182,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         private final R row;
         private final GraphicsBase<R> graphics;
 
+        /**
+         * Creates row editor parameters for the given graphics view and row.
+         *
+         * @param graphics the graphics view
+         * @param row the row
+         */
         public RowEditorParameter(GraphicsBase<R> graphics, R row) {
             requireNonNull(graphics);
             requireNonNull(row);
@@ -5575,6 +5623,9 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
         private final WeakInvalidationListener weakCalendarListListener = new WeakInvalidationListener(calendarListListener);
 
+        /**
+         * Creates the calendar submenu for the graphics view context menu.
+         */
         public CalendarMenu() {
         }
 
@@ -5621,6 +5672,9 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         private final WeakInvalidationListener weakGridsListener = new WeakInvalidationListener(
                 gridsListener);
 
+        /**
+         * Creates the grid submenu for the graphics view context menu.
+         */
         public GridMenu() {
         }
 
@@ -5674,6 +5728,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
      */
     private class GraphicsViewMenu extends ContextMenu {
 
+        /**
+         * Creates the default graphics view context menu for the given row context.
+         *
+         * @param input the context menu input
+         */
         public GraphicsViewMenu(final ContextMenuParameter<R> input) {
             requireNonNull(input);
 

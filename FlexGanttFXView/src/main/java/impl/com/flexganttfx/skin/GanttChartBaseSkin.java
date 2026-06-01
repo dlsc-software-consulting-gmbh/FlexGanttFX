@@ -48,6 +48,12 @@ public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends Gantt
     private final HiddenSidesPane rightHandSideHiddenSidesPane;
     private final VBox rightHandSideBox;
 
+    /**
+     * Constructs a new skin for the given control.
+     *
+     * @param control
+     *            the control
+     */
     public GanttChartBaseSkin(C control) {
         super(control);
 

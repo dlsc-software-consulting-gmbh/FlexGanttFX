@@ -64,6 +64,12 @@ public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
 
     private GraphicsBase<R> graphics;
 
+    /**
+     * Constructs a new row pane for the given graphics control.
+     *
+     * @param graphics
+     *            the graphics control
+     */
     public RowPane(GraphicsBase<R> graphics) {
         this.graphics = graphics;
 

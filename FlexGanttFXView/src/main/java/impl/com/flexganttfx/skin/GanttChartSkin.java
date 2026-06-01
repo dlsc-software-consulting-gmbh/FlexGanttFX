@@ -62,6 +62,12 @@ public class GanttChartSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R
     private final HiddenSidesPane leftHandSideHiddenSidesPane;
     private final VBox leftHandSideBox;
 
+    /**
+     * Constructs a new skin for the given Gantt chart.
+     *
+     * @param ganttChart
+     *            the Gantt chart
+     */
     public GanttChartSkin(GanttChart<R> ganttChart) {
         super(ganttChart);
 

@@ -28,6 +28,12 @@ import com.flexganttfx.view.container.MultiGanttChartContainerBase;
  */
 public class MultiGanttChartContainerSkin extends MultiGanttChartContainerSkinBase<MultiGanttChartContainerBase> {
 
+	/**
+	 * Constructs a new skin for the given multi Gantt chart container.
+	 *
+	 * @param container
+	 *            the container
+	 */
 	public MultiGanttChartContainerSkin(MultiGanttChartContainerBase container) {
 		super(container);
 		SplitPane splitPane = container.getSplitPane();

@@ -27,6 +27,12 @@ import javafx.scene.paint.Color;
 public class WeekendCalendarActivityRenderer<A extends WeekendCalendarActivity>
 		extends CalendarActivityRenderer<A> {
 
+	/**
+	 * Constructs a weekend calendar activity renderer and binds its styling to the graphics weekend properties.
+	 *
+	 * @param graphics the graphics control that uses this renderer
+	 * @param name the renderer name
+	 */
 	public WeekendCalendarActivityRenderer(GraphicsBase<?> graphics, String name) {
 		super(graphics, name);
 		fillProperty().bindBidirectional(graphics.weekendColorProperty());

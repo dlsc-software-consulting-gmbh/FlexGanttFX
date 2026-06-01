@@ -35,6 +35,18 @@ public class MissingActivityBoundsException extends Exception {
 	private final int lineIndex;
 	private final ActivityRenderer<?> renderer;
 
+	/**
+	 * Constructs a new exception describing missing activity bounds.
+	 *
+	 * @param renderer
+	 *            the renderer
+	 * @param activity
+	 *            the activity
+	 * @param row
+	 *            the row
+	 * @param lineIndex
+	 *            the line index
+	 */
 	public MissingActivityBoundsException(ActivityRenderer<?> renderer,
 			Activity activity, Row<?, ?, ?> row, int lineIndex) {
 		super(

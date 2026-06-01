@@ -28,6 +28,12 @@ import static javafx.scene.paint.Color.TRANSPARENT;
  */
 public class ChartActivityRenderer<A extends ChartActivity> extends ActivityRenderer<A> {
 
+	/**
+	 * Constructs a chart activity renderer with the default flat styling for chart bars.
+	 *
+	 * @param graphics the graphics control that uses this renderer
+	 * @param name the renderer name
+	 */
 	public ChartActivityRenderer(GraphicsBase<?> graphics, String name) {
 		super(graphics, name);
 

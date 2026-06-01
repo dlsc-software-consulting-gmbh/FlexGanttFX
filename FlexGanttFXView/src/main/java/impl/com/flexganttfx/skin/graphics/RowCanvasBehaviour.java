@@ -860,6 +860,9 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         private double yOffset;
         private MouseEvent evt;
 
+        /**
+         * Constructs a new scroll thread.
+         */
         public ScrollThread() {
             super("Autoscrolling Row Canvas");
             setDaemon(true);

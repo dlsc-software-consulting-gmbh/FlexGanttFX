@@ -34,6 +34,12 @@ import javafx.scene.paint.Paint;
 public class CompletableActivityRenderer<A extends CompletableActivity> extends
 		ActivityBarRenderer<A> {
 
+	/**
+	 * Constructs a completable activity renderer and initializes the default completion overlay styling.
+	 *
+	 * @param graphics the graphics control that uses this renderer
+	 * @param name the renderer name
+	 */
 	public CompletableActivityRenderer(GraphicsBase<?> graphics, String name) {
 		super(graphics, name);
 

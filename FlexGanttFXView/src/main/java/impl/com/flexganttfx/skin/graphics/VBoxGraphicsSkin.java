@@ -42,6 +42,12 @@ public class VBoxGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSkin<V
 
 	private VBox vbox;
 
+	/**
+	 * Constructs a new skin for the given VBox graphics.
+	 *
+	 * @param graphics
+	 *            the graphics control
+	 */
 	public VBoxGraphicsSkin(VBoxGraphics<R> graphics) {
 		super(graphics);
 

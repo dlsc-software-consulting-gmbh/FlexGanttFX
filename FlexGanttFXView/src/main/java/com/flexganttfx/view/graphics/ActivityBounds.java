@@ -40,6 +40,20 @@ public final class ActivityBounds extends Rectangle2D {
 
 	private Position position;
 
+	/**
+	 * Creates activity bounds for the given activity reference and geometry.
+	 *
+	 * @param activityRef
+	 *            the activity reference
+	 * @param x
+	 *            the x coordinate
+	 * @param y
+	 *            the y coordinate
+	 * @param width
+	 *            the width
+	 * @param height
+	 *            the height
+	 */
 	public ActivityBounds(ActivityRef<?> activityRef, double x, double y,
 			double width, double height) {
 

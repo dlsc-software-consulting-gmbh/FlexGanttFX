@@ -28,6 +28,12 @@ import javafx.collections.transformation.FilteredList;
  */
 public class GanttChartLiteSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R, GanttChartLite<R>> {
 
+	/**
+	 * Constructs a new skin for the given lite Gantt chart.
+	 *
+	 * @param control
+	 *            the control
+	 */
 	public GanttChartLiteSkin(GanttChartLite<R> control) {
 		super(control);
 

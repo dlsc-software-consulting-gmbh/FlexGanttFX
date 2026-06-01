@@ -30,6 +30,12 @@ import com.flexganttfx.view.graphics.GraphicsBase;
  */
 public class RowRenderer<R extends Row<?, ?, ?>> extends Renderer {
 
+	/**
+	 * Constructs a row renderer and initializes the default background fills for the supported row states.
+	 *
+	 * @param graphics the graphics control that uses this renderer
+	 * @param name the renderer name
+	 */
 	public RowRenderer(GraphicsBase<?> graphics, String name) {
 		super(graphics, name);
 

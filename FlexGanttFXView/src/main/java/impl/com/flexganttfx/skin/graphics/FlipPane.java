@@ -371,6 +371,16 @@ public class FlipPane<R extends Row<?, ?, ?>> extends StackPane {
         public static final EventType<FlipEvent> FLIP_TO_BACK_FINISHED = new EventType<>(ANY, "flipToBackFinished");
         private static final long serialVersionUID = 2323146240921802205L;
 
+        /**
+         * Constructs a new flip event.
+         *
+         * @param SOURCE
+         *            the source of the event
+         * @param TARGET
+         *            the event target
+         * @param EVENT_TYPE
+         *            the event type
+         */
         public FlipEvent(final Object SOURCE, final EventTarget TARGET, final EventType<FlipEvent> EVENT_TYPE) {
             super(SOURCE, TARGET, EVENT_TYPE);
         }

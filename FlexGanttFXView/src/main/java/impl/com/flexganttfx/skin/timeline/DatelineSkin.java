@@ -82,6 +82,12 @@ public class DatelineSkin extends SkinBase<Dateline> {
     private final WeakChangeListener weakStartTimeListener = new WeakChangeListener(startTimeListener);
     private boolean initialSetup;
 
+    /**
+     * Constructs a new skin for the given dateline.
+     *
+     * @param dateline
+     *            the dateline
+     */
     public DatelineSkin(Dateline dateline) {
         super(dateline);
 

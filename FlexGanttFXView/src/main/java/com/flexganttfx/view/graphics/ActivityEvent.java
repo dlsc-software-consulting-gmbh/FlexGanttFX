@@ -376,6 +376,16 @@ public class ActivityEvent extends InputEvent {
 
 	private final ActivityRef<?> activityRef;
 
+	/**
+	 * Creates an activity event for the given activity and event type.
+	 *
+	 * @param activity
+	 *            the activity reference
+	 * @param target
+	 *            the event target
+	 * @param eventType
+	 *            the event type
+	 */
 	public ActivityEvent(ActivityRef<?> activity, EventTarget target,
 			EventType<? extends ActivityEvent> eventType) {
 		super(activity, target, eventType);
@@ -384,6 +394,18 @@ public class ActivityEvent extends InputEvent {
 		this.activityRef = activity;
 	}
 
+	/**
+	 * Creates an activity event that stores the original time value.
+	 *
+	 * @param activity
+	 *            the activity reference
+	 * @param target
+	 *            the event target
+	 * @param eventType
+	 *            the event type
+	 * @param oldTime
+	 *            the original time value
+	 */
 	public ActivityEvent(ActivityRef<?> activity, EventTarget target,
 			EventType<? extends ActivityEvent> eventType, Instant oldTime) {
 		super(activity, target, eventType);
@@ -395,6 +417,18 @@ public class ActivityEvent extends InputEvent {
 		this.oldTime = oldTime;
 	}
 
+	/**
+	 * Creates an activity event that stores the original time interval.
+	 *
+	 * @param activity
+	 *            the activity reference
+	 * @param target
+	 *            the event target
+	 * @param eventType
+	 *            the event type
+	 * @param oldInterval
+	 *            the original time interval
+	 */
 	public ActivityEvent(ActivityRef<?> activity, EventTarget target,
 			EventType<? extends ActivityEvent> eventType,
 			TimeInterval oldInterval) {
@@ -407,6 +441,22 @@ public class ActivityEvent extends InputEvent {
 		this.oldTimeInterval = oldInterval;
 	}
 
+	/**
+	 * Creates an activity event that stores the original and new row state.
+	 *
+	 * @param activity
+	 *            the activity reference
+	 * @param target
+	 *            the event target
+	 * @param eventType
+	 *            the event type
+	 * @param oldRow
+	 *            the original row
+	 * @param newRow
+	 *            the new row
+	 * @param oldTimeInterval
+	 *            the original time interval
+	 */
 	public ActivityEvent(ActivityRef<?> activity, EventTarget target,
 			EventType<? extends ActivityEvent> eventType, Row<?, ?, ?> oldRow,
 			Row<?, ?, ?> newRow, TimeInterval oldTimeInterval) {
@@ -423,6 +473,18 @@ public class ActivityEvent extends InputEvent {
 		this.oldTimeInterval = oldTimeInterval;
 	}
 
+	/**
+	 * Creates an activity event that stores the original numeric value.
+	 *
+	 * @param activity
+	 *            the activity reference
+	 * @param target
+	 *            the event target
+	 * @param eventType
+	 *            the event type
+	 * @param oldValue
+	 *            the original numeric value
+	 */
 	public ActivityEvent(ActivityRef<?> activity, EventTarget target,
 			EventType<? extends ActivityEvent> eventType, double oldValue) {
 		super(activity, target, eventType);

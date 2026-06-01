@@ -58,6 +58,12 @@ public class EventlineSkin extends SkinBase<Eventline> {
 
     private DateTimeFormatter formatter;
 
+    /**
+     * Constructs a new skin for the given event line.
+     *
+     * @param eventline
+     *            the event line
+     */
     public EventlineSkin(final Eventline eventline) {
         super(eventline);
 

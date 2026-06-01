@@ -32,6 +32,12 @@ import static java.util.Objects.requireNonNull;
  */
 public abstract class Renderer extends RendererBase {
 
+	/**
+	 * Constructs a renderer and registers its fill and padding properties for redraws.
+	 *
+	 * @param graphics the graphics control that uses this renderer
+	 * @param name the renderer name
+	 */
 	public Renderer(GraphicsBase<?> graphics, String name) {
 		super(graphics, name);
 		redrawObservable(padding);

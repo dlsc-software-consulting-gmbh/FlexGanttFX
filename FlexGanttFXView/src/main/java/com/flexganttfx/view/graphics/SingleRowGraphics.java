@@ -36,6 +36,9 @@ import java.util.List;
  */
 public class SingleRowGraphics<R extends Row<?, ?, ?>> extends GraphicsBase<R> {
 
+	/**
+	 * Creates a new single row graphics view.
+	 */
 	public SingleRowGraphics() {
 		getStyleClass().add("single-row-graphics");
 	}

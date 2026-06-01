@@ -40,6 +40,9 @@ import java.util.List;
  */
 public class SplitPaneGraphics<R extends Row<?, ?, ?>> extends GraphicsBase<R> {
 
+	/**
+	 * Creates a new split pane graphics view.
+	 */
 	public SplitPaneGraphics() {
 		splitPane = createSplitPane();
 		getStyleClass().add("split-pane-graphics");

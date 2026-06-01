@@ -41,6 +41,9 @@ import java.util.List;
  */
 public class VBoxGraphics<R extends Row<?, ?, ?>> extends GraphicsBase<R> {
 
+	/**
+	 * Creates a new VBox graphics view and configures its default layout behavior.
+	 */
 	public VBoxGraphics() {
 		vbox = createVBox();
 

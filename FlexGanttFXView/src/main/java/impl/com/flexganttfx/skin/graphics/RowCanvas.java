@@ -89,6 +89,12 @@ public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 
     private RowCanvasBehaviour<?> rowCanvasBehaviour;
 
+    /**
+     * Constructs a new row canvas for the given graphics control.
+     *
+     * @param graphics
+     *            the graphics control
+     */
     public RowCanvas(GraphicsBase<R> graphics) {
         requireNonNull(graphics);
 

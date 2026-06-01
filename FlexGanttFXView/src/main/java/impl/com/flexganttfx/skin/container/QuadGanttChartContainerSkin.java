@@ -40,6 +40,12 @@ public class QuadGanttChartContainerSkin extends ContainerSkinBase<QuadGanttChar
         LOWER_RIGHT
     }
 
+    /**
+     * Constructs a new skin for the given quad Gantt chart container.
+     *
+     * @param container
+     *            the container
+     */
     public QuadGanttChartContainerSkin(QuadGanttChartContainerBase container) {
         super(container);
 
@@ -131,6 +137,12 @@ public class QuadGanttChartContainerSkin extends ContainerSkinBase<QuadGanttChar
 
     private class Wrapper extends BorderPane {
 
+        /**
+         * Constructs a new wrapper pane.
+         *
+         * @param corner
+         *            the corner identifying the chart position
+         */
         public Wrapper(Corner corner) {
             switch (corner) {
                 case UPPER_LEFT:

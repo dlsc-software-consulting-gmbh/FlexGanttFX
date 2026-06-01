@@ -32,6 +32,12 @@ import java.util.List;
  */
 public abstract class MultiGanttChartContainerSkinBase<T extends ContainerBase> extends ContainerSkinBase<T> {
 
+    /**
+     * Constructs a new skin base for the given multi Gantt chart container.
+     *
+     * @param container
+     *            the container
+     */
     public MultiGanttChartContainerSkinBase(T container) {
         super(container);
 

@@ -39,6 +39,12 @@ import java.util.Objects;
  */
 public class ActivityRenderer<A extends Activity> extends Renderer {
 
+    /**
+     * Constructs an activity renderer and registers its stroke and corner styling properties for redraws.
+     *
+     * @param graphics the graphics control that uses this renderer
+     * @param name the renderer name
+     */
     public ActivityRenderer(GraphicsBase<?> graphics, String name) {
         super(graphics, name);
         redrawObservable(stroke);

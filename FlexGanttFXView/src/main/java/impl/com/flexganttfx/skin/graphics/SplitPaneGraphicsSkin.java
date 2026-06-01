@@ -44,6 +44,12 @@ public class SplitPaneGraphicsSkin<R extends Row<?, ?, ?>> extends
 
 	private final SplitPane splitPane;
 
+	/**
+	 * Constructs a new skin for the given split pane graphics.
+	 *
+	 * @param graphics
+	 *            the graphics control
+	 */
 	public SplitPaneGraphicsSkin(SplitPaneGraphics<R> graphics) {
 		super(graphics);
 

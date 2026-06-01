@@ -114,6 +114,12 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
     private double mouseY;
     private ContextMenu contextMenu;
 
+    /**
+     * Constructs a new skin for the given graphics control.
+     *
+     * @param graphics
+     *            the graphics control
+     */
     public GraphicsBaseSkin(C graphics) {
         super(graphics);
 
@@ -1144,6 +1150,12 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         private final MouseEvent mouseEvent;
         private boolean cancelled;
 
+        /**
+         * Constructs a new lasso start thread.
+         *
+         * @param evt
+         *            the mouse event
+         */
         public StartLassoThread(MouseEvent evt) {
             this.mouseEvent = evt;
         }

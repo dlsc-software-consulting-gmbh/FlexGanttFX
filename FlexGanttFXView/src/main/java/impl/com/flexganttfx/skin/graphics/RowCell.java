@@ -37,6 +37,12 @@ public class RowCell<R extends Row<?, ?, ?>> extends ListCell<R> {
 
     private final RowPane<R> rowPane;
 
+    /**
+     * Constructs a new row cell for the given graphics control.
+     *
+     * @param graphics
+     *            the graphics control
+     */
     public RowCell(GraphicsBase<R> graphics) {
         requireNonNull(graphics);
 

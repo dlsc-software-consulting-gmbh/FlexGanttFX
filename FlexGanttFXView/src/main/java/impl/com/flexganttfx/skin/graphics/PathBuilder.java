@@ -40,6 +40,20 @@ public class PathBuilder {
 		private final boolean close;
 		private final ArrowDirection arrowDirection;
 
+		/**
+		 * Constructs a new path builder result.
+		 *
+		 * @param start
+		 *            the start point
+		 * @param end
+		 *            the end point
+		 * @param path
+		 *            the path
+		 * @param arrowDirection
+		 *            the arrow direction
+		 * @param close
+		 *            whether to close the path
+		 */
 		public PathBuilderResult(Point2D start, Point2D end, Path path, ArrowDirection arrowDirection, boolean close) {
 			this.start = requireNonNull(start);
 			this.end = requireNonNull(end);

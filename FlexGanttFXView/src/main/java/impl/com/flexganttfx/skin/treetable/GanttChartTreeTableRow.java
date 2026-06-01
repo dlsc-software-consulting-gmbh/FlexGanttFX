@@ -32,6 +32,9 @@ public class GanttChartTreeTableRow<R extends Row<?, ?, ?>> extends
 
 	private static final long serialVersionUID = -2245080748276282382L;
 
+	/**
+	 * Constructs a new tree table row.
+	 */
 	public GanttChartTreeTableRow() {
 	}
 
