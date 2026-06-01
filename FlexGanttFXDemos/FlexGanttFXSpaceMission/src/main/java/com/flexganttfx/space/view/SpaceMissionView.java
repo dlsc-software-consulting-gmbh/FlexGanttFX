@@ -121,8 +121,8 @@ public class SpaceMissionView extends VBox {
         getChildren().addAll(toolBar, dual, statusBar);
 
         // ---------- Real-time NowLine ----------
-        TreeShowing.treeShowing(this).addListener((obs, oldV, newV) -> {
-            if (newV) {
+        TreeShowing.treeShowing(this).subscribe(v -> {
+            if (v) {
                 startNowLineTimer();
             } else {
                 if (timer != null) {
