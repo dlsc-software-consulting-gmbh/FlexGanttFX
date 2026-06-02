@@ -52,29 +52,28 @@ public class SpaceXView extends VBox {
     private final ComboBox<Integer> fromYearComboBox = new ComboBox<>();
     private final ComboBox<Integer> toYearComboBox = new ComboBox<>();
     private final ComboBox<String> statusComboBox = new ComboBox<>();
-    private final Button loadButton = new Button("Load");
     private final BooleanProperty loading = new SimpleBooleanProperty();
     private final SpaceXRoot phantomRoot = new SpaceXRoot();
     private final GanttChart<SpaceXRoot> chart;
 
     public SpaceXView() {
-        int currentYear = Year.now().getValue();
-        fromYearComboBox.getItems().setAll(IntStream.rangeClosed(FIRST_YEAR, currentYear).boxed().toList());
-        toYearComboBox.getItems().setAll(IntStream.rangeClosed(FIRST_YEAR, currentYear + 1).boxed().toList());
+        int lastYear = 2023;
+        fromYearComboBox.getItems().setAll(IntStream.rangeClosed(FIRST_YEAR, lastYear).boxed().toList());
+        toYearComboBox.getItems().setAll(IntStream.rangeClosed(FIRST_YEAR, lastYear + 1).boxed().toList());
         statusComboBox.getItems().setAll(List.of("ALL", "SUCCESS", "FAILURE"));
 
         fromYearComboBox.setValue(fromYearComboBox.getItems().contains(2015) ? 2015 : fromYearComboBox.getItems().get(0));
-        toYearComboBox.setValue(currentYear);
+        toYearComboBox.setValue(lastYear);
         statusComboBox.setValue("ALL");
 
         Layer layer = new Layer("Launches");
         chart = new GanttChart<>(phantomRoot);
         chart.getLayers().add(layer);
         chart.getTimeline().showTemporalUnit(ChronoUnit.MONTHS, 6);
-        chart.getGraphics().setActivityRenderer(LaunchActivity.class, GanttLayout.class,
-                new LaunchRenderer(chart.getGraphics()));
+        chart.getGraphics().setActivityRenderer(LaunchActivity.class, GanttLayout.class, new LaunchRenderer(chart.getGraphics()));
         chart.getTreeTable().setShowRoot(false);
 
+        Button loadButton = new Button("Load");
         HBox controls = new HBox(10,
                 new Label("From year:"), fromYearComboBox,
                 new Label("To year:"), toYearComboBox,

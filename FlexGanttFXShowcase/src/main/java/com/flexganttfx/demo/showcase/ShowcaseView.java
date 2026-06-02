@@ -56,6 +56,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HeaderBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -65,6 +66,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
@@ -160,9 +162,13 @@ public class ShowcaseView extends BorderPane {
     // Currently selected label (for deselection)
     private Label selectedLabel = null;
 
+    @SuppressWarnings("deprecation")
     public ShowcaseView(Stage stage, HostServices hostServices) {
         this.stage = stage;
         this.hostServices = hostServices;
+        if (!WebAPI.isBrowser()) {
+            stage.initStyle(StageStyle.EXTENDED);
+        }
         getStyleClass().add("showcase-root");
         sceneProperty().addListener((obs, oldScene, newScene) -> {
             updateThemeStyleClass();
@@ -182,12 +188,8 @@ public class ShowcaseView extends BorderPane {
 
     // ── Top bar ──────────────────────────────────────────────────────────
 
-    private HBox buildTopBar(Stage stage, HostServices hostServices) {
-        HBox bar = new HBox();
-        bar.getStyleClass().add("showcase-top-bar");
-        bar.setAlignment(Pos.CENTER_LEFT);
-        bar.setSpacing(10);
-
+    @SuppressWarnings("deprecation")
+    private HeaderBar buildTopBar(Stage stage, HostServices hostServices) {
         FontIcon logoIcon = new FontIcon(MaterialDesign.MDI_CHART_GANTT);
         logoIcon.getStyleClass().add("showcase-logo-icon");
 
@@ -202,12 +204,6 @@ public class ShowcaseView extends BorderPane {
         logoGroup.setCursor(Cursor.HAND);
         logoGroup.getStyleClass().add("showcase-logo-group");
         logoGroup.setOnMouseClicked(e -> showWelcome());
-
-        Label tagline = new Label("Feature Showcase");
-        tagline.getStyleClass().add("showcase-tagline");
-
-        Region spacer = new Region();
-        HBox.setHgrow(spacer, Priority.ALWAYS);
 
         // ── Theme switcher ────────────────────────────────────────────────
         themeMenu = new MenuButton();
@@ -253,15 +249,21 @@ public class ShowcaseView extends BorderPane {
                 hostServices.showDocument("https://dlsc.com");
             }
         });
-        HBox.setMargin(dlscLogo, new Insets(0, 0, 0, 24));
 
-        bar.getChildren().addAll(logoGroup, tagline, dlscLogo, spacer, themeMenu);
+        HBox rightItems = new HBox(10, dlscLogo, themeMenu);
+        rightItems.setAlignment(Pos.CENTER_RIGHT);
+        HBox.setMargin(dlscLogo, new Insets(0, 8, 0, 0));
         if (!WebAPI.isBrowser()) {
-            // Remove from web for now, because it leaks
-            bar.getChildren().add(devToolsButton);
+            rightItems.getChildren().add(devToolsButton);
         }
-        bar.getChildren().add(websiteBtn);
-        return bar;
+        rightItems.getChildren().add(websiteBtn);
+        HBox.setMargin(websiteBtn, new Insets(0, 4, 0, 0));
+
+        HeaderBar headerBar = new HeaderBar();
+        headerBar.getStyleClass().add("showcase-top-bar");
+        headerBar.setLeading(logoGroup);
+        headerBar.setTrailing(rightItems);
+        return headerBar;
     }
 
     private void rebuildTopBar() {

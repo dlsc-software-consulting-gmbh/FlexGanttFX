@@ -79,11 +79,6 @@
     -fx-font-size: 11px;
 }
 
-.showcase-tagline {
-    -fx-text-fill: -showcase-top-bar-fg;
-    -fx-font-size: 12px;
-}
-
 .showcase-website-btn {
     -fx-background-color: transparent;
     -fx-text-fill: -showcase-top-bar-fg;

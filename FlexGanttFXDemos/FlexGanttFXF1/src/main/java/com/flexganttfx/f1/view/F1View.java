@@ -78,6 +78,7 @@ public class F1View extends VBox {
 
         layer = new Layer("Tire Stints");
         gantt = new GanttChart<>(phantomRoot);
+        gantt.getTreeTable().setShowRoot(false);
         gantt.getLayers().add(layer);
         gantt.getTimeline().showTemporalUnit(ChronoUnit.HOURS, 2);
         gantt.getGraphics().setActivityRenderer(TireStint.class, GanttLayout.class, new TireStintRenderer(gantt.getGraphics()));
@@ -146,7 +147,7 @@ public class F1View extends VBox {
         }));
         task.setOnFailed(evt -> Platform.runLater(() -> {
             setLoading(false);
-            showError("Failed to load race sessions", task.getException());
+            showError("Failed to load race sessions", "Too many requests?\nThis is running on a free tier.");
         }));
 
         start(task, "flexganttfx-f1-sessions");
@@ -174,7 +175,7 @@ public class F1View extends VBox {
         }));
         task.setOnFailed(evt -> Platform.runLater(() -> {
             setLoading(false);
-            showError("Failed to load F1 strategy data", task.getException());
+            showError("Failed to load F1 strategy data", "Too many requests?\nThis is running on a free tier.");
         }));
 
         start(task, "flexganttfx-f1-race");
@@ -197,12 +198,12 @@ public class F1View extends VBox {
         loadButton.setDisable(progressIndicator.isVisible() || raceBox.getValue() == null);
     }
 
-    private void showError(String title, Throwable throwable) {
+    private void showError(String title, String msg) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.initOwner(gantt.getScene().getWindow());
         alert.setTitle(title);
         alert.setHeaderText(title);
-        alert.setContentText(throwable == null ? "Unknown error" : throwable.getMessage());
+        alert.setContentText(msg);
         alert.showAndWait();
     }
 }
