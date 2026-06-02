@@ -134,7 +134,6 @@ public class ShowcaseView extends BorderPane {
         Theme theme = resolvePersistedTheme();
         String uas = theme.equals(MODENA) ? null : theme.getUserAgentStylesheet();
         scene.setUserAgentStylesheet(uas);
-        Application.setUserAgentStylesheet(uas);
     }
 
     private static Theme resolvePersistedTheme() {
@@ -495,7 +494,6 @@ public class ShowcaseView extends BorderPane {
         currentTheme = theme;
         String uas = theme.equals(MODENA) ? null : theme.getUserAgentStylesheet();
         getScene().setUserAgentStylesheet(uas);
-        Application.setUserAgentStylesheet(uas);
         PREFS.put(PREF_THEME, theme.getName());
 
         rebuildTopBar();
