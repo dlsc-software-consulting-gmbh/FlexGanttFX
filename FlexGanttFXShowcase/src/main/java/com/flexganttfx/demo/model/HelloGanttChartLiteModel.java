@@ -1,17 +1,17 @@
 /**
  * License Notice for FlexGanttFX
- *
+ * <p>
  * The FlexGanttFX software library is distributed under a dual licensing model.
- *
+ * <p>
  * 1. Commercial Use
- *    Use of FlexGanttFX in proprietary or commercial applications requires the purchase of a commercial license.
- *    The applicable terms and conditions can be found on the product's homepage at <https://www.flexganttfx.com/pages/licensing/>.
- *
+ * Use of FlexGanttFX in proprietary or commercial applications requires the purchase of a commercial license.
+ * The applicable terms and conditions can be found on the product's homepage at <https://www.flexganttfx.com/pages/licensing/>.
+ * <p>
  * 2. Open Source Use
- *    For use in open source projects, FlexGanttFX is made available under the **GNU AFFERO GENERAL PUBLIC LICENSE V3**.
- *    The full text of the license is available at:
- *    <https://github.com/dlemmermann/FlexGanttFX/blob/master/LICENSE>
- *
+ * For use in open source projects, FlexGanttFX is made available under the **GNU AFFERO GENERAL PUBLIC LICENSE V3**.
+ * The full text of the license is available at:
+ * <https://github.com/dlemmermann/FlexGanttFX/blob/master/LICENSE>
+ * <p>
  * By using FlexGanttFX, the licensee accepts and agrees to the applicable licensing terms.
  */
 package com.flexganttfx.demo.model;
@@ -23,11 +23,12 @@ import com.flexganttfx.model.Layer;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.view.GanttChartBase;
 import com.flexganttfx.view.GanttChartLite;
+import com.flexganttfx.view.graphics.layer.SystemLayer;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 import java.time.Duration;
 import java.time.ZonedDateTime;
@@ -179,7 +180,7 @@ public class HelloGanttChartLiteModel extends FlexGanttFXSample {
             }
         }
 
-        gantt.getRows().setAll(topLevelRows);
+        Platform.runLater(() -> gantt.getRows().setAll(topLevelRows));
     }
 
     @Override
@@ -187,7 +188,7 @@ public class HelloGanttChartLiteModel extends FlexGanttFXSample {
         return "A couple of model-related actions to verify the behaviour of the control related to model changes.";
     }
 
-    public static void main(String[] args) {
+    static void main(String[] args) {
         launch(args);
     }
 }

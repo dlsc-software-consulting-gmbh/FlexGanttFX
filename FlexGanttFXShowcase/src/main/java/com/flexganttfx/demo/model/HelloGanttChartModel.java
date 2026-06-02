@@ -22,6 +22,7 @@ import com.flexganttfx.model.Activity;
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.view.GanttChart;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.concurrent.Task;
 import javafx.scene.Node;
@@ -229,7 +230,9 @@ public class HelloGanttChartModel extends FlexGanttFXSample {
                     }
                 }
 
-                gantt.getRoot().getChildren().setAll(topLevelRows);
+                Platform.runLater(() -> {
+                    gantt.getRoot().getChildren().setAll(topLevelRows);
+                });
 
                 return null;
             }

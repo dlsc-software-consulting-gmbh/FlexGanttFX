@@ -6205,28 +6205,6 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         innerLinesColorProperty().set(color);
     }
 
-    // text fill color
-
-    private final ObjectProperty<Color> activityTextFill = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_TEXT_FILL, this, "textFill", Color.BLACK);
-
-    public final Color getActivityTextFill() {
-        return activityTextFill.get();
-    }
-
-    public final void setActivityTextFill(Color value) {
-        activityTextFill.set(value);
-    }
-
-    /**
-     * The activityTextFill property. Stores the text fill used to render activities in their normal
-     * state.
-     *
-     * @return the activityTextFill property
-     */
-    public final ObjectProperty<Color> activityTextFillProperty() {
-        return activityTextFill;
-    }
-
     // ── Activity colour properties ────────────────────────────────────────
 
     private final ObjectProperty<Color> activityFill = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_FILL, this, "activityFill", Color.LIGHTBLUE);
@@ -6344,6 +6322,28 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
      */
     public final ObjectProperty<Color> activityStrokeHoverProperty() { return activityStrokeHover; }
 
+    // text fill color
+
+    private final ObjectProperty<Color> activityTextFill = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_TEXT_FILL, this, "textFill", Color.BLACK);
+
+    public final Color getActivityTextFill() {
+        return activityTextFill.get();
+    }
+
+    public final void setActivityTextFill(Color value) {
+        activityTextFill.set(value);
+    }
+
+    /**
+     * The activityTextFill property. Stores the text fill used to render activities in their normal
+     * state.
+     *
+     * @return the activityTextFill property
+     */
+    public final ObjectProperty<Color> activityTextFillProperty() {
+        return activityTextFill;
+    }
+
     private final ObjectProperty<Color> activityTextFillHover = new SimpleStyleableObjectProperty<>(StyleableProperties.ACTIVITY_TEXT_FILL_HOVER, this, "activityTextFillHover", Color.BLACK);
 
     public final Color getActivityTextFillHover() { return activityTextFillHover.get(); }
@@ -6397,8 +6397,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     private static class StyleableProperties {
 
         private static final CssMetaData<GraphicsBase, Color> ACTIVITY_TEXT_FILL =
-                new CssMetaData<>("-fx-activity-text-fill",
-                        StyleConverter.getColorConverter(), Color.BLACK) {
+                new CssMetaData<>("-fx-activity-text-fill", StyleConverter.getColorConverter(), Color.BLACK) {
                     @Override
                     public boolean isSettable(GraphicsBase node) {
                         return node.activityTextFill == null || !node.activityTextFill.isBound();

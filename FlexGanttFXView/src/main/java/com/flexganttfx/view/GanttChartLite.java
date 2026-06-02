@@ -29,6 +29,7 @@ import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.scene.Node;
 import javafx.scene.control.Skin;
 
@@ -185,6 +186,9 @@ public class GanttChartLite<R extends Row<?, ?, ?>> extends GanttChartBase<R> {
      * @since 1.6
      */
     public GanttChartLite() {
+        FilteredList<R> filteredList = new FilteredList<>(rowsProperty());
+        filteredList.predicateProperty().bind(rowFilterProperty());
+        getGraphics().setRows(filteredList);
     }
 
     /**

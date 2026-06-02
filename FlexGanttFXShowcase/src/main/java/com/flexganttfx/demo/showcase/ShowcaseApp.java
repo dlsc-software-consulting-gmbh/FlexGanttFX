@@ -16,9 +16,7 @@
  */
 package com.flexganttfx.demo.showcase;
 
-import com.flexganttfx.extras.util.StageManager;
 import com.flexganttfx.core.FlexGanttFX;
-import fr.brouillard.oss.cssfx.CSSFX;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;

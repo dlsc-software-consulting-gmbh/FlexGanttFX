@@ -53,20 +53,6 @@ public class MSProjectTaskActivityRenderer extends CompletableActivityRenderer<M
 		Task task = taskActivity.getUserObject().getTask();
 		String resourceNames = task.getResourceNames();
 
-		if (getGraphics().isDarkTheme()) {
-			setTextFill(Color.WHITE);
-			setTextFillHover(Color.WHITE);
-			setTextFillHighlight(Color.YELLOW);
-			setTextFillPressed(Color.WHITE);
-			setTextFillSelected(Color.WHITE);
-		} else {
-			setTextFill(Color.BLACK);
-			setTextFillHover(Color.BLACK);
-			setTextFillHighlight(Color.BLACK);
-			setTextFillPressed(Color.BLACK);
-			setTextFillSelected(Color.BLACK);
-		}
-
 		drawText(ref, taskActivity.getName(), TextPosition.TRAILING, gc, x, y, width, height, selected, focused, highlighted, pressed);
 		drawText(ref, resourceNames, TextPosition.LEADING, gc, x, y, width, height, selected, focused, highlighted, pressed);
 

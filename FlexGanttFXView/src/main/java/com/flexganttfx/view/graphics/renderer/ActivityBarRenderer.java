@@ -62,15 +62,12 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
     public ActivityBarRenderer(GraphicsBase<?> graphics, String name) {
         super(graphics, name);
 
-        // text fill properties default to null; getTextFill() falls back to GraphicsBase
-
         redrawObservable(autoFixText);
         redrawObservable(barHeight);
         redrawObservable(font);
         redrawObservable(glossy);
         redrawObservable(textFill);
         redrawObservable(textGap);
-
         redrawObservable(textFill);
         redrawObservable(textFillSelected);
         redrawObservable(textFillHover);
