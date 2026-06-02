@@ -17,6 +17,7 @@
 package com.flexganttfx.demo.showcase;
 
 import com.flexganttfx.demo.Sample;
+import com.jpro.webapi.WebAPI;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -189,7 +190,11 @@ public class SampleContentView extends BorderPane {
         HiddenSidesPane examplePane = new HiddenSidesPane();
         examplePane.setTriggerDistance(0);
         examplePane.setAnimationDelay(Duration.ZERO);
-        examplePane.setAnimationDuration(Duration.millis(200));
+        if (WebAPI.isBrowser()) {
+            examplePane.setAnimationDuration(Duration.millis(1));
+        } else {
+            examplePane.setAnimationDuration(Duration.millis(200));
+        }
 
         if (codeExample != null) {
             examplePane.setRight(createExampleTray(codeExample, examplePane));
