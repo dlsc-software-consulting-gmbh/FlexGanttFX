@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.flexganttfx</groupId>
 		<artifactId>gantt</artifactId>
-		<version>11.13.14</version>
+		<version>11.13.15</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>assembly</artifactId>

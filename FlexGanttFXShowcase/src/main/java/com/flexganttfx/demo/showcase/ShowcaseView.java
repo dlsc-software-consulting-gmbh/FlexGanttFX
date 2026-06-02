@@ -126,8 +126,7 @@ public class ShowcaseView extends BorderPane {
 
     private static final Preferences PREFS = Preferences.userNodeForPackage(ShowcaseView.class);
     private static final String PREF_THEME = "theme";
-    private static final String CONTROLSFX_ATLANTAFX_CSS =
-            ShowcaseView.class.getResource("controlsfx-atlantafx.css").toExternalForm();
+    private static final String CONTROLSFX_ATLANTAFX_CSS = Objects.requireNonNull(ShowcaseView.class.getResource("controlsfx-atlantafx.css")).toExternalForm();
 
     /**
      * Applies the persisted theme (or PrimerDark) before the scene is created.

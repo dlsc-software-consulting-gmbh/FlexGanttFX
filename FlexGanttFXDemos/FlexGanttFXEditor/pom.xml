@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>com.flexganttfx</groupId>
 		<artifactId>demos</artifactId>
-		<version>11.13.14</version>
+		<version>11.13.15</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -22,7 +22,7 @@
 		<dependency>
 			<groupId>com.flexganttfx</groupId>
 			<artifactId>experimental</artifactId>
-			<version>11.13.14</version>
+			<version>11.13.15</version>
 		</dependency>
 
 		<dependency>

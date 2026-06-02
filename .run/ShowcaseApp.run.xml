@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ShowcaseApp" type="Application" factoryName="Application" nameIsGenerated="true">
+    <option name="MAIN_CLASS_NAME" value="com.flexganttfx.demo.showcase.ShowcaseApp" />
+    <module name="showcase" />
+    <option name="VM_PARAMETERS" value="-Djavafx.enablePreview=true" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.flexganttfx.demo.showcase.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
