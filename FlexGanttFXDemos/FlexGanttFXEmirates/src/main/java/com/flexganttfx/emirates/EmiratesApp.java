@@ -99,8 +99,6 @@ public class EmiratesApp extends Application {
 
     @Override
     public void start(Stage stage) {
-        Application.setUserAgentStylesheet(resolvePersistedTheme().getUserAgentStylesheet());
-
         if (!FlexGanttFX.isLicenseKeySet()) {
             FlexGanttFX.setLicenseKey("LIC=DLSC;VEN=DLSC;VER=12;PRO=STANDARD;RUN=no;CTR=1;SignCode=3F;Signature=302C02142BD7F914E6633D7DBA0B8564D8FC20EC249BCFD702142558B5C6FF46325A0A698A1E8036828E54D6FEC8");
         }
@@ -114,6 +112,7 @@ public class EmiratesApp extends Application {
         stack.getChildren().add(glassPane = new GlassPane());
 
         Scene scene = new Scene(stack);
+        scene.setUserAgentStylesheet(resolvePersistedTheme().getUserAgentStylesheet());
         scene.getStylesheets().add(Objects.requireNonNull(EmiratesApp.class.getResource("emirates.css")).toExternalForm());
 
         stage.setScene(scene);
@@ -250,7 +249,7 @@ public class EmiratesApp extends Application {
             item.setToggleGroup(themeGroup);
             item.setSelected(t.getName().equals(activeTheme.getName()));
             item.setOnAction(evt -> {
-                Application.setUserAgentStylesheet(t.getUserAgentStylesheet());
+                gantt.getScene().setUserAgentStylesheet(t.getUserAgentStylesheet());
                 PREFS.put(PREF_THEME, t.getName());
             });
             themeMenu.getItems().add(item);

@@ -52,13 +52,12 @@ public class SpaceXApp extends Application {
 
     @Override
     public void start(Stage stage) {
-        Application.setUserAgentStylesheet(resolveSavedTheme().getUserAgentStylesheet());
-
         SpaceXView view = new SpaceXView();
         VBox.setVgrow(view, Priority.ALWAYS);
 
-        VBox root = new VBox(createMenuBar(), view);
+        VBox root = new VBox(createMenuBar(stage), view);
         Scene scene = new Scene(root, 1440, 900);
+        scene.setUserAgentStylesheet(resolveSavedTheme().getUserAgentStylesheet());
 
         stage.setTitle(TITLE);
         stage.setScene(scene);
@@ -66,7 +65,7 @@ public class SpaceXApp extends Application {
         stage.show();
     }
 
-    private MenuBar createMenuBar() {
+    private MenuBar createMenuBar(Stage stage) {
         MenuItem exitItem = new MenuItem("Exit");
         exitItem.setOnAction(evt -> Platform.exit());
 
@@ -82,7 +81,7 @@ public class SpaceXApp extends Application {
             item.setToggleGroup(group);
             item.setSelected(theme.getName().equals(selectedTheme.getName()));
             item.setOnAction(evt -> {
-                Application.setUserAgentStylesheet(theme.getUserAgentStylesheet());
+                stage.getScene().setUserAgentStylesheet(theme.getUserAgentStylesheet());
                 PREFERENCES.put(THEME_KEY, theme.getName());
             });
             themeMenu.getItems().add(item);

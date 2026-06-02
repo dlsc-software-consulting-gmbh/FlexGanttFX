@@ -52,13 +52,12 @@ public class NaturalEventsApp extends Application {
 
     @Override
     public void start(Stage stage) {
-        Application.setUserAgentStylesheet(resolvePersistedTheme().getUserAgentStylesheet());
-
         NaturalEventsView view = new NaturalEventsView();
         VBox.setVgrow(view, Priority.ALWAYS);
 
-        VBox root = new VBox(createMenuBar(), view);
+        VBox root = new VBox(createMenuBar(stage), view);
         Scene scene = new Scene(root, 1440, 900);
+        scene.setUserAgentStylesheet(resolvePersistedTheme().getUserAgentStylesheet());
 
         stage.setTitle(TITLE);
         stage.setScene(scene);
@@ -66,7 +65,7 @@ public class NaturalEventsApp extends Application {
         stage.show();
     }
 
-    private MenuBar createMenuBar() {
+    private MenuBar createMenuBar(Stage stage) {
         MenuBar menuBar = new MenuBar();
 
         Menu fileMenu = new Menu("File");
@@ -82,7 +81,7 @@ public class NaturalEventsApp extends Application {
             item.setToggleGroup(themeGroup);
             item.setSelected(theme.getName().equals(activeTheme.getName()));
             item.setOnAction(evt -> {
-                Application.setUserAgentStylesheet(theme.getUserAgentStylesheet());
+                stage.getScene().setUserAgentStylesheet(theme.getUserAgentStylesheet());
                 PREFERENCES.put(THEME_KEY, theme.getName());
             });
             themeMenu.getItems().add(item);

@@ -79,21 +79,20 @@ public class AirportApp extends Application {
 
     @Override
     public void start(Stage stage) {
-        Application.setUserAgentStylesheet(resolvePersistedTheme().getUserAgentStylesheet());
-
         AirportView airportView = new AirportView();
         VBox.setVgrow(airportView, Priority.ALWAYS);
 
-        VBox root = new VBox(createMenuBar(), airportView);
+        VBox root = new VBox(createMenuBar(stage), airportView);
 
         Scene scene = new Scene(root, 1400, 900);
+        scene.setUserAgentStylesheet(resolvePersistedTheme().getUserAgentStylesheet());
         stage.setScene(scene);
         stage.setTitle("FlexGanttFX – Frankfurt Airport Ground Operations");
         stage.centerOnScreen();
         stage.show();
     }
 
-    private MenuBar createMenuBar() {
+    private MenuBar createMenuBar(Stage stage) {
         MenuBar menuBar = new MenuBar();
 
         // File menu
@@ -111,7 +110,7 @@ public class AirportApp extends Application {
             item.setToggleGroup(themeGroup);
             item.setSelected(t.getName().equals(activeTheme.getName()));
             item.setOnAction(evt -> {
-                Application.setUserAgentStylesheet(t.getUserAgentStylesheet());
+                stage.getScene().setUserAgentStylesheet(t.getUserAgentStylesheet());
                 PREFS.put(PREF_THEME, t.getName());
             });
             themeMenu.getItems().add(item);

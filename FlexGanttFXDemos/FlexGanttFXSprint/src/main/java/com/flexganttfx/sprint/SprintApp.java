@@ -77,8 +77,6 @@ public class SprintApp extends Application {
 
     @Override
     public void start(Stage stage) {
-        Application.setUserAgentStylesheet(resolvePersistedTheme().getUserAgentStylesheet());
-
         if (!FlexGanttFX.isLicenseKeySet()) {
             FlexGanttFX.setLicenseKey("LIC=DLSC;VEN=DLSC;VER=12;PRO=STANDARD;RUN=no;CTR=1;SignCode=3F;Signature=302C02142BD7F914E6633D7DBA0B8564D8FC20EC249BCFD702142558B5C6FF46325A0A698A1E8036828E54D6FEC8");
         }
@@ -88,12 +86,13 @@ public class SprintApp extends Application {
         SprintView sprintView = new SprintView();
         VBox.setVgrow(sprintView, Priority.ALWAYS);
 
-        MenuBar menuBar = createMenuBar(sprintView);
+        MenuBar menuBar = createMenuBar(sprintView, stage);
 
         VBox root = new VBox(menuBar, sprintView);
         VBox.setVgrow(sprintView, Priority.ALWAYS);
 
         Scene scene = new Scene(root);
+        scene.setUserAgentStylesheet(resolvePersistedTheme().getUserAgentStylesheet());
 
         stage.setScene(scene);
         stage.setWidth(1400);
@@ -102,7 +101,7 @@ public class SprintApp extends Application {
         stage.show();
     }
 
-    private MenuBar createMenuBar(SprintView sprintView) {
+    private MenuBar createMenuBar(SprintView sprintView, Stage stage) {
         MenuBar menuBar = new MenuBar();
 
         Menu fileMenu = new Menu("File");
@@ -119,7 +118,7 @@ public class SprintApp extends Application {
             item.setToggleGroup(themeGroup);
             item.setSelected(t.getName().equals(activeTheme.getName()));
             item.setOnAction(evt -> {
-                Application.setUserAgentStylesheet(t.getUserAgentStylesheet());
+                stage.getScene().setUserAgentStylesheet(t.getUserAgentStylesheet());
                 PREFS.put(PREF_THEME, t.getName());
             });
             themeMenu.getItems().add(item);

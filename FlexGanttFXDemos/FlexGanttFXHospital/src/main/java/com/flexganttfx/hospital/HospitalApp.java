@@ -74,14 +74,13 @@ public class HospitalApp extends Application {
 
     @Override
     public void start(Stage stage) {
-        Application.setUserAgentStylesheet(resolvePersistedTheme().getUserAgentStylesheet());
-
         HospitalView hospitalView = new HospitalView();
         VBox.setVgrow(hospitalView, Priority.ALWAYS);
 
         VBox root = new VBox();
         root.getStyleClass().add("hospital-app");
         Scene scene = new Scene(root, 1560, 960);
+        scene.setUserAgentStylesheet(resolvePersistedTheme().getUserAgentStylesheet());
         root.getChildren().addAll(createMenuBar(scene, hospitalView), hospitalView);
         applyThemeStylesheet(scene);
         hospitalView.applyThemeStylesheet();
@@ -102,7 +101,7 @@ public class HospitalApp extends Application {
             item.setToggleGroup(themeGroup);
             item.setSelected(theme.getName().equals(activeTheme.getName()));
             item.setOnAction(evt -> {
-                Application.setUserAgentStylesheet(theme.getUserAgentStylesheet());
+                scene.setUserAgentStylesheet(theme.getUserAgentStylesheet());
                 applyThemeStylesheet(scene);
                 hospitalView.applyThemeStylesheet();
                 PREFS.put(PREF_THEME, theme.getName());

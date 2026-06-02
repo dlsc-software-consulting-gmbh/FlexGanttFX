@@ -82,20 +82,19 @@ public class FactoryApp extends Application {
 
     @Override
     public void start(Stage stage) {
-        Application.setUserAgentStylesheet(resolvePersistedTheme().getUserAgentStylesheet());
-
         FactoryView factoryView = new FactoryView();
         VBox.setVgrow(factoryView, Priority.ALWAYS);
 
-        VBox root = new VBox(createMenuBar(), factoryView);
+        VBox root = new VBox(createMenuBar(stage), factoryView);
         Scene scene = new Scene(root, 1200, 700);
+        scene.setUserAgentStylesheet(resolvePersistedTheme().getUserAgentStylesheet());
         stage.setScene(scene);
         stage.setTitle("FlexGanttFX – Factory Scheduling Demo");
         stage.centerOnScreen();
         stage.show();
     }
 
-    private MenuBar createMenuBar() {
+    private MenuBar createMenuBar(Stage stage) {
         MenuBar menuBar = new MenuBar();
 
         Menu themeMenu = new Menu("Theme");
@@ -106,7 +105,7 @@ public class FactoryApp extends Application {
             item.setToggleGroup(themeGroup);
             item.setSelected(t.getName().equals(activeTheme.getName()));
             item.setOnAction(evt -> {
-                Application.setUserAgentStylesheet(t.getUserAgentStylesheet());
+                stage.getScene().setUserAgentStylesheet(t.getUserAgentStylesheet());
                 PREFS.put(PREF_THEME, t.getName());
             });
             themeMenu.getItems().add(item);

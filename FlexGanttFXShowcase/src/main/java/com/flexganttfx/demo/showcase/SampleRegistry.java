@@ -22,16 +22,43 @@ import com.flexganttfx.demo.gantt.*;
 import com.flexganttfx.demo.layout.*;
 import com.flexganttfx.demo.model.*;
 import com.flexganttfx.demo.timeline.*;
+import com.flexganttfx.demo.Sample;
+import com.jpro.webapi.WebAPI;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * Central registry of all showcase categories and samples.
  */
 public class SampleRegistry {
 
-    public static final List<SampleCategory> CATEGORIES = List.of(
+    public static final List<SampleCategory> CATEGORIES = buildCategories();
+
+    private static List<SampleCategory> buildCategories() {
+        List<Supplier<Sample>> ganttSamples = new ArrayList<>(List.of(
+                HelloAtlantaFXStyling::new,
+                HelloGanttChart::new,
+                HelloGanttChartLite::new,
+                HelloGanttChartEmpty::new,
+                HelloMultiLine::new,
+                HelloLinksStressTest::new,
+                HelloRowHeaderColumn::new,
+                HelloScrollBars::new,
+                HelloSystemLayers::new,
+                HelloToolTip::new,
+                HelloCanvasBuffer::new,
+                HelloGraphicsView::new,
+                HelloPrinting::new,
+                HelloGlobalActivities::new
+        ));
+        if (!WebAPI.isBrowser()) {
+            ganttSamples.add(4, HelloDragAndDrop::new);
+        }
+
+        return List.of(
 
             new SampleCategory("Demos", MaterialDesign.MDI_ROCKET, "#FF6B35",
                     List.of(
@@ -51,23 +78,7 @@ public class SampleRegistry {
             ),
 
             new SampleCategory("Gantt Chart", MaterialDesign.MDI_CHART_GANTT, "#4A90D9",
-                    List.of(
-                            HelloAtlantaFXStyling::new,
-                            HelloGanttChart::new,
-                            HelloGanttChartLite::new,
-                            HelloGanttChartEmpty::new,
-                            HelloDragAndDrop::new,
-                            HelloMultiLine::new,
-                            HelloLinksStressTest::new,
-                            HelloRowHeaderColumn::new,
-                            HelloScrollBars::new,
-                            HelloSystemLayers::new,
-                            HelloToolTip::new,
-                            HelloCanvasBuffer::new,
-                            HelloGraphicsView::new,
-                            HelloPrinting::new,
-                            HelloGlobalActivities::new
-                    )
+                    ganttSamples
             ),
 
             new SampleCategory("Containers", MaterialDesign.MDI_VIEW_GRID, "#7B68EE",
@@ -105,5 +116,6 @@ public class SampleRegistry {
                             HelloSimpleUnitTimeline::new
                     )
             )
-    );
+        );
+    }
 }

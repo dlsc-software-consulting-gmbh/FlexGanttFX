@@ -93,19 +93,18 @@ public class SpaceMissionApp extends Application {
             FlexGanttFX.setLicenseKey("LIC=DLSC;VEN=DLSC;VER=12;PRO=STANDARD;RUN=no;CTR=1;SignCode=3F;Signature=302C02142BD7F914E6633D7DBA0B8564D8FC20EC249BCFD702142558B5C6FF46325A0A698A1E8036828E54D6FEC8");
         }
 
-        Application.setUserAgentStylesheet(resolvePersistedTheme().getUserAgentStylesheet());
-
         stage.setTitle("Space Mission Control Center — FlexGanttFX Demo");
 
         SpaceMissionView view = new SpaceMissionView();
         VBox.setVgrow(view, Priority.ALWAYS);
 
-        MenuBar menuBar = createMenuBar(view);
+        MenuBar menuBar = createMenuBar(view, stage);
 
         VBox root = new VBox(menuBar, view);
         VBox.setVgrow(view, Priority.ALWAYS);
 
         Scene scene = new Scene(root);
+        scene.setUserAgentStylesheet(resolvePersistedTheme().getUserAgentStylesheet());
         stage.setScene(scene);
         stage.setWidth(1400);
         stage.setHeight(900);
@@ -113,7 +112,7 @@ public class SpaceMissionApp extends Application {
         stage.show();
     }
 
-    private MenuBar createMenuBar(SpaceMissionView view) {
+    private MenuBar createMenuBar(SpaceMissionView view, Stage stage) {
         MenuBar menuBar = new MenuBar();
 
         // File menu
@@ -138,7 +137,7 @@ public class SpaceMissionApp extends Application {
             item.setToggleGroup(themeGroup);
             item.setSelected(t.getName().equals(activeTheme.getName()));
             item.setOnAction(evt -> {
-                Application.setUserAgentStylesheet(t.getUserAgentStylesheet());
+                stage.getScene().setUserAgentStylesheet(t.getUserAgentStylesheet());
                 PREFS.put(PREF_THEME, t.getName());
             });
             themeMenu.getItems().add(item);

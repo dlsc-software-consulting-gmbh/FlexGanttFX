@@ -85,20 +85,19 @@ public class WeatherApp extends Application {
 
     @Override
     public void start(Stage stage) {
-        Application.setUserAgentStylesheet(resolvePersistedTheme().getUserAgentStylesheet());
-
         WeatherView weatherView = new WeatherView();
         VBox.setVgrow(weatherView, Priority.ALWAYS);
 
-        VBox root = new VBox(createMenuBar(), weatherView);
+        VBox root = new VBox(createMenuBar(stage), weatherView);
         Scene scene = new Scene(root, 1300, 750);
+        scene.setUserAgentStylesheet(resolvePersistedTheme().getUserAgentStylesheet());
         stage.setScene(scene);
         stage.setTitle("FlexGanttFX – World Climate Explorer");
         stage.centerOnScreen();
         stage.show();
     }
 
-    private MenuBar createMenuBar() {
+    private MenuBar createMenuBar(Stage stage) {
         MenuBar menuBar = new MenuBar();
 
         Menu themeMenu = new Menu("Theme");
@@ -109,7 +108,7 @@ public class WeatherApp extends Application {
             item.setToggleGroup(themeGroup);
             item.setSelected(t.getName().equals(activeTheme.getName()));
             item.setOnAction(evt -> {
-                Application.setUserAgentStylesheet(t.getUserAgentStylesheet());
+                stage.getScene().setUserAgentStylesheet(t.getUserAgentStylesheet());
                 PREFS.put(PREF_THEME, t.getName());
             });
             themeMenu.getItems().add(item);
