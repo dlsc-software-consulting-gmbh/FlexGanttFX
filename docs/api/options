@@ -1,7 +1,7 @@
 --class-path
-'/Users/lemmi/.m2/repository/org/openjfx/javafx-base/19.0.2.1/javafx-base-19.0.2.1.jar:/Users/lemmi/.m2/repository/org/openjfx/javafx-controls/19.0.2.1/javafx-controls-19.0.2.1.jar:/Users/lemmi/.m2/repository/org/openjfx/javafx-graphics/19.0.2.1/javafx-graphics-19.0.2.1.jar'
+'/Users/lemmi/.m2/repository/org/openjfx/javafx-base/17.0.14/javafx-base-17.0.14.jar:/Users/lemmi/.m2/repository/org/openjfx/javafx-controls/17.0.14/javafx-controls-17.0.14.jar:/Users/lemmi/.m2/repository/org/openjfx/javafx-graphics/17.0.14/javafx-graphics-17.0.14.jar'
 --module-path
-'/Users/lemmi/.m2/repository/com/smardec/license4j/1.4.0/license4j-1.4.0.jar:/Users/lemmi/git/FlexGanttFX/FlexGanttFXView/target/classes:/Users/lemmi/git/FlexGanttFX/FlexGanttFXExtras/target/classes:/Users/lemmi/.m2/repository/org/kordamp/ikonli/ikonli-materialdesign-pack/12.3.1/ikonli-materialdesign-pack-12.3.1.jar:/Users/lemmi/.m2/repository/org/controlsfx/controlsfx/11.1.1/controlsfx-11.1.1.jar:/Users/lemmi/git/FlexGanttFX/FlexGanttFXCore/target/classes:/Users/lemmi/.m2/repository/org/openjfx/javafx-graphics/19.0.2.1/javafx-graphics-19.0.2.1-mac-aarch64.jar:/Users/lemmi/.m2/repository/org/kordamp/ikonli/ikonli-core/12.3.1/ikonli-core-12.3.1.jar:/Users/lemmi/.m2/repository/org/kordamp/ikonli/ikonli-javafx/12.3.1/ikonli-javafx-12.3.1.jar:/Users/lemmi/git/FlexGanttFX/FlexGanttFXModel/target/classes:/Users/lemmi/.m2/repository/org/openjfx/javafx-base/19.0.2.1/javafx-base-19.0.2.1-mac-aarch64.jar:/Users/lemmi/.m2/repository/org/openjfx/javafx-controls/19.0.2.1/javafx-controls-19.0.2.1-mac-aarch64.jar'
+'/Users/lemmi/.m2/repository/com/smardec/license4j/1.4.0/license4j-1.4.0.jar:/Users/lemmi/git/FlexGanttFX/FlexGanttFXView/target/classes:/Users/lemmi/git/FlexGanttFX/FlexGanttFXExtras/target/classes:/Users/lemmi/.m2/repository/org/controlsfx/controlsfx/11.1.1/controlsfx-11.1.1.jar:/Users/lemmi/git/FlexGanttFX/FlexGanttFXCore/target/classes:/Users/lemmi/.m2/repository/org/openjfx/javafx-base/17.0.14/javafx-base-17.0.14-mac-aarch64.jar:/Users/lemmi/.m2/repository/org/kordamp/ikonli/ikonli-core/12.4.0/ikonli-core-12.4.0.jar:/Users/lemmi/.m2/repository/org/kordamp/ikonli/ikonli-javafx/12.4.0/ikonli-javafx-12.4.0.jar:/Users/lemmi/.m2/repository/org/kordamp/ikonli/ikonli-materialdesign-pack/12.4.0/ikonli-materialdesign-pack-12.4.0.jar:/Users/lemmi/.m2/repository/org/openjfx/javafx-controls/17.0.14/javafx-controls-17.0.14-mac-aarch64.jar:/Users/lemmi/.m2/repository/org/openjfx/javafx-graphics/17.0.14/javafx-graphics-17.0.14-mac-aarch64.jar:/Users/lemmi/git/FlexGanttFX/FlexGanttFXModel/target/classes'
 --patch-module
 com.flexganttfx.extras='/Users/lemmi/git/FlexGanttFX/FlexGanttFXExtras/src/main/java:/Users/lemmi/git/FlexGanttFX/FlexGanttFXExtras/target/generated-sources/annotations:/Users/lemmi/git/FlexGanttFX/FlexGanttFXExtras/src/main/javadoc'
 --patch-module
@@ -20,7 +20,7 @@ com.flexganttfx.view='/Users/lemmi/git/FlexGanttFX/FlexGanttFXView/src/main/java
 -verbose
 -author
 -bottom
-'Copyright &#169; 2025 DLSC Software & Consulting GmbH. All rights reserved.'
+'Copyright &#169; 2026 DLSC Software & Consulting GmbH. All rights reserved.'
 -charset
 'UTF-8'
 -d
@@ -29,7 +29,7 @@ com.flexganttfx.view='/Users/lemmi/git/FlexGanttFX/FlexGanttFXView/src/main/java
 'UTF-8'
 -docfilessubdirs
 -doctitle
-'FlexGanttFX 11.12.8 API'
+'FlexGanttFX 11.13.18 API'
 -group
 'Core' 'com.flexganttfx.core*'
 -group
@@ -47,4 +47,4 @@ com.flexganttfx.view='/Users/lemmi/git/FlexGanttFX/FlexGanttFXView/src/main/java
 -use
 -version
 -windowtitle
-'FlexGanttFX 11.12.8 API'
+'FlexGanttFX 11.13.18 API'
