@@ -309,8 +309,8 @@ a:hover { color: var(--blue-dark); }
   border: 1px solid var(--gray-200);
 }
 .demo-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-.demo-card-img { aspect-ratio: 16/9; overflow: hidden; background: var(--navy-light); }
-.demo-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+.demo-card-img { overflow: hidden; background: var(--navy-light); }
+.demo-card-img img { width: 100%; height: auto; display: block; object-fit: contain; transition: transform 0.4s ease; }
 .demo-card:hover .demo-card-img img { transform: scale(1.04); }
 .demo-card-body { padding: 20px 24px 24px; }
 .demo-card-body h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: var(--navy); }
