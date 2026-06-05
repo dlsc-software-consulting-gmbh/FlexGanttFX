@@ -495,8 +495,9 @@ public class ShowcaseView extends BorderPane {
         currentTheme = theme;
         String uas = theme.equals(MODENA) ? null : theme.getUserAgentStylesheet();
         getScene().setUserAgentStylesheet(uas);
-        PREFS.put(PREF_THEME, theme.getName());
-
+        if (!WebAPI.isBrowser()) {
+            PREFS.put(PREF_THEME, theme.getName());
+        }
         rebuildTopBar();
         updateThemeStyleClass();
         updateControlsFXStylesheet(getScene());
