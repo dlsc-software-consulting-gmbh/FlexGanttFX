@@ -10,6 +10,8 @@ Release: 11.14.0, Date: June 2026
 ** Fixed potential integer overflow issue in IntervalTree
 ** Fixed an issue related to changing the observable list on GanttChartLite.
    Changes to the new list would not update the view.
+** Fixed an issue in RowHeaderColumnCell that caused the cell to not be updated properly
+   when the header type or node factory changed.
 
 ----------------------------------------------------------------
 Release: 11.12.8, Date: January 17th 2024
