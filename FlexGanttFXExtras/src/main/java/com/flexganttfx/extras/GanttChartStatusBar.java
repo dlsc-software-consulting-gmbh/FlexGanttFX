@@ -83,11 +83,14 @@ public class GanttChartStatusBar<R extends Row<?, ?, ?>> extends StatusBar {
 
             updateGridLabel();
         });
+    }
 
+    @Override
+    public String getUserAgentStylesheet() {
         if (ThemingUtil.isAtlantaFXActive(getScene())) {
-            getStylesheets().add(requireNonNull(GanttChartStatusBar.class.getResource("statusbar-atlantafx.css")).toExternalForm());
+           return requireNonNull(GanttChartStatusBar.class.getResource("statusbar-atlantafx.css")).toExternalForm();
         } else {
-            getStylesheets().add(requireNonNull(GanttChartStatusBar.class.getResource("statusbar.css")).toExternalForm());
+            return requireNonNull(GanttChartStatusBar.class.getResource("statusbar.css")).toExternalForm();
         }
     }
 

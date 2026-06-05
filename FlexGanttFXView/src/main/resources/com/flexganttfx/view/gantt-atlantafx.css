@@ -25,6 +25,11 @@
     -fx-background-insets: 0, 0 1 1 0 !important;
 }
 
+.gantt-tree-table-view.bordered .tree-table-row-cell {
+    -fx-border-width: 0px !important;
+    -fx-border-color: transparent !important;
+}
+
 .eventline .row-header {
     -fx-background-color: -color-border-default, -color-border-muted, -color-bg-subtle;
     -fx-background-insets: 0, 0 1 1 0, 1 2 2 0;

@@ -1,3 +1,11 @@
-.gantt-chart-status-bar {
-    -fx-background-color: -color-bg-subtle;
+.status-bar {
+    -fx-padding: 4px;
+    -fx-pref-height: 30px;
+    -fx-background-color: -color-border-default, -color-bg-subtle;
+    -fx-background-insets: 0, 1
+}
+
+.status-bar > .left-items,
+.status-bar > .right-items {
+    -fx-alignment: center;
 }
