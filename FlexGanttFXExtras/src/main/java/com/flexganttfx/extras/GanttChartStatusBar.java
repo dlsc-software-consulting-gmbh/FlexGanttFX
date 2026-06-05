@@ -37,11 +37,9 @@ import java.text.MessageFormat;
 import static java.util.Objects.requireNonNull;
 
 /**
- * A statusbar implementation that can be used in combination with the Gantt
- * chart control. Please note that this statusbar is used for rapid prototyping
- * and does not present a feature-complete implementation that could be used for
- * any kind of application. An entire framework could be written just for that
- * purpose.
+ * A status bar for rapid prototyping with FlexGanttFX. It observes a
+ * {@link GanttChartBase} and displays the name of the currently hovered
+ * activity together with the active virtual grid.
  *
  * @param <R> the type of the rows in the Gantt chart
  * @since 1.0
@@ -138,32 +136,20 @@ public class GanttChartStatusBar<R extends Row<?, ?, ?>> extends StatusBar {
     private final ObjectProperty<GanttChartBase<R>> ganttChart = new SimpleObjectProperty<>(this, "ganttChart");
 
     /**
-     * A property used to store the reference to the Gantt chart that will be
-     * watched by this statusbar.
+     * The ganttChart property. Stores the Gantt chart watched by this status
+     * bar.
      *
-     * @return the Gantt chart property
+     * @return the ganttChart property
      * @since 1.0
      */
     public final ObjectProperty<GanttChartBase<R>> ganttChartProperty() {
         return ganttChart;
     }
 
-    /**
-     * Returns the value of {@link #ganttChartProperty()}.
-     *
-     * @return the property used for the Gantt chart reference
-     * @since 1.0
-     */
     public final GanttChartBase<R> getGanttChart() {
         return ganttChartProperty().get();
     }
 
-    /**
-     * Sets the value of {@link #ganttChartProperty()}.
-     *
-     * @param ganttChart the Gantt chart
-     * @since 1.0
-     */
     public final void setGanttChart(GanttChartBase<R> ganttChart) {
         requireNonNull(ganttChart);
         ganttChartProperty().set(ganttChart);

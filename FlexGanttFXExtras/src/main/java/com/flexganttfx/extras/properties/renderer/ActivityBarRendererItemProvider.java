@@ -28,7 +28,10 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * A property sheet item provider for {@link ActivityBarRenderer}.
+ * Provides ControlsFX {@link org.controlsfx.control.PropertySheet.Item}
+ * instances for configuring {@link ActivityBarRenderer}.
+ *
+ * @since 1.0
  */
 public class ActivityBarRendererItemProvider implements ItemProvider<ActivityBarRenderer> {
 

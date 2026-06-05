@@ -26,17 +26,16 @@ import org.controlsfx.control.PropertySheet.Item;
 import java.util.Optional;
 
 /**
- * A property sheet item provider for {@link GanttChartBase}.
+ * Provides ControlsFX {@link org.controlsfx.control.PropertySheet.Item}
+ * instances for configuring a {@link DualGanttChartContainerBase}.
+ *
+ * @param <T> the chart type managed by the container
+ * @since 1.0
  */
 public class DualGanttChartContainerBaseItemProvider<T extends GanttChartBase<?>> implements ItemProvider<DualGanttChartContainerBase<T>> {
 
     private static final String DUAL_GANTT_CHART_CONTAINER_PROPERTIES_CATEGORY = "Control: Dual Gantt Chart Container";
 
-    /**
-     * Returns property sheet items.
-     *
-     * @return property sheet items
-     */
     public final ObservableList<Item> getPropertySheetItems(DualGanttChartContainerBase<T> container) {
         ObservableList<Item> items = FXCollections.observableArrayList();
 

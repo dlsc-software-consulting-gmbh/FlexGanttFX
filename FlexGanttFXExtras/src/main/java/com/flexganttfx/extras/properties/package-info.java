@@ -15,7 +15,9 @@
  * By using FlexGanttFX, the licensee accepts and agrees to the applicable licensing terms.
  */
 /**
- * Contains the item factory and item providers for use with the property sheet view of
- * ControlsFX.
+ * ControlsFX property-sheet support for inspecting and configuring
+ * FlexGanttFX controls, layers, renderers, and timelines.
+ *
+ * @since 1.0
  */
 package com.flexganttfx.extras.properties;

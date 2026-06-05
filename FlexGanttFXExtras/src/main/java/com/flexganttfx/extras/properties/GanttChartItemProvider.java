@@ -28,6 +28,7 @@ import java.util.Optional;
  * A property sheet item provider for {@link GanttChart}.
  *
  * @param <R> the row type
+ * @since 1.0
  */
 public class GanttChartItemProvider<R extends Row<?, ?, ?>> implements ItemProvider<GanttChart<R>> {
 

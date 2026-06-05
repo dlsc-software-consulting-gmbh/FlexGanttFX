@@ -27,6 +27,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Provides ControlsFX {@link org.controlsfx.control.PropertySheet.Item}
+ * instances for configuring {@link Timeline}.
+ *
+ * @since 1.0
+ */
 public class TimelineItemProvider implements ItemProvider<Timeline> {
 
     private static final String TIMELINE_PROPERTIES_CATEGORY = "Control: Timeline";

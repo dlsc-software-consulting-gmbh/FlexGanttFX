@@ -32,57 +32,43 @@ import javafx.scene.control.Skin;
  *
  * @see GraphicsBase#getLayers()
  *
- * @param <R>
- *            the type of the rows
+ * @param <R> the type of the rows
  * @since 1.0
  */
 public class LayersView<R extends Row<?, ?, ?>> extends FlexGanttFXControl {
 
-	/**
-	 * Constructs a new layer view.
-	 */
-	public LayersView() {
-		getStylesheets().add(LayersView.class.getResource("layers-view.css").toExternalForm());
-	}
+    /**
+     * Constructs a new layer view.
+     */
+    public LayersView() {
+        getStylesheets().add(LayersView.class.getResource("layers-view.css").toExternalForm());
+    }
 
-	@Override
-	protected Skin<?> createDefaultSkin() {
-		return new LayersViewSkin<>(this);
-	}
+    @Override
+    protected Skin<?> createDefaultSkin() {
+        return new LayersViewSkin<>(this);
+    }
 
-	private final ObjectProperty<GraphicsBase<R>> graphics = new SimpleObjectProperty<>(this, "graphics");
+    private final ObjectProperty<GraphicsBase<R>> graphics = new SimpleObjectProperty<>(this, "graphics");
 
-	/**
-	 * A property used to store a reference to the graphics view for which the
-	 * control is being used.
-	 *
-	 * @see GraphicsBase#getLayers()
-	 *
-	 * @return the property used to store the graphics view
-	 * @since 1.0
-	 */
-	public final ObjectProperty<GraphicsBase<R>> graphicsProperty() {
-		return graphics;
-	}
+    /**
+     * The graphics property. Stores the graphics view whose layer list is
+     * managed by this control.
+     *
+     * @see GraphicsBase#getLayers()
+     *
+     * @return the graphics property
+     * @since 1.0
+     */
+    public final ObjectProperty<GraphicsBase<R>> graphicsProperty() {
+        return graphics;
+    }
 
-	/**
-	 * Returns the value of {@link #graphicsProperty()}.
-	 *
-	 * @return the graphics view used for this control
-	 * @since 1.0
-	 */
-	public final GraphicsBase<R> getGraphics() {
-		return graphics.get();
-	}
+    public final GraphicsBase<R> getGraphics() {
+        return graphics.get();
+    }
 
-	/**
-	 * Sets the value of {@link #graphicsProperty()}.
-	 *
-	 * @param graphics
-	 *            the graphics view used for this control
-	 * @since 1.0
-	 */
-	public final void setGraphics(GraphicsBase<R> graphics) {
-		graphicsProperty().set(graphics);
-	}
+    public final void setGraphics(GraphicsBase<R> graphics) {
+        graphicsProperty().set(graphics);
+    }
 }

@@ -26,6 +26,8 @@ import javafx.scene.control.TabPane;
 /**
  * A tab pane containing four tabs with property sheets for controls, renderers,
  * background, and foreground layers.
+ *
+ * @since 1.0
  */
 public class GanttChartConfigurationView extends TabPane  {
 
@@ -72,28 +74,19 @@ public class GanttChartConfigurationView extends TabPane  {
     private final ObjectProperty<GanttChartBase> ganttChart = new SimpleObjectProperty<>(this, "ganttChart");
 
     /**
-     * Returns the property that stores the Gantt chart for which the view is being used.
+     * The ganttChart property. Stores the Gantt chart whose controls, layers,
+     * and renderers are displayed in this configuration view.
      *
-     * @return the Gantt chart.
+     * @return the ganttChart property
      */
     public final ObjectProperty<GanttChartBase> ganttChartProperty() {
         return ganttChart;
     }
 
-    /**
-     * Returns the Gantt chart.
-     *
-     * @return the Gantt chart.
-     */
     public final GanttChartBase getGanttChart() {
         return ganttChart.get();
     }
 
-    /**
-     * Sets the Gantt chart.
-     *
-     * @param ganttChart the chart
-     */
     public final void setGanttChart(GanttChartBase ganttChart) {
         this.ganttChart.set(ganttChart);
     }

@@ -28,6 +28,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Provides ControlsFX {@link org.controlsfx.control.PropertySheet.Item}
+ * instances for configuring {@link Dateline}.
+ *
+ * @since 1.0
+ */
 public class DatelineItemProvider implements ItemProvider<Dateline> {
 
     private static final String DATELINE_PROPERTIES_CATEGORY = "Control: Dateline";

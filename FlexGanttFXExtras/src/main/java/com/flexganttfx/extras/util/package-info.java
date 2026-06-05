@@ -15,7 +15,8 @@
  * By using FlexGanttFX, the licensee accepts and agrees to the applicable licensing terms.
  */
 /**
- * Utility classes for the utility controls (e.g. i18n resource bundle).
+ * Utility classes for FlexGanttFX extras, including localization and stage
+ * persistence.
  *
  * @since 1.0
  */

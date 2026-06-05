@@ -27,15 +27,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A property sheet implementation for use with the property sheet view of
- * ControlsFX.
+ * A ControlsFX {@link org.controlsfx.control.PropertySheet} preconfigured for
+ * FlexGanttFX. Populate {@link #getTargets()} with Gantt chart controls,
+ * layers, or renderers; the sheet auto-updates its items via {@link ItemFactory}.
  *
  * @param <R> the row type
+ * @since 1.0
  */
 public class GanttChartPropertySheet<R extends Row<?, ?, ?>> extends PropertySheet {
 
     /**
-     * Constructs a new sheet.
+     * Constructs an empty property sheet.
+     *
+     * @since 1.0
      */
     public GanttChartPropertySheet() {
         setMode(Mode.CATEGORY);
@@ -44,6 +48,9 @@ public class GanttChartPropertySheet<R extends Row<?, ?, ?>> extends PropertyShe
 
     /**
      * Constructs a new sheet for the given target object.
+     *
+     * @param target the initial target object
+     * @since 1.0
      */
     public GanttChartPropertySheet(Object target) {
         this();

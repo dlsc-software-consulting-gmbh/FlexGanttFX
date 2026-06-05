@@ -62,16 +62,20 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This factory creates property sheet items for a given object. In previous versions of
- * FlexGanttFX these items were returned by the custom controls themselves but since this
- * was more a feature used at evaluation time of the product it did not make sense to keep
- * them in production code. Hence they were refactored to this place.
+ * This factory creates property sheet items for a given object. In previous
+ * versions of FlexGanttFX these items were returned by the custom controls
+ * themselves, but since this was more a feature used at evaluation time of the
+ * product it did not make sense to keep them in production code. Hence they
+ * were refactored to this place.
  * <p>
  * Supported classes / classes with an item provider implementation
  * <ul>
  *     <li>GanttChartBase</li>
  *     <li>GanttChart</li>
  *     <li>GraphicsBase</li>
+ *     <li>Dateline</li>
+ *     <li>Timeline</li>
+ *     <li>Eventline</li>
  *     <li>AgendaLinesLayer</li>
  *     <li>ChartLinesLayer</li>
  *     <li>DSTLineLayer</li>
@@ -80,17 +84,19 @@ import java.util.Map;
  *     <li>InnerLinesLayer</li>
  *     <li>LayoutLayer</li>
  *     <li>NowLineLayer</li>
- *     <li>ScaleLayer</li>
  *     <li>SelectedTimeIntervalsLayer</li>
  *     <li>SystemLayer</li>
  *     <li>ZoomTimeIntervalLayer</li>
  *     <li>ActivityBarRenderer</li>
- *     <li>ActivityRendererItemProvider</li>
+ *     <li>ActivityRenderer</li>
  *     <li>CompletableActivityRenderer</li>
  *     <li>Renderer</li>
  * </ul>
- * Custom item providers can be registered via {@link #registerItemProvider(Class, ItemProvider)}.
+ * Custom item providers can be registered via
+ * {@link #registerItemProvider(Class, ItemProvider)}.
  * </p>
+ *
+ * @since 1.0
  */
 public class ItemFactory {
 
@@ -140,6 +146,14 @@ public class ItemFactory {
         }
     }
 
+    /**
+     * Registers a custom item provider for the given class, overriding any
+     * previously registered provider.
+     *
+     * @param <T> the target type
+     * @param clazz the class for which the provider should be used
+     * @param itemProvider the provider to register
+     */
     public static <T> void registerItemProvider(Class<T> clazz, ItemProvider<T> itemProvider) {
         PROVIDER_MAP.put(clazz, itemProvider);
     }

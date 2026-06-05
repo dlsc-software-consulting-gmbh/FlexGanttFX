@@ -25,30 +25,30 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
 /**
- * A simple row controls view with only one button called "Edit". Pressing the button
- * invokes {@link GraphicsBase#startRowEditing(Row)}.
+ * A simple row controls view with only one button called "Edit". Pressing the
+ * button invokes {@link GraphicsBase#startRowEditing(Row)}.
  *
  * @param <R> the row type
+ * @since 1.0
  */
 public class RowControls<R extends Row<?, ?, ?>> extends HBox {
 
-	/**
-	 * Constructs new row controls.
-	 *
-	 * @param graphics
-	 *            the target graphics view
-	 * @param row
-	 *            the row for which the controls will be used
-	 */
-	public RowControls(GraphicsBase<R> graphics, R row) {
-		setPickOnBounds(false);
-		setMinSize(0, 0);
-		setAlignment(Pos.TOP_RIGHT);
-		setFillHeight(true);
+    /**
+     * Constructs row controls for the given row.
+     *
+     * @param graphics the target graphics view
+     * @param row the row for which the controls will be used
+     * @since 1.0
+     */
+    public RowControls(GraphicsBase<R> graphics, R row) {
+        setPickOnBounds(false);
+        setMinSize(0, 0);
+        setAlignment(Pos.TOP_RIGHT);
+        setFillHeight(true);
 
-		Button editButton = new Button(Messages.getString("RowControls.BUTTON_EDIT"));
-		editButton.getStyleClass().add("row-controls-button");
-		editButton.setOnAction(evt -> graphics.startRowEditing(row));
-		getChildren().add(editButton);
-	}
+        Button editButton = new Button(Messages.getString("RowControls.BUTTON_EDIT"));
+        editButton.getStyleClass().add("row-controls-button");
+        editButton.setOnAction(evt -> graphics.startRowEditing(row));
+        getChildren().add(editButton);
+    }
 }

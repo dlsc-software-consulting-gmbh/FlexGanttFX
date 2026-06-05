@@ -28,7 +28,10 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * A property sheet item provider for {@link ZoomTimeIntervalLayer}.
+ * Provides ControlsFX {@link org.controlsfx.control.PropertySheet.Item}
+ * instances for configuring {@link ZoomTimeIntervalLayer}.
+ *
+ * @since 1.0
  */
 public class ZoomIntervalLayerItemProvider implements ItemProvider<ZoomTimeIntervalLayer> {
 

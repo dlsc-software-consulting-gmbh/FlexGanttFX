@@ -21,10 +21,12 @@ import java.util.List;
 import static org.controlsfx.control.PropertySheet.Item;
 
 /**
- * Item providers are used to return a list of items for the property sheet view of
- * ControlsFX.
+ * Strategy interface that produces a list of ControlsFX
+ * {@link org.controlsfx.control.PropertySheet.Item} instances for a target
+ * object of type {@code T}.
  *
- * @param <T> the type for which to return items
+ * @param <T> the target type
+ * @since 1.0
  */
 public interface ItemProvider<T> {
 

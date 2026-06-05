@@ -27,7 +27,10 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * A property sheet item provider for {@link DSTLineLayer}.
+ * Provides ControlsFX {@link org.controlsfx.control.PropertySheet.Item}
+ * instances for configuring {@link DSTLineLayer}.
+ *
+ * @since 1.0
  */
 public class DSTLineLayerItemProvider implements ItemProvider<DSTLineLayer> {
 

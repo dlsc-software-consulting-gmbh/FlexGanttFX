@@ -206,21 +206,27 @@ public class RowHeaderColumn<R extends Row<?, ?, ?>> extends TreeTableColumn<R, 
 
         private boolean empty;
 
+        private final InvalidationListener typeListener = observable -> {
+            updateIndex(getIndex());
+            updateItem(row, empty);
+        };
+
+        private final WeakInvalidationListener weakTypeListener = new WeakInvalidationListener(typeListener);
+
+        private final InvalidationListener nodeFactoryListener = observable -> {
+            updateIndex(getIndex());
+            updateItem(row, empty);
+        };
+
+        private final WeakInvalidationListener weakNodeFactoryListener = new WeakInvalidationListener(nodeFactoryListener);
+
         /**
          * Creates a row header cell and installs the listeners needed for row header rendering and resizing.
          */
         public RowHeaderColumnCell() {
 
-            InvalidationListener typeListener = observable -> {
-                updateIndex(getIndex());
-                updateItem(row, empty);
-            };
-            ganttChart.rowHeaderTypeProperty().addListener(new WeakInvalidationListener(typeListener));
-            InvalidationListener nodeFactoryListener = observable -> {
-                updateIndex(getIndex());
-                updateItem(row, empty);
-            };
-            ganttChart.rowHeaderNodeFactoryProperty().addListener(new WeakInvalidationListener(nodeFactoryListener));
+            ganttChart.rowHeaderTypeProperty().addListener(weakTypeListener);
+            ganttChart.rowHeaderNodeFactoryProperty().addListener(weakNodeFactoryListener);
 
             getStyleClass().add(DEFAULT_STYLE_CLASS);
 

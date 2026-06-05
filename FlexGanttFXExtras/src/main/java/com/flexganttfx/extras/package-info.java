@@ -15,8 +15,8 @@
  * By using FlexGanttFX, the licensee accepts and agrees to the applicable licensing terms.
  */
 /**
- * Various utility classes, most notably a toolbar and a statusbar control for
- * rapid prototyping (not intended for production use).
+ * Supplementary FlexGanttFX controls such as toolbars, status bars, layer
+ * views, radar views, and virtual-grid selectors.
  *
  * @since 1.0
  */

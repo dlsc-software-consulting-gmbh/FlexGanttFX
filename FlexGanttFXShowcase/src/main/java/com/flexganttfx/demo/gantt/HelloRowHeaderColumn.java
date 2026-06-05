@@ -101,6 +101,9 @@ public class HelloRowHeaderColumn extends FlexGanttFXSample {
     }
 
     private void updateRowHeaderStylesheet(Scene scene, GanttChartBase gantt) {
+        if (gantt == null) {
+            return;
+        }
         String plain = Objects.requireNonNull(HelloRowHeaderColumn.class.getResource("row-header.css")).toExternalForm();
         String atlantafx = Objects.requireNonNull(HelloRowHeaderColumn.class.getResource("row-header-atlantafx.css")).toExternalForm();
         ObservableList<String> sheets = gantt.getStylesheets();

@@ -15,7 +15,9 @@
  * By using FlexGanttFX, the licensee accepts and agrees to the applicable licensing terms.
  */
 /**
- * Contains views for displaying the various properties used by the framework
- * inside the property sheet view of ControlsFX.
+ * Views that present FlexGanttFX configuration through ControlsFX property
+ * sheets.
+ *
+ * @since 1.0
  */
 package com.flexganttfx.extras.properties.view;

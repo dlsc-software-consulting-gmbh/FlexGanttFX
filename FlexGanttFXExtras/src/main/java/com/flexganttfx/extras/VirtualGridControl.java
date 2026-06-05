@@ -41,140 +41,102 @@ import javafx.scene.control.Skin;
  */
 public class VirtualGridControl extends FlexGanttFXControl {
 
-	/**
-	 * Constructs a new virtual grid control.
-	 *
-	 * @since 1.0
-	 */
-	public VirtualGridControl() {
-		getStyleClass().add("virtual-grid-control");
-	}
+    /**
+     * Constructs a new virtual grid control.
+     *
+     * @since 1.0
+     */
+    public VirtualGridControl() {
+        getStyleClass().add("virtual-grid-control");
+    }
 
-	@Override
-	protected Skin<?> createDefaultSkin() {
-		return new VirtualGridControlSkin(this);
-	}
+    @Override
+    protected Skin<?> createDefaultSkin() {
+        return new VirtualGridControlSkin(this);
+    }
 
-	@Override
-	public String getUserAgentStylesheet() {
-		return super.getUserAgentStylesheet(VirtualGridControl.class, "virtualgrid.css");
-	}
+    @Override
+    public String getUserAgentStylesheet() {
+        return super.getUserAgentStylesheet(VirtualGridControl.class, "virtualgrid.css");
+    }
 
-	private final StringProperty noGridText = new SimpleStringProperty(this,
-			"noGridText", Messages.getString("VirtualGridControl.NO_GRID"));
+    private final StringProperty noGridText = new SimpleStringProperty(this,
+            "noGridText", Messages.getString("VirtualGridControl.NO_GRID"));
 
-	/**
-	 * Returns the property used for managing the text shown by the "no grid"
-	 * button.
-	 *
-	 * @return the "no grid" text
-	 * @since 1.3
-	 */
-	public final StringProperty noGridTextProperty() {
-		return noGridText;
-	}
+    /**
+     * The noGridText property. Stores the label text shown for the "no grid"
+     * option button.
+     *
+     * @return the noGridText property
+     * @since 1.3
+     */
+    public final StringProperty noGridTextProperty() {
+        return noGridText;
+    }
 
-	/**
-	 * Sets the value of {@link #noGridTextProperty()}.
-	 *
-	 * @param text
-	 *            the text shown by the "no grid" option.
-	 * @since 1.3
-	 */
-	public final void setNoGridText(String text) {
-		requireNonNull(text);
-		noGridText.set(text);
-	}
+    public final void setNoGridText(String text) {
+        requireNonNull(text);
+        noGridText.set(text);
+    }
 
-	/**
-	 * Returns the value of {@link #noGridTextProperty()}.
-	 *
-	 * @return the text shown by the "no grid" option
-	 * @since 1.3
-	 */
-	public final String getNoGridText() {
-		return noGridText.get();
-	}
+    public final String getNoGridText() {
+        return noGridText.get();
+    }
 
-	private final BooleanProperty showNoGridOption = new SimpleBooleanProperty(
-			this, "showNoGridOption", true);
+    private final BooleanProperty showNoGridOption = new SimpleBooleanProperty(
+            this, "showNoGridOption", true);
 
-	/**
-	 * Controls whether the control should present an option to the user to
-	 * disable the grid completely.
-	 *
-	 * @return a property used for controlling the visibility of the "no grid"
-	 *         option.
-	 *
-	 * @since 1.3
-	 */
-	public final BooleanProperty showNoGridOptionProperty() {
-		return showNoGridOption;
-	}
+    /**
+     * The showNoGridOption property. Controls whether the "no grid" option
+     * button is shown to the user.
+     *
+     * @return the showNoGridOption property
+     * @since 1.3
+     */
+    public final BooleanProperty showNoGridOptionProperty() {
+        return showNoGridOption;
+    }
 
-	/**
-	 * Returns the value of {@link #showNoGridOptionProperty()}.
-	 *
-	 * @return true if the "no grid" option will be shown
-	 */
-	public final boolean isShowNoGridOption() {
-		return showNoGridOption.get();
-	}
+    public final boolean isShowNoGridOption() {
+        return showNoGridOption.get();
+    }
 
-	/**
-	 * Sets the value of {@link #showNoGridOptionProperty()}.
-	 *
-	 * @param show
-	 *            if true, the option will be shown
-	 */
-	public final void setShowNoGridOption(boolean show) {
-		showNoGridOption.set(show);
-	}
+    public final void setShowNoGridOption(boolean show) {
+        showNoGridOption.set(show);
+    }
 
-	private final ObjectProperty<VirtualGrid<?>> value = new SimpleObjectProperty<>(
-			this, "value");
+    private final ObjectProperty<VirtualGrid<?>> value = new SimpleObjectProperty<>(
+            this, "value");
 
-	/**
-	 * The property used to store the currently selected {@link VirtualGrid}.
-	 *
-	 * @return the property for the selected grid
-	 * @since 1.0
-	 */
-	public final ObjectProperty<VirtualGrid<?>> valueProperty() {
-		return value;
-	}
+    /**
+     * The value property. Stores the currently selected virtual grid, or
+     * {@code null} if no grid is active.
+     *
+     * @return the value property
+     * @since 1.0
+     */
+    public final ObjectProperty<VirtualGrid<?>> valueProperty() {
+        return value;
+    }
 
-	/**
-	 * Returns the value of {@link #valueProperty()}.
-	 *
-	 * @return the selected virtual grid
-	 * @since 1.0
-	 */
-	public final VirtualGrid<?> getValue() {
-		return valueProperty().get();
-	}
+    public final VirtualGrid<?> getValue() {
+        return valueProperty().get();
+    }
 
-	/**
-	 * Sets the value of {@link #valueProperty()}.
-	 *
-	 * @param grid
-	 *            the grid to select
-	 * @since 1.0
-	 */
-	public final void setValue(VirtualGrid<?> grid) {
-		valueProperty().set(grid);
-	}
+    public final void setValue(VirtualGrid<?> grid) {
+        valueProperty().set(grid);
+    }
 
-	private final ObservableList<VirtualGrid<?>> grids = FXCollections
-			.observableArrayList();
+    private final ObservableList<VirtualGrid<?>> grids = FXCollections
+            .observableArrayList();
 
-	/**
-	 * Returns the list of possible virtual grid values.
-	 *
-	 * @return the possible virtual grids
-	 * @since 1.0
-	 */
-	public final ObservableList<VirtualGrid<?>> getGrids() {
-		return grids;
-	}
+    /**
+     * Returns the list of possible virtual grid values.
+     *
+     * @return the possible virtual grids
+     * @since 1.0
+     */
+    public final ObservableList<VirtualGrid<?>> getGrids() {
+        return grids;
+    }
 }

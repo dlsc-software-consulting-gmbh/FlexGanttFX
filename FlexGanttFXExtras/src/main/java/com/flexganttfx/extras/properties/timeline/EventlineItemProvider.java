@@ -25,6 +25,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Provides ControlsFX {@link org.controlsfx.control.PropertySheet.Item}
+ * instances for configuring {@link Eventline}.
+ *
+ * @since 1.0
+ */
 public class EventlineItemProvider implements ItemProvider<Eventline> {
 
     private static final String EVENTLINE_PROPERTIES_CATEGORY = "Control: Eventline";
