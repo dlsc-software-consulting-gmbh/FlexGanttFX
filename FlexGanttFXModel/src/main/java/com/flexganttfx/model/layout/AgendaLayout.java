@@ -46,9 +46,6 @@ import static java.util.Objects.requireNonNull;
  */
 public class AgendaLayout extends Layout {
 
-	// TODO: javadoc: add image to show the difference between overlapping and
-	// parallel
-
 	/**
 	 * An enumerator for the different ways overlapping agenda entries can be
 	 * laid out.

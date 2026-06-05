@@ -50,7 +50,6 @@ import javafx.collections.ObservableList;
  * @since 1.0
  */
 public class ChartLayout extends Layout {
-    // TODO: add HighLow screenshot to javadoc
 
     /**
      * Constructs a new chart layout with a range of 0 to 100.
