@@ -6,12 +6,12 @@
     <artifactId>f1</artifactId>
     <name>FlexGanttFXF1</name>
     <description>Formula 1 race strategy demo for FlexGanttFX — live OpenF1 API</description>
-    <version>11.13.18</version>
+    <version>11.13.19</version>
 
     <parent>
         <groupId>com.flexganttfx</groupId>
         <artifactId>demos</artifactId>
-        <version>11.13.18</version>
+        <version>11.13.19</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
