@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-20G18JBY7X"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-20G18JBY7X");</script>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Timeline — FlexGanttFX</title>
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+  <script src="../../assets/js/lang.js"></script>
+  <link rel="stylesheet" href="../../assets/css/docs.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" crossorigin="anonymous" />
+  <link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/timeline.html" />
+  <link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/timeline.html" />
+  <link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/timeline.html" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/timeline.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/timeline.html" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <div class="navbar-brand-group">
+    <a href="../index.html" class="navbar-logo">
+      <i class="fa-solid fa-chart-gantt logo-icon"></i>
+      FlexGanttFX
+    </a>
+    <span class="navbar-brand-sep"></span>
+    <a href="https://www.dlsc.com" class="navbar-dlsc-link" target="_blank" rel="noopener" title="DLSC Software &amp; Consulting GmbH">
+      <img src="../../assets/images/dlsc-logo.png" alt="DLSC" class="navbar-dlsc-logo" />
+    </a>
+  </div>
+        <ul class="navbar-links">
+          <li><a href="../index.html">Startseite</a></li>
+          <li><a href="../pages/demos.html">Demos</a></li>
+          <li class="nav-dropdown">
+            <a href="index.html" class="active">Handbuch</a>
+            <div class="dropdown-menu">
+              <a href="index.html">Inhaltsverzeichnis</a>
+              <a href="installation.html">Installation</a>
+              <a href="tutorial.html">Tutorial</a>
+              <a href="gantt-charts.html">Gantt-Diagramme</a>
+              <a href="timeline.html">Timeline</a>
+              <a href="dateline.html">Dateline</a>
+              <a href="eventline.html">Eventline</a>
+              <a href="graphics.html">Grafik</a>
+              <a href="model.html">Modell</a>
+              <a href="styling.html">Styling</a>
+              <a href="logging.html">Logging</a>
+            </div>
+          </li>
+          <li class="nav-dropdown">
+            <a href="#">Dokumentation</a>
+            <div class="dropdown-menu">
+              <a href="../pages/faq.html">FAQs</a>
+              <a href="../pages/changelog.html">Versionshinweise</a>
+              <a href="../pages/licensing.html">Lizenzierung</a>
+              <a href="../../api/index.html">Javadocs / API</a>
+            </div>
+          </li>
+          <li><a href="../pages/downloads.html">Downloads</a></li>
+      <li class="nav-dropdown nav-lang">
+        <a href="#"><i class="fa-solid fa-globe"></i> DE</a>
+        <div class="dropdown-menu">
+          <a href="../../manual/timeline.html" data-lang="en">English</a>
+          <a href="timeline.html" data-lang="de" class="active">Deutsch</a>
+          <a href="../../fr/manual/timeline.html" data-lang="fr">Français</a>
+          <a href="../../zh/manual/timeline.html" data-lang="zh">中文（简体）</a>
+        </div>
+      </li>
+          <li><a href="mailto:dlemmermann@gmail.com" class="nav-cta"><i class="fa-solid fa-envelope" style="font-size:0.8rem"></i> Kontakt</a></li>
+        </ul>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="container">
+        <a href="../index.html">Startseite</a>
+        <a href="index.html">Dokumentation</a>
+        <a href="installation.html">Installation</a>
+        <a href="tutorial.html">Tutorial</a>
+        <a href="gantt-charts.html">Gantt-Diagramme</a>
+        <a href="model.html">Modell</a>
+        <a href="../pages/faq.html">FAQ</a>
+      <div class="mobile-lang-divider"></div>
+      <a href="../../manual/timeline.html" data-lang="en"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> English</a>
+      <a href="timeline.html" data-lang="de" class="active-lang"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Deutsch</a>
+      <a href="../../fr/manual/timeline.html" data-lang="fr"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Français</a>
+      <a href="../../zh/manual/timeline.html" data-lang="zh"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> 中文（简体）</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Erste Schritte</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Übersicht</a></li>
+          <li><a href="installation.html">Installation</a></li>
+          <li><a href="tutorial.html">Tutorial</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Steuerelemente</div>
+        <ul class="sidebar-nav">
+          <li><a href="gantt-charts.html">Gantt-Diagramme</a></li>
+          <li><a href="timeline.html" class="active">Timeline</a></li>
+          <li><a href="dateline.html">Dateline</a></li>
+          <li><a href="eventline.html">Eventline</a></li>
+          <li><a href="graphics.html">Grafik</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Framework</div>
+        <ul class="sidebar-nav">
+          <li><a href="model.html">Modell</a></li>
+          <li><a href="styling.html">Styling</a></li>
+          <li><a href="logging.html">Logging</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Referenz</div>
+        <ul class="sidebar-nav">
+          <li><a href="../../api/index.html">Javadocs / API</a></li>
+          <li><a href="../pages/changelog.html">Versionshinweise</a></li>
+          <li><a href="../pages/licensing.html">Lizenzierung</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="docs-content">
+      <nav class="breadcrumb">
+        <a href="../index.html">Startseite</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="index.html">Dokumentation</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Timeline</span>
+      </nav>
+      <article class="prose">
+<h1 id="overview">Übersicht</h1>
+<p>Das Timeline-Steuerelement ist ein Container für die <strong>Dateline</strong> und die <strong>Eventline</strong>. Es wird oberhalb des <strong>Grafik</strong>-Steuerelements angezeigt und stellt mehrere Methoden zum Scrollen und Zoomen bereit, die beide mit oder ohne Animation ausgeführt werden können.
+Die Timeline verfolgt außerdem die aktuelle Zeit (siehe TimeTracker).</p>
+<p><img alt="Timeline" src="../../assets/images/docs/timeline.png" /></p>
+<p><strong>Navigation</strong></p>
+<p>Die Timeline dient zur Navigation durch die Zeit. Sie bietet Methoden, um zur aktuellen Zeit oder einer bestimmten Zeit zu springen. Es kann angefordert werden, eine bestimmte Zeiteinheit anzuzeigen („Tage anzeigen") oder einen Zeitbereich. </p>
+<ul>
+<li><code>showNow(), showNow(boolean center)</code> – ändert die Startzeit des Timeline-Modells so, dass die aktuelle Zeit (wie im TimelineModel gespeichert) entweder am linken Rand der Dateline oder genau in der Mitte angezeigt wird.</li>
+<li><code>showTime(Instant time), showTime(Instant time, boolean center)</code> – ändert die Startzeit des Timeline-Modells so, dass die angegebene Zeit entweder am linken Rand der Dateline oder genau in der Mitte angezeigt wird.</li>
+<li><code>showRange(Instant start, Instant end), showRange(Instant start, Duration duration), showRange(TimeInterval range)</code> – ändert die Startzeit und den „Millisekunden-pro-Pixel"-Wert des Timeline-Modells so, dass der angegebene Zeitbereich vollständig in der Dateline sichtbar wird.</li>
+<li><code>showTemporalUnit(TemporalUnit unit, double width)</code> – ändert die Startzeit und den „Millisekunden-pro-Pixel"-Wert des Timeline-Modells so, dass die angegebene Zeiteinheit in der Dateline verwendet wird. Jede Zelle in der Dateline ist so breit wie die angegebene Breite.</li>
+</ul>
+<p>Es ist zu beachten, dass die Timeline in Zusammenarbeit mit der Dateline diese Anforderungen nur nach bestem Bemühen erfüllen kann, da sie von der Verfügbarkeit von Dateline-Auflösungen im Dateline-Modell abhängen.</p>
+<p>Die oben genannten Methoden können mit oder ohne Animation ausgeführt werden. Diese Animation wird über zwei Eigenschaften gesteuert: <code>moveAnimated</code> und <code>moveDuration</code>. Die entsprechenden Getter- und Setter-Methoden für diese Eigenschaften sind in der Timeline verfügbar.</p>
+<p><strong>Zoomen</strong></p>
+<p>Die Timeline ist für alles rund um das Zoomen zuständig. Der Benutzer kann die <code>+ / -</code>-Tasten drücken, um die Zoom-Stufe um einen bestimmten Zoom-Faktor zu erhöhen, oder durch Ziehen der Maus und gleichzeitiges Halten der <code>SHIFT</code>-Taste ein Zeitintervall per „Lasso" auswählen. Das Ergebnis ist ein ausgewähltes Zeitintervall, das in der schreibgeschützten Eigenschaft <code>selectedTimeInterval</code> gespeichert wird. 
+Die Timeline beobachtet Änderungen an dieser Eigenschaft und versucht automatisch, das ausgewählte Zeitintervall über die gesamte verfügbare Breite anzuzeigen, was letztendlich einen Zoom-In-Vorgang auslöst.</p>
+<ul>
+<li><code>zoomIn(), zoomOut()</code> – veranlasst die Timeline, das Timeline-Modell so zu ändern, dass der resultierende sichtbare Zeitbereich der aktuelle Zeitbereich multipliziert bzw. dividiert durch den aktuellen Zoom-Faktor ist.</li>
+<li><code>zoom(double factor, boolean zoomIn, Instant frozenTime)</code> – führt einen Zoom-Vorgang mit dem angegebenen Zoom-Faktor durch (entweder hinein oder heraus). Die Timeline versucht, die angegebene „eingefrorene" Zeit an ihrer aktuellen Position zu halten. Dieses Verhalten ist sehr nützlich für einen Pinch-basierten Zoom, bei dem die Benutzeroberfläche „in" eine bestimmte Zeit hineinzoomt.</li>
+<li><code>setZoomLassoEnabled(boolean), boolean isZoomLassoEnabled();</code> – steuert die Verfügbarkeit des Zoom-Lassos.</li>
+</ul>
+<p>Genau wie die Bewegungsoperationen können auch Zoom-Operationen animiert oder nicht animiert ausgeführt werden. Dazu stehen die Eigenschaften <code>zoomAnimated</code> und <code>zoomDuration</code> zur Verfügung.</p>
+<p>Eine weitere Eigenschaft dient der Feinabstimmung des Zoom-Verhaltens, da einige Anwendungen beim Zoomen entweder die Startzeit, die Endzeit oder die Mittelzeit beibehalten möchten. Dafür kann die Anwendung die Eigenschaft <code>zoomMode</code> setzen. Mögliche Werte dieses Enums sind <code>KEEP_START_TIME</code>, <code>KEEP_END_TIME</code> oder <code>CENTER</code>.</p>
+<p><strong>Scrollen</strong></p>
+<p>Die Timeline unterstützt das Scrollen nach links und rechts in zwei verschiedenen Geschwindigkeiten. </p>
+<ul>
+<li><code>scrollLeft()</code>, <code>scrollLeftFast()</code> – ändert die Startzeit-Eigenschaft des Timeline-Modells so, dass die Dateline mit einer früheren Zeit beginnt.</li>
+<li><code>scrollRight()</code>, <code>scrollRightFast()</code> – ändert die Startzeit-Eigenschaft des Timeline-Modells so, dass die Dateline mit einer späteren Zeit beginnt.</li>
+</ul>
+<p>Diese Methoden können vom Benutzer über die <code>+</code>- und <code>-</code>-Tasten aufgerufen werden. Das Scrollen ist schnell, wenn der Benutzer gleichzeitig <code>SHIFT</code> drückt.</p>
+<p><strong>TimeTracker</strong></p>
+<p>Das Timeline-Steuerelement ist für die Zeitverfolgung zuständig. Das bedeutet, es aktualisiert die Eigenschaft <code>now</code> des zugrunde liegenden Timeline-Modells. Die Timeline implementiert Methoden zum Starten und Stoppen der Zeitverfolgung, die eigentliche Aktualisierung von <code>now</code> wird jedoch an eine TimeTracker-Klasse delegiert.</p>
+<ul>
+<li><code>startTimeTracking()</code>, <code>stopTimeTracking()</code> – startet und stoppt die Zeitverfolgung. Diese Methoden rufen die entsprechenden Methoden der TimeTracker-Klasse auf.</li>
+<li><code>timeTrackerProperty()</code>, <code>setTimeTracker(TimeTracker tracker)</code>, <code>TimeTracker getTimeTracker()</code> – die TimeTracker-Eigenschaft sowie ihre Getter- und Setter-Methoden. Der Standard-TimeTracker (verwendet die Systemzeit) kann durch einen benutzerdefinierten ersetzt werden.</li>
+</ul>
+<p><strong>Sichtbares Zeitintervall</strong></p>
+<p>Zwei schreibgeschützte Eigenschaften verfolgen die früheste und späteste von der Timeline angezeigte Zeit. Sie heißen 
+<code>visibleStartTime</code> und <code>visibleEndTime</code>. Die Methoden <code>getVisibleStartTime()</code>, <code>getVisibleEndTime()</code> und <code>getVisibleDuration()</code> 
+dienen zur Arbeit mit diesen Eigenschaften. </p>
+<h2 id="timeline-model">Timeline-Modell</h2>
+<p>Das Timeline-Steuerelement verwendet ein Modell vom Typ <code>TimelineModel</code>. Dieses Modell stellt die wichtigsten Parameter für die 
+Timeline und die Dateline bereit, damit diese korrekt funktionieren. Das Timeline-Modell kann für verschiedene temporale Einheiten typisiert werden. 
+<strong>FlexGanttFX</strong> wird mit einem <code>ChronoUnitTimelineModel</code> und einem <code>SimpleUnitTimelineModel</code> ausgeliefert.</p>
+<p><strong>Startzeit &amp; Millisekunden pro Pixel</strong></p>
+<p>Die beiden wichtigsten Eigenschaften des <code>TimelineModel</code> sind <code>startTime</code> und <code>millisPerPixel</code> (MPP). Die Startzeit bestimmt die erste sichtbare Zeit im Gantt-Diagramm, während die aktuelle Breite der Timeline in Kombination mit dem MPP-Wert die letzte sichtbare Zeit und damit den sichtbaren Zeitbereich bestimmt. Ein Erhöhen des MPP-Werts bewirkt, dass die Timeline einen größeren Zeitbereich anzeigt, während eine Reduzierung einen kürzeren Zeitbereich ergibt. Die in der Klasse <code>Timeline</code> enthaltenen Methoden zum Anzeigen einer Zeit, Scrollen zu einer Zeit und Zoomen in einen Bereich spielen mit diesen beiden Variablen, um ihren Zweck zu erfüllen. Die folgende Tabelle listet die Methoden zu diesen Eigenschaften auf:</p>
+<ul>
+<li><code>ObjectProperty&lt;Instant&gt; startTimeProperty();</code> <code>setStartTime(Instant time);</code> <code>Instant getStartTime();</code> – speichert, setzt und gibt die aktuelle Startzeit zurück, die erste sichtbare Zeit im Gantt-Diagramm. Die frühest mögliche Startzeit kann über die Eigenschaft <code>horizonStartTime</code> eingeschränkt werden.</li>
+<li><code>DoubleProperty millisPerPixel();</code> <code>setMillisPerPixel(double mpp);</code> <code>double getMillisPerPixel();</code> – speichert, setzt und gibt den Millisekunden-pro-Pixel-Wert (MPP) zurück. Der Standardwert von MPP ist 24 * 60 * 60 * 1000 / 30, was bedeutet, dass Tage eine Breite von 30 Pixeln haben.</li>
+</ul>
+<p><strong>Now-Zeit / Now-Position</strong></p>
+<p>Gantt-Diagramme erfordern häufig die Markierung der „aktuellen" Zeit. Diese kann entweder die Systemzeit 
+(java.time.Instant.now()) oder ein von der Anwendung gesteuerter beliebiger Wert sein. Letzteres ist häufig bei Software der Fall, 
+die eine Simulation ausführt und das Gantt-Diagramm zur Verfolgung der Simulationszeit verwendet. Zur Unterstützung dieser Anwendungsfälle 
+definiert das Timeline-Modell eine Eigenschaft namens <code>now</code>.</p>
+<p>Der Wert von <code>now</code> wird normalerweise von einem TimeTracker aktualisiert, der über die Timeline gesteuert werden kann.</p>
+<ul>
+<li><code>ObjectProperty&lt;Instant&gt; nowProperty();</code> <code>void setNow(Instant now);</code> <code>Instant getNow();</code> – speichert, setzt und gibt die aktuelle Zeit zurück.</li>
+<li><code>ReadOnlyDoubleProperty nowLocation();</code> <code>double getNowLocation();</code> – speichert und gibt die Position der aktuellen Zeit zurück. Die Now-Position wird vom Modell basierend auf der Startzeit und dem MPP-Wert berechnet. Diese Eigenschaft ist schreibgeschützt, da die Now-Position immer vom Wert der Now-Zeit abhängt. Die Position kann nur durch Ändern von <code>now</code> selbst geändert werden.</li>
+</ul>
+<p><strong>Zeit- &amp; Koordinatenberechnungen</strong></p>
+<p>Der primäre Zweck des Timeline-Modells ist die Umrechnung von Zeit in eine Position und umgekehrt. Dafür bietet das Modell mehrere Methoden:</p>
+<ul>
+<li><code>double calculateLocationForTime(Instant);</code> – gibt die x-Koordinate für die angegebene Zeit zurück.</li>
+<li><code>Instant calculateTimeForLocation(double);</code> – gibt die Zeit für die angegebene x-Koordinate zurück.</li>
+</ul>
+<p><strong>Der Horizont</strong></p>
+<p>Planungsanwendungen arbeiten oft mit einem Horizont, der durch eine früheste und späteste Zeit definiert ist. Diese Zeiten können auf dem geladenen Datensatz (Min-/Max-Berechnung der Start- und Endzeiten der Aktivitäten) oder dem Planungshorizont 
+(Q1, Q2, Q3, Q4) basieren. Das Setzen der Werte von <code>horizonStartTime</code> und <code>horizonEndTime</code> stellt sicher, dass der Benutzer nicht zu einer Zeit außerhalb des Horizonts scrollen kann.</p>
+<p><strong>Höchste &amp; niedrigste temporale Einheit</strong></p>
+<p>Nicht alle Anwendungen benötigen alle verfügbaren Einheiten einer temporalen Einheit. <code>java.time.temporal.ChronoUnit</code> definiert beispielsweise Einheiten von Nanosekunden bis Jahrtausenden. Die Eigenschaften <code>highestTemporalUnit</code> und <code>lowestTemporalUnit</code> ermöglichen es der Anwendung, den Einheitenbereich auf etwas Sinnvolleres einzuschränken, z. B. Stunden bis Monate.</p>
+<h2 id="time-tracker">Time-Tracker</h2>
+<p>Ein Time-Tracker kann verwendet werden, um die Eigenschaft <code>now</code> des <code>TimelineModel</code> zu aktualisieren. In den meisten Fällen entspricht die Zeit „now" der Systemzeit, bei Simulationssoftware kann dies jedoch anders sein. Um den Time-Tracker zu verwenden, erstellen Sie einfach eine Instanz von TimeTracker und binden Sie deren <code>timeProperty()</code> an die <code>nowProperty()</code> des Timeline-Modells.</p>
+<p><strong>Beispiel</strong></p>
+<p>Im Folgenden finden Sie den vollständigen Code der Standard-TimeTracker-Klasse.</p>
+<pre><code class="language-java">/**
+ * Copyright (C) 2014 - 2016 Dirk Lemmermann Software &amp; Consulting (dlsc.com)
+ *
+ * This file is part of FlexGanttFX.
+ */
+package com.flexganttfx.view.timeline;
+
+import java.time.Instant;
+import java.util.logging.Level;
+
+import com.flexganttfx.core.LoggingDomain;
+import com.flexganttfx.model.timeline.TimelineModel;
+
+import javafx.application.Platform;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+
+/**
+ * A time tracker can be used to update the property
+ * {@link TimelineModel#nowProperty()}. In most cases the time &quot;now&quot; will be
+ * equivalent to the system time but in simulations this might not be the case.
+ * The time tracker can be used in combination with the {@link TimelineModel} by
+ * binding the {@link TimelineModel#nowProperty()} to the
+ * {@link TimeTracker#timeProperty()}.
+ *
+ * @since 1.0
+ */
+public class TimeTracker extends Thread {
+
+   private boolean running = true;
+
+   private long delay = 1000;
+
+   private boolean stopped;
+
+   /**
+    * Constructs a new tracker.
+    *
+    * @since 1.0
+    */
+   public TimeTracker() {
+      setName(&quot;Time Tracker&quot;);
+      setDaemon(true);
+   }
+
+   private final ReadOnlyObjectWrapper&lt;Instant&gt; time = new ReadOnlyObjectWrapper&lt;&gt;(
+         this, &quot;time&quot;, Instant.now());
+
+   public final ReadOnlyObjectProperty&lt;Instant&gt; timeProperty() {
+      return time.getReadOnlyProperty();
+   }
+
+   public final Instant getTime() {
+      return time.get();
+   }
+
+   /**
+    * Returns the delay in milliseconds between updates of
+    * {@link TimelineModel#nowProperty()}. The default is 1000 millis.
+    *
+    * @return the default delay between update calls
+    * @since 1.0
+    */
+   public final long getDelay() {
+      return delay;
+   }
+
+   /**
+    * Sets the delay between updates of {@link TimelineModel#nowProperty()}.
+    * The default is 1000 millis.
+    *
+    * @param millis
+    *            the new delay
+    * @throws IllegalArgumentException
+    *             if the delay is zero or smaller
+    * @since 1.0
+    */
+   public final void setDelay(long millis) {
+      if (millis &lt;= 0) {
+         throw new IllegalArgumentException(
+               &quot;delay must be larger than zero but was&quot; + millis); //$NON-NLS-1$
+      }
+
+      this.delay = millis;
+   }
+
+   /**
+    * Starts the tracking of the time.
+    *
+    * @since 1.0
+    */
+   public final void startTracking() {
+      if (stopped) {
+         throw new IllegalStateException(
+               &quot;Time tracker has already been stopped and can not be started again.&quot;);
+      } else {
+         running = true;
+         start();
+      }
+   }
+
+   @Override
+   public void run() {
+      while (running) {
+         Platform.runLater(() -&gt; time.set(getNow()));
+         try {
+            Thread.sleep(delay);
+         } catch (InterruptedException e) {
+            LoggingDomain.CONFIG.log(Level.WARNING,
+                  &quot;problem in update thread&quot;, e); //$NON-NLS-1$
+         }
+      }
+   }
+
+   /**
+    * Stops the tracking of the time.
+    *
+    * @since 1.0
+    */
+   public final void stopTracking() {
+      stopped = true;
+      running = false;
+   }
+
+   /**
+    * Override to return the instant that will be set as &quot;now&quot; on the timeline
+    * model. The default implementation uses {@link Instant#now()}.
+    *
+    * @see TimelineModel#setNow(Instant)
+    *
+    * @return the &quot;now&quot; instant
+    */
+   protected Instant getNow() {
+      return Instant.now();
+   }
+}
+</code></pre>
+      </article>
+      <div class="docs-nav-bottom">
+        <a class="docs-nav-btn" href="gantt-charts.html"><span class="docs-nav-label">← Zurück</span><span class="docs-nav-title">Gantt-Diagramme</span></a>
+<a class="docs-nav-btn next" href="dateline.html"><span class="docs-nav-label">Weiter →</span><span class="docs-nav-title">Dateline</span></a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../assets/js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js" crossorigin="anonymous"></script>
+</body>
+</html>

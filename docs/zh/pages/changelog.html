@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-20G18JBY7X"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-20G18JBY7X");</script>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>版本说明 — FlexGanttFX</title>
+  <meta name="description" content="FlexGanttFX 发布历史 — 涵盖所有版本的错误修复、新功能和改进。" />
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+  <script src="../../assets/js/lang.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" />
+  <link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/pages/changelog.html" />
+  <link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/pages/changelog.html" />
+  <link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/pages/changelog.html" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/pages/changelog.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/pages/changelog.html" />
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container navbar-inner">
+    <div class="navbar-brand-group">
+    <a href="../index.html" class="navbar-logo">
+      <i class="fa-solid fa-chart-gantt logo-icon"></i>
+      FlexGanttFX
+    </a>
+    <span class="navbar-brand-sep"></span>
+    <a href="https://www.dlsc.com" class="navbar-dlsc-link" target="_blank" rel="noopener" title="DLSC Software &amp; Consulting GmbH">
+      <img src="../../assets/images/dlsc-logo.png" alt="DLSC" class="navbar-dlsc-logo" />
+    </a>
+  </div>
+      <ul class="navbar-links">
+        <li><a href="../index.html">首页</a></li>
+        <li><a href="demos.html">演示</a></li>
+        <li class="nav-dropdown">
+          <a href="../manual/index.html">手册</a>
+          <div class="dropdown-menu">
+            <a href="../manual/index.html">目录</a>
+            <a href="../manual/installation.html">安装</a>
+            <a href="../manual/tutorial.html">教程</a>
+            <a href="../manual/gantt-charts.html">甘特图</a>
+            <a href="../manual/timeline.html">时间轴</a>
+            <a href="../manual/dateline.html">日期线</a>
+            <a href="../manual/eventline.html">事件线</a>
+            <a href="../manual/graphics.html">图形</a>
+            <a href="../manual/model.html">模型</a>
+            <a href="../manual/styling.html">样式</a>
+            <a href="../manual/logging.html">日志</a>
+          </div>
+        </li>
+        <li class="nav-dropdown">
+          <a href="#">文档</a>
+          <div class="dropdown-menu">
+            <a href="faq.html">常见问题</a>
+            <a href="changelog.html">版本说明</a>
+            <a href="licensing.html">许可</a>
+            <a href="../../api/index.html">Javadocs / API</a>
+          </div>
+        </li>
+        <li><a href="downloads.html">下载</a></li>
+      <li class="nav-dropdown nav-lang">
+        <a href="#"><i class="fa-solid fa-globe"></i> 中文</a>
+        <div class="dropdown-menu">
+          <a href="../../pages/changelog.html" data-lang="en">English</a>
+          <a href="../../de/pages/changelog.html" data-lang="de">Deutsch</a>
+          <a href="../../fr/pages/changelog.html" data-lang="fr">Français</a>
+          <a href="changelog.html" data-lang="zh" class="active">中文（简体）</a>
+        </div>
+      </li>
+        <li><a href="mailto:dlemmermann@gmail.com" class="nav-cta"><i class="fa-solid fa-envelope" style="font-size:0.8rem"></i> 联系我们</a></li>
+      </ul>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="container">
+      <a href="../index.html">首页</a>
+      <a href="demos.html">演示</a>
+      <a href="../manual/index.html">文档</a>
+      <a href="faq.html">常见问题</a>
+      <a href="changelog.html">版本说明</a>
+      <a href="licensing.html">许可</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HERO ═══════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container hero-container">
+    <div class="hero-content">
+      <div class="badge badge-dark"><i class="fa-solid fa-clock-rotate-left" style="font-size:0.7rem"></i> 变更日志</div>
+      <h1>版本 <span>说明</span></h1>
+      <p>FlexGanttFX 的完整发布历史，包括新功能、错误修复和性能改进。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RELEASES TIMELINE ══════════════════════════════════════ -->
+<section class="section">
+  <div class="container" style="max-width:860px">
+    <div class="releases-timeline">
+
+      <div class="release-item">
+        <div class="release-version">版本 11.12.8</div>
+        <div class="release-date"><i class="fa-regular fa-calendar"></i> January 17th, 2024</div>
+        <div class="release-desc">
+          <p>JAR 文件不再作为 OSGi 包发布。</p>
+          <ul>
+            <li>将多个 JAR 文件的类型从“包”改为“jar”。构建 OSGi 包会引入原生依赖（JavaFX 原生库），这可能导致 JavaFX 使用捆绑库，而不是项目所需 JavaFX 版本使用的库。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release-item">
+        <div class="release-version">版本 11.12.7</div>
+        <div class="release-date"><i class="fa-regular fa-calendar"></i> November 2nd, 2023</div>
+        <div class="release-desc">
+          <p>修复与链接渲染相关的问题。</p>
+          <ul>
+            <li>更改行高时链接显示不正确</li>
+            <li>套索拖动可能破坏导航</li>
+            <li>链接指向无效位置</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release-item">
+        <div class="release-version">版本 11.12.6</div>
+        <div class="release-date"><i class="fa-regular fa-calendar"></i> January 30th, 2023</div>
+        <div class="release-desc">
+          <p>修复在甘特图内拖动活动时键事件被丢弃的单一问题。</p>
+          <ul>
+            <li>拖动活动期间无法再处理按键事件</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release-item">
+        <div class="release-version">版本 11.12.5</div>
+        <div class="release-date"><i class="fa-regular fa-calendar"></i> March 30th, 2022</div>
+        <div class="release-desc">
+          <p>修复多个渲染问题，包括垂直线未正确对齐（网格线、“now” 线）、图表布局缩放问题以及滚动条行为问题。</p>
+          <ul>
+            <li>放大后 now 线不再笔直</li>
+            <li>当 ChartLayout 的最大值和最小值相同时，yOffset 不起作用</li>
+            <li>自动隐藏滚动条导致异常行为</li>
+            <li>关闭自动隐藏后，TimelineScrollbar 的位置是固定的</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release-item">
+        <div class="release-version">版本 11.12.4</div>
+        <div class="release-date"><i class="fa-regular fa-calendar"></i> April 21, 2021</div>
+        <div class="release-desc">
+          <p>增强“fixed horizon”滚动的滚动条行为。时间范围的结束日期现在会保持在视口右边缘。</p>
+          <ul>
+            <li>“horizon”滚动条现在会确保时间范围结束日期显示在图形区域右边缘。在此更改之前，用户可以将时间范围结束时间滚动到视口左边缘。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release-item">
+        <div class="release-version">版本 11.12.3</div>
+        <div class="release-date"><i class="fa-regular fa-calendar"></i> April 9th, 2021</div>
+        <div class="release-desc">
+          <p>新增对固定时间范围滚动条的支持。新增用于开启/关闭滚动条自动隐藏的标志。修复在步长大于 1 的小时粒度下显示网格线时的绘制问题。</p>
+          <ul>
+            <li>在 Timeline 上新增方法，用于显示 / 滚动到给定日期或给定带时区日期时间。此前只能传入 Instant。</li>
+            <li>在 GanttChartBase 上新增选项，用于指定按时间水平滚动时使用的滚动条类型。此前滚动条允许无限滚动。此版本新增标准（“normal”）滚动条，允许用户在给定时间范围内滚动。应用程序也可以选择完全移除滚动条。</li>
+            <li>在 GanttChartBase 上新增选项，用于指定左侧和右侧的水平滚动条在未使用时是否应自动隐藏。</li>
+            <li>RowCanvas 类现在具备完整的 snapXYZ() 方法集，并改进了 Canvas 本身以及 Canvas 显示活动的对齐。</li>
+            <li>修复当时间轴以步长 3 或 6 显示“hours”粒度时，与夏令时和网格线相关的问题。</li>
+            <li>当行模型对象发生变化时，现在会重新创建行控件。</li>
+            <li>显示行标题 UI 时，在添加或删除行时可能导致闪烁 — 已修复。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release-item">
+        <div class="release-version">版本 11.12.2 <span style="font-size:0.75rem;opacity:0.6">（内部版本）</span></div>
+        <div class="release-date"><i class="fa-regular fa-calendar"></i> March 3rd, 2021</div>
+        <div class="release-desc">
+          <ul>
+            <li>向 LassoInfo 类添加名为“inverse”的标志。该标志表示套索是否以反方向创建。</li>
+            <li>由于新的缓冲概念，CSS 样式 .dateline-cell-first 和 .dateline-cell-last 不再受支持。</li>
+            <li>修复样式问题，该问题会导致右侧图形视图标题与左侧表格标题未对齐。</li>
+            <li>确保第一个日期线单元格中显示的时间标签尽可能长时间保持可见。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release-item">
+        <div class="release-version">版本 11.12.1 <span style="font-size:0.75rem;opacity:0.6">（内部版本）</span></div>
+        <div class="release-date"><i class="fa-regular fa-calendar"></i> August 17th, 2020</div>
+        <div class="release-desc">
+          <ul>
+            <li>修复 Mac 和 Windows 在结合上下文菜单 / 弹出触发器时的选择行为差异。在 Mac 上，鼠标“pressed”事件会被标记为弹出触发器；在 Windows 上则是鼠标“released”事件。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release-item">
+        <div class="release-version">版本 11.12.0</div>
+        <div class="release-date"><i class="fa-regular fa-calendar"></i> May 14th, 2020</div>
+        <div class="release-desc">
+          <p>用标准系统光标替换自定义鼠标光标。可通过右侧新的行标题调整行大小。移除了日期线滚动事件。增强了 RadarView 渲染性能。</p>
+          <ul>
+            <li>开始在图形区域的编辑操作中使用系统光标（例如 Cursor.E_RESIZE）。旧光标可通过 RowCanvasBehaviour.useCustomCursors() 重新启用。</li>
+            <li>新增通过行标题交互式调整行大小 / 更改行高的能力。</li>
+            <li>合并 Java 8 和 Java 11+ 版本的许可证密钥。</li>
+            <li>将时区标签从日期线移动到时间轴。</li>
+            <li>移除对日期线滚动事件的支持。新增 Timeline 上的“可见时间区间”只读属性作为替代。</li>
+            <li>增强 RadarView 性能，并在活动变化时自动重绘。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release-item">
+        <div class="release-version">版本 11.11.0 <span style="font-size:0.75rem;opacity:0.6">（主要版本）</span></div>
+        <div class="release-date"><i class="fa-regular fa-calendar"></i> May 2020</div>
+        <div class="release-desc">
+          <p>用 Ikonli 字体图标替换 PNG 图标文件。新增显示 / 隐藏链接支持（包括工具栏按钮）。新增右侧行标题。现在会批量重绘，并使用 pulse 监听器提升性能。</p>
+          <ul>
+            <li>停止使用 PNG 图标文件 — 改用 Ikonli 的 Material Design Icons。</li>
+            <li>新增显示 / 隐藏链接的方法。新增触发该功能的工具栏按钮。</li>
+            <li>更改时间轴和日期线中使用的默认字体大小。</li>
+            <li>向工具栏添加新的“缩放模式”选择器。</li>
+            <li>向工具栏添加新的“显示 / 隐藏刻度 / 行标题”按钮。</li>
+            <li>“显示悬停区间”的新默认值为“false”。</li>
+            <li>新增 RowHeader 概念，用于替代 ScaleLayer 等内容。</li>
+            <li>通过监听布局 pulse，将 RowCanvas 和 LinksCanvas 的 Canvas 重绘次数降到最低。</li>
+            <li>修复缩放操作后网格线从前一个时间单位绘制的问题。</li>
+            <li>修复当主时间单位不希望显示日历条目时仍会绘制它们的问题。</li>
+            <li>修复添加和移除甘特图实例时向 Timeline 添加过多监听器的问题。</li>
+            <li>为 LinksCanvas 补充缺失的 alpha 通道 / 不透明度支持。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release-item">
+        <div class="release-version">版本 11.10.0 <span style="font-size:0.75rem;opacity:0.6">（性能版本）</span></div>
+        <div class="release-date"><i class="fa-regular fa-calendar"></i> March 2020</div>
+        <div class="release-desc">
+          <p>用 LinksCanvas 替换 LinksPane。链接现在通过 Canvas API 绘制。用 IntervalTree 替换活动链接的可观察列表（ObservableList），以加快查找。可定制链接渲染器。</p>
+          <ul>
+            <li>用 LinksCanvas 替换 LinksPane。链接现在通过 Canvas API 绘制（速度快得多）。</li>
+            <li>用 IntervalTree 替换 ActivityLinks 的 ObservableList，以加快查找。</li>
+            <li>ActivityLink 现在可以携带可选的用户对象。</li>
+            <li>可以在 GraphicsBase 上注册自定义链接渲染器。</li>
+            <li>重做 DatelineScale 的布局代码，使其能够与 JavaFX 中最新的 CSS 更改正常配合。</li>
+            <li>为 RowCanvas 和 DatelineScale 引入缓冲，以减少重绘。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release-item">
+        <div class="release-version">版本 11.9.1</div>
+        <div class="release-date"><i class="fa-regular fa-calendar"></i> October 24th, 2020</div>
+        <div class="release-desc">
+          <p>多项错误修复和增强。</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3><i class="fa-solid fa-chart-gantt" style="color:#60A5FA;margin-right:8px"></i>FlexGanttFX</h3>
+        <p>面向 JavaFX 的专业甘特图框架。</p>
+        <div style="margin-top:16px; display:flex; gap:12px">
+          <a href="https://www.dlsc.com" class="footer-social-link" title="dlsc.com"><i class="fa-solid fa-globe"></i></a>
+          <a href="https://github.com/dlsc-software-consulting-gmbh" class="footer-social-link" title="GitHub" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/dlemmermann/" class="footer-social-link" title="LinkedIn" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="https://bsky.app/profile/dlemmermann.bsky.social" class="footer-social-link" title="Bluesky" target="_blank" rel="noopener"><i class="fa-brands fa-bluesky"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>产品</h4>
+        <ul>
+          <li><a href="../index.html">首页</a></li>
+          <li><a href="demos.html">演示</a></li>
+          <li><a href="licensing.html">许可</a></li>
+          <li><a href="changelog.html">版本说明</a></li>
+          <li><a href="faq.html">常见问题</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>文档</h4>
+        <ul>
+          <li><a href="../manual/index.html">概览</a></li>
+          <li><a href="../manual/installation.html">安装</a></li>
+          <li><a href="../manual/tutorial.html">教程</a></li>
+          <li><a href="../manual/gantt-charts.html">甘特图</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <a href="https://www.dlsc.com" target="_blank" rel="noopener"><img src="../../assets/images/dlsc-logo.png" alt="DLSC Software &amp; Consulting GmbH" class="footer-dlsc-logo" /></a>
+        <ul>
+          <li><a href="https://www.dlsc.com">dlsc.com</a></li>
+          <li><a href="mailto:dlemmermann@gmail.com">联系我们</a></li>
+      <div class="mobile-lang-divider"></div>
+      <a href="../../pages/changelog.html" data-lang="en"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> English</a>
+      <a href="../../de/pages/changelog.html" data-lang="de"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Deutsch</a>
+      <a href="../../fr/pages/changelog.html" data-lang="fr"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Français</a>
+      <a href="changelog.html" data-lang="zh" class="active-lang"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> 中文（简体）</a>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="copyright-year">2024</span> DLSC Software &amp; Consulting GmbH. 保留所有权利。</span>
+      <span>FlexGanttFX v11.12.8</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

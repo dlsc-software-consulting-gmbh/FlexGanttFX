@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-20G18JBY7X"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-20G18JBY7X");</script>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>甘特图 — FlexGanttFX</title>
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+  <script src="../../assets/js/lang.js"></script>
+  <link rel="stylesheet" href="../../assets/css/docs.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" crossorigin="anonymous" />
+  <link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/gantt-charts.html" />
+  <link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/gantt-charts.html" />
+  <link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/gantt-charts.html" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/gantt-charts.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/gantt-charts.html" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <div class="navbar-brand-group">
+    <a href="../index.html" class="navbar-logo">
+      <i class="fa-solid fa-chart-gantt logo-icon"></i>
+      FlexGanttFX
+    </a>
+    <span class="navbar-brand-sep"></span>
+    <a href="https://www.dlsc.com" class="navbar-dlsc-link" target="_blank" rel="noopener" title="DLSC Software &amp; Consulting GmbH">
+      <img src="../../assets/images/dlsc-logo.png" alt="DLSC" class="navbar-dlsc-logo" />
+    </a>
+  </div>
+        <ul class="navbar-links">
+          <li><a href="../index.html">首页</a></li>
+          <li><a href="../pages/demos.html">演示</a></li>
+          <li class="nav-dropdown">
+            <a href="index.html" class="active">手册</a>
+            <div class="dropdown-menu">
+              <a href="index.html">目录</a>
+              <a href="installation.html">安装</a>
+              <a href="tutorial.html">教程</a>
+              <a href="gantt-charts.html">甘特图</a>
+              <a href="timeline.html">Timeline（时间轴）</a>
+              <a href="dateline.html">Dateline（日期线）</a>
+              <a href="eventline.html">Eventline（事件线）</a>
+              <a href="graphics.html">Graphics（图形）</a>
+              <a href="model.html">模型</a>
+              <a href="styling.html">样式</a>
+              <a href="logging.html">日志</a>
+            </div>
+          </li>
+          <li class="nav-dropdown">
+            <a href="#">文档</a>
+            <div class="dropdown-menu">
+              <a href="../pages/faq.html">常见问题</a>
+              <a href="../pages/changelog.html">版本说明</a>
+              <a href="../pages/licensing.html">许可</a>
+              <a href="../../api/index.html">Javadocs / API</a>
+            </div>
+          </li>
+          <li><a href="../pages/downloads.html">下载</a></li>
+      <li class="nav-dropdown nav-lang">
+        <a href="#"><i class="fa-solid fa-globe"></i> 中文</a>
+        <div class="dropdown-menu">
+          <a href="../../manual/gantt-charts.html" data-lang="en">English</a>
+          <a href="../../de/manual/gantt-charts.html" data-lang="de">Deutsch</a>
+          <a href="../../fr/manual/gantt-charts.html" data-lang="fr">Français</a>
+          <a href="gantt-charts.html" data-lang="zh" class="active">中文（简体）</a>
+        </div>
+      </li>
+          <li><a href="mailto:dlemmermann@gmail.com" class="nav-cta"><i class="fa-solid fa-envelope" style="font-size:0.8rem"></i> 联系我们</a></li>
+        </ul>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="container">
+        <a href="../index.html">首页</a>
+        <a href="index.html">文档</a>
+        <a href="installation.html">安装</a>
+        <a href="tutorial.html">教程</a>
+        <a href="gantt-charts.html">甘特图</a>
+        <a href="model.html">模型</a>
+        <a href="../pages/faq.html">常见问题</a>
+      <div class="mobile-lang-divider"></div>
+      <a href="../../manual/gantt-charts.html" data-lang="en"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> English</a>
+      <a href="../../de/manual/gantt-charts.html" data-lang="de"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Deutsch</a>
+      <a href="../../fr/manual/gantt-charts.html" data-lang="fr"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Français</a>
+      <a href="gantt-charts.html" data-lang="zh" class="active-lang"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> 中文（简体）</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">入门</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">概述</a></li>
+          <li><a href="installation.html">安装</a></li>
+          <li><a href="tutorial.html">教程</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">控件</div>
+        <ul class="sidebar-nav">
+          <li><a href="gantt-charts.html" class="active">甘特图</a></li>
+          <li><a href="timeline.html">Timeline（时间轴）</a></li>
+          <li><a href="dateline.html">Dateline（日期线）</a></li>
+          <li><a href="eventline.html">Eventline（事件线）</a></li>
+          <li><a href="graphics.html">Graphics（图形）</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">框架</div>
+        <ul class="sidebar-nav">
+          <li><a href="model.html">模型</a></li>
+          <li><a href="styling.html">样式</a></li>
+          <li><a href="logging.html">日志</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">参考</div>
+        <ul class="sidebar-nav">
+          <li><a href="../../api/index.html">Javadocs / API</a></li>
+          <li><a href="../pages/changelog.html">版本说明</a></li>
+          <li><a href="../pages/licensing.html">许可</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="docs-content">
+      <nav class="breadcrumb">
+        <a href="../index.html">首页</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="index.html">文档</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>甘特图</span>
+      </nav>
+      <article class="prose">
+<h1 id="overview">概述</h1>
+<p><code>GanttChart</code> 控件是一个自定义 <strong>JavaFX</strong> 控件，用于沿时间轴可视化任意类型的排程数据。
+该控件所需的模型数据由包含活动的行、活动之间的链接，以及用于对活动进行分组的层组成。</p>
+<p><code>GanttChart</code> 控件由多个复杂的子控件组成：</p>
+<table>
+<thead>
+<tr>
+<th>控件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TreeTableView</strong></td>
+<td>显示在<strong>左侧</strong>，用于展示行的层级结构。这是 <strong>JavaFX</strong> 随附的标准树表视图。</td>
+</tr>
+<tr>
+<td><strong>GraphicsBase</strong></td>
+<td>显示在<strong>右侧</strong>，用于以图形方式呈现模型数据。</td>
+</tr>
+<tr>
+<td><strong>时间轴</strong></td>
+<td>显示在图形视图上方。Timeline 本身由两个子控件组成（Dateline 和 Eventline）。</td>
+</tr>
+<tr>
+<td><strong>日期线</strong></td>
+<td>显示日、周、月、年等。</td>
+</tr>
+<tr>
+<td><strong>事件线</strong></td>
+<td>显示各种时间标记。也可以显示冻结行（不会垂直滚动的行）。</td>
+</tr>
+</tbody>
+</table>
+
+<p>下面的截图展示了空 <code>GanttChart</code> 控件的初始外观。</p>
+<p><img alt="GanttChart 控件截图" src="../../assets/images/docs/gantt-chart.png" /></p>
+<h2 id="master-detail-panes">主/详情面板</h2>
+<p>甘特图使用 <strong>ControlsFX</strong> 中的两个 <code>MasterDetailPane</code> 实例来实现高层布局。主/详情面板将树表作为其详情节点，次级主/详情面板初始时将属性表作为其详情节点。属性表用于开发阶段，也可以通过调用 <code>setDetail(Node)</code> 替换为任意节点。属性表展示了控件、渲染器和系统层使用的大量属性，用于微调控件外观。其中许多属性都可以在运行时修改。下表列出了处理主/详情面板时相关的方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>setDetail(Node);</strong></td>
+<td>设置作为次级主/详情面板详情节点显示的节点。</td>
+</tr>
+<tr>
+<td><strong>getDetail(Node);</strong></td>
+<td>获取作为次级主/详情面板详情节点显示的节点。</td>
+</tr>
+<tr>
+<td><strong>getPrimaryMasterDetailPane();</strong></td>
+<td>返回主/详情面板。该面板将树表视图作为详情区域，并将次级主/详情面板作为主区域。</td>
+</tr>
+<tr>
+<td><strong>getSecondaryMasterDetailPane();</strong></td>
+<td>返回次级主/详情面板。该面板将图形视图作为主区域，并将一个可选节点作为详情区域。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="model">模型</h2>
+<p><code>GanttChart</code> 控件本身没有模型。它只是提供便捷方法和数据结构，以支持底层控件（树表视图、图形视图）。下表列出了相关方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>void setRoot(R row);</strong></td>
+<td>设置底层树表视图控件的根节点。</td>
+</tr>
+<tr>
+<td><strong>R getRoot();</strong></td>
+<td>获取底层树表视图控件的根节点。</td>
+</tr>
+<tr>
+<td><strong>ObservableList&lt;Layer&gt; getLayers();</strong></td>
+<td>图形视图将显示的层列表。</td>
+</tr>
+<tr>
+<td><strong>ObservableList&lt;ActivityLink&lt;?&gt;&gt; getLinks();</strong></td>
+<td>图形视图将显示的链接列表。</td>
+</tr>
+<tr>
+<td><strong>ObservableLis&lt;Calendar&lt;?&gt;&gt; getCalendars();</strong></td>
+<td>图形视图将显示的日历列表。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="display-mode">显示模式</h2>
+<p><code>GanttChart</code> 控件的 <code>displayMode</code> 属性用于在三种不同布局之间切换：</p>
+<ul>
+<li><strong>标准</strong> – 树表视图显示在左侧、图形区域显示在右侧的布局。</li>
+<li><strong>仅表格</strong> – 表格占满整个甘特图控件宽度的布局。</li>
+<li><strong>仅图形</strong> – 图形视图占满整个 <code>GanttChart</code> 控件宽度的布局。</li>
+</ul>
+<p>可以通过调用 <code>setDisplayMode()</code> 方法更改显示模式。下面的截图展示了不同的显示模式。</p>
+<p><strong>标准布局</strong>
+<img alt="标准显示布局截图" src="../../assets/images/docs/display-standard.png" /></p>
+<p><strong>仅表格布局</strong>
+<img alt="仅表格显示布局截图" src="../../assets/images/docs/display-table.png" /></p>
+<p><strong>仅图形布局</strong>
+<img alt="仅图形显示布局截图" src="../../assets/images/docs/display-graphics.png" /></p>
+<h2 id="graphics-header">图形标题区</h2>
+<p>当甘特图控件用于<strong>多甘特图上下文</strong>时，图形标题区节点会替代 Timeline，例如在 <code>DualGanttChartContainer</code> 或 <code>MultiGanttChartContainer</code> 中使用时。</p>
+<p><img alt="图形标题区截图" src="../../assets/images/docs/graphics-header.png" /></p>
+<p>可以通过调用 <code>GanttChart.setGraphicsHeader(Node)</code> 设置该节点。传给此方法的节点可以是任意节点。唯一需要注意的是，该节点的首选高度必须与树表表头的首选高度设置为相同值。</p>
+<p><strong>行标题</strong> – 树表视图中的第一列称为“行标题”。该列由框架提供，无法移除。默认情况下，它用于显示行号，但也可以复用于其他用途。<code>RowHeader</code> 类是 <code>TreeTableColumn</code> 的子类，并包含一些特殊逻辑。它支持<strong>行尺寸调整</strong>，并且可能回调工厂来生成其图形内容。</p>
+<p><strong>行标题类型</strong> - 枚举 <code>RowHeaderType</code> 定义了行标题的不同使用方式。</p>
+<ul>
+<li><strong>GRAPHIC_NODE</strong> – 让行标题单元格为每一行显示一个自定义节点。</li>
+</ul>
+<p><img alt="行标题控件截图" src="../../assets/images/docs/header-controls.png" /></p>
+<ul>
+<li><strong>LEVEL_NUMBER</strong> – 让行标题单元格显示当前行的层级编号（1、1.1、1.2、2、2.1、2.2、2.3……）。</li>
+</ul>
+<p><img alt="行标题层级编号截图" src="../../assets/images/docs/header-numbers.png" /></p>
+<ul>
+<li><strong>ROW_NUMBER</strong> – 让行标题单元格显示当前行的编号（1、2、3……）。</li>
+</ul>
+<p><img alt="行标题行号截图" src="../../assets/images/docs/header-levels.pg.png" /></p>
+<p><strong>行标题工厂</strong> – 如果选择 <code>GRAPHIC_NODE</code> 类型，行标题就会回调由 <code>GanttChart</code> 类提供的行标题节点工厂。下面的示例展示了如何注册该工厂的一种可能实现。</p>
+<pre><code class="language-java">ganttChart.setRowHeaderNodeFactory(row -&gt; {
+    public Node call(R row) {
+        Button delete = new Button(&quot;Delete&quot;);
+        delete.setOnAction(evt -&gt; deleteRow(row));
+        return delete;
+    }
+});
+</code></pre>
+<h2 id="property-sheet">属性表</h2>
+<p>甘特图详情节点属性默认使用的控件是 <strong>ControlsFX</strong> 开源项目中的属性表。它用于显示甘特图本身及其子控件（Timeline、Dateline、Eventline、Graphics）的属性。它还会显示所有已注册到控件的渲染器属性。下面的截图展示了属性表被设置为甘特图详情节点时的外观。随后可以通过调用 <code>GanttChart.setShowDetail(true)</code> 使其可见。</p>
+<p><img alt="属性表截图" src="../../assets/images/docs/property-sheet.png" /></p>
+<p>编写自己的渲染器时，可以重写 <code>getPropertySheetItems()</code> 方法，并将自定义项添加到超类返回的项列表中。</p>
+<h2 id="other-features">其他功能</h2>
+<p><strong>固定单元格大小</strong> – <strong>JavaFX</strong> 的树表视图和列表视图都支持名为 <code>fixedCellSize</code> 的属性。它可用于提升这两个控件的性能。做法是将其设置为 -1 以外的值。这样的值会告知控件每个单元格都具有相同高度，从而在更新控件时使用更快的算法。<code>GanttChart</code> 类也定义了此属性，以确保其使用的树表视图和列表视图采用相同的单元格大小。如果设置了该属性，甘特图将不会使用行的 height 属性，也不允许用户调整行高。</p>
+<p><strong>主 Timeline</strong> – <code>GanttChart</code> 控件定义了一个名为 <code>masterTimeLine</code> 的属性。当甘特图用于多甘特图上下文（例如 <code>DualGanttChartContainer</code> 或 <code>MultiGanttChartContainer</code>）时会使用该属性。在这些情况下，顶部甘特图的 Timeline 是渲染周末、网格线等内容的基准。每个甘特图仍然拥有自己的 Timeline 子控件，但它们都会知道哪一个是主 Timeline。这是框架功能，应用程序通常不应干预。</p>
+<p><strong>滚动条类型</strong> – <code>GanttChart</code> 控件支持不同类型的滚动条。可以通过调用 <code>GanttChartBase.setScrollBarType(ScrollBarType)</code> 设置类型。当前可用的类型如下：</p>
+<ul>
+<li><strong><code>NONE</code></strong> - 甘特图不会提供任何滚动条。树表视图和图形区域都不会有滚动条。这样的甘特图只能通过键盘、鼠标滚轮或触控输入设备滚动。</li>
+<li><strong><code>INFINITE</code></strong> - 甘特图会为树表视图显示常规滚动条，并显示一个名为 TimelineScrollBar 的滚动条，其内部使用 PlusMinusSlider（由 ControlsFX 项目提供）。该滑块允许以不同速度向过去或未来滚动。此滚动条不需要指定滚动“范围”（可滚动到的最早/最晚时间）。</li>
+<li><strong><code>FIXED_HORIZON</code></strong> - 甘特图会为树表视图和图形区域显示常规滚动条。滚动条边界基于 TimelineModel 定义的范围开始时间和结束时间。</li>
+</ul>
+<p><strong>滚动条可见性</strong> - 另一个与滚动条相关的配置选项是布尔属性 <code>autoHideScrollBars</code>。如果设置为 true，树表视图（左侧）和图形区域（右侧）的滚动条将放置在 <code>HiddenSidesPane</code> 实例中。这个来自 <strong>ControlsFX</strong> 的容器控件可以显示或隐藏放置在其某一侧的控件。在此情况下，滚动条会放在“底部”一侧，并且只有当用户将鼠标指针移近边缘时才会出现。</p>
+<p><strong>位置</strong> – <code>GanttChart</code> 类的 position 属性用于告知甘特图在多甘特图上下文（例如 <code>DualGanttChartContainer</code> 或 <code>MultiGanttChartContainer</code>）中的位置。可能的值包括：</p>
+<ul>
+<li><strong><code>ONLY</code></strong> - 该甘特图是唯一一个。这是默认值；如果未在多甘特图上下文中使用，则不会改变。</li>
+<li><strong><code>FIRST</code></strong> - 甘特图显示在容器顶部。</li>
+<li><strong><code>MIDDLE</code></strong> - 甘特图既不是第一个，也不是最后一个；同时也不是唯一一个。</li>
+<li><strong><code>LAST</code></strong> - 甘特图显示在容器底部。</li>
+</ul>
+<p>下面的截图展示了 <code>MultiGanttChartContainer</code> 中的三个图表及其位置值。</p>
+<p><img alt="多甘特图位置示例截图" src="../../assets/images/docs/position.png" /></p>
+<p><strong>工厂方法</strong> – 有几个受保护的工厂方法用于创建子控件。可以重写这些方法来创建这些控件的子类。</p>
+<ul>
+<li><code>TreeTableView createTreeTable();</code> - 创建显示在甘特图左侧的树表视图。替换此表格的典型用例是你已经拥有一个带有高级过滤或交互选项的树表视图特化实现，并希望复用应用程序在其他位置已经使用的同一个树表视图。</li>
+<li><code>Timeline createTimeline();</code> - 创建 Timeline。</li>
+<li><code>GraphicsBase createGraphics();</code> - 创建图形视图。替换标准图形视图的一种用例是应用程序需要向图形视图添加若干节点，例如在图形之上叠加某种内容（例如雷达）。</li>
+<li><code>RowHeader createRowHeader();</code> - 为树表视图创建行标题列。</li>
+</ul>
+<h2 id="gattchartlite">GattChartLite</h2>
+<p><code>GanttChartLite</code> 与 <code>GanttChart</code> 基本相同，只是它不会在左侧显示 <code>TreeTableView</code>。当应用程序不需要为每一行显示大量详细信息时，这类图表很有用。通常只显示行名称（例如飞机名称）就足够了。在这种情况下，可以选择 轻量版，并结合行标题和行标题工厂使用。</p>
+<h2 id="gantt-chart-containers">甘特图容器</h2>
+<p>甘特图可以独立使用，也可以放在 <code>MultiGanttChartContainer</code> 或 <code>DualGanttChartContainer</code> 中使用。当在这些容器之一中使用时，甘特图的位置就很重要。控件可以是第一个图表、最后一个图表、唯一图表，或者位于中间的某个图表。“第一个”或“唯一”图表始终显示 Timeline。“中间”或“最后一个”图表会显示特殊标题区（参见 <code>setGraphicsHeader()</code>）。这些容器也是控件区分 Timeline（<code>getTimeline()</code>）和 主 Timeline（<code>getMasterTimeline()</code>）的原因。主 Timeline 是“第一个”图表显示的 Timeline，而常规 Timeline 则直接属于当前实例。</p>
+<p>FlexGanttFX 随附了多个能够同时显示多个甘特图的容器。</p>
+<ul>
+<li><strong><code>MultiGattChartContainer</code></strong>, <strong><code>MultiGattChartLiteContainer</code></strong> - 能够显示多个 <code>GanttChart</code> / <code>GanttChartLite</code> 实例的容器，并保持它们的布局（相同表格宽度、相同 Timeline）以及滚动和缩放行为同步。下面的截图展示了空多甘特图容器的初始外观。</li>
+</ul>
+<p><img alt="多甘特图容器截图" src="../../assets/images/docs/multi-gantt-chart.png" /></p>
+<ul>
+<li><strong><code>DualGanttChartContainer</code></strong>, <strong><code>DualGanttChartLiteContainer</code></strong> - <code>MultiGanttChartContainer</code> 的一种特化容器，能够精确显示两个 <code>GanttChart</code> 实例，并保持它们的布局（相同表格宽度、相同 Timeline）以及滚动和缩放行为同步。该容器区分主甘特图和次级甘特图，其中次级甘特图位于 <code>MasterDetailPane</code> 的详情节点区域。它可以按需隐藏或显示。两个甘特图各自都可以拥有自己的页眉和页脚。初始情况下，只使用主页眉和次级页脚。页眉用于显示 <code>GanttChartToolBar</code> 实例，页脚用于显示 <code>GanttChartStatusBar</code> 实例。下面的截图展示了空双甘特图控件的初始外观。</li>
+</ul>
+<p><img alt="双甘特图容器截图" src="../../assets/images/docs/dual-gantt-chart.png" /></p>
+<ul>
+<li><strong><code>QuadGanttChartContainer</code></strong>, <strong><code>QuadGanttChartLiteContainer</code></strong> - <code>MultiGanttChartContainer</code> 的一种特化容器，能够精确显示四个 <code>GanttChart</code> 实例，并保持它们的布局（相同表格宽度、相同 Timeline）以及滚动和缩放行为同步。该容器区分甘特图位置 <code>UPPER_LEFT</code>、<code>UPPER_RIGHT</code>、<code>LOWER_LEFT</code>、<code>LOWER_RIGHT</code>。<code>UPPER_LEFT</code> 和 <code>LOWER_LEFT</code> 甘特图的 Timeline 会同步滚动，<code>UPPER_RIGHT</code> 和 <code>LOWER_RIGHT</code> 的 Timeline 也会同步滚动。</li>
+</ul>
+<p><img alt="四甘特图容器截图" src="../../assets/images/docs/quad-gantt-chart.png" /></p>
+      </article>
+      <div class="docs-nav-bottom">
+        <a class="docs-nav-btn" href="tutorial.html"><span class="docs-nav-label">← 上一页</span><span class="docs-nav-title">教程</span></a>
+<a class="docs-nav-btn next" href="timeline.html"><span class="docs-nav-label">下一页 →</span><span class="docs-nav-title">Timeline（时间轴）</span></a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../assets/js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js" crossorigin="anonymous"></script>
+</body>
+</html>

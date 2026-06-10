@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-20G18JBY7X"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-20G18JBY7X");</script>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gantt-Diagramme — FlexGanttFX</title>
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+  <script src="../../assets/js/lang.js"></script>
+  <link rel="stylesheet" href="../../assets/css/docs.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" crossorigin="anonymous" />
+  <link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/gantt-charts.html" />
+  <link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/gantt-charts.html" />
+  <link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/gantt-charts.html" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/gantt-charts.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/gantt-charts.html" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <div class="navbar-brand-group">
+    <a href="../index.html" class="navbar-logo">
+      <i class="fa-solid fa-chart-gantt logo-icon"></i>
+      FlexGanttFX
+    </a>
+    <span class="navbar-brand-sep"></span>
+    <a href="https://www.dlsc.com" class="navbar-dlsc-link" target="_blank" rel="noopener" title="DLSC Software &amp; Consulting GmbH">
+      <img src="../../assets/images/dlsc-logo.png" alt="DLSC" class="navbar-dlsc-logo" />
+    </a>
+  </div>
+        <ul class="navbar-links">
+          <li><a href="../index.html">Startseite</a></li>
+          <li><a href="../pages/demos.html">Demos</a></li>
+          <li class="nav-dropdown">
+            <a href="index.html" class="active">Handbuch</a>
+            <div class="dropdown-menu">
+              <a href="index.html">Inhaltsverzeichnis</a>
+              <a href="installation.html">Installation</a>
+              <a href="tutorial.html">Tutorial</a>
+              <a href="gantt-charts.html">Gantt-Diagramme</a>
+              <a href="timeline.html">Timeline</a>
+              <a href="dateline.html">Dateline</a>
+              <a href="eventline.html">Eventline</a>
+              <a href="graphics.html">Grafik</a>
+              <a href="model.html">Modell</a>
+              <a href="styling.html">Styling</a>
+              <a href="logging.html">Logging</a>
+            </div>
+          </li>
+          <li class="nav-dropdown">
+            <a href="#">Dokumentation</a>
+            <div class="dropdown-menu">
+              <a href="../pages/faq.html">FAQs</a>
+              <a href="../pages/changelog.html">Versionshinweise</a>
+              <a href="../pages/licensing.html">Lizenzierung</a>
+              <a href="../../api/index.html">Javadocs / API</a>
+            </div>
+          </li>
+          <li><a href="../pages/downloads.html">Downloads</a></li>
+      <li class="nav-dropdown nav-lang">
+        <a href="#"><i class="fa-solid fa-globe"></i> DE</a>
+        <div class="dropdown-menu">
+          <a href="../../manual/gantt-charts.html" data-lang="en">English</a>
+          <a href="gantt-charts.html" data-lang="de" class="active">Deutsch</a>
+          <a href="../../fr/manual/gantt-charts.html" data-lang="fr">Français</a>
+          <a href="../../zh/manual/gantt-charts.html" data-lang="zh">中文（简体）</a>
+        </div>
+      </li>
+          <li><a href="mailto:dlemmermann@gmail.com" class="nav-cta"><i class="fa-solid fa-envelope" style="font-size:0.8rem"></i> Kontakt</a></li>
+        </ul>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="container">
+        <a href="../index.html">Startseite</a>
+        <a href="index.html">Dokumentation</a>
+        <a href="installation.html">Installation</a>
+        <a href="tutorial.html">Tutorial</a>
+        <a href="gantt-charts.html">Gantt-Diagramme</a>
+        <a href="model.html">Modell</a>
+        <a href="../pages/faq.html">FAQ</a>
+      <div class="mobile-lang-divider"></div>
+      <a href="../../manual/gantt-charts.html" data-lang="en"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> English</a>
+      <a href="gantt-charts.html" data-lang="de" class="active-lang"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Deutsch</a>
+      <a href="../../fr/manual/gantt-charts.html" data-lang="fr"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Français</a>
+      <a href="../../zh/manual/gantt-charts.html" data-lang="zh"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> 中文（简体）</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Erste Schritte</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Übersicht</a></li>
+          <li><a href="installation.html">Installation</a></li>
+          <li><a href="tutorial.html">Tutorial</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Steuerelemente</div>
+        <ul class="sidebar-nav">
+          <li><a href="gantt-charts.html" class="active">Gantt-Diagramme</a></li>
+          <li><a href="timeline.html">Timeline</a></li>
+          <li><a href="dateline.html">Dateline</a></li>
+          <li><a href="eventline.html">Eventline</a></li>
+          <li><a href="graphics.html">Grafik</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Framework</div>
+        <ul class="sidebar-nav">
+          <li><a href="model.html">Modell</a></li>
+          <li><a href="styling.html">Styling</a></li>
+          <li><a href="logging.html">Logging</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Referenz</div>
+        <ul class="sidebar-nav">
+          <li><a href="../../api/index.html">Javadocs / API</a></li>
+          <li><a href="../pages/changelog.html">Versionshinweise</a></li>
+          <li><a href="../pages/licensing.html">Lizenzierung</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="docs-content">
+      <nav class="breadcrumb">
+        <a href="../index.html">Startseite</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="index.html">Dokumentation</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Gantt-Diagramme</span>
+      </nav>
+      <article class="prose">
+<h1 id="overview">Übersicht</h1>
+<p>Das GanttChart-Steuerelement ist ein benutzerdefiniertes <strong>JavaFX</strong>-Steuerelement zur Visualisierung beliebiger Planungsdaten entlang einer Zeitachse. 
+Die vom Steuerelement benötigten Modelldaten bestehen aus Zeilen mit Aktivitäten, Verknüpfungen zwischen ihnen und Layern zur Gruppierung von Aktivitäten.</p>
+<p>Das <code>GanttChart</code>-Steuerelement besteht aus mehreren komplexen Untersteuerelementen:</p>
+<table>
+<thead>
+<tr>
+<th>Steuerelement</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TreeTableView</strong></td>
+<td>Wird auf der <strong>linken Seite</strong> angezeigt und stellt eine hierarchische Struktur von Zeilen dar. Dies ist die Standard-TreeTableView aus <strong>JavaFX</strong>.</td>
+</tr>
+<tr>
+<td><strong>GraphicsBase</strong></td>
+<td>Wird auf der <strong>rechten Seite</strong> angezeigt und zeigt eine grafische Darstellung der Modelldaten.</td>
+</tr>
+<tr>
+<td><strong>Timeline</strong></td>
+<td>Wird oberhalb der Grafikansicht angezeigt. Die Timeline selbst besteht aus zwei untergeordneten Steuerelementen (Dateline und Eventline).</td>
+</tr>
+<tr>
+<td><strong>Dateline</strong></td>
+<td>Zeigt Tage, Wochen, Monate, Jahre usw. an.</td>
+</tr>
+<tr>
+<td><strong>Eventline</strong></td>
+<td>Zeigt verschiedene Zeitmarkierungen an. Kann auch eingefrorene Zeilen anzeigen (Zeilen, die vertikal nicht scrollen).</td>
+</tr>
+</tbody>
+</table>
+
+<p>Der folgende Screenshot zeigt das anfängliche Erscheinungsbild eines leeren <code>GanttChart</code>-Steuerelements.</p>
+<p><img alt="Gantt Chart" src="../../assets/images/docs/gantt-chart.png" /></p>
+<h2 id="master-detail-panes">Master-/Detail-Bereiche</h2>
+<p>Das Gantt-Diagramm verwendet zwei <code>MasterDetailPane</code>-Instanzen aus <strong>ControlsFX</strong> für das übergeordnete Layout. Der primäre Master-Detail-Bereich zeigt die TreeTableView als Detailknoten an, und der sekundäre Master-Detail-Bereich zeigt initial ein Eigenschaftsblatt als Detailknoten. Das Eigenschaftsblatt wird zur Entwicklungszeit verwendet und kann durch den Aufruf von <code>setDetail(Node)</code> durch einen beliebigen Knoten ersetzt werden. Es zeigt zahlreiche Eigenschaften, die von den Steuerelementen, den Renderern und den System-Layern zur Feinabstimmung des Erscheinungsbilds verwendet werden. Viele davon können zur Laufzeit geändert werden. Die folgende Tabelle listet relevante Methoden für die Arbeit mit den Master-Detail-Bereichen auf:</p>
+<table>
+<thead>
+<tr>
+<th>Methode</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>setDetail(Node);</strong></td>
+<td>Legt den Knoten fest, der als Detailknoten des sekundären Master-Detail-Bereichs angezeigt wird.</td>
+</tr>
+<tr>
+<td><strong>getDetail(Node);</strong></td>
+<td>Gibt den Knoten zurück, der als Detailknoten des sekundären Master-Detail-Bereichs angezeigt wird.</td>
+</tr>
+<tr>
+<td><strong>getPrimaryMasterDetailPane();</strong></td>
+<td>Gibt den primären Master-/Detail-Bereich zurück. Dieser zeigt die TreeTableView als Detail und den sekundären Master-/Detail-Bereich als Master an.</td>
+</tr>
+<tr>
+<td><strong>getSecondaryMasterDetailPane();</strong></td>
+<td>Gibt den sekundären Master-/Detail-Bereich zurück. Dieser zeigt die Grafikansicht als Master und einen optionalen Knoten als Detail an.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="model">Modell</h2>
+<p>Das <code>GanttChart</code>-Steuerelement hat kein eigenes Modell. Es stellt lediglich Hilfsmethoden und Datenstrukturen zur Verfügung, um die zugrundeliegenden Steuerelemente (TreeTableView, Grafikansicht) zu unterstützen. Die folgende Tabelle listet die relevanten Methoden auf:</p>
+<table>
+<thead>
+<tr>
+<th>Methode</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>void setRoot(R row);</strong></td>
+<td>Legt den Wurzelknoten für das zugrundeliegende TreeTableView-Steuerelement fest.</td>
+</tr>
+<tr>
+<td><strong>R getRoot();</strong></td>
+<td>Gibt den Wurzelknoten des zugrundeliegenden TreeTableView-Steuerelements zurück.</td>
+</tr>
+<tr>
+<td><strong>ObservableList&lt;Layer&gt; getLayers();</strong></td>
+<td>Die Liste der Layer, die von der Grafikansicht angezeigt werden.</td>
+</tr>
+<tr>
+<td><strong>ObservableList&lt;ActivityLink&lt;?&gt;&gt; getLinks();</strong></td>
+<td>Die Liste der Verknüpfungen, die von der Grafikansicht angezeigt werden.</td>
+</tr>
+<tr>
+<td><strong>ObservableLis&lt;Calendar&lt;?&gt;&gt; getCalendars();</strong></td>
+<td>Die Liste der Kalender, die von der Grafikansicht angezeigt werden.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="display-mode">Anzeigemodus</h2>
+<p>Die Eigenschaft <code>displayMode</code> des <code>GanttChart</code>-Steuerelements dient zum Umschalten zwischen drei verschiedenen Layouts:</p>
+<ul>
+<li><strong>Standard</strong> – ein Layout mit der TreeTableView auf der linken Seite und dem Grafikbereich auf der rechten Seite</li>
+<li><strong>Table-Only</strong> – ein Layout, in dem die Tabelle die gesamte Breite des Gantt-Chart-Steuerelements ausfüllt</li>
+<li><strong>Graphics Only</strong> – ein Layout, in dem die Grafikansicht die gesamte Breite des <code>GanttChart</code>-Steuerelements ausfüllt</li>
+</ul>
+<p>Der Anzeigemodus kann durch den Aufruf der Methode <code>setDisplayMode()</code> geändert werden. Die folgenden Screenshots zeigen die verschiedenen Anzeigemodi.</p>
+<p><strong>Standard-Layout</strong>
+<img alt="display-standard.png" src="../../assets/images/docs/display-standard.png" /></p>
+<p><strong>Nur-Tabellen-Layout</strong>
+<img alt="display-table.png" src="../../assets/images/docs/display-table.png" /></p>
+<p><strong>Nur-Grafik-Layout</strong>
+<img alt="display-graphics.png" src="../../assets/images/docs/display-graphics.png" /></p>
+<h2 id="graphics-header">Grafik-Kopfzeile</h2>
+<p>Der Grafik-Kopfzeilen-Knoten ersetzt die Timeline, wenn das Gantt-Chart-Steuerelement in einem Multi-Gantt-Chart-Kontext verwendet wird, beispielsweise in einem <code>DualGanttChartContainer</code> oder einem <code>MultiGanttChartContainer</code>.</p>
+<p><img alt="graphics-header.png" src="../../assets/images/docs/graphics-header.png" /></p>
+<p>Dieser Knoten kann durch den Aufruf von <code>GanttChart.setGraphicsHeader(Node)</code> festgelegt werden. Der übergebene Knoten kann beliebig sein. Wichtig ist nur, dass die bevorzugte Höhe dieses Knotens auf denselben Wert wie die bevorzugte Höhe des Tree-Table-Headers gesetzt wird.</p>
+<p><strong>Zeilen-Kopfzeile</strong> – die erste Spalte in der TreeTableView wird als „Zeilen-Kopfzeile" bezeichnet. Diese Spalte wird vom Framework bereitgestellt und kann nicht entfernt werden. Standardmäßig wird sie zur Anzeige von Zeilennummern verwendet, kann aber für andere Zwecke wiederverwendet werden. Die Klasse <code>RowHeader</code> ist eine Unterklasse von <code>TreeTableColumn</code> mit spezieller Logik. Sie unterstützt die <strong>Zeilengrößenänderung</strong> und kann eine Factory aufrufen, um ihre Grafik zu erstellen.</p>
+<p><strong>Zeilen-Kopfzeilen-Typ</strong> – der Enumerator <code>RowHeaderType</code> definiert die verschiedenen Verwendungsmöglichkeiten der Zeilen-Kopfzeile.</p>
+<ul>
+<li><strong>GRAPHIC_NODE</strong> – Lässt die Zeilen-Kopfzeilen-Zellen für jede Zeile einen benutzerdefinierten Knoten anzeigen.</li>
+</ul>
+<p><img alt="header-controls.png" src="../../assets/images/docs/header-controls.png" /></p>
+<ul>
+<li><strong>LEVEL_NUMBER</strong> – Lässt die Zeilen-Kopfzeilen-Zellen die Ebenennummer der aktuellen Zeile anzeigen (1, 1.1, 1.2, 2, 2.1, 2.2, 2.3, ...).</li>
+</ul>
+<p><img alt="header-numbers.png" src="../../assets/images/docs/header-numbers.png" /></p>
+<ul>
+<li><strong>ROW_NUMBER</strong> – Lässt die Zeilen-Kopfzeilen-Zellen die Nummer der aktuellen Zeile anzeigen (1, 2, 3, ...).</li>
+</ul>
+<p><img alt="header-levels.pg.png" src="../../assets/images/docs/header-levels.pg.png" /></p>
+<p><strong>Zeilen-Kopfzeilen-Factory</strong> – wenn der Typ <code>GRAPHIC_NODE</code> gewählt wird, ruft die Zeilen-Kopfzeile die Knoten-Factory auf, die von der Klasse <code>GanttChart</code> bereitgestellt wird. Das folgende Beispiel zeigt, wie eine mögliche Implementierung einer solchen Factory registriert werden kann.</p>
+<pre><code class="language-java">ganttChart.setRowHeaderNodeFactory(row -&gt; {
+    public Node call(R row) {
+        Button delete = new Button(&quot;Delete&quot;);
+        delete.setOnAction(evt -&gt; deleteRow(row));
+        return delete;
+    }
+});
+</code></pre>
+<h2 id="property-sheet">Eigenschaftsblatt</h2>
+<p>Das Standard-Steuerelement für den Detailknoten des Gantt-Diagramms ist das Eigenschaftsblatt aus dem Open-Source-Projekt <strong>ControlsFX</strong>. 
+Es wird verwendet, um die Eigenschaften des Gantt-Diagramms selbst und seiner Untersteuerelemente (Timeline, Dateline, 
+Eventline, Grafik) anzuzeigen. Es zeigt auch die Eigenschaften aller bei den Steuerelementen registrierten Renderer. Der folgende Screenshot 
+zeigt das Eigenschaftsblatt, wie es als Detailknoten des Gantt-Diagramms angezeigt wird. Es kann durch den Aufruf von <code>GanttChart.setShowDetail(true)</code> sichtbar gemacht werden.</p>
+<p><img alt="property-sheet.png" src="../../assets/images/docs/property-sheet.png" /></p>
+<p>Beim Schreiben eigener Renderer können Sie die Methode <code>getPropertySheetItems()</code> überschreiben und eigene Einträge zur Liste der von der Oberklasse zurückgegebenen Einträge hinzufügen.</p>
+<h2 id="other-features">Weitere Funktionen</h2>
+<p><strong>Feste Zellgröße</strong> – die TreeTableView und die ListView von <strong>JavaFX</strong> unterstützen beide eine Eigenschaft namens <code>fixedCellSize</code>. Sie kann zur Verbesserung der Performance beider Steuerelemente genutzt werden, indem sie auf einen anderen Wert als -1 gesetzt wird. Dadurch wird den Steuerelementen mitgeteilt, dass jede Zelle dieselbe Höhe hat, was schnellere Algorithmen bei der Aktualisierung ermöglicht. Die Klasse <code>GanttChart</code> definiert diese Eigenschaft ebenfalls, um sicherzustellen, dass die TreeTableView und die ListView dieselbe Zellgröße verwenden. Wenn gesetzt, verwendet das Gantt-Diagramm die Höheneigenschaft der Zeilen nicht und lässt den Benutzer auch keine Zeilengrößenänderung vornehmen.</p>
+<p><strong>Master-Timeline</strong> – das <code>GanttChart</code>-Steuerelement definiert eine Eigenschaft namens <code>masterTimeLine</code>. Diese wird verwendet, wenn das Gantt-Diagramm in einem Multi-Gantt-Chart-Kontext eingesetzt wird (z. B. <code>DualGanttChartContainer</code> oder <code>MultiGanttChartContainer</code>). In diesen Fällen ist die Timeline des obersten Gantt-Diagramms die Basis für das Rendern von Wochenenden, Gitterlinien usw. Jedes Gantt-Diagramm hat weiterhin sein eigenes Timeline-Untersteuerelement, aber alle wissen, welches das Master ist. Dies ist Framework-Funktionalität, in die Anwendungen normalerweise nicht eingreifen sollten.</p>
+<p><strong>ScrollBar-Typ</strong> – das <code>GanttChart</code>-Steuerelement unterstützt verschiedene Scrollbar-Typen. Der Typ kann durch den Aufruf von 
+<code>GanttChartBase.setScrollBarType(ScrollBarType)</code> gesetzt werden. Folgende Typen sind derzeit verfügbar:</p>
+<ul>
+<li><strong><code>NONE</code></strong> – Das Gantt-Diagramm zeigt nie Scrollbars an – weder für die TreeTableView noch für den Grafikbereich. Ein solches Gantt-Diagramm kann nur über die Tastatur, das Mausrad oder ein Touch-Eingabegerät gescrollt werden.</li>
+<li><strong><code>INFINITE</code></strong> – Das Gantt-Diagramm zeigt eine reguläre Scrollbar für die TreeTableView und eine Scrollbar namens TimelineScrollBar, die intern einen PlusMinusSlider (bereitgestellt vom ControlsFX-Projekt) verwendet. Der Slider ermöglicht das Scrollen in unterschiedlichen Geschwindigkeiten in die Vergangenheit oder Zukunft. Diese Scrollbar benötigt keinen definierten Scroll-„Horizont" (früheste / späteste Zeit).</li>
+<li><strong><code>FIXED_HORIZON</code></strong> – Das Gantt-Diagramm zeigt eine reguläre Scrollbar sowohl für die TreeTableView als auch für den Grafikbereich. Die Grenzen der Scrollbar basieren auf den Horizont-Start- und -Endzeiten, wie im TimelineModel definiert.</li>
+</ul>
+<p><strong>ScrollBar-Sichtbarkeit</strong> – eine weitere Konfigurationsoption für Scrollbars ist die boolesche Eigenschaft 
+<code>autoHideScrollBars</code>. Wenn auf true gesetzt, werden die Scrollbars für die TreeTableView (linke Seite) und den Grafikbereich 
+(rechte Seite) in eine <code>HiddenSidesPane</code>-Instanz platziert. Dieses Container-Steuerelement aus <strong>ControlsFX</strong> kann Steuerelemente ein- oder ausblenden, die an einer seiner Seiten platziert wurden. In diesem Fall werden die Scrollbars an der „unteren" Seite platziert und erscheinen nur, wenn der Benutzer den Mauszeiger nahe am Rand bewegt.</p>
+<p><strong>Position</strong> – die Eigenschaft <code>position</code> der Klasse <code>GanttChart</code> informiert das Gantt-Diagramm über seine Position in einem Multi-Gantt-Chart-Kontext (z. B. <code>DualGanttChartContainer</code> oder <code>MultiGanttChartContainer</code>). Mögliche Werte sind:</p>
+<ul>
+<li><strong><code>ONLY</code></strong> – das Gantt-Diagramm ist das einzige. Dies ist der Standardwert und ändert sich nicht, wenn es nicht in einem Multi-Gantt-Chart-Kontext verwendet wird.</li>
+<li><strong><code>FIRST</code></strong> – das Gantt-Diagramm wird oben im Container angezeigt.</li>
+<li><strong><code>MIDDLE</code></strong> – das Gantt-Diagramm ist weder das erste noch das letzte und auch nicht das einzige.</li>
+<li><strong><code>LAST</code></strong> – das Gantt-Diagramm wird unten im Container angezeigt.</li>
+</ul>
+<p>Der folgende Screenshot zeigt drei Diagramme in einem <code>MultiGanttChartContainer</code> und ihre Positionswerte.</p>
+<p><img alt="position.png" src="../../assets/images/docs/position.png" /></p>
+<p><strong>Factory-Methoden</strong> – es gibt mehrere geschützte Factory-Methoden zum Erstellen der Untersteuerelemente. Diese Methoden können überschrieben werden, um Unterklassen dieser Steuerelemente zu erstellen.</p>
+<ul>
+<li><code>TreeTableView createTreeTable();</code> – Erstellt die TreeTableView auf der linken Seite des Gantt-Diagramms. Ein typischer Anwendungsfall für den Austausch ist, wenn Sie bereits eine spezialisierte TreeTableView mit erweiterten Filter- oder Interaktionsoptionen haben und dieselbe auch in anderen Teilen der Anwendung verwenden möchten.</li>
+<li><code>Timeline createTimeline();</code> – Erstellt die Timeline.</li>
+<li><code>GraphicsBase createGraphics();</code> – Erstellt die Grafikansicht. Ein Anwendungsfall für den Austausch könnte sein, dass Ihre Anwendung einige Knoten zur Grafikansicht hinzufügt, z. B. eine Art Überlagerung (etwa ein Radar).</li>
+<li><code>RowHeader createRowHeader();</code> – Erstellt die Zeilen-Kopfzeilen-Spalte für die TreeTableView.</li>
+</ul>
+<h2 id="gattchartlite">GanttChartLite</h2>
+<p>Ein <code>GanttChartLite</code> ist im Grunde dasselbe wie ein <code>GanttChart</code>, außer dass es keine <code>TreeTableView</code> auf der linken Seite anzeigt. Dieser Diagrammtyp ist nützlich, wenn eine Anwendung keine detaillierten Informationen für jede Zeile benötigt. 
+Oft reicht der Name der Zeile (z. B. der Flugzeugname) aus. In diesem Fall kann man die Lite-Version in Kombination mit Zeilen-Kopfzeilen und der Zeilen-Kopfzeilen-Factory verwenden.</p>
+<h2 id="gantt-chart-containers">Gantt-Chart-Container</h2>
+<p>Ein Gantt-Diagramm kann eigenständig oder in einem <code>MultiGanttChartContainer</code> oder <code>DualGanttChartContainer</code> verwendet werden. Bei Verwendung in einem dieser Container wird die Position des Gantt-Diagramms wichtig. Das Steuerelement kann das erste, letzte, einzige oder ein mittleres Diagramm sein. Ein „erstes" oder „einziges" Diagramm zeigt immer eine Timeline an. Ein „mittleres" oder „letztes" zeigt eine spezielle Kopfzeile an (siehe <code>setGraphicsHeader()</code>). Die Container sind auch der Grund, warum das Steuerelement zwischen einer Timeline (<code>getTimeline()</code>) und einer Master-Timeline (<code>getMasterTimeline()</code>) unterscheidet.
+Die Master-Timeline ist die vom „ersten" Diagramm angezeigte, während die reguläre Timeline direkt zu dieser Instanz gehört.</p>
+<p>FlexGanttFX wird mit mehreren Containern ausgeliefert, die mehrere Gantt-Diagramme gleichzeitig anzeigen können.</p>
+<ul>
+<li><strong><code>MultiGattChartContainer</code></strong>, <strong><code>MultiGattChartLiteContainer</code></strong> – ein Container zur Anzeige mehrerer Instanzen von <code>GanttChart</code> / <code>GanttChartLite</code>, der deren Layouts (gleiche Tabellenbreite, gleiche Timeline) sowie Scroll- und Zoom-Verhalten synchronisiert. Der folgende Screenshot zeigt das anfängliche Erscheinungsbild eines leeren Multi-Gantt-Chart-Containers.</li>
+</ul>
+<p><img alt="multi-gantt-chart.png" src="../../assets/images/docs/multi-gantt-chart.png" /></p>
+<ul>
+<li><strong><code>DualGanttChartContainer</code></strong>, <strong><code>DualGanttChartLiteContainer</code></strong> – eine Spezialisierung des <code>MultiGanttChartContainer</code>, die genau zwei Instanzen von <code>GanttChart</code> anzeigen und deren Layouts (gleiche Tabellenbreite, gleiche Timeline) sowie Scroll- und Zoom-Verhalten synchronisieren kann. Der Container unterscheidet zwischen einem primären und einem sekundären Gantt-Diagramm, wobei das sekundäre im Detailknoten-Bereich einer <code>MasterDetailPane</code> angezeigt wird. Es kann nach Bedarf ein- oder ausgeblendet werden. Jedes der beiden Gantt-Diagramme kann eine eigene Kopf- und Fußzeile haben. Initial werden nur die primäre Kopfzeile und die sekundäre Fußzeile verwendet. Der folgende Screenshot zeigt das anfängliche Erscheinungsbild eines leeren Dual-Gantt-Chart-Steuerelements.</li>
+</ul>
+<p><img alt="dual-gantt-chart.png" src="../../assets/images/docs/dual-gantt-chart.png" /></p>
+<ul>
+<li><strong><code>QuadGanttChartContainer</code></strong>, <strong><code>QuadGanttChartLiteContainer</code></strong> – eine Spezialisierung des <code>MultiGanttChartContainer</code>, die genau vier Instanzen von <code>GanttChart</code> anzeigen und deren Layouts (gleiche Tabellenbreite, gleiche Timeline) sowie Scroll- und Zoom-Verhalten synchronisieren kann. Der Container unterscheidet zwischen den Positionen <code>UPPER_LEFT</code>, 
+<code>UPPER_RIGHT</code>, <code>LOWER_LEFT</code>, <code>LOWER_RIGHT</code>. Die Timelines von <code>UPPER_LEFT</code> und <code>LOWER_LEFT</code> scrollen synchron, ebenso die Timelines von <code>UPPER_RIGHT</code> und <code>LOWER_RIGHT</code>.</li>
+</ul>
+<p><img alt="quad-gantt-chart.png" src="../../assets/images/docs/quad-gantt-chart.png" /></p>
+      </article>
+      <div class="docs-nav-bottom">
+        <a class="docs-nav-btn" href="tutorial.html"><span class="docs-nav-label">← Zurück</span><span class="docs-nav-title">Tutorial</span></a>
+<a class="docs-nav-btn next" href="timeline.html"><span class="docs-nav-label">Weiter →</span><span class="docs-nav-title">Timeline</span></a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../assets/js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js" crossorigin="anonymous"></script>
+</body>
+</html>

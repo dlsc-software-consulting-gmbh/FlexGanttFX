@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-20G18JBY7X"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-20G18JBY7X");</script>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>教程 — FlexGanttFX</title>
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+  <script src="../../assets/js/lang.js"></script>
+  <link rel="stylesheet" href="../../assets/css/docs.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" crossorigin="anonymous" />
+  <link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/tutorial.html" />
+  <link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/tutorial.html" />
+  <link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/tutorial.html" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/tutorial.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/tutorial.html" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <div class="navbar-brand-group">
+    <a href="../index.html" class="navbar-logo">
+      <i class="fa-solid fa-chart-gantt logo-icon"></i>
+      FlexGanttFX
+    </a>
+    <span class="navbar-brand-sep"></span>
+    <a href="https://www.dlsc.com" class="navbar-dlsc-link" target="_blank" rel="noopener" title="DLSC Software &amp; Consulting GmbH">
+      <img src="../../assets/images/dlsc-logo.png" alt="DLSC" class="navbar-dlsc-logo" />
+    </a>
+  </div>
+        <ul class="navbar-links">
+          <li><a href="../index.html">首页</a></li>
+          <li><a href="../pages/demos.html">演示</a></li>
+          <li class="nav-dropdown">
+            <a href="index.html" class="active">手册</a>
+            <div class="dropdown-menu">
+              <a href="index.html">目录</a>
+              <a href="installation.html">安装</a>
+              <a href="tutorial.html">教程</a>
+              <a href="gantt-charts.html">Gantt 图表</a>
+              <a href="timeline.html">时间轴</a>
+              <a href="dateline.html">日期线</a>
+              <a href="eventline.html">事件线</a>
+              <a href="graphics.html">图形</a>
+              <a href="model.html">模型</a>
+              <a href="styling.html">样式</a>
+              <a href="logging.html">日志记录</a>
+            </div>
+          </li>
+          <li class="nav-dropdown">
+            <a href="#">文档</a>
+            <div class="dropdown-menu">
+              <a href="../pages/faq.html">常见问题</a>
+              <a href="../pages/changelog.html">版本说明</a>
+              <a href="../pages/licensing.html">许可</a>
+              <a href="../../api/index.html">Javadocs / API</a>
+            </div>
+          </li>
+          <li><a href="../pages/downloads.html">下载</a></li>
+      <li class="nav-dropdown nav-lang">
+        <a href="#"><i class="fa-solid fa-globe"></i> 中文</a>
+        <div class="dropdown-menu">
+          <a href="../../manual/tutorial.html" data-lang="en">English</a>
+          <a href="../../de/manual/tutorial.html" data-lang="de">Deutsch</a>
+          <a href="../../fr/manual/tutorial.html" data-lang="fr">Français</a>
+          <a href="tutorial.html" data-lang="zh" class="active">中文（简体）</a>
+        </div>
+      </li>
+          <li><a href="mailto:dlemmermann@gmail.com" class="nav-cta"><i class="fa-solid fa-envelope" style="font-size:0.8rem"></i> 联系我们</a></li>
+        </ul>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="container">
+        <a href="../index.html">首页</a>
+        <a href="index.html">文档</a>
+        <a href="installation.html">安装</a>
+        <a href="tutorial.html">教程</a>
+        <a href="gantt-charts.html">Gantt 图表</a>
+        <a href="model.html">模型</a>
+        <a href="../pages/faq.html">常见问题</a>
+      <div class="mobile-lang-divider"></div>
+      <a href="../../manual/tutorial.html" data-lang="en"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> English</a>
+      <a href="../../de/manual/tutorial.html" data-lang="de"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Deutsch</a>
+      <a href="../../fr/manual/tutorial.html" data-lang="fr"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Français</a>
+      <a href="tutorial.html" data-lang="zh" class="active-lang"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> 中文（简体）</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">入门</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">概览</a></li>
+          <li><a href="installation.html">安装</a></li>
+          <li><a href="tutorial.html" class="active">教程</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">控件</div>
+        <ul class="sidebar-nav">
+          <li><a href="gantt-charts.html">Gantt 图表</a></li>
+          <li><a href="timeline.html">时间轴</a></li>
+          <li><a href="dateline.html">日期线</a></li>
+          <li><a href="eventline.html">事件线</a></li>
+          <li><a href="graphics.html">图形</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">框架</div>
+        <ul class="sidebar-nav">
+          <li><a href="model.html">模型</a></li>
+          <li><a href="styling.html">样式</a></li>
+          <li><a href="logging.html">日志记录</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">参考</div>
+        <ul class="sidebar-nav">
+          <li><a href="../../api/index.html">Javadocs / API</a></li>
+          <li><a href="../pages/changelog.html">版本说明</a></li>
+          <li><a href="../pages/licensing.html">许可</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="docs-content">
+      <nav class="breadcrumb">
+        <a href="../index.html">首页</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="index.html">文档</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>教程</span>
+      </nav>
+      <article class="prose">
+<h1 id="tutorial">教程</h1>
+<p>在本教程中，我们将创建一个用于显示机队排班的基础解决方案。要安装 <strong>FlexGanttFX</strong>，请按照 <a href="/docs/installation">安装</a> 中的说明操作。</p>
+<p><img alt="Airbus A380" src="../../assets/images/docs/a380.png" /></p>
+<h2 id="view-model">视图模型</h2>
+<p>让我们先为 Gantt 图表创建一个视图模型。我们的对象包括 <code>Fleet</code>、<code>Aircraft</code>、<code>Crew</code> 和 <code>Flight</code>。<code>Flight</code> 实例会在 Gantt 图表的图形区域中显示为水平条，而前三个对象会显示在树表区域的行中。<code>Fleet</code>、<code>Aircraft</code> 和 <code>Crew</code> 共享一个名为 <code>ModelObject</code> 的公共父类，它扩展自 <code>Row</code>。<code>Row</code> 类通过三个类型参数来定义层次化数据结构：第一个指定父行类型，第二个指定子行类型，第三个指定将在 Gantt 图表右侧显示的活动类型。</p>
+<h2 id="model-object">模型对象</h2>
+<pre><code class="language-java">    P extends Row&lt;?,?,?&gt;, // Type of parent row
+    C extends Row&lt;?,?,?&gt;, // Type of child rows
+    A extends Activity&gt; extends Row&lt;P, C, A&gt; { }
+</code></pre>
+
+<p>现在，我们可以将 <code>ModelObject</code> 作为类型参数传入，用于创建 <code>GanttChart</code> 控件实例。这会告知控件所有行都具有这个公共超类型。</p>
+<pre><code class="language-java">GanttChart&lt;ModelObject&lt;?,?,?&gt; gantt = new GanttChart&lt;&gt;()
+</code></pre>
+
+<p>假设一个机队由多架飞机组成，每架飞机都有一个机组，并且航班会分配给飞机和机组，则 <code>Aircraft</code> 模型类可以按以下代码片段实现。</p>
+<pre><code class="language-java">public class Aircraft extends ModelObject&lt;Fleet, Crew, Flight&gt; {
+    public Aircraft(String name) {
+        super(name);
+    }
+}
+</code></pre>
+
+<p><code>Flight</code> 类扩展 MutableActivityBase，可能如下所示：</p>
+<pre><code class="language-java">public class Flight extends MutableActivityBase&lt;FlightData&gt; {
+    public Flight(FlightData data) {
+        super(data.getFlightName()); // the activity name
+        setStartTime(data.getFlightDepartureTime()); // times as java.time.Instant
+        setEndTime(data.getFlightArrivalTime());
+        setUserObject(data); // a user object according to the type argument above
+    }
+}
+</code></pre>
+
+<p>该类将航班定义为一个<strong>可变</strong>活动，这意味着用户可以编辑 / 修改该航班。我们还可以看到，该活动从类型为 <code>FlightData</code> 的领域对象获取信息。支持用户对象使我们能够在领域模型和视图模型之间建立连接。现在剩下的工作就是将活动（航班）添加到行（飞机）中。为此，我们只需调用 <code>Row.addActivity(Layer, Activity)</code> 方法。</p>
+<h2 id="activity-repositories">活动仓库</h2>
+<p>行本身并不存储活动，而是将所有与活动相关的功能委托给类型为 <code>ActivityRepository</code> 的仓库。默认仓库的类型为 <code>IntervalTreeRepository</code>。应用程序可以实现自己的仓库，并通过调用 <code>Row.setRepository()</code> 进行注册。</p>
+<h2 id="layers">层</h2>
+<p>层用于创建活动分组，以便它们可以一起显示 / 隐藏。在我们的示例中，我们希望根据服务类型（货运、包机、训练等）对航班进行分组。</p>
+<pre><code class="language-java">Layer cargoLayer = new Layer(&quot;Cargo&quot;);
+Layer trainingLayer = new Layer(&quot;Training&quot;);
+Layer charterLayer = new Layer(&quot;Charter&quot;);
+
+// make layers known to Gantt
+gantt.getLayers().addAll(cargoLayer, trainingLayer, charterLayer); 
+</code></pre>
+
+<p>现在，Gantt 图表知道需要渲染哪些层，我们可以创建层与活动之间的关联。这是在将活动添加到行时完成的（这里是将航班添加到飞机）。</p>
+<pre><code class="language-java">Flight flight1 = new Flight(); // a cargo flight
+Flight flight2 = new Flight(); // a training flight
+Flight flight3 = new Flight(); // a charter flight
+
+aircraft1.addActivity(cargoLayer, flight1);
+aircraft1.addActivity(trainingLayer, flight2);
+aircraft2.addActivity(charterLayer, flight3);
+</code></pre>
+
+<p>在以下代码示例中，我们将上面的所有步骤组合在一起。</p>
+<pre><code class="language-java">import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import com.flexganttfx.model.Activity;
+import com.flexganttfx.model.Layer;
+import com.flexganttfx.model.Row;
+import com.flexganttfx.model.activity.MutableActivityBase;
+import com.flexganttfx.view.GanttChart;
+
+public class MyFirstGanttChart extends Application {
+
+    /*
+     * Common superclass of Fleet, Aircraft, and Crew.
+     */
+    class ModelObject&lt;
+        P extends Row&lt;?,?,?&gt;, // Type of parent row
+        C extends Row&lt;?,?,?&gt;, // Type of child rows
+        A extends Activity&gt; extends Row&lt;P, C, A&gt; { }
+
+    class Fleet extends ModelObject&lt;Row&lt;?,?,?&gt;, Aircraft, Activity&gt; { }
+
+    class Aircraft extends ModelObject&lt;Fleet, Crew, Flight&gt; { }
+
+    class Flight extends MutableActivityBase&lt;Object&gt; { }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        // Our root object.
+        Fleet fleet = new Fleet();
+        fleet.setExpanded(true);
+
+        // Create the control.      
+        GanttChart&lt;ModelObject&lt;?,?,?&gt;&gt; gantt = new GanttChart&lt;&gt;(fleet);
+
+        // Layers based on service type.
+        Layer cargoLayer = new Layer(&quot;Cargo&quot;);
+        Layer trainingLayer = new Layer(&quot;Training&quot;);
+        Layer charterLayer = new Layer(&quot;Charter&quot;);
+        gantt.getLayers().addAll(cargoLayer, trainingLayer, charterLayer);
+
+        // Create the aircrafts.
+        Aircraft aircraft1 = new Aircraft();
+        Aircraft aircraft2 = new Aircraft();
+
+        // Add the aircrafts to the fleet.
+        fleet.getChildren().addAll(aircraft1, aircraft2);
+
+        // Create the flights
+        Flight flight1 = new Flight(); // a cargo flight
+        Flight flight2 = new Flight(); // a training flight
+        Flight flight3 = new Flight(); // a charter flight
+        aircraft1.addActivity(cargoLayer, flight1);
+        aircraft1.addActivity(trainingLayer, flight2);
+        aircraft2.addActivity(charterLayer, flight3);
+
+        Scene scene = new Scene(gantt);
+        stage.setTitle(&quot;Fleet Schedule&quot;);
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.sizeToScene();
+        stage.show();
+    }
+
+    public static void main(String[] args) {
+        Application.launch(args);
+    }
+}
+</code></pre>
+
+<p>下图展示了运行此代码后将看到的结果。</p>
+<p><img alt="中间结果" src="../../assets/images/docs/intermediate-result.png" /></p>
+<h2 id="activity-renderers">活动渲染器</h2>
+<p>仅用几行代码就得到这样的结果并不差，不过航班的渲染效果并不美观。我们可以通过注册不同的 <code>ActivityRenderer</code>（用于活动类型 <code>Flight</code>）来自定义其外观。这通过调用 <code>GraphicsBase.setActivityRenderer()</code> 方法完成，其中图形视图是 Gantt 图表右侧的控件，负责渲染所有活动。我们可以在上面的示例中添加以下几行代码。</p>
+<pre><code class="language-java">GraphicsView &lt;ModelObject&lt;?, ?, ?&gt;&gt; graphics = gantt.getGraphics();
+graphics.setActivityRenderer(Flight.class,
+                    GanttLayout.class,
+                    new ActivityBarRenderer&lt;&gt;(graphics, &quot;FlightRenderer&quot;));
+</code></pre>
+<p>这会将默认活动渲染器替换为一个绘制固定高度条形的渲染器。这段代码有趣之处在于，我们不仅传入了活动类型和渲染器实例，还传入了布局类型。在本快速入门指南中，我们不想花太多时间讨论布局，但可以简单理解为 <strong>FlexGanttFX</strong> 能够以多种不同方式显示活动（作为时间条、图表条目或日程条目）。我们的示例现在如下所示：</p>
+<p><img alt="渲染器" src="../../assets/images/docs/renderer.png" /></p>
+<p>现在，我们可以向示例中添加 <code>GanttChartToolBar</code> 和 <code>GanttChartStatusBar</code>。这样我们就可以对图表执行操作，并验证层是否已正确添加。<strong>FlexGanttFX</strong> 的 “extras” 库包含其他控件，例如 <code>GanttChartStatusBar</code> 和 <code>GanttChartToolBar</code>。使用标准的 <code>BorderPane</code>，可以轻松地将 Gantt 图表和这两个控件组合成一个复杂控件。</p>
+<pre><code class="language-java">BorderPane borderPane = new BorderPane();
+borderPane.setTop(new GanttChartToolBar(gantt));
+borderPane.setCenter(gantt);
+borderPane.setBottom(new GanttChartStatusBar(gantt));
+
+Scene scene = new Scene(borderPane);
+</code></pre>
+
+<p>现在，单击工具栏中的层按钮后，我们的示例如下所示。</p>
+<p><img alt="渲染器" src="../../assets/images/docs/toolbar.png" /></p>
+<h2 id="listening-to-change">监听变更</h2>
+<p>既然我们已经可视化了数据，显然还希望与其交互，并获知我们所做的更改。默认情况下，我们的活动是可编辑的。这意味着可以水平或垂直拖动它们。要接收事件，我们只需在图形视图控件上注册一个 <code>ActivityEvent</code> 处理器，做法是调用 <code>GraphicsBase.setOnActivityChanged()</code>。</p>
+<p>为简化本教程，我们只注册一个将事件打印到控制台的处理器。可以这样实现：</p>
+<p><code>graphics.setOnActivityChanged(evt -&gt; System.out.println(evt));</code></p>
+<p>再次运行应用程序时，我们将看到以下输出：</p>
+<pre><code class="language-bash">event type: DRAG_STARTED, time interval: 2014-04-17T21:45:00Z - 2014-04-22T21:30:00Z,
+    value (chart value / percentage complete): 0.0,
+    activity &quot;null from 2014-04-18T12:15:00Z until 2014-04-23T12:00:00Z,
+    user object = null&quot;,
+    row = &quot;Default&quot;,
+    layer = &quot;Training&quot;
+
+event type: DRAG_ONGOING, time interval: 2014-04-17T21:45:00Z - 2014-04-22T21:30:00Z,
+    value (chart value / percentage complete): 0.0,
+    activity &quot;null from 2014-04-18T12:15:00Z until 2014-04-23T12:00:00Z,
+    user object = null&quot;,
+    row = &quot;Default&quot;,
+    layer = &quot;Training&quot;
+
+event type: DRAG_FINISHED, time interval: 2014-04-17T21:45:00Z - 2014-04-22T21:30:00Z,
+    value (chart value / percentage complete): 0.0,
+    activity &quot;null from 2014-04-18T03:00:00Z until 2014-04-23T02:45:00Z,
+    user object = null&quot;,
+    row = &quot;Default&quot;,
+    layer = &quot;Training&quot;
+</code></pre>
+
+<p>请注意三个不同的事件类型：<code>DRAG_STARTED</code>、<code>DRAG_ONGOING</code> 和 <code>DRAG_FINISHED</code>。第一个会在用户开始拖动时触发，第二个会在拖动仍在进行时触发，第三个会在拖动结束时触发。这种模式在 <strong>JavaFX</strong> 本身中也可以看到，并且在整个 <strong>FlexGanttFX</strong> 中同样采用。请务必查看 <code>ActivityEvent</code> 类中定义的各种事件类型，以了解用户执行编辑操作时你可以接收到多少信息。</p>
+      </article>
+      <div class="docs-nav-bottom">
+        <a class="docs-nav-btn" href="installation.html"><span class="docs-nav-label">← 上一页</span><span class="docs-nav-title">安装</span></a>
+<a class="docs-nav-btn next" href="gantt-charts.html"><span class="docs-nav-label">下一页 →</span><span class="docs-nav-title">Gantt 图表</span></a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../assets/js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js" crossorigin="anonymous"></script>
+</body>
+</html>

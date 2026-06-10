@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-20G18JBY7X"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-20G18JBY7X");</script>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>文档 — FlexGanttFX</title>
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+  <script src="../../assets/js/lang.js"></script>
+  <link rel="stylesheet" href="../../assets/css/docs.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" crossorigin="anonymous" />
+  <link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/index.html" />
+  <link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/index.html" />
+  <link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/index.html" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/index.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/index.html" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <div class="navbar-brand-group">
+    <a href="../index.html" class="navbar-logo">
+      <i class="fa-solid fa-chart-gantt logo-icon"></i>
+      FlexGanttFX
+    </a>
+    <span class="navbar-brand-sep"></span>
+    <a href="https://www.dlsc.com" class="navbar-dlsc-link" target="_blank" rel="noopener" title="DLSC Software &amp; Consulting GmbH">
+      <img src="../../assets/images/dlsc-logo.png" alt="DLSC" class="navbar-dlsc-logo" />
+    </a>
+  </div>
+        <ul class="navbar-links">
+          <li><a href="../index.html">首页</a></li>
+          <li><a href="../pages/demos.html">演示</a></li>
+          <li class="nav-dropdown">
+            <a href="index.html" class="active">手册</a>
+            <div class="dropdown-menu">
+              <a href="index.html">目录</a>
+              <a href="installation.html">安装</a>
+              <a href="tutorial.html">教程</a>
+              <a href="gantt-charts.html">Gantt 图表</a>
+              <a href="timeline.html">时间轴</a>
+              <a href="dateline.html">日期线</a>
+              <a href="eventline.html">事件线</a>
+              <a href="graphics.html">图形</a>
+              <a href="model.html">模型</a>
+              <a href="styling.html">样式</a>
+              <a href="logging.html">日志记录</a>
+            </div>
+          </li>
+          <li class="nav-dropdown">
+            <a href="#">文档</a>
+            <div class="dropdown-menu">
+              <a href="../pages/faq.html">常见问题</a>
+              <a href="../pages/changelog.html">版本说明</a>
+              <a href="../pages/licensing.html">许可</a>
+              <a href="../../api/index.html">Javadocs / API</a>
+            </div>
+          </li>
+          <li><a href="../pages/downloads.html">下载</a></li>
+      <li class="nav-dropdown nav-lang">
+        <a href="#"><i class="fa-solid fa-globe"></i> 中文</a>
+        <div class="dropdown-menu">
+          <a href="../../manual/index.html" data-lang="en">English</a>
+          <a href="../../de/manual/index.html" data-lang="de">Deutsch</a>
+          <a href="../../fr/manual/index.html" data-lang="fr">Français</a>
+          <a href="index.html" data-lang="zh" class="active">中文（简体）</a>
+        </div>
+      </li>
+          <li><a href="mailto:dlemmermann@gmail.com" class="nav-cta"><i class="fa-solid fa-envelope" style="font-size:0.8rem"></i> 联系我们</a></li>
+        </ul>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="container">
+        <a href="../index.html">首页</a>
+        <a href="index.html">文档</a>
+        <a href="installation.html">安装</a>
+        <a href="tutorial.html">教程</a>
+        <a href="gantt-charts.html">Gantt 图表</a>
+        <a href="model.html">模型</a>
+        <a href="../pages/faq.html">常见问题</a>
+      <div class="mobile-lang-divider"></div>
+      <a href="../../manual/index.html" data-lang="en"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> English</a>
+      <a href="../../de/manual/index.html" data-lang="de"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Deutsch</a>
+      <a href="../../fr/manual/index.html" data-lang="fr"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Français</a>
+      <a href="index.html" data-lang="zh" class="active-lang"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> 中文（简体）</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">入门</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html" class="active">概览</a></li>
+          <li><a href="installation.html">安装</a></li>
+          <li><a href="tutorial.html">教程</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">控件</div>
+        <ul class="sidebar-nav">
+          <li><a href="gantt-charts.html">Gantt 图表</a></li>
+          <li><a href="timeline.html">时间轴</a></li>
+          <li><a href="dateline.html">日期线</a></li>
+          <li><a href="eventline.html">事件线</a></li>
+          <li><a href="graphics.html">图形</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">框架</div>
+        <ul class="sidebar-nav">
+          <li><a href="model.html">模型</a></li>
+          <li><a href="styling.html">样式</a></li>
+          <li><a href="logging.html">日志记录</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">参考</div>
+        <ul class="sidebar-nav">
+          <li><a href="../../api/index.html">Javadocs / API</a></li>
+          <li><a href="../pages/changelog.html">版本说明</a></li>
+          <li><a href="../pages/licensing.html">许可</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="docs-content">
+      <nav class="breadcrumb">
+        <a href="../index.html">首页</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="index.html">文档</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>概览</span>
+      </nav>
+      <article class="prose">
+
+<h1>FlexGanttFX 文档</h1>
+<p>欢迎阅读 FlexGanttFX 文档。请使用左侧导航或下方卡片浏览手册。</p>
+
+<div class="docs-toc-grid">
+  <div class="docs-toc-category">
+    <h2>入门</h2>
+    <div class="docs-toc-cards">
+      <a class="docs-toc-card" href="installation.html">
+        <div class="docs-toc-card-icon"><i class="fa-solid fa-download"></i></div>
+        <div>
+          <strong>安装</strong>
+          <p>下载、解压，并将 FlexGanttFX 添加到你的 classpath 或 Maven 项目中。</p>
+        </div>
+      </a>
+      <a class="docs-toc-card" href="tutorial.html">
+        <div class="docs-toc-card-icon"><i class="fa-solid fa-book-open"></i></div>
+        <div>
+          <strong>教程</strong>
+          <p>从零开始逐步构建一个基础的机队排班示例。</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="docs-toc-category">
+    <h2>控件</h2>
+    <div class="docs-toc-cards">
+      <a class="docs-toc-card" href="gantt-charts.html">
+        <div class="docs-toc-card-icon"><i class="fa-solid fa-chart-gantt"></i></div>
+        <div>
+          <strong>Gantt 图表</strong>
+          <p>了解 GanttChart、GanttChartLite 以及多图表容器。</p>
+        </div>
+      </a>
+      <a class="docs-toc-card" href="timeline.html">
+        <div class="docs-toc-card-icon"><i class="fa-solid fa-timeline"></i></div>
+        <div>
+          <strong>时间轴</strong>
+          <p>使用 Timeline 控件进行导航、缩放、滚动和时间跟踪。</p>
+        </div>
+      </a>
+      <a class="docs-toc-card" href="dateline.html">
+        <div class="docs-toc-card-icon"><i class="fa-solid fa-calendar-days"></i></div>
+        <div>
+          <strong>日期线</strong>
+          <p>刻度分辨率、时区支持、选择模型以及 Dateline 模型。</p>
+        </div>
+      </a>
+      <a class="docs-toc-card" href="eventline.html">
+        <div class="docs-toc-card-icon"><i class="fa-solid fa-flag"></i></div>
+        <div>
+          <strong>事件线</strong>
+          <p>时间光标、标记区间以及冻结行功能。</p>
+        </div>
+      </a>
+      <a class="docs-toc-card" href="graphics.html">
+        <div class="docs-toc-card-icon"><i class="fa-solid fa-layer-group"></i></div>
+        <div>
+          <strong>图形</strong>
+          <p>活动渲染器、布局、拖放、系统层以及日历。</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="docs-toc-category">
+    <h2>框架</h2>
+    <div class="docs-toc-cards">
+      <a class="docs-toc-card" href="model.html">
+        <div class="docs-toc-card-icon"><i class="fa-solid fa-database"></i></div>
+        <div>
+          <strong>模型</strong>
+          <p>行、活动、层、链接、仓库以及数据模型层次结构。</p>
+        </div>
+      </a>
+      <a class="docs-toc-card" href="styling.html">
+        <div class="docs-toc-card-icon"><i class="fa-solid fa-paintbrush"></i></div>
+        <div>
+          <strong>样式</strong>
+          <p>FlexGanttFX 中各个控件的 CSS 样式表。</p>
+        </div>
+      </a>
+      <a class="docs-toc-card" href="logging.html">
+        <div class="docs-toc-card-icon"><i class="fa-solid fa-terminal"></i></div>
+        <div>
+          <strong>日志记录</strong>
+          <p>使用 java.util.logging 的日志域和配置。</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+      </article>
+      <div class="docs-nav-bottom">
+        <span class="docs-nav-btn disabled"></span>
+<a class="docs-nav-btn next" href="installation.html"><span class="docs-nav-label">下一页 →</span><span class="docs-nav-title">安装</span></a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../assets/js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js" crossorigin="anonymous"></script>
+</body>
+</html>

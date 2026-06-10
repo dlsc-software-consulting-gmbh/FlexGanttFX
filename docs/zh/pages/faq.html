@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-20G18JBY7X"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-20G18JBY7X");</script>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>常见问题 — FlexGanttFX</title>
+  <meta name="description" content="关于 FlexGanttFX 的常见问题。FlexGanttFX 是面向 JavaFX 的专业甘特图框架。" />
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+  <script src="../../assets/js/lang.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" />
+  <link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/pages/faq.html" />
+  <link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/pages/faq.html" />
+  <link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/pages/faq.html" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/pages/faq.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/pages/faq.html" />
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container navbar-inner">
+    <div class="navbar-brand-group">
+    <a href="../index.html" class="navbar-logo">
+      <i class="fa-solid fa-chart-gantt logo-icon"></i>
+      FlexGanttFX
+    </a>
+    <span class="navbar-brand-sep"></span>
+    <a href="https://www.dlsc.com" class="navbar-dlsc-link" target="_blank" rel="noopener" title="DLSC Software &amp; Consulting GmbH">
+      <img src="../../assets/images/dlsc-logo.png" alt="DLSC" class="navbar-dlsc-logo" />
+    </a>
+  </div>
+      <ul class="navbar-links">
+        <li><a href="../index.html">首页</a></li>
+        <li><a href="demos.html">演示</a></li>
+        <li class="nav-dropdown">
+          <a href="../manual/index.html">手册</a>
+          <div class="dropdown-menu">
+            <a href="../manual/index.html">目录</a>
+            <a href="../manual/installation.html">安装</a>
+            <a href="../manual/tutorial.html">教程</a>
+            <a href="../manual/gantt-charts.html">甘特图</a>
+            <a href="../manual/timeline.html">时间轴</a>
+            <a href="../manual/dateline.html">日期线</a>
+            <a href="../manual/eventline.html">事件线</a>
+            <a href="../manual/graphics.html">图形</a>
+            <a href="../manual/model.html">模型</a>
+            <a href="../manual/styling.html">样式</a>
+            <a href="../manual/logging.html">日志</a>
+          </div>
+        </li>
+        <li class="nav-dropdown">
+          <a href="#">文档</a>
+          <div class="dropdown-menu">
+            <a href="faq.html">常见问题</a>
+            <a href="changelog.html">版本说明</a>
+            <a href="licensing.html">许可</a>
+            <a href="../../api/index.html">Javadocs / API</a>
+          </div>
+        </li>
+        <li><a href="downloads.html">下载</a></li>
+      <li class="nav-dropdown nav-lang">
+        <a href="#"><i class="fa-solid fa-globe"></i> 中文</a>
+        <div class="dropdown-menu">
+          <a href="../../pages/faq.html" data-lang="en">English</a>
+          <a href="../../de/pages/faq.html" data-lang="de">Deutsch</a>
+          <a href="../../fr/pages/faq.html" data-lang="fr">Français</a>
+          <a href="faq.html" data-lang="zh" class="active">中文（简体）</a>
+        </div>
+      </li>
+        <li><a href="mailto:dlemmermann@gmail.com" class="nav-cta"><i class="fa-solid fa-envelope" style="font-size:0.8rem"></i> 联系我们</a></li>
+      </ul>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="container">
+      <a href="../index.html">首页</a>
+      <a href="demos.html">演示</a>
+      <a href="../manual/index.html">文档</a>
+      <a href="faq.html">常见问题</a>
+      <a href="changelog.html">版本说明</a>
+      <a href="licensing.html">许可</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HERO ═══════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container hero-container">
+    <div class="hero-content">
+      <div class="badge badge-dark"><i class="fa-solid fa-circle-question" style="font-size:0.7rem"></i> 支持</div>
+      <h1>常见<span>问题</span></h1>
+      <p>查找关于 FlexGanttFX 的最常见问题答案 — 包括许可、平台支持、Java 版本等。</p>
+      <div class="hero-anchor-buttons">
+        <a href="#faq-general" class="btn btn-outline"><i class="fa-solid fa-circle-info"></i> 常规</a>
+        <a href="#faq-deployment" class="btn btn-outline"><i class="fa-solid fa-server"></i> 部署</a>
+        <a href="#faq-features" class="btn btn-outline"><i class="fa-solid fa-star"></i> 功能</a>
+        <a href="#faq-licensing" class="btn btn-outline"><i class="fa-solid fa-file-contract"></i> 许可</a>
+        <a href="#faq-customization" class="btn btn-outline"><i class="fa-solid fa-paintbrush"></i> 定制</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FAQ ════════════════════════════════════════════════════ -->
+<section class="section">
+  <div class="container" style="max-width:800px">
+
+    <!-- ── 常规 ─────────────────────────────────────────── -->
+    <h2 class="faq-category-heading" id="faq-general">常规</h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-question">
+          FlexGanttFX 是什么？
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          FlexGanttFX 是面向 JavaFX 应用的强大且复杂的自定义控件。它能够以美观的可视化方式显示与时间轴相关的数据。FlexGanttFX 允许编辑 / 修改数据，从而让用户执行规划和排程操作。FlexGanttFX 不包含任何业务逻辑，这意味着当用户完成更改后，需要由应用程序自行做出正确响应。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          我可以用 FlexGanttFX 构建什么？
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          你可以构建任何需要在时间轴下方显示活动的应用程序。大多数情况下，客户会用它构建规划和排程应用。例如 ERP 系统、制造执行系统等。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          FlexGanttFX 是开源的吗？
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          不是，FlexGanttFX 是商业软件。公司可以购买许可证，用于使用它，并将其作为自身解决方案的组成部分进行部署。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          FlexGanttFX 支持哪些 Java 版本？
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          FlexGanttFX 支持 Java 8 到 Java 26。Java 11+ 版本可与 OpenJFX 11 或更高版本一起运行。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          FlexGanttFX 支持哪些 JavaFX / OpenJFX 版本？
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          对于 Java 8，FlexGanttFX 使用 JDK 捆绑的 JavaFX 版本。对于 Java 11 到 26，FlexGanttFX 可与 OpenJFX 11 或更高版本一起运行。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          如何将 FlexGanttFX 添加到我的项目？
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          FlexGanttFX 发行包包含一个 lib 文件夹。该文件夹中的四个 JAR 文件需要添加到应用程序的 classpath 或 module path。此外，名为“ext”的文件夹中包含两个同样必需的 JAR 文件。一个是 FlexGanttFX 所需的 ControlsFX 版本，另一个用于支持许可证密钥。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          你们有 FlexGanttFX 的 Swing 版本吗？
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          有。它名为 FlexGantt，已经存在多年。你可以<a href="https://dlsc.com/projects/flexgantt-swing.html" target="_blank"><u>从 DLSC 网站下载</u></a>。它同样是商业产品，与 FlexGanttFX 一样需要许可。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          你们有 FlexGanttFX 的 JavaScript 版本吗？
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          我们的合作伙伴 AISO 已经用 JavaScript 重新实现了 FlexGanttFX API。你可以访问他们的<a href="https://schedulejs.com/en/" target="_blank"><u>产品网站</u></a>。它同样是商业产品，与 FlexGanttFX 一样需要许可。
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── 部署 ───────────────────────────────────────── -->
+    <h2 class="faq-category-heading" id="faq-deployment">部署</h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-question">
+          FlexGanttFX 能在 Chrome 或 Safari 等浏览器中运行吗？
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          可以，但需要使用 JPro。你可以在他们的网站上找到<a href="https://www.jpro.one" target="_blank"><u>关于该产品的更多信息</u></a>。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          FlexGanttFX 能在 iPad、iPhone、Android 等移动设备上运行吗？
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          可以，但需要使用 <a href="https://gluonhq.com" target="_blank"><u>Gluon Client 插件并结合 GraalVM</u></a>。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          FlexGanttFX 能在嵌入式设备上运行吗？
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          我们认为可以，因为 Java 和 JavaFX 可以在嵌入式设备上运行。但坦率地说，我们目前还没有遇到这个用例。到目前为止还没有客户提出这种需求。因此，如果你想这样做，请尝试一下并告诉我们结果。
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── 功能 ─────────────────────────────────────────── -->
+    <h2 class="faq-category-heading" id="faq-features">功能</h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-question">
+          你们是否提供不同方式来布局时间轴数据 / 活动？
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          是的。FlexGanttFX 支持三种不同布局。最常用的是标准甘特图布局，其中活动显示为水平条。此外，应用程序可以通过图表布局显示图表 / 直方图。还有一种非常独特的议程布局，活动的显示方式类似普通日历视图，也就是 y 轴用于表示一天中的时间。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          FlexGanttFX 支持打印吗？
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          不完全支持。过去我们发现大多数应用并不需要此功能，而且打印复杂甘特图的可用性有限。很多时候，打印版本的需求与屏幕版本的需求差异很大。因此，我们决定将这项任务留给使用 FlexGanttFX 的应用程序自行处理。目前唯一可行的方法是使用标准 JavaFX 打印方式：应用程序创建视图快照并发送到打印机。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          我可以在多个甘特图之间同步滚动（分屏）吗？
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          可以，只需在两个或多个甘特图实例之间绑定属性即可。不过我们已经为你完成了这项工作，并添加了专用容器，使你可以同时显示两个、四个或任意数量的图表。这些容器名为 DualGanttChartContainer、QuadGanttChartContainer 和 MultiGanttChartContainer。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          用户如何滚动时间轴？
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          用户可以通过甘特图右侧底部显示的滚动条进行滚动。支持两种不同类型的滚动条。一种是用于固定时间范围（最早时间和最晚时间）的常规滚动条；另一种是基于 ControlsFX 项目的 PlusMinusSlider 的自定义滚动条，允许用户无限地向过去和未来滚动。这些滚动条默认自动隐藏，只有当用户将鼠标移动到图形区域底部边缘时才会显示（可禁用）。用户也可以通过“平移”滚动，即在背景上按下鼠标并向左或向右拖动。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          是否支持拖放？
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          支持。你可以在同一窗口中的甘特图之间拖动活动，也可以更原生地在不同窗口之间或拖到桌面。所有这些都可以配置。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          是否可以向行添加控件？
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          可以。可以注册一个控件工厂回调，每一行都会调用它。返回的控件会放置在该行上方。另一个很棒的功能是能够为每一行添加一个完全不同的 UI，当该行翻转时它会变得可见，也就是说这个 UI 实际位于行的“背面”，并可按需显示。
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── 许可 ─────────────────────────────────────────── -->
+    <h2 class="faq-category-heading" id="faq-licensing">许可</h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-question">
+          有哪些许可证类型？
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          我们支持两种许可证类型：开发者许可证和运行时许可证。<b><i>开发者</i></b> 许可证在 30 天试用期结束后即为必需。开发者许可证允许你继续使用产品，但会在控制台看到提示，说明该产品只能用于开发目的。一旦你的产品准备发布，就必须使用 <b><i>运行时</i></b> 许可证。这与发布对象是内部使用还是第三方无关。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          在哪里购买许可证？
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          你可以直接向 <b>DLSC Software &amp; Consulting GmbH</b> 订购。只需<a href="mailto:dlemmermann@gmail.com"><u>给我们发送电子邮件</u></a>。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          如何设置许可证密钥？
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          你必须在创建任何 FlexGanttFX 控件之前调用 <code>FlexGanttFX.setLicenseKey("...")</code>。理想情况下，应在应用程序的 <code>main()</code> 方法中立即调用它。或者，也可以将密钥作为名为 <code>flexganttfx.license</code> 的系统属性传入。
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── 定制 ─────────────────────────────────────── -->
+    <h2 class="faq-category-heading" id="faq-customization">定制</h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-question">
+          处理活动时，我可以更改编辑行为吗？
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          可以。可以注册一个回调，用于精确指定何时激活哪种编辑操作。默认回调允许用户在鼠标光标位于活动左边缘时更改开始时间，在光标位于活动右边缘时更改结束时间，在鼠标光标位于中间时移动整个活动。如果该活动是“可完成”活动，则左边缘会触发一个编辑操作，用户可以在其中更改该活动的“完成百分比”值。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          我可以更改活动的视觉外观吗？
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          当然可以。FlexGanttFX 中的活动通过 JavaFX 的 Canvas API 绘制。可以为不同类型的活动注册不同的活动渲染器。渲染器可以使用活动提供的信息（例如“状态（status）”）以不同方式绘制活动。渲染器让你能够控制屏幕上的每一个像素。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          我可以向行添加可视化信息吗？
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          可以，这是通过所谓的“系统层”完成的。FlexGanttFX 随附一组标准图层，例如 CalendarLayer 知道如何绘制周末等内容（灰色背景）。另一个例子是 GridLinesLayer，它知道如何绘制顶部时间轴定义的网格线。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          FlexGanttFX 支持图层吗？
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          支持，图层是 FlexGanttFX 中的一等概念。你可以将活动放在不同图层上，从而用次要活动叠加在主要活动之上，这些次要活动仅用于标注主要活动。图层可以随时显示或隐藏。API 也可用于更改图层顺序。标准甘特图工具栏提供了用于操作图层顺序和可见性的 UI。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          时间轴可以定制吗？
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          可以。时间轴由两个子组件组成。第一个是 <b>日期线</b>，用于显示实际时间 / 日期 / 小时。其 UI 由可插拔的单元格工厂创建。第二个子组件是 <b>事件线</b>。它显示时间光标，同时也提供一个“冻结行”，应用程序可以在其中显示全局活动和事件。这些内容可以通过可插拔渲染器进行定制。
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ CONTACT CTA ════════════════════════════════════════════ -->
+<section class="section section-dark" style="text-align:center">
+  <div class="container" style="max-width:600px">
+    <h2>还有问题吗？</h2>
+    <p style="margin-bottom:2rem;color:rgba(255,255,255,0.7)">
+      找不到你需要的答案？请联系 DLSC 团队。
+    </p>
+    <a href="mailto:dlemmermann@gmail.com" class="btn btn-primary">
+      <i class="fa-solid fa-envelope"></i> 联系我们
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3><i class="fa-solid fa-chart-gantt" style="color:#60A5FA;margin-right:8px"></i>FlexGanttFX</h3>
+        <p>面向 JavaFX 的专业甘特图框架。</p>
+        <div style="margin-top:16px; display:flex; gap:12px">
+          <a href="https://www.dlsc.com" class="footer-social-link" title="dlsc.com"><i class="fa-solid fa-globe"></i></a>
+          <a href="https://github.com/dlsc-software-consulting-gmbh" class="footer-social-link" title="GitHub" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/dlemmermann/" class="footer-social-link" title="LinkedIn" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="https://bsky.app/profile/dlemmermann.bsky.social" class="footer-social-link" title="Bluesky" target="_blank" rel="noopener"><i class="fa-brands fa-bluesky"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>产品</h4>
+        <ul>
+          <li><a href="../index.html">首页</a></li>
+          <li><a href="demos.html">演示</a></li>
+          <li><a href="licensing.html">许可</a></li>
+          <li><a href="changelog.html">版本说明</a></li>
+          <li><a href="faq.html">常见问题</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>文档</h4>
+        <ul>
+          <li><a href="../manual/index.html">概览</a></li>
+          <li><a href="../manual/installation.html">安装</a></li>
+          <li><a href="../manual/tutorial.html">教程</a></li>
+          <li><a href="../manual/gantt-charts.html">甘特图</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <a href="https://www.dlsc.com" target="_blank" rel="noopener"><img src="../../assets/images/dlsc-logo.png" alt="DLSC Software &amp; Consulting GmbH" class="footer-dlsc-logo" /></a>
+        <ul>
+          <li><a href="https://www.dlsc.com">dlsc.com</a></li>
+          <li><a href="mailto:dlemmermann@gmail.com">联系我们</a></li>
+      <div class="mobile-lang-divider"></div>
+      <a href="../../pages/faq.html" data-lang="en"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> English</a>
+      <a href="../../de/pages/faq.html" data-lang="de"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Deutsch</a>
+      <a href="../../fr/pages/faq.html" data-lang="fr"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Français</a>
+      <a href="faq.html" data-lang="zh" class="active-lang"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> 中文（简体）</a>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="copyright-year">2024</span> DLSC Software &amp; Consulting GmbH. 保留所有权利。</span>
+      <span>FlexGanttFX v11.12.8</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

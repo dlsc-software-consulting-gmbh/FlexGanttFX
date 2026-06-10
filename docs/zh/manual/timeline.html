@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-20G18JBY7X"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-20G18JBY7X");</script>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>时间轴 — FlexGanttFX</title>
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+  <script src="../../assets/js/lang.js"></script>
+  <link rel="stylesheet" href="../../assets/css/docs.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" crossorigin="anonymous" />
+  <link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/timeline.html" />
+  <link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/timeline.html" />
+  <link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/timeline.html" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/timeline.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/timeline.html" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <div class="navbar-brand-group">
+    <a href="../index.html" class="navbar-logo">
+      <i class="fa-solid fa-chart-gantt logo-icon"></i>
+      FlexGanttFX
+    </a>
+    <span class="navbar-brand-sep"></span>
+    <a href="https://www.dlsc.com" class="navbar-dlsc-link" target="_blank" rel="noopener" title="DLSC Software &amp; Consulting GmbH">
+      <img src="../../assets/images/dlsc-logo.png" alt="DLSC" class="navbar-dlsc-logo" />
+    </a>
+  </div>
+        <ul class="navbar-links">
+          <li><a href="../index.html">首页</a></li>
+          <li><a href="../pages/demos.html">演示</a></li>
+          <li class="nav-dropdown">
+            <a href="index.html" class="active">手册</a>
+            <div class="dropdown-menu">
+              <a href="index.html">目录</a>
+              <a href="installation.html">安装</a>
+              <a href="tutorial.html">教程</a>
+              <a href="gantt-charts.html">甘特图</a>
+              <a href="timeline.html">Timeline（时间轴）</a>
+              <a href="dateline.html">Dateline（日期线）</a>
+              <a href="eventline.html">Eventline（事件线）</a>
+              <a href="graphics.html">Graphics（图形）</a>
+              <a href="model.html">模型</a>
+              <a href="styling.html">样式</a>
+              <a href="logging.html">日志</a>
+            </div>
+          </li>
+          <li class="nav-dropdown">
+            <a href="#">文档</a>
+            <div class="dropdown-menu">
+              <a href="../pages/faq.html">常见问题</a>
+              <a href="../pages/changelog.html">版本说明</a>
+              <a href="../pages/licensing.html">许可</a>
+              <a href="../../api/index.html">Javadocs / API</a>
+            </div>
+          </li>
+          <li><a href="../pages/downloads.html">下载</a></li>
+      <li class="nav-dropdown nav-lang">
+        <a href="#"><i class="fa-solid fa-globe"></i> 中文</a>
+        <div class="dropdown-menu">
+          <a href="../../manual/timeline.html" data-lang="en">English</a>
+          <a href="../../de/manual/timeline.html" data-lang="de">Deutsch</a>
+          <a href="../../fr/manual/timeline.html" data-lang="fr">Français</a>
+          <a href="timeline.html" data-lang="zh" class="active">中文（简体）</a>
+        </div>
+      </li>
+          <li><a href="mailto:dlemmermann@gmail.com" class="nav-cta"><i class="fa-solid fa-envelope" style="font-size:0.8rem"></i> 联系我们</a></li>
+        </ul>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="container">
+        <a href="../index.html">首页</a>
+        <a href="index.html">文档</a>
+        <a href="installation.html">安装</a>
+        <a href="tutorial.html">教程</a>
+        <a href="gantt-charts.html">甘特图</a>
+        <a href="model.html">模型</a>
+        <a href="../pages/faq.html">常见问题</a>
+      <div class="mobile-lang-divider"></div>
+      <a href="../../manual/timeline.html" data-lang="en"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> English</a>
+      <a href="../../de/manual/timeline.html" data-lang="de"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Deutsch</a>
+      <a href="../../fr/manual/timeline.html" data-lang="fr"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Français</a>
+      <a href="timeline.html" data-lang="zh" class="active-lang"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> 中文（简体）</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">入门</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">概述</a></li>
+          <li><a href="installation.html">安装</a></li>
+          <li><a href="tutorial.html">教程</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">控件</div>
+        <ul class="sidebar-nav">
+          <li><a href="gantt-charts.html">甘特图</a></li>
+          <li><a href="timeline.html" class="active">Timeline（时间轴）</a></li>
+          <li><a href="dateline.html">Dateline（日期线）</a></li>
+          <li><a href="eventline.html">Eventline（事件线）</a></li>
+          <li><a href="graphics.html">Graphics（图形）</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">框架</div>
+        <ul class="sidebar-nav">
+          <li><a href="model.html">模型</a></li>
+          <li><a href="styling.html">样式</a></li>
+          <li><a href="logging.html">日志</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">参考</div>
+        <ul class="sidebar-nav">
+          <li><a href="../../api/index.html">Javadocs / API</a></li>
+          <li><a href="../pages/changelog.html">版本说明</a></li>
+          <li><a href="../pages/licensing.html">许可</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="docs-content">
+      <nav class="breadcrumb">
+        <a href="../index.html">首页</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="index.html">文档</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Timeline（时间轴）</span>
+      </nav>
+      <article class="prose">
+<h1 id="overview">概述</h1>
+<p>Timeline 控件是 <strong>日期线</strong> 和 <strong>事件线</strong> 的容器。它显示在 <strong>图形</strong> 控件上方，并提供多个用于滚动和缩放的方法，二者都可以带动画或不带动画执行。Timeline 还会跟踪当前时间（参见 TimeTracker）。</p>
+<p><img alt="Timeline 控件截图" src="../../assets/images/docs/timeline.png" /></p>
+<p><strong>导航</strong></p>
+<p>Timeline 用于在时间中导航。它提供了跳转到当前时间或指定时间的方法。也可以请求它显示特定时间单位（“显示天”）或某个时间范围。</p>
+<ul>
+<li><code>showNow(), showNow(boolean center)</code> - 更改 Timeline 模型的开始时间，使当前时间（已存储在 TimelineModel 中）显示在 Dateline 的左边缘或正中间。</li>
+<li><code>showTime(Instant time), showTime(Instant time, boolean center)</code> - 更改 Timeline 模型的开始时间，使给定时间显示在 Dateline 的左边缘或正中间。</li>
+<li><code>showRange(Instant start, Instant end), showRange(Instant start, Duration duration), showRange(TimeInterval range)</code> - 更改 Timeline 模型的开始时间和“每像素毫秒数”值，使给定时间范围在 Dateline 中完全可见。</li>
+<li><code>showTemporalUnit(TemporalUnit unit, double width)</code> - 更改 Timeline 模型的开始时间和“每像素毫秒数”值，使给定时间单位用于 Dateline。Dateline 中每个单元格的宽度将等于给定宽度。</li>
+</ul>
+<p>需要注意的是，Timeline 与 Dateline 协作时只能尽力满足这些请求，因为它们依赖于 Dateline 模型中是否存在可用的 Dateline 分辨率。</p>
+<p>上述方法可以带动画或不带动画执行。该动画可通过两个属性控制：<code>moveAnimated</code> 和 <code>moveDuration</code>。Timeline 上提供了这些属性相应的 getter 和 setter 方法。</p>
+<p><strong>缩放</strong></p>
+<p>Timeline 负责管理所有与缩放相关的内容。用户可以按 <code>+ / -</code> 键按指定缩放因子提高或降低缩放级别，也可以按住 <code>SHIFT</code> 键并拖动鼠标，通过“套索”选择一个时间区间。结果会形成一个选中的时间区间，并存储在只读属性 <code>selectedTimeInterval</code> 中。Timeline 会监听该属性的变化，并自动尝试让选中的时间区间占满整个可用宽度，最终触发放大操作。</p>
+<ul>
+<li><code>zoomIn(), zoomOut()</code> - 让 Timeline 修改 Timeline 模型，使得到的可见时间范围等于当前时间范围乘以或除以当前缩放因子。</li>
+<li><code>zoom(double factor, boolean zoomIn, Instant frozenTime)</code> - 使用给定缩放因子执行缩放操作（放大或缩小）。Timeline 会尝试将给定的“冻结”时间保持在其当前位置。这种行为对于基于捏合手势的缩放非常有用，因为 UI 会向某个特定时间“缩入”。</li>
+<li><code>setZoomLassoEnabled(boolean), boolean isZoomLassoEnabled();</code> - 控制缩放套索是否可用。</li>
+</ul>
+<p>与移动操作一样，缩放操作也可以以动画或非动画方式执行。可以使用 <code>zoomAnimated</code> 和 <code>zoomDuration</code> 这两个属性进行控制。</p>
+<p>另一个属性用于微调缩放行为，因为某些应用程序在缩放时希望保持开始时间、结束时间或中心时间不变。为此，应用程序可以设置 <code>zoomMode</code> 属性。该枚举的可能值为 <code>KEEP_START_TIME</code>、<code>KEEP_END_TIME</code> 或 <code>CENTER</code>。</p>
+<p><strong>滚动</strong></p>
+<p>Timeline 支持以两种不同速度向左和向右滚动。</p>
+<ul>
+<li><code>scrollLeft()</code>, <code>scrollLeftFast()</code> - 更改 Timeline 模型的开始时间属性，使 Dateline 最终从更早的时间开始。</li>
+<li><code>scrollRight()</code>, <code>scrollRightFast()</code> - 更改 Timeline 模型的开始时间属性，使 Dateline 最终从更晚的时间开始。</li>
+</ul>
+<p>用户可以通过 <code>+</code> 和 <code>-</code> 键调用这些方法。如果用户同时按下 <code>SHIFT</code>，滚动会以快速模式执行。</p>
+<p><strong>TimeTracker</strong></p>
+<p>Timeline 控件负责跟踪时间。这意味着它会更新底层 Timeline 模型的 now 属性。Timeline 实现了启动和停止时间跟踪的方法，但 now 的实际更新会委托给时间跟踪器类。</p>
+<ul>
+<li><code>startTimeTracking()</code>, <code>stopTimeTracking()</code> - 启动和停止时间跟踪。这些方法会调用 TimeTracker 类上的等效方法。</li>
+<li><code>timeTrackerProperty()</code>, <code>setTimeTracker(TimeTracker tracker)</code>, <code>TimeTracker getTimeTracker()</code> - 时间跟踪器属性及其 getter 和 setter 方法。默认时间跟踪器（使用系统时间）可以替换为自定义实现。</li>
+</ul>
+<p><strong>可见时间区间</strong></p>
+<p>两个只读属性用于跟踪 Timeline 显示的最早时间和最晚时间。它们分别称为 <code>visibleStartTime</code> 和 <code>visibleEndTime</code>，可以使用 <code>getVisibleStartTime()</code>、<code>getVisibleEndTime()</code> 和 <code>getVisibleDuration()</code> 方法处理它们。</p>
+<h2 id="timeline-model">Timeline 模型</h2>
+<p>Timeline 控件使用类型为 <code>TimelineModel</code> 的模型。该模型为 Timeline 和 Dateline 提供正常工作所需的最重要参数。Timeline 模型可以针对不同时间单位进行类型化。<strong>FlexGanttFX</strong> 随附 <code>ChronoUnitTimelineModel</code> 和 <code>SimpleUnitTimelineModel</code>。</p>
+<p><strong>开始时间与每像素毫秒数</strong></p>
+<p><code>TimelineModel</code> 最重要的两个属性是 <code>startTime</code> 和 <code>millisPerPixel</code>（MPP）。开始时间决定甘特图中的第一个可见时间，而 Timeline 的当前宽度结合 MPP 值决定最后一个可见时间，从而决定可见时间范围。增大 MPP 值会使 Timeline 显示更大的时间范围，减小该值则会得到更短的时间范围。<code>Timeline</code> 类中用于显示某个时间、滚动到某个时间、缩放到某个范围的方法，都是通过操作这两个变量来实现其目的。下表列出了与这些属性相关的方法：</p>
+<ul>
+<li><code>ObjectProperty&lt;Instant&gt; startTimeProperty();</code> <code>setStartTime(Instant time);</code> <code>Instant getStartTime();</code> - 存储、设置和获取当前开始时间，即甘特图中的第一个可见时间。最早可能的开始时间可以通过 horizonStartTime 属性限制。</li>
+<li><code>DoubleProperty millisPerPixel();</code> <code>setMillisPerPixel(double mpp);</code> <code>double getMillisPerPixel();</code> - 存储、设置和获取每像素毫秒数值（mpp）。mpp 的默认值为 24 * 60 * 60 * 1000 / 30，这会使一天的宽度为 30 像素。</li>
+</ul>
+<p><strong>当前时间/当前位置</strong></p>
+<p>甘特图通常需要标记“当前”时间。该时间可以是系统时间（java.time.Instant.now()），也可以是由应用程序控制的任意值。后者常见于运行某种仿真的软件，其中甘特图用于跟踪仿真时间。为支持这些用例，Timeline 模型定义了名为 now 的属性。</p>
+<p>now 的值通常由可通过 Timeline 控制的时间跟踪器更新。</p>
+<ul>
+<li><code>ObjectProperty&lt;Instant&gt; nowProperty();</code> <code>void setNow(Instant now);</code> <code>Instant getNow();</code> - 存储、设置和获取当前时间。</li>
+<li><code>ReadOnlyDoubleProperty nowLocation();</code> <code>double getNowLocation();</code> - 存储并获取当前时间的位置。now 位置由模型根据开始时间和每像素毫秒数值计算。该属性是只读属性，因为 now 位置始终依赖于 now 时间的值。只能通过更改 now 本身来更改该位置。</li>
+</ul>
+<p><strong>时间与坐标计算</strong></p>
+<p>Timeline 模型的主要用途是在时间与位置之间相互转换。为此，模型提供了多个方法：</p>
+<ul>
+<li><code>double calculateLocationForTime(Instant);</code> - 返回给定时间对应的 x 坐标。</li>
+<li><code>Instant calculateTimeForLocation(double);</code> - 返回给定 x 坐标对应的时间。</li>
+</ul>
+<p><strong>范围</strong></p>
+<p>排程应用程序通常使用一个范围，该范围由最早时间和最晚时间定义。这些时间可能基于已加载的数据集（活动开始和结束时间的最小/最大计算），也可能基于规划范围（Q1、Q2、Q3、Q4）。设置 <code>horizonStartTime</code> 和 <code>horizonEndTime</code> 的值可确保用户无法滚动到该范围之外的时间。</p>
+<p><strong>最高与最低时间单位</strong></p>
+<p>并非所有应用程序都需要某个时间单位类型中的全部可用单位。例如，<code>java.time.temporal.ChronoUnit</code> 定义了从纳秒到千年的单位。<code>highestTemporalUnit</code> 和 <code>lowestTemporalUnit</code> 属性使应用程序能够将单位范围限制为更合理的区间，例如从小时到月。</p>
+<h2 id="time-tracker">时间跟踪器</h2>
+<p>时间跟踪器可用于更新 <code>TimelineModel</code> 的 now 属性。在大多数情况下，“now”时间等同于系统时间，但在仿真软件中可能并非如此。要使用时间跟踪器，只需创建 TimeTracker 实例，并将其 <code>timeProperty()</code> 绑定到 Timeline 模型的 <code>nowProperty()</code>。</p>
+<p><strong>示例</strong></p>
+<p>下面是默认时间跟踪器类的完整代码。</p>
+<pre><code class="language-java">/**
+ * Copyright (C) 2014 - 2016 Dirk Lemmermann Software &amp; Consulting (dlsc.com)
+ *
+ * This file is part of FlexGanttFX.
+ */
+package com.flexganttfx.view.timeline;
+
+import java.time.Instant;
+import java.util.logging.Level;
+
+import com.flexganttfx.core.LoggingDomain;
+import com.flexganttfx.model.timeline.TimelineModel;
+
+import javafx.application.Platform;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+
+/**
+ * A time tracker can be used to update the property
+ * {@link TimelineModel#nowProperty()}. In most cases the time &quot;now&quot; will be
+ * equivalent to the system time but in simulations this might not be the case.
+ * The time tracker can be used in combination with the {@link TimelineModel} by
+ * binding the {@link TimelineModel#nowProperty()} to the
+ * {@link TimeTracker#timeProperty()}.
+ *
+ * @since 1.0
+ */
+public class TimeTracker extends Thread {
+
+   private boolean running = true;
+
+   private long delay = 1000;
+
+   private boolean stopped;
+
+   /**
+    * Constructs a new tracker.
+    *
+    * @since 1.0
+    */
+   public TimeTracker() {
+      setName(&quot;Time Tracker&quot;);
+      setDaemon(true);
+   }
+
+   private final ReadOnlyObjectWrapper&lt;Instant&gt; time = new ReadOnlyObjectWrapper&lt;&gt;(
+         this, &quot;time&quot;, Instant.now());
+
+   public final ReadOnlyObjectProperty&lt;Instant&gt; timeProperty() {
+      return time.getReadOnlyProperty();
+   }
+
+   public final Instant getTime() {
+      return time.get();
+   }
+
+   /**
+    * Returns the delay in milliseconds between updates of
+    * {@link TimelineModel#nowProperty()}. The default is 1000 millis.
+    *
+    * @return the default delay between update calls
+    * @since 1.0
+    */
+   public final long getDelay() {
+      return delay;
+   }
+
+   /**
+    * Sets the delay between updates of {@link TimelineModel#nowProperty()}.
+    * The default is 1000 millis.
+    *
+    * @param millis
+    *            the new delay
+    * @throws IllegalArgumentException
+    *             if the delay is zero or smaller
+    * @since 1.0
+    */
+   public final void setDelay(long millis) {
+      if (millis &lt;= 0) {
+         throw new IllegalArgumentException(
+               &quot;delay must be larger than zero but was&quot; + millis); //$NON-NLS-1$
+      }
+
+      this.delay = millis;
+   }
+
+   /**
+    * Starts the tracking of the time.
+    *
+    * @since 1.0
+    */
+   public final void startTracking() {
+      if (stopped) {
+         throw new IllegalStateException(
+               &quot;Time tracker has already been stopped and can not be started again.&quot;);
+      } else {
+         running = true;
+         start();
+      }
+   }
+
+   @Override
+   public void run() {
+      while (running) {
+         Platform.runLater(() -&gt; time.set(getNow()));
+         try {
+            Thread.sleep(delay);
+         } catch (InterruptedException e) {
+            LoggingDomain.CONFIG.log(Level.WARNING,
+                  &quot;problem in update thread&quot;, e); //$NON-NLS-1$
+         }
+      }
+   }
+
+   /**
+    * Stops the tracking of the time.
+    *
+    * @since 1.0
+    */
+   public final void stopTracking() {
+      stopped = true;
+      running = false;
+   }
+
+   /**
+    * Override to return the instant that will be set as &quot;now&quot; on the timeline
+    * model. The default implementation uses {@link Instant#now()}.
+    *
+    * @see TimelineModel#setNow(Instant)
+    *
+    * @return the &quot;now&quot; instant
+    */
+   protected Instant getNow() {
+      return Instant.now();
+   }
+}
+</code></pre>
+      </article>
+      <div class="docs-nav-bottom">
+        <a class="docs-nav-btn" href="gantt-charts.html"><span class="docs-nav-label">← 上一页</span><span class="docs-nav-title">甘特图</span></a>
+<a class="docs-nav-btn next" href="dateline.html"><span class="docs-nav-label">下一页 →</span><span class="docs-nav-title">Dateline（日期线）</span></a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../assets/js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js" crossorigin="anonymous"></script>
+</body>
+</html>

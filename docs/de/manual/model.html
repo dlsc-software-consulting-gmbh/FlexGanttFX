@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-20G18JBY7X"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-20G18JBY7X");</script>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modell — FlexGanttFX</title>
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+  <script src="../../assets/js/lang.js"></script>
+  <link rel="stylesheet" href="../../assets/css/docs.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" crossorigin="anonymous" />
+  <link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/model.html" />
+  <link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/model.html" />
+  <link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/model.html" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/model.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/model.html" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <div class="navbar-brand-group">
+    <a href="../index.html" class="navbar-logo">
+      <i class="fa-solid fa-chart-gantt logo-icon"></i>
+      FlexGanttFX
+    </a>
+    <span class="navbar-brand-sep"></span>
+    <a href="https://www.dlsc.com" class="navbar-dlsc-link" target="_blank" rel="noopener" title="DLSC Software &amp; Consulting GmbH">
+      <img src="../../assets/images/dlsc-logo.png" alt="DLSC" class="navbar-dlsc-logo" />
+    </a>
+  </div>
+        <ul class="navbar-links">
+          <li><a href="../index.html">Startseite</a></li>
+          <li><a href="../pages/demos.html">Demos</a></li>
+          <li class="nav-dropdown">
+            <a href="index.html" class="active">Handbuch</a>
+            <div class="dropdown-menu">
+              <a href="index.html">Inhaltsverzeichnis</a>
+              <a href="installation.html">Installation</a>
+              <a href="tutorial.html">Tutorial</a>
+              <a href="gantt-charts.html">Gantt-Diagramme</a>
+              <a href="timeline.html">Timeline</a>
+              <a href="dateline.html">Dateline</a>
+              <a href="eventline.html">Eventline</a>
+              <a href="graphics.html">Grafik</a>
+              <a href="model.html">Modell</a>
+              <a href="styling.html">Styling</a>
+              <a href="logging.html">Logging</a>
+            </div>
+          </li>
+          <li class="nav-dropdown">
+            <a href="#">Dokumentation</a>
+            <div class="dropdown-menu">
+              <a href="../pages/faq.html">FAQs</a>
+              <a href="../pages/changelog.html">Versionshinweise</a>
+              <a href="../pages/licensing.html">Lizenzierung</a>
+              <a href="../../api/index.html">Javadocs / API</a>
+            </div>
+          </li>
+          <li><a href="../pages/downloads.html">Downloads</a></li>
+      <li class="nav-dropdown nav-lang">
+        <a href="#"><i class="fa-solid fa-globe"></i> DE</a>
+        <div class="dropdown-menu">
+          <a href="../../manual/model.html" data-lang="en">English</a>
+          <a href="model.html" data-lang="de" class="active">Deutsch</a>
+          <a href="../../fr/manual/model.html" data-lang="fr">Français</a>
+          <a href="../../zh/manual/model.html" data-lang="zh">中文（简体）</a>
+        </div>
+      </li>
+          <li><a href="mailto:dlemmermann@gmail.com" class="nav-cta"><i class="fa-solid fa-envelope" style="font-size:0.8rem"></i> Kontakt</a></li>
+        </ul>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="container">
+        <a href="../index.html">Startseite</a>
+        <a href="index.html">Dokumentation</a>
+        <a href="installation.html">Installation</a>
+        <a href="tutorial.html">Tutorial</a>
+        <a href="gantt-charts.html">Gantt-Diagramme</a>
+        <a href="model.html">Modell</a>
+        <a href="../pages/faq.html">FAQ</a>
+      <div class="mobile-lang-divider"></div>
+      <a href="../../manual/model.html" data-lang="en"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> English</a>
+      <a href="model.html" data-lang="de" class="active-lang"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Deutsch</a>
+      <a href="../../fr/manual/model.html" data-lang="fr"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Français</a>
+      <a href="../../zh/manual/model.html" data-lang="zh"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> 中文（简体）</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Erste Schritte</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Überblick</a></li>
+          <li><a href="installation.html">Installation</a></li>
+          <li><a href="tutorial.html">Tutorial</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Steuerelemente</div>
+        <ul class="sidebar-nav">
+          <li><a href="gantt-charts.html">Gantt-Diagramme</a></li>
+          <li><a href="timeline.html">Timeline</a></li>
+          <li><a href="dateline.html">Dateline</a></li>
+          <li><a href="eventline.html">Eventline</a></li>
+          <li><a href="graphics.html">Grafik</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Framework</div>
+        <ul class="sidebar-nav">
+          <li><a href="model.html" class="active">Modell</a></li>
+          <li><a href="styling.html">Styling</a></li>
+          <li><a href="logging.html">Logging</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Referenz</div>
+        <ul class="sidebar-nav">
+          <li><a href="../../api/index.html">Javadocs / API</a></li>
+          <li><a href="../pages/changelog.html">Versionshinweise</a></li>
+          <li><a href="../pages/licensing.html">Lizenzierung</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="docs-content">
+      <nav class="breadcrumb">
+        <a href="../index.html">Startseite</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="index.html">Dokumentation</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Modell</span>
+      </nav>
+      <article class="prose">
+<h1 id="overview">Überblick</h1>
+<p>Die folgende Tabelle listet die wichtigsten Modellklassen auf, mit denen ein Gantt-Diagramm mit Daten befüllt wird.</p>
+<table>
+<thead>
+<tr>
+<th>Klasse</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Activity</strong></td>
+<td>Aktivitäten repräsentieren Objekte, die unterhalb der Timeline in der Grafikansicht des Gantt-Diagramm-Steuerelements angezeigt werden. Aktivitäten können auf einer Zeile einem bestimmten Layer hinzugefügt werden.</td>
+</tr>
+<tr>
+<td><strong>ActivityRef</strong></td>
+<td>Eine Aktivitätsreferenz dient dazu, die Position einer Aktivität präzise zu identifizieren. Diese Position setzt sich aus der Zeile, dem Layer und der Aktivität selbst zusammen.</td>
+</tr>
+<tr>
+<td><strong>ActivityLink</strong></td>
+<td>Ein Aktivitäts-Link kann verwendet werden, um eine Abhängigkeit zwischen zwei Aktivitäten auszudrücken.</td>
+</tr>
+<tr>
+<td><strong>ActivityRepository</strong></td>
+<td>Activity-Repositories werden von Zeilen verwendet, um Aktivitäten zu speichern und nachzuschlagen.</td>
+</tr>
+<tr>
+<td><strong>Row</strong></td>
+<td>Ein (Modell-)Zeilenobjekt speichert die Aktivitäten, die sich auf einer (visuellen) Zeile des Gantt-Diagramms befinden.</td>
+</tr>
+<tr>
+<td><strong>Layer</strong></td>
+<td>Layer werden verwendet, um Aktivitäten zu gruppieren.</td>
+</tr>
+<tr>
+<td><strong>LinesManager</strong></td>
+<td>Ein Lines-Manager steuert das Layout der (inneren) Linien innerhalb einer Zeile.</td>
+</tr>
+<tr>
+<td><strong>Layout</strong></td>
+<td>Jede Zeile und jede innere Linie einer Zeile ist einem Layout zugeordnet. Das Layout beeinflusst verschiedene Aspekte beim Rendern und Bearbeiten von Aktivitäten. Darüber hinaus nutzen auch mehrere System-Layer, die zum Zeichnen des Zeilenhintergrunds verwendet werden, die Layout-Informationen.</td>
+</tr>
+<tr>
+<td><strong>Calendar</strong></td>
+<td>Ein Kalender erweitert ein Activity-Repository um einen Namen und eine Sichtbarkeitseigenschaft.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="activity">Activity</h2>
+<p>Aktivitäten repräsentieren Objekte, die unterhalb der Timeline in der Grafikansicht des Gantt-Diagramm-Steuerelements angezeigt werden. Aktivitäten können auf einer Zeile einem bestimmten Layer durch Aufruf von <code>Row.addActivity(Layer, Activity)</code> hinzugefügt werden.</p>
+<p><strong>Aktivitätstypen</strong></p>
+<p>Dies sind die verschiedenen Aktivitätstypen, die einer Zeile hinzugefügt werden können.</p>
+<ul>
+<li>
+<p><code>Activity</code> - Basisimplementierung: <code>ActivityBaseBase</code> - die einfachste Form einer Aktivität.  </p>
+<ul>
+<li>id (String)  </li>
+<li>name (String)  </li>
+<li>startTime (Instant) </li>
+<li>endTime (Instant)</li>
+</ul>
+</li>
+<li>
+<p><code>ChartActivity</code> - Basisimplementierung: <code>ChartActivityBaseBase</code> - Aktivitäten dieses Typs können in einem Chart-Layout angezeigt werden.  </p>
+</li>
+<li>id (String)  </li>
+<li>name (String)</li>
+<li>startTime (Instant)  </li>
+<li>endTime (Instant)  </li>
+<li>
+<p>chartValue (double)</p>
+</li>
+<li>
+<p><code>CompletableActivity</code> - Basisimplementierung: <code>CompletableActivityBase</code> - Aktivitäten dieses Typs führen einen Prozentwert (Fertigstellung) mit.  </p>
+</li>
+<li>id (String)  </li>
+<li>name (String)  </li>
+<li>startTime (Instant)  </li>
+<li>endTime (Instant)  </li>
+<li>
+<p>percentageComplete (double)</p>
+</li>
+<li>
+<p><code>HighLowChartActivity</code> - Basisimplementierung: <code>HighLowChartActivityBase</code> - Aktivitäten dieses Typs können in einem Chart-Layout angezeigt werden.  </p>
+</li>
+<li>id (String)  </li>
+<li>name (String)  </li>
+<li>startTime (Instant)  </li>
+<li>endTime (Instant)  </li>
+<li>high (double)  </li>
+<li>
+<p>low (double)</p>
+</li>
+<li>
+<p><code>MutableActivity</code> - Basisimplementierung: <code>MutableActivityBase</code> - die einfachste Form einer veränderbaren Aktivität. Der Benutzer kann Start- und Endzeit dieser Aktivitäten ändern.  </p>
+</li>
+<li>id (String)  </li>
+<li>name (String)  </li>
+<li>startTime (Instant)  </li>
+<li>
+<p>endTime (Instant)</p>
+</li>
+<li>
+<p><code>MutableChartActivity</code> - Basisimplementierung: <code>MutableChartActivityBase</code> - diese Aktivitäten können in einem Chart-Layout angezeigt werden. Der Benutzer kann Startzeit, Endzeit und Chart-Wert dieser Aktivitäten ändern.  </p>
+</li>
+<li>id (String)  </li>
+<li>name (String)  </li>
+<li>startTime (Instant)  </li>
+<li>endTime (Instant)  </li>
+<li>
+<p>chartValue (double)</p>
+</li>
+<li>
+<p><code>MutableCompletableActivity</code> - Basisimplementierung: <code>MutableCompletableActivityBase</code> - diese Aktivitäten führen einen Prozentwert (Fertigstellung) mit. Der Benutzer kann Startzeit, Endzeit und den Wert für percentageComplete dieser Aktivitäten ändern.</p>
+</li>
+<li>id (String)</li>
+<li>name (String)</li>
+<li>startTime (Instant)</li>
+<li>endTime (Instant)</li>
+<li>
+<p>percentageComplete (double)</p>
+</li>
+<li>
+<p><code>MutableHighLowChartActivity</code> - Basisimplementierung: <code>MutableHighLowChartActivityBase</code> - diese Aktivitäten können in einem Chart-Layout angezeigt werden. Der Benutzer kann Startzeit, Endzeit sowie den high- und low-Wert dieser Aktivitäten ändern.</p>
+</li>
+<li>id (String)</li>
+<li>name (String)</li>
+<li>startTime (Instant)</li>
+<li>endTime (Instant)</li>
+<li>high (double)</li>
+<li>low (double)</li>
+</ul>
+
+<p><strong>Chart-Aktivität</strong></p>
+<p>Eine Chart-Aktivität basiert auf einer zusätzlichen Schnittstelle für Aktivitäten. Sie muss von Aktivitäten implementiert werden, die in einem ChartLayout dargestellt werden sollen. Diese Schnittstelle ergänzt die Aktivität um einen Chart-Wert. Die folgende Abbildung zeigt ein Beispiel für ein Chart-Layout, das pro Tag eine Chart-Aktivität anordnet.</p>
+<p><img alt="Capacity-Layout" src="../../assets/images/docs/layout-capacity.jpg" /></p>
+
+<p><strong>Completable-Aktivität</strong></p>
+<p>Eine Completable-Aktivität ist eine Aktivität, die einen „percentageComplete“-Wert zwischen 0 und 100 % mitführt. Completable-Aktivitäten werden mit einem speziellen Renderer für Aktivitätsbalken gezeichnet. Dieser Renderer zeichnet den Hintergrund der Aktivität auf Basis des percentageComplete-Werts. Die folgende Abbildung zeigt ein Beispiel.</p>
+<p><img alt="Completable" src="../../assets/images/docs/completable.jpg" /></p>
+
+<p><strong>High-Low-Chart-Aktivität</strong></p>
+<p>Eine High-Low-Chart-Aktivität besitzt zwei zusätzliche Attribute: high und low. Diese Werte werden vom ChartLayout verwendet, um die Aktivität passend zu positionieren. Ein typisches Einsatzbeispiel für High-Low-Aktivitäten sind Candlestick-Charts, etwa für Open-/High-/Low-/Close-Kurse von Aktien.</p>
+<h2 id="activity-reference">Aktivitätsreferenz</h2>
+<p>Eine Aktivitätsreferenz dient dazu, die „Position“ einer Aktivität präzise zu identifizieren. Eine Position ist die Kombination aus Zeile, Layer und der Aktivität selbst. Da sich dieselbe Aktivität gleichzeitig auf mehreren Zeilen und/oder mehreren Layern befinden kann, ist es häufig notwendig, mit einer Aktivitätsreferenz statt nur mit der Aktivität zu arbeiten. Eine Aktivitätsreferenz kann man sich als „Pfad“ zur Aktivität vorstellen.</p>
+<h2 id="activity-link">Aktivitäts-Link</h2>
+<p>Ein Aktivitäts-Link kann verwendet werden, um jede Art von Abhängigkeit zwischen zwei Aktivitäten zu modellieren. In Projektplanungsanwendungen würde ein Link eine Vorgänger-/Nachfolger-Beziehung zwischen zwei Aufgaben ausdrücken. Zum Beispiel: <em>„Aufgabe A muss abgeschlossen sein, bevor Aufgabe B beginnen kann“</em>. In anderen Domänen kann ein Link einfach ausdrücken, dass zwei oder mehr Aktivitäten gemeinsam geplant werden müssen und dass beim Verschieben einer Aktivität auch alle anderen verschoben werden müssen. Die folgende Abbildung zeigt ein Beispiel für einen solchen Link.</p>
+<p>Ein Link kann dem Gantt-Diagramm hinzugefügt werden, indem <code>GanttChart.getLinks().add(myLink)</code>;</p>
+<p><img alt="Link" src="../../assets/images/docs/link.png" /></p>
+<h2 id="activity-repository">Activity-Repository</h2>
+<p>Activity-Repositories werden von Zeilen verwendet, um Aktivitäten zu speichern und nachzuschlagen. Jede Zeile besitzt standardmäßig ein 
+<code>IntervalTreeActivityRepository</code>. Dieses Standard-Repository kann durch eine eigene Implementierung ersetzt werden, zum Beispiel wenn Ihre Anwendung eine Lazy-Loading-Strategie benötigt.</p>
+<p><strong>Abfragen</strong></p>
+<p>Die wichtigste Funktionalität jedes Repositorys ist die Möglichkeit, Aktivitäten innerhalb eines gegebenen Zeitintervalls abzufragen. Zu diesem Zweck definiert die Schnittstelle <code>ActivityRepository</code> die Methode <code>getActivities()</code> mit diesen Parametern:</p>
+<table>
+<thead>
+<tr>
+<th>Typ</th>
+<th>Name</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Layer</strong></td>
+<td><strong>layer</strong></td>
+<td>Immer wenn der Benutzer nach links oder rechts scrollt, fragt die Zeile das Repository mehrfach ab – einmal pro Layer.</td>
+</tr>
+<tr>
+<td><strong>Instant</strong></td>
+<td><strong>startTime</strong></td>
+<td>Die Startzeit des Zeitintervalls, für das die Zeile Aktivitäten abfragt.</td>
+</tr>
+<tr>
+<td><strong>Instant</strong></td>
+<td><strong>endTime</strong></td>
+<td>Die Endzeit des Zeitintervalls, für das die Zeile Aktivitäten abfragt.</td>
+</tr>
+<tr>
+<td><strong>TemporalUnit</strong></td>
+<td><strong>unit</strong></td>
+<td>Der aktuelle Wert der <strong>primären Zeiteinheit</strong>, die derzeit von der Dateline angezeigt wird. Dies ist die Einheit, die am unteren Rand der Dateline dargestellt wird, z. B. Tage. Mit diesem Parameter lässt sich steuern, wie fein granular das Ergebnis ist. Wenn bekannt ist, dass der Benutzer aktuell Monate betrachtet, kann es sinnvoll sein, tägliche Aktivitäten zu aggregieren.</td>
+</tr>
+<tr>
+<td><strong>ZomeId</strong></td>
+<td><strong>zoneId</strong></td>
+<td>Die Zeitzone, die von der Zeile angezeigt wird.</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Frühester / spätester verwendeter Zeitpunkt</strong></p>
+<p>Jede Repository-Implementierung muss den frühesten und spätesten verwendeten Zeitpunkt liefern können (früheste Startzeit / späteste Endzeit aller im Repository gespeicherten Aktivitäten). Dadurch kann die UI Steuerelemente für eine einfache Navigation bereitstellen: „frühesten anzeigen“, „spätesten anzeigen“. Zu diesem Zweck müssen Repositories die 
+<code>getEarliestTimeUsed()</code> und <code>getLatestTimeUsed()</code> Methoden implementieren.</p>
+<p><strong>Aktivitäten aktualisieren</strong></p>
+<p>Aktivitäten müssen aus ihrem Repository entfernt werden (<code>ActivityRef.detachFromRow()</code>), bevor sie geändert werden, und nach der Änderung wieder hinzugefügt werden (<code>ActivityRef.attachToRow()</code>). Nur so lässt sich sicherstellen, dass die zugrunde liegende Datenstruktur eines Repositorys stets mit den Aktivitäten synchron bleibt. Beispiel: Die Interval-Tree-Datenstruktur funktioniert nur korrekt, wenn sich alle Knoten an ihrer richtigen Position befinden. Dies kann nur garantiert werden, wenn die Knoten vor der Änderung aus dem Baum entfernt werden (andernfalls findet der Baum sie nicht) und anschließend mit ihrem neuen Wert wieder eingefügt werden.</p>
+<p><strong>Ereignisbehandlung</strong></p>
+<p>Activity-Repositories unterstützen Listener, sodass sich die UI aktualisieren kann, wenn sich der Inhalt des Repositorys ändert. Interessierte Komponenten können Handler registrieren, indem sie <code>addEventHandler()</code> aufrufen, oder Handler entfernen, indem sie <code>removeEventHandler()</code> aufrufen. Die Ereignisklasse heißt <code>RepositoryEvent</code> und verfügt über drei Ereignistypen:</p>
+<ul>
+<li><code>ACTIVITY_ADDED</code> - Eine Aktivität wurde dem Repository hinzugefügt.</li>
+<li><code>ACTIVITY_REMOVED</code> - Eine Aktivität wurde aus dem Repository entfernt.</li>
+<li><code>REPOSITORY_CHANGED</code> - Der Zustand des Repositorys hat sich geändert.</li>
+</ul>
+<p>Jeder dieser Ereignistypen löst normalerweise ein Neuzeichnen der Zeile aus, zu der das Repository gehört.</p>
+<p><strong>IntervalTreeActivityRepository</strong></p>
+<p>Das <code>InteralTreeActivityRepository</code> ist ein Activity-Repository, das eine oder mehrere binäre Interval-Tree-Datenstrukturen zum Speichern von Aktivitäten verwendet.</p>
+<p><img alt="Binärer Interval Tree" src="../../assets/images/docs/binary.gif" /></p>
+<p><strong>ListActivityRepository</strong></p>
+<p>Das <code>ListActivityRepository</code> ist ein Activity-Repository, das eine oder mehrere Listendatenstrukturen zum Speichern von Aktivitäten verwendet. Dieses Repository kann so konfiguriert werden, dass seine Abfragemethode unterschiedliche Typen von Ergebnis-Iteratoren zurückgibt. Die möglichen Werte sind definiert in <code>ListActivityRepository.IteratorType</code>.</p>
+<ul>
+<li><code>BINARY_ITERATOR</code> - gibt einen Iterator zurück, der eine binäre Suche ausführt, um die erste für ein gegebenes Zeitintervall zu zeichnende Aktivität zu finden. Anschließend iteriert er über alle folgenden Aktivitäten, bis er eine Aktivität findet, die nach dem gegebenen Zeitintervall beginnt.</li>
+<li><code>LINEAR_ITERATOR</code> - gibt einen Iterator zurück, der eine lineare Suche ausführt, um die erste für ein gegebenes Zeitintervall zu zeichnende Aktivität zu finden. Anschließend iteriert er über alle folgenden Aktivitäten, bis er eine Aktivität findet, die nach dem gegebenen Zeitintervall beginnt.</li>
+<li><code>SIMPLE_ITERATOR</code> - gibt einen Iterator zurück, der keinerlei Suche ausführt, sondern sofort Aktivitäten zurückliefert – unabhängig davon, ob sie sich aktuell im sichtbaren Zeitintervall des Gantt-Diagramms befinden oder nicht. </li>
+</ul>
+<p>Das <code>SIMPLE_ITERATOR</code> wird für Zeilen mit nur wenigen Aktivitäten verwendet. Dieser Iterator ist sehr nützlich, wenn sichergestellt werden soll, dass der nachlaufende Text einer Aktivität weiterhin angezeigt wird, selbst wenn die Aktivität bereits aus dem sichtbaren Bereich herausgescrollt wurde.</p>
+<p><img alt="Simple-Iterator-Anwendungsfall" src="../../assets/images/docs/simple-iterator.png" /></p>
+<h2 id="row">Row</h2>
+<p>Ein Zeilenobjekt speichert die Aktivitäten, die sich auf einer Zeile des Gantt-Diagramms befinden. Diese Aktivitäten werden nicht direkt in der Zeile gespeichert, sondern in einem <strong>Activity-Repository</strong>. Das Standard-Repository ist vom Typ <code>IntervalTreeActivityRepository</code>. Aktivitäten können auf Linien innerhalb der Zeile platziert werden. Die Zeile delegiert diese Arbeit an einen <code>LinesManager</code>. Der Standard-Manager ist vom Typ 
+<code>EqualLinesManager</code>.</p>
+<p><strong>Typargumente &amp; Hierarchie</strong></p>
+<p>Drei Typargumente sind erforderlich, um eine Zeile zu definieren. Das erste definiert den Typ der übergeordneten Zeile, das zweite definiert den Typ der untergeordneten Zeilen, das dritte definiert den Typ der Aktivitäten, die auf der Zeile angezeigt werden. Das folgende Beispiel definiert ein „Building“. Das Building ist Teil einer Factory. Das Building enthält Machines. In der Zeile, die das Building repräsentiert, werden Shifts angezeigt.</p>
+<pre><code class="language-java">public class Building extends Row&lt;Factory, Machine, Shift&gt; {
+}
+</code></pre>
+
+<p>Ein solches Modell würde es ermöglichen, im Gantt-Diagramm eine Hierarchie anzuzeigen, die beispielsweise so aussieht:</p>
+<ul>
+<li>Factory</li>
+<li>Building 1</li>
+<li>Building 2</li>
+<li>Building 3<ul>
+<li>Machine A</li>
+<li>Machine B</li>
+<li>Machine B</li>
+</ul>
+</li>
+<li>Building 4<ul>
+<li>Machine C</li>
+<li>Machine D</li>
+</ul>
+</li>
+</ul>
+<p><strong>Eigenschaften</strong></p>
+<p>Jede Zeile besitzt eine Reihe von <strong>beobachtbaren</strong> Eigenschaften.</p>
+<table>
+<thead>
+<tr>
+<th>Eigenschaft</th>
+<th>Typ</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>expanded</strong></td>
+<td>Boolean</td>
+<td>Steuert, ob die Zeile ihre untergeordneten Zeilen anzeigt oder nicht.</td>
+</tr>
+<tr>
+<td><strong>height</strong></td>
+<td>double</td>
+<td>Die aktuelle Höhe der Zeile.</td>
+</tr>
+<tr>
+<td><strong>minHeight</strong></td>
+<td>double</td>
+<td>Die minimale Höhe der Zeile.</td>
+</tr>
+<tr>
+<td><strong>maxHeight</strong></td>
+<td>double</td>
+<td>Die maximale Höhe der Zeile.</td>
+</tr>
+<tr>
+<td><strong>layout</strong></td>
+<td>Layout</td>
+<td>Das von der Zeile verwendete Layout. Der Standardwert ist <code>GanttLayout</code>.</td>
+</tr>
+<tr>
+<td><strong>lineCount</strong></td>
+<td>int</td>
+<td>Die Anzahl der inneren Linien, die innerhalb der Zeile angezeigt werden.</td>
+</tr>
+<tr>
+<td><strong>linesManager</strong></td>
+<td>Lines-Manager</td>
+<td>Der Lines-Manager, der die Linien, ihre Position, ihre Höhe und die Platzierung der Aktivitäten steuert.</td>
+</tr>
+<tr>
+<td><strong>name</strong></td>
+<td>String</td>
+<td>Der Name der Zeile, z. B. „Machine 1“, „Building 1“.</td>
+</tr>
+<tr>
+<td><strong>parent</strong></td>
+<td>Row</td>
+<td>Die übergeordnete Zeile. Dies ist eine schreibgeschützte Eigenschaft, die intern verwaltet und aktualisiert wird, wenn eine Zeile zur Liste der untergeordneten Zeilen einer anderen Zeile hinzugefügt wird.</td>
+</tr>
+<tr>
+<td><strong>repository</strong></td>
+<td>Activity-Repository</td>
+<td>Das von der Zeile verwendete Repository zum Speichern der Aktivitäten.</td>
+</tr>
+<tr>
+<td><strong>showing</strong></td>
+<td>boolean</td>
+<td>Ein Flag, das signalisiert, dass die Zeile aktuell in der UI angezeigt wird. Diese Information kann zur Optimierung von Lazy-Loading-Strategien verwendet werden.</td>
+</tr>
+<tr>
+<td><strong>userObject</strong></td>
+<td>Object</td>
+<td>Ein optionales Benutzerobjekt. Es dient als Brücke zum Geschäftsmodell.</td>
+</tr>
+<tr>
+<td><strong>zoneId</strong></td>
+<td>ZoneId</td>
+<td>Die von der Zeile repräsentierte Zeitzone. Jede Zeile kann ihre eigene Zeitzone haben.</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="layer">Layer</h2>
+<p>Layer dienen dazu, <strong>Aktivitäten zu gruppieren</strong>. Aktivitäten auf demselben Layer werden gleichzeitig gezeichnet (Z-Order). Ein Layer hat einen Namen und eine ID, kann ein- und ausgeschaltet werden, und seine Deckkraft kann geändert werden. Diese Änderungen wirken sich auf alle Aktivitäten auf diesem Layer aus. Die ID des Layers wird für Drag-&amp;-Drop-Operationen von Aktivitäten zwischen verschiedenen Gantt-Diagrammen verwendet. Abgelegte Aktivitäten werden dem Layer mit derselben ID hinzugefügt. Der Layer-Name wird als Standard-ID für neu erstellte Layer verwendet. Die ID muss nur geändert werden, wenn derselbe Layer-Typ mit unterschiedlichen Namen in verschiedenen Gantt-Diagrammen verwendet wird.</p>
+<h2 id="lines-manager">Lines-Manager</h2>
+<p>Dieser Manager steuert das Layout von Linien innerhalb einer Zeile. Aktivitäten, die sich auf unterschiedlichen Linien befinden, überlappen sich nicht – es sei denn, die Linien selbst überlappen sich. Jede Linie kann eine eigene Höhe und Position innerhalb der Zeile haben. Außerdem kann jede Linie ihr eigenes Layout besitzen. Durch die Verwendung von Linien und Layouts ist es möglich, Aktivitäten, die zur selben Zeile gehören, auf unterschiedliche Weise darzustellen (siehe <code>ChartLayout</code>, <code>AgendaLayout</code>, <code>GanttLayout</code>).</p>
+
+<p><strong>Zeilenanzahl</strong></p>
+<p>Die tatsächliche Anzahl der Linien einer Zeile wird in der Eigenschaft <code>lineCount</code> der Zeile gespeichert. Rufen Sie einfach <code>Row.setLineCount(int)</code> auf, um den Wert zu ändern. Ist die Linienanzahl größer als null, fragt die Zeile ihren Lines-Manager, wo sich jede Linie befindet, wie hoch sie ist und welche Aktivität auf welcher Linie platziert wird. Außerdem wird der für jede Linie zu verwendende Layout-Typ vom Manager abgerufen.</p>
+
+<p><strong>Schnittstelle</strong></p>
+<p>Die folgende Tabelle listet die Schnittstellenmethoden eines <code>LineManager</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Methode</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>double getLineHeight(int lineIndex, double rowHeight);</strong></td>
+<td>Gibt die Höhe der Linie mit dem angegebenen Index zurück. Die Höhe kann zur Laufzeit auf Basis der angegebenen verfügbaren Zeilenhöhe berechnet werden.</td>
+</tr>
+<tr>
+<td><strong>int getLineIndex(A activity);</strong></td>
+<td>Gibt den Linienindex für die angegebene Aktivität zurück. Diese Methode platziert Aktivitäten auf unterschiedlichen Linien.</td>
+</tr>
+<tr>
+<td><strong>Layout getLineLayout(int lineIndex);</strong></td>
+<td>Gibt das Layout für die Linie mit dem angegebenen Linienindex zurück. Jede Linie kann ihr eigenes Layout haben.</td>
+</tr>
+<tr>
+<td><strong>double getLineLocation(int lineIndex, double rowHeight);</strong></td>
+<td>Gibt die Position der Linie mit dem angegebenen Index zurück. Die Position kann zur Laufzeit auf Basis der angegebenen verfügbaren Zeilenhöhe berechnet werden.</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Equal-Lines-Manager</strong> </p>
+<p>Das <code>EqualLinesManager</code> kann verwendet werden, um Linienpositionen und Linienhöhen gleichmäßig auf einer Zeile zu verteilen. Jede Linie hat dieselbe Höhe, und die Linien überlappen sich nicht. Der Manager stellt dieses Verhalten bereit; es bleibt jedoch Aufgabe der Anwendung, die Aktivitäten auf unterschiedlichen Linien zu platzieren und das Layout für jede Linie festzulegen. Aus diesem Grund sind auch die Methoden <code>getLineHeight()</code> und <code>getLineLocation()</code> final, während die Methoden 
+<code>getLineLayout()</code> und <code>getLineIndex()</code> nicht final sind und überschrieben werden können.</p>
+
+<p><strong>Auto-Lines-Manager</strong></p>
+<p>Das <code>AutoLinesManager</code> kann verwendet werden, um eine dynamische Anzahl von Linien basierend auf allen Aktivitäten in einem Repository zu erstellen. Dieser Lines-Manager erkennt Cluster sich überschneidender Aktivitäten (Start-/Endzeitintervalle) und stellt sicher, dass genügend Linien verfügbar sind, um die Aktivitäten ohne Überlappung zu platzieren. Nachfolgend finden Sie den vollständigen Quellcode dieser Manager-Klasse als Fallstudie. Beachten Sie, dass die Methode <code>layout()</code> des Managers von außen aufgerufen werden muss. Eine gute Möglichkeit dafür ist, auf <code>ACTIVITY_CHANGE_FINISHED</code>-Ereignisse oder auf noch feiner granulare <code>START/END_TIME_CHANGE_FINISHED</code>-Ereignisse zu hören.</p>
+<pre><code class="language-java">/**
+ * Copyright (C) 2026 Dirk Lemmermann Software &amp; Consulting (dlsc.com)
+ *
+ * This file is part of FlexGanttFX.
+ */
+package com.flexganttfx.view.util;
+import static java.util.Objects.requireNonNull;
+import impl.com.flexganttfx.skin.util.Placement;
+import impl.com.flexganttfx.skin.util.Resolver;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import com.flexganttfx.model.Activity;
+import com.flexganttfx.model.ActivityRepository;
+import com.flexganttfx.model.Layer;
+import com.flexganttfx.model.LinesManager;
+import com.flexganttfx.model.Row;
+import com.flexganttfx.model.layout.EqualLinesManager;
+import com.flexganttfx.view.graphics.GraphicsBase;
+
+/**
+ * A specialized {@link LinesManager} used for ensuring that activities will not
+ * overlap each other. This manager will create as many inner lines as needed
+ * and will calculate the placement of all activities on these lines.
+ *
+ * @param &lt;R&gt;
+ *            the type of the row that will be managed
+ * @param &lt;A&gt;
+ *            the type of the activities that will be managed
+ *
+ * @since 1.2
+ */
+public class AutoLinesManager&lt;R extends Row&lt;?, ?, A&gt;, A extends Activity&gt;
+        extends EqualLinesManager&lt;R, A&gt; {
+
+    private Map&lt;A, Placement&lt;A&gt;&gt; placements;
+    private GraphicsBase&lt;R&gt; graphics;
+
+    /**
+     * Constructs a new automatic lines manager. The constructor requires a
+     * reference to the graphics view to look up various parameters that are
+     * needed when the manager queries the activity repository of the row (e.g.
+     * the currently displayed temporal unit and the list of layers).
+     *
+     * @param row
+     *            the managed row
+     * @param graphics
+     *            the graphics view where the manager will be used
+     *
+     * @since 1.2
+     */
+    public AutoLinesManager(R row, GraphicsBase&lt;R&gt; graphics) {
+        super(row);
+        this.graphics = requireNonNull(graphics);
+        layout();
+    }
+
+    /**
+     * Returns the graphics view where the manager will be used.
+     *
+     * @return the graphics view
+     * @since 1.2
+     */
+    public final GraphicsBase&lt;R&gt; getGraphics() {
+        return graphics;
+    }
+
+    public final void layout() {
+        R row = getRow();
+        ActivityRepository&lt;A&gt; repository = row.getRepository();
+        Instant st = repository.getEarliestTimeUsed();
+        Instant et = repository.getLatestTimeUsed();
+        if (st == null || et == null) {
+            return;
+        }
+        List&lt;A&gt; allActivities = new ArrayList&lt;&gt;();
+        for (Layer layer : graphics.getLayers()) {
+            Iterator&lt;A&gt; activities = repository.getActivities(layer, st, et,
+                    graphics.getTimeline().getDateline()
+                            .getPrimaryTemporalUnit(), row.getZoneId());
+            if (activities != null) {
+                activities.forEachRemaining(activity -&gt; allActivities
+                        .add(activity));
+            }
+        }
+        placements = Resolver.resolve(allActivities);
+        if (placements != null &amp;&amp; !placements.isEmpty()) {
+            Placement&lt;A&gt; p = placements.values().iterator().next();
+            row.setLineCount(p.getColumnCount());
+        } else {
+            row.setLineCount(0);
+        }
+    }
+
+    @Override
+    public int getLineIndex(A activity) {
+        if (placements != null) {
+            Placement&lt;A&gt; placement = placements.get(activity);
+            if (placement != null) {
+                return placement.getColumnIndex();
+            }
+        }
+        return -1;
+    }
+}
+</code></pre>
+
+<h2 id="layout-types">Layout-Typen</h2>
+<p>Jede Zeile und jede innere Linie einer Zeile ist einem Layout zugeordnet. Das Layout beeinflusst verschiedene Aspekte beim Rendern und Bearbeiten von Aktivitäten. Darüber hinaus nutzen auch mehrere System-Layer, die den Zeilenhintergrund zeichnen, die Layout-Informationen. Das Layout kann durch Aufruf von <code>Row.setLayout(Layout)</code> gesetzt werden; bei Verwendung innerer Linien kann es über den Lines-Manager der Zeile zurückgegeben werden.</p>
+<p>FlexGanttFX enthält drei Layout-Typen.</p>
+<table>
+<thead>
+<tr>
+<th>Layout</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GanttLayout</strong></td>
+<td>Ordnet Aktivitäten horizontal entlang der Timeline an. Die Positionen basieren auf den Start- und Endzeiten der Aktivitäten.</td>
+</tr>
+<tr>
+<td><strong>AgendaLayout</strong></td>
+<td>Ordnet Aktivitäten vertikal entlang einer Skala für „lokale Zeit“ (0–24 Stunden) an. Dadurch sehen Aktivitäten wie Kalendereinträge aus.</td>
+</tr>
+<tr>
+<td><strong>ChartLayout</strong></td>
+<td>Ordnet Aktivitäten als Chart-Werte an. Aktivitäten können die Schnittstelle <code>ChartActivity</code> oder <code>HighLowChartActivity</code> implementieren.</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Padding</strong> </p>
+<p>Alle Layout-Typen besitzen eine Padding-Eigenschaft. Sie wird verwendet, um am oberen und unteren Rand jeder Zeile beziehungsweise Linie einen visuellen Abstand zu erzeugen.</p>
+<p><img alt="Padding" src="../../assets/images/docs/padding.png" /></p>
+
+<p><strong>Gantt-Layout</strong></p>
+<p><img alt="Gantt-Layout" src="../../assets/images/docs/layout-gantt.jpg" /></p>
+
+<p><strong>Agenda-Layout</strong></p>
+<p>Die Agenda-Layout-Klasse wird verwendet, um Aktivitäten ähnlich wie in einem regulären Kalender anzuordnen, bei dem eine vertikale Skala Stunden anzeigt. Aktivitäten repräsentieren Termine für einen bestimmten Tag. Aktivitäten, die in einem Agenda-Layout angezeigt werden, können mehrfach gerendert werden. Dies ist beispielsweise der Fall, wenn sich eine Aktivität über mehrere Tage erstreckt.</p>
+<p><img alt="Agenda-Layout" src="../../assets/images/docs/layout-agenda.jpg" /></p>
+<p>Mit der Agenda-Layout-Klasse können Sie eine Start- und Endzeit festlegen. Damit wird das Zeitintervall eingeschränkt, das angezeigt wird und in dem die Agenda-Aktivitäten angeordnet werden. In den meisten Fällen ist es nicht sinnvoll, die gesamten 24 Stunden anzuzeigen, sondern nur die Arbeitszeit, z. B. von 8:00 bis 18:00 Uhr. Rufen Sie einfach <code>AgendaLayout.setStartTime()</code> oder <code>setEndTime()</code> auf, um den Zeitraum zu ändern.</p>
+<p><strong>Konfliktstrategie</strong></p>
+<p>Aktivitäten in einem Agenda-Layout können sich überschneiden. Über die Eigenschaft <code>conflictStrategy</code> legen Sie fest, wie mit solchen Situationen umgegangen wird. Die folgende Liste zeigt die möglichen Werte.</p>
+<table>
+<thead>
+<tr>
+<th>Strategie</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>OVERLAPPING</strong></td>
+<td>Kollidierende Agenda-Einträge werden übereinander gezeichnet, wobei einer von ihnen um einige Pixel eingerückt wird. Die Einrückung kann über die Eigenschaft <code>overlapOffset</code> von AgendaLayout gesteuert werden.</td>
+</tr>
+<tr>
+<td><strong>PARALLEL</strong></td>
+<td>Kollidierende Agenda-Einträge werden in unterschiedlichen Spalten innerhalb desselben Tages angezeigt.</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Chart-Layout</strong></p>
+<p>Bei Verwendung der Klasse <code>ChartLayout</code> werden Aktivitäten als Chart-Balken angeordnet. Eine Reihe solcher Balken kann beispielsweise verwendet werden, um ein Kapazitätsprofil zu bilden. Aktivitäten vom Typ <code>ChartActivity</code> werden auf einer Nulllinie zwischen dem minimalen und dem maximalen Wert des Layouts platziert. Die Höhe der Chart-Aktivität basiert auf dem von <code>ChartActivity.getChartValue()</code> zurückgegebenen Wert. Aktivitäten vom Typ <code>HighLowChartActivity</code> erscheinen als schwebende Balken. Das Layout unterstützt außerdem die Definition von Neben- und Hauptlinien, die im Zeilenhintergrund gezeichnet werden.</p>
+<p><img alt="Chart-Layout" src="../../assets/images/docs/layout-capacity.jpg" /></p>
+<p><strong>Min.- &amp; Max.-Wert</strong> – das Chart-Layout stellt zwei Eigenschaften bereit, die das tatsächliche Layout der Chart-Aktivitäten steuern: minValue und maxValue. Diese Werte müssen von der Anwendung verwaltet werden, nicht vom Framework. Sie können durch Aufruf von <code>ChartLayout.setMinValue()</code> oder <code>ChartLayout.setMaxValue()</code> gesetzt werden.</p>
+<p><strong>Haupt- &amp; Neben-Ticks</strong> – jede Chart-Layout-Instanz besitzt eine Liste von Haupt- und Neben-Ticks. Diesen Listen können Werte hinzugefügt werden, um Wertlinien im Hintergrund der Zeile zu rendern. Beispiel: Der minValue ist 0 und der maxValue ist 100. Dann ist es sinnvoll, Haupt-Ticks für die Werte 50 und 100 zu definieren. Neben-Ticks könnten bei 10, 20, 30, 40, 60, 70, 80 und 90 liegen.</p>
+<h2 id="calendar">Calendar</h2>
+<p>Ein Kalender erweitert ein Activity-Repository um einen Namen und eine Sichtbarkeitseigenschaft. Kalender können dem gesamten Gantt-Diagramm oder einzelnen Zeilen innerhalb des Gantt-Diagramms hinzugefügt werden. Auch die <code>Dateline</code> verwendet sie.</p>
+<pre><code class="language-java">Dateline.getCalendars();
+GraphicsBase.getCalendars();
+Row.getCalendars();
+</code></pre>
+
+<p>Kalender werden für den Hintergrund von Zeilen verwendet. Sie können beispielsweise Wochenenden oder Feiertage markieren. Kalenderinformationen werden immer schreibgeschützt angezeigt. Aktivitäten, die von Kalendern zurückgegeben werden, müssen vom Typ <code>CalendarActivity</code> sein. Sie können vom Benutzer nicht interaktiv bearbeitet werden.</p>
+<p><strong>Wochenendkalender</strong></p>
+<p>In <strong>FlexGanttFX</strong> ist bereits ein vordefinierter Kalendertyp enthalten. Er heißt <code>WeekendCalendar</code> und wird verwendet, um Wochenendtage zu markieren (z. B. Samstag und Sonntag).</p>
+<p><img alt="Wochenende" src="../../assets/images/docs/weekend.png" /></p>
+<p>Das folgende Listing zeigt den vollständigen Code dieser Kalenderklasse. Es kann als Grundlage für Ihre eigenen Kalender verwendet werden.</p>
+<pre><code class="language-java">/**
+ * Copyright (C) 2014 Dirk Lemmermann Software &amp; Consulting (dlsc.com)
+ * This file is part of FlexGanttFX.
+ */
+package com.flexganttfx.model.calendar;
+import static java.time.temporal.ChronoUnit.DAYS;
+import static java.util.Objects.requireNonNull;
+import java.time.DayOfWeek;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.Iterator;
+import java.util.List;
+
+import javafx.event.Event;
+
+import com.flexganttfx.model.Layer;
+import com.flexganttfx.model.repository.RepositoryEvent;
+/**
+ * A calendar specialized on returning activities that represent weekend days
+ * (default: Saturday, Sunday). The days that are considered weekend days can be
+ * configured by calling {@link #setWeekendDays(DayOfWeek...)}.
+ *
+ * @since 1.0
+ */
+public class WeekendCalendar extends CalendarBase&lt;WeekendCalendarActivity&gt; {
+
+    private Instant lastStartTime = Instant.MIN;
+    private Instant lastEndTime = Instant.MAX;
+    private ZoneId lastZoneId;
+    private List&lt;WeekendCalendarActivity&gt; entries;
+    private EnumSet&lt;DayOfWeek&gt; weekendDays = EnumSet.of(DayOfWeek.SATURDAY,
+            DayOfWeek.SUNDAY);
+    /**
+     * Constructs a new weekend calendar.
+     *
+     * @since 1.0
+     */
+    public WeekendCalendar() {
+        super(&quot;Weekends&quot;);
+    }
+
+    /**
+     * Sets the days of the week that are considered to be a weekend day. By
+     * default {@link DayOfWeek#SATURDAY} and {@link DayOfWeek#SUNDAY} are
+     * considered weekend days.
+     *
+     * @param days
+     *            the days of the week that are to be considered weekend days
+     * @since 1.0
+     */
+    public void setWeekendDays(DayOfWeek... days) {
+        requireNonNull(days);
+        weekendDays.clear();
+        weekendDays.addAll(Arrays.asList(days));
+        Event.fireEvent(this, new RepositoryEvent(this));
+    }
+
+    /**
+     * Returns the days of the week that are to be considered weekend days. By
+     * default {@link DayOfWeek#SATURDAY} and {@link DayOfWeek#SUNDAY} are
+     * considered weekend days.
+     *
+     * @return the days of the week used as weekend days
+     * @since 1.0
+     */
+    public DayOfWeek[] getWeekendDays() {
+        return weekendDays.toArray(new DayOfWeek[weekendDays.size()]);
+    }
+
+    @Override
+    public Iterator&lt;WeekendCalendarActivity&gt; getActivities(Layer layer,
+            Instant startTime, Instant endTime, TemporalUnit temporalUnit,
+            ZoneId zoneId) {
+
+        if (!(temporalUnit instanceof ChronoUnit)) {
+            /*
+             * We only work for ChronoUnit.
+             */
+            return Collections.emptyListIterator();
+        }
+        if (startTime.equals(lastStartTime) &amp;&amp; endTime.equals(lastEndTime)
+                &amp;&amp; zoneId.equals(lastZoneId)) {
+            /*
+             * We already answered this query for the given time interval. Let's
+             * return the result from last time.
+             */
+            if (entries != null) {
+                return entries.iterator();
+            }
+        } else {
+            ChronoUnit unit = (ChronoUnit) temporalUnit;
+            /*
+             * The time interval has changed. Find the weekends within the new
+             * interval, but only if the user is currently looking at days or
+             * weeks.
+             */
+            if (isSupportedUnit(unit)) {
+                /* Lazily create list structure. */
+                if (entries == null) {
+                    entries = new ArrayList&lt;WeekendCalendarActivity&gt;();
+                } else {
+                    entries.clear();
+                }
+                ZonedDateTime st = ZonedDateTime.ofInstant(startTime, zoneId);
+                ZonedDateTime et = ZonedDateTime.ofInstant(endTime, zoneId);
+                findWeekends(st, et);
+                lastStartTime = startTime;
+                lastEndTime = endTime;
+                lastZoneId = zoneId;
+                return entries.iterator();
+            }
+        }
+
+        return Collections.emptyListIterator();
+    }
+
+    /**
+     * Determines if weekends will be shown for the given temporal unit.
+     * By default, we only show weekends for {@link ChronoUnit#DAYS} and
+     * {@link ChronoUnit#WEEKS}. To support more units, override
+     * this method in a subclass.
+     *
+     * @param unit
+     *            the unit to check
+     * @return true if weekend information will be shown in the Gantt chart
+     * @since 1.0
+     */
+    protected boolean isSupportedUnit(TemporalUnit unit) {
+        if (unit instanceof ChronoUnit) {
+            ChronoUnit chronoUnit = (ChronoUnit) unit;
+            switch (chronoUnit) {
+            case DAYS:
+            case WEEKS:
+                return true;
+            default:
+                return false;
+            }
+        }
+        return false;
+    }
+
+    private void findWeekends(ZonedDateTime st, ZonedDateTime et) {
+        while (st.isBefore(et) || st.equals(et)) {
+            if (weekendDays.contains(st.getDayOfWeek())) {
+                st = st.truncatedTo(DAYS);
+                entries.add(new WeekendCalendarActivity(st.getDayOfWeek()
+                        .toString(), Instant.from(st), Instant.from(st
+                        .plusDays(1)), st.getDayOfWeek()));
+            }
+            st = st.plusDays(1);
+        }
+    }
+}
+</code></pre>
+      </article>
+      <div class="docs-nav-bottom">
+        <a class="docs-nav-btn" href="graphics.html"><span class="docs-nav-label">← Zurück</span><span class="docs-nav-title">Grafik</span></a>
+<a class="docs-nav-btn next" href="styling.html"><span class="docs-nav-label">Weiter →</span><span class="docs-nav-title">Styling</span></a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../assets/js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js" crossorigin="anonymous"></script>
+</body>
+</html>

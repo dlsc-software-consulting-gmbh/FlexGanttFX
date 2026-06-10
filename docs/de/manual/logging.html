@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-20G18JBY7X"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-20G18JBY7X");</script>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logging — FlexGanttFX</title>
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+  <script src="../../assets/js/lang.js"></script>
+  <link rel="stylesheet" href="../../assets/css/docs.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" crossorigin="anonymous" />
+  <link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/logging.html" />
+  <link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/logging.html" />
+  <link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/logging.html" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/logging.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/logging.html" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <div class="navbar-brand-group">
+    <a href="../index.html" class="navbar-logo">
+      <i class="fa-solid fa-chart-gantt logo-icon"></i>
+      FlexGanttFX
+    </a>
+    <span class="navbar-brand-sep"></span>
+    <a href="https://www.dlsc.com" class="navbar-dlsc-link" target="_blank" rel="noopener" title="DLSC Software &amp; Consulting GmbH">
+      <img src="../../assets/images/dlsc-logo.png" alt="DLSC" class="navbar-dlsc-logo" />
+    </a>
+  </div>
+        <ul class="navbar-links">
+          <li><a href="../index.html">Startseite</a></li>
+          <li><a href="../pages/demos.html">Demos</a></li>
+          <li class="nav-dropdown">
+            <a href="index.html" class="active">Handbuch</a>
+            <div class="dropdown-menu">
+              <a href="index.html">Inhaltsverzeichnis</a>
+              <a href="installation.html">Installation</a>
+              <a href="tutorial.html">Tutorial</a>
+              <a href="gantt-charts.html">Gantt-Diagramme</a>
+              <a href="timeline.html">Timeline</a>
+              <a href="dateline.html">Dateline</a>
+              <a href="eventline.html">Eventline</a>
+              <a href="graphics.html">Grafik</a>
+              <a href="model.html">Modell</a>
+              <a href="styling.html">Styling</a>
+              <a href="logging.html">Logging</a>
+            </div>
+          </li>
+          <li class="nav-dropdown">
+            <a href="#">Dokumentation</a>
+            <div class="dropdown-menu">
+              <a href="../pages/faq.html">FAQs</a>
+              <a href="../pages/changelog.html">Versionshinweise</a>
+              <a href="../pages/licensing.html">Lizenzierung</a>
+              <a href="../../api/index.html">Javadocs / API</a>
+            </div>
+          </li>
+          <li><a href="../pages/downloads.html">Downloads</a></li>
+      <li class="nav-dropdown nav-lang">
+        <a href="#"><i class="fa-solid fa-globe"></i> DE</a>
+        <div class="dropdown-menu">
+          <a href="../../manual/logging.html" data-lang="en">English</a>
+          <a href="logging.html" data-lang="de" class="active">Deutsch</a>
+          <a href="../../fr/manual/logging.html" data-lang="fr">Français</a>
+          <a href="../../zh/manual/logging.html" data-lang="zh">中文（简体）</a>
+        </div>
+      </li>
+          <li><a href="mailto:dlemmermann@gmail.com" class="nav-cta"><i class="fa-solid fa-envelope" style="font-size:0.8rem"></i> Kontakt</a></li>
+        </ul>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="container">
+        <a href="../index.html">Startseite</a>
+        <a href="index.html">Dokumentation</a>
+        <a href="installation.html">Installation</a>
+        <a href="tutorial.html">Tutorial</a>
+        <a href="gantt-charts.html">Gantt-Diagramme</a>
+        <a href="model.html">Modell</a>
+        <a href="../pages/faq.html">FAQ</a>
+      <div class="mobile-lang-divider"></div>
+      <a href="../../manual/logging.html" data-lang="en"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> English</a>
+      <a href="logging.html" data-lang="de" class="active-lang"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Deutsch</a>
+      <a href="../../fr/manual/logging.html" data-lang="fr"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Français</a>
+      <a href="../../zh/manual/logging.html" data-lang="zh"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> 中文（简体）</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Erste Schritte</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Übersicht</a></li>
+          <li><a href="installation.html">Installation</a></li>
+          <li><a href="tutorial.html">Tutorial</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Steuerelemente</div>
+        <ul class="sidebar-nav">
+          <li><a href="gantt-charts.html">Gantt-Diagramme</a></li>
+          <li><a href="timeline.html">Timeline</a></li>
+          <li><a href="dateline.html">Dateline</a></li>
+          <li><a href="eventline.html">Eventline</a></li>
+          <li><a href="graphics.html">Grafik</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Framework</div>
+        <ul class="sidebar-nav">
+          <li><a href="model.html">Modell</a></li>
+          <li><a href="styling.html">Styling</a></li>
+          <li><a href="logging.html" class="active">Logging</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Referenz</div>
+        <ul class="sidebar-nav">
+          <li><a href="../../api/index.html">Javadocs / API</a></li>
+          <li><a href="../pages/changelog.html">Versionshinweise</a></li>
+          <li><a href="../pages/licensing.html">Lizenzierung</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="docs-content">
+      <nav class="breadcrumb">
+        <a href="../index.html">Startseite</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="index.html">Dokumentation</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Logging</span>
+      </nav>
+      <article class="prose">
+<h1 id="overview">Übersicht</h1>
+<p><strong>FlexGanttFX</strong> bietet integrierte Logging-Unterstützung auf Basis des Standard-Logging-Frameworks <code>java.util.logging</code>. Mehrere Logging-Domains sind in der Klasse com.flexganttfx.core.LoggingDomain definiert. Die folgende Liste zeigt die verfügbaren Domains.</p>
+<ul>
+<li>CONFIG - alles, was die Konfiguration des Gantt-Diagramm-Steuerelements betrifft. Zum Beispiel: die Renderer, die für verschiedene Aktivitätstypen registriert werden.</li>
+<li>DND - zeigt alles an, was mit einer Drag-&amp;-Drop-Operation zusammenhängt (natives Drag &amp; Drop / von der Plattform bereitgestelltes Drag &amp; Drop).</li>
+<li>EDITING - meldet Änderungen an Startzeit, Endzeit, Fertigstellungsgrad und Diagrammwert einer Aktivität.</li>
+<li>EVENTS - informiert über Aktivitäten im Zusammenhang mit Events: registrierte Listener und Events, die gesendet werden.</li>
+<li>NAVIGATION - Scrollen und Zoomen.</li>
+<li>PERFORMANCE - informiert über leistungsbezogene Aspekte.</li>
+<li>RENDERING - alles, was das Rendering von Zeilen oder Aktivitäten betrifft.</li>
+<li>REPOSITORY - listet Repository-Operationen auf.</li>
+</ul>
+<h2 id="configuration-file">Konfigurationsdatei</h2>
+<p>Die folgende Datei kann verwendet werden, um das Logging für FlexGanttFX zu konfigurieren.</p>
+<pre><code class="language-properties"># To use this property file add the following command line argument:
+#    -Djava.util.logging.config.file=${project_loc}/log.properties
+
+# Specify the handlers to create in the root logger
+# (all loggers are children of the root logger)
+# The following creates two handlers
+# handlers = java.util.logging.ConsoleHandler, java.util.logging.FileHandler
+
+handlers = java.util.logging.ConsoleHandler
+
+# Set the default logging level for the root logger
+.level = INFO
+
+# Set the default logging level for new ConsoleHandler instances
+java.util.logging.ConsoleHandler.level = OFF
+
+# Set the default logging level for new FileHandler instances
+# java.util.logging.FileHandler.level = ALL
+
+# Set the default formatter for new ConsoleHandler instances
+java.util.logging.ConsoleHandler.formatter = com.flexganttfx.core.LoggingFormatter
+
+# FlexGanttFX logging domains
+com.flexganttfx.config.level = OFF
+com.flexganttfx.performance.level = OFF
+com.flexganttfx.repository.level = OFF
+com.flexganttfx.editing.level = OFF
+com.flexganttfx.navigation.level = OFF
+com.flexganttfx.rendering.level = OFF
+com.flexganttfx.dnd.level = OFF
+com.flexganttfx.events.level = OFF</code></pre>
+      </article>
+      <div class="docs-nav-bottom">
+        <a class="docs-nav-btn" href="styling.html"><span class="docs-nav-label">← Zurück</span><span class="docs-nav-title">Styling</span></a>
+<span class="docs-nav-btn disabled"></span>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../assets/js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-properties.min.js" crossorigin="anonymous"></script>
+</body>
+</html>

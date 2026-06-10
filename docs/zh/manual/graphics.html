@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-20G18JBY7X"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-20G18JBY7X");</script>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>图形 — FlexGanttFX</title>
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+  <script src="../../assets/js/lang.js"></script>
+  <link rel="stylesheet" href="../../assets/css/docs.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" crossorigin="anonymous" />
+  <link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/graphics.html" />
+  <link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/graphics.html" />
+  <link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/graphics.html" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/graphics.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/graphics.html" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <div class="navbar-brand-group">
+    <a href="../index.html" class="navbar-logo">
+      <i class="fa-solid fa-chart-gantt logo-icon"></i>
+      FlexGanttFX
+    </a>
+    <span class="navbar-brand-sep"></span>
+    <a href="https://www.dlsc.com" class="navbar-dlsc-link" target="_blank" rel="noopener" title="DLSC Software &amp; Consulting GmbH">
+      <img src="../../assets/images/dlsc-logo.png" alt="DLSC" class="navbar-dlsc-logo" />
+    </a>
+  </div>
+        <ul class="navbar-links">
+          <li><a href="../index.html">首页</a></li>
+          <li><a href="../pages/demos.html">演示</a></li>
+          <li class="nav-dropdown">
+            <a href="index.html" class="active">手册</a>
+            <div class="dropdown-menu">
+              <a href="index.html">目录</a>
+              <a href="installation.html">安装</a>
+              <a href="tutorial.html">教程</a>
+              <a href="gantt-charts.html">甘特图</a>
+              <a href="timeline.html">时间轴</a>
+              <a href="dateline.html">日期线</a>
+              <a href="eventline.html">事件线</a>
+              <a href="graphics.html">图形</a>
+              <a href="model.html">模型</a>
+              <a href="styling.html">样式</a>
+              <a href="logging.html">日志</a>
+            </div>
+          </li>
+          <li class="nav-dropdown">
+            <a href="#">文档</a>
+            <div class="dropdown-menu">
+              <a href="../pages/faq.html">常见问题</a>
+              <a href="../pages/changelog.html">版本说明</a>
+              <a href="../pages/licensing.html">许可</a>
+              <a href="../../api/index.html">Javadocs / API</a>
+            </div>
+          </li>
+          <li><a href="../pages/downloads.html">下载</a></li>
+      <li class="nav-dropdown nav-lang">
+        <a href="#"><i class="fa-solid fa-globe"></i> 中文</a>
+        <div class="dropdown-menu">
+          <a href="../../manual/graphics.html" data-lang="en">English</a>
+          <a href="../../de/manual/graphics.html" data-lang="de">Deutsch</a>
+          <a href="../../fr/manual/graphics.html" data-lang="fr">Français</a>
+          <a href="graphics.html" data-lang="zh" class="active">中文（简体）</a>
+        </div>
+      </li>
+          <li><a href="mailto:dlemmermann@gmail.com" class="nav-cta"><i class="fa-solid fa-envelope" style="font-size:0.8rem"></i> 联系我们</a></li>
+        </ul>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="container">
+        <a href="../index.html">首页</a>
+        <a href="index.html">文档</a>
+        <a href="installation.html">安装</a>
+        <a href="tutorial.html">教程</a>
+        <a href="gantt-charts.html">甘特图</a>
+        <a href="model.html">模型</a>
+        <a href="../pages/faq.html">常见问题</a>
+      <div class="mobile-lang-divider"></div>
+      <a href="../../manual/graphics.html" data-lang="en"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> English</a>
+      <a href="../../de/manual/graphics.html" data-lang="de"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Deutsch</a>
+      <a href="../../fr/manual/graphics.html" data-lang="fr"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Français</a>
+      <a href="graphics.html" data-lang="zh" class="active-lang"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> 中文（简体）</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">入门</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">概览</a></li>
+          <li><a href="installation.html">安装</a></li>
+          <li><a href="tutorial.html">教程</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">控件</div>
+        <ul class="sidebar-nav">
+          <li><a href="gantt-charts.html">甘特图</a></li>
+          <li><a href="timeline.html">时间轴</a></li>
+          <li><a href="dateline.html">日期线</a></li>
+          <li><a href="eventline.html">事件线</a></li>
+          <li><a href="graphics.html" class="active">图形</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">框架</div>
+        <ul class="sidebar-nav">
+          <li><a href="model.html">模型</a></li>
+          <li><a href="styling.html">样式</a></li>
+          <li><a href="logging.html">日志</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">参考</div>
+        <ul class="sidebar-nav">
+          <li><a href="../../api/index.html">Javadocs / API</a></li>
+          <li><a href="../pages/changelog.html">版本说明</a></li>
+          <li><a href="../pages/licensing.html">许可</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="docs-content">
+      <nav class="breadcrumb">
+        <a href="../index.html">首页</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="index.html">文档</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>图形</span>
+      </nav>
+      <article class="prose">
+<h1 id="overview">概览</h1>
+<p>图形视图控件负责活动和系统层的渲染、活动编辑、事件通知、命中检测、系统层管理以及上下文菜单支持。</p>
+<p><img alt="图形" src="../../assets/images/docs/graphics.png" /></p>
+<p><strong>渲染</strong></p>
+<p>图形控件使用 <code>Canvas</code> 节点及其直接绘制 API（不同于通过 <em>Scenegraph</em> 执行的延迟渲染）。这是因为甘特图通常会显示大量数据。将活动直接渲染到位图中，比更新场景图、重新应用 CSS 样式并布局节点要快得多。FlexGanttFX 的图形控件采用可插拔的渲染器架构，可以将渲染器实例映射到活动类型，这与 Swing 为列表和表格单元格渲染器所采用的方式非常相似。下面的代码示例展示了如何为给定的“Flight”活动和布局类型注册自定义渲染器。请注意，图形视图能够以三种不同布局显示活动，因此还必须将布局类型传递给该方法。</p>
+<pre><code class="language-java">GanttChart ganttChart = new GanttChart();
+GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.setActivityRenderer(
+    Flight.class, // the type of activities that will be rendered
+    GanttLayout.class, // the type of layout where the renderer will be used
+    new FlightRenderer(graphics)); // the actual renderer instance
+</code></pre>
+
+<p><strong>系统层</strong></p>
+<p>需要显示的不只有活动。还包括当前时间（“now”）、网格线、内部线、日程 / 图表线等。这些内容都由所谓的<strong>系统层</strong>渲染。图形控件管理这类层的两个列表：一个用于<strong>背景</strong>层，另一个用于<strong>前景</strong>层。</p>
+<p>背景层绘制在活动“后面”，前景层绘制在活动“上方”。这些列表都已预先填充，但应用程序可以修改它们。有关可用系统层的更多信息，请参阅各自的文档。</p>
+<p>可以通过图形控件的 API 直接开启或关闭系统层。每个层都有一个 boolean 属性。可以调用符合 <code>setShowXYZLayer</code> 模式的方法来设置这些属性的值。以这种方式控制的系统层会通过淡入 / 淡出动画显示和隐藏，而直接调用 <code>SystemLayer.setVisible(boolean)</code> 则不会产生任何动画。</p>
+
+<p><strong>编辑</strong></p>
+<p>控制活动编辑行为需要使用两个不同的回调。第一个回调将鼠标事件 / 鼠标位置映射到 <code>GraphicsBase.EditMode</code>，可通过调用 <code>setEditModeCallback(Class, Class, Callback)</code> 注册。第二个回调用于判断给定的编辑模式 / 操作是否可以应用于某个活动。该回调通过调用 <code>setActivityEditingCallback(Class, Callback)</code> 注册。大多数应用程序只需要使用第二个回调，并保留编辑模式位置的默认值（例如，右边缘用于更改结束时间，左边缘用于更改开始时间）。</p>
+
+<p><strong>事件</strong></p>
+<p>每当用户在图形视图中执行更改时，都会发送 <code>ActivityEvent</code> 类型的事件。希望接收这些事件的应用程序可以调用任意一个 <code>setOnActivityXYZEvent()</code> 方法，或者通过 <code>addEventHandler(ActionEvent.ACTIVITY_XYZ, ...)</code> 直接添加事件处理器。事件会在更改执行过程中以及更改完成后触发。因此，<code>ActivityEvent</code> 类列出了以 <code>CHANGING</code> 和 <code>CHANGED</code> 两种不同结尾命名的事件类型。</p>
+
+<p><strong>命中点检测</strong></p>
+<p>图形视图支持查询给定位置的信息。可以调用 <code>getActivityBoundsAt(double, double)</code> 或 <code>getActivityRefAt(double, double)</code> 查找活动。可以调用 <code>getTimeAt(double)</code> 查询某个 x 坐标对应的时间。反向查询也可用：可以调用 <code>getLocation(Instant)</code> 查找给定时间对应的位置。</p>
+
+<p><strong>上下文菜单</strong></p>
+<p>在 <strong>JavaFX</strong> 中，可以为任何控件设置上下文菜单，但鉴于图形视图的复杂性，提供额外的内置支持是有意义的。通过调用 <code>setContextMenuCallback(Callback)</code>，可以向图形控件注册一个上下文菜单专用回调。当用户触发上下文菜单时，会调用该回调。一个回调参数对象（参见 <code>GraphicsBase.ContextMenuParameter</code>）会传递给回调，并且已经填充了构建上下文菜单时可能相关的最重要值。</p>
+<h2 id="system-layers">系统层</h2>
+<p>系统层用于每一行的背景和前景。背景层在活动绘制之前绘制，前景层在活动绘制之后绘制。每个层都专门绘制一种信息：当前时间、选中的时间区间、网格线等。图形视图在两个列表中管理这些层，并提供便捷方法以便轻松查找它们。</p>
+<ul>
+<li><strong>getBackgroundSystemLayers()</strong> – 返回活动背景中使用的系统层完整列表。</li>
+<li><strong>getForegroundSystemLayers()</strong> – 返回活动前景中使用的系统层完整列表。</li>
+<li><strong>getBackgroundSystemLayer(Class)</strong> – 返回给定类型的系统背景层实例。</li>
+<li><strong>getForegroundSystemLayer(Class)</strong> – 返回给定类型的系统前景层实例。</li>
+<li><strong>getSystemLayer(Class)</strong> – 返回给定类型的系统层实例，无论它是前景层还是背景层。</li>
+</ul>
+<p>可以通过将层加入前景或背景列表、或从这些列表中移除层，来向图形视图添加或移除层。查找到某个层后，可以设置其属性来自定义外观。最常用的属性用于设置线条颜色和宽度。</p>
+<p><strong>系统层示例</strong></p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+NowLineLayer nowLayer = graphics.getBackgroundSystemLayer(NowLineLayer .class);
+nowLayer.setStroke(Color.ORANGE);
+nowLayer.setLineWidth(3); // thick line
+</code></pre>
+
+<p><strong>系统层与模型层</strong></p>
+<p>请注意，系统层与模型层没有任何关系。系统层本质上是用于某些图形反馈的渲染器，而模型层用于对活动进行分组。</p>
+
+<p><strong>可用的背景层</strong></p>
+<p>下表列出了 <strong>FlexGanttFX</strong> 随附的所有<strong><em>背景</em></strong>层。</p>
+<table>
+<thead>
+<tr>
+<th>层</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AgendaLinesLayer</strong></td>
+<td>如果某行或其任何内部线使用日程布局，则为该行绘制水平网格线。</td>
+</tr>
+<tr>
+<td><strong>CalendarLayer</strong></td>
+<td>绘制附加到某一行或整个图形视图的日历所返回的条目。日历层使用可插拔渲染器，并将其映射到条目类型。应用程序可以调用 CalendarLayer.setCalendarActivityRenderer() 注册自己的渲染器。</td>
+</tr>
+<tr>
+<td><strong>ChartLinesLayer</strong></td>
+<td>如果某行或其任何内部线使用图表布局，则为该行绘制水平网格线。</td>
+</tr>
+<tr>
+<td><strong>DSTLineLayer</strong></td>
+<td>在夏令时发生变化的时间绘制一条垂直线。</td>
+</tr>
+<tr>
+<td><strong>GridLinesLayer</strong></td>
+<td>根据日期线中当前存在的刻度分辨率绘制垂直网格线。该层可配置为显示 0 到 3 个网格线级别。例如，如果日期线显示天和周，那么级别 2 会使该层绘制天和周的网格线，而网格线级别 1 只会渲染天的网格线。</td>
+</tr>
+<tr>
+<td><strong>HoverTimeIntervalLayer</strong></td>
+<td>绘制由日期线指定的悬停时间区间。如果鼠标光标悬停在日期线中的某一周上，该层会用高亮颜色填充该周定义的时间区间。</td>
+</tr>
+<tr>
+<td><strong>InnerLinesLayer</strong></td>
+<td>在内部线之间绘制分隔线。默认情况下，该层的线宽属性设置为 0，因此完全不会绘制这些线。要更改此行为，只需将线宽设置为大于 0。</td>
+</tr>
+<tr>
+<td><strong>NowLineLayer</strong></td>
+<td>在当前时间 / now 时间的位置绘制一条垂直线。当前时间在时间轴模型中定义。</td>
+</tr>
+<tr>
+<td><strong>RowLayer</strong></td>
+<td>绘制每一行的背景。该层可配置可插拔渲染器，并将其映射到行的类型。应用程序可以调用 RowLayer.setRowRenderer() 注册自己的渲染器。更多信息请阅读 3.4.7 行渲染。</td>
+</tr>
+<tr>
+<td><strong>SelectedTimeIntervalsLayer</strong></td>
+<td>绘制用户（或应用程序）在日期线中选中的时间区间。</td>
+</tr>
+<tr>
+<td><strong>ZoomIntervalLayer</strong></td>
+<td>绘制由时间轴定义的缩放区间。缩放区间由用户借助时间轴套索创建。</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>可用的前景层</strong></p>
+<p>下表列出了 <strong>FlexGanttFX</strong> 随附的所有<strong><em>前景</em></strong>层。</p>
+<table>
+<thead>
+<tr>
+<th>层</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LayoutLayer</strong></td>
+<td>绘制布局的内边距区域。每种布局都可能在顶部和底部添加一些内边距。该层用纯色填充内边距区域。</td>
+</tr>
+<tr>
+<td><strong>ScaleLayer</strong></td>
+<td>为整行或行内的每条线绘制刻度。刻度会根据行 / 线所使用的布局而变化。图表布局的刻度显示最小值和最大值，而日程布局的刻度显示时间刻度（8am、9am、10am，……）。刻度层中的标签和刻度线必须与日程线层和图表线层绘制的线精确对齐。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="drag-and-drop">拖放</h2>
+<p><strong>FlexGanttFX</strong> 中由平台提供的重量级拖放（DnD）机制仅用于将活动从一行移动到另一行。所有其他编辑操作都通过标准鼠标事件（按下、拖动）处理。
+新的行实际上可能位于另一个 Gantt 图中。启动 DnD 的默认方式是在按住 SHIFT 键的同时，将鼠标光标移动到活动中心。如果目标活动支持这种编辑操作，光标会变为 DnD 光标（另请参见“<a href="#activity-editing">活动编辑</a>”）。
+用户松开鼠标按钮后，DnD 将结束。</p>
+<p><strong>事件</strong></p>
+<p>与所有其他编辑操作一样，DnD 在执行过程中也会触发多个事件。下面的列表描述了这些事件：</p>
+<ul>
+<li><strong>DRAG_STARTED</strong>、<strong>DRAG_ONGOING</strong>、<strong>DRAG_FINISHED</strong> - 如果编辑操作为 EditMode.DRAGGING，则触发这些事件类型。</li>
+<li><strong>VERTICAL_DRAG_STARTED</strong>、<strong>VERTICAL_DRAG_ONGOING</strong>、<strong>VERTICAL_DRAG_FINISHED</strong> - 如果编辑操作为 EditMode.DRAGGING_VERTICAL，则触发这些事件类型。</li>
+</ul>
+<p>编辑模式 <code>DRAGGING_HORIZONTAL</code> 不使用平台 DnD。因此，上面没有列出事件类型 <code>HORIZONTAL_DRAG_STARTED</code> / <code>ONGOING</code> / 
+<code>FINISHED</code>。</p>
+<p><strong>拖放信息属性</strong></p>
+<p>图形视图提供了一个名为 <code>dragAndDropInfo</code> 的特殊属性，用于监视 DnD 操作。这是对上述标准事件类型的补充。该属性中存储的信息为应用程序提供了关于被拖动活动所需的最重要信息。</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>row</strong></td>
+<td>鼠标光标 / 被拖动活动当前悬停其上的行。</td>
+</tr>
+<tr>
+<td><strong>activityBounds</strong></td>
+<td>被拖动活动的边界（包含活动引用和实际活动）。</td>
+</tr>
+<tr>
+<td><strong>dragEvent</strong></td>
+<td>最后一个拖动事件（正在拖动或已放下）。</td>
+</tr>
+<tr>
+<td><strong>dropInterval</strong></td>
+<td>活动将被放置或实际已放置的时间区间。</td>
+</tr>
+<tr>
+<td><strong>offset</strong></td>
+<td>鼠标抓取活动的位置偏移（拖动的视觉反馈需要此值）。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>反馈类型</strong></p>
+<p>FlexGanttFX 提供了多种可视化 DnD 反馈的方式。枚举 DragAndDropFeedback 列出了以下值，可通过在 GraphicsBase 上调用 setDragAndDropFeedback() 方法进行设置。</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NATIVE</strong></td>
+<td>会截取活动的快照图像并放置在鼠标光标下方。该图像会在识别出拖动手势的时刻设置。也可以选择使用拖动图像提供器。图像大小可能与活动大小不同（与平台有关）。</td>
+</tr>
+<tr>
+<td><strong>RENDERED</strong></td>
+<td>被拖动的活动会持续渲染在图形区域上方的单独 canvas 上。保证活动保持其原始大小。</td>
+</tr>
+<tr>
+<td><strong>RENDERED_GRID_SNAPPED</strong></td>
+<td>被拖动的活动会持续渲染在图形区域上方的单独 canvas 上。保证活动保持其原始大小。当前活动的网格将用于使被拖动活动吸附到网格位置。</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>拖动图像提供器</strong></p>
+<p>如果 DnD 反馈类型已设置为 <code>NATIVE</code>，则可以为拖动操作传入自定义图像。可以通过调用 <code>setDragImageProvider()</code> 在 <code>GraphicsBase</code> 上设置拖动图像提供器来实现这一点。该方法接受一个回调 lambda 表达式。回调的输入是 ActivityRef，输出是图像。</p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.setDragImageProvider(ref -&gt; createImage(ref));
+</code></pre>
+
+<p>默认图像是拖动开始时活动的快照。</p>
+<p><strong>放置层提供器</strong></p>
+<p>拖放操作可以在两个不同的 Gantt 图之间执行，每个图都管理自己的层列表。默认情况下，被放置的活动会放在它被拖出时所在的同一层上。但如果目标 Gantt 图不包含该层，则需要告知应用程序应使用哪一层作为该活动的新归属。可以通过在目标 <code>GraphicsBase</code> 实例上设置“放置层提供器”回调来实现这一点。</p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = targetGanttChart.getGraphics();
+targetGraphics.setDropLayerProvider(info -&gt; targetLayer); // info is of type DragAndDropInfo
+</code></pre>
+
+<p>该回调的默认实现如下所示：</p>
+<pre><code class="language-java">info -&gt; info.getActivityRef().getLayer(); // use same layer as before
+</code></pre>
+
+<p>如果放置层提供器没有返回层，或者返回的层并未添加到目标 Gantt 图 / 图形中，则会看到类似下面的消息。</p>
+<ul>
+<li>“放置层提供器没有为被放置的活动返回任何层”</li>
+<li>“放置层提供器返回了一个在 Gantt 图中不存在的层”</li>
+</ul>
+<h2 id="event-handling">事件处理</h2>
+<p>图形视图会触发标准 <strong>JavaFX</strong> 事件，让应用程序能够对更改作出响应。<strong>FlexGanttFX</strong> 中用于事件处理器支持的概念，与标准 JavaFX 控件中的概念相同。</p>
+<p><strong>活动事件</strong></p>
+<p>每当用户删除或编辑活动时，都会触发活动事件。要接收活动事件，请通过其中一个便捷方法向图形视图注册事件处理器。</p>
+<p><strong>单个活动事件处理器</strong></p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.setOnActivityChangeFinished(evt -&gt; 
+            System.out.println(&quot;An activity has changed&quot;));
+</code></pre>
+
+<p>如果需要为某个特定事件类型注册多个处理器，请使用以下方式：</p>
+<p><strong>多个活动事件处理器</strong></p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.addEventHandler(ActivityEvent.ACTIVITY_CHANGE_FINISHED, 
+                            evt -&gt; System.out.println(&quot;Listener 1&quot;));
+graphics.addEventHandler(ActivityEvent.ACTIVITY_CHANGE_FINISHED, 
+                            evt -&gt; System.out.println(&quot;Listener 2&quot;));
+</code></pre>
+
+<p>下表列出了所有支持的活动事件类型以及图形视图的便捷 setter 方法。这些方法用于为各种事件类型快速注册事件处理器。</p>
+<table>
+<thead>
+<tr>
+<th>事件类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ACTIVITY_DELETED</td>
+<td>每当用户通过 backspace 键删除活动时触发。</td>
+</tr>
+<tr>
+<td>ACTIVITY_CHANGE</td>
+<td>所有活动更改的父事件类型。可用于接收任何类型活动更改的通知。</td>
+</tr>
+<tr>
+<td>ACTIVITY_CHANGE_STARTED, ACTIVITY_CHANGE_ONGOING, ACTIVITY_CHANGE_FINISHED</td>
+<td>每当活动更改已开始、正在进行或已完成时触发。</td>
+</tr>
+<tr>
+<td>CHART_HIGH_VALUE_CHANGE_STARTED, CHART_HIGH_VALUE_CHANGE_ONGOING, CHART_HIGH_VALUE_CHANGE_FINISHED</td>
+<td>每当用户已开始编辑、正在编辑或已完成编辑高 / 低图表活动的“高”值时触发。</td>
+</tr>
+<tr>
+<td>CHART_LOW_VALUE_CHANGE_STARTED, CHART_LOW_VALUE_CHANGE_ONGOING, CHART_LOW_VALUE_CHANGE_FINISHED</td>
+<td>每当用户已开始编辑、正在编辑或已完成编辑高 / 低图表活动的“低”值时触发。</td>
+</tr>
+<tr>
+<td>CHART_VALUE_CHANGE_STARTED, CHART_VALUE_CHANGE_ONGOING, CHART_VALUE_CHANGE_FINISHED</td>
+<td>每当用户已开始编辑、正在编辑或已完成编辑图表活动的图表值时触发。</td>
+</tr>
+<tr>
+<td>DRAG_STARTED, DRAG_ONGOING, DRAG_FINISHED</td>
+<td>每当用户通过平台提供的拖放已开始拖动、正在拖动或已完成拖动活动时触发。当用户可以垂直和水平自由移动活动时使用此事件类型。</td>
+</tr>
+<tr>
+<td>END_TIME_CHANGE_STARTED, END_TIME_CHANGE_ONGOING, END_TIME_CHANGE_FINISHED</td>
+<td>每当用户已开始更改、正在更改或已完成更改活动结束时间时触发。</td>
+</tr>
+<tr>
+<td>HORIZONTAL_DRAG_STARTED, HORIZONTAL_DRAG_ONGOING, HORIZONTAL_DRAG_FINISHED</td>
+<td>每当用户已开始更改、正在更改或已完成更改活动的时间区间（开始和结束时间）时触发。更改此时间区间会使活动水平移动，向右（未来）或向左（过去）。</td>
+</tr>
+<tr>
+<td>PERCENTAGE_CHANGE_STARTED, PERCENTAGE_CHANGE_ONGOING, PERCENTAGE_CHANGE_FINISHED</td>
+<td>每当用户已开始更改、正在更改或已完成更改活动的“完成百分比”值时触发。</td>
+</tr>
+<tr>
+<td>START_TIME_CHANGE_STARTED, START_TIME_CHANGE_ONGOING, START_TIME_CHANGE_FINISHED</td>
+<td>每当用户已开始更改、正在更改或已完成更改活动开始时间时触发。</td>
+</tr>
+<tr>
+<td>VERTICAL_DRAG_STARTED, VERTICAL_DRAG_ONGOING, VERTICAL_DRAG_FINISHED</td>
+<td>每当用户通过平台提供的拖放已开始拖动、正在拖动或已完成拖动活动时触发。当用户只能垂直拖动活动（将活动重新分配到另一行）时使用此事件类型。</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th>事件方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>setOnActivityDeleted()</td>
+<td>每当用户通过 backspace 键删除活动时触发。</td>
+</tr>
+<tr>
+<td>setOnActivityChanged()</td>
+<td>所有活动更改的父事件类型。可用于接收任何类型活动更改的通知。</td>
+</tr>
+<tr>
+<td>setOnActivityChangeStarted() setOnActivityChangeOngoing() setOnActivityChangeFinished()</td>
+<td>每当活动更改已开始、正在进行或已完成时触发。</td>
+</tr>
+<tr>
+<td>setOnChartHighValueChangeStarted() setOnChartHighValueChangeOngoing() setOnChartHighValueChangeFinished();</td>
+<td>每当用户已开始编辑、正在编辑或已完成编辑高 / 低图表活动的“高”值时触发。</td>
+</tr>
+<tr>
+<td>setOnChartLowValueChangeStarted() setOnChartLowValueChangeOngoing() setOnChartLowValueChangeFinished();</td>
+<td>每当用户已开始编辑、正在编辑或已完成编辑高 / 低图表活动的“低”值时触发。</td>
+</tr>
+<tr>
+<td>setOnChartValueChangeStarted() setOnChartValueChangeOngoing() setOnChartValueChangeFinished();</td>
+<td>每当用户已开始编辑、正在编辑或已完成编辑图表活动的图表值时触发。</td>
+</tr>
+<tr>
+<td>setOnActivityDragStarted() setOnActivityDragOngoing() setOnActivityDragFinished();</td>
+<td>每当用户通过平台提供的拖放已开始拖动、正在拖动或已完成拖动活动时触发。当用户可以垂直和水平自由移动活动时使用此事件类型。</td>
+</tr>
+<tr>
+<td>setOnActivityEndTimeChangeStarted() setOnActivityEndTimeChangeOngoing() setOnActivityEndTimeChangeFinished();</td>
+<td>每当用户已开始更改、正在更改或已完成更改活动结束时间时触发。</td>
+</tr>
+<tr>
+<td>setOnActivityHorizontalDragStarted() setOnActivityHorizontalDragOngoing() setOnActivityHorizontalDragFinished();</td>
+<td>每当用户已开始更改、正在更改或已完成更改活动的时间区间（开始和结束时间）时触发。更改此时间区间会使活动水平移动，向右（未来）或向左（过去）。</td>
+</tr>
+<tr>
+<td>setOnActivityPercentageChangeStarted() setOnActivityPercentageChangeOngoing() setOnActivityPercentageChangeFinished();</td>
+<td>每当用户已开始更改、正在更改或已完成更改活动的“完成百分比”值时触发。</td>
+</tr>
+<tr>
+<td>setOnActivityStartTimeChangeStarted() setOnActivityStartTimeChangeOngoing() setOnActivityStartTimeChangeFinished();</td>
+<td>每当用户已开始更改、正在更改或已完成更改活动开始时间时触发。</td>
+</tr>
+<tr>
+<td>setOnActivityVerticalDragStarted() setOnActivityVerticalDragOngoing() setOnActivityVerticalDragFinished();</td>
+<td>每当用户通过平台提供的拖放已开始拖动、正在拖动或已完成拖动活动时触发。当用户只能垂直拖动活动（将活动重新分配到另一行）时使用此事件类型。</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>活动事件层次结构</strong></p>
+<p>ActivityEvent 类中定义的事件类型构成了一个事件层次结构。所有事件都是输入事件（InputEvent.ANY），并且它们会更改活动。其中一些在用户开始更改时触发，一些在更改进行中触发，还有一些在更改完成时触发。</p>
+<ul>
+<li><code>InputEvent.ANY</code></li>
+<li><code>ACTIVITY_CHANGE</code><ul>
+<li><code>ACTIVITY_DELETED</code></li>
+<li><code>ACTIVITY_CHANGE_STARTED</code>  // 所有表示“开始”的事件类型</li>
+<li><code>CHART_VALUE_CHANGE_STARTED</code><ul>
+<li><code>CHART_HIGH_VALUE_CHANGE_STARTED</code></li>
+<li><code>CHART_LOW_VALUE_CHANGE_STARTED</code></li>
+</ul>
+</li>
+<li><code>DRAG_STARTED</code></li>
+<li><code>END_TIME_CHANGE_STARTED</code></li>
+<li><code>HORIZONTAL_DRAG_STARTED</code></li>
+<li><code>PERCENTAGE_CHANGE_STARTED</code></li>
+<li><code>START_TIME_CHANGE_STARTED</code></li>
+<li><code>VERTICAL_DRAG_STARTED</code></li>
+<li><code>ACTIVITY_CHANGE_ONGOING</code> // 所有表示“进行中”的事件类型</li>
+<li><code>CHART_VALUE_CHANGE_ONGOING</code><ul>
+<li><code>CHART_HIGH_VALUE_CHANGE_ONGOING</code></li>
+<li><code>CHART_LOW_VALUE_CHANGE_ONGOING</code></li>
+</ul>
+</li>
+<li><code>DRAG_ONGOING</code></li>
+<li><code>END_TIME_CHANGE_ONGOING</code></li>
+<li><code>HORIZONTAL_DRAG_ONGOING</code></li>
+<li><code>PERCENTAGE_CHANGE_ONGOING</code></li>
+<li><code>START_TIME_CHANGE_ONGOING</code></li>
+<li><code>VERTICAL_DRAG_ONGOING</code></li>
+<li><code>ACTIVITY_CHANGE_FINISHED</code> // 所有表示“完成”的事件类型</li>
+<li><code>CHART_VALUE_CHANGE_FINISHED</code><ul>
+<li><code>CHART_HIGH_VALUE_CHANGE_FINISHED</code></li>
+<li><code>CHART_LOW_VALUE_CHANGE_FINISHED</code></li>
+</ul>
+</li>
+<li><code>DRAG_FINISHED</code></li>
+<li><code>END_TIME_CHANGE_FINISHED</code></li>
+<li><code>HORIZONTAL_DRAG_FINISHED</code></li>
+<li><code>PERCENTAGE_CHANGE_FINISHED</code></li>
+<li><code>START_TIME_CHANGE_FINISHED</code></li>
+<li><code>VERTICAL_DRAG_FINISHED</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>活动事件属性</strong></p>
+<p>应用程序显然会关心活动的属性。不仅关心这些属性的新值（例如新的开始时间），也关心旧值（更改前的开始时间）。当用户执行更改时，新值已经设置在活动上，因此可直接从活动获取。旧值存储在事件对象上。下表列出了 ActivityEvent 上用于检索这些值的方法。</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+<th>事件类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getOldTime</code></td>
+<td>返回活动的旧开始时间或结束时间。</td>
+<td><code>END_TIME_CHANGE</code><br><code>START_TIME_CHANGE</code></td>
+</tr>
+<tr>
+<td><code>getOldTimeInterval</code></td>
+<td>返回活动的旧开始时间和结束时间。</td>
+<td><code>DRAG</code><br><code>HORIZONTAL_DRAG</code><br><code>VERTICAL_DRAG</code></td>
+</tr>
+<tr>
+<td><code>getOldRow</code></td>
+<td>返回活动之前所在的旧行。</td>
+<td><code>DRAG</code><br><code>VERTICAL_DRAG</code></td>
+</tr>
+<tr>
+<td><code>getOldValue</code></td>
+<td>返回“完成百分比”或“图表值”的旧值。</td>
+<td><code>CHART_VALUE_CHANGE</code><br><code>CHART_HIGH_VALUE</code><br><code>CHART_LOW_VALUE</code><br><code>PERCENTAGE_CHANGE</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>套索事件</strong></p>
+<p>用户可以使用套索选择活动。发生这种情况时会触发事件。要接收套索事件，只需通过其中一个便捷方法向图形视图注册事件处理器。</p>
+<p><strong>单个套索事件处理器</strong></p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.setOnLassoFinished(evt -&gt; System.out.println(&quot;The lasso was used&quot;));
+</code></pre>
+
+<p>如果需要为某个特定事件类型注册多个处理器，请使用以下方式：</p>
+<p><strong>多个套索事件处理器</strong></p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.addEventHandler(LassoEvent.SELECTION_FINISHED, 
+                            evt -&gt; System.out.println(&quot;Listener 1&quot;));
+graphics.addEventHandler(LassoEvent.SELECTION_FINISHED, 
+                            evt -&gt; System.out.println(&quot;Listener 2&quot;));
+</code></pre>
+<p>下表列出了图形视图的事件类型和便捷 setter 方法。</p>
+<table>
+<thead>
+<tr>
+<th>事件类型</th>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ALL</code></td>
+<td><code>setOnLassoSelection</code></td>
+<td>任何套索操作（开始、进行中、完成）。</td>
+</tr>
+<tr>
+<td><code>SELECTION_STARTED</code></td>
+<td><code>setOnLassoSelectionStarted</code></td>
+<td>用户已按下鼠标按钮并开始拖动。套索已变为可见。</td>
+</tr>
+<tr>
+<td><code>SELECTION_ONGOING</code></td>
+<td><code>setOnLassoSelectionOngoing</code></td>
+<td>用户正在更改套索的大小。</td>
+</tr>
+<tr>
+<td><code>SELECTION_FINISHED</code></td>
+<td><code>setOnLassoSelectionFinished</code></td>
+<td>用户已完成套索选择。套索不再可见。</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>套索事件层次结构</strong></p>
+<p>LassoEvent 类中定义的事件类型构成了一个事件层次结构。所有事件都是输入事件（InputEvent.ANY）。</p>
+<pre><code>* InputEvent.ANY
+    * LassoEvent.ALL
+        * LassoEvent.SELECTION_STARTED
+        * LassoEvent.SELECTION_ONGOING
+        * LassoEvent.SELECTION_FINISHED
+</code></pre>
+
+<p><strong>套索信息</strong></p>
+<p>套索会自动执行活动选择，但有时我们可能希望进一步了解该选择的确切性质，或者希望将套索用于其他用例（例如创建新活动）。因此，LassoEvent 实例还提供一个 LassoInfo 类型的对象，其中包含许多属性，应用程序可以据此作出相应响应。可以通过调用 LassoEvent.getInfo() 检索套索信息。下表列出了 LassoInfo 的属性。</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>List&lt;ActivityRef&lt;?&gt;&gt; getActivities</code></td>
+<td>返回套索选中的所有活动。</td>
+</tr>
+<tr>
+<td><code>Instant getStartTime;</code>, <code>Instant getEndTime</code></td>
+<td>根据套索左右边缘的位置，返回套索的开始时间和结束时间。</td>
+</tr>
+<tr>
+<td><code>LocalTime getLocalStartTime</code>, <code>LocalTime getLocalEndTime</code></td>
+<td>返回本地开始时间和结束时间。仅当套索的上边缘或下边缘位于使用 <a href="https://flexgantt.atlassian.net/wiki/spaces/FFXMAN/pages/492047/4.8.2+Agenda+Layout">AgendaLayout</a> 的区域中时，才会提供这些值。</td>
+</tr>
+<tr>
+<td><code>List&lt;Row&lt;?,?,?&gt;&gt; getRows</code></td>
+<td>返回套索触及的行。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>链接 / 延伸阅读</strong></p>
+<p><a href="https://docs.oracle.com/javase/8/javafx/events-tutorial/events.htm#JFXED117">Oracle JavaFX 文档</a>
+<a href="https://code.makery.ch/blog/javafx-8-event-handling-examples/">事件处理示例</a></p>
+<h2 id="activity-editing">活动编辑</h2>
+<p>图形视图上的两个不同回调用于控制活动的编辑行为。第一个回调将鼠标事件 / 鼠标位置映射到编辑模式。第二个回调用于判断给定的编辑模式 / 操作是否可以应用于某个活动。大多数应用程序只需要使用第二个回调，并保留编辑模式位置的默认值（例如：右边缘用于更改结束时间，左边缘用于更改开始时间）。枚举 GraphicsBase.EditMode 列出了可对活动执行的所有可用编辑操作。</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AGENDA_ASSIGNING</code></td>
+<td>将 AgendaLayout 中的活动分配到另一行。</td>
+</tr>
+<tr>
+<td><code>AGENDA_DRAGGING</code></td>
+<td>在同一行内上下或横向拖动 AgendaLayout 中的活动。</td>
+</tr>
+<tr>
+<td><code>AGENDA_END_TIME_CHANGE</code></td>
+<td>更改 AgendaLayout 中活动的结束时间。</td>
+</tr>
+<tr>
+<td><code>AGENDA_START_TIME_CHANGE</code></td>
+<td>更改 AgendaLayout 中活动的开始时间。</td>
+</tr>
+<tr>
+<td><code>CHART_VALUE_CHANGE</code></td>
+<td>更改 ChartActivity 的值。</td>
+</tr>
+<tr>
+<td><code>CHART_VALUE_HIGH_CHANGE</code></td>
+<td>更改 HighLowActivity 的“高”值。</td>
+</tr>
+<tr>
+<td><code>CHART_VALUE_LOW_CHANGE</code></td>
+<td>更改 HighLowActivity 的“低”值。</td>
+</tr>
+<tr>
+<td><code>DRAGGING</code></td>
+<td>对活动执行全方向拖放。</td>
+</tr>
+<tr>
+<td><code>DRAGGING_HORIZONTAL</code></td>
+<td>在活动所在行内水平移动活动（更改开始和结束时间）。</td>
+</tr>
+<tr>
+<td><code>DRAGGING_VERTICAL</code></td>
+<td>仅在垂直方向对活动执行拖放。</td>
+</tr>
+<tr>
+<td><code>END_TIME_CHANGE</code></td>
+<td>更改活动的结束时间。</td>
+</tr>
+<tr>
+<td><code>NONE</code></td>
+<td>不执行任何操作。</td>
+</tr>
+<tr>
+<td><code>PERCENTAGE_COMPLETE_CHANGE</code></td>
+<td>更改 CompletableActivity 的“完成百分比”值。</td>
+</tr>
+<tr>
+<td><code>START_TIME_CHANGE</code></td>
+<td>更改活动的开始时间。</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>编辑模式回调</strong></p>
+<p>编辑模式回调用于确定给定鼠标位置处的编辑模式。可以通过 GraphicsBase.setEditModeCallback() 方法注册此回调的实例，该方法会将回调映射到活动类型与布局类型的组合。</p>
+<pre><code class="language-java">public final void setEditModeCallback(
+    Class&lt;? extends MutableActivity&gt; activityType,
+    Class&lt;? extends Layout&gt; layoutType,
+    Callback&lt;EditModeCallbackParameter, EditMode&gt; callback);
+</code></pre>
+<p><strong>编辑模式回调参数</strong></p>
+<p>传递给编辑模式回调的参数对象类型为 EditModeCallbackParameter，并包含以下信息：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>activityBounds</code></td>
+<td>鼠标光标当前悬停其上的活动边界。x 和 y 坐标相对于显示该活动的行的坐标空间。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>mouseEvent</code></td>
+<td>触发编辑模式查找的鼠标事件（通常是 MOUSE_OVER）。</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>编辑模式回调示例</strong></p>
+<p>下面是编辑模式回调的一个简单示例。</p>
+<pre><code class="language-java">public class MyEditModeCallback implements Callback&lt;EditModeCallbackParameter, EditMode&gt; {
+
+    public EditMode call(EditModeCallbackParameter param) {
+        MouseEvent event = param.getMouseEvent();
+        ActivityBounds bounds = param.getActivityBounds();
+
+        /*
+         * If the mouse cursor is touching the left edge of the activity
+         * then begin a change of the start time of the activity.
+         */
+        if (event.getX() - bounds.getMinX() &lt; 5) {
+            return EditMode.CHANGE_START_TIME;
+        }
+
+        return EditMode.NONE;
+    }
+</code></pre>
+<p>现在可以这样注册该回调：</p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+    graphics.setEditModeCallback(
+    ActivityBase.class,
+    GanttLayout.class,
+    new MyEditModeCallback());
+</code></pre>
+<p>我们本可以为整个回调实例使用 lambda 表达式，但为了更清晰而没有这样做。</p>
+<p><strong>编辑回调</strong></p>
+<p>编辑回调用于判断某个特定编辑模式当前是否可用于给定活动。可以通过 GraphicsBase.setActivityEditingCallback() 方法注册此回调的实例，该方法会将回调映射到活动类型。</p>
+<pre><code class="language-java">public final void setActivityEditingCallback(
+    Class&lt;? extends MutableActivity&gt; activityType,
+    Callback&lt;EditingCallbackParameter, Boolean&gt; callback);
+</code></pre>
+
+<p><strong>编辑回调参数</strong></p>
+<p>传递给编辑回调的参数对象类型为 EditingCallbackParameter，并包含以下信息：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>activityRef</code></td>
+<td>要为其执行检查的活动引用。</td>
+</tr>
+<tr>
+<td><code>editMode</code></td>
+<td>需要检查的编辑模式。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>编辑回调示例</strong></p>
+<p>下面是编辑回调的一个简单示例。</p>
+<pre><code class="language-java">public class MyEditingCallback implements Callback&lt;EditingCallbackParameter, Boolean&gt; {
+
+    public Boolean call(EditingCallbackParameter param) {
+        ActivityRef ref = param.getActivityRef();
+        Activity activity = ref.getActivity();
+
+        /*
+         * Only allow editing for activities that that have not
+         * started, yet.
+         */
+        if (activity.getStartTime().isAfter(Instant.now())) {
+
+            /*
+             * Only allow changes to the start and end time
+             * of the activity.
+             */
+            switch (param.getEditMode()) {
+                case CHANGE_START_TIME:
+                case CHANGE_END_TIME:
+                    return true;
+                default:
+                    return false;
+            }
+          } 
+
+        return false;
+    }
+}
+</code></pre>
+
+<p>现在可以这样注册该回调：</p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+    graphics.setActivityEditingCallback(
+    ActivityBase.class,
+    new MyEditingCallback());
+</code></pre>
+<h2 id="row-editing">行编辑</h2>
+<p>图形视图不仅支持编辑活动，也支持编辑行。如果某一行被编辑，整行会翻转，其他控件会显示在该行的“背面”。如果行背面需要的空间（高度）大于行正面，则高度会自动调整。下表列出了与行编辑相关的方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>void startRowEditing(R row);</code></td>
+<td>在给定行上启动行编辑序列。行的背面会变为可见，并显示用于更改行设置的控件。</td>
+</tr>
+<tr>
+<td><code>void stopRowEditing();</code><br><code>void stopRowEditing(R row);</code></td>
+<td>停止所有行或仅给定行的行编辑。行的正面会再次变为可见。</td>
+</tr>
+<tr>
+<td><code>ObjectProperty&lt;RowEditingMode&gt; rowEditingModeProperty();</code><br><code>void setRowEditingMode(RowEditingMode)</code>;<br><code>RowEditingMode getRowEditingMode();</code></td>
+<td>存储、设置并检索行编辑模式。枚举 GraphicsBase.RowEditingMode 用于确定用户是否可以编辑行，以及一次编辑一行还是同时编辑多行。</td>
+</tr>
+<tr>
+<td><code>ObservableList&lt;R&gt; getRowsEditing();</code></td>
+<td>当前正在编辑的所有行（其背面已显示）的可观察列表。</td>
+</tr>
+<tr>
+<td><code>BooleanProperty animateRowEditor();</code><br><code>void setAnimateRowEditor(boolean);&lt;br&gt;boolean isAnimateRowEditor();</code></td>
+<td>存储、设置并检索一个标志，用于表示行背面的显示是立即完成还是带动画。</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>行编辑器工厂</strong></p>
+<p>行编辑器工厂用于在用户请求编辑某一行时，为该行创建控件。该工厂是一个回调方法，调用时会传入 GraphicsBase.RowEditorParameter 对象。此参数对象存储了一些有助于创建编辑器控件的字段，并提供了一个用于停止行编辑的方法。</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GraphicsBase getGraphics();</code></td>
+<td>返回将发生编辑的图形视图引用。</td>
+</tr>
+<tr>
+<td><code>R getRow();</code></td>
+<td>返回要为其创建行编辑器的行。</td>
+</tr>
+<tr>
+<td><code>void stopEditing();</code></td>
+<td>供行编辑器控件使用的便捷方法，可用于表示用户已完成对行的编辑。该方法通常由编辑器 UI 中的某种关闭按钮调用。</td>
+</tr>
+</tbody>
+</table>
+<p>行编辑器工厂可能如下所示：</p>
+<pre><code class="language-java">public class MyRowEditorFactory implements Callback&lt;RowEditorParameter&lt;R&gt;, Node&gt; {
+
+    public Node call(RowEditorParameter&lt;R&gt; param) {
+        VBox box = new VBox();
+
+        /*
+         * Bind the text property of the textfield to the name
+         * property of the row. This allows us to change the name
+         * of the row.
+         */
+        TextField nameField = new TextField();
+        Bindings.bindBidirectional(param.getRow().nameProperty(), 
+                nameField.textProperty());
+
+        /*
+         * A close button to invoke the stopEditing() method
+         * on the parameter object.
+         */
+        Button closeButton = new Button(&quot;Close&quot;);
+        closeButton.setOnAction(evt -&gt; param.stopEditing());
+        box.getChildren().addAll(nameField, closeButton);
+
+        /*
+         * Return the vbox node.
+         */
+        return box;
+    }
+}
+</code></pre>
+<p>可以这样注册行编辑器：</p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.setRowEditorFactory(new MyRowEditorFactory());
+</code></pre>
+
+<p><strong>行控件工厂</strong></p>
+<p>要触发行编辑，用户界面需要提供某种控件。这可以通过多种方式实现，例如借助行上的上下文菜单。另一种方式是使用对所谓“行控件”的内置支持。每当鼠标光标进入 / 离开某一行时，这些控件会显示 / 消失。它们由回调实现创建。该回调接收 GraphicsBase.RowControlsParameter 类型的参数对象。下表列出了此类型的字段。</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>graphics</code></td>
+<td>触发该回调的图形视图。</td>
+</tr>
+<tr>
+<td><code>row</code></td>
+<td>要为其创建控件的行。</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>示例 1</strong></p>
+<p>该回调的一种可能实现如下所示：</p>
+<pre><code class="language-java">public class MyRowControlsFactory extends StackPane 
+        implements Callback&lt;RowControlsParameter, Node&gt; {
+
+    private Button button;
+
+    public MyRowControlsFactory() {
+
+        /*
+         * Important: let mouse events pass through.
+         */
+        setMouseTransparent(true);
+        button = new Button(&quot;Press Me&quot;);
+        getChildren().add(button);
+    }
+
+    /*
+     * Reuse the button. Simply exchange the action that will
+     * happen when the user presses on it.
+     */
+    public Node call(RowControlsParameter param) {
+       button.setOnAction(evt -&gt; 
+            System.out.println(&quot;Pressed on row &quot; + 
+                    param.getRow().getName());
+        return this;
+    }
+
+</code></pre>
+
+<p>请注意，该工厂本身是一个 Node 对象，并且每次调用 call() 方法时都会返回自身。每次调用时只会替换按钮的动作。这样做非常合理，因为行控件始终一次只为一行显示（不同于行编辑器，后者可以同时使用多个实例）。</p>
+<p>可以这样注册该回调：</p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.setRowControlsFactory(new MyRowControlsFactory());
+</code></pre>
+
+<p><strong>示例 2</strong></p>
+<p>下面是 FlexGanttFX “Extras”项目中 RowControls 类的代码。它向行添加一个简单的“编辑”按钮。单击该按钮时，会在行的背面显示行编辑器控件。</p>
+<pre><code class="language-java">package com.flexganttfx.extras;
+
+
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
+import javafx.util.Callback;
+import com.flexganttfx.model.Row;
+import com.flexganttfx.view.graphics.GraphicsBase.RowControlsParameter;
+
+public class RowControls&lt;R extends Row&lt;?, ?, ?&gt;&gt; extends HBox implements
+        Callback&lt;RowControlsParameter&lt;R&gt;, Node&gt; {
+
+
+    private Button editButton;
+
+    public RowControls() {
+        setPickOnBounds(false);
+        setMinSize(0, 0);
+        setAlignment(Pos.TOP_RIGHT);
+        setFillHeight(true);
+        editButton = new Button(&quot;EDIT&quot;);
+        editButton.getStyleClass().add(&quot;row-controls-button&quot;);
+        getChildren().add(editButton);
+    }
+
+    @Override
+    public Node call(RowControlsParameter&lt;R&gt; param) {
+        editButton.setOnAction(evt -&gt; param.getGraphics().startRowEditing(
+                param.getRow()));
+        return this;
+    }
+}
+</code></pre>
+
+<p>按钮对应的 CSS 定义如下：</p>
+<pre><code class="language-css">/*
+ * Row controls button are shown when the mouse hovers over a row that can be
+ * edited (flipped around).
+ */
+.row-controls-button {
+  -fx-padding: 5 9 7 7;
+  -fx-background-insets: 0 4 2 2;
+  -fx-background-color: rgba(0,0,0,.5);
+  -fx-background-radius: 0;
+  -fx-text-fill: white;
+  -fx-font-size: 8;
+  -fx-font-weight: bold;
+}
+
+.row-controls-button:hover,
+.row-controls-button:focused {
+  -fx-padding: 5 9 7 7;
+  -fx-background-insets: 0 4 2 2;
+  -fx-background-color: rgba(0,0,0,.6);
+  -fx-background-radius: 0;
+  -fx-text-fill: white;
+  -fx-font-size: 8;
+  -fx-font-weight: bold;
+}
+
+.row-controls-button:pressed,
+.row-controls-button:selected {
+  -fx-background-color: rgba(0,0,0,.7);
+  -fx-background-radius: 0;
+}
+</code></pre>
+<h2 id="activity-rendering">活动渲染</h2>
+<p>图形视图使用 JavaFX 的 canvas API。这是因为 Gantt 图本身较复杂，并且其中通常会出现大量数据。将大量活动直接渲染到位图中，比不断更新场景图并重新应用 CSS 样式要快得多。FlexGanttFX 实现了一种可插拔的渲染器架构，可以将渲染器实例映射到活动类型，这与 Swing 过去的做法非常相似。</p>
+<p>下面的代码示例展示了如何为给定的“Flight”活动类型注册自定义渲染器。请注意，图形视图能够以不同布局显示活动，因此还必须将布局类型传递给该方法。</p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.setActivityRenderer(
+                Flight.class, 
+                GanttLayout.class, 
+                new FlightRenderer(graphics));
+</code></pre>
+<p>我们通常也会在构造时将图形视图传递给渲染器。这是必要的，因为当渲染器的任何属性发生变化时，渲染器会在图形上触发重绘。这与 Swing 的做法非常不同。这也意味着渲染器实例应仅用于单个图形视图，即传递给其构造函数的那个视图。</p>
+<p>GraphicsBase 上的以下方法用于处理渲染器：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>void setActivityRenderer(...);</strong></td>
+<td>为给定活动和布局类型注册新的渲染器。</td>
+</tr>
+<tr>
+<td><strong>ActivityRenderer getActivityRenderer(...);</strong></td>
+<td>返回给定活动和布局类型的渲染器。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>绘制</strong></p>
+<p>活动渲染器有一个用于绘制的单一入口点，即名为 draw() 的方法。该方法是 final 的，不能被重写。调用后，它会调用多个 protected 方法来执行实际绘制。调用层次结构如下：</p>
+<ul>
+<li>public final draw()  .... 调用 ...<ul>
+<li>protected ActivityBounds drawActivity()</li>
+<li>protected void drawBackground()</li>
+<li>protected void drawBorder()</li>
+</ul>
+</li>
+</ul>
+<p>子类可以自由重写这三个 protected 方法中的任意一个，以自定义活动外观。所有 <code>drawXXX()</code> 方法都具有相同的参数：</p>
+<pre><code class="language-java">ActivityRef&lt;A&gt; activityRef,  // the activity to draw
+Position position,           // agenda layout only (first, middle, last, only)
+GraphicsContext gc,          // the graphics context into which to draw
+double x,                    // the location of the start time of the activity
+double y,                    // the y coordinate (0 when drawn on row or line location)
+double w,                    // end time location minus start time location
+double h,                    // row or line height
+boolean selected,            // is activity currently selected?
+boolean hover,               // is mouse cursor currently hovering over it?
+boolean highlighted,         // is activity currently blinking?
+boolean pressed)             // is user currently pressing on it?
+</code></pre>
+
+<p><strong>默认渲染器</strong></p>
+<p>下表列出了默认提供的各种活动渲染器。</p>
+<table>
+<thead>
+<tr>
+<th>渲染器类</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ActivityRenderer</strong></td>
+<td>最基础的活动渲染器。在活动位置绘制一个填充矩形。所有默认渲染器都是此类型的子类。</td>
+</tr>
+<tr>
+<td><strong>ActivityBarRenderer</strong></td>
+<td>绘制条形，而不是填充整个区域。可以指定条形的高度。还支持在条形内外的多个位置显示文本。</td>
+</tr>
+<tr>
+<td><strong>ChartActivityRenderer</strong></td>
+<td>根据图表值垂直绘制 ChartActivity。</td>
+</tr>
+<tr>
+<td><strong>CompletableActivityRenderer</strong></td>
+<td>条形渲染器的子类。将 CompletableActivity 绘制为条形，并用另一种颜色填充其背景的一部分。该部分的大小取决于活动的完成百分比值。</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>活动边界</strong></p>
+<p>每个活动渲染器都负责在绘制活动后返回一个 ActivityBounds 实例。这些边界是框架的关键组成部分，许多操作只有在这些边界有效时才能正常工作。它们用于活动编辑、命中点检测、链接布局、上下文菜单等。下表列出了 ActivityBounds 类的属性。</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>activity</strong></td>
+<td>这些边界所属的活动。</td>
+</tr>
+<tr>
+<td><strong>activityRef</strong></td>
+<td>指向该活动的活动引用。</td>
+</tr>
+<tr>
+<td><strong>layer</strong></td>
+<td>绘制该活动所在的层。</td>
+</tr>
+<tr>
+<td><strong>layout</strong></td>
+<td>绘制该活动时使用的布局。</td>
+</tr>
+<tr>
+<td><strong>lineIndex</strong></td>
+<td>活动所在的线索引（如果活动位于行上而非线上，则为 -1）。</td>
+</tr>
+<tr>
+<td><strong>position</strong></td>
+<td>在日程布局中绘制活动时边界的位置（first、middle、layout）。这是必需的，因为同一活动可能会跨多天渲染为多个片段。</td>
+</tr>
+<tr>
+<td><strong>row</strong></td>
+<td>绘制该活动所在的行。</td>
+</tr>
+</tbody>
+</table>
+<p>请忽略属性 overlapColumn、overlapCount 以及列表 overlapBounds。它们都在内部用于与日程布局相关的操作。</p>
+
+<p><strong>属性</strong></p>
+<p>所有渲染器都定义了若干属性，可用于自定义其外观。其中许多属性取决于活动的“伪状态”：hover、pressed、selected、highlighted。为了更容易在正确的时机查找正确的颜色，提供了多个便捷方法：</p>
+<ul>
+<li><code>Renderer</code>: protected Paint getFill(boolean selected, boolean hover, boolean highlighted, boolean pressed); </li>
+<li>根据传入的伪状态返回活动背景应使用的颜色。</li>
+<li><code>ActivityRenderer</code>: protected Paint getStroke(boolean selected, boolean hover, boolean highlighted, boolean pressed);</li>
+<li>根据传入的伪状态返回活动边框应使用的颜色。</li>
+<li><code>ActivityBarRenderer</code>: protected Paint getTextFill(boolean selected, boolean hover, boolean highlighted, boolean pressed); </li>
+<li>根据传入的伪状态返回文本应使用的颜色。</li>
+</ul>
+<h2 id="row-rendering">行渲染</h2>
+<p>系统层 RowLayer 支持可插拔渲染器，可根据行类型自定义每一行的背景。在教程中我们已经看到，可以有 Aircraft 行和 Crew 行。为了清晰起见，这两种行可以使用不同的背景颜色。这可以通过行渲染器实现。</p>
+
+<p><strong>行渲染器</strong></p>
+<p>所有行渲染器都必须继承 RowRenderer。该类定义了一个名为 draw() 的 final public 方法，由框架调用。随后它会调用 protected 方法 drawRow()，子类可以重写该方法。一种可能的实现如下所示：</p>
+<pre><code class="language-java">public class AircraftRowRenderer extends RowRenderer&lt;Aircraft&gt; {
+
+    public AircraftRowRenderer(GraphicsBase&lt;?&gt; graphics) {
+        super(graphics, &quot;Aircraft Row Renderer&quot;);
+    }
+
+    protected void drawRow(Aircraft row,
+                           GraphicsContext gc,
+                           double w,
+                           double h,
+                           boolean selected,
+                           boolean hover,
+                           boolean highlighted,
+                           boolean pressed) {
+        gc.setFill(Color.ORANGE);
+        gc.fillRect(0, 0, w, h);       
+    }
+}
+</code></pre>
+
+<p>现在可以这样将该渲染器注册到 RowLayer：</p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.getSystemLayer(RowLayer.class).setRowRenderer(
+                    Aircraft.class, new AircraftRowRenderer());
+</code></pre>
+<h2 id="context-menu">上下文菜单</h2>
+<p>有两种方式可以向图形视图注册上下文菜单。标准方式是调用 GraphicsBase.setContextMenu(ContextMenu)，或者通过调用 GraphicsBase.setContextMenuCallback() 注册上下文菜单回调。第二种方式的优点是会将 ContextMenuParameter 类型的参数对象传递给回调方法。该参数对象包含大多数上下文菜单所需的最相关参数，以便让用户在图形视图上执行某种操作。</p>
+<p>请注意，上下文菜单回调的优先级高于标准上下文菜单。</p>
+
+<p><strong>代码示例</strong></p>
+<p>以下片段展示了上下文菜单回调实现的示例。这里我们只是为用户请求上下文菜单的鼠标位置处找到的每个活动添加一个菜单项。</p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.setContextMenuCallback(param -&gt; {
+    ContextMenu menu = new ContextMenu();
+    for (ActivityRef&lt;?&gt; ref : param.getActivities()) {
+        Activity activiy = ref.getActivity();
+        MenuItem item = new MenuItem(&quot;Move &quot; + activity.getName());
+        item.setOnAction(evt -&gt; moveActivity(activity);
+        menu.getItems().add(item);
+    }
+    return menu;
+});
+</code></pre>
+<h2 id="row-headers">行表头</h2>
+<p>图形区域中的每一行都可以显示自己的表头，表头会显示在该行左侧。当可见时间范围发生变化时（例如用户向左或向右滚动），表头始终保持在此位置，不会滚动。</p>
+<p><img alt="行表头" src="../../assets/images/docs/row-headers.png" /></p>
+<p>FlexGanttFX 随附的默认行表头知道如何在应用程序使用图表或日程布局时显示刻度。默认表头的实现可在 ScaleRowHeader 类中找到。</p>
+<p>可以通过继承 GraphicsBase.RowHeader 创建自定义行表头。每当使用该表头的行发生变化时，item 属性都会更新。与列表或表格单元格一样，行表头类是 Label 的扩展，这意味着可以通过调用 setGraphics(Node node) 和 setContentDisplay(ContentDisplay.GRAPHICS_ONLY) 完全替换其内容。</p>
+<p>另请参见：</p>
+<pre><code class="language-java">public void setRowHeaderFactory(Callback&lt;GraphicsBase&lt;R&gt;, RowHeader&lt;R&gt;&gt; factory);
+public void setShowRowHeaders(boolean showRowHeaders);
+</code></pre>
+
+<p>注意：在 FlexGanttFX 的旧版本中，显示行表头 / 刻度的功能位于 ScaleLayer 类中。随着画布缓冲区概念以及通过 translateX 属性滚动的引入，必须对此进行更改，因为刻度会根据 translateX 属性值被放置在各种不同位置。</p>
+      </article>
+      <div class="docs-nav-bottom">
+        <a class="docs-nav-btn" href="eventline.html"><span class="docs-nav-label">← 上一页</span><span class="docs-nav-title">事件线</span></a>
+<a class="docs-nav-btn next" href="model.html"><span class="docs-nav-label">下一页 →</span><span class="docs-nav-title">模型</span></a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../assets/js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js" crossorigin="anonymous"></script>
+</body>
+</html>

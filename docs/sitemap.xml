@@ -1,95 +1,702 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
-  <!-- Main -->
   <url>
     <loc>https://www.flexganttfx.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/" />
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
+  <url>
+    <loc>https://www.flexganttfx.com/de/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/fr/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/zh/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
 
-  <!-- Pages -->
   <url>
     <loc>https://www.flexganttfx.com/pages/demos.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/pages/demos.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/pages/demos.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/pages/demos.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/pages/demos.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/pages/demos.html" />
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.flexganttfx.com/pages/downloads.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.flexganttfx.com/pages/licensing.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.flexganttfx.com/pages/changelog.html</loc>
+    <loc>https://www.flexganttfx.com/de/pages/demos.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/pages/demos.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/pages/demos.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/pages/demos.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/pages/demos.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/pages/demos.html" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.flexganttfx.com/pages/faq.html</loc>
+    <loc>https://www.flexganttfx.com/fr/pages/demos.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/pages/demos.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/pages/demos.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/pages/demos.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/pages/demos.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/pages/demos.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/zh/pages/demos.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/pages/demos.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/pages/demos.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/pages/demos.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/pages/demos.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/pages/demos.html" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
-  <!-- Manual -->
   <url>
-    <loc>https://www.flexganttfx.com/manual/index.html</loc>
+    <loc>https://www.flexganttfx.com/pages/downloads.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/pages/downloads.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/pages/downloads.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/pages/downloads.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/pages/downloads.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/pages/downloads.html" />
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.flexganttfx.com/manual/installation.html</loc>
+    <loc>https://www.flexganttfx.com/de/pages/downloads.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/pages/downloads.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/pages/downloads.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/pages/downloads.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/pages/downloads.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/pages/downloads.html" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://www.flexganttfx.com/fr/pages/downloads.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/pages/downloads.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/pages/downloads.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/pages/downloads.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/pages/downloads.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/pages/downloads.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/zh/pages/downloads.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/pages/downloads.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/pages/downloads.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/pages/downloads.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/pages/downloads.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/pages/downloads.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.flexganttfx.com/pages/licensing.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/pages/licensing.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/pages/licensing.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/pages/licensing.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/pages/licensing.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/pages/licensing.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/de/pages/licensing.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/pages/licensing.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/pages/licensing.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/pages/licensing.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/pages/licensing.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/pages/licensing.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/fr/pages/licensing.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/pages/licensing.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/pages/licensing.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/pages/licensing.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/pages/licensing.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/pages/licensing.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/zh/pages/licensing.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/pages/licensing.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/pages/licensing.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/pages/licensing.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/pages/licensing.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/pages/licensing.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.flexganttfx.com/pages/changelog.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/pages/changelog.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/pages/changelog.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/pages/changelog.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/pages/changelog.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/pages/changelog.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/de/pages/changelog.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/pages/changelog.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/pages/changelog.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/pages/changelog.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/pages/changelog.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/pages/changelog.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/fr/pages/changelog.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/pages/changelog.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/pages/changelog.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/pages/changelog.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/pages/changelog.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/pages/changelog.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/zh/pages/changelog.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/pages/changelog.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/pages/changelog.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/pages/changelog.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/pages/changelog.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/pages/changelog.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.flexganttfx.com/pages/faq.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/pages/faq.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/pages/faq.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/pages/faq.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/pages/faq.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/pages/faq.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/de/pages/faq.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/pages/faq.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/pages/faq.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/pages/faq.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/pages/faq.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/pages/faq.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/fr/pages/faq.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/pages/faq.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/pages/faq.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/pages/faq.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/pages/faq.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/pages/faq.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/zh/pages/faq.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/pages/faq.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/pages/faq.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/pages/faq.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/pages/faq.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/pages/faq.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.flexganttfx.com/manual/index.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/index.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/index.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/index.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/index.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/index.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/de/manual/index.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/index.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/index.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/index.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/index.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/index.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/fr/manual/index.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/index.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/index.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/index.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/index.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/index.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/zh/manual/index.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/index.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/index.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/index.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/index.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/index.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.flexganttfx.com/manual/installation.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/installation.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/installation.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/installation.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/installation.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/installation.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/de/manual/installation.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/installation.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/installation.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/installation.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/installation.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/installation.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/fr/manual/installation.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/installation.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/installation.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/installation.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/installation.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/installation.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/zh/manual/installation.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/installation.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/installation.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/installation.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/installation.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/installation.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
   <url>
     <loc>https://www.flexganttfx.com/manual/tutorial.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/tutorial.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/tutorial.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/tutorial.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/tutorial.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/tutorial.html" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://www.flexganttfx.com/de/manual/tutorial.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/tutorial.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/tutorial.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/tutorial.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/tutorial.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/tutorial.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/fr/manual/tutorial.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/tutorial.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/tutorial.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/tutorial.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/tutorial.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/tutorial.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/zh/manual/tutorial.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/tutorial.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/tutorial.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/tutorial.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/tutorial.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/tutorial.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
   <url>
     <loc>https://www.flexganttfx.com/manual/gantt-charts.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/gantt-charts.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/gantt-charts.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/gantt-charts.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/gantt-charts.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/gantt-charts.html" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.flexganttfx.com/manual/timeline.html</loc>
+    <loc>https://www.flexganttfx.com/de/manual/gantt-charts.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/gantt-charts.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/gantt-charts.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/gantt-charts.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/gantt-charts.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/gantt-charts.html" />
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://www.flexganttfx.com/fr/manual/gantt-charts.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/gantt-charts.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/gantt-charts.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/gantt-charts.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/gantt-charts.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/gantt-charts.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/zh/manual/gantt-charts.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/gantt-charts.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/gantt-charts.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/gantt-charts.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/gantt-charts.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/gantt-charts.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.flexganttfx.com/manual/timeline.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/timeline.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/timeline.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/timeline.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/timeline.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/timeline.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/de/manual/timeline.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/timeline.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/timeline.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/timeline.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/timeline.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/timeline.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/fr/manual/timeline.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/timeline.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/timeline.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/timeline.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/timeline.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/timeline.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/zh/manual/timeline.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/timeline.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/timeline.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/timeline.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/timeline.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/timeline.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
   <url>
     <loc>https://www.flexganttfx.com/manual/dateline.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/dateline.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/dateline.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/dateline.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/dateline.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/dateline.html" />
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://www.flexganttfx.com/de/manual/dateline.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/dateline.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/dateline.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/dateline.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/dateline.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/dateline.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/fr/manual/dateline.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/dateline.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/dateline.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/dateline.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/dateline.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/dateline.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/zh/manual/dateline.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/dateline.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/dateline.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/dateline.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/dateline.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/dateline.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
   <url>
     <loc>https://www.flexganttfx.com/manual/eventline.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/eventline.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/eventline.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/eventline.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/eventline.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/eventline.html" />
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://www.flexganttfx.com/de/manual/eventline.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/eventline.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/eventline.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/eventline.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/eventline.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/eventline.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/fr/manual/eventline.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/eventline.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/eventline.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/eventline.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/eventline.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/eventline.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/zh/manual/eventline.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/eventline.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/eventline.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/eventline.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/eventline.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/eventline.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
   <url>
     <loc>https://www.flexganttfx.com/manual/graphics.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/graphics.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/graphics.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/graphics.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/graphics.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/graphics.html" />
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://www.flexganttfx.com/de/manual/graphics.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/graphics.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/graphics.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/graphics.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/graphics.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/graphics.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/fr/manual/graphics.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/graphics.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/graphics.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/graphics.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/graphics.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/graphics.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/zh/manual/graphics.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/graphics.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/graphics.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/graphics.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/graphics.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/graphics.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
   <url>
     <loc>https://www.flexganttfx.com/manual/model.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/model.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/model.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/model.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/model.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/model.html" />
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://www.flexganttfx.com/de/manual/model.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/model.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/model.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/model.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/model.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/model.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/fr/manual/model.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/model.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/model.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/model.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/model.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/model.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/zh/manual/model.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/model.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/model.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/model.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/model.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/model.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
   <url>
     <loc>https://www.flexganttfx.com/manual/styling.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/styling.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/styling.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/styling.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/styling.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/styling.html" />
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://www.flexganttfx.com/de/manual/styling.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/styling.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/styling.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/styling.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/styling.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/styling.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/fr/manual/styling.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/styling.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/styling.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/styling.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/styling.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/styling.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/zh/manual/styling.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/styling.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/styling.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/styling.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/styling.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/styling.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
     <loc>https://www.flexganttfx.com/manual/logging.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/logging.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/logging.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/logging.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/logging.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/logging.html" />
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/de/manual/logging.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/logging.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/logging.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/logging.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/logging.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/logging.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/fr/manual/logging.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/logging.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/logging.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/logging.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/logging.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/logging.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.flexganttfx.com/zh/manual/logging.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/logging.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/logging.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/logging.html" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/logging.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/logging.html" />
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
 
 </urlset>

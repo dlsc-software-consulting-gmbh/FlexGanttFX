@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-20G18JBY7X"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-20G18JBY7X");</script>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Installation — FlexGanttFX</title>
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+  <script src="../../assets/js/lang.js"></script>
+  <link rel="stylesheet" href="../../assets/css/docs.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" crossorigin="anonymous" />
+  <link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/installation.html" />
+  <link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/installation.html" />
+  <link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/installation.html" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/installation.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/installation.html" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <div class="navbar-brand-group">
+    <a href="../index.html" class="navbar-logo">
+      <i class="fa-solid fa-chart-gantt logo-icon"></i>
+      FlexGanttFX
+    </a>
+    <span class="navbar-brand-sep"></span>
+    <a href="https://www.dlsc.com" class="navbar-dlsc-link" target="_blank" rel="noopener" title="DLSC Software &amp; Consulting GmbH">
+      <img src="../../assets/images/dlsc-logo.png" alt="DLSC" class="navbar-dlsc-logo" />
+    </a>
+  </div>
+        <ul class="navbar-links">
+          <li><a href="../index.html">Accueil</a></li>
+          <li><a href="../pages/demos.html">Démos</a></li>
+          <li class="nav-dropdown">
+            <a href="index.html" class="active">Manuel</a>
+            <div class="dropdown-menu">
+              <a href="index.html">Table des matières</a>
+              <a href="installation.html">Installation</a>
+              <a href="tutorial.html">Tutoriel</a>
+              <a href="gantt-charts.html">Diagrammes de Gantt</a>
+              <a href="timeline.html">Timeline</a>
+              <a href="dateline.html">Ligne de dates</a>
+              <a href="eventline.html">Ligne d’événements</a>
+              <a href="graphics.html">Graphismes</a>
+              <a href="model.html">Modèle</a>
+              <a href="styling.html">Style</a>
+              <a href="logging.html">Journalisation</a>
+            </div>
+          </li>
+          <li class="nav-dropdown">
+            <a href="#">Docs</a>
+            <div class="dropdown-menu">
+              <a href="../pages/faq.html">FAQ</a>
+              <a href="../pages/changelog.html">Notes de version</a>
+              <a href="../pages/licensing.html">Licences</a>
+              <a href="../../api/index.html">Javadocs / API</a>
+            </div>
+          </li>
+          <li><a href="../pages/downloads.html">Téléchargements</a></li>
+      <li class="nav-dropdown nav-lang">
+        <a href="#"><i class="fa-solid fa-globe"></i> FR</a>
+        <div class="dropdown-menu">
+          <a href="../../manual/installation.html" data-lang="en">English</a>
+          <a href="../../de/manual/installation.html" data-lang="de">Deutsch</a>
+          <a href="installation.html" data-lang="fr" class="active">Français</a>
+          <a href="../../zh/manual/installation.html" data-lang="zh">中文（简体）</a>
+        </div>
+      </li>
+          <li><a href="mailto:dlemmermann@gmail.com" class="nav-cta"><i class="fa-solid fa-envelope" style="font-size:0.8rem"></i> Contact</a></li>
+        </ul>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="container">
+        <a href="../index.html">Accueil</a>
+        <a href="index.html">Documentation</a>
+        <a href="installation.html">Installation</a>
+        <a href="tutorial.html">Tutoriel</a>
+        <a href="gantt-charts.html">Diagrammes de Gantt</a>
+        <a href="model.html">Modèle</a>
+        <a href="../pages/faq.html">FAQ</a>
+      <div class="mobile-lang-divider"></div>
+      <a href="../../manual/installation.html" data-lang="en"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> English</a>
+      <a href="../../de/manual/installation.html" data-lang="de"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Deutsch</a>
+      <a href="installation.html" data-lang="fr" class="active-lang"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Français</a>
+      <a href="../../zh/manual/installation.html" data-lang="zh"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> 中文（简体）</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Démarrage</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Vue d’ensemble</a></li>
+          <li><a href="installation.html" class="active">Installation</a></li>
+          <li><a href="tutorial.html">Tutoriel</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Contrôles</div>
+        <ul class="sidebar-nav">
+          <li><a href="gantt-charts.html">Diagrammes de Gantt</a></li>
+          <li><a href="timeline.html">Timeline</a></li>
+          <li><a href="dateline.html">Ligne de dates</a></li>
+          <li><a href="eventline.html">Ligne d’événements</a></li>
+          <li><a href="graphics.html">Graphismes</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Architecture</div>
+        <ul class="sidebar-nav">
+          <li><a href="model.html">Modèle</a></li>
+          <li><a href="styling.html">Style</a></li>
+          <li><a href="logging.html">Journalisation</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Référence</div>
+        <ul class="sidebar-nav">
+          <li><a href="../../api/index.html">Javadocs / API</a></li>
+          <li><a href="../pages/changelog.html">Notes de version</a></li>
+          <li><a href="../pages/licensing.html">Licences</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="docs-content">
+      <nav class="breadcrumb">
+        <a href="../index.html">Accueil</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="index.html">Docs</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Installation</span>
+      </nav>
+      <article class="prose">
+<h1 id="installation">Installation</h1>
+<p>Les étapes suivantes expliquent comment installer FlexGanttFX dans votre projet. </p>
+<h2 id="install-java">Installer Java</h2>
+<p>Depuis Java 11, JavaFX n’est plus inclus dans les JDK d’Oracle. Vous devez donc veiller à télécharger et installer une distribution JDK 11+ qui l’inclut, par exemple celle d’Azul.</p>
+<h2 id="download-the-distribution">Télécharger la distribution</h2>
+<p>Rendez-vous dans la section des téléchargements de FlexGanttFX.com et téléchargez la dernière version. Le fichier téléchargé est une archive ZIP contenant les fichiers JAR requis, les démos, les tutoriels, la documentation de l’API, etc.</p>
+<h2 id="unpack-the-distribution">Décompresser la distribution</h2>
+<p>Décompressez la distribution sur votre système de fichiers local. Une fois décompressée, vous verrez le contenu suivant : </p>
+<p><img alt="Répertoire d’installation" src="../../assets/images/docs/directory.png" /></p>
+<p>La distribution contient les sous-dossiers suivants :</p>
+<ul>
+<li>css - copies des feuilles de style utilisées par FlexGanttFX (les originaux sont inclus dans le fichier JAR)</li>
+<li>docs - la documentation de l’API de FlexGanttFX</li>
+<li>ext - fichiers JAR tiers requis pour exécuter FlexGanttFX</li>
+<li>legal - les contrats de licence sous forme de fichiers PDF</li>
+<li>lib - les bibliothèques FlexGanttFX</li>
+<li>tutorial - fichiers pour bien démarrer</li>
+</ul>
+<h2 id="add-jar-files-to-classpath">Ajouter les fichiers JAR au classpath</h2>
+<p>Si vous avez téléchargé la version 11.12.5, ajoutez les fichiers suivants (situés dans le dossier lib de la distribution) à votre classpath.</p>
+<ul>
+<li>flexganttfx-core-11.12.8.jar - contient diverses classes utilitaires et la prise en charge des licences</li>
+<li>flexganttfx-model-11.12.8.jar - toutes les classes liées au modèle de données (activités, lignes, référentiels)</li>
+<li>flexganttfx-view-11.12.8.jar - les classes de vue, comme le contrôle de diagramme de Gantt proprement dit</li>
+<li>flexganttfx-extras-11.12.8.jar - classes supplémentaires comme une barre d’outils et une barre d’état</li>
+</ul>
+<p>Ajoutez les fichiers situés dans le dossier ext à votre classpath.
+- controlsfx.jar - la distribution du projet ControlsFX
+- license4j.jar - le code prenant en charge les concepts de licence</p>
+<h2 id="create-application-class">Créer la classe d’application</h2>
+<p>Le listing suivant montre la configuration la plus simple nécessaire pour lancer une interface utilisateur de diagramme de Gantt.</p>
+<pre><code class="language-java">
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import com.flexganttfx.view.GanttChart;
+
+public class MyFirstGanttChart extends Application {
+
+    @Override
+    public void start(Stage stage) throws Exception {
+
+        // &lt;- Our Gantt chart
+        GanttChart&lt;?&gt; gantt = new GanttChart&lt;&gt;();
+
+        Scene scene = new Scene(gantt);
+
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.sizeToScene();
+        stage.show();   
+    }
+
+    public static void main(String[] args) {
+        Application.launch(args);
+    }
+}
+
+</code></pre>
+      </article>
+      <div class="docs-nav-bottom">
+        <span class="docs-nav-btn disabled"></span>
+<a class="docs-nav-btn next" href="tutorial.html"><span class="docs-nav-label">Suivant →</span><span class="docs-nav-title">Tutoriel</span></a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../assets/js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js" crossorigin="anonymous"></script>
+</body>
+</html>

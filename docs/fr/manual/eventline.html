@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-20G18JBY7X"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-20G18JBY7X");</script>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ligne d’événements — FlexGanttFX</title>
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+  <script src="../../assets/js/lang.js"></script>
+  <link rel="stylesheet" href="../../assets/css/docs.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" crossorigin="anonymous" />
+  <link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/eventline.html" />
+  <link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/eventline.html" />
+  <link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/eventline.html" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/eventline.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/eventline.html" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <div class="navbar-brand-group">
+    <a href="../index.html" class="navbar-logo">
+      <i class="fa-solid fa-chart-gantt logo-icon"></i>
+      FlexGanttFX
+    </a>
+    <span class="navbar-brand-sep"></span>
+    <a href="https://www.dlsc.com" class="navbar-dlsc-link" target="_blank" rel="noopener" title="DLSC Software &amp; Consulting GmbH">
+      <img src="../../assets/images/dlsc-logo.png" alt="DLSC" class="navbar-dlsc-logo" />
+    </a>
+  </div>
+        <ul class="navbar-links">
+          <li><a href="../index.html">Accueil</a></li>
+          <li><a href="../pages/demos.html">Démos</a></li>
+          <li class="nav-dropdown">
+            <a href="index.html" class="active">Manuel</a>
+            <div class="dropdown-menu">
+              <a href="index.html">Table des matières</a>
+              <a href="installation.html">Installation</a>
+              <a href="tutorial.html">Tutoriel</a>
+              <a href="gantt-charts.html">Diagrammes de Gantt</a>
+              <a href="timeline.html">Timeline</a>
+              <a href="dateline.html">Ligne de dates</a>
+              <a href="eventline.html">Ligne d’événements</a>
+              <a href="graphics.html">Graphismes</a>
+              <a href="model.html">Modèle</a>
+              <a href="styling.html">Style</a>
+              <a href="logging.html">Journalisation</a>
+            </div>
+          </li>
+          <li class="nav-dropdown">
+            <a href="#">Docs</a>
+            <div class="dropdown-menu">
+              <a href="../pages/faq.html">FAQ</a>
+              <a href="../pages/changelog.html">Notes de version</a>
+              <a href="../pages/licensing.html">Licences</a>
+              <a href="../../api/index.html">Javadocs / API</a>
+            </div>
+          </li>
+          <li><a href="../pages/downloads.html">Téléchargements</a></li>
+      <li class="nav-dropdown nav-lang">
+        <a href="#"><i class="fa-solid fa-globe"></i> FR</a>
+        <div class="dropdown-menu">
+          <a href="../../manual/eventline.html" data-lang="en">English</a>
+          <a href="../../de/manual/eventline.html" data-lang="de">Deutsch</a>
+          <a href="eventline.html" data-lang="fr" class="active">Français</a>
+          <a href="../../zh/manual/eventline.html" data-lang="zh">中文（简体）</a>
+        </div>
+      </li>
+          <li><a href="mailto:dlemmermann@gmail.com" class="nav-cta"><i class="fa-solid fa-envelope" style="font-size:0.8rem"></i> Contact</a></li>
+        </ul>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="container">
+        <a href="../index.html">Accueil</a>
+        <a href="index.html">Documentation</a>
+        <a href="installation.html">Installation</a>
+        <a href="tutorial.html">Tutoriel</a>
+        <a href="gantt-charts.html">Diagrammes de Gantt</a>
+        <a href="model.html">Modèle</a>
+        <a href="../pages/faq.html">FAQ</a>
+      <div class="mobile-lang-divider"></div>
+      <a href="../../manual/eventline.html" data-lang="en"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> English</a>
+      <a href="../../de/manual/eventline.html" data-lang="de"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Deutsch</a>
+      <a href="eventline.html" data-lang="fr" class="active-lang"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Français</a>
+      <a href="../../zh/manual/eventline.html" data-lang="zh"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> 中文（简体）</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Premiers pas</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Vue d’ensemble</a></li>
+          <li><a href="installation.html">Installation</a></li>
+          <li><a href="tutorial.html">Tutoriel</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Contrôles</div>
+        <ul class="sidebar-nav">
+          <li><a href="gantt-charts.html">Diagrammes de Gantt</a></li>
+          <li><a href="timeline.html">Timeline</a></li>
+          <li><a href="dateline.html">Ligne de dates</a></li>
+          <li><a href="eventline.html" class="active">Ligne d’événements</a></li>
+          <li><a href="graphics.html">Graphismes</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Framework</div>
+        <ul class="sidebar-nav">
+          <li><a href="model.html">Modèle</a></li>
+          <li><a href="styling.html">Style</a></li>
+          <li><a href="logging.html">Journalisation</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Référence</div>
+        <ul class="sidebar-nav">
+          <li><a href="../../api/index.html">Javadocs / API</a></li>
+          <li><a href="../pages/changelog.html">Notes de version</a></li>
+          <li><a href="../pages/licensing.html">Licences</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="docs-content">
+      <nav class="breadcrumb">
+        <a href="../index.html">Accueil</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="index.html">Docs</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Ligne d’événements</span>
+      </nav>
+      <article class="prose">
+<h1 id="overview">Vue d’ensemble</h1>
+<p>La ligne d’événements est un contrôle qui affiche des curseurs temporels : l’heure à la position de la souris et l’intervalle de temps sélectionné. Ce contrôle fait partie de la Timeline et s’affiche en bas.</p>
+<p><img alt="Ligne d’événements" src="../../assets/images/docs/eventline.png" /></p>
+<p><strong>Formatage de la date et de l’heure</strong></p>
+<p>Chaque application a ses propres exigences concernant le format d’affichage des dates et des heures. La ligne d’événements dispose donc d’un formateur de date et d’heure qui peut être remplacé en appelant <code>setDateTimeFormatter()</code>. Vous pouvez obtenir des instances de formateur en appelant les méthodes statiques de la classe <code>DateTimeFormatter</code>, par exemple <code>DateTimeFormatter.ISO_LOCAL_DATE_TIME</code>.</p>
+<p><strong>Curseur : position et heure</strong></p>
+<p>La ligne d’événements suit la position du curseur de la souris lorsque celle-ci survole la timeline ou le contrôle graphique. La position est stockée dans la propriété en lecture seule <code>cursorLocationProperty()</code>. À chaque changement de position, la ligne d’événements met également à jour la valeur de <code>cursorTimeProperty()</code>. Ces deux propriétés font de la ligne d’événements la source idéale des informations de curseur pour toute l’application.</p>
+<p><strong>Intervalle de temps marqué</strong></p>
+<p>Lorsque l’utilisateur modifie une activité, la ligne d’événements affiche le nouvel intervalle de temps occupé par cette activité. Cet intervalle est stocké dans <code>markedTimeIntervalProperty()</code>. Lorsque sa valeur change, la ligne d’événements affiche deux curseurs temporels supplémentaires : l’un pour le début de l’intervalle et l’autre pour sa fin.</p>
+<p><strong>Ligne figée</strong></p>
+<p>La ligne d’événements contient une instance de <code>GraphicsBase</code>, ce qui signifie qu’elle peut également afficher des activités, mais uniquement sur une seule ligne. Comme la ligne d’événements ne défile pas verticalement, les applications peuvent fournir une « ligne figée ». Cette fonctionnalité est très utile lorsqu’il faut visualiser des activités « globales », par exemple des jalons, pertinentes pour toutes les lignes situées en dessous. L’API suivante est pertinente pour utiliser cette fonctionnalité :</p>
+<pre><code class="language-java">public final SingleRowGraphics&lt;Row&lt;?, ? ,?&gt; getGraphics();
+public final Row&lt;? ,? ,?&gt; row = getFrozenRow();
+</code></pre>
+      </article>
+      <div class="docs-nav-bottom">
+        <a class="docs-nav-btn" href="dateline.html"><span class="docs-nav-label">← Précédent</span><span class="docs-nav-title">Ligne de dates</span></a>
+<a class="docs-nav-btn next" href="graphics.html"><span class="docs-nav-label">Suivant →</span><span class="docs-nav-title">Graphismes</span></a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../assets/js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js" crossorigin="anonymous"></script>
+</body>
+</html>

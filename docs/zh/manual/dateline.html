@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-20G18JBY7X"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-20G18JBY7X");</script>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>日期线 — FlexGanttFX</title>
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+  <script src="../../assets/js/lang.js"></script>
+  <link rel="stylesheet" href="../../assets/css/docs.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" crossorigin="anonymous" />
+  <link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/dateline.html" />
+  <link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/dateline.html" />
+  <link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/dateline.html" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/dateline.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/dateline.html" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <div class="navbar-brand-group">
+    <a href="../index.html" class="navbar-logo">
+      <i class="fa-solid fa-chart-gantt logo-icon"></i>
+      FlexGanttFX
+    </a>
+    <span class="navbar-brand-sep"></span>
+    <a href="https://www.dlsc.com" class="navbar-dlsc-link" target="_blank" rel="noopener" title="DLSC Software &amp; Consulting GmbH">
+      <img src="../../assets/images/dlsc-logo.png" alt="DLSC" class="navbar-dlsc-logo" />
+    </a>
+  </div>
+        <ul class="navbar-links">
+          <li><a href="../index.html">首页</a></li>
+          <li><a href="../pages/demos.html">演示</a></li>
+          <li class="nav-dropdown">
+            <a href="index.html" class="active">手册</a>
+            <div class="dropdown-menu">
+              <a href="index.html">目录</a>
+              <a href="installation.html">安装</a>
+              <a href="tutorial.html">教程</a>
+              <a href="gantt-charts.html">甘特图</a>
+              <a href="timeline.html">Timeline（时间轴）</a>
+              <a href="dateline.html">Dateline（日期线）</a>
+              <a href="eventline.html">Eventline（事件线）</a>
+              <a href="graphics.html">Graphics（图形）</a>
+              <a href="model.html">模型</a>
+              <a href="styling.html">样式</a>
+              <a href="logging.html">日志</a>
+            </div>
+          </li>
+          <li class="nav-dropdown">
+            <a href="#">文档</a>
+            <div class="dropdown-menu">
+              <a href="../pages/faq.html">常见问题</a>
+              <a href="../pages/changelog.html">版本说明</a>
+              <a href="../pages/licensing.html">许可</a>
+              <a href="../../api/index.html">Javadocs / API</a>
+            </div>
+          </li>
+          <li><a href="../pages/downloads.html">下载</a></li>
+      <li class="nav-dropdown nav-lang">
+        <a href="#"><i class="fa-solid fa-globe"></i> 中文</a>
+        <div class="dropdown-menu">
+          <a href="../../manual/dateline.html" data-lang="en">English</a>
+          <a href="../../de/manual/dateline.html" data-lang="de">Deutsch</a>
+          <a href="../../fr/manual/dateline.html" data-lang="fr">Français</a>
+          <a href="dateline.html" data-lang="zh" class="active">中文（简体）</a>
+        </div>
+      </li>
+          <li><a href="mailto:dlemmermann@gmail.com" class="nav-cta"><i class="fa-solid fa-envelope" style="font-size:0.8rem"></i> 联系我们</a></li>
+        </ul>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="container">
+        <a href="../index.html">首页</a>
+        <a href="index.html">文档</a>
+        <a href="installation.html">安装</a>
+        <a href="tutorial.html">教程</a>
+        <a href="gantt-charts.html">甘特图</a>
+        <a href="model.html">模型</a>
+        <a href="../pages/faq.html">常见问题</a>
+      <div class="mobile-lang-divider"></div>
+      <a href="../../manual/dateline.html" data-lang="en"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> English</a>
+      <a href="../../de/manual/dateline.html" data-lang="de"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Deutsch</a>
+      <a href="../../fr/manual/dateline.html" data-lang="fr"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Français</a>
+      <a href="dateline.html" data-lang="zh" class="active-lang"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> 中文（简体）</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">入门</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">概述</a></li>
+          <li><a href="installation.html">安装</a></li>
+          <li><a href="tutorial.html">教程</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">控件</div>
+        <ul class="sidebar-nav">
+          <li><a href="gantt-charts.html">甘特图</a></li>
+          <li><a href="timeline.html">Timeline（时间轴）</a></li>
+          <li><a href="dateline.html" class="active">Dateline（日期线）</a></li>
+          <li><a href="eventline.html">Eventline（事件线）</a></li>
+          <li><a href="graphics.html">Graphics（图形）</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">框架</div>
+        <ul class="sidebar-nav">
+          <li><a href="model.html">模型</a></li>
+          <li><a href="styling.html">样式</a></li>
+          <li><a href="logging.html">日志</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">参考</div>
+        <ul class="sidebar-nav">
+          <li><a href="../../api/index.html">Javadocs / API</a></li>
+          <li><a href="../pages/changelog.html">版本说明</a></li>
+          <li><a href="../pages/licensing.html">许可</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="docs-content">
+      <nav class="breadcrumb">
+        <a href="../index.html">首页</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="index.html">文档</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Dateline（日期线）</span>
+      </nav>
+      <article class="prose">
+<h1 id="overview">概述</h1>
+<p>Dateline 是一个控件，用于在一行或多行单元格中显示实际日期（周一、周二、周三……）。Dateline 支持时区感知，会跟踪当前选中的时间区间以及当前悬停的时间区间。当可见时间范围发生变化时（例如向左或向右滚动后），它还会触发事件。</p>
+<p><img alt="Dateline 控件截图" src="../../assets/images/docs/dateline.png" /></p>
+<p><strong>刻度分辨率</strong></p>
+<p>Dateline 可以显示一到五行。每一行称为一个“Dateline 刻度”，每个刻度显示一个“分辨率”。分辨率由时间单位（例如天、周、月）、格式化模式和数量组成。数量用于指定“5 分钟”“15 分钟”等分辨率。可以通过调用 <code>getScaleResolutions()</code> 获取 Dateline 当前显示的完整分辨率列表。</p>
+<p>系统层 <code>GridLinesLayer</code> 提供了该方法的一个使用示例。它会调用此方法，使用分辨率来计算垂直网格线的位置。为此，Resolution 类提供了 <code>truncate()</code> 方法用于跳到某个单位的起点（例如一天的开始），以及 <code>increment()</code> 方法用于跳到下一个单位（例如下一天）。有关 <code>Resolution</code> 的更多信息，请参阅 Dateline 模型文档。</p>
+<p><strong>主要时间单位</strong></p>
+<p>例如，一个包含三个刻度的 Dateline 可以显示“月”“周”和“日”这三种分辨率。最小的“日”分辨率显示在 Dateline 底部。该分辨率使用的时间单位 <code>ChronoUnit.DAYS</code> 也称为“主要时间单位”。该单位的当前值存储在只读属性 <code>primaryTemporalUnit</code> 中。查询活动存储库中的活动时会使用该属性值。这样，存储库就可以决定调用结果的粒度，或者决定某些活动是否完全不显示。</p>
+<p><code>WeekendCalendar</code> 类是主要时间单位的一个良好用例。它实现了 <code>Calendar</code>，而 <code>Calendar</code> 是 <code>ActivityRepository</code> 的扩展。<code>WeekendCalendar</code> 的用途是返回给定时间区间中的周末日期（星期六、星期日）。当它被调用时，如果主要时间单位过大或过小，就不会返回任何内容。如果用户当前查看的是分钟或十年，返回周末信息就没有意义。</p>
+<p><strong>时区</strong></p>
+<p>Dateline 需要知道它正在为哪个时区显示日期（例如 EST 或 GMT）。因此，它提供了 <code>zoneIdProperty()</code> 属性。该属性可写，并可通过 <code>setZoneId()</code> 设置。可以通过调用 <code>setZoneId(true)</code> 让该属性的值在控件中可见。</p>
+<p><strong>选择模型</strong></p>
+<p>Dateline 控件允许用户在按住快捷修饰键（Windows / Linux 上为 <code>CTRL</code>，Mac 上为 Option）的同时点击主鼠标按钮，对时间区间进行单选或多选。是否支持单选或多选取决于 <code>selectionModeProperty()</code> 的值。</p>
+<p>只有当前在任意行/刻度中可见的区间才能被选中。因此，如果 Dateline 当前显示周和日，用户就只能选择整周或整天。可以通过调用 <code>getSelectedTimeIntervals()</code> 获取已选区间列表。</p>
+<p><strong>悬停时间区间</strong></p>
+<p>当鼠标指针悬停在 Dateline 上时，也意味着它悬停在某个时间区间上。根据给定鼠标位置所在 Dateline 行/刻度显示的分辨率，该区间可能是一整周，也可能是单独一天。无论是哪一种，该区间都会存储在只读属性 <code>hoverTimeIntervalProperty()</code> 中。</p>
+<p><strong>事件</strong></p>
+<p>当应用程序需要响应当前可见时间范围的任何变化时，可以监听 Dateline 触发的滚动事件。可以通过向 <code>setOnVisibleRangeChanged()</code> 方法传入事件监听器，或调用 <code>addEventListener(DatelineScrollingEvent.ANY, myListener)</code> 来实现。</p>
+<p><strong>单元格工厂</strong></p>
+<p>Dateline 控件能够显示不同类型的时间单位。默认支持 <code>ChronoUnit</code>（周一、周二、周三……）和 <code>SimpleUnit</code>（1、2、3、4……）。每种单位类型都有自己的视觉表示。为适配这一点，Dateline 控件会将 Dateline 单元格的创建委托给一个可插拔工厂，该工厂已预先映射到特定的时间单位类型。</p>
+<pre><code class="language-java">setCellFactory(SimpleUnit.class, unit -&gt; new SimpleUnitDatelineCell());
+setCellFactory(ChronoUnit.class, unit -&gt; new ChronoUnitDatelineCell());
+</code></pre>
+
+<h1 id="dateline-model">Dateline 模型</h1>
+<p>Dateline 模型向 Dateline 控件提供各种信息，使其能够正确布局自身。</p>
+<ul>
+<li><strong>分辨率</strong> – 分辨率定义要显示哪个时间单位（例如小时）以及如何格式化它。它还包含该分辨率是否可以显示在顶部、底部或中间刻度中的信息。每个模型通常会定义一长串此类分辨率。定义的分辨率越多，Dateline 控件在缩放时就越灵活。</li>
+<li><strong>时区</strong> – Dateline 控件允许用户在不同时区之间切换。模型定义哪些时区可用。</li>
+<li><strong>刻度数量</strong> – Dateline 控件由一组 Dateline 刻度组成（顶部、底部以及若干中间刻度）。模型可用于定义用户可选择查看的当前可见刻度数、最小刻度数和最大刻度数。</li>
+<li><strong>时间单位</strong> – Dateline 控件在为当前单位创建刻度失败或成功后，会回调模型以查找“下一个”时间单位。</li>
+</ul>
+<p>Dateline 模型是一个类型化模型。<strong>FlexGanttFX</strong> 随附两个特化实现：<code>ChronoUnitDatelineModel</code> 和 <code>SimpleUnitDatelineModel</code>。</p>
+<p><strong>Chrono Unit Dateline 模型</strong></p>
+<p><code>ChronoUnitDatelineModel</code> 类是针对 JDK 8 中 <code>ChronoUnit</code> 时间单位的特化实现。它需要类型为 <code>ChronoUnitResolution</code> 的刻度分辨率。下面的清单是该模型的实现，并展示了如何定义和添加分辨率，以及如何使用分辨率从一个时间单位前进到下一个时间单位。</p>
+<pre><code class="language-java">package com.flexganttfx.model.dateline;
+
+import java.time.temporal.ChronoUnit;
+
+import static com.flexganttfx.model.dateline.Resolution.Position.*;
+import static java.time.temporal.ChronoUnit.*;
+
+/**
+ * The chrono unit dateline model is a specialization of the dateline model that works
+ * in combination with the {@link ChronoUnit}. The chrono unit basically represents standard
+ * calendar units ranging from milliseconds to thousands of years.
+ *
+ * @since 1.0
+ */
+public final class ChronoUnitDatelineModel extends DatelineModel&lt;ChronoUnit&gt; {
+
+    /**
+     * Constructs a new dateline model with a long list of predefined
+     * resolutions of type {@link ChronoUnitResolution}.
+     *
+     * @since 1.0
+     */
+    public ChronoUnitDatelineModel() {
+        addResolution(new ChronoUnitResolution(MILLIS, &quot;EEEE, dd. MMMM yyyy, HH:mm:ss:SSS&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(MILLIS, &quot;EEEE, dd.MM.yy, HH:mm:ss:SSS&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(MILLIS, &quot;E, dd.MM.yy, HH:mm:ss:SSS&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(MILLIS, &quot;dd.MM.yy, HH:mm:ss:SSS&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(MILLIS, &quot;dd.MM, HH:mm:ss:SSS&quot;, 1, TOP));
+        addResolution(new ChronoUnitResolution(MILLIS, &quot;SSS&quot;, 1, BOTTOM));
+        addResolution(new ChronoUnitResolution(MILLIS, &quot;SSS&quot;, 5, BOTTOM));
+        addResolution(new ChronoUnitResolution(MILLIS, &quot;SSS&quot;, 10, BOTTOM));
+        addResolution(new ChronoUnitResolution(MILLIS, &quot;SSS&quot;, 15, BOTTOM));
+
+        addResolution(new ChronoUnitResolution(SECONDS, &quot;EEEE, dd. MMMM yyyy, HH:mm:ss&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(SECONDS, &quot;EEEE, dd.MM.yy, HH:mm:ss&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(SECONDS, &quot;E, dd.MM.yy, HH:mm:ss&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(SECONDS, &quot;dd.MM.yy, HH:mm:ss&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(SECONDS, &quot;dd.MM, HH:mm:ss&quot;, 1, MIDDLE));
+        addResolution(new ChronoUnitResolution(SECONDS, &quot;HH:mm:ss&quot;, 1, MIDDLE));
+        addResolution(new ChronoUnitResolution(SECONDS, &quot;ss&quot;, 1, BOTTOM));
+        addResolution(new ChronoUnitResolution(SECONDS, &quot;ss&quot;, 5, BOTTOM));
+        addResolution(new ChronoUnitResolution(SECONDS, &quot;ss&quot;, 10, BOTTOM));
+        addResolution(new ChronoUnitResolution(SECONDS, &quot;ss&quot;, 15, BOTTOM));
+
+        addResolution(new ChronoUnitResolution(MINUTES, &quot;EEEE, dd. MMMM yyyy, HH:mm&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(MINUTES, &quot;EEEE, dd.MM.yy, HH:mm&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(MINUTES, &quot;E, dd.MM.yy, HH:mm&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(MINUTES, &quot;dd.MM.yy, HH:mm&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(MINUTES, &quot;dd.MM, HH:mm&quot;, 1, TOP));
+        addResolution(new ChronoUnitResolution(MINUTES, &quot;HH:mm&quot;, 1, MIDDLE));
+        addResolution(new ChronoUnitResolution(MINUTES, &quot;mm&quot;, 1, BOTTOM));
+        addResolution(new ChronoUnitResolution(MINUTES, &quot;mm&quot;, 5, BOTTOM));
+        addResolution(new ChronoUnitResolution(MINUTES, &quot;mm&quot;, 10, BOTTOM));
+        addResolution(new ChronoUnitResolution(MINUTES, &quot;mm&quot;, 15, BOTTOM));
+
+        addResolution(new ChronoUnitResolution(HOURS, &quot;EEEE, dd. MMMM yyyy, HH:mm&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(HOURS, &quot;EEEE, dd.MM.yy, HH:mm&quot;, 1, TOP, BOTTOM, ONLY));
+        addResolution(new ChronoUnitResolution(HOURS, &quot;E, dd.MM.yy, HH:mm&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(HOURS, &quot;dd.MM.yy, HH:mm&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(HOURS, &quot;dd.MM, HH:mm&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(HOURS, &quot;H:mm&quot;, 1, MIDDLE, BOTTOM));
+        addResolution(new ChronoUnitResolution(HOURS, &quot;H:mm&quot;, 3, MIDDLE, BOTTOM));
+        addResolution(new ChronoUnitResolution(HOURS, &quot;H:mm&quot;, 6, MIDDLE, BOTTOM));
+
+        addResolution(new ChronoUnitResolution(DAYS, &quot;EEEE d. MMMM yyyy&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(DAYS, &quot;EEEE d. MMMM yy&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(DAYS, &quot;E, d. MMMM yy&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(DAYS, &quot;E, d. MMMM&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(DAYS, &quot;E, dd.MM.yy&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(DAYS, &quot;EEEE dd&quot;, 1, MIDDLE, BOTTOM));
+        addResolution(new ChronoUnitResolution(DAYS, &quot;E dd&quot;, 1, MIDDLE, BOTTOM));
+        addResolution(new ChronoUnitResolution(DAYS, &quot;dd.MM&quot;, 1, MIDDLE, BOTTOM));
+        addResolution(new ChronoUnitResolution(DAYS, &quot;dd&quot;, 1, BOTTOM));
+
+        addResolution(new ChronoUnitResolution(WEEKS, &quot;'W' w, EEEE d. MMMM yy&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(WEEKS, &quot;'W' w, d. MMMM yy&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(WEEKS, &quot;'W' w, d. MMMM&quot;, 1));
+        addResolution(new ChronoUnitResolution(WEEKS, &quot;'W' w, E, dd.MM.yy&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(WEEKS, &quot;'W' w, dd.MM.yy&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(WEEKS, &quot;'W' w, dd.MM&quot;, 1, BOTTOM));
+        addResolution(new ChronoUnitResolution(WEEKS, &quot;'W' w&quot;, 1, MIDDLE, BOTTOM));
+
+        addResolution(new ChronoUnitResolution(MONTHS, &quot;MMMM yyyy&quot;, 1, TOP, ONLY));
+        addResolution(new ChronoUnitResolution(MONTHS, &quot;MMMM&quot;, 1, MIDDLE, BOTTOM));
+        addResolution(new ChronoUnitResolution(MONTHS, &quot;MMM&quot;, 1, MIDDLE, BOTTOM));
+        addResolution(new ChronoUnitResolution(MONTHS, &quot;M&quot;, 1, MIDDLE, BOTTOM));
+
+        addResolution(new ChronoUnitResolution(YEARS, &quot;yyyy&quot;, 1));
+        addResolution(new ChronoUnitResolution(DECADES, &quot;yyyy&quot;, 1));
+        addResolution(new ChronoUnitResolution(CENTURIES, &quot;yyyy&quot;, 1));
+        addResolution(new ChronoUnitResolution(MILLENNIA, &quot;yyyy&quot;, 1));
+    }
+
+    @Override
+    public final ChronoUnit nextTemporalUnit(ChronoUnit unit) {
+        switch (unit) {
+            case NANOS:
+                return MICROS;
+            case MICROS:
+                return MILLIS;
+            case MILLIS:
+                return SECONDS;
+            case SECONDS:
+                return MINUTES;
+            case MINUTES:
+                return HOURS;
+            case HOURS:
+                return DAYS;
+            case DAYS:
+                return WEEKS;
+            case WEEKS:
+                return MONTHS;
+            case MONTHS:
+                return YEARS;
+            case YEARS:
+                return DECADES;
+            case DECADES:
+                return CENTURIES;
+            case CENTURIES:
+                return MILLENNIA;
+            default:
+            /*
+             * We are ignoring HALF DAYS.
+             */
+                return null;
+        }
+    }
+}
+</code></pre>
+
+<p><strong>Simple Unit Dateline 模型</strong></p>
+<p><code>SimpleUnitDatelineModel</code> 类是针对 <strong>FlexGanttFX</strong> 随附的 <code>SimpleUnit</code> 时间单位的特化实现。它需要类型为 <code>SimpleUnitResolution</code> 的刻度分辨率。下面的模型类实现展示了为什么该单位被称为“简单”。</p>
+<pre><code class="language-java">package com.flexganttfx.model.dateline;
+
+
+import com.flexganttfx.model.util.SimpleUnit;
+
+public final class SimpleUnitDatelineModel extends DatelineModel&lt;SimpleUnit&gt; {
+
+    public SimpleUnitDatelineModel() {
+        for (SimpleUnit unit : SimpleUnit.values()) {
+            addResolution(new SimpleUnitResolution(unit, &quot;&quot;, 1));
+        }
+    }
+
+    @Override
+    public SimpleUnit nextTemporalUnit(SimpleUnit unit) {
+        int ordinal = unit.ordinal();
+        if (ordinal &lt; SimpleUnit.values().length - 1) {
+            return SimpleUnit.values()[ordinal + 1];
+        }
+        return null;
+    }
+}
+</code></pre>
+
+<p><strong>时区</strong></p>
+<p>Dateline 模型管理一个时区 ID 列表，UI 使用该列表为每个 ID 创建菜单项。这样用户就可以轻松在它们之间切换。默认列表在 <code>DatelineModel</code> 类中按如下方式设置：</p>
+<pre><code class="language-java">/**
+ * Constructs a new model and populates the list of available zone IDs.
+ */
+protected DatelineModel() {
+    addZoneId(&quot;Europe/Berlin&quot;);
+    addZoneId(&quot;America/New_York&quot;);
+    addZoneId(&quot;Australia/Darwin&quot;);
+    addZoneId(&quot;Australia/Sydney&quot;);
+    addZoneId(&quot;America/Argentina/Buenos_Aires&quot;);
+    addZoneId(&quot;Africa/Cairo&quot;);
+    addZoneId(&quot;America/Anchorage&quot;);
+    addZoneId(&quot;America/Sao_Paulo&quot;);
+    addZoneId(&quot;Asia/Dhaka&quot;);
+    addZoneId(&quot;Africa/Harare&quot;);
+    addZoneId(&quot;America/St_Johns&quot;);
+    addZoneId(&quot;America/Chicago&quot;);
+    addZoneId(&quot;Asia/Shanghai&quot;);
+    addZoneId(&quot;Africa/Addis_Ababa&quot;)
+    addZoneId(&quot;Europe/Paris&quot;);
+    addZoneId(&quot;America/Indiana/Indianapolis&quot;);
+    addZoneId(&quot;Asia/Kolkata&quot;);
+    addZoneId(&quot;Asia/Tokyo&quot;);
+    addZoneId(&quot;Pacific/Apia&quot;);
+    addZoneId(&quot;Asia/Yerevan&quot;);
+    addZoneId(&quot;Pacific/Auckland&quot;);
+    addZoneId(&quot;Asia/Karachi&quot;);
+    addZoneId(&quot;America/Phoenix&quot;);
+    addZoneId(&quot;America/Puerto_Rico&quot;);
+    addZoneId(&quot;America/Los_Angeles&quot;);
+    addZoneId(&quot;Pacific/Guadalcanal&quot;);
+    addZoneId(&quot;Asia/Ho_Chi_Minh&quot;);
+}
+</code></pre>
+      </article>
+      <div class="docs-nav-bottom">
+        <a class="docs-nav-btn" href="timeline.html"><span class="docs-nav-label">← 上一页</span><span class="docs-nav-title">Timeline（时间轴）</span></a>
+<a class="docs-nav-btn next" href="eventline.html"><span class="docs-nav-label">下一页 →</span><span class="docs-nav-title">Eventline（事件线）</span></a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../assets/js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js" crossorigin="anonymous"></script>
+</body>
+</html>

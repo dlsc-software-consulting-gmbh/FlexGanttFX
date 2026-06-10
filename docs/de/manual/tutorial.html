@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-20G18JBY7X"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-20G18JBY7X");</script>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutorial — FlexGanttFX</title>
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+  <script src="../../assets/js/lang.js"></script>
+  <link rel="stylesheet" href="../../assets/css/docs.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" crossorigin="anonymous" />
+  <link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/tutorial.html" />
+  <link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/tutorial.html" />
+  <link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/tutorial.html" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/tutorial.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/tutorial.html" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <div class="navbar-brand-group">
+    <a href="../index.html" class="navbar-logo">
+      <i class="fa-solid fa-chart-gantt logo-icon"></i>
+      FlexGanttFX
+    </a>
+    <span class="navbar-brand-sep"></span>
+    <a href="https://www.dlsc.com" class="navbar-dlsc-link" target="_blank" rel="noopener" title="DLSC Software &amp; Consulting GmbH">
+      <img src="../../assets/images/dlsc-logo.png" alt="DLSC" class="navbar-dlsc-logo" />
+    </a>
+  </div>
+        <ul class="navbar-links">
+          <li><a href="../index.html">Startseite</a></li>
+          <li><a href="../pages/demos.html">Demos</a></li>
+          <li class="nav-dropdown">
+            <a href="index.html" class="active">Handbuch</a>
+            <div class="dropdown-menu">
+              <a href="index.html">Inhaltsverzeichnis</a>
+              <a href="installation.html">Installation</a>
+              <a href="tutorial.html">Tutorial</a>
+              <a href="gantt-charts.html">Gantt-Diagramme</a>
+              <a href="timeline.html">Timeline</a>
+              <a href="dateline.html">Dateline</a>
+              <a href="eventline.html">Eventline</a>
+              <a href="graphics.html">Grafik</a>
+              <a href="model.html">Modell</a>
+              <a href="styling.html">Styling</a>
+              <a href="logging.html">Logging</a>
+            </div>
+          </li>
+          <li class="nav-dropdown">
+            <a href="#">Dokumentation</a>
+            <div class="dropdown-menu">
+              <a href="../pages/faq.html">FAQs</a>
+              <a href="../pages/changelog.html">Versionshinweise</a>
+              <a href="../pages/licensing.html">Lizenzierung</a>
+              <a href="../../api/index.html">Javadocs / API</a>
+            </div>
+          </li>
+          <li><a href="../pages/downloads.html">Downloads</a></li>
+      <li class="nav-dropdown nav-lang">
+        <a href="#"><i class="fa-solid fa-globe"></i> DE</a>
+        <div class="dropdown-menu">
+          <a href="../../manual/tutorial.html" data-lang="en">English</a>
+          <a href="tutorial.html" data-lang="de" class="active">Deutsch</a>
+          <a href="../../fr/manual/tutorial.html" data-lang="fr">Français</a>
+          <a href="../../zh/manual/tutorial.html" data-lang="zh">中文（简体）</a>
+        </div>
+      </li>
+          <li><a href="mailto:dlemmermann@gmail.com" class="nav-cta"><i class="fa-solid fa-envelope" style="font-size:0.8rem"></i> Kontakt</a></li>
+        </ul>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="container">
+        <a href="../index.html">Startseite</a>
+        <a href="index.html">Dokumentation</a>
+        <a href="installation.html">Installation</a>
+        <a href="tutorial.html">Tutorial</a>
+        <a href="gantt-charts.html">Gantt-Diagramme</a>
+        <a href="model.html">Modell</a>
+        <a href="../pages/faq.html">FAQ</a>
+      <div class="mobile-lang-divider"></div>
+      <a href="../../manual/tutorial.html" data-lang="en"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> English</a>
+      <a href="tutorial.html" data-lang="de" class="active-lang"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Deutsch</a>
+      <a href="../../fr/manual/tutorial.html" data-lang="fr"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Français</a>
+      <a href="../../zh/manual/tutorial.html" data-lang="zh"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> 中文（简体）</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Erste Schritte</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Übersicht</a></li>
+          <li><a href="installation.html">Installation</a></li>
+          <li><a href="tutorial.html" class="active">Tutorial</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Steuerelemente</div>
+        <ul class="sidebar-nav">
+          <li><a href="gantt-charts.html">Gantt-Diagramme</a></li>
+          <li><a href="timeline.html">Timeline</a></li>
+          <li><a href="dateline.html">Dateline</a></li>
+          <li><a href="eventline.html">Eventline</a></li>
+          <li><a href="graphics.html">Grafik</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Framework</div>
+        <ul class="sidebar-nav">
+          <li><a href="model.html">Modell</a></li>
+          <li><a href="styling.html">Styling</a></li>
+          <li><a href="logging.html">Logging</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Referenz</div>
+        <ul class="sidebar-nav">
+          <li><a href="../../api/index.html">Javadocs / API</a></li>
+          <li><a href="../pages/changelog.html">Versionshinweise</a></li>
+          <li><a href="../pages/licensing.html">Lizenzierung</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="docs-content">
+      <nav class="breadcrumb">
+        <a href="../index.html">Startseite</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="index.html">Dokumentation</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Tutorial</span>
+      </nav>
+      <article class="prose">
+<h1 id="tutorial">Tutorial</h1>
+<p>In diesem Tutorial erstellen wir eine einfache Lösung zur Anzeige des Zeitplans einer Flugzeugflotte. Zur Installation von 
+<strong>FlexGanttFX</strong> folgen Sie bitte den Anweisungen unter <a href="/docs/installation">Installation</a>.</p>
+<p><img alt="Airbus A380" src="../../assets/images/docs/a380.png" /></p>
+<h2 id="view-model">View-Modell</h2>
+<p>Beginnen wir mit der Erstellung eines View-Modells für das Gantt-Diagramm. Unsere Objekte sind <code>Fleet</code>, <code>Aircraft</code>, <code>Crew</code> und 
+<code>Flight</code>. Instanzen von <code>Flight</code> werden als horizontaler Balken im Grafikbereich des Gantt-Diagramms angezeigt, während die ersten drei in den Zeilen des Tree-Table-Bereichs erscheinen. <code>Fleet</code>, <code>Aircraft</code> und <code>Crew</code> teilen eine gemeinsame Oberklasse namens <code>ModelObject</code>, eine Erweiterung von <code>Row</code>. Die Klasse <code>Row</code> wird mithilfe von drei Typargumenten zur Definition einer hierarchischen Datenstruktur verwendet: Das erste gibt den Typ der übergeordneten Zeile an, das zweite den Typ der untergeordneten Zeilen und das dritte den Typ der Aktivitäten, die auf der rechten Seite des Gantt-Diagramms angezeigt werden. </p>
+<h2 id="model-object">Modell-Objekt</h2>
+<pre><code class="language-java">    P extends Row&lt;?,?,?&gt;, // Type of parent row
+    C extends Row&lt;?,?,?&gt;, // Type of child rows
+    A extends Activity&gt; extends Row&lt;P, C, A&gt; { }
+</code></pre>
+
+<p>Wir können nun <code>ModelObject</code> als Typargument beim Erstellen einer Instanz eines <code>GanttChart</code>-Steuerelements übergeben. Damit wird dem 
+Steuerelement mitgeteilt, dass alle Zeilen diesen gemeinsamen Supertyp aufweisen.</p>
+<pre><code class="language-java">GanttChart&lt;ModelObject&lt;?,?,?&gt; gantt = new GanttChart&lt;&gt;()
+</code></pre>
+
+<p>Die Modellklasse <code>Aircraft</code> kann wie im folgenden Code-Fragment gezeigt implementiert werden – vorausgesetzt, eine Flotte 
+besteht aus mehreren Flugzeugen, jedes Flugzeug hat eine Besatzung, und Flüge werden Flugzeugen und Besatzungen zugeordnet.</p>
+<pre><code class="language-java">public class Aircraft extends ModelObject&lt;Fleet, Crew, Flight&gt; {
+    public Aircraft(String name) {
+        super(name);
+    }
+}
+</code></pre>
+
+<p>Die Klasse <code>Flight</code> erweitert <code>MutableActivityBase</code> und könnte wie folgt aussehen:</p>
+<pre><code class="language-java">public class Flight extends MutableActivityBase&lt;FlightData&gt; {
+    public Flight(FlightData data) {
+        super(data.getFlightName()); // the activity name
+        setStartTime(data.getFlightDepartureTime()); // times as java.time.Instant
+        setEndTime(data.getFlightArrivalTime());
+        setUserObject(data); // a user object according to the type argument above
+    }
+}
+</code></pre>
+
+<p>Diese Klasse definiert einen Flug als <strong>veränderliche</strong> Aktivität, was bedeutet, dass der Benutzer den Flug bearbeiten bzw. ändern kann. 
+Wir sehen auch, dass die Aktivität ihre Informationen aus einem Domain-Objekt vom Typ <code>FlightData</code> bezieht. Die Unterstützung eines User-Objekts ermöglicht es uns, eine Verbindung zwischen dem Domain-Modell und dem View-Modell herzustellen. Jetzt müssen wir nur noch 
+die Aktivitäten (die Flüge) zu den Zeilen (den Flugzeugen) hinzufügen. Dazu können wir einfach die Methode <code>Row.addActivity(Layer, Activity)</code> aufrufen.</p>
+<h2 id="activity-repositories">Activity-Repositories</h2>
+<p>Zeilen speichern Aktivitäten nicht selbst, sondern delegieren die gesamte aktivitätsbezogene Funktionalität an ein Repository vom Typ <code>ActivityRepository</code>. Das Standard-Repository ist vom Typ <code>IntervalTreeRepository</code>. 
+Anwendungen können eigene Repositories implementieren und diese durch den Aufruf von <code>Row.setRepository()</code> registrieren.</p>
+<h2 id="layers">Layer</h2>
+<p>Layer werden verwendet, um Gruppen von Aktivitäten zu erstellen, sodass diese gemeinsam ein- oder ausgeblendet werden können. 
+In unserem Beispiel möchten wir Flüge nach ihrem Servicetyp gruppieren (Cargo, Charter, Training usw.). </p>
+<pre><code class="language-java">Layer cargoLayer = new Layer(&quot;Cargo&quot;);
+Layer trainingLayer = new Layer(&quot;Training&quot;);
+Layer charterLayer = new Layer(&quot;Charter&quot;);
+
+// make layers known to Gantt
+gantt.getLayers().addAll(cargoLayer, trainingLayer, charterLayer); 
+</code></pre>
+
+<p>Das Gantt-Diagramm weiß nun, welche Layer es rendern muss, und wir können die Verbindung zwischen Layern und 
+Aktivitäten herstellen. Dies geschieht, wenn wir die Aktivitäten zu den Zeilen hinzufügen (hier: Flüge zu Flugzeugen).</p>
+<pre><code class="language-java">Flight flight1 = new Flight(); // a cargo flight
+Flight flight2 = new Flight(); // a training flight
+Flight flight3 = new Flight(); // a charter flight
+
+aircraft1.addActivity(cargoLayer, flight1);
+aircraft1.addActivity(trainingLayer, flight2);
+aircraft2.addActivity(charterLayer, flight3);
+</code></pre>
+
+<p>Im folgenden Code-Beispiel fassen wir alle obigen Schritte zusammen.</p>
+<pre><code class="language-java">import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import com.flexganttfx.model.Activity;
+import com.flexganttfx.model.Layer;
+import com.flexganttfx.model.Row;
+import com.flexganttfx.model.activity.MutableActivityBase;
+import com.flexganttfx.view.GanttChart;
+
+public class MyFirstGanttChart extends Application {
+
+    /*
+     * Common superclass of Fleet, Aircraft, and Crew.
+     */
+    class ModelObject&lt;
+        P extends Row&lt;?,?,?&gt;, // Type of parent row
+        C extends Row&lt;?,?,?&gt;, // Type of child rows
+        A extends Activity&gt; extends Row&lt;P, C, A&gt; { }
+
+    class Fleet extends ModelObject&lt;Row&lt;?,?,?&gt;, Aircraft, Activity&gt; { }
+
+    class Aircraft extends ModelObject&lt;Fleet, Crew, Flight&gt; { }
+
+    class Flight extends MutableActivityBase&lt;Object&gt; { }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        // Our root object.
+        Fleet fleet = new Fleet();
+        fleet.setExpanded(true);
+
+        // Create the control.      
+        GanttChart&lt;ModelObject&lt;?,?,?&gt;&gt; gantt = new GanttChart&lt;&gt;(fleet);
+
+        // Layers based on service type.
+        Layer cargoLayer = new Layer(&quot;Cargo&quot;);
+        Layer trainingLayer = new Layer(&quot;Training&quot;);
+        Layer charterLayer = new Layer(&quot;Charter&quot;);
+        gantt.getLayers().addAll(cargoLayer, trainingLayer, charterLayer);
+
+        // Create the aircrafts.
+        Aircraft aircraft1 = new Aircraft();
+        Aircraft aircraft2 = new Aircraft();
+
+        // Add the aircrafts to the fleet.
+        fleet.getChildren().addAll(aircraft1, aircraft2);
+
+        // Create the flights
+        Flight flight1 = new Flight(); // a cargo flight
+        Flight flight2 = new Flight(); // a training flight
+        Flight flight3 = new Flight(); // a charter flight
+        aircraft1.addActivity(cargoLayer, flight1);
+        aircraft1.addActivity(trainingLayer, flight2);
+        aircraft2.addActivity(charterLayer, flight3);
+
+        Scene scene = new Scene(gantt);
+        stage.setTitle(&quot;Fleet Schedule&quot;);
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.sizeToScene();
+        stage.show();
+    }
+
+    public static void main(String[] args) {
+        Application.launch(args);
+    }
+}
+</code></pre>
+
+<p>Das Bild unten zeigt, was wir sehen, wenn wir diesen Code ausführen.</p>
+<p><img alt="Zwischenergebnis" src="../../assets/images/docs/intermediate-result.png" /></p>
+<h2 id="activity-renderers">Activity-Renderer</h2>
+<p>Dieses Ergebnis ist für wenige Codezeilen nicht schlecht, aber die Darstellung der Flüge ist wenig ansprechend. Wir können ihr Aussehen anpassen, indem wir einen anderen <code>ActivityRenderer</code> für den Aktivitätstyp <code>Flight</code> registrieren. Dies geschieht 
+durch den Aufruf der Methode <code>GraphicsBase.setActivityRenderer()</code>, wobei die Grafikansicht das Steuerelement auf der rechten Seite 
+des Gantt-Diagramms ist. Es ist für das Rendern aller Aktivitäten zuständig. Wir können die folgenden Zeilen zu unserem Beispiel von oben hinzufügen.</p>
+<pre><code class="language-java">GraphicsView &lt;ModelObject&lt;?, ?, ?&gt;&gt; graphics = gantt.getGraphics();
+graphics.setActivityRenderer(Flight.class,
+                    GanttLayout.class,
+                    new ActivityBarRenderer&lt;&gt;(graphics, &quot;FlightRenderer&quot;));
+</code></pre>
+<p>Dies ersetzt den Standard-Activity-Renderer durch einen Renderer, der einen Balken mit fester Höhe zeichnet. Interessant an diesem Code 
+ist, dass wir nicht nur den Aktivitätstyp und die Renderer-Instanz übergeben, sondern auch einen Layout-Typ. Wir wollen in diesem Schnelleinstieg nicht zu lange auf Layouts eingehen, aber lassen Sie uns festhalten, dass <strong>FlexGanttFX</strong> in der Lage ist, Aktivitäten auf verschiedene Arten anzuzeigen (als Zeitbalken, als Diagrammeinträge, als Agenda-Einträge). Unser Beispiel sieht nun 
+so aus:</p>
+<p><img alt="Renderer" src="../../assets/images/docs/renderer.png" /></p>
+<p>Wir können dem Beispiel nun eine <code>GanttChartToolBar</code> und eine <code>GanttChartStatusBar</code> hinzufügen. Damit können wir Aktionen am Diagramm ausführen und auch überprüfen, ob die Layer korrekt hinzugefügt wurden. Die „extras"-Bibliothek von <strong>FlexGanttFX</strong> enthält 
+zusätzliche Steuerelemente wie eine <code>GanttChartStatusBar</code> und eine <code>GanttChartToolBar</code>. Mit dem Standard-<code>BorderPane</code> lassen sich 
+das Gantt-Diagramm und diese beiden Steuerelemente einfach zu einem einzelnen komplexen Steuerelement kombinieren.</p>
+<pre><code class="language-java">BorderPane borderPane = new BorderPane();
+borderPane.setTop(new GanttChartToolBar(gantt));
+borderPane.setCenter(gantt);
+borderPane.setBottom(new GanttChartStatusBar(gantt));
+
+Scene scene = new Scene(borderPane);
+</code></pre>
+
+<p>Unser Beispiel sieht nach einem Klick auf den Layer-Button in der Toolbar nun so aus:</p>
+<p><img alt="Renderer" src="../../assets/images/docs/toolbar.png" /></p>
+<h2 id="listening-to-change">Änderungen beobachten</h2>
+<p>Nachdem wir unsere Daten visualisiert haben, möchten wir natürlich mit ihnen interagieren und über vorgenommene Änderungen informiert werden. Unsere Aktivitäten sind standardmäßig bearbeitbar. Das bedeutet, wir können sie horizontal oder vertikal verschieben. Um Ereignisse zu empfangen, müssen wir lediglich einen <code>ActivityEvent</code>-Handler mit dem Grafikansicht-Steuerelement registrieren, indem wir 
+<code>GraphicsBase.setOnActivityChanged()</code> aufrufen. </p>
+<p>Für dieses Tutorial registrieren wir einfach einen Handler, der das Ereignis auf der Konsole ausgibt. Dies kann so erreicht werden:</p>
+<p><code>graphics.setOnActivityChanged(evt -&gt; System.out.println(evt));</code></p>
+<p>Wenn wir unsere Anwendung erneut starten, sehen wir folgende Ausgabe:</p>
+<pre><code class="language-bash">event type: DRAG_STARTED, time interval: 2014-04-17T21:45:00Z - 2014-04-22T21:30:00Z,
+    value (chart value / percentage complete): 0.0,
+    activity &quot;null from 2014-04-18T12:15:00Z until 2014-04-23T12:00:00Z,
+    user object = null&quot;,
+    row = &quot;Default&quot;,
+    layer = &quot;Training&quot;
+
+event type: DRAG_ONGOING, time interval: 2014-04-17T21:45:00Z - 2014-04-22T21:30:00Z,
+    value (chart value / percentage complete): 0.0,
+    activity &quot;null from 2014-04-18T12:15:00Z until 2014-04-23T12:00:00Z,
+    user object = null&quot;,
+    row = &quot;Default&quot;,
+    layer = &quot;Training&quot;
+
+event type: DRAG_FINISHED, time interval: 2014-04-17T21:45:00Z - 2014-04-22T21:30:00Z,
+    value (chart value / percentage complete): 0.0,
+    activity &quot;null from 2014-04-18T03:00:00Z until 2014-04-23T02:45:00Z,
+    user object = null&quot;,
+    row = &quot;Default&quot;,
+    layer = &quot;Training&quot;
+</code></pre>
+
+<p>Beachten Sie die drei verschiedenen Ereignistypen <code>DRAG_STARTED</code>, <code>DRAG_ONGOING</code> und <code>DRAG_FINISHED</code>. Der erste wird ausgelöst, wenn der Benutzer einen Drag-Vorgang startet, der zweite während der Drag noch läuft, und der dritte, wenn der Drag abgeschlossen ist. Dieses Muster ist auch in <strong>JavaFX</strong> selbst zu finden und wurde durchgängig in <strong>FlexGanttFX</strong> 
+umgesetzt. Schauen Sie sich unbedingt die verschiedenen in der Klasse <code>ActivityEvent</code> definierten Ereignistypen an, um zu erfahren, wie viele 
+Informationen Sie erhalten können, wenn der Benutzer Bearbeitungsoperationen durchführt.</p>
+      </article>
+      <div class="docs-nav-bottom">
+        <a class="docs-nav-btn" href="installation.html"><span class="docs-nav-label">← Zurück</span><span class="docs-nav-title">Installation</span></a>
+<a class="docs-nav-btn next" href="gantt-charts.html"><span class="docs-nav-label">Weiter →</span><span class="docs-nav-title">Gantt-Diagramme</span></a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../assets/js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js" crossorigin="anonymous"></script>
+</body>
+</html>

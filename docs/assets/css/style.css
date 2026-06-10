@@ -202,6 +202,13 @@ a:hover { color: var(--blue-dark); }
 .dropdown-menu a:last-child { margin-bottom: 8px; }
 .dropdown-menu a:hover { background: rgba(255,255,255,0.08); color: var(--white) !important; }
 
+/* Language switcher */
+.nav-lang > a .fa-globe { font-size: 0.85rem; margin-right: 4px; }
+.nav-lang .dropdown-menu { min-width: 150px; left: auto; right: 0; }
+.nav-lang .dropdown-menu a.active { color: var(--white) !important; font-weight: 700; }
+.mobile-menu .mobile-lang-divider { border-top: 1px solid rgba(255,255,255,0.1); margin: 10px 24px 6px; padding: 0; }
+.mobile-menu a.active-lang { color: var(--white); font-weight: 700; }
+
 /* Hamburger */
 .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
 .hamburger span { width: 22px; height: 2px; background: var(--white); border-radius: 2px; transition: all var(--transition); }

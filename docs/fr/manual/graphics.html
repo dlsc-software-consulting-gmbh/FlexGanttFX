@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-20G18JBY7X"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-20G18JBY7X");</script>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Graphismes — FlexGanttFX</title>
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+  <script src="../../assets/js/lang.js"></script>
+  <link rel="stylesheet" href="../../assets/css/docs.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" crossorigin="anonymous" />
+  <link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/graphics.html" />
+  <link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/graphics.html" />
+  <link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/graphics.html" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/graphics.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/graphics.html" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <div class="navbar-brand-group">
+    <a href="../index.html" class="navbar-logo">
+      <i class="fa-solid fa-chart-gantt logo-icon"></i>
+      FlexGanttFX
+    </a>
+    <span class="navbar-brand-sep"></span>
+    <a href="https://www.dlsc.com" class="navbar-dlsc-link" target="_blank" rel="noopener" title="DLSC Software &amp; Consulting GmbH">
+      <img src="../../assets/images/dlsc-logo.png" alt="DLSC" class="navbar-dlsc-logo" />
+    </a>
+  </div>
+        <ul class="navbar-links">
+          <li><a href="../index.html">Accueil</a></li>
+          <li><a href="../pages/demos.html">Démos</a></li>
+          <li class="nav-dropdown">
+            <a href="index.html" class="active">Manuel</a>
+            <div class="dropdown-menu">
+              <a href="index.html">Table des matières</a>
+              <a href="installation.html">Installation</a>
+              <a href="tutorial.html">Tutoriel</a>
+              <a href="gantt-charts.html">Diagrammes de Gantt</a>
+              <a href="timeline.html">Timeline</a>
+              <a href="dateline.html">Ligne de dates</a>
+              <a href="eventline.html">Ligne d’événements</a>
+              <a href="graphics.html">Graphismes</a>
+              <a href="model.html">Modèle</a>
+              <a href="styling.html">Style</a>
+              <a href="logging.html">Journalisation</a>
+            </div>
+          </li>
+          <li class="nav-dropdown">
+            <a href="#">Docs</a>
+            <div class="dropdown-menu">
+              <a href="../pages/faq.html">FAQ</a>
+              <a href="../pages/changelog.html">Notes de version</a>
+              <a href="../pages/licensing.html">Licences</a>
+              <a href="../../api/index.html">Javadocs / API</a>
+            </div>
+          </li>
+          <li><a href="../pages/downloads.html">Téléchargements</a></li>
+      <li class="nav-dropdown nav-lang">
+        <a href="#"><i class="fa-solid fa-globe"></i> FR</a>
+        <div class="dropdown-menu">
+          <a href="../../manual/graphics.html" data-lang="en">English</a>
+          <a href="../../de/manual/graphics.html" data-lang="de">Deutsch</a>
+          <a href="graphics.html" data-lang="fr" class="active">Français</a>
+          <a href="../../zh/manual/graphics.html" data-lang="zh">中文（简体）</a>
+        </div>
+      </li>
+          <li><a href="mailto:dlemmermann@gmail.com" class="nav-cta"><i class="fa-solid fa-envelope" style="font-size:0.8rem"></i> Contact</a></li>
+        </ul>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="container">
+        <a href="../index.html">Accueil</a>
+        <a href="index.html">Documentation</a>
+        <a href="installation.html">Installation</a>
+        <a href="tutorial.html">Tutoriel</a>
+        <a href="gantt-charts.html">Diagrammes de Gantt</a>
+        <a href="model.html">Modèle</a>
+        <a href="../pages/faq.html">FAQ</a>
+      <div class="mobile-lang-divider"></div>
+      <a href="../../manual/graphics.html" data-lang="en"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> English</a>
+      <a href="../../de/manual/graphics.html" data-lang="de"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Deutsch</a>
+      <a href="graphics.html" data-lang="fr" class="active-lang"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Français</a>
+      <a href="../../zh/manual/graphics.html" data-lang="zh"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> 中文（简体）</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Premiers pas</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Vue d’ensemble</a></li>
+          <li><a href="installation.html">Installation</a></li>
+          <li><a href="tutorial.html">Tutoriel</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Contrôles</div>
+        <ul class="sidebar-nav">
+          <li><a href="gantt-charts.html">Diagrammes de Gantt</a></li>
+          <li><a href="timeline.html">Timeline</a></li>
+          <li><a href="dateline.html">Ligne de dates</a></li>
+          <li><a href="eventline.html">Ligne d’événements</a></li>
+          <li><a href="graphics.html" class="active">Graphismes</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Framework</div>
+        <ul class="sidebar-nav">
+          <li><a href="model.html">Modèle</a></li>
+          <li><a href="styling.html">Style</a></li>
+          <li><a href="logging.html">Journalisation</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Référence</div>
+        <ul class="sidebar-nav">
+          <li><a href="../../api/index.html">Javadocs / API</a></li>
+          <li><a href="../pages/changelog.html">Notes de version</a></li>
+          <li><a href="../pages/licensing.html">Licences</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="docs-content">
+      <nav class="breadcrumb">
+        <a href="../index.html">Accueil</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="index.html">Docs</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Graphismes</span>
+      </nav>
+      <article class="prose">
+<h1 id="overview">Vue d’ensemble</h1>
+<p>Le contrôle de vue graphique est responsable du rendu des activités et des couches système, de la modification des activités, des notifications d’événements, de la détection de cible, de la gestion des couches système et de la prise en charge des menus contextuels.</p>
+<p><img alt="Graphismes" src="../../assets/images/docs/graphics.png" /></p>
+<p><strong>Rendu</strong></p>
+<p>Le contrôle graphique utilise le nœud <code>Canvas</code> et son API de dessin direct (par opposition au rendu différé effectué via le <em>Scenegraph</em>). Cela s’explique par les grands volumes de données souvent affichés par les diagrammes de Gantt. Rendre directement une activité dans un bitmap est beaucoup plus rapide que mettre à jour le graphe de scène, réappliquer le style CSS et mettre en page les nœuds. Le contrôle graphique de FlexGanttFX utilise une architecture de moteurs de rendu enfichables dans laquelle des instances de moteur de rendu peuvent être associées à des types d’activité, de manière très similaire à ce que faisait Swing pour les moteurs de rendu de cellules de listes et de tables. Le code suivant montre comment enregistrer un moteur de rendu personnalisé pour une activité « Flight » et un type de mise en page donnés. Notez que la vue graphique peut afficher les activités dans trois mises en page différentes ; le type de mise en page doit donc également être passé à la méthode.</p>
+<pre><code class="language-java">GanttChart ganttChart = new GanttChart();
+GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.setActivityRenderer(
+    Flight.class, // the type of activities that will be rendered
+    GanttLayout.class, // the type of layout where the renderer will be used
+    new FlightRenderer(graphics)); // the actual renderer instance
+</code></pre>
+
+<p><strong>Couches système</strong></p>
+<p>Les activités ne sont pas les seuls éléments à afficher. Il faut également afficher l’heure actuelle (« now »), les lignes de grille, les lignes internes, les lignes d’agenda / de graphique, etc. Tous ces éléments sont rendus par des <strong>couches système</strong>. Le contrôle graphique gère deux listes de ces couches : une liste pour les couches d’<strong>arrière-plan</strong> et une liste pour les couches de <strong>premier plan</strong>.</p>
+<p>Les couches d’arrière-plan sont dessinées « derrière » les activités, tandis que les couches de premier plan sont dessinées « au-dessus » des activités. Chacune de ces listes est déjà préremplie, mais l’application peut la modifier. Pour plus d’informations sur les couches système disponibles, consultez leur documentation individuelle.</p>
+<p>Les couches système peuvent être activées ou désactivées directement via l’API du contrôle graphique. Chaque couche possède une propriété booléenne. La valeur de ces propriétés peut être définie en appelant les méthodes qui suivent le modèle <code>setShowXYZLayer</code>. Les couches système contrôlées de cette manière apparaissent et disparaissent avec une animation de fondu entrant / sortant, tandis qu’un appel direct à <code>SystemLayer.setVisible(boolean)</code> ne produit aucune animation.</p>
+
+<p><strong>Modification</strong></p>
+<p>Deux fonctions de rappel distinctes permettent de contrôler le comportement de modification des activités. La première associe un événement / une position de souris à un <code>GraphicsBase.EditMode</code> et peut être enregistrée en appelant <code>setEditModeCallback(Class, Class, Callback)</code>. La seconde fonction de rappel sert à déterminer si un mode / une opération de modification donné peut s’appliquer à une activité. Cette fonction de rappel est enregistrée en appelant <code>setActivityEditingCallback(Class, Callback)</code>. La plupart des applications n’auront besoin que de la seconde fonction de rappel et conserveront les valeurs par défaut pour les emplacements des modes de modification (par exemple, bord droit pour modifier l’heure de fin, bord gauche pour modifier l’heure de début).</p>
+
+<p><strong>Événements</strong></p>
+<p>Des événements de type <code>ActivityEvent</code> sont envoyés chaque fois que l’utilisateur effectue un changement dans la vue graphique. Les applications qui souhaitent recevoir ces événements peuvent appeler l’une des méthodes <code>setOnActivityXYZEvent()</code> ou ajouter directement un gestionnaire d’événements via <code>addEventHandler(ActionEvent.ACTIVITY_XYZ, ...)</code>. Les événements sont déclenchés pendant l’exécution du changement et une fois celui-ci terminé. Pour cela, la classe <code>ActivityEvent</code> liste des types d’événement avec les deux suffixes <code>CHANGING</code> et <code>CHANGED</code>.</p>
+
+<p><strong>Détection de point ciblé</strong></p>
+<p>La vue graphique permet d’obtenir des informations sur une position donnée. Vous pouvez trouver des activités en appelant <code>getActivityBoundsAt(double, double)</code> ou <code>getActivityRefAt(double, double)</code>. Vous pouvez obtenir l’heure correspondant à une coordonnée x en appelant <code>getTimeAt(double)</code>. L’opération inverse est également disponible : vous pouvez trouver la position correspondant à une heure donnée en appelant <code>getLocation(Instant)</code>.</p>
+
+<p><strong>Menu contextuel</strong></p>
+<p>Des menus contextuels peuvent être définis sur n’importe quel contrôle <strong>JavaFX</strong>, mais la complexité de la vue graphique justifie une prise en charge intégrée supplémentaire. En appelant <code>setContextMenuCallback(Callback)</code>, vous pouvez enregistrer une fonction de rappel spécifique aux menus contextuels auprès du contrôle graphique. Cette fonction de rappel est invoquée lorsque l’utilisateur déclenche le menu contextuel. Un objet de paramètre de fonction de rappel (voir <code>GraphicsBase.ContextMenuParameter</code>) est transmis à la fonction de rappel, déjà renseigné avec les valeurs les plus importantes susceptibles d’être utiles pour construire un menu contextuel.</p>
+<h2 id="system-layers">Couches système</h2>
+<p>Les couches système sont utilisées à l’arrière-plan et au premier plan de chaque ligne. Une couche d’arrière-plan est dessinée avant les activités, tandis qu’une couche de premier plan est dessinée après les activités. Chaque couche est spécialisée dans le dessin d’un type d’information : heure actuelle, intervalles de temps sélectionnés, lignes de grille, etc. La vue graphique gère les couches dans deux listes et fournit des méthodes pratiques pour les retrouver facilement.</p>
+<ul>
+<li><strong>getBackgroundSystemLayers()</strong> – renvoie la liste complète des couches système utilisées à l’arrière-plan des activités.</li>
+<li><strong>getForegroundSystemLayers()</strong> – renvoie la liste complète des couches système utilisées au premier plan des activités.</li>
+<li><strong>getBackgroundSystemLayer(Class)</strong> – renvoie l’instance de couche système d’arrière-plan du type donné.</li>
+<li><strong>getForegroundSystemLayer(Class)</strong> – renvoie l’instance de couche système de premier plan du type donné.</li>
+<li><strong>getSystemLayer(Class)</strong> – renvoie l’instance de couche système du type donné, qu’il s’agisse d’une couche de premier plan ou d’arrière-plan.</li>
+</ul>
+<p>Vous pouvez ajouter ou retirer des couches de la vue graphique en les ajoutant à la liste de premier plan ou d’arrière-plan, ou en les en retirant. Une fois une couche récupérée, vous pouvez définir ses propriétés pour personnaliser son apparence. Les propriétés les plus courantes concernent les couleurs et les épaisseurs de lignes.</p>
+<p><strong>Exemple de couche système</strong></p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+NowLineLayer nowLayer = graphics.getBackgroundSystemLayer(NowLineLayer .class);
+nowLayer.setStroke(Color.ORANGE);
+nowLayer.setLineWidth(3); // thick line
+</code></pre>
+
+<p><strong>Couches système et couches de modèle</strong></p>
+<p>Notez que les couches système n’ont aucun lien avec les couches du modèle. Une couche système est essentiellement un moteur de rendu pour un retour visuel, tandis qu’une couche du modèle sert à regrouper des activités.</p>
+
+<p><strong>Couches d’arrière-plan disponibles</strong></p>
+<p>Le tableau suivant liste toutes les couches d’<strong><em>arrière-plan</em></strong> fournies avec <strong>FlexGanttFX</strong>. </p>
+<table>
+<thead>
+<tr>
+<th>Couche</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AgendaLinesLayer</strong></td>
+<td>Dessine les lignes de grille horizontales d’une ligne si cette ligne, ou l’une de ses lignes internes, utilise la mise en page d’agenda.</td>
+</tr>
+<tr>
+<td><strong>CalendarLayer</strong></td>
+<td>Dessine les entrées renvoyées par les calendriers attachés à une ligne ou à toute la vue graphique. La couche de calendrier utilise des moteurs de rendu enfichables associés aux types d’entrée. Les applications peuvent enregistrer leurs propres moteurs de rendu en appelant CalendarLayer.setCalendarActivityRenderer().</td>
+</tr>
+<tr>
+<td><strong>ChartLinesLayer</strong></td>
+<td>Dessine les lignes de grille horizontales d’une ligne si cette ligne, ou l’une de ses lignes internes, utilise la mise en page de graphique.</td>
+</tr>
+<tr>
+<td><strong>DSTLineLayer</strong></td>
+<td>Dessine une ligne verticale au moment du changement d’heure d’été.</td>
+</tr>
+<tr>
+<td><strong>GridLinesLayer</strong></td>
+<td>Dessine les lignes de grille verticales en fonction des résolutions d’échelle actuellement présentes dans la ligne de dates. La couche peut être configurée pour afficher de 0 à 3 niveaux de lignes de grille. Si la ligne de dates affiche par exemple les jours et les semaines, un niveau 2 fera dessiner les lignes de grille des jours et des semaines, tandis qu’un niveau 1 ne dessinera que les lignes des jours.</td>
+</tr>
+<tr>
+<td><strong>HoverTimeIntervalLayer</strong></td>
+<td>Dessine l’intervalle de temps de survol spécifié par la ligne de dates. Si le curseur de la souris survole une semaine dans la ligne de dates, la couche remplit l’intervalle de temps défini par cette semaine avec une couleur de surbrillance.</td>
+</tr>
+<tr>
+<td><strong>InnerLinesLayer</strong></td>
+<td>Dessine des lignes de séparation entre les lignes internes. Par défaut, la propriété d’épaisseur de ligne de cette couche est définie sur 0 et aucune ligne n’est dessinée. Pour modifier cela, définissez simplement une épaisseur de ligne supérieure à 0.</td>
+</tr>
+<tr>
+<td><strong>NowLineLayer</strong></td>
+<td>Dessine une ligne verticale à la position de l’heure actuelle / now. L’heure actuelle est définie dans le modèle de la timeline.</td>
+</tr>
+<tr>
+<td><strong>RowLayer</strong></td>
+<td>Dessine l’arrière-plan de chaque ligne. La couche peut être configurée avec des moteurs de rendu enfichables associés au type de ligne. Les applications peuvent enregistrer leurs propres moteurs de rendu en appelant RowLayer.setRowRenderer(). Pour plus d’informations, consultez 3.4.7 Rendu des lignes.</td>
+</tr>
+<tr>
+<td><strong>SelectedTimeIntervalsLayer</strong></td>
+<td>Dessine les intervalles de temps sélectionnés par l’utilisateur (ou par l’application) dans la ligne de dates.</td>
+</tr>
+<tr>
+<td><strong>ZoomIntervalLayer</strong></td>
+<td>Dessine l’intervalle de zoom tel que défini par la timeline. L’intervalle de zoom est créé par l’utilisateur à l’aide du lasso de la timeline.</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Couches de premier plan disponibles</strong></p>
+<p>Le tableau suivant liste toutes les couches de <strong><em>premier plan</em></strong> fournies avec <strong>FlexGanttFX</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Couche</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LayoutLayer</strong></td>
+<td>Dessine les zones de padding de la mise en page. Chaque mise en page peut ajouter du padding en haut et en bas. Cette couche remplit la zone de padding avec une couleur unie.</td>
+</tr>
+<tr>
+<td><strong>ScaleLayer</strong></td>
+<td>Dessine une échelle pour une ligne entière ou pour chaque ligne interne. Les échelles varient selon la mise en page utilisé pour la ligne / ligne interne. L’échelle de la mise en page de graphique affiche les valeurs minimale et maximale, tandis que l’échelle de la mise en page d’agenda affiche une échelle horaire (8 h, 9 h, 10 h, ...). Les libellés et les graduations de la couche d’échelle doivent s’aligner parfaitement avec les lignes dessinées par les couches de lignes d’agenda et de graphique.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="drag-and-drop">Glisser-déposer</h2>
+<p>Les fonctionnalités de glisser-déposer (DnD) lourdes et fournies par la plateforme ne sont utilisées dans <strong>FlexGanttFX</strong> que pour déplacer une activité d’une ligne vers une autre. Toutes les autres opérations de modification sont gérées avec des événements souris standard (pression, glissement). La nouvelle ligne peut même se trouver dans un autre diagramme de Gantt. Par défaut, vous lancez un DnD en plaçant le curseur de la souris au centre d’une activité tout en maintenant la touche SHIFT enfoncée. Le curseur devient alors le curseur DnD si ce type d’opération de modification est pris en charge par l’activité ciblée (voir aussi « <a href="#activity-editing">Modification des activités</a> »). Le DnD se termine lorsque l’utilisateur relâche le bouton de la souris.</p>
+<p><strong>Événements</strong></p>
+<p>Comme toutes les autres opérations de modification, le DnD déclenche plusieurs événements pendant son exécution. La liste suivante les décrit :</p>
+<ul>
+<li><strong>DRAG_STARTED</strong>, <strong>DRAG_ONGOING</strong>, <strong>DRAG_FINISHED</strong> - ces types d’événement sont déclenchés si l’opération de modification est EditMode.DRAGGING.</li>
+<li><strong>VERTICAL_DRAG_STARTED</strong>, <strong>VERTICAL_DRAG_ONGOING</strong>, <strong>VERTICAL_DRAG_FINISHED</strong> - ces types d’événement sont déclenchés si l’opération de modification est EditMode.DRAGGING_VERTICAL.</li>
+</ul>
+<p>Le mode de modification <code>DRAGGING_HORIZONTAL</code> n’utilise pas le DnD de la plateforme. Par conséquent, les types d’événement <code>HORIZONTAL_DRAG_STARTED</code> / <code>ONGOING</code> / <code>FINISHED</code> ne sont pas listés ci-dessus.</p>
+<p><strong>Propriété d’information de glisser-déposer</strong></p>
+<p>Une propriété spéciale appelée <code>dragAndDropInfo</code> est disponible sur la vue graphique pour surveiller l’opération DnD. Elle s’ajoute aux types d’événement standard mentionnés ci-dessus. Les informations stockées dans cette propriété fournissent à l’application les données les plus importantes concernant l’activité déplacée.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>row</strong></td>
+<td>La ligne actuellement survolée par le curseur de la souris / l’activité déplacée.</td>
+</tr>
+<tr>
+<td><strong>activityBounds</strong></td>
+<td>Les limites de l’activité déplacée (contient une référence d’activité et l’activité elle-même).</td>
+</tr>
+<tr>
+<td><strong>dragEvent</strong></td>
+<td>Le dernier événement de glissement (glissement en cours ou dépôt).</td>
+</tr>
+<tr>
+<td><strong>dropInterval</strong></td>
+<td>L’intervalle de temps où l’activité serait déposée ou a réellement été déposée.</td>
+</tr>
+<tr>
+<td><strong>offset</strong></td>
+<td>Le décalage à l’endroit où la souris a saisi l’activité (nécessaire au retour visuel du glissement).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Types de retour visuel</strong></p>
+<p>FlexGanttFX propose différentes manières de visualiser le retour DnD. L’énumération DragAndDropFeedback liste les valeurs suivantes, qui peuvent être définies en appelant la méthode setDragAndDropFeedback() sur GraphicsBase.</p>
+<table>
+<thead>
+<tr>
+<th>Valeur</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NATIVE</strong></td>
+<td>Une image instantanée de l’activité est capturée et placée sous le curseur de la souris. L’image est définie au moment où le geste de glissement est reconnu. Un fournisseur d’image de glissement peut éventuellement être utilisé. La taille de l’image peut différer de celle de l’activité (spécifique à la plateforme).</td>
+</tr>
+<tr>
+<td><strong>RENDERED</strong></td>
+<td>L’activité déplacée est rendue en continu sur un canvas séparé au-dessus de la zone graphique. L’activité conserve toujours sa taille d’origine.</td>
+</tr>
+<tr>
+<td><strong>RENDERED_GRID_SNAPPED</strong></td>
+<td>L’activité déplacée est rendue en continu sur un canvas séparé au-dessus de la zone graphique. L’activité conserve toujours sa taille d’origine. La grille actuellement active est utilisée pour aligner l’activité déplacée sur les positions de la grille.</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Fournisseur d’image de glissement</strong></p>
+<p>Si le type de retour DnD a été défini sur <code>NATIVE</code>, il est possible de transmettre une image personnalisée pour l’opération de glissement. Pour cela, définissez un fournisseur d’image de glissement sur <code>GraphicsBase</code> en appelant <code>setDragImageProvider()</code>. Cette méthode accepte une expression lambda de fonction de rappel. L’entrée de la fonction de rappel est un ActivityRef et sa sortie une image.</p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.setDragImageProvider(ref -&gt; createImage(ref));
+</code></pre>
+
+<p>L’image par défaut est un instantané de l’activité au moment où le glissement a commencé.</p>
+<p><strong>Fournisseur de couche de dépôt</strong></p>
+<p>Les opérations de glisser-déposer peuvent être effectuées entre deux diagrammes de Gantt différents, chaque diagramme gérant sa propre liste de couches. Par défaut, une activité déposée est placée sur la même couche que celle depuis laquelle elle a été déplacée. Mais si le diagramme de Gantt cible ne contient pas cette couche, l’application doit indiquer quelle couche utiliser comme nouveau conteneur de l’activité. Pour cela, définissez une fonction de rappel « fournisseur de couche de dépôt » sur l’instance cible de <code>GraphicsBase</code>.</p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = targetGanttChart.getGraphics();
+targetGraphics.setDropLayerProvider(info -&gt; targetLayer); // info is of type DragAndDropInfo
+</code></pre>
+
+<p>L’implémentation par défaut de cette fonction de rappel ressemble à ceci :</p>
+<pre><code class="language-java">info -&gt; info.getActivityRef().getLayer(); // use same layer as before
+</code></pre>
+
+<p>Si le fournisseur de couche de dépôt ne renvoie aucune couche, ou si la couche renvoyée n’a pas été ajoutée au diagramme de Gantt / aux graphismes cibles, vous verrez des messages comme ceux-ci.</p>
+<ul>
+<li>« le fournisseur de couche de dépôt n’a renvoyé aucune couche pour l’activité déposée »</li>
+<li>« le fournisseur de couche de dépôt a renvoyé une couche qui n’existe pas dans le diagramme de Gantt »</li>
+</ul>
+<h2 id="event-handling">Gestion des événements</h2>
+<p>La vue graphique déclenche des événements <strong>JavaFX</strong> standard afin de permettre aux applications de réagir aux changements. Les concepts utilisés pour la prise en charge des gestionnaires d’événements dans <strong>FlexGanttFX</strong> sont identiques à ceux des contrôles JavaFX standard.</p>
+<p><strong>Événements d’activité</strong></p>
+<p>Les événements d’activité sont déclenchés chaque fois que l’utilisateur supprime ou modifie une activité. Pour recevoir un événement d’activité, enregistrez un gestionnaire d’événements auprès de la vue graphique via l’une des méthodes pratiques.</p>
+<p><strong>Gestionnaire d’événement d’activité unique</strong></p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.setOnActivityChangeFinished(evt -&gt; 
+            System.out.println(&quot;An activity has changed&quot;));
+</code></pre>
+
+<p>Si vous devez enregistrer plusieurs gestionnaires pour un type d’événement spécifique, utilisez cette approche :</p>
+<p><strong>Gestionnaires d’événements d’activité multiples</strong></p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.addEventHandler(ActivityEvent.ACTIVITY_CHANGE_FINISHED, 
+                            evt -&gt; System.out.println(&quot;Listener 1&quot;));
+graphics.addEventHandler(ActivityEvent.ACTIVITY_CHANGE_FINISHED, 
+                            evt -&gt; System.out.println(&quot;Listener 2&quot;));
+</code></pre>
+
+<p>Les tableaux suivants listent tous les types d’événement d’activité pris en charge ainsi que les méthodes setter pratiques de la vue graphique. Ces méthodes servent à enregistrer rapidement un gestionnaire d’événements pour les différents types.</p>
+<table>
+<thead>
+<tr>
+<th>Types d’événement</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ACTIVITY_DELETED</td>
+<td>Déclenché chaque fois que l’utilisateur supprime une activité avec la touche Retour arrière.</td>
+</tr>
+<tr>
+<td>ACTIVITY_CHANGE</td>
+<td>Le type d’événement parent de tous les changements d’activité. Peut être utilisé pour recevoir une notification pour tout type de changement d’activité.</td>
+</tr>
+<tr>
+<td>ACTIVITY_CHANGE_STARTED, ACTIVITY_CHANGE_ONGOING, ACTIVITY_CHANGE_FINISHED</td>
+<td>Déclenché chaque fois qu’un changement d’activité a commencé, est en cours ou s’est terminé.</td>
+</tr>
+<tr>
+<td>CHART_HIGH_VALUE_CHANGE_STARTED, CHART_HIGH_VALUE_CHANGE_ONGOING, CHART_HIGH_VALUE_CHANGE_FINISHED</td>
+<td>Déclenché lorsque l’utilisateur a commencé à modifier, est en train de modifier ou a terminé de modifier la valeur « high » d’une activité de graphique high / low.</td>
+</tr>
+<tr>
+<td>CHART_LOW_VALUE_CHANGE_STARTED, CHART_LOW_VALUE_CHANGE_ONGOING, CHART_LOW_VALUE_CHANGE_FINISHED</td>
+<td>Déclenché lorsque l’utilisateur a commencé à modifier, est en train de modifier ou a terminé de modifier la valeur « low » d’une activité de graphique high / low.</td>
+</tr>
+<tr>
+<td>CHART_VALUE_CHANGE_STARTED, CHART_VALUE_CHANGE_ONGOING, CHART_VALUE_CHANGE_FINISHED</td>
+<td>Déclenché lorsque l’utilisateur a commencé à modifier, est en train de modifier ou a terminé de modifier une valeur de graphique d’une activité de graphique.</td>
+</tr>
+<tr>
+<td>DRAG_STARTED, DRAG_ONGOING, DRAG_FINISHED</td>
+<td>Déclenché lorsque l’utilisateur a commencé à glisser, est en train de glisser ou a terminé de glisser une activité via le glisser-déposer fourni par la plateforme. Ce type d’événement est utilisé lorsque l’utilisateur peut déplacer librement l’activité verticalement et horizontalement.</td>
+</tr>
+<tr>
+<td>END_TIME_CHANGE_STARTED, END_TIME_CHANGE_ONGOING, END_TIME_CHANGE_FINISHED</td>
+<td>Déclenché lorsque l’utilisateur a commencé à modifier, est en train de modifier ou a terminé de modifier l’heure de fin d’une activité.</td>
+</tr>
+<tr>
+<td>HORIZONTAL_DRAG_STARTED, HORIZONTAL_DRAG_ONGOING, HORIZONTAL_DRAG_FINISHED</td>
+<td>Déclenché lorsque l’utilisateur a commencé à modifier, est en train de modifier ou a terminé de modifier l’intervalle de temps (heure de début et de fin) d’une activité. Modifier cet intervalle déplace l’activité horizontalement, vers la droite (futur) ou vers la gauche (passé).</td>
+</tr>
+<tr>
+<td>PERCENTAGE_CHANGE_STARTED, PERCENTAGE_CHANGE_ONGOING, PERCENTAGE_CHANGE_FINISHED</td>
+<td>Déclenché lorsque l’utilisateur a commencé à modifier, est en train de modifier ou a terminé de modifier la valeur « percentage complete » d’une activité.</td>
+</tr>
+<tr>
+<td>START_TIME_CHANGE_STARTED, START_TIME_CHANGE_ONGOING, START_TIME_CHANGE_FINISHED</td>
+<td>Déclenché lorsque l’utilisateur a commencé à modifier, est en train de modifier ou a terminé de modifier l’heure de début d’une activité.</td>
+</tr>
+<tr>
+<td>VERTICAL_DRAG_STARTED, VERTICAL_DRAG_ONGOING, VERTICAL_DRAG_FINISHED</td>
+<td>Déclenché lorsque l’utilisateur a commencé à glisser, est en train de glisser ou a terminé de glisser une activité via le glisser-déposer fourni par la plateforme. Ce type d’événement est utilisé lorsque l’utilisateur ne peut glisser l’activité que verticalement (réaffecter une activité à une autre ligne).</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th>Méthodes d’événement</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>setOnActivityDeleted()</td>
+<td>Déclenché chaque fois que l’utilisateur supprime une activité avec la touche Retour arrière.</td>
+</tr>
+<tr>
+<td>setOnActivityChanged()</td>
+<td>Le type d’événement parent de tous les changements d’activité. Peut être utilisé pour recevoir une notification pour tout type de changement d’activité.</td>
+</tr>
+<tr>
+<td>setOnActivityChangeStarted() setOnActivityChangeOngoing() setOnActivityChangeFinished()</td>
+<td>Déclenché chaque fois qu’un changement d’activité a commencé, est en cours ou s’est terminé.</td>
+</tr>
+<tr>
+<td>setOnChartHighValueChangeStarted() setOnChartHighValueChangeOngoing() setOnChartHighValueChangeFinished();</td>
+<td>Déclenché lorsque l’utilisateur a commencé à modifier, est en train de modifier ou a terminé de modifier la valeur « high » d’une activité de graphique high / low.</td>
+</tr>
+<tr>
+<td>setOnChartLowValueChangeStarted() setOnChartLowValueChangeOngoing() setOnChartLowValueChangeFinished();</td>
+<td>Déclenché lorsque l’utilisateur a commencé à modifier, est en train de modifier ou a terminé de modifier la valeur « low » d’une activité de graphique high / low.</td>
+</tr>
+<tr>
+<td>setOnChartValueChangeStarted() setOnChartValueChangeOngoing() setOnChartValueChangeFinished();</td>
+<td>Déclenché lorsque l’utilisateur a commencé à modifier, est en train de modifier ou a terminé de modifier une valeur de graphique d’une activité de graphique.</td>
+</tr>
+<tr>
+<td>setOnActivityDragStarted() setOnActivityDragOngoing() setOnActivityDragFinished();</td>
+<td>Déclenché lorsque l’utilisateur a commencé à glisser, est en train de glisser ou a terminé de glisser une activité via le glisser-déposer fourni par la plateforme. Ce type d’événement est utilisé lorsque l’utilisateur peut déplacer librement l’activité verticalement et horizontalement.</td>
+</tr>
+<tr>
+<td>setOnActivityEndTimeChangeStarted() setOnActivityEndTimeChangeOngoing() setOnActivityEndTimeChangeFinished();</td>
+<td>Déclenché lorsque l’utilisateur a commencé à modifier, est en train de modifier ou a terminé de modifier l’heure de fin d’une activité.</td>
+</tr>
+<tr>
+<td>setOnActivityHorizontalDragStarted() setOnActivityHorizontalDragOngoing() setOnActivityHorizontalDragFinished();</td>
+<td>Déclenché lorsque l’utilisateur a commencé à modifier, est en train de modifier ou a terminé de modifier l’intervalle de temps (heure de début et de fin) d’une activité. Modifier cet intervalle déplace l’activité horizontalement, vers la droite (futur) ou vers la gauche (passé).</td>
+</tr>
+<tr>
+<td>setOnActivityPercentageChangeStarted() setOnActivityPercentageChangeOngoing() setOnActivityPercentageChangeFinished();</td>
+<td>Déclenché lorsque l’utilisateur a commencé à modifier, est en train de modifier ou a terminé de modifier la valeur « percentage complete » d’une activité.</td>
+</tr>
+<tr>
+<td>setOnActivityStartTimeChangeStarted() setOnActivityStartTimeChangeOngoing() setOnActivityStartTimeChangeFinished();</td>
+<td>Déclenché lorsque l’utilisateur a commencé à modifier, est en train de modifier ou a terminé de modifier l’heure de début d’une activité.</td>
+</tr>
+<tr>
+<td>setOnActivityVerticalDragStarted() setOnActivityVerticalDragOngoing() setOnActivityVerticalDragFinished();</td>
+<td>Déclenché lorsque l’utilisateur a commencé à glisser, est en train de glisser ou a terminé de glisser une activité via le glisser-déposer fourni par la plateforme. Ce type d’événement est utilisé lorsque l’utilisateur ne peut glisser l’activité que verticalement (réaffecter une activité à une autre ligne).</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Hiérarchie des événements d’activité</strong></p>
+<p>Les types d’événement définis dans la classe ActivityEvent définissent une hiérarchie d’événements. Tous les événements sont des événements d’entrée (InputEvent.ANY) et modifient l’activité. Certains sont déclenchés lorsque l’utilisateur commence le changement, d’autres pendant que le changement est en cours, et d’autres lorsqu’il est terminé.</p>
+<ul>
+<li><code>InputEvent.ANY</code></li>
+<li><code>ACTIVITY_CHANGE</code><ul>
+<li><code>ACTIVITY_DELETED</code></li>
+<li><code>ACTIVITY_CHANGE_STARTED</code>  // Tous les types d’événement qui signalent le « début »</li>
+<li><code>CHART_VALUE_CHANGE_STARTED</code><ul>
+<li><code>CHART_HIGH_VALUE_CHANGE_STARTED</code></li>
+<li><code>CHART_LOW_VALUE_CHANGE_STARTED</code></li>
+</ul>
+</li>
+<li><code>DRAG_STARTED</code></li>
+<li><code>END_TIME_CHANGE_STARTED</code></li>
+<li><code>HORIZONTAL_DRAG_STARTED</code></li>
+<li><code>PERCENTAGE_CHANGE_STARTED</code></li>
+<li><code>START_TIME_CHANGE_STARTED</code></li>
+<li><code>VERTICAL_DRAG_STARTED</code></li>
+<li><code>ACTIVITY_CHANGE_ONGOING</code> // Tous les types d’événement qui signalent « en cours »</li>
+<li><code>CHART_VALUE_CHANGE_ONGOING</code><ul>
+<li><code>CHART_HIGH_VALUE_CHANGE_ONGOING</code></li>
+<li><code>CHART_LOW_VALUE_CHANGE_ONGOING</code></li>
+</ul>
+</li>
+<li><code>DRAG_ONGOING</code></li>
+<li><code>END_TIME_CHANGE_ONGOING</code></li>
+<li><code>HORIZONTAL_DRAG_ONGOING</code></li>
+<li><code>PERCENTAGE_CHANGE_ONGOING</code></li>
+<li><code>START_TIME_CHANGE_ONGOING</code></li>
+<li><code>VERTICAL_DRAG_ONGOING</code></li>
+<li><code>ACTIVITY_CHANGE_FINISHED</code> // Tous les types d’événement qui signalent la « fin »</li>
+<li><code>CHART_VALUE_CHANGE_FINISHED</code><ul>
+<li><code>CHART_HIGH_VALUE_CHANGE_FINISHED</code></li>
+<li><code>CHART_LOW_VALUE_CHANGE_FINISHED</code></li>
+</ul>
+</li>
+<li><code>DRAG_FINISHED</code></li>
+<li><code>END_TIME_CHANGE_FINISHED</code></li>
+<li><code>HORIZONTAL_DRAG_FINISHED</code></li>
+<li><code>PERCENTAGE_CHANGE_FINISHED</code></li>
+<li><code>START_TIME_CHANGE_FINISHED</code></li>
+<li><code>VERTICAL_DRAG_FINISHED</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>Propriétés des événements d’activité</strong></p>
+<p>Les applications s’intéressent évidemment aux attributs d’une activité : non seulement aux nouvelles valeurs de ces attributs (par exemple la nouvelle heure de début), mais aussi aux anciennes valeurs (heure de début avant le changement). Les nouvelles valeurs sont déjà disponibles sur l’activité, car elles sont définies pendant que l’utilisateur effectue le changement. Les anciennes valeurs sont stockées sur l’objet événement. Le tableau suivant liste les méthodes d’ActivityEvent permettant de récupérer ces valeurs.</p>
+<table>
+<thead>
+<tr>
+<th>Méthode</th>
+<th>Description</th>
+<th>Types d’événement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getOldTime</code></td>
+<td>Renvoie l’ancienne heure de début ou de fin de l’activité.</td>
+<td><code>END_TIME_CHANGE</code><br><code>START_TIME_CHANGE</code></td>
+</tr>
+<tr>
+<td><code>getOldTimeInterval</code></td>
+<td>Renvoie les anciennes heures de début et de fin de l’activité.</td>
+<td><code>DRAG</code><br><code>HORIZONTAL_DRAG</code><br><code>VERTICAL_DRAG</code></td>
+</tr>
+<tr>
+<td><code>getOldRow</code></td>
+<td>Renvoie l’ancienne ligne où se trouvait l’activité auparavant.</td>
+<td><code>DRAG</code><br><code>VERTICAL_DRAG</code></td>
+</tr>
+<tr>
+<td><code>getOldValue</code></td>
+<td>Renvoie l’ancienne valeur de « percentage complete » ou de « chart value ».</td>
+<td><code>CHART_VALUE_CHANGE</code><br><code>CHART_HIGH_VALUE</code><br><code>CHART_LOW_VALUE</code><br><code>PERCENTAGE_CHANGE</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Événements de lasso</strong></p>
+<p>L’utilisateur peut utiliser un lasso pour sélectionner des activités. Des événements sont déclenchés lorsque cela se produit. Pour recevoir un événement de lasso, enregistrez simplement un gestionnaire d’événements auprès de la vue graphique via l’une des méthodes pratiques.</p>
+<p><strong>Gestionnaire d’événement de lasso unique</strong></p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.setOnLassoFinished(evt -&gt; System.out.println(&quot;The lasso was used&quot;));
+</code></pre>
+
+<p>Si vous devez enregistrer plusieurs gestionnaires pour un type d’événement spécifique, utilisez cette approche :</p>
+<p><strong>Gestionnaires d’événements de lasso multiples</strong></p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.addEventHandler(LassoEvent.SELECTION_FINISHED, 
+                            evt -&gt; System.out.println(&quot;Listener 1&quot;));
+graphics.addEventHandler(LassoEvent.SELECTION_FINISHED, 
+                            evt -&gt; System.out.println(&quot;Listener 2&quot;));
+</code></pre>
+<p>Le tableau suivant liste les types d’événement et les méthodes setter pratiques de la vue graphique.</p>
+<table>
+<thead>
+<tr>
+<th>Type d’événement</th>
+<th>Méthode</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ALL</code></td>
+<td><code>setOnLassoSelection</code></td>
+<td>Toute opération de lasso (début, en cours, terminée).</td>
+</tr>
+<tr>
+<td><code>SELECTION_STARTED</code></td>
+<td><code>setOnLassoSelectionStarted</code></td>
+<td>L’utilisateur a appuyé sur le bouton de la souris et commencé un glissement. Le lasso est devenu visible.</td>
+</tr>
+<tr>
+<td><code>SELECTION_ONGOING</code></td>
+<td><code>setOnLassoSelectionOngoing</code></td>
+<td>L’utilisateur modifie la taille du lasso.</td>
+</tr>
+<tr>
+<td><code>SELECTION_FINISHED</code></td>
+<td><code>setOnLassoSelectionFinished</code></td>
+<td>L’utilisateur a terminé la sélection au lasso. Le lasso n’est plus visible.</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Hiérarchie des événements de lasso</strong></p>
+<p>Les types d’événement définis dans la classe LassoEvent définissent une hiérarchie d’événements. Tous les événements sont des événements d’entrée (InputEvent.ANY).</p>
+<pre><code>* InputEvent.ANY
+    * LassoEvent.ALL
+        * LassoEvent.SELECTION_STARTED
+        * LassoEvent.SELECTION_ONGOING
+        * LassoEvent.SELECTION_FINISHED
+</code></pre>
+
+<p><strong>Informations de lasso</strong></p>
+<p>Le lasso sélectionne automatiquement des activités, mais vous pouvez parfois vouloir en savoir plus sur la nature exacte de cette sélection, ou utiliser le lasso pour un autre cas d’usage (par exemple créer de nouvelles activités). Pour cette raison, les instances de LassoEvent fournissent également un objet de type LassoInfo, qui contient de nombreux attributs que l’application peut utiliser pour réagir en conséquence. Les informations du lasso peuvent être récupérées en appelant LassoEvent.getInfo(). Le tableau suivant liste les attributs de LassoInfo.</p>
+<table>
+<thead>
+<tr>
+<th>Méthode</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>List&lt;ActivityRef&lt;?&gt;&gt; getActivities</code></td>
+<td>Renvoie toutes les activités sélectionnées par le lasso.</td>
+</tr>
+<tr>
+<td><code>Instant getStartTime;</code>, <code>Instant getEndTime</code></td>
+<td>Renvoie l’heure de début et de fin du lasso selon la position de ses bords gauche et droit.</td>
+</tr>
+<tr>
+<td><code>LocalTime getLocalStartTime</code>, <code>LocalTime getLocalEndTime</code></td>
+<td>Renvoie les heures locales de début et de fin. Ces valeurs ne sont fournies que si le bord supérieur ou inférieur du lasso se trouve dans une zone qui utilise le <a href="https://flexgantt.atlassian.net/wiki/spaces/FFXMAN/pages/492047/4.8.2+Agenda+Layout">AgendaLayout</a>.</td>
+</tr>
+<tr>
+<td><code>List&lt;Row&lt;?,?,?&gt;&gt; getRows</code></td>
+<td>Renvoie les lignes touchées par le lasso.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Liens / Pour aller plus loin</strong></p>
+<p><a href="https://docs.oracle.com/javase/8/javafx/events-tutorial/events.htm#JFXED117">Documentation Oracle JavaFX</a>
+<a href="https://code.makery.ch/blog/javafx-8-event-handling-examples/">Exemples de gestion d’événements</a></p>
+<h2 id="activity-editing">Modification des activités</h2>
+<p>Deux fonctions de rappel différentes de la vue graphique permettent de contrôler le comportement de modification des activités. La première associe un événement / une position de souris à un mode de modification. La seconde fonction de rappel sert à déterminer si un mode / une opération de modification donné peut s’appliquer à une activité. La plupart des applications n’auront besoin que de la seconde fonction de rappel et conserveront les valeurs par défaut pour les emplacements des modes de modification (par exemple : bord droit pour modifier l’heure de fin, bord gauche pour modifier l’heure de début). L’enum GraphicsBase.EditMode liste toutes les opérations de modification disponibles sur une activité.</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AGENDA_ASSIGNING</code></td>
+<td>Affecte une activité dans AgendaLayout à une autre ligne.</td>
+</tr>
+<tr>
+<td><code>AGENDA_DRAGGING</code></td>
+<td>Glisse une activité dans AgendaLayout vers le haut, le bas ou latéralement dans la même ligne.</td>
+</tr>
+<tr>
+<td><code>AGENDA_END_TIME_CHANGE</code></td>
+<td>Modifie l’heure de fin d’une activité dans AgendaLayout.</td>
+</tr>
+<tr>
+<td><code>AGENDA_START_TIME_CHANGE</code></td>
+<td>Modifie l’heure de début d’une activité dans AgendaLayout.</td>
+</tr>
+<tr>
+<td><code>CHART_VALUE_CHANGE</code></td>
+<td>Modifie la valeur d’une ChartActivity.</td>
+</tr>
+<tr>
+<td><code>CHART_VALUE_HIGH_CHANGE</code></td>
+<td>Modifie la valeur « high » d’une HighLowActivity.</td>
+</tr>
+<tr>
+<td><code>CHART_VALUE_LOW_CHANGE</code></td>
+<td>Modifie la valeur « low » d’une HighLowActivity.</td>
+</tr>
+<tr>
+<td><code>DRAGGING</code></td>
+<td>Effectue un glisser-déposer dans toutes les directions sur une activité.</td>
+</tr>
+<tr>
+<td><code>DRAGGING_HORIZONTAL</code></td>
+<td>Déplace une activité horizontalement dans sa propre ligne (modifie l’heure de début et de fin).</td>
+</tr>
+<tr>
+<td><code>DRAGGING_VERTICAL</code></td>
+<td>Effectue un glisser-déposer sur une activité uniquement dans la direction verticale.</td>
+</tr>
+<tr>
+<td><code>END_TIME_CHANGE</code></td>
+<td>Modifie l’heure de fin d’une activité.</td>
+</tr>
+<tr>
+<td><code>NONE</code></td>
+<td>Ne fait rien.</td>
+</tr>
+<tr>
+<td><code>PERCENTAGE_COMPLETE_CHANGE</code></td>
+<td>Modifie la valeur « percentage complete » d’une CompletableActivity.</td>
+</tr>
+<tr>
+<td><code>START_TIME_CHANGE</code></td>
+<td>Modifie l’heure de début d’une activité.</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Callback de mode de modification</strong></p>
+<p>La fonction de rappel de mode de modification sert à déterminer le mode de modification à la position de souris donnée. Les instances de cette fonction de rappel peuvent être enregistrées via la méthode GraphicsBase.setEditModeCallback(), qui associe la fonction de rappel à une combinaison de type d’activité et de type de mise en page.</p>
+<pre><code class="language-java">public final void setEditModeCallback(
+    Class&lt;? extends MutableActivity&gt; activityType,
+    Class&lt;? extends Layout&gt; layoutType,
+    Callback&lt;EditModeCallbackParameter, EditMode&gt; callback);
+</code></pre>
+<p><strong>Paramètre de la fonction de rappel de mode de modification</strong></p>
+<p>L’objet paramètre transmis à la fonction de rappel de mode de modification est de type EditModeCallbackParameter et contient les informations suivantes :</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>activityBounds</code></td>
+<td>Les limites de l’activité survolée par le curseur de la souris. Les coordonnées x et y sont relatives à l’espace de coordonnées de la ligne où l’activité est affichée.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>mouseEvent</code></td>
+<td>L’événement souris qui a déclenché la recherche du mode de modification (normalement un MOUSE_OVER).</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Exemple de fonction de rappel de mode de modification</strong></p>
+<p>Voici un exemple simple de fonction de rappel de mode de modification.</p>
+<pre><code class="language-java">public class MyEditModeCallback implements Callback&lt;EditModeCallbackParameter, EditMode&gt; {
+
+    public EditMode call(EditModeCallbackParameter param) {
+        MouseEvent event = param.getMouseEvent();
+        ActivityBounds bounds = param.getActivityBounds();
+
+        /*
+         * If the mouse cursor is touching the left edge of the activity
+         * then begin a change of the start time of the activity.
+         */
+        if (event.getX() - bounds.getMinX() &lt; 5) {
+            return EditMode.CHANGE_START_TIME;
+        }
+
+        return EditMode.NONE;
+    }
+</code></pre>
+<p>Cette fonction de rappel peut maintenant être enregistré comme ceci :</p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+    graphics.setEditModeCallback(
+    ActivityBase.class,
+    GanttLayout.class,
+    new MyEditModeCallback());
+</code></pre>
+<p>Nous aurions pu utiliser une expression lambda pour toute l’instance de fonction de rappel, mais nous avons préféré une forme plus explicite.</p>
+<p><strong>Callback de modification</strong></p>
+<p>La fonction de rappel de modification sert à déterminer si un mode de modification spécifique est actuellement utilisable pour une activité donnée. Les instances de cette fonction de rappel peuvent être enregistrées via la méthode GraphicsBase.setActivityEditingCallback(), qui associe la fonction de rappel à un type d’activité.</p>
+<pre><code class="language-java">public final void setActivityEditingCallback(
+    Class&lt;? extends MutableActivity&gt; activityType,
+    Callback&lt;EditingCallbackParameter, Boolean&gt; callback);
+</code></pre>
+
+<p><strong>Paramètre de la fonction de rappel de modification</strong></p>
+<p>L’objet paramètre transmis à la fonction de rappel de modification est de type EditingCallbackParameter et contient les informations suivantes :</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>activityRef</code></td>
+<td>La référence vers l’activité pour laquelle effectuer la vérification.</td>
+</tr>
+<tr>
+<td><code>editMode</code></td>
+<td>Le mode de modification à vérifier.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Exemple de fonction de rappel de modification</strong></p>
+<p>Voici un exemple simple de fonction de rappel de modification.</p>
+<pre><code class="language-java">public class MyEditingCallback implements Callback&lt;EditingCallbackParameter, Boolean&gt; {
+
+    public Boolean call(EditingCallbackParameter param) {
+        ActivityRef ref = param.getActivityRef();
+        Activity activity = ref.getActivity();
+
+        /*
+         * Only allow editing for activities that that have not
+         * started, yet.
+         */
+        if (activity.getStartTime().isAfter(Instant.now())) {
+
+            /*
+             * Only allow changes to the start and end time
+             * of the activity.
+             */
+            switch (param.getEditMode()) {
+                case CHANGE_START_TIME:
+                case CHANGE_END_TIME:
+                    return true;
+                default:
+                    return false;
+            }
+          } 
+
+        return false;
+    }
+}
+</code></pre>
+
+<p>Cette fonction de rappel peut maintenant être enregistré comme ceci :</p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+    graphics.setActivityEditingCallback(
+    ActivityBase.class,
+    new MyEditingCallback());
+</code></pre>
+<h2 id="row-editing">Modification des lignes</h2>
+<p>La vue graphique prend en charge non seulement la modification des activités, mais aussi celle des lignes. Lorsqu’une ligne est modifiée, toute la ligne se retourne et des contrôles supplémentaires deviennent visibles sur son « verso ». Si le verso de la ligne nécessite plus d’espace (hauteur) que son recto, la hauteur est ajustée automatiquement. Le tableau suivant liste les méthodes liées à la modification des lignes :</p>
+<table>
+<thead>
+<tr>
+<th>Méthode</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>void startRowEditing(R row);</code></td>
+<td>Lance la séquence de modification de la ligne donnée. Le verso de la ligne devient visible et expose les contrôles permettant de modifier les paramètres de la ligne.</td>
+</tr>
+<tr>
+<td><code>void stopRowEditing();</code><br><code>void stopRowEditing(R row);</code></td>
+<td>Arrête la modification de toutes les lignes ou seulement de la ligne donnée. Le recto de la ligne redevient visible.</td>
+</tr>
+<tr>
+<td><code>ObjectProperty&lt;RowEditingMode&gt; rowEditingModeProperty();</code><br><code>void setRowEditingMode(RowEditingMode)</code>;<br><code>RowEditingMode getRowEditingMode();</code></td>
+<td>Stocke, définit et récupère le mode de modification des lignes. L’enum GraphicsBase.RowEditingMode sert à déterminer si l’utilisateur pourra modifier des lignes, une ligne à la fois ou plusieurs lignes en même temps.</td>
+</tr>
+<tr>
+<td><code>ObservableList&lt;R&gt; getRowsEditing();</code></td>
+<td>Une liste observable de toutes les lignes en cours de modification (leur verso est affiché).</td>
+</tr>
+<tr>
+<td><code>BooleanProperty animateRowEditor();</code><br><code>void setAnimateRowEditor(boolean);&lt;br&gt;boolean isAnimateRowEditor();</code></td>
+<td>Stocke, définit et récupère un indicateur signalant si l’affichage du verso de la ligne est immédiat ou animé.</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Factory d’éditeur de ligne</strong></p>
+<p>La factory d’éditeur de ligne sert à créer les contrôles d’une ligne donnée au moment où l’utilisateur demande sa modification. La factory est une méthode de fonction de rappel appelée avec un objet GraphicsBase.RowEditorParameter. Cet objet paramètre stocke des champs utiles pour créer les contrôles de l’éditeur, ainsi qu’une méthode permettant d’arrêter la modification de la ligne.</p>
+<table>
+<thead>
+<tr>
+<th>Méthode</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GraphicsBase getGraphics();</code></td>
+<td>Renvoie une référence vers la vue graphique où la modification aura lieu.</td>
+</tr>
+<tr>
+<td><code>R getRow();</code></td>
+<td>Renvoie la ligne pour laquelle l’éditeur de ligne sera créé.</td>
+</tr>
+<tr>
+<td><code>void stopEditing();</code></td>
+<td>Une méthode pratique pour les contrôles de l’éditeur de ligne, qui peut être utilisée pour signaler que l’utilisateur a terminé la modification de la ligne. Cette méthode est généralement appelée par un bouton de fermeture dans l’interface de l’éditeur.</td>
+</tr>
+</tbody>
+</table>
+<p>Une factory d’éditeur de ligne peut ressembler à ceci :</p>
+<pre><code class="language-java">public class MyRowEditorFactory implements Callback&lt;RowEditorParameter&lt;R&gt;, Node&gt; {
+
+    public Node call(RowEditorParameter&lt;R&gt; param) {
+        VBox box = new VBox();
+
+        /*
+         * Bind the text property of the textfield to the name
+         * property of the row. This allows us to change the name
+         * of the row.
+         */
+        TextField nameField = new TextField();
+        Bindings.bindBidirectional(param.getRow().nameProperty(), 
+                nameField.textProperty());
+
+        /*
+         * A close button to invoke the stopEditing() method
+         * on the parameter object.
+         */
+        Button closeButton = new Button(&quot;Close&quot;);
+        closeButton.setOnAction(evt -&gt; param.stopEditing());
+        box.getChildren().addAll(nameField, closeButton);
+
+        /*
+         * Return the vbox node.
+         */
+        return box;
+    }
+}
+</code></pre>
+<p>Les éditeurs de ligne peuvent être enregistrés comme ceci :</p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.setRowEditorFactory(new MyRowEditorFactory());
+</code></pre>
+
+<p><strong>Factory de contrôles de ligne</strong></p>
+<p>Pour déclencher la modification d’une ligne, l’interface utilisateur doit fournir une forme de contrôle. Cela peut se faire de nombreuses façons, par exemple à l’aide d’un menu contextuel sur une ligne. Une autre option consiste à utiliser la prise en charge intégrée des « contrôles de ligne ». Ces contrôles apparaissent / disparaissent chaque fois que le curseur de la souris entre dans une ligne ou en sort. Ils sont créés par une implémentation de fonction de rappel. Cette fonction de rappel reçoit un objet paramètre de type GraphicsBase.RowControlsParameter. Le tableau suivant liste les champs de ce type.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>graphics</code></td>
+<td>La vue graphique pour laquelle la fonction de rappel est invoquée.</td>
+</tr>
+<tr>
+<td><code>row</code></td>
+<td>La ligne pour laquelle les contrôles seront créés.</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Exemple 1</strong></p>
+<p>Une implémentation possible de cette fonction de rappel peut ressembler à ceci :</p>
+<pre><code class="language-java">public class MyRowControlsFactory extends StackPane 
+        implements Callback&lt;RowControlsParameter, Node&gt; {
+
+    private Button button;
+
+    public MyRowControlsFactory() {
+
+        /*
+         * Important: let mouse events pass through.
+         */
+        setMouseTransparent(true);
+        button = new Button(&quot;Press Me&quot;);
+        getChildren().add(button);
+    }
+
+    /*
+     * Reuse the button. Simply exchange the action that will
+     * happen when the user presses on it.
+     */
+    public Node call(RowControlsParameter param) {
+       button.setOnAction(evt -&gt; 
+            System.out.println(&quot;Pressed on row &quot; + 
+                    param.getRow().getName());
+        return this;
+    }
+
+</code></pre>
+
+<p>Notez que cette factory est un objet Node et qu’elle se renvoie elle-même chaque fois que la méthode call() est invoquée. Seule l’action du bouton est remplacée à chaque invocation. C’est logique, car les contrôles de ligne ne sont affichés que pour une ligne à la fois (contrairement aux éditeurs de ligne, dont plusieurs peuvent être utilisés simultanément).</p>
+<p>La fonction de rappel peut être enregistrée comme ceci :</p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.setRowControlsFactory(new MyRowControlsFactory());
+</code></pre>
+
+<p><strong>Exemple 2</strong></p>
+<p>Voici le code de la classe RowControls dans le projet FlexGanttFX « Extras ». Il ajoute un simple bouton « Edit » à la ligne. Lorsqu’il est cliqué, les contrôles de l’éditeur de ligne s’affichent au verso de la ligne.</p>
+<pre><code class="language-java">package com.flexganttfx.extras;
+
+
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
+import javafx.util.Callback;
+import com.flexganttfx.model.Row;
+import com.flexganttfx.view.graphics.GraphicsBase.RowControlsParameter;
+
+public class RowControls&lt;R extends Row&lt;?, ?, ?&gt;&gt; extends HBox implements
+        Callback&lt;RowControlsParameter&lt;R&gt;, Node&gt; {
+
+
+    private Button editButton;
+
+    public RowControls() {
+        setPickOnBounds(false);
+        setMinSize(0, 0);
+        setAlignment(Pos.TOP_RIGHT);
+        setFillHeight(true);
+        editButton = new Button(&quot;EDIT&quot;);
+        editButton.getStyleClass().add(&quot;row-controls-button&quot;);
+        getChildren().add(editButton);
+    }
+
+    @Override
+    public Node call(RowControlsParameter&lt;R&gt; param) {
+        editButton.setOnAction(evt -&gt; param.getGraphics().startRowEditing(
+                param.getRow()));
+        return this;
+    }
+}
+</code></pre>
+
+<p>Le CSS correspondant au bouton est défini comme ceci :</p>
+<pre><code class="language-css">/*
+ * Row controls button are shown when the mouse hovers over a row that can be
+ * edited (flipped around).
+ */
+.row-controls-button {
+  -fx-padding: 5 9 7 7;
+  -fx-background-insets: 0 4 2 2;
+  -fx-background-color: rgba(0,0,0,.5);
+  -fx-background-radius: 0;
+  -fx-text-fill: white;
+  -fx-font-size: 8;
+  -fx-font-weight: bold;
+}
+
+.row-controls-button:hover,
+.row-controls-button:focused {
+  -fx-padding: 5 9 7 7;
+  -fx-background-insets: 0 4 2 2;
+  -fx-background-color: rgba(0,0,0,.6);
+  -fx-background-radius: 0;
+  -fx-text-fill: white;
+  -fx-font-size: 8;
+  -fx-font-weight: bold;
+}
+
+.row-controls-button:pressed,
+.row-controls-button:selected {
+  -fx-background-color: rgba(0,0,0,.7);
+  -fx-background-radius: 0;
+}
+</code></pre>
+<h2 id="activity-rendering">Rendu des activités</h2>
+<p>La vue graphique utilise l’API canvas de JavaFX. Cela tient à la nature complexe d’un diagramme de Gantt et aux grands volumes de données qu’on y observe souvent. Rendre directement de grandes quantités d’activités dans un bitmap est beaucoup plus rapide que mettre constamment à jour le graphe de scène et réappliquer le style CSS. FlexGanttFX implémente une architecture de moteurs de rendu enfichables dans laquelle des instances de moteur de rendu peuvent être associées à des types d’activité, de façon très similaire à ce que faisait Swing.</p>
+<p>Le code suivant montre comment enregistrer un moteur de rendu personnalisé pour un type d’activité « Flight » donné. Notez que la vue graphique peut afficher les activités dans différents mises en page ; le type de mise en page doit donc également être passé à la méthode.</p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.setActivityRenderer(
+                Flight.class, 
+                GanttLayout.class, 
+                new FlightRenderer(graphics));
+</code></pre>
+<p>Nous passons généralement aussi la vue graphique au moteur de rendu lors de sa construction. C’est nécessaire, car les moteurs de rendu déclenchent un nouveau dessin des graphismes lorsqu’une de leurs propriétés change. Cette approche est très différente de celle de Swing. Cela implique également que les instances de moteur de rendu ne doivent être utilisées que pour une seule vue graphique : celle passée à leur constructeur.</p>
+<p>Les méthodes suivantes de GraphicsBase sont utilisées pour travailler avec des moteurs de rendu :</p>
+<table>
+<thead>
+<tr>
+<th>Méthode</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>void setActivityRenderer(...);</strong></td>
+<td>Enregistre un nouveau moteur de rendu pour le type d’activité et le type de mise en page donnés.</td>
+</tr>
+<tr>
+<td><strong>ActivityRenderer getActivityRenderer(...);</strong></td>
+<td>Renvoie un moteur de rendu pour le type d’activité et le type de mise en page donnés.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Dessin</strong></p>
+<p>Les moteurs de rendu d’activité ont un point d’entrée unique pour le dessin : une méthode appelée draw(). Cette méthode est finale et ne peut pas être surchargée. Une fois invoquée, elle appelle différentes méthodes protégées pour effectuer le dessin réel. La hiérarchie d’appel ressemble à ceci :</p>
+<ul>
+<li>public final draw()  .... appelle ...<ul>
+<li>protected ActivityBounds drawActivity()</li>
+<li>protected void drawBackground()</li>
+<li>protected void drawBorder()</li>
+</ul>
+</li>
+</ul>
+<p>Les sous-classes peuvent librement surcharger l’une des trois méthodes protégées pour personnaliser l’apparence de l’activité. Toutes les méthodes <code>drawXXX()</code> ont les mêmes arguments :</p>
+<pre><code class="language-java">ActivityRef&lt;A&gt; activityRef,  // the activity to draw
+Position position,           // agenda layout only (first, middle, last, only)
+GraphicsContext gc,          // the graphics context into which to draw
+double x,                    // the location of the start time of the activity
+double y,                    // the y coordinate (0 when drawn on row or line location)
+double w,                    // end time location minus start time location
+double h,                    // row or line height
+boolean selected,            // is activity currently selected?
+boolean hover,               // is mouse cursor currently hovering over it?
+boolean highlighted,         // is activity currently blinking?
+boolean pressed)             // is user currently pressing on it?
+</code></pre>
+
+<p><strong>Moteurs de rendu par défaut</strong></p>
+<p>Le tableau suivant liste les différents moteurs de rendu d’activité fournis par défaut.</p>
+<table>
+<thead>
+<tr>
+<th>Classe de moteur de rendu</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ActivityRenderer</strong></td>
+<td>Le moteur de rendu d’activité le plus basique. Il dessine un rectangle rempli à la position de l’activité. Tous les moteurs de rendu par défaut sont des sous-classes de ce type.</td>
+</tr>
+<tr>
+<td><strong>ActivityBarRenderer</strong></td>
+<td>Dessine une barre au lieu de remplir toute la zone. La hauteur de la barre peut être spécifiée. Prend également en charge du texte à plusieurs emplacements à l’intérieur et à l’extérieur de la barre.</td>
+</tr>
+<tr>
+<td><strong>ChartActivityRenderer</strong></td>
+<td>Dessine une ChartActivity verticalement en fonction de sa valeur de graphique.</td>
+</tr>
+<tr>
+<td><strong>CompletableActivityRenderer</strong></td>
+<td>Sous-classe du moteur de rendu de barre. Dessine une CompletableActivity sous forme de barre dont une section de l’arrière-plan est remplie avec une autre couleur. La taille de cette section dépend de la valeur de pourcentage d’achèvement de l’activité.</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Limites d’activité</strong></p>
+<p>Chaque moteur de rendu d’activité doit renvoyer une instance d’ActivityBounds après avoir dessiné l’activité. Ces limites sont essentielles au framework, et de nombreuses opérations ne fonctionnent correctement que si elles sont valides. Elles sont utilisées pour modifier les activités, détecter les points ciblés, positionner les liens, créer les menus contextuels, etc. Le tableau suivant liste les attributs de la classe ActivityBounds.</p>
+<table>
+<thead>
+<tr>
+<th>Attribut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>activity</strong></td>
+<td>L’activité à laquelle correspondent ces limites.</td>
+</tr>
+<tr>
+<td><strong>activityRef</strong></td>
+<td>Une référence d’activité pointant vers l’activité.</td>
+</tr>
+<tr>
+<td><strong>layer</strong></td>
+<td>La couche sur laquelle l’activité a été dessinée.</td>
+</tr>
+<tr>
+<td><strong>layout</strong></td>
+<td>La mise en page utilisée lorsque l’activité a été dessinée.</td>
+</tr>
+<tr>
+<td><strong>lineIndex</strong></td>
+<td>L’index de la ligne interne sur laquelle l’activité se trouve (-1 si l’activité est sur la ligne, et non sur une ligne interne).</td>
+</tr>
+<tr>
+<td><strong>position</strong></td>
+<td>La position des limites lorsque l’activité a été dessinée dans une mise en page d’agenda (first, middle, layout). C’est nécessaire, car une même activité peut être rendue en plusieurs morceaux sur plusieurs jours.</td>
+</tr>
+<tr>
+<td><strong>row</strong></td>
+<td>La ligne où l’activité a été dessinée.</td>
+</tr>
+</tbody>
+</table>
+<p>Veuillez ignorer les attributs overlapColumn, overlapCount et la liste overlapBounds. Ils sont tous utilisés en interne pour les opérations liées à la mise en page d’agenda.</p>
+
+<p><strong>Propriétés</strong></p>
+<p>Tous les moteurs de rendu définissent plusieurs propriétés permettant de personnaliser leur apparence. Beaucoup de ces propriétés dépendent du « pseudo-état » de l’activité : hover, pressed, selected, highlighted. Pour faciliter la recherche de la bonne couleur au bon moment, plusieurs méthodes pratiques sont disponibles :</p>
+<ul>
+<li><code>Renderer</code>: protected Paint getFill(boolean selected, boolean hover, boolean highlighted, boolean pressed); </li>
+<li>Renvoie la couleur à utiliser pour l’arrière-plan de l’activité selon les pseudo-états transmis.</li>
+<li><code>ActivityRenderer</code>: protected Paint getStroke(boolean selected, boolean hover, boolean highlighted, boolean pressed);</li>
+<li>Renvoie la couleur à utiliser pour la bordure de l’activité selon les pseudo-états transmis.</li>
+<li><code>ActivityBarRenderer</code>: protected Paint getTextFill(boolean selected, boolean hover, boolean highlighted, boolean pressed); </li>
+<li>Renvoie la couleur à utiliser pour le texte selon les pseudo-états transmis.</li>
+</ul>
+<h2 id="row-rendering">Rendu des lignes</h2>
+<p>La couche système RowLayer prend en charge des moteurs de rendu enfichables pour personnaliser l’arrière-plan de chaque ligne selon son type. Dans le tutoriel, nous avons vu que nous pouvions avoir des lignes Aircraft et des lignes Crew. Pour plus de clarté, ces deux lignes pourraient avoir des couleurs d’arrière-plan différentes. C’est ce que permet un moteur de rendu de ligne.</p>
+
+<p><strong>Moteur de rendu de ligne</strong></p>
+<p>Tous les moteurs de rendu de ligne doivent hériter de RowRenderer. Cette classe définit une méthode publique finale appelée draw(), invoquée par le framework. Elle appelle ensuite la méthode protégée drawRow(), que les sous-classes peuvent surcharger. Une implémentation possible peut ressembler à ceci :</p>
+<pre><code class="language-java">public class AircraftRowRenderer extends RowRenderer&lt;Aircraft&gt; {
+
+    public AircraftRowRenderer(GraphicsBase&lt;?&gt; graphics) {
+        super(graphics, &quot;Aircraft Row Renderer&quot;);
+    }
+
+    protected void drawRow(Aircraft row,
+                           GraphicsContext gc,
+                           double w,
+                           double h,
+                           boolean selected,
+                           boolean hover,
+                           boolean highlighted,
+                           boolean pressed) {
+        gc.setFill(Color.ORANGE);
+        gc.fillRect(0, 0, w, h);       
+    }
+}
+</code></pre>
+
+<p>Ce moteur de rendu peut maintenant être enregistré auprès de RowLayer comme ceci :</p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.getSystemLayer(RowLayer.class).setRowRenderer(
+                    Aircraft.class, new AircraftRowRenderer());
+</code></pre>
+<h2 id="context-menu">Menu contextuel</h2>
+<p>Il existe deux façons d’enregistrer un menu contextuel auprès de la vue graphique : la méthode standard, en appelant GraphicsBase.setContextMenu(ContextMenu), ou l’enregistrement d’une fonction de rappel de menu contextuel avec GraphicsBase.setContextMenuCallback(). L’avantage de la seconde option est qu’un objet paramètre de type ContextMenuParameter est transmis à la méthode de fonction de rappel. Cet objet paramètre contient les informations les plus pertinentes dont la plupart des menus contextuels auront besoin pour permettre à l’utilisateur d’effectuer une action sur la vue graphique.</p>
+<p>Notez qu’une fonction de rappel de menu contextuel a priorité sur un menu contextuel standard.</p>
+
+<p><strong>Exemple de code</strong></p>
+<p>L’extrait suivant montre un exemple d’implémentation d’une fonction de rappel de menu contextuel. Ici, nous ajoutons simplement un élément de menu pour chaque activité trouvée à la position de la souris où l’utilisateur a demandé le menu contextuel.</p>
+<pre><code class="language-java">GraphicsBase&lt;?&gt; graphics = ganttChart.getGraphics();
+graphics.setContextMenuCallback(param -&gt; {
+    ContextMenu menu = new ContextMenu();
+    for (ActivityRef&lt;?&gt; ref : param.getActivities()) {
+        Activity activiy = ref.getActivity();
+        MenuItem item = new MenuItem(&quot;Move &quot; + activity.getName());
+        item.setOnAction(evt -&gt; moveActivity(activity);
+        menu.getItems().add(item);
+    }
+    return menu;
+});
+</code></pre>
+<h2 id="row-headers">En-têtes de ligne</h2>
+<p>Chaque ligne de la zone graphique peut afficher son propre en-tête, affiché sur le côté gauche de la ligne. L’en-tête reste toujours à cet emplacement et ne défile pas lorsque la plage de temps visible change (par exemple lorsque l’utilisateur fait défiler vers la gauche ou vers la droite).</p>
+<p><img alt="En-têtes de ligne" src="../../assets/images/docs/row-headers.png" /></p>
+<p>L’en-tête de ligne par défaut fourni avec FlexGanttFX sait afficher des échelles lorsque l’application utilise des mises en page de graphique ou d’agenda. L’implémentation de l’en-tête par défaut se trouve dans la classe ScaleRowHeader.</p>
+<p>Vous pouvez créer des en-têtes de ligne personnalisés en sous-classant GraphicsBase.RowHeader. La propriété item est mise à jour chaque fois que la ligne pour laquelle l’en-tête est utilisé change. Comme les cellules de liste ou de table, la classe d’en-tête de ligne étend Label, ce qui signifie que vous pouvez remplacer entièrement son contenu en appelant setGraphics(Node node) et setContentDisplay(ContentDisplay.GRAPHICS_ONLY).</p>
+<p>Voir aussi :</p>
+<pre><code class="language-java">public void setRowHeaderFactory(Callback&lt;GraphicsBase&lt;R&gt;, RowHeader&lt;R&gt;&gt; factory);
+public void setShowRowHeaders(boolean showRowHeaders);
+</code></pre>
+
+<p>Remarque : dans les anciennes versions de FlexGanttFX, la fonctionnalité d’affichage des en-têtes de ligne / échelles se trouvait dans la classe ScaleLayer. Avec l’introduction du concept de tampon de canvas et du défilement via la propriété translateX, il est devenu nécessaire de modifier cela, car les échelles étaient placées à différents endroits selon la valeur de la propriété translateX.</p>
+      </article>
+      <div class="docs-nav-bottom">
+        <a class="docs-nav-btn" href="eventline.html"><span class="docs-nav-label">← Précédent</span><span class="docs-nav-title">Ligne d’événements</span></a>
+<a class="docs-nav-btn next" href="model.html"><span class="docs-nav-label">Suivant →</span><span class="docs-nav-title">Modèle</span></a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../assets/js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js" crossorigin="anonymous"></script>
+</body>
+</html>

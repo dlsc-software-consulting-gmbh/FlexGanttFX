@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-20G18JBY7X"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-20G18JBY7X");</script>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FlexGanttFX — 面向 JavaFX 的专业甘特图</title>
+  <meta name="description" content="FlexGanttFX 是面向 JavaFX 的专业甘特图框架。为桌面和 Web 应用提供高性能、完全可定制的时间轴可视化。" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <script src="../assets/js/lang.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    /* ── Hero gantt visual ────────────────────────── */
+    .hero-visual {
+      position: absolute;
+      right: -60px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 520px;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    @media (max-width: 1100px) { .hero-visual { display: none; } }
+    .hero-container { position: relative; }
+
+    /* ── Section label stripe ────────────────────── */
+    .stripe {
+      display: inline-block;
+      width: 40px;
+      height: 3px;
+      background: var(--blue);
+      border-radius: 2px;
+      margin-bottom: 12px;
+    }
+    .stripe-group { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .stripe-group span { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--blue); }
+
+    /* ── Stats bar ───────────────────────────────── */
+    .stats-bar {
+      background: var(--navy-light);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .stats-bar-inner {
+      display: flex;
+      justify-content: space-around;
+      padding: 28px 0;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .stat-item { text-align: center; }
+    .stat-number { font-size: 2rem; font-weight: 800; color: var(--white); letter-spacing: -0.02em; }
+    .stat-number span { color: var(--blue-light); }
+    .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-top: 2px; }
+
+    /* ── Feature icon colors ─────────────────────── */
+    .icon-blue { background: rgba(59,130,246,0.12); color: var(--blue); }
+    .icon-cyan { background: rgba(6,182,212,0.12); color: var(--cyan); }
+    .icon-green { background: rgba(16,185,129,0.12); color: #10b981; }
+    .icon-purple { background: rgba(139,92,246,0.12); color: #8b5cf6; }
+    .icon-orange { background: rgba(249,115,22,0.12); color: #f97316; }
+    .icon-pink { background: rgba(236,72,153,0.12); color: #ec4899; }
+
+    /* ── Releases 2-col ─────────────────────────── */
+    .releases-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    @media (max-width: 768px) { .releases-cols { grid-template-columns: 1fr; } }
+  </style>
+  <link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/" />
+  <link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/" />
+  <link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/" />
+  <link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/" />
+</head>
+<body>
+
+<!-- ══ NAVBAR ════════════════════════════════════════════════ -->
+<nav class="navbar">
+  <div class="container navbar-inner">
+    <div class="navbar-brand-group">
+    <a href="index.html" class="navbar-logo">
+      <i class="fa-solid fa-chart-gantt logo-icon"></i>
+      FlexGanttFX
+    </a>
+    <span class="navbar-brand-sep"></span>
+    <a href="https://www.dlsc.com" class="navbar-dlsc-link" target="_blank" rel="noopener" title="DLSC Software &amp; Consulting GmbH">
+      <img src="../assets/images/dlsc-logo.png" alt="DLSC" class="navbar-dlsc-logo" />
+    </a>
+  </div>
+    <ul class="navbar-links">
+      <li><a href="index.html">首页</a></li>
+      <li><a href="pages/demos.html">演示</a></li>
+      <li class="nav-dropdown">
+        <a href="manual/index.html">手册</a>
+        <div class="dropdown-menu">
+          <a href="manual/index.html">目录</a>
+          <a href="manual/installation.html">安装</a>
+          <a href="manual/tutorial.html">教程</a>
+          <a href="manual/gantt-charts.html">甘特图</a>
+          <a href="manual/timeline.html">时间轴</a>
+          <a href="manual/dateline.html">日期线</a>
+          <a href="manual/eventline.html">事件线</a>
+          <a href="manual/graphics.html">图形</a>
+          <a href="manual/model.html">模型</a>
+          <a href="manual/styling.html">样式</a>
+          <a href="manual/logging.html">日志</a>
+        </div>
+      </li>
+      <li class="nav-dropdown">
+        <a href="#">文档</a>
+        <div class="dropdown-menu">
+          <a href="pages/faq.html">常见问题</a>
+          <a href="pages/changelog.html">版本说明</a>
+          <a href="pages/licensing.html">许可</a>
+          <a href="../api/index.html">Javadocs / API</a>
+        </div>
+      </li>
+      <li><a href="pages/downloads.html">下载</a></li>
+      <li class="nav-dropdown nav-lang">
+        <a href="#"><i class="fa-solid fa-globe"></i> 中文</a>
+        <div class="dropdown-menu">
+          <a href="../index.html" data-lang="en">English</a>
+          <a href="../de/index.html" data-lang="de">Deutsch</a>
+          <a href="../fr/index.html" data-lang="fr">Français</a>
+          <a href="index.html" data-lang="zh" class="active">中文（简体）</a>
+        </div>
+      </li>
+      <li><a href="mailto:dlemmermann@gmail.com" class="nav-cta"><i class="fa-solid fa-envelope" style="font-size:0.8rem"></i> 联系我们</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" aria-label="菜单">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="container">
+      <a href="index.html">首页</a>
+      <a href="pages/demos.html">演示</a>
+      <a href="manual/index.html">手册</a>
+      <a href="manual/installation.html">— 安装</a>
+      <a href="manual/tutorial.html">— 教程</a>
+      <a href="manual/gantt-charts.html">— 甘特图</a>
+      <a href="manual/model.html">— 模型</a>
+      <a href="pages/faq.html">常见问题</a>
+      <a href="pages/changelog.html">版本说明</a>
+      <a href="pages/licensing.html">许可</a>
+      <a href="mailto:dlemmermann@gmail.com">联系我们</a>
+      <div class="mobile-lang-divider"></div>
+      <a href="../index.html" data-lang="en"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> English</a>
+      <a href="../de/index.html" data-lang="de"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Deutsch</a>
+      <a href="../fr/index.html" data-lang="fr"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Français</a>
+      <a href="index.html" data-lang="zh" class="active-lang"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> 中文（简体）</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HERO ══════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container hero-container">
+    <div class="hero-content">
+      <div class="badge badge-dark"><i class="fa-solid fa-star" style="font-size:0.7rem"></i> JavaFX 甘特图框架</div>
+      <h1>面向 JavaFX 的专业级 <span>时间轴可视化</span></h1>
+      <p>FlexGanttFX 是领先的 JavaFX 甘特图框架 — 高性能、完全可定制，并可部署到桌面、Web 和移动端。深受 Emirates、NASA、Boeing 以及数百家客户信赖。</p>
+      <div class="hero-actions">
+        <a href="manual/installation.html" class="btn btn-primary"><i class="fa-solid fa-rocket"></i> 快速开始</a>
+        <a href="pages/demos.html" class="btn btn-outline"><i class="fa-solid fa-play"></i> 在线演示</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATS BAR ═════════════════════════════════════════════ -->
+<div class="stats-bar section-dark">
+  <div class="container">
+    <div class="stats-bar-inner">
+      <div class="stat-item fade-in">
+        <div class="stat-number"><span>110+</span></div>
+        <div class="stat-label">企业客户</div>
+      </div>
+      <div class="stat-item fade-in">
+        <div class="stat-number"><span>11</span></div>
+        <div class="stat-label">主要版本</div>
+      </div>
+      <div class="stat-item fade-in">
+        <div class="stat-number"><span>10+</span></div>
+        <div class="stat-label">生产环境使用年限</div>
+      </div>
+      <div class="stat-item fade-in">
+        <div class="stat-number">Java <span>8–26</span></div>
+        <div class="stat-label">支持的版本</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FEATURES ══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="text-center">
+      <div class="badge"><i class="fa-solid fa-bolt" style="font-size:0.7rem"></i> 核心能力</div>
+      <h2 class="section-title">构建排程 UI 所需的一切</h2>
+      <p class="section-subtitle">FlexGanttFX 是一个领域无关的框架，旨在处理从项目规划到企业级工业排程的各种场景。</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon icon-blue"><i class="fa-solid fa-gauge-high"></i></div>
+        <h3>高性能</h3>
+        <p>基于 Canvas 的渲染结合缓冲架构，可以以 60 fps 处理数万条活动，不需要在虚拟化上做妥协。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-purple"><i class="fa-solid fa-palette"></i></div>
+        <h3>完全可定制</h3>
+        <p>可插拔渲染器、CSS 样式、图层系统和完整 API，让你能够根据业务领域和品牌定制每一个视觉细节。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-cyan"><i class="fa-solid fa-calendar-days"></i></div>
+        <h3>灵活的时间轴</h3>
+        <p>ChronoUnit 和 SimpleUnit 时间轴支持从毫秒到数十年的跨度，并提供可配置的多行日期线、网格线和缩放级别。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-green"><i class="fa-solid fa-table-columns"></i></div>
+        <h3>分屏容器</h3>
+        <p>Dual、Quad 和 Multi 图表容器可同步滚动和缩放，适合复杂的多资源视图。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-orange"><i class="fa-solid fa-link"></i></div>
+        <h3>活动链接</h3>
+        <p>使用可定制的 Finish-to-Start 及其他链接类型，对活动之间的依赖关系建模并可视化，并以曲线或直线箭头渲染。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-pink"><i class="fa-solid fa-globe"></i></div>
+        <h3>桌面与 Web</h3>
+        <p>同一套代码库可通过 JavaFX 部署到桌面，通过 JPro 部署到浏览器，也可借助 GraalVM + Gluon 原生部署到 iOS 和 Android。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SERVICES ══════════════════════════════════════════════ -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="text-center">
+      <div class="badge"><i class="fa-solid fa-handshake" style="font-size:0.7rem"></i> 支持与资源</div>
+      <h2 class="section-title">我们为你提供全面支持</h2>
+      <p class="section-subtitle">从专业咨询到详尽文档，DLSC GmbH 提供你成功使用 FlexGanttFX 所需的一切。</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-in">
+        <div class="service-icon"><i class="fa-solid fa-building" style="color:#3B82F6"></i></div>
+        <h3>咨询</h3>
+        <p>FlexGanttFX 功能强大且较为复杂，但由 DLSC GmbH 提供支持。我们可以通过架构评审、自定义渲染器开发和性能调优，帮助你快速起步。</p>
+        <a href="https://www.dlsc.com" class="btn btn-outline-blue btn-sm">访问 DLSC.com <i class="fa-solid fa-arrow-right" style="font-size:0.75rem"></i></a>
+      </div>
+      <div class="service-card fade-in">
+        <div class="service-icon"><i class="fa-solid fa-circle-question" style="color:#8b5cf6"></i></div>
+        <h3>常见问题</h3>
+        <p>关于许可、Java 版本支持、Web 部署和技术主题的常见问题，以简明方式解答，帮助你快速推进。</p>
+        <a href="pages/faq.html" class="btn btn-outline-blue btn-sm">浏览常见问题 <i class="fa-solid fa-arrow-right" style="font-size:0.75rem"></i></a>
+      </div>
+      <div class="service-card fade-in">
+        <div class="service-icon"><i class="fa-solid fa-book-open" style="color:#10b981"></i></div>
+        <h3>文档</h3>
+        <p>详尽的开发者手册涵盖安装、教程、所有控件、模型层、样式和日志，并在各处提供代码示例。</p>
+        <a href="manual/index.html" class="btn btn-outline-blue btn-sm">阅读文档 <i class="fa-solid fa-arrow-right" style="font-size:0.75rem"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ONLINE DEMOS ═══════════════════════════════════════════ -->
+<section class="section section-dark" id="demos">
+  <div class="container">
+    <div class="text-center">
+      <div class="badge badge-dark"><i class="fa-solid fa-rocket" style="font-size:0.7rem"></i> 在线演示</div>
+      <h2 class="section-title">查看 FlexGanttFX 实际效果</h2>
+      <p class="section-subtitle">这些演示展示了 FlexGanttFX 内置的众多功能。点击即可直接在浏览器中启动。</p>
+    </div>
+    <div class="demos-grid">
+      <div class="demo-card fade-in">
+        <div class="demo-card-img">
+          <img src="../assets/images/online-demos/online-demo-showcase.png" alt="FlexGanttFX Showcase" loading="lazy" onerror="this.style.display='none'" />
+        </div>
+        <div class="demo-card-body">
+          <h3>FlexGanttFX Showcase</h3>
+          <p>这是一个综合演示，展示 FlexGanttFX 内置的完整功能和能力。可直接在浏览器中试用所有控件、布局和定制选项。</p>
+          <a href="https://demos.jpro.one/flexganttfx-showcase.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-play"></i> 启动演示</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ VIDEOS ═════════════════════════════════════════════════ -->
+<section class="section" id="videos">
+  <div class="container">
+    <div class="text-center">
+      <div class="badge"><i class="fa-brands fa-youtube" style="font-size:0.8rem"></i> 视频</div>
+      <h2 class="section-title">真实案例与技术视频</h2>
+      <p class="section-subtitle">了解 FlexGanttFX 在全球生产环境中的部署场景和使用方式。</p>
+    </div>
+    <div class="videos-grid">
+      <button class="video-card" data-video-id="Qju5_JYR8nY">
+        <div class="video-thumb">
+          <img src="../assets/images/videos/demo-emirates.jpg" alt="Emirates Airlines" loading="lazy" onerror="this.style.display='none'" />
+          <div class="video-play"><div class="video-play-btn"><i class="fa-solid fa-play" style="margin-left:3px"></i></div></div>
+        </div>
+        <div class="video-body">
+          <h3>Emirates Airlines</h3>
+          <p>真实的机队排程场景，调度员在生产环境中使用 FlexGanttFX。</p>
+        </div>
+      </button>
+      <button class="video-card" data-video-id="RN_Pcu8ssQc">
+        <div class="video-thumb">
+          <img src="../assets/images/videos/demo-ebu.jpg" alt="European Broadcasting Union" loading="lazy" onerror="this.style.display='none'" />
+          <div class="video-play"><div class="video-play-btn"><i class="fa-solid fa-play" style="margin-left:3px"></i></div></div>
+        </div>
+        <div class="video-body">
+          <h3>European Broadcasting Union (EBU)</h3>
+          <p>150 名调度员使用 FlexGanttFX 排程卫星和光纤传输。</p>
+        </div>
+      </button>
+      <button class="video-card" data-video-id="v4GkjST64Hk">
+        <div class="video-thumb">
+          <img src="../assets/images/videos/emirates-ipad.jpg" alt="Emirates 在 iPad 上" loading="lazy" onerror="this.style.display='none'" />
+          <div class="video-play"><div class="video-play-btn"><i class="fa-solid fa-play" style="margin-left:3px"></i></div></div>
+        </div>
+        <div class="video-body">
+          <h3>Emirates iPad 演示</h3>
+          <p>通过 GraalVM 和 Gluon 插件，将 Emirates POC 原生部署到 iOS。</p>
+        </div>
+      </button>
+      <button class="video-card" data-video-id="9uL7jvuDRFw">
+        <div class="video-thumb">
+          <img src="../assets/images/videos/demo-iphone.jpg" alt="iPhone 演示" loading="lazy" onerror="this.style.display='none'" />
+          <div class="video-play"><div class="video-play-btn"><i class="fa-solid fa-play" style="margin-left:3px"></i></div></div>
+        </div>
+        <div class="video-body">
+          <h3>iPhone 演示</h3>
+          <p>FlexGanttFX 原生运行在 iOS 上，与桌面应用使用同一套代码库。</p>
+        </div>
+      </button>
+      <button class="video-card" data-video-id="ME47KzDGgEw">
+        <div class="video-thumb">
+          <img src="../assets/images/videos/demo-browser.jpg" alt="iPad 浏览器演示" loading="lazy" onerror="this.style.display='none'" />
+          <div class="video-play"><div class="video-play-btn"><i class="fa-solid fa-play" style="margin-left:3px"></i></div></div>
+        </div>
+        <div class="video-body">
+          <h3>iPad 浏览器演示</h3>
+          <p>通过 JPro Web 部署，Emirates POC 在 iPad 的 Chrome 中运行。</p>
+        </div>
+      </button>
+      <button class="video-card" data-video-id="jzy4b5GxkRA">
+        <div class="video-thumb">
+          <img src="../assets/images/videos/demo-performance.jpg" alt="性能增强" loading="lazy" onerror="this.style.display='none'" />
+          <div class="video-play"><div class="video-play-btn"><i class="fa-solid fa-play" style="margin-left:3px"></i></div></div>
+        </div>
+        <div class="video-body">
+          <h3>性能增强</h3>
+          <p>Canvas 缓冲技术可在数万条活动中实现 60fps 滚动。</p>
+        </div>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RELEASES ═══════════════════════════════════════════════ -->
+<section class="section section-alt" id="releases">
+  <div class="container">
+    <div class="text-center">
+      <div class="badge"><i class="fa-solid fa-code-branch" style="font-size:0.7rem"></i> 发布历史</div>
+      <h2 class="section-title">最近发布</h2>
+      <p class="section-subtitle">FlexGanttFX 正在积极维护中。以下是最近发布的版本。请参阅<a href="pages/changelog.html">完整变更日志</a>，了解完整版本说明。</p>
+    </div>
+    <div class="releases-cols">
+      <div class="releases-timeline fade-in">
+        <div class="release-item">
+          <div class="release-version">11.12.8 — 移除 OSGi 包</div>
+          <div class="release-date"><i class="fa-regular fa-calendar" style="font-size:0.75rem"></i> January 17th, 2024</div>
+          <div class="release-desc">JAR 文件不再作为 OSGi 包发布。这修复了捆绑的原生 JavaFX 库可能与项目自身 JavaFX 版本冲突的问题。</div>
+        </div>
+        <div class="release-item">
+          <div class="release-version">11.12.7 — 错误修复</div>
+          <div class="release-date"><i class="fa-regular fa-calendar" style="font-size:0.75rem"></i> November 2nd, 2023</div>
+          <div class="release-desc">修复与链接渲染相关的问题，包括链接指向无效位置、更改行高时链接显示不正确，以及套索操作破坏导航。</div>
+        </div>
+        <div class="release-item">
+          <div class="release-version">11.12.5 — 渲染修复</div>
+          <div class="release-date"><i class="fa-regular fa-calendar" style="font-size:0.75rem"></i> March 30th, 2022</div>
+          <div class="release-desc">修复垂直线对齐、图表布局缩放以及滚动条行为回归问题。</div>
+        </div>
+      </div>
+      <div class="releases-timeline fade-in">
+        <div class="release-item">
+          <div class="release-version">11.12.3 — 滚动条类型</div>
+          <div class="release-date"><i class="fa-regular fa-calendar" style="font-size:0.75rem"></i> April 2021</div>
+          <div class="release-desc">新增固定时间范围滚动条选项、自动隐藏开关，并修复小时粒度下与夏令时相关的网格线问题。</div>
+        </div>
+        <div class="release-item">
+          <div class="release-version">11.12.0 — 细节打磨</div>
+          <div class="release-date"><i class="fa-regular fa-calendar" style="font-size:0.75rem"></i> May 14th, 2020</div>
+          <div class="release-desc">系统光标、通过行标题交互调整行大小、合并 8.x / 11.x 许可证密钥，并改进 RadarView 性能。</div>
+        </div>
+        <div class="release-item">
+          <div class="release-version">11.10.0 — 性能版本</div>
+          <div class="release-date"><i class="fa-regular fa-calendar" style="font-size:0.75rem"></i> March 2020</div>
+          <div class="release-desc">基于 Canvas 的链接渲染、用于更快活动查找的 IntervalTree、行 Canvas 缓冲 — 这是一个重要的性能里程碑。</div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center" style="margin-top:40px">
+      <a href="pages/changelog.html" class="btn btn-outline-blue"><i class="fa-solid fa-list"></i> 查看完整变更日志</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FAQ ════════════════════════════════════════════════════ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="text-center">
+      <div class="badge"><i class="fa-solid fa-circle-question" style="font-size:0.7rem"></i> 常见问题</div>
+      <h2 class="section-title">常见问题</h2>
+      <p class="section-subtitle">关于 FlexGanttFX 的最常见问题。找不到答案？<a href="mailto:dlemmermann@gmail.com">联系我们</a>。</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question">FlexGanttFX 是开源项目吗？<span class="faq-icon"><i class="fa-solid fa-plus"></i></span></div>
+        <div class="faq-answer">不是，FlexGanttFX 是商业软件。30 天试用期结束后，你需要购买开发者许可证。一旦进入生产环境，你要为每个计划交付的应用程序 / 项目购买运行时许可证。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">你们有 FlexGanttFX 的 Swing 版本吗？<span class="faq-icon"><i class="fa-solid fa-plus"></i></span></div>
+        <div class="faq-answer">有。请查看该产品在<a href="https://dlsc.com/projects/flexgantt-swing.html">DLSC 网站上的主页</a>，或联系我们，我们会提供更多信息。Swing 版本适用于 Java 8 以上的任何 Java 版本。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">FlexGanttFX 支持哪些 Java 版本？<span class="faq-icon"><i class="fa-solid fa-plus"></i></span></div>
+        <div class="faq-answer">我们支持 Java 8 到 Java 26。Java 8 版本使用 JDK 捆绑的 JavaFX。对于 Java 11 及更高版本，请使用 OpenJFX 构件，最好使用最新可用版本。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">你们是否为 FlexGanttFX 提供支持？<span class="faq-icon"><i class="fa-solid fa-plus"></i></span></div>
+        <div class="faq-answer">任何许可证持有者都会获得基础支持和错误修复。也可以选择年度维护计划，从而获得高级支持，并在新版本发布时免费更新。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">FlexGanttFX 能在 Chrome 或 Safari 等浏览器中运行吗？<span class="faq-icon"><i class="fa-solid fa-plus"></i></span></div>
+        <div class="faq-answer">通过 <a href="https://www.jpro.one">JPro</a>，FlexGanttFX 可以很好地在浏览器中运行。请查看<a href="https://www.jpro.one/?page=demos">他们的网站</a>获取更多信息和在线示例！</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">我们应该使用哪个 OpenJFX 版本？<span class="faq-icon"><i class="fa-solid fa-plus"></i></span></div>
+        <div class="faq-answer">理想情况下应使用最新版本。FlexGanttFX 会持续针对近期的 OpenJFX 版本进行测试，并可与 11 到 21+ 版本配合使用。</div>
+      </div>
+    </div>
+    <div class="text-center" style="margin-top:32px">
+      <a href="pages/faq.html" class="btn btn-outline-blue"><i class="fa-solid fa-arrow-right"></i> 更多常见问题</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TESTIMONIALS ═══════════════════════════════════════════ -->
+<section class="section section-alt" id="testimonials">
+  <div class="container">
+    <div class="text-center">
+      <div class="badge"><i class="fa-solid fa-star" style="font-size:0.7rem"></i> 客户反馈</div>
+      <h2 class="section-title">受到全球开发者信赖</h2>
+      <p class="section-subtitle">FlexGanttFX 及其前身产品已部署在数百个应用中。以下是客户的评价。</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card fade-in">
+        <p class="testimonial-quote">FlexGantt 拉开了我们与竞争对手之间的差距。这个业务领域中的其他标准工具与 FlexGantt 相比相去甚远。其精心设计的架构让你能够控制该组件的每一个像素。</p>
+        <div class="testimonial-author">
+          <img class="testimonial-avatar" src="../assets/images/martin-schelldorfer.jpg" alt="Martin Schelldorfer" onerror="this.src=''" loading="lazy" />
+          <div>
+            <div class="testimonial-name">Martin Schelldorfer</div>
+            <div class="testimonial-role">高级软件开发者 · e-Switch，瑞士</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-in">
+        <p class="testimonial-quote">在评估 FlexGantt 库时，我们立刻留下了深刻印象，因为它似乎完全符合我们的主要期望和需求。其采用设计模式的架构，以及持续而响应迅速的支持，使它成为我们明确的选择。</p>
+        <div class="testimonial-author">
+          <img class="testimonial-avatar" src="../assets/images/aurelien-boulanger.jpeg" alt="Aurelien Boulanger" onerror="this.src=''" loading="lazy" />
+          <div>
+            <div class="testimonial-name">Aurelien Boulanger</div>
+            <div class="testimonial-role">软件工程师 · PlanningForce，比利时</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-in">
+        <p class="testimonial-quote">我花了大量时间评估各种甘特图包，但它们在功能、灵活性和清晰的授权方式上都无法与 FlexGantt 相比。对于任何基于 Java 的排程应用，我都会强烈推荐它。</p>
+        <div class="testimonial-author">
+          <img class="testimonial-avatar" src="../assets/images/daniel-wintschel.jpeg" alt="Daniel Wintschel" onerror="this.src=''" loading="lazy" />
+          <div>
+            <div class="testimonial-name">Daniel Wintschel</div>
+            <div class="testimonial-role">软件开发者 · HumanDoing Software，加拿大</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-in">
+        <p class="testimonial-quote">FlexGantt 以其广泛的功能、定制能力、性能、国际化、文档和示例给我们留下了深刻印象。在我们看来，FlexGantt 是最符合我们需求的库。</p>
+        <div class="testimonial-author">
+          <img class="testimonial-avatar" src="../assets/images/simcron.jpeg" alt="Dagmar Wolfram" onerror="this.src=''" loading="lazy" />
+          <div>
+            <div class="testimonial-name">Dagmar Wolfram</div>
+            <div class="testimonial-role">高级顾问 · Simcron，德国</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-in">
+        <p class="testimonial-quote">在我看来，FlexGantt 明显优于我们评估过的所有其他产品。与 FlexGantt 合作一直令人愉快。我们很幸运找到了如此出色的产品。</p>
+        <div class="testimonial-author">
+          <img class="testimonial-avatar" src="../assets/images/andy-czerwonka.jpeg" alt="Andy Czerwonka" onerror="this.src=''" loading="lazy" />
+          <div>
+            <div class="testimonial-name">Andy Czerwonka</div>
+            <div class="testimonial-role">高级顾问 · 3esi Inc. (Aucerna)，加拿大</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-in">
+        <p class="testimonial-quote">FlexGantt 丰富的功能集、高性能以及出色的可视化能力，为我们的产品带来了巨大价值。设计良好的 MVC 架构使我们能够轻松地在项目中集成和扩展 FlexGantt。</p>
+        <div class="testimonial-author">
+          <img class="testimonial-avatar" src="../assets/images/duy-vo.jpeg" alt="Duy Vu" onerror="this.src=''" loading="lazy" />
+          <div>
+            <div class="testimonial-name">Duy Vu</div>
+            <div class="testimonial-role">开发者 · Qnamic AG，瑞士</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ COMPANIES ══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="text-center">
+      <div class="badge"><i class="fa-solid fa-building-columns" style="font-size:0.7rem"></i> 信赖客户</div>
+      <h2 class="section-title">被全球领先组织采用</h2>
+      <p class="section-subtitle" style="margin-bottom:40px">从航空航天和国防到电信与物流，FlexGanttFX 为关键任务排程应用提供动力。</p>
+    </div>
+    <div class="companies-grid">
+      <div class="company-logo"><img src="../assets/images/companies/emirates.png" alt="Emirates" loading="lazy" /></div>
+      <div class="company-logo"><img src="../assets/images/companies/nasa.png" alt="NASA" loading="lazy" /></div>
+      <div class="company-logo"><img src="../assets/images/companies/boeing.png" alt="Boeing" loading="lazy" /></div>
+      <div class="company-logo"><img src="../assets/images/companies/airbus.png" alt="Airbus" loading="lazy" /></div>
+      <div class="company-logo"><img src="../assets/images/companies/esa.png" alt="ESA" loading="lazy" /></div>
+      <div class="company-logo"><img src="../assets/images/companies/general-dynamics.png" alt="常规 Dynamics" loading="lazy" /></div>
+      <div class="company-logo"><img src="../assets/images/companies/jpl.png" alt="Jet Propulsion Laboratory" loading="lazy" /></div>
+      <div class="company-logo"><img src="../assets/images/companies/lockheed-martin.png" alt="Lockheed Martin" loading="lazy" /></div>
+      <div class="company-logo"><img src="../assets/images/companies/bt.png" alt="British Telecom" loading="lazy" /></div>
+      <div class="company-logo"><img src="../assets/images/companies/db.png" alt="Deutsche Bahn" loading="lazy" /></div>
+      <div class="company-logo"><img src="../assets/images/companies/siemens.png" alt="Siemens" loading="lazy" /></div>
+      <div class="company-logo"><img src="../assets/images/companies/kuehne-nagel.png" alt="Kuehne &amp; Nagel" loading="lazy" /></div>
+      <div class="company-logo"><img src="../assets/images/companies/raytheon.png" alt="Raytheon" loading="lazy" /></div>
+      <div class="company-logo"><img src="../assets/images/companies/sabre.png" alt="Sabre" loading="lazy" /></div>
+      <div class="company-logo"><img src="../assets/images/companies/saic.png" alt="SAIC" loading="lazy" /></div>
+      <div class="company-logo"><img src="../assets/images/companies/los-alamos.png" alt="Los Alamos Laboratory" loading="lazy" /></div>
+      <div class="company-logo"><img src="../assets/images/companies/psi.png" alt="PSI" loading="lazy" /></div>
+      <div class="company-logo"><img src="../assets/images/companies/e-switch.png" alt="e-Switch" loading="lazy" /></div>
+      <div class="company-logo"><img src="../assets/images/companies/alcatel.png" alt="Alcatel" loading="lazy" /></div>
+      <div class="company-logo"><img src="../assets/images/companies/mcdonnell-douglas.png" alt="McDonnell Douglas" loading="lazy" /></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT CTA ════════════════════════════════════════════ -->
+<section class="contact-cta">
+  <div class="container">
+    <h2>准备开始了吗？</h2>
+    <p>免费评估 FlexGanttFX 30 天，无需任何承诺。联系我们，我们会帮助你顺利启动。</p>
+    <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap">
+      <a href="mailto:dlemmermann@gmail.com" class="btn btn-primary" style="font-size:1rem; padding:14px 32px"><i class="fa-solid fa-envelope"></i> 联系 DLSC</a>
+      <a href="manual/installation.html" class="btn btn-outline" style="font-size:1rem; padding:14px 32px"><i class="fa-solid fa-book"></i> 阅读文档</a>
+    </div>
+    <p style="margin-top:28px; font-size:0.875rem; color:rgba(255,255,255,0.5)">
+      <i class="fa-solid fa-envelope" style="margin-right:6px"></i>
+      <a href="mailto:dlemmermann@gmail.com" style="color:rgba(255,255,255,0.7)">dlemmermann@gmail.com</a>
+    </p>
+  </div>
+</section>
+
+<!-- ══ FOOTER ═════════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3><i class="fa-solid fa-chart-gantt" style="color:#60A5FA;margin-right:8px"></i>FlexGanttFX</h3>
+        <p>面向 JavaFX 的专业甘特图框架。由 DLSC GmbH 构建并提供支持，30 年来持续交付企业级排程解决方案。</p>
+        <div style="margin-top:16px; display:flex; gap:12px">
+          <a href="https://www.dlsc.com" class="footer-social-link" title="dlsc.com"><i class="fa-solid fa-globe"></i></a>
+          <a href="https://github.com/dlsc-software-consulting-gmbh" class="footer-social-link" title="GitHub" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/dlemmermann/" class="footer-social-link" title="LinkedIn" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="https://bsky.app/profile/dlemmermann.bsky.social" class="footer-social-link" title="Bluesky" target="_blank" rel="noopener"><i class="fa-brands fa-bluesky"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>产品</h4>
+        <ul>
+          <li><a href="index.html">首页</a></li>
+          <li><a href="pages/demos.html">演示</a></li>
+          <li><a href="pages/licensing.html">许可</a></li>
+          <li><a href="pages/changelog.html">版本说明</a></li>
+          <li><a href="pages/faq.html">常见问题</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>文档</h4>
+        <ul>
+          <li><a href="manual/index.html">概览</a></li>
+          <li><a href="manual/installation.html">安装</a></li>
+          <li><a href="manual/tutorial.html">教程</a></li>
+          <li><a href="manual/gantt-charts.html">甘特图</a></li>
+          <li><a href="manual/model.html">模型</a></li>
+          <li><a href="../api/index.html">API 参考</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <a href="https://www.dlsc.com" target="_blank" rel="noopener"><img src="../assets/images/dlsc-logo.png" alt="DLSC Software &amp; Consulting GmbH" class="footer-dlsc-logo" /></a>
+        <ul>
+          <li><a href="https://www.dlsc.com">dlsc.com</a></li>
+          <li><a href="https://dlsc.com/projects/flexgantt-swing.html">FlexGantt (Swing)</a></li>
+          <li><a href="https://www.jpro.one">JPro (Web)</a></li>
+          <li><a href="mailto:dlemmermann@gmail.com">联系我们</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="copyright-year">2024</span> DLSC Software &amp; Consulting GmbH. 保留所有权利。</span>
+      <span>FlexGanttFX v11.12.8</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ VIDEO MODAL ════════════════════════════════════════════ -->
+<div class="video-modal" id="video-modal" role="dialog" aria-modal="true" aria-label="视频播放器">
+  <div class="video-modal-backdrop" id="video-modal-backdrop"></div>
+  <div class="video-modal-dialog">
+    <button class="video-modal-close" id="video-modal-close" aria-label="关闭视频">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="video-modal-frame">
+      <iframe id="video-modal-iframe"
+        src=""
+        title="YouTube 视频"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

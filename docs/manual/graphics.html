@@ -9,9 +9,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Graphics — FlexGanttFX</title>
   <link rel="stylesheet" href="../assets/css/style.css" />
+  <script src="../assets/js/lang.js"></script>
   <link rel="stylesheet" href="../assets/css/docs.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" crossorigin="anonymous" />
+  <link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/manual/graphics.html" />
+  <link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/manual/graphics.html" />
+  <link rel="alternate" hreflang="fr" href="https://www.flexganttfx.com/fr/manual/graphics.html" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://www.flexganttfx.com/zh/manual/graphics.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.flexganttfx.com/manual/graphics.html" />
 </head>
 <body>
   <nav class="navbar">
@@ -55,6 +61,15 @@
             </div>
           </li>
           <li><a href="../pages/downloads.html">Downloads</a></li>
+      <li class="nav-dropdown nav-lang">
+        <a href="#"><i class="fa-solid fa-globe"></i> EN</a>
+        <div class="dropdown-menu">
+          <a href="graphics.html" data-lang="en" class="active">English</a>
+          <a href="../de/manual/graphics.html" data-lang="de">Deutsch</a>
+          <a href="../fr/manual/graphics.html" data-lang="fr">Français</a>
+          <a href="../zh/manual/graphics.html" data-lang="zh">中文（简体）</a>
+        </div>
+      </li>
           <li><a href="mailto:dlemmermann@gmail.com" class="nav-cta"><i class="fa-solid fa-envelope" style="font-size:0.8rem"></i> Contact</a></li>
         </ul>
       <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
@@ -68,6 +83,11 @@
         <a href="gantt-charts.html">Gantt Charts</a>
         <a href="model.html">Model</a>
         <a href="../pages/faq.html">FAQ</a>
+      <div class="mobile-lang-divider"></div>
+      <a href="graphics.html" data-lang="en" class="active-lang"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> English</a>
+      <a href="../de/manual/graphics.html" data-lang="de"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Deutsch</a>
+      <a href="../fr/manual/graphics.html" data-lang="fr"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> Français</a>
+      <a href="../zh/manual/graphics.html" data-lang="zh"><i class="fa-solid fa-globe" style="font-size:0.8rem"></i> 中文（简体）</a>
       </div>
     </div>
   </nav>
@@ -355,10 +375,6 @@ following values which an be set by calling the setDragAndDropFeedback() method 
 <td><strong>RENDERED_GRID_SNAPPED</strong></td>
 <td>The dragged activity will be constantly rendered on a separate canvas on top of the graphics area. The activity is guaranteed to keep its original size. The currently active grid will be used to make the dragged activity snap to the grid locations.</td>
 </tr>
-<tr>
-<td>-----------------------</td>
-<td>---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</td>
-</tr>
 </tbody>
 </table>
 
@@ -413,20 +429,64 @@ graphics.addEventHandler(ActivityEvent.ACTIVITY_CHANGE_FINISHED,
 
 <p>The following tables list all supported activity event types and the convenience setter methods of the graphics view. 
 The methods are used to quickly register an event handler for the various event types.</p>
-<p>| Event Types                                                                           | Description                                                                                                                                                                                                                                                                     |
-|---------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ACTIVITY_DELETED                                                                      | Fired whenever the user deletes an activity via the backspace key.                                                                                                                                                                                                              |
-| ACTIVITY_CHANGE                                                                       | The parent event type of all activity changes. Can be used to to receive a notification for any kind of activity change.                                                                                                                                                        |
-| ACTIVITY_CHANGE_STARTED, ACTIVITY_CHANGE_ONGOING, ACTIVITY_CHANGE_FINISHED           | Fired whenever an activity change has started, is ongoing, or has finished.                                                                                                                                                                                                     |
-| CHART_HIGH_VALUE_CHANGE_STARTED, CHART_HIGH_VALUE_CHANGE_ONGOING, CHART_HIGH_VALUE_CHANGE_FINISHED | Fired whenever the user has started editing, is in the process of editing, or has finished editing the "high" value of a high / low chart activity.                                                                                                                             |
-| CHART_LOW_VALUE_CHANGE_STARTED, CHART_LOW_VALUE_CHANGE_ONGOING, CHART_LOW_VALUE_CHANGE_FINISHED | Fired whenever the user has started editing, is in the process of editing, or has finished editing the "low" value of a high / low chart activity.                                                                                                                              |
-| CHART_VALUE_CHANGE_STARTED, CHART_VALUE_CHANGE_ONGOING, CHART_VALUE_CHANGE_FINISHED   | Fired whenever the user has started editing, is in the process of editing, or has finished editing a chart value of a chart activity.                                                                                                                                           |
-| DRAG_STARTED, DRAG_ONGOING, DRAG_FINISHED                                             | Fired whenever the user has started dragging, is in the process of dragging, or has finished dragging an activity via platform-provided drag &amp; drop. This event type is used when the user can freely move the activity around, vertically and horizontally.                    |
-| END_TIME_CHANGE_STARTED, END_TIME_CHANGE_ONGOING, END_TIME_CHANGE_FINISHED            | Fired whenever the user has started changing, is in the process of changing, or has finished changing the end time of an activity.                                                                                                                                              |
-| HORIZONTAL_DRAG_STARTED, HORIZONTAL_DRAG_ONGOING, HORIZONTAL_DRAG_FINISHED            | Fired whenever the user has started changing, is in the process of changing, or has finished changing the time interval (start and end time) of an activity. Changing this time interval makes the activity move horizontally, either to the right (future) or the left (past). |
-| PERCENTAGE_CHANGE_STARTED, PERCENTAGE_CHANGE_ONGOING, PERCENTAGE_CHANGE_FINISHED      | Fired whenever the user has started changing, is in the process of changing, or has finished changing the "percentage complete" value of an activity.                                                                                                                           |
-| START_TIME_CHANGE_STARTED, START_TIME_CHANGE_ONGOING, START_TIME_CHANGE_FINISHED      | Fired whenever the user has started changing, is in the process of changing, or has finished changing the start time of an activity.                                                                                                                                            |
-| VERTICAL_DRAG_STARTED, VERTICAL_DRAG_ONGOING, VERTICAL_DRAG_FINISHED                  | Fired whenever the user has started dragging, is in the process of dragging, or has finished dragging an activity via platform-provided drag &amp; drop. This event type is used when the user can only drag the activity vertically (reassign an activity to a different row).     |</p>
+<table>
+<thead>
+<tr>
+<th>Event Types</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ACTIVITY_DELETED</td>
+<td>Fired whenever the user deletes an activity via the backspace key.</td>
+</tr>
+<tr>
+<td>ACTIVITY_CHANGE</td>
+<td>The parent event type of all activity changes. Can be used to to receive a notification for any kind of activity change.</td>
+</tr>
+<tr>
+<td>ACTIVITY_CHANGE_STARTED, ACTIVITY_CHANGE_ONGOING, ACTIVITY_CHANGE_FINISHED</td>
+<td>Fired whenever an activity change has started, is ongoing, or has finished.</td>
+</tr>
+<tr>
+<td>CHART_HIGH_VALUE_CHANGE_STARTED, CHART_HIGH_VALUE_CHANGE_ONGOING, CHART_HIGH_VALUE_CHANGE_FINISHED</td>
+<td>Fired whenever the user has started editing, is in the process of editing, or has finished editing the "high" value of a high / low chart activity.</td>
+</tr>
+<tr>
+<td>CHART_LOW_VALUE_CHANGE_STARTED, CHART_LOW_VALUE_CHANGE_ONGOING, CHART_LOW_VALUE_CHANGE_FINISHED</td>
+<td>Fired whenever the user has started editing, is in the process of editing, or has finished editing the "low" value of a high / low chart activity.</td>
+</tr>
+<tr>
+<td>CHART_VALUE_CHANGE_STARTED, CHART_VALUE_CHANGE_ONGOING, CHART_VALUE_CHANGE_FINISHED</td>
+<td>Fired whenever the user has started editing, is in the process of editing, or has finished editing a chart value of a chart activity.</td>
+</tr>
+<tr>
+<td>DRAG_STARTED, DRAG_ONGOING, DRAG_FINISHED</td>
+<td>Fired whenever the user has started dragging, is in the process of dragging, or has finished dragging an activity via platform-provided drag &amp; drop. This event type is used when the user can freely move the activity around, vertically and horizontally.</td>
+</tr>
+<tr>
+<td>END_TIME_CHANGE_STARTED, END_TIME_CHANGE_ONGOING, END_TIME_CHANGE_FINISHED</td>
+<td>Fired whenever the user has started changing, is in the process of changing, or has finished changing the end time of an activity.</td>
+</tr>
+<tr>
+<td>HORIZONTAL_DRAG_STARTED, HORIZONTAL_DRAG_ONGOING, HORIZONTAL_DRAG_FINISHED</td>
+<td>Fired whenever the user has started changing, is in the process of changing, or has finished changing the time interval (start and end time) of an activity. Changing this time interval makes the activity move horizontally, either to the right (future) or the left (past).</td>
+</tr>
+<tr>
+<td>PERCENTAGE_CHANGE_STARTED, PERCENTAGE_CHANGE_ONGOING, PERCENTAGE_CHANGE_FINISHED</td>
+<td>Fired whenever the user has started changing, is in the process of changing, or has finished changing the "percentage complete" value of an activity.</td>
+</tr>
+<tr>
+<td>START_TIME_CHANGE_STARTED, START_TIME_CHANGE_ONGOING, START_TIME_CHANGE_FINISHED</td>
+<td>Fired whenever the user has started changing, is in the process of changing, or has finished changing the start time of an activity.</td>
+</tr>
+<tr>
+<td>VERTICAL_DRAG_STARTED, VERTICAL_DRAG_ONGOING, VERTICAL_DRAG_FINISHED</td>
+<td>Fired whenever the user has started dragging, is in the process of dragging, or has finished dragging an activity via platform-provided drag &amp; drop. This event type is used when the user can only drag the activity vertically (reassign an activity to a different row).</td>
+</tr>
+</tbody>
+</table>
 
 <table>
 <thead>
