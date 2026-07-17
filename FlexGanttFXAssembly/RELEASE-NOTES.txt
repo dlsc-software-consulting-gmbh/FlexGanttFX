@@ -1,5 +1,5 @@
 ----------------------------------------------------------------
-Release: 11.14.0, Date: June 2026
+Release: xxx, Date: yyy
 ----------------------------------------------------------------
 
 ** Support for AtlantaFX theming
@@ -8,6 +8,11 @@ Release: 11.14.0, Date: June 2026
 ** New demos (space, sprint planning, project management)
 ** Implemented IntervalTree.removeIf(Predicate)
 ** Fixed potential integer overflow issue in IntervalTree
+** Fixed a potential memory leak in EqualLinesManager by using weak listeners for row property changes
+** Fixed ListActivityRepository iterators to throw NoSuchElementException when next() is called past the end
+** Fixed BinarySearchActivityIterator to correctly scan left and return the true first visible activity
+** Fixed a potential NPE in TimelineModel by disallowing null start times
+** Fixed hash-collision ambiguity in IntervalTree key comparison for activities with identical time bounds
 ** Fixed an issue related to changing the observable list on GanttChartLite.
    Changes to the new list would not update the view.
 ** Fixed an issue in RowHeaderColumnCell that caused the cell to not be updated properly

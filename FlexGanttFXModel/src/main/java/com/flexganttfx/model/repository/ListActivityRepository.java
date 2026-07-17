@@ -421,7 +421,7 @@ public class ListActivityRepository<A extends Activity> extends MutableActivityR
                 }
                 return activities.get(index++);
             }
-            throw new UnsupportedOperationException(
+            throw new NoSuchElementException(
                     "iterator has no more elements to return");
         }
 
@@ -497,7 +497,7 @@ public class ListActivityRepository<A extends Activity> extends MutableActivityR
             if (hasNext()) {
                 return objectList.get(index++);
             }
-            throw new UnsupportedOperationException(
+            throw new NoSuchElementException(
                     "iterator has no more elements to return");
         }
 

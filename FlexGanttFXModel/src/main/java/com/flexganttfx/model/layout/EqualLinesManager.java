@@ -21,6 +21,8 @@ import com.flexganttfx.model.Layout;
 import com.flexganttfx.model.LinesManager;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.model.exception.IllegalLineIndexException;
+import javafx.beans.InvalidationListener;
+import javafx.beans.WeakInvalidationListener;
 
 import static java.util.Objects.requireNonNull;
 
@@ -38,6 +40,8 @@ import static java.util.Objects.requireNonNull;
 public class EqualLinesManager<R extends Row<?, ?, A>, A extends Activity> implements LinesManager<A> {
 
 	private final R row;
+	private final InvalidationListener clearCacheListener = observable -> clearCache();
+	private final WeakInvalidationListener weakClearCacheListener = new WeakInvalidationListener(clearCacheListener);
 
 	/**
 	 * Constructs a new lines manager for the given row. The manager attaches
@@ -52,8 +56,8 @@ public class EqualLinesManager<R extends Row<?, ?, A>, A extends Activity> imple
 		requireNonNull(row);
 
 		this.row = row;
-		this.row.lineCountProperty().addListener(observable -> clearCache());
-		this.row.heightProperty().addListener(observable -> clearCache());
+		this.row.lineCountProperty().addListener(weakClearCacheListener);
+		this.row.heightProperty().addListener(weakClearCacheListener);
 	}
 
 	/**

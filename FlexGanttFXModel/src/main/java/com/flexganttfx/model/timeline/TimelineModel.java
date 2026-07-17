@@ -386,6 +386,8 @@ public abstract class TimelineModel<T extends TemporalUnit> {
 
         @Override
         public void set(Instant newTime) {
+            requireNonNull(newTime);
+
             Instant horizonStart = getHorizonStartTime();
             if (horizonStart != null && horizonStart.isAfter(newTime)) {
                 return;

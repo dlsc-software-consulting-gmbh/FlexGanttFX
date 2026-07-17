@@ -278,7 +278,7 @@ public class IntervalTree<A extends Activity> {
                 cmp = compareLongs(getHigh(activity), t.high);
             }
             if (cmp == 0) {
-                cmp = Integer.compare(activity.hashCode(), t.value.hashCode());
+                cmp = compareActivityKeys(activity, t.value);
             }
 
             if (cmp < 0) {
@@ -314,7 +314,7 @@ public class IntervalTree<A extends Activity> {
             if (cmp == 0) {
                 cmp = compareLongs(getHigh(activity), t.high);
                 if (cmp == 0) {
-                    cmp = Integer.compare(activity.hashCode(), t.value.hashCode());
+                    cmp = compareActivityKeys(activity, t.value);
                 }
             }
 
@@ -342,6 +342,35 @@ public class IntervalTree<A extends Activity> {
 
     private int compareLongs(long val1, long val2) {
         return val1 < val2 ? -1 : (val1 == val2 ? 0 : 1);
+    }
+
+    private int compareActivityKeys(Activity first, Activity second) {
+        int cmp = Integer.compare(first.hashCode(), second.hashCode());
+        if (cmp == 0) {
+            cmp = compareNullableStrings(first.getId(), second.getId());
+        }
+        if (cmp == 0) {
+            cmp = compareNullableStrings(first.getName(), second.getName());
+        }
+        if (cmp == 0) {
+            cmp = first.getClass().getName().compareTo(second.getClass().getName());
+        }
+
+        return cmp;
+    }
+
+    private int compareNullableStrings(String first, String second) {
+        if (first == second) {
+            return 0;
+        }
+        if (first == null) {
+            return -1;
+        }
+        if (second == null) {
+            return 1;
+        }
+
+        return first.compareTo(second);
     }
 
     // This part of code was copied from java.util.TreeMap

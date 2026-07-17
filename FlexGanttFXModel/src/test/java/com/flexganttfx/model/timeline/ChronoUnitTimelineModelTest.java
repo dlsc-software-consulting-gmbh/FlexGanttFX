@@ -25,6 +25,7 @@ import java.time.Instant;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ChronoUnitTimelineModelTest {
 
@@ -99,5 +100,10 @@ public class ChronoUnitTimelineModelTest {
 
         // then
         assertThat(timelineModel.getStartTime(), is(equalTo(time)));
+    }
+
+    @Test
+    public void shouldNotAllowNullStartTime() {
+        assertThrows(NullPointerException.class, () -> timelineModel.setStartTime(null));
     }
 }

@@ -24,11 +24,13 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class LinearSearchActivityIteratorTest {
 
@@ -87,6 +89,7 @@ public class LinearSearchActivityIteratorTest {
 		assertThat(iterator.hasNext(), is(true));
 		assertThat(iterator.next(), is(equalTo(activity5)));
 		assertThat(iterator.hasNext(), is(false));
+		assertThrows(NoSuchElementException.class, iterator::next);
 	}
 
 	@Test
