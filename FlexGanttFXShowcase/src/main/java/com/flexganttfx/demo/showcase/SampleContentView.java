@@ -64,6 +64,13 @@ public class SampleContentView extends BorderPane {
         getStyleClass().add("sample-content-root");
     }
 
+    /**
+     * Shows the given sample.
+     *
+     * @param sample   the sample to show
+     * @param category the category the sample belongs to, may be null (e.g. when a sample
+     *                 gets launched standalone)
+     */
     public void showSample(Sample sample, SampleCategory category) {
         // Dispose previous sample
         if (currentSample != null) {
@@ -82,15 +89,20 @@ public class SampleContentView extends BorderPane {
         VBox header = new VBox(4);
         header.getStyleClass().add("sample-header");
 
-        Label catLabel = new Label(category.getName().toUpperCase());
-        catLabel.getStyleClass().add("sample-header-category");
-        catLabel.setStyle("-fx-text-fill: " + category.getAccentColor() + "; -fx-font-size: 11px; -fx-font-weight: bold;");
-
         Label nameLabel = new Label(sample.getSampleName());
         nameLabel.getStyleClass().add("sample-header-title");
 
-        VBox headerText = new VBox(4, catLabel, nameLabel);
+        VBox headerText = new VBox(4);
         headerText.getStyleClass().add("sample-header-text");
+
+        if (category != null) {
+            Label catLabel = new Label(category.getName().toUpperCase());
+            catLabel.getStyleClass().add("sample-header-category");
+            catLabel.setStyle("-fx-text-fill: " + category.getAccentColor() + "; -fx-font-size: 11px; -fx-font-weight: bold;");
+            headerText.getChildren().add(catLabel);
+        }
+
+        headerText.getChildren().add(nameLabel);
 
         HBox headerMain = new HBox(12);
         headerMain.getStyleClass().add("sample-header-main");

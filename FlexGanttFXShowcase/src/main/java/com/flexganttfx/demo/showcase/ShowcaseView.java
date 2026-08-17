@@ -47,6 +47,7 @@ import javafx.application.HostServices;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.collections.ObservableList;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -135,6 +136,34 @@ public class ShowcaseView extends BorderPane {
         Theme theme = resolvePersistedTheme();
         String uas = theme.equals(MODENA) ? null : theme.getUserAgentStylesheet();
         scene.setUserAgentStylesheet(uas);
+    }
+
+    /**
+     * Applies the persisted theme to a scene that is not managed by the showcase
+     * application, e.g. when a single sample gets launched standalone. In addition to
+     * the user agent stylesheet this also installs the theme style classes on the scene
+     * root and the ControlsFX companion stylesheet.
+     */
+    public static void applyStandaloneTheme(Scene scene) {
+        applyPersistedTheme(scene);
+
+        Theme theme = resolvePersistedTheme();
+
+        Parent root = scene.getRoot();
+        root.getStyleClass().removeAll(ATLANTAFX_THEME_CLASS, ATLANTAFX_DARK_THEME_CLASS, ATLANTAFX_LIGHT_THEME_CLASS, MODENA_THEME_CLASS);
+
+        if (isModenaTheme(theme)) {
+            root.getStyleClass().add(MODENA_THEME_CLASS);
+            scene.getStylesheets().remove(CONTROLSFX_ATLANTAFX_CSS);
+        } else {
+            root.getStyleClass().addAll(
+                    ATLANTAFX_THEME_CLASS,
+                    theme.isDarkMode() ? ATLANTAFX_DARK_THEME_CLASS : ATLANTAFX_LIGHT_THEME_CLASS
+            );
+            if (!scene.getStylesheets().contains(CONTROLSFX_ATLANTAFX_CSS)) {
+                scene.getStylesheets().add(CONTROLSFX_ATLANTAFX_CSS);
+            }
+        }
     }
 
     private static Theme resolvePersistedTheme() {
@@ -552,7 +581,7 @@ public class ShowcaseView extends BorderPane {
         }
     }
 
-    private boolean isModenaTheme(Theme theme) {
+    private static boolean isModenaTheme(Theme theme) {
         return MODENA.getName().equals(theme.getName());
     }
 

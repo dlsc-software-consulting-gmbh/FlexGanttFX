@@ -31,7 +31,11 @@ public class ShowcaseApp extends Application {
 
     private static final String FONTS_BASE = "/com/flexganttfx/demo/showcase/fonts/";
 
-    private void loadShowcaseFonts() {
+    /**
+     * Loads the fonts used by the showcase. Also used when a single sample gets
+     * launched standalone via its own main method.
+     */
+    public static void loadShowcaseFonts() {
         String[] variants = {
             "Inter-Regular.ttf",
             "Inter-Italic.ttf",

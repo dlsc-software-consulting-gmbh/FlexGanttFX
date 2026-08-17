@@ -18,6 +18,7 @@ package com.flexganttfx.demo.demos;
 
 import com.flexganttfx.demo.FlexGanttFXSampleBase;
 import com.flexganttfx.space.view.SpaceMissionView;
+import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 
@@ -47,5 +48,9 @@ public class SpaceMissionSample extends FlexGanttFXSampleBase {
     @Override
     public Node getControlPanel() {
         return null;
+    }
+
+    public static void main(String[] args) {
+        Application.launch(args);
     }
 }

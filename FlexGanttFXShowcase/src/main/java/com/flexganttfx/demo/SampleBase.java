@@ -16,6 +16,7 @@
  */
 package com.flexganttfx.demo;
 
+import com.flexganttfx.demo.showcase.StandaloneSampleLauncher;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.stage.Stage;
@@ -24,13 +25,16 @@ import javafx.stage.Stage;
  * A convenient base class for showcase samples. Extend this class and implement
  * {@link #getPanel(Stage)} at minimum. Optionally override {@link #getControlPanel()}
  * to provide an interactive settings panel.
+ *
+ * <p>Samples can also be launched standalone via their own main method. In that case
+ * the sample gets shown in its own stage with the same look and feel as inside the
+ * showcase application.
  */
 public abstract class SampleBase extends Application implements Sample {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle(getSampleName());
-        primaryStage.show();
+        StandaloneSampleLauncher.show(this, primaryStage);
     }
 
     @Override

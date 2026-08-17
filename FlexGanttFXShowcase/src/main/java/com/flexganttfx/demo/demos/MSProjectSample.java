@@ -25,6 +25,7 @@ import com.flexganttfx.msproject.SampleProject;
 import com.flexganttfx.msproject.SampleProjectFactory;
 import com.flexganttfx.msproject.view.MSProjectGanttChart;
 import com.flexganttfx.view.graphics.renderer.CurvedLinkRenderer;
+import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -114,5 +115,9 @@ public class MSProjectSample extends FlexGanttFXSampleBase {
         bar.setAlignment(Pos.CENTER_LEFT);
         bar.setPadding(new Insets(6, 12, 6, 12));
         return bar;
+    }
+
+    public static void main(String[] args) {
+        Application.launch(args);
     }
 }

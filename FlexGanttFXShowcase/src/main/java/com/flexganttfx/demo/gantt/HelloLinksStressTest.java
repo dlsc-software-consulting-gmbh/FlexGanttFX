@@ -32,6 +32,7 @@ import com.flexganttfx.view.graphics.ListViewGraphics;
 import com.flexganttfx.view.graphics.renderer.CompletableActivityRenderer;
 import com.flexganttfx.view.graphics.renderer.StraightLinkRenderer;
 import com.flexganttfx.view.util.Position;
+import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -278,5 +279,7 @@ public class HelloLinksStressTest extends FlexGanttFXSample {
         }
     }
 
-
+    public static void main(String[] args) {
+        Application.launch(args);
+    }
 }

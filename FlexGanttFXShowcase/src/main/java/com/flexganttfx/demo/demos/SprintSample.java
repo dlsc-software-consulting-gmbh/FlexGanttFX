@@ -18,6 +18,7 @@ package com.flexganttfx.demo.demos;
 
 import com.flexganttfx.demo.FlexGanttFXSampleBase;
 import com.flexganttfx.sprint.view.SprintView;
+import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 
@@ -42,5 +43,9 @@ public class SprintSample extends FlexGanttFXSampleBase {
     @Override
     public Node getPanel(Stage stage) {
         return new SprintView();
+    }
+
+    public static void main(String[] args) {
+        Application.launch(args);
     }
 }

@@ -18,6 +18,7 @@ package com.flexganttfx.demo.demos;
 
 import com.flexganttfx.demo.FlexGanttFXSampleBase;
 import com.flexganttfx.spacex.view.SpaceXView;
+import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 
@@ -46,5 +47,9 @@ public class SpaceXLaunchesSample extends FlexGanttFXSampleBase {
     @Override
     public Node getControlPanel() {
         return null;
+    }
+
+    public static void main(String[] args) {
+        Application.launch(args);
     }
 }

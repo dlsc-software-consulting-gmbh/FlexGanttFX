@@ -23,6 +23,7 @@ import com.flexganttfx.emirates.view.EmiratesAircraftGanttChart;
 import com.flexganttfx.emirates.view.GlassPane;
 import com.flexganttfx.extras.GanttChartToolBar;
 import com.flexganttfx.view.GanttChartBase;
+import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.geometry.Insets;
@@ -161,5 +162,9 @@ public class EmiratesSample extends FlexGanttFXSampleBase {
         Thread thread = new Thread(task);
         thread.setDaemon(true);
         thread.start();
+    }
+
+    public static void main(String[] args) {
+        Application.launch(args);
     }
 }

@@ -1,0 +1,62 @@
+/**
+ * License Notice for FlexGanttFX
+ *
+ * The FlexGanttFX software library is distributed under a dual licensing model.
+ *
+ * 1. Commercial Use
+ *    Use of FlexGanttFX in proprietary or commercial applications requires the purchase of a commercial license.
+ *    The applicable terms and conditions can be found on the product's homepage at <https://www.flexganttfx.com/pages/licensing/>.
+ *
+ * 2. Open Source Use
+ *    For use in open source projects, FlexGanttFX is made available under the **GNU AFFERO GENERAL PUBLIC LICENSE V3**.
+ *    The full text of the license is available at:
+ *    <https://github.com/dlemmermann/FlexGanttFX/blob/master/LICENSE>
+ *
+ * By using FlexGanttFX, the licensee accepts and agrees to the applicable licensing terms.
+ */
+package com.flexganttfx.demo.showcase;
+
+import com.flexganttfx.demo.Sample;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import java.util.Objects;
+
+/**
+ * Shows a single {@link Sample} inside its own stage. Used when a sample gets launched
+ * standalone via its own main method. The sample is presented with the same chrome as
+ * inside the showcase application: the showcase fonts, the persisted theme, the showcase
+ * stylesheet, a header with name and description, and the optional control panel.
+ */
+public final class StandaloneSampleLauncher {
+
+    private static final double WIDTH = 1400;
+    private static final double HEIGHT = 900;
+
+    private StandaloneSampleLauncher() {
+    }
+
+    /**
+     * Shows the given sample in the given stage.
+     *
+     * @param sample the sample to show
+     * @param stage  the stage to show the sample in, usually the primary stage
+     */
+    public static void show(Sample sample, Stage stage) {
+        Objects.requireNonNull(sample, "sample can not be null");
+        Objects.requireNonNull(stage, "stage can not be null");
+
+        ShowcaseApp.loadShowcaseFonts();
+
+        SampleContentView contentView = new SampleContentView(stage);
+        contentView.showSample(sample, null);
+
+        Scene scene = new Scene(contentView, WIDTH, HEIGHT);
+        ShowcaseView.applyStandaloneTheme(scene);
+        scene.getStylesheets().add(Objects.requireNonNull(StandaloneSampleLauncher.class.getResource("/com/flexganttfx/demo/showcase/showcase.css")).toExternalForm());
+
+        stage.setTitle("FlexGanttFX — " + sample.getSampleName());
+        stage.setScene(scene);
+        stage.show();
+    }
+}
