@@ -48,6 +48,63 @@ Prefer the SVG logos — they scale to any resolution without softening.
 
 These are the shots that actually sell the product. AI cannot fake them.
 
+They are **automated** — `capture.sh` and `drive.py` in this directory position the demo
+window, post real input events, and record a cropped 60 fps clip plus a matching still. No
+hand-held mouse work is required, and every shot is reproducible.
+
+### One-time setup
+
+```bash
+brew install ffmpeg
+
+# drive.py needs pyobjc for real CoreGraphics events
+cd docs/video/overview
+python3 -m venv .venv
+.venv/bin/pip install pyobjc-framework-Quartz
+```
+
+Grant the terminal **Screen Recording** and **Accessibility** permission in
+System Settings ▸ Privacy & Security. Without them the script cannot record or move windows.
+
+### Recording a shot
+
+```bash
+# 1. start a demo
+mvn -pl FlexGanttFXDemos/FlexGanttFXAirport javafx:run &
+
+# 2. list window titles if unsure
+docs/video/overview/capture.sh --list
+
+# 3. record a static hero shot
+docs/video/overview/capture.sh shot05-hero-airport 4 "Frankfurt Airport"
+
+# 4. record a shot with real UI motion (horizontal timeline pan)
+DRIVE_PYTHON=docs/video/overview/.venv/bin/python \
+DRIVE="hscroll 800 400 -60 220 0.04" \
+docs/video/overview/capture.sh shot06-timeline-pan 12 "Frankfurt Airport"
+```
+
+Output lands in `docs/video/overview/captures/` (git-ignored) as a 2560×1440 60 fps H.264
+clip and a 2560×1440 PNG still.
+
+`drive.py` supports `click`, `scroll`, `hscroll`, `zoom` (ctrl+scroll) and `drag`, all with
+step and delay parameters so the motion is slow and even on camera. Run it with no
+arguments for the full reference.
+
+### Gotchas learned the hard way
+
+- **Always pass the window-title substring.** Several JavaFX windows are usually open
+  (showcase, IDE previews, other demos) and the script will otherwise grab the wrong one.
+- **AppleScript clicks do not work.** `System Events ... click` is an accessibility action
+  that JavaFX ignores; `drive.py` posts real CGEvents at the HID tap instead, which works.
+- **Restart the demo before a take.** Exploratory clicking leaves the chart zoomed or
+  scrolled somewhere unhelpful, and default state is the best-looking state.
+- **Vertical scrolling needs enough rows.** In a demo with only a handful of rows nothing
+  moves; pan the timeline horizontally instead — it also reads better on video.
+- **`zoom` (ctrl+scroll) is not bound in every demo.** Where it does nothing, drive the
+  toolbar zoom buttons instead — e.g. `drive.py click 337 187` hits zoom-in on the Airport
+  demo at the default window placement. Repeat the click for a stepped zoom.
+
 ### Running the demos
 
 The showcase application aggregates most individual demos:

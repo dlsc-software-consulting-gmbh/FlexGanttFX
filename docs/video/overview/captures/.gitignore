@@ -1,0 +1,3 @@
+# Recorded b-roll is large binary output - keep it out of git.
+*
+!.gitignore

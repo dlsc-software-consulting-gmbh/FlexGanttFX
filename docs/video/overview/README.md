@@ -16,6 +16,8 @@ AI voice), combined with real screen captures of FlexGanttFX demo applications.
 | `voiceover.md` | Clean voiceover text, pronunciation guide, TTS settings |
 | `captions.srt` | Timed subtitles matching the voiceover |
 | `assets.md` | Brand palette, fonts, logos, and screen-capture b-roll instructions |
+| `capture.sh` | Automated macOS recorder for the real-UI shots (clip + still) |
+| `drive.py` | Posts real mouse/scroll events so recorded shots contain repeatable motion |
 | `checklist.md` | QA checklist before publishing |
 
 ## Important: AI generation cannot draw a real Gantt chart
@@ -40,14 +42,15 @@ This split is marked on every shot in `storyboard.md`.
 | Image-to-video (screenshot motion) | Runway Gen-4, Luma, Kling |
 | AI voiceover | ElevenLabs, OpenAI TTS, PlayHT |
 | Presenter avatar (alt. track) | HeyGen, Synthesia |
-| Screen capture (CAPTURE shots) | macOS Screenshot.app, OBS Studio, ScreenFlow |
+| Screen capture (CAPTURE shots) | `capture.sh` + `drive.py` in this directory (ffmpeg-based), or OBS Studio / ScreenFlow |
 | Assembly / edit | DaVinci Resolve (free), Final Cut Pro, Premiere Pro |
 | Motion titles | After Effects, Motion, or Resolve Fusion |
 
 ## Production order
 
-1. **Read `assets.md`** and record the CAPTURE b-roll first. Everything else is timed
-   around real footage, and recording usually reveals what the script should emphasise.
+1. **Read `assets.md`** and record the CAPTURE b-roll first, using `capture.sh` and
+   `drive.py`. Everything else is timed around real footage, and recording usually reveals
+   what the script should emphasise.
 2. **Generate the voiceover** from `voiceover.md`. The VO defines the true runtime — the
    timings in `script.md` are targets, not gospel.
 3. **Re-time `captions.srt`** against the rendered VO. Do this before editing picture.
