@@ -40,7 +40,7 @@ import com.dlsc.atlantafx.themes.Yacht;
 import com.jpro.webapi.WebAPI;
 import devtoolsfx.gui.GUI;
 import com.flexganttfx.core.FlexGanttFX;
-import com.flexganttfx.demo.Sample;
+import com.flexganttfx.demo.DemoBase;
 import devtoolsfx.gui.ToolPane;
 import javafx.application.Application;
 import javafx.application.HostServices;
@@ -140,7 +140,7 @@ public class ShowcaseView extends BorderPane {
 
     /**
      * Applies the persisted theme to a scene that is not managed by the showcase
-     * application, e.g. when a single sample gets launched standalone. In addition to
+     * application, e.g. when a single demo gets launched standalone. In addition to
      * the user agent stylesheet this also installs the theme style classes on the scene
      * root and the ControlsFX companion stylesheet.
      */
@@ -178,9 +178,9 @@ public class ShowcaseView extends BorderPane {
         return THEMES.get(3); // default: Nord Light
     }
 
-    private final SampleContentView contentView;
+    private final DemoContentView contentView;
     private final WelcomeView welcomeView;
-    private final List<Label> allSampleRows = new ArrayList<>();
+    private final List<Label> allDemoRows = new ArrayList<>();
     private final List<Label> atlantafxOnlyRows = new ArrayList<>();
     private final Stage stage;
     private final HostServices hostServices;
@@ -203,8 +203,8 @@ public class ShowcaseView extends BorderPane {
             updateControlsFXStylesheet(newScene);
         });
 
-        contentView = new SampleContentView(stage);
-        welcomeView = new WelcomeView(this::selectFirstSample);
+        contentView = new DemoContentView(stage);
+        welcomeView = new WelcomeView(this::selectFirstDemo);
 
         rebuildTopBar();
         setLeft(buildSidebar());
@@ -325,7 +325,7 @@ public class ShowcaseView extends BorderPane {
         // Search field
         TextField searchField = new TextField();
         searchField.getStyleClass().add("sidebar-search-field");
-        searchField.setPromptText("Filter samples…");
+        searchField.setPromptText("Filter demos…");
         searchField.setPrefWidth(230);
         VBox searchBox = new VBox(searchField);
         searchBox.setPadding(new Insets(10, 10, 6, 10));
@@ -334,7 +334,7 @@ public class ShowcaseView extends BorderPane {
 
         // Category sections
         VBox categoriesBox = new VBox(0);
-        for (SampleCategory category : SampleRegistry.CATEGORIES) {
+        for (DemoCategory category : DemoRegistry.CATEGORIES) {
             categoriesBox.getChildren().add(buildCategorySection(category));
         }
 
@@ -347,12 +347,12 @@ public class ShowcaseView extends BorderPane {
         sidebar.getChildren().add(scrollPane);
 
         // Wire up search
-        searchField.textProperty().addListener((obs, oldVal, newVal) -> filterSamples(newVal));
+        searchField.textProperty().addListener((obs, oldVal, newVal) -> filterDemos(newVal));
 
         return sidebar;
     }
 
-    private VBox buildCategorySection(SampleCategory category) {
+    private VBox buildCategorySection(DemoCategory category) {
         VBox section = new VBox(0);
 
         // Category header
@@ -378,30 +378,30 @@ public class ShowcaseView extends BorderPane {
 
         header.getChildren().addAll(catIcon, catLabel, headerSpacer, expandIcon);
 
-        // Sample rows container
-        VBox samplesBox = new VBox(0);
-        samplesBox.setUserData(category);
+        // DemoBase rows container
+        VBox demosBox = new VBox(0);
+        demosBox.setUserData(category);
 
-        for (Supplier<Sample> supplier : category.getSampleSuppliers()) {
-            Sample tempInstance;
+        for (Supplier<DemoBase> supplier : category.getDemoSuppliers()) {
+            DemoBase tempInstance;
             try {
                 tempInstance = supplier.get();
             } catch (Exception ex) {
                 continue;
             }
-            String sampleName = tempInstance.getSampleName();
+            String demoName = tempInstance.getName();
             try {
                 tempInstance.dispose();
             } catch (Exception ignored) {
             }
 
-            Label row = new Label(sampleName);
-            row.getStyleClass().add("sidebar-sample-row");
+            Label row = new Label(demoName);
+            row.getStyleClass().add("sidebar-demo-row");
             row.setMaxWidth(Double.MAX_VALUE);
             row.setPrefWidth(250);
             row.setFocusTraversable(true);
-            row.setUserData(new SampleEntry(supplier, category, sampleName));
-            allSampleRows.add(row);
+            row.setUserData(new DemoEntry(supplier, category, demoName));
+            allDemoRows.add(row);
 
             if (tempInstance.requiresAtlantaFX()) {
                 atlantafxOnlyRows.add(row);
@@ -412,40 +412,40 @@ public class ShowcaseView extends BorderPane {
 
             row.setOnMouseClicked(e -> {
                 row.requestFocus();
-                handleSampleClick(row);
+                handleDemoClick(row);
             });
             row.setOnKeyPressed(e -> {
                 if (e.getCode() == KeyCode.UP) {
-                    selectAdjacentSample(row, -1);
+                    selectAdjacentDemo(row, -1);
                     e.consume();
                 } else if (e.getCode() == KeyCode.DOWN) {
-                    selectAdjacentSample(row, 1);
+                    selectAdjacentDemo(row, 1);
                     e.consume();
                 } else if (e.getCode() == KeyCode.HOME) {
-                    selectBoundarySample(true);
+                    selectBoundaryDemo(true);
                     e.consume();
                 } else if (e.getCode() == KeyCode.END) {
-                    selectBoundarySample(false);
+                    selectBoundaryDemo(false);
                     e.consume();
                 }
             });
-            samplesBox.getChildren().add(row);
+            demosBox.getChildren().add(row);
         }
 
         // Toggle collapse on header click
         header.setOnMouseClicked(e -> {
-            boolean visible = samplesBox.isVisible();
-            samplesBox.setVisible(!visible);
-            samplesBox.setManaged(!visible);
+            boolean visible = demosBox.isVisible();
+            demosBox.setVisible(!visible);
+            demosBox.setManaged(!visible);
             expandIcon.setIconCode(visible ? MaterialDesign.MDI_CHEVRON_RIGHT : MaterialDesign.MDI_CHEVRON_DOWN);
         });
 
-        section.getChildren().addAll(header, samplesBox);
+        section.getChildren().addAll(header, demosBox);
         return section;
     }
 
-    private void handleSampleClick(Label row) {
-        SampleEntry entry = (SampleEntry) row.getUserData();
+    private void handleDemoClick(Label row) {
+        DemoEntry entry = (DemoEntry) row.getUserData();
 
         // Deselect previous
         if (selectedLabel != null) {
@@ -454,18 +454,18 @@ public class ShowcaseView extends BorderPane {
         row.getStyleClass().add("selected");
         selectedLabel = row;
 
-        // Create and show sample
+        // Create and show demo
         try {
-            Sample sample = entry.supplier().get();
-            contentView.showSample(sample, entry.category());
+            DemoBase demo = entry.supplier().get();
+            contentView.showDemo(demo, entry.category());
             setCenter(contentView);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    private void selectAdjacentSample(Label currentRow, int delta) {
-        List<Label> visibleRows = getVisibleSampleRows();
+    private void selectAdjacentDemo(Label currentRow, int delta) {
+        List<Label> visibleRows = getVisibleDemoRows();
         int currentIndex = visibleRows.indexOf(currentRow);
         if (currentIndex < 0) {
             return;
@@ -478,30 +478,30 @@ public class ShowcaseView extends BorderPane {
 
         Label targetRow = visibleRows.get(targetIndex);
         targetRow.requestFocus();
-        handleSampleClick(targetRow);
+        handleDemoClick(targetRow);
     }
 
-    private void selectBoundarySample(boolean first) {
-        List<Label> visibleRows = getVisibleSampleRows();
+    private void selectBoundaryDemo(boolean first) {
+        List<Label> visibleRows = getVisibleDemoRows();
         if (visibleRows.isEmpty()) {
             return;
         }
 
         Label targetRow = first ? visibleRows.get(0) : visibleRows.get(visibleRows.size() - 1);
         targetRow.requestFocus();
-        handleSampleClick(targetRow);
+        handleDemoClick(targetRow);
     }
 
-    private List<Label> getVisibleSampleRows() {
-        return allSampleRows.stream()
+    private List<Label> getVisibleDemoRows() {
+        return allDemoRows.stream()
                 .filter(Label::isVisible)
                 .collect(Collectors.toList());
     }
 
-    private void filterSamples(String filter) {
+    private void filterDemos(String filter) {
         String lower = filter == null ? "" : filter.toLowerCase();
-        for (Label row : allSampleRows) {
-            SampleEntry entry = (SampleEntry) row.getUserData();
+        for (Label row : allDemoRows) {
+            DemoEntry entry = (DemoEntry) row.getUserData();
             boolean matches = lower.isBlank() || entry.name().toLowerCase().contains(lower);
             row.setVisible(matches);
             row.setManaged(matches);
@@ -516,8 +516,8 @@ public class ShowcaseView extends BorderPane {
         setCenter(welcomeView);
     }
 
-    private void selectFirstSample() {
-        selectBoundarySample(true);
+    private void selectFirstDemo() {
+        selectBoundaryDemo(true);
     }
 
     private void applyTheme(Theme theme) {
@@ -533,7 +533,7 @@ public class ShowcaseView extends BorderPane {
         updateAtlantafxOnlyRowVisibility();
 
         if (selectedLabel != null && selectedLabel.isVisible()) {
-            handleSampleClick(selectedLabel);
+            handleDemoClick(selectedLabel);
         } else if (selectedLabel != null && !selectedLabel.isVisible()) {
             selectedLabel.getStyleClass().remove("selected");
             selectedLabel = null;
@@ -587,22 +587,22 @@ public class ShowcaseView extends BorderPane {
 
     // ── Inner types ───────────────────────────────────────────────────────
 
-    private static final class SampleEntry {
-        private final Supplier<Sample> supplier;
-        private final SampleCategory category;
+    private static final class DemoEntry {
+        private final Supplier<DemoBase> supplier;
+        private final DemoCategory category;
         private final String name;
 
-        SampleEntry(Supplier<Sample> supplier, SampleCategory category, String name) {
+        DemoEntry(Supplier<DemoBase> supplier, DemoCategory category, String name) {
             this.supplier = supplier;
             this.category = category;
             this.name = name;
         }
 
-        Supplier<Sample> supplier() {
+        Supplier<DemoBase> supplier() {
             return supplier;
         }
 
-        SampleCategory category() {
+        DemoCategory category() {
             return category;
         }
 

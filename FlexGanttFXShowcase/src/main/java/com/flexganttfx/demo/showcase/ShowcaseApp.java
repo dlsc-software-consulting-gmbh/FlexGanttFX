@@ -32,7 +32,7 @@ public class ShowcaseApp extends Application {
     private static final String FONTS_BASE = "/com/flexganttfx/demo/showcase/fonts/";
 
     /**
-     * Loads the fonts used by the showcase. Also used when a single sample gets
+     * Loads the fonts used by the showcase. Also used when a single demo gets
      * launched standalone via its own main method.
      */
     public static void loadShowcaseFonts() {

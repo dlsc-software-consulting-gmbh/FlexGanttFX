@@ -12,10 +12,10 @@
   "name":"com.flexganttfx.core.StringUtils"
 },
 {
-  "name":"com.flexganttfx.demo.FlexGanttFXSample"
+  "name":"com.flexganttfx.demo.GanttChartDemoBase"
 },
 {
-  "name":"com.flexganttfx.demo.FlexGanttFXSampleBase"
+  "name":"com.flexganttfx.demo.DemoBase"
 },
 {
   "name":"com.flexganttfx.demo.FlexGanttFXSampler"
@@ -27,103 +27,103 @@
   "name":"com.flexganttfx.demo.FlexGanttFXSamplerWelcome"
 },
 {
-  "name":"com.flexganttfx.demo.HelloActivity"
+  "name":"com.flexganttfx.demo.DemoActivity"
 },
 {
-  "name":"com.flexganttfx.demo.HelloRow"
+  "name":"com.flexganttfx.demo.DemoRow"
 },
 {
-  "name":"com.flexganttfx.demo.container.HelloDualGanttChartContainer",
+  "name":"com.flexganttfx.demo.container.DualGanttChartContainerDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.container.HelloDualGanttChartLiteContainer",
+  "name":"com.flexganttfx.demo.container.DualGanttChartLiteContainerDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.container.HelloMultiGanttChartContainer",
+  "name":"com.flexganttfx.demo.container.MultiGanttChartContainerDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.container.HelloMultiGanttChartContainer$DemoRow"
+  "name":"com.flexganttfx.demo.container.MultiGanttChartContainerDemo$DemoRow"
 },
 {
-  "name":"com.flexganttfx.demo.container.HelloMultiGanttChartLiteContainer",
+  "name":"com.flexganttfx.demo.container.MultiGanttChartLiteContainerDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.container.HelloQuadGanttChartContainer",
+  "name":"com.flexganttfx.demo.container.QuadGanttChartContainerDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.container.HelloQuadGanttChartContainer$1"
+  "name":"com.flexganttfx.demo.container.QuadGanttChartContainerDemo$1"
 },
 {
-  "name":"com.flexganttfx.demo.container.HelloQuadGanttChartContainer$2"
+  "name":"com.flexganttfx.demo.container.QuadGanttChartContainerDemo$2"
 },
 {
-  "name":"com.flexganttfx.demo.container.HelloQuadGanttChartContainer$3"
+  "name":"com.flexganttfx.demo.container.QuadGanttChartContainerDemo$3"
 },
 {
-  "name":"com.flexganttfx.demo.container.HelloQuadGanttChartContainer$4"
+  "name":"com.flexganttfx.demo.container.QuadGanttChartContainerDemo$4"
 },
 {
-  "name":"com.flexganttfx.demo.container.HelloQuadGanttChartLiteContainer",
+  "name":"com.flexganttfx.demo.container.QuadGanttChartLiteContainerDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.gantt.HelloCanvasBuffer",
+  "name":"com.flexganttfx.demo.gantt.CanvasBufferDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.gantt.HelloDragAndDrop",
+  "name":"com.flexganttfx.demo.gantt.DragAndDropDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.gantt.HelloDragAndDrop$Order",
+  "name":"com.flexganttfx.demo.gantt.DragAndDropDemo$Order",
   "methods":[
     {"name":"getEndDate","parameterTypes":[] }, 
     {"name":"getPriority","parameterTypes":[] }, 
     {"name":"getStartDate","parameterTypes":[] }, 
     {"name":"getTitle","parameterTypes":[] }, 
     {"name":"setEndDate","parameterTypes":["java.time.LocalDate"] }, 
-    {"name":"setPriority","parameterTypes":["com.flexganttfx.demo.gantt.HelloDragAndDrop$Priority"] }, 
+    {"name":"setPriority","parameterTypes":["com.flexganttfx.demo.gantt.DragAndDropDemo$Priority"] }, 
     {"name":"setStartDate","parameterTypes":["java.time.LocalDate"] }
   ]
 },
 {
-  "name":"com.flexganttfx.demo.gantt.HelloDragAndDrop$Person",
+  "name":"com.flexganttfx.demo.gantt.DragAndDropDemo$Person",
   "methods":[{"name":"getName","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.gantt.HelloDragAndDrop$Resource"
+  "name":"com.flexganttfx.demo.gantt.DragAndDropDemo$Resource"
 },
 {
-  "name":"com.flexganttfx.demo.gantt.HelloGanttChart",
+  "name":"com.flexganttfx.demo.gantt.GanttChartDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.gantt.HelloGanttChartEmpty",
+  "name":"com.flexganttfx.demo.gantt.GanttChartEmptyDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.gantt.HelloGanttChartLite",
+  "name":"com.flexganttfx.demo.gantt.GanttChartLiteDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.gantt.HelloGlobalActivities",
+  "name":"com.flexganttfx.demo.gantt.GlobalActivitiesDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.gantt.HelloGraphicsView",
+  "name":"com.flexganttfx.demo.gantt.GraphicsViewDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.gantt.HelloLinksStressTest",
+  "name":"com.flexganttfx.demo.gantt.LinksStressTestDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.gantt.HelloMultiLine",
+  "name":"com.flexganttfx.demo.gantt.MultiLineDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
@@ -131,11 +131,11 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.gantt.HelloPrinting",
+  "name":"com.flexganttfx.demo.gantt.PrintingDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.gantt.HelloRowHeaderColumn",
+  "name":"com.flexganttfx.demo.gantt.RowHeaderColumnDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
@@ -143,51 +143,51 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.gantt.HelloSystemLayers",
+  "name":"com.flexganttfx.demo.gantt.SystemLayersDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.gantt.HelloToolTip",
+  "name":"com.flexganttfx.demo.gantt.ToolTipDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.layout.HelloAgendaLayout",
+  "name":"com.flexganttfx.demo.layout.AgendaLayoutDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.layout.HelloChartLayout",
+  "name":"com.flexganttfx.demo.layout.ChartLayoutDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.layout.HelloMixedLayouts",
+  "name":"com.flexganttfx.demo.layout.MixedLayoutsDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.model.HelloGanttChartLiteModel",
+  "name":"com.flexganttfx.demo.model.GanttChartLiteModelDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.model.HelloGanttChartModel",
+  "name":"com.flexganttfx.demo.model.GanttChartModelDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.model.HelloLazyLoading",
+  "name":"com.flexganttfx.demo.model.LazyLoadingDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.model.HelloLinks",
+  "name":"com.flexganttfx.demo.model.LinksDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.model.HelloTimeZones",
+  "name":"com.flexganttfx.demo.model.TimeZonesDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.timeline.HelloChronoUnitTimeline",
+  "name":"com.flexganttfx.demo.timeline.ChronoUnitTimelineDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.flexganttfx.demo.timeline.HelloSimpleUnitTimeline",
+  "name":"com.flexganttfx.demo.timeline.SimpleUnitTimelineDemo",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {

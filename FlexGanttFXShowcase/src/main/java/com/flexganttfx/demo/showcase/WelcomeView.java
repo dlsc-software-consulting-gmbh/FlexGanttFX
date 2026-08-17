@@ -57,10 +57,10 @@ public class WelcomeView extends BorderPane {
         Label description = new Label(
             "FlexGanttFX is a professional Gantt chart library that delivers high-performance, " +
             "fully customizable scheduling views for desktop and web applications. " +
-            "Explore the samples on the left to discover its capabilities.");
+            "Explore the demos on the left to discover its capabilities.");
         description.getStyleClass().add("welcome-description");
 
-        Button exploreBtn = new Button("Explore Samples  →");
+        Button exploreBtn = new Button("Explore Demos  →");
         exploreBtn.getStyleClass().add("welcome-cta-btn");
         exploreBtn.setOnAction(e -> onExplore.run());
 
