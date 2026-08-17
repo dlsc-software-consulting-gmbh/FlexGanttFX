@@ -19,7 +19,6 @@ package com.flexganttfx.earthquake;
 import atlantafx.base.theme.CupertinoDark;
 import atlantafx.base.theme.CupertinoLight;
 import atlantafx.base.theme.Theme;
-import com.flexganttfx.core.FlexGanttFX;
 import com.flexganttfx.earthquake.view.EarthquakeView;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -42,13 +41,6 @@ public class EarthquakeApp extends Application {
     private static final List<Theme> THEMES = List.of(new CupertinoLight(), new CupertinoDark());
     private static final Preferences PREFERENCES = Preferences.userNodeForPackage(EarthquakeApp.class);
     private static final String THEME_KEY = "theme";
-
-    @Override
-    public void init() {
-        if (!FlexGanttFX.isLicenseKeySet()) {
-            FlexGanttFX.setLicenseKey("6Xtb60ORFtkUaEHIR2lo7uCnlqMq+X2WXZWYlZ6NlOlvLpF9nIW+WSPEnF6vCEfoNmr7i+ObhCYT0XolNhzY0v2VAUlnz1Z9GT6bOOOl1DMgR2Y4EWXJhyKC5zGuwjYVn71wLCNTyBMxk/4OTwfQee7hEUwpnKExYcbfNRLKxjYgY2k4SeOSkqP8wlHf5Jx2f+3Mk1ClnG6xnYieO6pkXoXcApj3B5yzlpcIk+/rr93dM5LBnEhmG+GxK2EPlb7kIod8eZt+cyR8fs2Tyrr5b7N4ZZ4DJVk6j73jlQ1GA4h6lZYYoQovgloIEEiy8StqKj6izVF2naQD8nQsnFvuDwN4Iw==");
-        }
-    }
 
     @Override
     public void start(Stage stage) {

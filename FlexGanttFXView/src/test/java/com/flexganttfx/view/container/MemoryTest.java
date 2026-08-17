@@ -16,7 +16,6 @@
  */
 package com.flexganttfx.view.container;
 
-import com.flexganttfx.core.FlexGanttFX;
 import com.flexganttfx.model.Activity;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.view.GanttChart;
@@ -38,7 +37,6 @@ public class MemoryTest extends ApplicationTest {
     @Start
     public void start(Stage stage) {
         this.stage = stage;
-        FlexGanttFX.setLicenseKey("LIC=DLSC;VEN=DLSC;VER=12;PRO=STANDARD;RUN=no;CTR=1;SignCode=3F;Signature=302D021442068CF635B84BFC157478E2D60932F52AFBD59E021500952B8FD690A764EC20AE70A3D8655029BDD66532");
     }
 
     @Test

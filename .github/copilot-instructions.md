@@ -153,7 +153,7 @@ Every `.java` file must start with the standard header. Run `mvn license:format`
 
 ### Licensing at Runtime
 
-`FlexGanttFX.setLicenseKey(String)` must be called **once** before the chart is shown. It can also be passed as a system property: `-Dflexganttfx.license=<key>`. In tests, call it in the `@Start` method.
+No license key is required. FlexGanttFX is dual-licensed (AGPLv3 / commercial), so applications and tests can create charts without any licensing setup.
 
 ### null Safety
 

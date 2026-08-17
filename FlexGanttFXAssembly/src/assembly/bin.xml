@@ -28,7 +28,7 @@
 			<outputDirectory>ext</outputDirectory>
 			<includes>
 				<include>org.controlsfx:controlsfx</include>
-				<include>com.smardec:license4j</include>
+				<include>com.dlsc.gemsfx:gemsfx</include>
 			</includes>
 			<outputFileNameMapping>${artifact.artifactId}-${artifact.version}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
 		</dependencySet>

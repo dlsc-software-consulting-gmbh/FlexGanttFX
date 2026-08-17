@@ -16,7 +16,6 @@
  */
 package com.flexganttfx.tutorial;
 
-import com.flexganttfx.core.FlexGanttFX;
 import com.flexganttfx.model.ActivityLink;
 import com.flexganttfx.model.ActivityRef;
 import com.flexganttfx.model.Layer;
@@ -143,7 +142,6 @@ public class TutorialGantt extends Application {
     }
 
     public static void main(String[] args) {
-        FlexGanttFX.setLicenseKey("LIC=DSTASingapore;VEN=DLSC;VER=12;PRO=STANDARD;RUN=yes;CTR=1;SignCode=3F;Signature=302D02150093B5A59029DC2AB77BFE161715AB2C1130E14F4F0214188D8B82FA4AAEA547BF867DE9DAEFCF540140CF");
         launch(args);
     }
 

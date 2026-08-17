@@ -16,7 +16,6 @@
  */
 package com.flexganttfx.extras;
 
-import com.flexganttfx.core.FlexGanttFX;
 import com.flexganttfx.extras.util.Messages;
 import com.flexganttfx.model.Activity;
 import com.flexganttfx.model.ActivityRef;

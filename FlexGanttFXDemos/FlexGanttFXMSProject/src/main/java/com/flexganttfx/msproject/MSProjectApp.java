@@ -25,7 +25,6 @@ import atlantafx.base.theme.PrimerDark;
 import atlantafx.base.theme.PrimerLight;
 import atlantafx.base.theme.Theme;
 import com.flexganttfx.extras.util.StageManager;
-import com.flexganttfx.core.FlexGanttFX;
 import com.flexganttfx.extras.GanttChartStatusBar;
 import com.flexganttfx.extras.GanttChartToolBar;
 import com.flexganttfx.extras.properties.view.GanttChartConfigurationView;
@@ -98,9 +97,6 @@ public class MSProjectApp extends Application {
 
 	@Override
 	public void start(Stage stage) {
-		if (!FlexGanttFX.isLicenseKeySet()) {
-			FlexGanttFX.setLicenseKey("LIC=DLSC;VEN=DLSC;VER=12;PRO=STANDARD;RUN=no;CTR=1;SignCode=3F;Signature=302C02142BD7F914E6633D7DBA0B8564D8FC20EC249BCFD702142558B5C6FF46325A0A698A1E8036828E54D6FEC8");
-		}
 
 		this.stage = stage;
 		this.stage.setTitle(STAGE_TITLE);

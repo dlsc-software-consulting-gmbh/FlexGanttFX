@@ -19,7 +19,6 @@ package com.flexganttfx.naturalevents;
 import atlantafx.base.theme.CupertinoDark;
 import atlantafx.base.theme.CupertinoLight;
 import atlantafx.base.theme.Theme;
-import com.flexganttfx.core.FlexGanttFX;
 import com.flexganttfx.naturalevents.view.NaturalEventsView;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -42,13 +41,6 @@ public class NaturalEventsApp extends Application {
     private static final List<Theme> THEMES = List.of(new CupertinoLight(), new CupertinoDark());
     private static final Preferences PREFERENCES = Preferences.userNodeForPackage(NaturalEventsApp.class);
     private static final String THEME_KEY = "theme";
-
-    @Override
-    public void init() {
-        if (!FlexGanttFX.isLicenseKeySet()) {
-            FlexGanttFX.setLicenseKey("LIC=DLSC;VEN=DLSC;VER=12;PRO=STANDARD;RUN=no;CTR=1;SignCode=3F;Signature=302C02142BD7F914E6633D7DBA0B8564D8FC20EC249BCFD702142558B5C6FF46325A0A698A1E8036828E54D6FEC8");
-        }
-    }
 
     @Override
     public void start(Stage stage) {

@@ -22,7 +22,7 @@ import java.util.Properties;
 import java.util.logging.Logger;
 
 /**
- * Utility class for setting the license key.
+ * Utility class providing general information about the framework, e.g. its version number.
  *
  * @since 1.0
  */

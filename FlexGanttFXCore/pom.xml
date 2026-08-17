@@ -17,13 +17,6 @@
 		<maven.javadoc.skip>false</maven.javadoc.skip>
 	</properties>
 
-	<repositories>
-		<repository>
-			<id>my-local-core-repo</id>
-			<url>file://${project.basedir}/repository</url>
-		</repository>
-	</repositories>
-
 	<build>
 
 		<resources>
