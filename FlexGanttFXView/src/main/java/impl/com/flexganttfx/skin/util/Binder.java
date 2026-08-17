@@ -29,6 +29,13 @@ import javafx.beans.binding.Bindings;
 public class Binder {
 
     /**
+     * Constructs a new binder. All methods of this class are static, hence
+     * instances of it are normally not needed.
+     */
+    public Binder() {
+    }
+
+    /**
      * Binds the given gantt charts.
      *
      * @param gantt1 the first gantt chart

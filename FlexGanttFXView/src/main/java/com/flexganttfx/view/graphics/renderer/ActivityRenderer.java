@@ -34,6 +34,8 @@ import javafx.scene.paint.Paint;
 /**
  * Base renderer for drawing activities as filled and stroked shapes.
  * It manages state-specific styling, safe graphics context handling, and returns the bounds of the rendered activity.
+ *
+ * @param <A> the type of the activities drawn by this renderer
  */
 public class ActivityRenderer<A extends Activity> extends Renderer {
 

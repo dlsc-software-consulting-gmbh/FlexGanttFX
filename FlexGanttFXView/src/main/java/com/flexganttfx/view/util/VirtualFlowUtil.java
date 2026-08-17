@@ -35,6 +35,13 @@ import java.util.concurrent.atomic.AtomicReference;
 public class VirtualFlowUtil {
 
     /**
+     * Constructs a new utility instance. All methods of this class are static,
+     * hence instances of it are normally not needed.
+     */
+    public VirtualFlowUtil() {
+    }
+
+    /**
      * Binds the vertical virtual flows of the given controls so they scroll together.
      *
      * @param control1 the first control

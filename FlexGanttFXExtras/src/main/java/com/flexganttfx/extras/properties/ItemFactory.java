@@ -94,11 +94,16 @@ import java.util.Map;
  * </ul>
  * Custom item providers can be registered via
  * {@link #registerItemProvider(Class, ItemProvider)}.
- * </p>
  *
  * @since 1.0
  */
 public class ItemFactory {
+
+    /**
+     * Constructs a new factory.
+     */
+    public ItemFactory() {
+    }
 
     private final static Map<Class, ItemProvider<?>> PROVIDER_MAP = new HashMap<>();
 

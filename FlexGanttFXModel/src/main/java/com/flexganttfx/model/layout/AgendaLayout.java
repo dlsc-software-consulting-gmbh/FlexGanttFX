@@ -233,6 +233,9 @@ public class AgendaLayout extends Layout {
 	 * A property used to store the minimum duration of activities in the agenda
 	 * layout.
 	 *
+	 * <p>
+	 * Setting the duration to {@code null} or to {@link Duration#ZERO} will cause an {@link IllegalArgumentException}.
+	 *
 	 * @return the minimum duration of activities
 	 * @since 1.0
 	 */
@@ -256,7 +259,6 @@ public class AgendaLayout extends Layout {
 	 * @param duration
 	 *            the new minimum duration of agenda activities, must not be
 	 *            {@code null} and must be larger than {@link Duration#ZERO}
-	 * @throws IllegalArgumentException if the duration is {@code null} or zero
 	 * @since 1.0
 	 */
 	public final void setMinDuration(Duration duration) {
@@ -314,6 +316,9 @@ public class AgendaLayout extends Layout {
 	 * agenda entries. A value of .5 indicates that half the width of an entry
 	 * will be overlapped by another one.
 	 *
+	 * <p>
+	 * Setting a value outside the range 0 to .5 will cause an {@link IllegalArgumentException}.
+	 *
 	 * @return the offset in pixels
 	 * @since 1.0
 	 */
@@ -329,7 +334,6 @@ public class AgendaLayout extends Layout {
 	 *
 	 * @param offset
 	 *            the offset in pixels
-	 * @throws IllegalArgumentException if the offset is not within the range 0 to .5
 	 * @since 1.0
 	 */
 	public final void setOverlapOffset(double offset) {

@@ -40,6 +40,19 @@ import static java.util.Objects.requireNonNull;
  * {@link GanttChartBase} and displays the name of the currently hovered
  * activity together with the active virtual grid.
  *
+ * <h2>Example</h2>
+ * <pre>{@code
+ * GanttChart<MyRow> gantt = new GanttChart<>(new MyRow("Root"));
+ *
+ * GanttChartStatusBar<MyRow> statusBar = new GanttChartStatusBar<>(gantt);
+ *
+ * BorderPane pane = new BorderPane();
+ * pane.setCenter(gantt);
+ * pane.setBottom(statusBar);
+ * }</pre>
+ *
+ * @see GanttChartToolBar
+ *
  * @param <R> the type of the rows in the Gantt chart
  * @since 1.0
  */

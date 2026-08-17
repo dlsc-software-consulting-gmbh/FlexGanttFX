@@ -31,6 +31,12 @@ import java.time.Instant;
 public class SimpleUnitDatelineCell extends DatelineCell<SimpleUnit> {
 
 	/**
+	 * Constructs a new dateline cell.
+	 */
+	public SimpleUnitDatelineCell() {
+	}
+
+	/**
 	 * Updates the dateline cell.
 	 *
 	 * @param startTime the start time

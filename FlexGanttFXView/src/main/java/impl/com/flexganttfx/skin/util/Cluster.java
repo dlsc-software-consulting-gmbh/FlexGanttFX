@@ -37,6 +37,12 @@ import java.util.function.Predicate;
  */
 public final class Cluster<A extends Activity> {
 
+	/**
+	 * Constructs a new empty cluster.
+	 */
+	public Cluster() {
+	}
+
 	private List<A> activities;
 
 	private Instant startTime;

@@ -25,6 +25,13 @@ import java.util.Comparator;
  */
 public final class ActivityComparator implements Comparator<Activity> {
 
+	/**
+	 * Constructs a new comparator. Applications normally use the singleton
+	 * returned by {@link #getInstance()} instead.
+	 */
+	public ActivityComparator() {
+	}
+
 	private static ActivityComparator instance;
 
 	/**

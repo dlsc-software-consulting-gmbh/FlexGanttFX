@@ -34,6 +34,12 @@ import java.util.Optional;
  */
 public class InnerLinesLayerItemProvider implements ItemProvider<InnerLinesLayer> {
 
+    /**
+     * Constructs a new provider.
+     */
+    public InnerLinesLayerItemProvider() {
+    }
+
     @Override
     public List<PropertySheet.Item> getPropertySheetItems(InnerLinesLayer layer) {
 

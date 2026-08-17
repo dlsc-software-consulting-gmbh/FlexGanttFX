@@ -28,10 +28,10 @@ import org.controlsfx.control.MasterDetailPane;
  * right and the lower Gantt charts are located in the detail node sections
  * of several {@link MasterDetailPane} instances. They can be hidden or shown on
  * demand. Each one of the four Gantt charts can have its own header and footer.
- * <p/>
+ * <p>
  * The screenshot below shows the initial appearance of an empty Quad Gantt
  * chart container control.
- * <p/>
+ * <p>
  *     <img src="doc-files/quad-gantt-chart.png" alt="Quad Gantt Chart Container" width="100%">
  *
  *

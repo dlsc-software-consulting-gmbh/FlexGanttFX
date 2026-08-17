@@ -34,6 +34,12 @@ import java.util.Optional;
  */
 public class ActivityRendererItemProvider implements ItemProvider<ActivityRenderer> {
 
+    /**
+     * Constructs a new provider.
+     */
+    public ActivityRendererItemProvider() {
+    }
+
 
     @Override
     public List<PropertySheet.Item> getPropertySheetItems(ActivityRenderer renderer) {

@@ -424,6 +424,9 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
      * The property used to store the layout used for laying out the activities
      * that are directly associated with the row (and not on an inner line).
      *
+     * <p>
+     * Setting the layout to {@code null} will cause a {@link NullPointerException}.
+     *
      * @return the row layer property
      * @see #getLineLayout(int)
      * @since 1.0
@@ -446,7 +449,6 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
      * Sets the value of the {@link #layoutProperty()}.
      *
      * @param layout the new row layout
-     * @throws NullPointerException if the given layout is {@code null}
      * @since 1.0
      */
     public final void setLayout(Layout layout) {
@@ -463,6 +465,9 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
      * The property used to store the activity repository for the row. A
      * repository is used to lookup the activities for a given time interval
      * that needs to be shown on the row.
+     *
+     * <p>
+     * Setting the repository to {@code null} will cause a {@link NullPointerException}.
      *
      * @return the repository property
      * @since 1.0
@@ -485,7 +490,6 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
      * Sets the value of the {@link #repositoryProperty()}.
      *
      * @param repository the new repository to use
-     * @throws NullPointerException if the given repository is {@code null}
      * @since 1.0
      */
     public final void setRepository(ActivityRepository<A> repository) {
@@ -528,6 +532,9 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
     /**
      * The property used to store the name of the row.
      *
+     * <p>
+     * Setting the name to {@code null} will cause a {@link NullPointerException}.
+     *
      * @return the name property
      * @since 1.0
      */
@@ -549,7 +556,6 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
      * Sets the value of the {@link #nameProperty()}.
      *
      * @param name the new name of the row
-     * @throws NullPointerException if the given name is {@code null}
      * @since 1.0
      */
     public final void setName(String name) {
@@ -717,6 +723,9 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
      * row. The lines manager is used to control the layout of inner lines and
      * the placement of activities on these lines.
      *
+     * <p>
+     * Setting the lines manager to {@code null} will cause a {@link NullPointerException}.
+     *
      * @return the lines manager property
      * @since 1.0
      */
@@ -738,7 +747,6 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
      * Sets the value of {@link #linesManagerProperty()}.
      *
      * @param manager the new lines manager
-     * @throws NullPointerException if the given lines manager is {@code null}
      * @since 1.0
      */
     public final void setLinesManager(LinesManager<A> manager) {
@@ -753,6 +761,9 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
     /**
      * The property used to store the zone ID for this row. Each row can be
      * placed in a different time zone.
+     *
+     * <p>
+     * Setting the zone ID to {@code null} will cause a {@link NullPointerException}.
      *
      * @return the zone ID property
      * @since 1.0
@@ -780,7 +791,6 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
      * Sets the value of the {@link #zoneIdProperty()}.
      *
      * @param zoneId the new zone ID for this row
-     * @throws NullPointerException if the given zone ID is {@code null}
      * @since 1.0
      */
     public final void setZoneId(ZoneId zoneId) {

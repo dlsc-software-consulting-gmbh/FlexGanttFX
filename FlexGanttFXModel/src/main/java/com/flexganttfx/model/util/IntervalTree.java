@@ -35,6 +35,12 @@ import java.util.function.Predicate;
  */
 public class IntervalTree<A extends Activity> {
 
+    /**
+     * Constructs a new empty interval tree.
+     */
+    public IntervalTree() {
+    }
+
     private Entry<A> root;
     private int treeSize;
 

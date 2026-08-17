@@ -34,6 +34,12 @@ import java.util.Optional;
  */
 public class SelectedTimeIntervalsLayerItemProvider implements ItemProvider<SelectedTimeIntervalsLayer> {
 
+    /**
+     * Constructs a new provider.
+     */
+    public SelectedTimeIntervalsLayerItemProvider() {
+    }
+
     @Override
     public List<Item> getPropertySheetItems(SelectedTimeIntervalsLayer layer) {
         SystemLayerItemProvider provider = new SystemLayerItemProvider();

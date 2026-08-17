@@ -33,6 +33,12 @@ import java.util.Optional;
  */
 public class AgendaLinesLayerItemProvider implements ItemProvider<AgendaLinesLayer> {
 
+    /**
+     * Constructs a new provider.
+     */
+    public AgendaLinesLayerItemProvider() {
+    }
+
     @Override
     public List<Item> getPropertySheetItems(AgendaLinesLayer layer) {
         SystemLayerItemProvider provider = new SystemLayerItemProvider();

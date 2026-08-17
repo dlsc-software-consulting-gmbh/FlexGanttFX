@@ -16,7 +16,29 @@
  */
 /**
  * The various graphics controls that are used for rendering the Gantt chart.
- * 
+ *
+ * <p>
+ * The graphics view is the canvas-based area in which the activities of the
+ * rows are drawn. It resolves the renderer for each activity based on the
+ * activity type and the {@link com.flexganttfx.model.Layout} of the row.
+ *
+ * <h2>Key Types</h2>
+ * <ul>
+ * <li>{@link com.flexganttfx.view.graphics.GraphicsBase} - the base class of
+ * all graphics views; manages layers, renderers, system layers, selection,
+ * editing and scrolling.</li>
+ * <li>{@link com.flexganttfx.view.graphics.ListViewGraphics},
+ * {@link com.flexganttfx.view.graphics.SingleRowGraphics},
+ * {@link com.flexganttfx.view.graphics.SplitPaneGraphics},
+ * {@link com.flexganttfx.view.graphics.VBoxGraphics} - concrete graphics
+ * implementations for different use cases.</li>
+ * <li>{@link com.flexganttfx.view.graphics.ActivityBounds} - the bounds
+ * occupied by an activity after it has been drawn.</li>
+ * <li>{@link com.flexganttfx.view.graphics.ActivityEvent},
+ * {@link com.flexganttfx.view.graphics.LassoEvent} - events fired while
+ * activities are edited or selected.</li>
+ * </ul>
+ *
  * @since 1.0
  */
 package com.flexganttfx.view.graphics;

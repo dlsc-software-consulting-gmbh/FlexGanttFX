@@ -27,6 +27,8 @@ import javafx.scene.paint.Color;
 /**
  * Renders calendar activities as row-spanning background fills.
  * It paints translucent blocks and borders for calendar entries without producing interactive activity bounds.
+ *
+ * @param <A> the type of the calendar activities drawn by this renderer
  */
 public class CalendarActivityRenderer<A extends CalendarActivity> extends ActivityRenderer<A> {
 

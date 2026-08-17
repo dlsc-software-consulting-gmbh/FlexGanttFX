@@ -90,6 +90,9 @@ public class CompletableActivityBase<T> extends ActivityBase<T> implements
 
 	// Percentage complete support.
 
+	/**
+	 * The completion of the activity, a value between 0 and 1.
+	 */
 	protected double percentageComplete;
 
 	@Override

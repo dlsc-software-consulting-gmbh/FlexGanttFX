@@ -48,6 +48,19 @@ import static java.util.Objects.requireNonNull;
  * not present a feature-complete implementation that could be used for any kind
  * of application. An entire framework could be written just for that purpose.
  *
+ * <h2>Example</h2>
+ * <pre>{@code
+ * GanttChart<MyRow> gantt = new GanttChart<>(new MyRow("Root"));
+ *
+ * GanttChartToolBar<MyRow> toolBar = new GanttChartToolBar<>(gantt);
+ *
+ * BorderPane pane = new BorderPane();
+ * pane.setTop(toolBar);
+ * pane.setCenter(gantt);
+ * }</pre>
+ *
+ * @see GanttChartStatusBar
+ *
  * @param <R>
  *            the type of the rows in the Gantt chart
  *

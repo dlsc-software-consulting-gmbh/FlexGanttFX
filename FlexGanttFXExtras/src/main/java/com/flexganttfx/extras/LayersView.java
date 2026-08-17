@@ -30,7 +30,17 @@ import javafx.scene.control.Skin;
  * opacity of the layers, and also delete layers.<br>
  * <img src="doc-files/layers-view.png" alt="Layers View">
  *
+ * <h2>Example</h2>
+ * <pre>{@code
+ * GanttChart<MyRow> gantt = new GanttChart<>(new MyRow("Root"));
+ * gantt.getLayers().add(new Layer("Flights"));
+ *
+ * LayersView<MyRow> layersView = new LayersView<>();
+ * layersView.setGraphics(gantt.getGraphics());
+ * }</pre>
+ *
  * @see GraphicsBase#getLayers()
+ * @see RadarView
  *
  * @param <R> the type of the rows
  * @since 1.0

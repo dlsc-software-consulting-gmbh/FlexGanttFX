@@ -86,6 +86,9 @@ public class Layer {
 	/**
 	 * The property used to store the name of the layer.
 	 * 
+	 * <p>
+	 * Setting the name to {@code null} will cause a {@link NullPointerException}.
+	 *
 	 * @return the name of the layer
 	 * @since 1.0
 	 */
@@ -98,7 +101,6 @@ public class Layer {
 	 * 
 	 * @param name
 	 *            the new name of the layer
-	 * @throws NullPointerException if the given name is {@code null}
 	 * @since 1.0
 	 */
 	public final void setName(String name) {
@@ -121,6 +123,9 @@ public class Layer {
 	/**
 	 * The property used to store the id of the layer.
 	 * 
+	 * <p>
+	 * Setting the ID to {@code null} will cause a {@link NullPointerException}.
+	 *
 	 * @return the id of the layer
 	 * @since 1.0
 	 */
@@ -133,7 +138,6 @@ public class Layer {
 	 * 
 	 * @param id
 	 *            the new id of the layer
-	 * @throws NullPointerException if the given ID is {@code null}
 	 * @since 1.0
 	 */
 	public final void setId(String id) {

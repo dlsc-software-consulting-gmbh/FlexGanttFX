@@ -53,6 +53,7 @@ import static com.flexganttfx.model.dateline.Resolution.Position.TOP;
  */
 public class DatelineSkin extends SkinBase<Dateline> {
 
+    /** The region used for visualizing the lasso selection on the dateline. */
     protected final Region lasso;
     private final VBox scalesBox;
     private final Map<Integer, DatelineScale> rowScaleMap = new HashMap<>();

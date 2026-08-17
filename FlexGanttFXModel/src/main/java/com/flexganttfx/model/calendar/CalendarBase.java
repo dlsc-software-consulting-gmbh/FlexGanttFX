@@ -38,6 +38,9 @@ public abstract class CalendarBase<A extends CalendarActivity> extends ActivityR
 	/**
 	 * Constructs a new calendar.
 	 * 
+	 * <p>
+	 * Setting the name to {@code null} will cause a {@link NullPointerException}.
+	 *
 	 * @param name
 	 *            the name of the calendar
 	 * 
@@ -72,7 +75,6 @@ public abstract class CalendarBase<A extends CalendarActivity> extends ActivityR
 	 * 
 	 * @param name
 	 *            the calendar name
-	 * @throws NullPointerException if the given name is {@code null}
 	 * @since 1.0
 	 */
 	public final void setName(String name) {

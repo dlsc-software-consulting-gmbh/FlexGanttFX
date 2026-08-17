@@ -30,6 +30,12 @@ import com.flexganttfx.model.util.SimpleUnit;
  */
 public final class SimpleUnitDatelineModel extends DatelineModel<SimpleUnit> {
 
+	/**
+	 * Constructs a new model with one resolution for each value of the
+	 * {@link SimpleUnit} enumeration.
+	 *
+	 * @since 1.0
+	 */
 	public SimpleUnitDatelineModel() {
 		for (SimpleUnit unit : SimpleUnit.values()) {
 			addResolution(new SimpleUnitResolution(unit, "", 1));

@@ -32,6 +32,10 @@ import static java.util.Objects.requireNonNull;
  */
 public class PathBuilder {
 
+	/**
+	 * The result of a path computation, consisting of the path itself, its start
+	 * and end location, and the direction of the arrow head.
+	 */
 	public static final class PathBuilderResult {
 
 		private final Point2D start;

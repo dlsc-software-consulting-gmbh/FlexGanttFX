@@ -31,11 +31,16 @@ import javafx.scene.shape.PathElement;
 /**
  * A link renderer used to draw curved link lines between activities of type
  * {@link ActivityLink}. It is only used by the {@link LinksCanvas}.
+ *
+ * @param <T> the type of the activity links drawn by this renderer
  */
 public class CurvedLinkRenderer<T extends ActivityLink<?>> extends LinkRenderer<T> {
 
     /**
      * Constructs a new link renderer.
+     *
+     * @param graphics the graphics view where the renderer will be used
+     * @param name the name of the renderer, used for logging and debugging
      */
     public CurvedLinkRenderer(GraphicsBase<?> graphics, String name) {
         super(graphics, name);

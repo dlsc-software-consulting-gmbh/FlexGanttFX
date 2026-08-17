@@ -241,6 +241,9 @@ public abstract class DatelineModel<T extends TemporalUnit> {
 	/**
 	 * The property used to store the number of currently visible scales.
 	 * 
+	 * <p>
+	 * Setting a value smaller than {@link #getMinScaleCount()} or larger than {@link #getMaxScaleCount()} will cause an {@link IllegalArgumentException}.
+	 *
 	 * @return the scale count
 	 * @since 1.0
 	 */
@@ -263,7 +266,6 @@ public abstract class DatelineModel<T extends TemporalUnit> {
 	 * 
 	 * @param count
 	 *            the new scale count
-	 * @throws IllegalArgumentException if the given count is smaller than
 	 *             {@link #getMinScaleCount()} or larger than {@link #getMaxScaleCount()}
 	 * @since 1.0
 	 */
@@ -296,6 +298,9 @@ public abstract class DatelineModel<T extends TemporalUnit> {
 	/**
 	 * Returns the property used to store the maximum scale count.
 	 * 
+	 * <p>
+	 * Setting a value outside the range 1 to 5 or a value smaller than {@link #getMinScaleCount()} will cause an {@link IllegalArgumentException}.
+	 *
 	 * @return the maximum scale count property
 	 * @since 1.0
 	 */
@@ -318,7 +323,6 @@ public abstract class DatelineModel<T extends TemporalUnit> {
 	 * 
 	 * @param count
 	 *            the new maximum scale count
-	 * @throws IllegalArgumentException if the given count is not within the range
 	 *             1 to 5 or if it is smaller than {@link #getMinScaleCount()}
 	 * @since 1.0
 	 */
@@ -351,6 +355,9 @@ public abstract class DatelineModel<T extends TemporalUnit> {
 	/**
 	 * Returns the property used to store the minimum scale count.
 	 * 
+	 * <p>
+	 * Setting a value outside the range 1 to 5 or a value larger than {@link #getMaxScaleCount()} will cause an {@link IllegalArgumentException}.
+	 *
 	 * @return the minimum scale count property
 	 * 
 	 * @since 1.0
@@ -374,7 +381,6 @@ public abstract class DatelineModel<T extends TemporalUnit> {
 	 * 
 	 * @param count
 	 *            the new minimum scale count
-	 * @throws IllegalArgumentException if the given count is not within the range
 	 *             1 to 5 or if it is larger than {@link #getMaxScaleCount()}
 	 * @since 1.0
 	 */

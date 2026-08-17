@@ -38,6 +38,8 @@ import java.util.stream.Collectors;
  * Graphics skin that places one {@link RowPane} per row inside a vertical
  * {@link javafx.scene.control.SplitPane}. It keeps the row panes synchronized with the
  * control's rows and supports cross-row lasso selection.
+ *
+ * @param <R> the type of the rows
  */
 public class SplitPaneGraphicsSkin<R extends Row<?, ?, ?>> extends
 		GraphicsBaseSkin<SplitPaneGraphics<R>, R> {

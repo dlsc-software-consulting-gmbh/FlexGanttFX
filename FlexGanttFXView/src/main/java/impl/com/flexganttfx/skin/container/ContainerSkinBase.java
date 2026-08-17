@@ -21,15 +21,27 @@ import javafx.scene.control.SkinBase;
 
 /**
  * Created by dirk on 11/07/16.
+ *
+ * @param <T> the type of the container
  */
 public abstract class ContainerSkinBase<T extends ContainerBase> extends SkinBase<T> {
 
+    /** Style class applied to the tree table of the last chart in the container. */
     protected static final String GANTT_TREE_TABLE_VIEW_LAST = "gantt-tree-table-view-last";
+
+    /** Style class applied to the tree table of a chart in the middle of the container. */
     protected static final String GANTT_TREE_TABLE_VIEW_MIDDLE = "gantt-tree-table-view-middle";
+
+    /** Style class applied to the tree table of the first chart in the container. */
     protected static final String GANTT_TREE_TABLE_VIEW_FIRST = "gantt-tree-table-view-first";
 
+    /** Style class applied to the timeline of the last chart in the container. */
     protected static final String TIMELINE_LAST = "timeline-last";
+
+    /** Style class applied to the timeline of a chart in the middle of the container. */
     protected static final String TIMELINE_MIDDLE = "timeline-middle";
+
+    /** Style class applied to the timeline of the first chart in the container. */
     protected static final String TIMELINE_FIRST = "timeline-first";
 
     /**

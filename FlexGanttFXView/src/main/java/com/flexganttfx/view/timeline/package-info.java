@@ -18,6 +18,26 @@
  * The timeline control, which consists of the dateline and the eventline child
  * controls.
  *
+ * <p>
+ * The timeline defines which time interval is currently visible and how time is
+ * mapped to pixel coordinates. Its behaviour is driven by the models found in
+ * {@link com.flexganttfx.model.timeline} and
+ * {@link com.flexganttfx.model.dateline}.
+ *
+ * <h2>Key Types</h2>
+ * <ul>
+ * <li>{@link com.flexganttfx.view.timeline.Timeline} - the container control;
+ * defines the zoom mode and the visible time interval.</li>
+ * <li>{@link com.flexganttfx.view.timeline.Dateline} - displays the time scales
+ * (days, weeks, months, years, ...).</li>
+ * <li>{@link com.flexganttfx.view.timeline.DatelineCell} - the cell used for
+ * rendering a single entry of a dateline scale.</li>
+ * <li>{@link com.flexganttfx.view.timeline.Eventline} - displays time markers
+ * and events.</li>
+ * <li>{@link com.flexganttfx.view.timeline.TimeTracker} - keeps track of the
+ * current time so that time-dependent visuals stay up-to-date.</li>
+ * </ul>
+ *
  * @since 1.0
  */
 package com.flexganttfx.view.timeline;

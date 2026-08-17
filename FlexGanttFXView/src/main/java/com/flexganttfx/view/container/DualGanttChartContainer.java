@@ -28,7 +28,7 @@ import org.controlsfx.control.MasterDetailPane;
  * chart, where the secondary Gantt chart is located in the detail node section
  * of a {@link MasterDetailPane}. It can be hidden or shown on demand. Each one
  * of the two Gantt charts can have its own header and footer.
- * <p/>
+ * <p>
  * The screenshot below shows the initial appearance of an empty Dual Gantt
  * chart control.<br>
  *  <img src="doc-files/dual-gantt-chart.png"

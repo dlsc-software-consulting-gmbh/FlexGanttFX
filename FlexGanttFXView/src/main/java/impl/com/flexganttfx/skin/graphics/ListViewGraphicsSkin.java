@@ -49,6 +49,8 @@ import java.util.stream.Collectors;
  * Graphics skin that renders rows in a {@link javafx.scene.control.ListView}. It creates
  * custom row cells and coordinates the automatic scrolling used while interacting with
  * activities.
+ *
+ * @param <R> the type of the rows
  */
 public class ListViewGraphicsSkin<R extends Row<?, ?, ?>> extends GraphicsBaseSkin<ListViewGraphics<R>, R> {
 

@@ -269,6 +269,8 @@ public abstract class RendererBase {
      *
      * @param time
      *            the time for which to calculate the x coordinate
+     * @param canvas
+     *            the canvas on which the renderer is drawing
      * @return the location of the given time point
      * @see TimelineModel#calculateLocationForTime(Instant)
      * @since 1.0

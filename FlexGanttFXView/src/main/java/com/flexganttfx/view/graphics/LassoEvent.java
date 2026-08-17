@@ -92,6 +92,7 @@ public class LassoEvent extends InputEvent {
 	public static final EventType<LassoEvent> SELECTION_ONGOING = new EventType<>(
 			LassoEvent.ALL, "SELECTION_ONGOING");
 
+	/** The information describing the current lasso selection. */
 	private final LassoInfo info;
 
 	/**

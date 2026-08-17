@@ -15,7 +15,25 @@
  * By using FlexGanttFX, the licensee accepts and agrees to the applicable licensing terms.
  */
 /**
- * Various utility classes.
+ * Various utility classes used by the FlexGanttFX view module.
+ *
+ * <h2>Key Types</h2>
+ * <ul>
+ * <li>{@link com.flexganttfx.view.util.FlexGanttFXControl} - the common base
+ * class of all FlexGanttFX controls.</li>
+ * <li>{@link com.flexganttfx.view.util.Position} - describes the position of a
+ * Gantt chart inside a container.</li>
+ * <li>{@link com.flexganttfx.view.util.RowHeaderColumn} - the tree table column
+ * that displays the row header.</li>
+ * <li>{@link com.flexganttfx.view.util.AutoLinesManager} - automatically
+ * distributes activities across the inner lines of a row.</li>
+ * <li>{@link com.flexganttfx.view.util.TimelineScrollBar} - the scroll bar used
+ * for scrolling the timeline.</li>
+ * <li>{@link com.flexganttfx.view.util.ThemingUtil} - detects whether an
+ * AtlantaFX theme is currently active.</li>
+ * <li>{@link com.flexganttfx.view.util.Messages} - lookup of localized
+ * strings.</li>
+ * </ul>
  *
  * @since 1.0
  */

@@ -34,6 +34,12 @@ import java.util.Optional;
  */
 public class ChartLinesLayerItemProvider implements ItemProvider<ChartLinesLayer> {
 
+    /**
+     * Constructs a new provider.
+     */
+    public ChartLinesLayerItemProvider() {
+    }
+
     @Override
     public List<PropertySheet.Item> getPropertySheetItems(ChartLinesLayer layer) {
 

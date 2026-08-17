@@ -41,6 +41,12 @@ import javafx.scene.layout.Priority;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
+/**
+ * Skin for {@link LayersView}. It builds one row of controls for each layer of
+ * the graphics view and keeps them in sync with the layer list.
+ *
+ * @param <R> the type of the rows
+ */
 public class LayersViewSkin<R extends Row<?, ?, ?>> extends
         SkinBase<LayersView<R>> {
 
@@ -50,6 +56,11 @@ public class LayersViewSkin<R extends Row<?, ?, ?>> extends
 
     private final WeakInvalidationListener weakRebuildListener = new WeakInvalidationListener(rebuildListener);
 
+    /**
+     * Constructs a new skin for the given layers view.
+     *
+     * @param view the control
+     */
     public LayersViewSkin(LayersView<R> view) {
         super(view);
 

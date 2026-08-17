@@ -27,6 +27,12 @@ public class SimpleUnitCellFactory implements
 		Callback<SimpleUnit, SimpleUnitDatelineCell> {
 
 	/**
+	 * Constructs a new cell factory.
+	 */
+	public SimpleUnitCellFactory() {
+	}
+
+	/**
 	 * Creates a dateline cell for the given unit.
 	 *
 	 * @param param the unit

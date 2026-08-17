@@ -34,6 +34,12 @@ import java.util.Optional;
  */
 public class DSTLineLayerItemProvider implements ItemProvider<DSTLineLayer> {
 
+    /**
+     * Constructs a new provider.
+     */
+    public DSTLineLayerItemProvider() {
+    }
+
     @Override
     public List<PropertySheet.Item> getPropertySheetItems(DSTLineLayer layer) {
 

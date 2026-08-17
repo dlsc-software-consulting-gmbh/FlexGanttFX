@@ -34,6 +34,12 @@ import java.util.Optional;
  */
 public class GraphicsBaseItemProvider<R extends Row<?, ?, ?>> implements ItemProvider<GraphicsBase<R>> {
 
+    /**
+     * Constructs a new provider.
+     */
+    public GraphicsBaseItemProvider() {
+    }
+
     private static final String GRAPHICS_VIEW_PROPERTIES = "Control: Graphics";
 
     @Override

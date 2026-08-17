@@ -235,12 +235,6 @@ public abstract class DualGanttChartContainerBase<T extends GanttChartBase<?>> e
 
     // Secondary header support.
 
-    /**
-     * A property used to store the reference to the Gantt chart control that is
-     * serving as the secondary Gantt chart.
-     *
-     * @since 1.6
-     */
     private final ObjectProperty<Node> secondaryHeader = new SimpleObjectProperty<>(this, "secondaryHeader");
 
     /**

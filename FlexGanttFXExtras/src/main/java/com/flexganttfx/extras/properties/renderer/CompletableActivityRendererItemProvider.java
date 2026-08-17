@@ -34,6 +34,12 @@ import java.util.Optional;
  */
 public class CompletableActivityRendererItemProvider implements ItemProvider<CompletableActivityRenderer> {
 
+    /**
+     * Constructs a new provider.
+     */
+    public CompletableActivityRendererItemProvider() {
+    }
+
     @Override
     public List<PropertySheet.Item> getPropertySheetItems(CompletableActivityRenderer renderer) {
         ActivityBarRendererItemProvider support = new ActivityBarRendererItemProvider();

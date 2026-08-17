@@ -31,6 +31,19 @@ import javafx.scene.control.Skin;
  * chart or, to be more precise, a {@link GraphicsBase}.<br>
  * <img src="doc-files/radar-view.png" alt="Radar View">
  *
+ * <h2>Example</h2>
+ * <pre>{@code
+ * GanttChart<MyRow> gantt = new GanttChart<>(new MyRow("Root"));
+ *
+ * RadarView<MyRow> radarView = new RadarView<>();
+ * radarView.setGraphics(gantt.getGraphics());
+ * radarView.setRadarWidth(300);
+ * radarView.setRadarHeight(150);
+ * }</pre>
+ *
+ * @see LayersView
+ * @see GraphicsBase
+ *
  * @param <R> the type of the rows
  * @since 1.0
  */

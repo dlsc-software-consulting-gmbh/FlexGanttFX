@@ -27,6 +27,13 @@ import java.time.LocalTime;
 public class ActivityHelper {
 
     /**
+     * Constructs a new helper. All methods of this class are static, hence
+     * instances of it are normally not needed.
+     */
+    public ActivityHelper() {
+    }
+
+    /**
      * Checks whether the time bounds of the two given activities intersect with
      * each other.
      *

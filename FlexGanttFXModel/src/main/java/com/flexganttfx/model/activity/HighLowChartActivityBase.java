@@ -105,6 +105,9 @@ public class HighLowChartActivityBase<T> extends ActivityBase<T> implements
 		this.low = low;
 	}
 
+	/**
+	 * The low value used when the activity is rendered as part of a chart.
+	 */
 	protected double low;
 
 	@Override
@@ -112,6 +115,9 @@ public class HighLowChartActivityBase<T> extends ActivityBase<T> implements
 		return low;
 	}
 
+	/**
+	 * The high value used when the activity is rendered as part of a chart.
+	 */
 	protected double high;
 
 	@Override

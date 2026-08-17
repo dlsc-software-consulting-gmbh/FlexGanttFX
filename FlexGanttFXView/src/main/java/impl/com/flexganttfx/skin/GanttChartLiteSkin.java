@@ -21,6 +21,8 @@ import com.flexganttfx.view.GanttChartLite;
 
 /**
  * Skin for {@link com.flexganttfx.view.GanttChartLite}.
+ *
+ * @param <R> the type of the rows
  */
 public class GanttChartLiteSkin<R extends Row<?, ?, ?>> extends GanttChartBaseSkin<R, GanttChartLite<R>> {
 

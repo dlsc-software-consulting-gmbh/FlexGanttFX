@@ -26,10 +26,19 @@ import javafx.scene.layout.VBox;
 
 import static java.lang.Double.MAX_VALUE;
 
+/**
+ * Skin for {@link VirtualGridControl}. It displays one toggle button for each
+ * available virtual grid.
+ */
 public class VirtualGridControlSkin extends SkinBase<VirtualGridControl> {
 
 	private final VBox vbox;
 
+	/**
+	 * Constructs a new skin for the given control.
+	 *
+	 * @param control the control
+	 */
 	public VirtualGridControlSkin(VirtualGridControl control) {
 		super(control);
 

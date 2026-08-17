@@ -60,7 +60,6 @@ import static javafx.geometry.Side.LEFT;
  * <li>{@link #getLinks()} - returns the list of links between activities</li>
  * </ul>
  * <p>
- * <p>
  * The control consists of several children controls:
  * <ul>
  * <li>{@link TreeTableView}: shown on the left-hand side to display a
@@ -97,9 +96,8 @@ import static javafx.geometry.Side.LEFT;
  * {@link #getMasterTimeline()}). The master timeline is the one shown by the
  * "first" chart, while the regular timeline is the one that belongs directly to
  * an individual Gantt chart instance.
- * <p>
+ *
  * <h2>Code Example</h2>
- * <p>
  * <pre>
  * import java.time.Duration;
  * import java.time.Instant;

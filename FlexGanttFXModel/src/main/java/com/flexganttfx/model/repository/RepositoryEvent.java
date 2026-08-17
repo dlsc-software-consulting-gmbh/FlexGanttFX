@@ -57,8 +57,15 @@ public final class RepositoryEvent extends Event {
      */
     public static final EventType<RepositoryEvent> ACTIVITY_REMOVED = new EventType<>(RepositoryEvent.REPOSITORY_CHANGED, "ACTIVITY_REMOVED");
 
+    /**
+     * The activity reference that was added or removed, or {@code null} if the
+     * event type is {@link #REPOSITORY_CHANGED}.
+     */
     private ActivityRef<?> activityRef;
 
+    /**
+     * The repository where the event occurred.
+     */
     private final ActivityRepository<?> repository;
 
     /**

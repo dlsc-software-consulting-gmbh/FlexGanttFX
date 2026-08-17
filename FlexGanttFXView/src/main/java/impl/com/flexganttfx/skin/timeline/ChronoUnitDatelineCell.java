@@ -37,6 +37,12 @@ import static java.time.temporal.ChronoField.AMPM_OF_DAY;
 public class ChronoUnitDatelineCell extends DatelineCell<ChronoUnit> {
 
 	/**
+	 * Constructs a new dateline cell.
+	 */
+	public ChronoUnitDatelineCell() {
+	}
+
+	/**
 	 * Updates the dateline cell.
 	 *
 	 * @param startTime the start time

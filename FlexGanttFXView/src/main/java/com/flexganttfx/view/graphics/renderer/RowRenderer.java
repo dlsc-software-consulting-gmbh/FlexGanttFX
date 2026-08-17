@@ -27,6 +27,8 @@ import static javafx.scene.paint.Color.YELLOW;
 /**
  * Renders the background area of a row.
  * It fills the row bounds with the state-dependent paint configured on the renderer while respecting padding.
+ *
+ * @param <R> the type of the rows drawn by this renderer
  */
 public class RowRenderer<R extends Row<?, ?, ?>> extends Renderer {
 

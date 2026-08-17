@@ -3355,7 +3355,15 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
      * @since 1.0
      */
     public enum SelectionMode {
-        SINGLE, MULTIPLE, NONE
+
+        /** Only one activity can be selected at a time. */
+        SINGLE,
+
+        /** Several activities can be selected at the same time. */
+        MULTIPLE,
+
+        /** Activities can not be selected at all. */
+        NONE
     }
 
     private final ObjectProperty<SelectionMode> selectionMode = new SimpleObjectProperty<>(
@@ -3755,6 +3763,12 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         placeholderProperty().set(node);
     }
 
+    /**
+     * Returns the list of row panes currently managed by this graphics view.
+     *
+     * @return the currently existing row panes
+     * @since 1.0
+     */
     public abstract List<RowPane<R>> getRowPanes();
 
     private LinksCanvas<R> linksCanvas;
@@ -3770,6 +3784,8 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     /**
      * Performs a redraw of the displayed activities and logs the given reason. Also lays out the links
      * shown by the {@link LinksCanvas}.
+     *
+     * @param reason the reason for the redraw, used for logging purposes
      */
     public void redraw(String reason) {
         redraw(reason, null);
@@ -3824,6 +3840,8 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     /**
      * Performs a redraw of the displayed links and logs the given reason.
+     *
+     * @param reason the reason for the redraw, used for logging purposes
      */
     public void drawLinks(String reason) {
         if (linksCanvas == null) {
@@ -3936,6 +3954,7 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
     /**
      * Returns the renderer registered for the given activity and layout types.
      *
+     * @param <A> the activity type
      * @param activityType the activity type
      * @param layoutType the layout type
      * @return the matching activity renderer, or {@code null} if no renderer is registered
@@ -4062,34 +4081,50 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
      * @since 1.0
      */
     public enum EditMode {
+
+        /** No editing operation is currently possible. */
         NONE,
 
+        /** The activity will be deleted. */
         DELETING,
 
+        /** The start time of the activity will be changed. */
         START_TIME_CHANGE,
 
+        /** The end time of the activity will be changed. */
         END_TIME_CHANGE,
 
+        /** The completion of the activity will be changed. */
         PERCENTAGE_COMPLETE_CHANGE,
 
+        /** The activity will be dragged along the time axis. */
         DRAGGING_HORIZONTAL,
 
+        /** The activity will be dragged from one row or line to another. */
         DRAGGING_VERTICAL,
 
+        /** The activity will be dragged in both directions. */
         DRAGGING,
 
+        /** The start time of the activity will be changed in an agenda layout. */
         AGENDA_START_TIME_CHANGE,
 
+        /** The end time of the activity will be changed in an agenda layout. */
         AGENDA_END_TIME_CHANGE,
 
+        /** The activity will be dragged in an agenda layout. */
         AGENDA_DRAGGING,
 
+        /** The activity will be assigned to another row in an agenda layout. */
         AGENDA_ASSIGNING,
 
+        /** The chart value of the activity will be changed. */
         CHART_VALUE_CHANGE,
 
+        /** The high chart value of the activity will be changed. */
         CHART_VALUE_HIGH_CHANGE,
 
+        /** The low chart value of the activity will be changed. */
         CHART_VALUE_LOW_CHANGE
     }
 
@@ -4132,6 +4167,11 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
             return activityRef;
         }
 
+        /**
+         * Returns the editing operation for which the callback is invoked.
+         *
+         * @return the edit mode
+         */
         public EditMode getEditMode() {
             return editMode;
         }
@@ -4157,6 +4197,16 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         activityEditingCallbackMap.put(activityType, callback);
     }
 
+    /**
+     * Returns the callback that determines whether a given editing operation is
+     * allowed for activities of the given type.
+     *
+     * @param <A> the activity type
+     * @param activityType the type of the activity
+     * @return the callback registered for the given type, or {@code null}
+     * @see #setActivityEditingCallback(Class, Callback)
+     * @since 1.0
+     */
     public final <A extends Activity> Callback<EditingCallbackParameter, Boolean> getActivityEditingCallback(
             Class<A> activityType) {
         return doGetEditingCallback(activityType);
@@ -4416,16 +4466,41 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
         return null;
     }
 
+    /**
+     * Returns the background system layer of the given type.
+     *
+     * @param <SL> the system layer type
+     * @param layerType the type of the requested system layer
+     * @return the matching system layer, or {@code null} if no such layer exists
+     * @since 1.0
+     */
     public final <SL extends SystemLayer<R>> SL getBackgroundSystemLayer(
             Class<SL> layerType) {
         return doGetLayer(layerType, backgroundLayers);
     }
 
+    /**
+     * Returns the foreground system layer of the given type.
+     *
+     * @param <SL> the system layer type
+     * @param layerType the type of the requested system layer
+     * @return the matching system layer, or {@code null} if no such layer exists
+     * @since 1.0
+     */
     public final <SL extends SystemLayer<R>> SL getForegroundSystemLayer(
             Class<SL> layerType) {
         return doGetLayer(layerType, foregroundLayers);
     }
 
+    /**
+     * Returns the system layer of the given type. Background layers are looked
+     * up first, foreground layers second.
+     *
+     * @param <SL> the system layer type
+     * @param layerType the type of the requested system layer
+     * @return the matching system layer, or {@code null} if no such layer exists
+     * @since 1.0
+     */
     public final <SL extends SystemLayer<R>> SL getSystemLayer(
             Class<SL> layerType) {
         SL layer = doGetLayer(layerType, backgroundLayers);
@@ -5230,7 +5305,15 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
      * @since 1.0
      */
     public enum RowEditingMode {
-        NONE, SINGLE_ROW, MULTIPLE_ROWS
+
+        /** Rows can not be edited. */
+        NONE,
+
+        /** Only one row can show its row editor at a time. */
+        SINGLE_ROW,
+
+        /** Several rows can show their row editors at the same time. */
+        MULTIPLE_ROWS
     }
 
     private final ObjectProperty<RowEditingMode> rowEditingMode = new SimpleObjectProperty<>(this, "rowEditingMode", RowEditingMode.SINGLE_ROW);
@@ -5374,6 +5457,16 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
 
     private final ObservableMap<Class<? extends Layout>, ObservableMap<Class<?>, Callback<EditModeCallbackParameter, EditMode>>> editModeCallbackMap = FXCollections.observableHashMap();
 
+    /**
+     * Registers a callback used to determine the editing operation that will be
+     * performed for a given activity type and layout type.
+     *
+     * @param activityType the type of the activity
+     * @param layoutType the type of the layout used by the row
+     * @param callback the callback, may be {@code null} to remove a previously
+     *                 registered callback
+     * @since 1.0
+     */
     public final void setEditModeCallback(
             Class<? extends MutableActivity> activityType,
             Class<? extends Layout> layoutType,
@@ -5876,9 +5969,10 @@ public abstract class GraphicsBase<R extends Row<?, ?, ?>> extends FlexGanttFXCo
      * Using save / restore will ensure that the pluggable system layers and activity renderers will not
      * have any side effects on each other. Setting this property to true has an impact on performance.
      * The default value of this property is false.
+     *
      * <p>
-     * <h3>Example</h3>
-     * The following code shows how the property is used within the framework.
+     * <b>Example:</b> the following code shows how the property is used within
+     * the framework.
      * <pre>
      *     GraphicsContext gc = canvas.getGraphicsContext2D();
      *

@@ -28,6 +28,12 @@ public class ChronoUnitCellFactory
 		implements Callback<ChronoUnit, ChronoUnitDatelineCell> {
 
 	/**
+	 * Constructs a new cell factory.
+	 */
+	public ChronoUnitCellFactory() {
+	}
+
+	/**
 	 * Creates a dateline cell for the given unit.
 	 *
 	 * @param unit the unit

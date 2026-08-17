@@ -53,6 +53,8 @@ import static javafx.scene.input.MouseEvent.MOUSE_EXITED;
 /**
  * Container representing one row inside a graphics skin. It combines the row canvas, optional
  * header content, controls, and flip editor pane for the row.
+ *
+ * @param <R> the type of the rows
  */
 public class RowPane<R extends Row<?, ?, ?>> extends StackPane {
 

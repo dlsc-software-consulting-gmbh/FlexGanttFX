@@ -51,6 +51,14 @@ import static java.util.logging.Level.FINEST;
  */
 public class IntervalTreeActivityRepository<A extends Activity> extends MutableActivityRepositoryBase<A> {
 
+    /**
+     * Constructs a new empty repository.
+     *
+     * @since 1.0
+     */
+    public IntervalTreeActivityRepository() {
+    }
+
     private final Map<Layer, IntervalTree<A>> treeMap = new HashMap<>();
 
     private IntervalTree<A> getTree(Layer layer) {

@@ -31,6 +31,16 @@ import java.util.logging.LogRecord;
  * A formatter for the logging framework. Formats logging messages in a very
  * compact format.
  *
+ * <h2>Code Example</h2>
+ *
+ * <pre>
+ * ConsoleHandler handler = new ConsoleHandler();
+ * handler.setFormatter(new LoggingFormatter());
+ *
+ * LoggingDomain.RENDERING.addHandler(handler);
+ * </pre>
+ *
+ * @see LoggingDomain
  * @since 1.0
  */
 public class LoggingFormatter extends Formatter {
@@ -47,6 +57,12 @@ public class LoggingFormatter extends Formatter {
         MAX_LEVEL_SIZE = Math.max(MAX_LEVEL_SIZE, Level.FINEST.getLocalizedName().length());
         MAX_LEVEL_SIZE = Math.max(MAX_LEVEL_SIZE, Level.SEVERE.getLocalizedName().length());
         MAX_LEVEL_SIZE = Math.max(MAX_LEVEL_SIZE, Level.WARNING.getLocalizedName().length());
+    }
+
+    /**
+     * Private constructor to prevent instantiation of this utility class.
+     */
+    private LoggingFormatter() {
     }
 
     /**

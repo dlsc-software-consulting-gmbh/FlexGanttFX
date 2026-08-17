@@ -34,6 +34,12 @@ import java.util.Optional;
  */
 public class GridLinesLayerItemProvider implements ItemProvider<GridLinesLayer> {
 
+    /**
+     * Constructs a new provider.
+     */
+    public GridLinesLayerItemProvider() {
+    }
+
     @Override
     public List<PropertySheet.Item> getPropertySheetItems(GridLinesLayer layer) {
 

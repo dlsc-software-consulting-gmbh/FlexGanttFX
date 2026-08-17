@@ -78,6 +78,9 @@ import java.util.stream.Collectors;
  * Abstract base skin for graphics controls. It installs the shared overlays, listeners,
  * cursors, keyboard handling, lasso selection, and drag feedback used by concrete graphics
  * skins.
+ *
+ * @param <C> the type of the graphics control
+ * @param <R> the type of the rows
  */
 public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<?, ?, ?>> extends SkinBase<C> {
 
@@ -385,10 +388,25 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         return linksCanvas;
     }
 
+    /**
+     * Creates the region that will be used for displaying the row panes.
+     *
+     * @return the region containing the row panes
+     */
     protected abstract Region createRowPaneRegion();
 
+    /**
+     * Returns the rows that are currently covered by the lasso.
+     *
+     * @return the rows selected by the lasso
+     */
     protected abstract List<Row<?, ?, ?>> findLassoSelectedRows();
 
+    /**
+     * Returns the activities that are currently covered by the lasso.
+     *
+     * @return the activities selected by the lasso
+     */
     protected abstract List<ActivityRef<?>> findLassoSelectedActivities();
 
     private void performSelection() {
@@ -667,8 +685,20 @@ public abstract class GraphicsBaseSkin<C extends GraphicsBase<R>, R extends Row<
         return null;
     }
 
+    /**
+     * Returns the row pane located at the given y coordinate.
+     *
+     * @param y the y coordinate within the graphics view
+     * @return the row pane at the given location, or {@code null}
+     */
     protected abstract RowPane<R> getRowPaneAt(double y);
 
+    /**
+     * Determines whether the given row is located above the visible viewport.
+     *
+     * @param row the row to check
+     * @return {@code true} if the row is currently scrolled out at the top
+     */
     protected abstract boolean isRowAboveViewport(R row);
 
     /**

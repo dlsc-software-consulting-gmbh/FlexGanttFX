@@ -16,7 +16,31 @@
  */
 /**
  * Containers for the synchronized display of two or more Gantt charts.
- * 
+ *
+ * <p>
+ * All containers keep the layout (table width, timeline) and the scrolling and
+ * zooming behaviour of the charts they manage in sync.
+ *
+ * <h2>Key Types</h2>
+ * <ul>
+ * <li>{@link com.flexganttfx.view.container.DualGanttChartContainer} /
+ * {@link com.flexganttfx.view.container.DualGanttChartLiteContainer} - two
+ * charts, the second one shown inside a detail pane.</li>
+ * <li>{@link com.flexganttfx.view.container.QuadGanttChartContainer} /
+ * {@link com.flexganttfx.view.container.QuadGanttChartLiteContainer} - four
+ * charts arranged in a two-by-two grid.</li>
+ * <li>{@link com.flexganttfx.view.container.MultiGanttChartContainer} /
+ * {@link com.flexganttfx.view.container.MultiGanttChartLiteContainer} - an
+ * arbitrary number of charts stacked on top of each other.</li>
+ * <li>{@link com.flexganttfx.view.container.ContainerBase} - the common base
+ * class of all containers.</li>
+ * </ul>
+ *
+ * <p>
+ * When a chart is placed inside a container its
+ * {@link com.flexganttfx.view.util.Position} determines whether it shows a
+ * timeline or a graphics header.
+ *
  * @since 1.6
  */
 package com.flexganttfx.view.container;

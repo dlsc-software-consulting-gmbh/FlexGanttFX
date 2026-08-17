@@ -283,12 +283,6 @@ public abstract class QuadGanttChartContainerBase<T extends GanttChartBase<?>> e
 
     // Upper right header support.
 
-    /**
-     * A property used to store the reference to the Gantt chart control that is
-     * serving as the upper right Gantt chart.
-     *
-     * @since 1.6
-     */
     private final ObjectProperty<Node> upperRightHeader = new SimpleObjectProperty<>(this, "upperRightHeader");
 
     /**
@@ -393,12 +387,6 @@ public abstract class QuadGanttChartContainerBase<T extends GanttChartBase<?>> e
 
     // Lower right header support.
 
-    /**
-     * A property used to store the reference to the control that is
-     * serving as the upper right header.
-     *
-     * @since 1.6
-     */
     private final ObjectProperty<Node> lowerRightHeader = new SimpleObjectProperty<>(this, "lowerRightHeader");
 
     /**

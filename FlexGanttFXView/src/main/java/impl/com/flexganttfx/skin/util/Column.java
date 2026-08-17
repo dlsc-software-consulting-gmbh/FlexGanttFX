@@ -32,6 +32,12 @@ import java.util.function.Predicate;
  */
 public final class Column<A extends Activity> {
 
+	/**
+	 * Constructs a new empty column.
+	 */
+	public Column() {
+	}
+
 	private List<A> activities;
 
 	/**

@@ -34,6 +34,12 @@ import java.util.Optional;
  */
 public class LayoutLayerItemProvider implements ItemProvider<LayoutLayer> {
 
+    /**
+     * Constructs a new provider.
+     */
+    public LayoutLayerItemProvider() {
+    }
+
     @Override
     public List<PropertySheet.Item> getPropertySheetItems(LayoutLayer layer) {
         SystemLayerItemProvider provider = new SystemLayerItemProvider();

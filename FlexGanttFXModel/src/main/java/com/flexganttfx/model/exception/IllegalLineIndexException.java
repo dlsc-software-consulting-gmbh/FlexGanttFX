@@ -32,8 +32,13 @@ public class IllegalLineIndexException extends RuntimeException {
 
     private static final long serialVersionUID = -6806986448373406748L;
 
+    /** The line index that caused the exception. */
     private final int lineIndex;
+
+    /** The total number of lines available in the row. */
     private final int lineCount;
+
+    /** The row for which the illegal line index was used. */
     private final Row<?, ?, ?> row;
 
     /**

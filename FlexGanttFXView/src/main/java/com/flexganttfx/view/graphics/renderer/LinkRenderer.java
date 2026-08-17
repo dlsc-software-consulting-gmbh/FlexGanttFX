@@ -35,6 +35,8 @@ import javafx.scene.paint.Color;
  * @see CurvedLinkRenderer
  * @see StraightLinkRenderer
  * @see GraphicsBase#setLinkRenderer(Class, LinkRenderer)
+ *
+ * @param <T> the type of the activity links drawn by this renderer
  * @since 1.0
  */
 public abstract class LinkRenderer<T extends ActivityLink<?>> extends RendererBase {
@@ -166,6 +168,8 @@ public abstract class LinkRenderer<T extends ActivityLink<?>> extends RendererBa
     /**
      * Constructs a new link renderer.
      *
+     * @param graphics the graphics view where the renderer will be used
+     * @param name the name of the renderer, used for logging and debugging
      * @since 1.0
      */
     protected LinkRenderer(GraphicsBase<?> graphics, String name) {
@@ -244,9 +248,9 @@ public abstract class LinkRenderer<T extends ActivityLink<?>> extends RendererBa
      * Draws a path in the given graphics context from the start of the source
      * rectangle to the start of the target rectangle.
      *
+     * @param gc the graphics context to draw on
      * @param sourceRect the source rectangle
      * @param targetRect the target rectangle
-     * @return the result path
      * @since 1.0
      */
     protected abstract void drawStartToStart(GraphicsContext gc, Rectangle2D sourceRect, Rectangle2D targetRect);
@@ -255,9 +259,9 @@ public abstract class LinkRenderer<T extends ActivityLink<?>> extends RendererBa
      * Draws a path in the given graphics context from the end of the source
      * rectangle to the end of the target rectangle.
      *
+     * @param gc the graphics context to draw on
      * @param sourceRect the source rectangle
      * @param targetRect the target rectangle
-     * @return the result path
      * @since 1.0
      */
     protected abstract void drawEndToEnd(GraphicsContext gc, Rectangle2D sourceRect, Rectangle2D targetRect);
@@ -266,9 +270,9 @@ public abstract class LinkRenderer<T extends ActivityLink<?>> extends RendererBa
      * Draws a path in the given graphics context from the start of the source
      * rectangle to the end of the target rectangle.
      *
+     * @param gc the graphics context to draw on
      * @param sourceRect the source rectangle
      * @param targetRect the target rectangle
-     * @return the result path
      * @since 1.0
      */
     protected abstract void drawStartToEnd(GraphicsContext gc, Rectangle2D sourceRect, Rectangle2D targetRect);
@@ -277,9 +281,9 @@ public abstract class LinkRenderer<T extends ActivityLink<?>> extends RendererBa
      * Draws a path in the given graphics context from the end of the source
      * rectangle to the start of the target rectangle.
      *
+     * @param gc the graphics context to draw on
      * @param sourceRect the source rectangle
      * @param targetRect the target rectangle
-     * @return the result path
      * @since 1.0
      */
     protected abstract void drawEndToStart(GraphicsContext gc, Rectangle2D sourceRect, Rectangle2D targetRect);
@@ -402,31 +406,21 @@ public abstract class LinkRenderer<T extends ActivityLink<?>> extends RendererBa
      * The offset determines the end location of the first segment of the
      * calculated path. The first segment is used to move away from the start or
      * end bounds before continuing to draw up or down.
+     *
+     * <p>
+     * Setting a negative offset will cause an {@link IllegalArgumentException}.
+     *
+     * @return the offset property
+     * @since 1.0
      */
     public final DoubleProperty offsetProperty() {
         return offset;
     }
 
-    /**
-     * The offset determines the end location of the first segment of the
-     * calculated path. The first segment is used to move away from the start or
-     * end bounds before continuing to draw up or down.
-     *
-     * @return the offset
-     * @since 1.0
-     */
     public final double getOffset() {
         return offset.get();
     }
 
-    /**
-     * The offset determines the end location of the first segment of the
-     * calculated path. The first segment is used to move away from the start or
-     * end bounds before continuing to draw up or down.
-     *
-     * @param offset the offset in pixels
-     * @since 1.0
-     */
     public final void setOffset(double offset) {
         if (offset < 0) {
             throw new IllegalArgumentException("offset can not be negative");
@@ -442,29 +436,18 @@ public abstract class LinkRenderer<T extends ActivityLink<?>> extends RendererBa
     /**
      * The gap determines how far the line is drawn away from the bounds of the
      * source or target timeline object.
+     *
+     * @return the gap property
+     * @since 1.0
      */
     public final DoubleProperty gapProperty() {
         return gap;
     }
 
-    /**
-     * The gap determines how far the line is drawn away from the bounds of the
-     * source or target timeline object.
-     *
-     * @return the gap between line and timeline objects
-     * @since 1.0
-     */
     public final double getGap() {
         return gap.get();
     }
 
-    /**
-     * The gap determines how far the line is drawn away from the bounds of the
-     * source or target timeline object.
-     *
-     * @param gap the distance between line and timeline objects
-     * @since 1.0
-     */
     public final void setGap(double gap) {
         this.gap.set(gap);
     }

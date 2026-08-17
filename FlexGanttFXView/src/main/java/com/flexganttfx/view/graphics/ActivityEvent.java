@@ -364,16 +364,22 @@ public class ActivityEvent extends InputEvent {
 	 */
 	public static final EventType<ActivityEvent> CHART_LOW_VALUE_CHANGE_ONGOING = new EventType<>(ActivityEvent.CHART_VALUE_CHANGE_ONGOING, "CHART_LOW_VALUE_CHANGE_ONGOING");
 
+	/** The time value before the editing operation started. */
 	private Instant oldTime;
 
+	/** The time interval of the activity before the editing operation started. */
 	private TimeInterval oldTimeInterval;
 
+	/** The row on which the activity was located before it was dragged. */
 	private Row<?, ?, ?> oldRow;
 
+	/** The row on which the activity is located after it was dragged. */
 	private Row<?, ?, ?> newRow;
 
+	/** The numeric value before the editing operation started. */
 	private double oldValue;
 
+	/** The reference to the activity for which the event was fired. */
 	private final ActivityRef<?> activityRef;
 
 	/**

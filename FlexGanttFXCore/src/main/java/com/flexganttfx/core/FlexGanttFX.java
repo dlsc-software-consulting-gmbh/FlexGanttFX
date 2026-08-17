@@ -22,12 +22,21 @@ import java.util.Properties;
 
 /**
  * Utility class providing general information about the framework, e.g. its version number.
+ * <p>
+ * FlexGanttFX is dual-licensed (AGPLv3 / commercial), which means that no license key has
+ * to be installed at runtime.
  *
  * @since 1.0
  */
 public final class FlexGanttFX {
 
     private static String version;
+
+    /**
+     * Private constructor to prevent instantiation of this utility class.
+     */
+    public FlexGanttFX() {
+    }
 
     /**
      * Returns the FlexGanttFX version number in the format major.minor.bug

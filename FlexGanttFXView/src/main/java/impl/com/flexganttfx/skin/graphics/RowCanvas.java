@@ -72,6 +72,8 @@ import static java.util.Objects.requireNonNull;
 /**
  * Canvas that renders the activities of a single row. It manages per-row layout state,
  * selection visuals, and redraw requests for the row content.
+ *
+ * @param <R> the type of the rows
  */
 public final class RowCanvas<R extends Row<?, ?, ?>> extends Canvas {
 

@@ -107,6 +107,9 @@ public class ChartActivityBase<T> extends ActivityBase<T> implements
 
 	// Chart value support.
 
+	/**
+	 * The value used when the activity is rendered as part of a chart.
+	 */
 	protected double chartValue;
 
 	@Override

@@ -90,6 +90,8 @@ import static javafx.scene.paint.Color.TRANSPARENT;
 /**
  * Behavior controller for a {@link RowCanvas}. It handles mouse and drag interactions for
  * creating, moving, resizing, and selecting activities on the row canvas.
+ *
+ * @param <R> the type of the rows
  */
 public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
 
@@ -296,20 +298,30 @@ public final class RowCanvasBehaviour<R extends Row<?, ?, ?>> {
         }
     }
 
+    /** The data format used for transferring drag information via the clipboard. */
     public static final DataFormat DRAG_INFO = new DataFormat("FlexGanttFX/dragInfo");
 
+    /**
+     * Stores the information required for performing a drag and drop operation
+     * with an activity.
+     */
     public static final class DragInfo implements Serializable {
 
         private static final long serialVersionUID = 1L;
 
+        /** The editing operation that triggered the drag. */
         private final EditMode editMode;
 
+        /** The horizontal distance between the mouse cursor and the activity start. */
         private final double xOffset;
 
+        /** Whether the shortcut key was pressed when the drag started. */
         private final boolean shortcutDown;
 
+        /** Whether the shift key was pressed when the drag started. */
         private final boolean shiftDown;
 
+        /** Whether the alt key was pressed when the drag started. */
         private final boolean altDown;
 
         private DragInfo(EditMode editMode, double xOffset, boolean shortcutDown, boolean shiftDown, boolean altDown) {

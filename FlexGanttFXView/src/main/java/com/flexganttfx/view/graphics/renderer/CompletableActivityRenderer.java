@@ -30,6 +30,8 @@ import javafx.scene.paint.Paint;
 /**
  * Renders completable activities with an additional completion overlay.
  * The overlay width reflects the activity's percentage complete and can be styled for the different interaction states.
+ *
+ * @param <A> the type of the completable activities drawn by this renderer
  */
 public class CompletableActivityRenderer<A extends CompletableActivity> extends
 		ActivityBarRenderer<A> {

@@ -32,6 +32,8 @@ import javafx.scene.text.TextAlignment;
 /**
  * Renders activities as bars or milestone diamonds and can paint labels around them.
  * It adds bar-specific styling such as bar height, glossy fills, and text placement support on top of {@link ActivityRenderer}.
+ *
+ * @param <A> the type of the activities drawn by this renderer
  */
 public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A> {
 
@@ -40,13 +42,39 @@ public class ActivityBarRenderer<A extends Activity> extends ActivityRenderer<A>
      * Values cover placements inside the activity, above or below it, and on its leading or trailing side.
      */
     public enum TextPosition {
-        LEFT, CENTER, RIGHT,
 
-        ABOVE, ABOVE_LEFT, ABOVE_RIGHT,
+        /** The text is drawn inside the activity, aligned to the left. */
+        LEFT,
 
-        BELOW, BELOW_LEFT, BELOW_RIGHT,
+        /** The text is drawn inside the activity, horizontally centered. */
+        CENTER,
 
-        LEADING, TRAILING,
+        /** The text is drawn inside the activity, aligned to the right. */
+        RIGHT,
+
+        /** The text is drawn above the activity, horizontally centered. */
+        ABOVE,
+
+        /** The text is drawn above the activity, aligned to the left. */
+        ABOVE_LEFT,
+
+        /** The text is drawn above the activity, aligned to the right. */
+        ABOVE_RIGHT,
+
+        /** The text is drawn below the activity, horizontally centered. */
+        BELOW,
+
+        /** The text is drawn below the activity, aligned to the left. */
+        BELOW_LEFT,
+
+        /** The text is drawn below the activity, aligned to the right. */
+        BELOW_RIGHT,
+
+        /** The text is drawn in front of the activity. */
+        LEADING,
+
+        /** The text is drawn behind the activity. */
+        TRAILING,
     }
 
     private static final Color WHITE = new Color(1, 1, 1, .3);

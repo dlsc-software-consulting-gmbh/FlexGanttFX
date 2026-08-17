@@ -34,6 +34,12 @@ import java.util.Optional;
  */
 public class DualGanttChartContainerBaseItemProvider<T extends GanttChartBase<?>> implements ItemProvider<DualGanttChartContainerBase<T>> {
 
+    /**
+     * Constructs a new provider.
+     */
+    public DualGanttChartContainerBaseItemProvider() {
+    }
+
     private static final String DUAL_GANTT_CHART_CONTAINER_PROPERTIES_CATEGORY = "Control: Dual Gantt Chart Container";
 
     public final ObservableList<Item> getPropertySheetItems(DualGanttChartContainerBase<T> container) {

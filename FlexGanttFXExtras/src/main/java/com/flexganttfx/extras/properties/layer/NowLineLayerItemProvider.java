@@ -34,6 +34,12 @@ import java.util.Optional;
  */
 public class NowLineLayerItemProvider implements ItemProvider<NowLineLayer> {
 
+    /**
+     * Constructs a new provider.
+     */
+    public NowLineLayerItemProvider() {
+    }
+
     @Override
     public List<PropertySheet.Item> getPropertySheetItems(NowLineLayer layer) {
         SystemLayerItemProvider provider = new SystemLayerItemProvider();

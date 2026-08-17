@@ -38,6 +38,9 @@ import org.controlsfx.control.MasterDetailPane;
  * Base skin implementation for {@link com.flexganttfx.view.GanttChartBase}. It assembles the
  * timeline, graphics area, scroll bars, and master-detail panes and keeps them synchronized
  * with the control state.
+ *
+ * @param <R> the type of the rows
+ * @param <C> the type of the Gantt chart control
  */
 public abstract class GanttChartBaseSkin<R extends Row<?, ?, ?>, C extends GanttChartBase<R>> extends SkinBase<C> {
 

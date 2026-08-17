@@ -103,6 +103,9 @@ public class ActivityBase<T> implements Activity {
 
 	// Name support.
 
+	/**
+	 * The name of the activity.
+	 */
 	protected String name;
 
 	@Override
@@ -112,6 +115,9 @@ public class ActivityBase<T> implements Activity {
 
 	// ID support.
 
+	/**
+	 * The unique identifier of the activity.
+	 */
 	protected String id = Long.toString(createID());
 
 	private static synchronized long createID() {
@@ -155,6 +161,9 @@ public class ActivityBase<T> implements Activity {
 
 	// Start time support
 
+	/**
+	 * The time at which the activity starts.
+	 */
 	protected Instant startTime;
 
 	@Override
@@ -164,6 +173,9 @@ public class ActivityBase<T> implements Activity {
 
 	// Start time support
 
+	/**
+	 * The time at which the activity ends.
+	 */
 	protected Instant endTime;
 
 	@Override

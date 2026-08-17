@@ -35,6 +35,12 @@ import java.util.Optional;
  */
 public class ZoomIntervalLayerItemProvider implements ItemProvider<ZoomTimeIntervalLayer> {
 
+    /**
+     * Constructs a new provider.
+     */
+    public ZoomIntervalLayerItemProvider() {
+    }
+
     @Override
     public List<PropertySheet.Item> getPropertySheetItems(ZoomTimeIntervalLayer layer) {
         SystemLayerItemProvider provider = new SystemLayerItemProvider();

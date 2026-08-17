@@ -34,6 +34,12 @@ import java.util.Optional;
  */
 public class QuadGanttChartContainerBaseItemProvider<T extends GanttChartBase<?>> implements ItemProvider<QuadGanttChartContainerBase<T>> {
 
+    /**
+     * Constructs a new provider.
+     */
+    public QuadGanttChartContainerBaseItemProvider() {
+    }
+
     private static final String QUAD_GANTT_CHART_CONTAINER_PROPERTIES_CATEGORY = "Control: Quad Gantt Chart Container";
 
     public final ObservableList<Item> getPropertySheetItems(QuadGanttChartContainerBase<T> container) {

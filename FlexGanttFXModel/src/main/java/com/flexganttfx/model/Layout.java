@@ -48,6 +48,14 @@ import javafx.beans.property.SimpleDoubleProperty;
  */
 public abstract class Layout {
 
+	/**
+	 * Constructs a new layout.
+	 *
+	 * @since 1.0
+	 */
+	protected Layout() {
+	}
+
 	// Padding support.
 
 	private final DoubleProperty padding = new SimpleDoubleProperty(this, "padding", 0);

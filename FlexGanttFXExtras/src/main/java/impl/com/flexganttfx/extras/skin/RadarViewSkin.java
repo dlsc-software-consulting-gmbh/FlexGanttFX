@@ -48,6 +48,12 @@ import java.time.ZoneId;
 import java.time.temporal.TemporalUnit;
 import java.util.Iterator;
 
+/**
+ * Skin for {@link RadarView}. It draws a miniature overview of all activities
+ * of the graphics view and highlights the currently visible time interval.
+ *
+ * @param <R> the type of the rows
+ */
 public class RadarViewSkin<R extends Row<?, ?, ?>> extends SkinBase<RadarView<R>> {
 
     private final Canvas activitiesCanvas;
@@ -58,6 +64,11 @@ public class RadarViewSkin<R extends Row<?, ?, ?>> extends SkinBase<RadarView<R>
 
     private Rectangle2D visibleBounds;
 
+    /**
+     * Constructs a new skin for the given radar view.
+     *
+     * @param view the control
+     */
     public RadarViewSkin(RadarView<R> view) {
         super(view);
 

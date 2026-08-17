@@ -27,6 +27,7 @@ import javafx.collections.ObservableList;
  * location of the dividers between the tree table and the graphics area, the timeline
  * state (start time, zoom level, etc...), cursors, etc...
  *
+ * @param <T> the type of the Gantt charts managed by the container
  * @since 1.6
  */
 public abstract class ContainerBase<T extends GanttChartBase<?>> extends FlexGanttFXControl {

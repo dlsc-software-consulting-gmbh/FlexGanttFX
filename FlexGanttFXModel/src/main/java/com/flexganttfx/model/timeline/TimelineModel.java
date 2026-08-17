@@ -96,20 +96,10 @@ public abstract class TimelineModel<T extends TemporalUnit> {
         return offset;
     }
 
-    /**
-     * Returns the value of {@link #offsetProperty()}.
-     *
-     * @return the location offset in pixels
-     */
     public final double getOffset() {
         return offset.get();
     }
 
-    /**
-     * Sets the value of {@link #offsetProperty()}.
-     *
-     * @param offset the location offset in pixels
-     */
     public final void setOffset(double offset) {
         this.offset.set(offset);
     }
@@ -277,8 +267,7 @@ public abstract class TimelineModel<T extends TemporalUnit> {
      * Sets the value of {@link #minimumMillisPerPixelProperty()}.
      *
      * @param min
-     *            the minimum MPP value, must be &gt;= 0
-     * @throws IllegalArgumentException if the given value is negative
+     *            the minimum MPP value
      * @see #setZoomRange(TemporalUnit, int, double, TemporalUnit, int, double)
      * @since 1.4
      */

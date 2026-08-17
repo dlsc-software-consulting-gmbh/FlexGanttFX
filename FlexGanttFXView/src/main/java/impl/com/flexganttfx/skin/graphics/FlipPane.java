@@ -41,6 +41,8 @@ import static java.util.Objects.requireNonNull;
 /**
  * Pane that flips between a front and back node with a rotation animation. It is used by row
  * panes to switch between normal content and the row editor.
+ *
+ * @param <R> the type of the rows
  */
 public class FlipPane<R extends Row<?, ?, ?>> extends StackPane {
     private final StackPane front;
@@ -365,9 +367,15 @@ public class FlipPane<R extends Row<?, ?, ?>> extends StackPane {
         return VALUE;
     }
 
+    /**
+     * An event fired by the flip pane once a flip animation has finished.
+     */
     public static class FlipEvent extends Event {
 
+        /** Fired when the pane has finished flipping to its front side. */
         public static final EventType<FlipEvent> FLIP_TO_FRONT_FINISHED = new EventType<>(ANY, "flipToFrontFinished");
+
+        /** Fired when the pane has finished flipping to its back side. */
         public static final EventType<FlipEvent> FLIP_TO_BACK_FINISHED = new EventType<>(ANY, "flipToBackFinished");
         private static final long serialVersionUID = 2323146240921802205L;
 

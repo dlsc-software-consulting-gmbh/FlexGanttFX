@@ -15,8 +15,18 @@
  * By using FlexGanttFX, the licensee accepts and agrees to the applicable licensing terms.
  */
 /**
- * Views that present FlexGanttFX configuration through ControlsFX property
+ * Views that present the FlexGanttFX configuration through ControlsFX property
  * sheets.
+ *
+ * <h2>Key Types</h2>
+ * <ul>
+ * <li>{@link com.flexganttfx.extras.properties.view.GanttChartConfigurationView}
+ * - a tab pane with property sheets for the controls, the background and
+ * foreground layers, and the renderers of a Gantt chart.</li>
+ * <li>{@link com.flexganttfx.extras.properties.view.GanttChartPropertySheet} -
+ * a property sheet that resolves its items via
+ * {@link com.flexganttfx.extras.properties.ItemFactory}.</li>
+ * </ul>
  *
  * @since 1.0
  */

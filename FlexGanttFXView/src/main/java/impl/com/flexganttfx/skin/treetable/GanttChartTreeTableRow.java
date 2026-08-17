@@ -25,6 +25,8 @@ import java.io.Serializable;
  * Custom {@link javafx.scene.control.TreeTableRow} used by the Gantt chart tree table. It
  * derives its height from the backing row when possible and otherwise falls back to the
  * default row sizing.
+ *
+ * @param <R> the type of the rows
  */
 public class GanttChartTreeTableRow<R extends Row<?, ?, ?>> extends
 		TreeTableRow<R> implements Serializable {

@@ -34,6 +34,12 @@ import java.util.Optional;
  */
 public class SystemLayerItemProvider implements ItemProvider<SystemLayer> {
 
+    /**
+     * Constructs a new provider.
+     */
+    public SystemLayerItemProvider() {
+    }
+
     @Override
     public List<PropertySheet.Item> getPropertySheetItems(SystemLayer layer) {
         List<Item> items = new ArrayList<>();

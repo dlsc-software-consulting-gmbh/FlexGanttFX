@@ -15,8 +15,15 @@
  * By using FlexGanttFX, the licensee accepts and agrees to the applicable licensing terms.
  */
 /**
- * Utility classes for FlexGanttFX extras, including localization and stage
- * persistence.
+ * Utility classes used by the FlexGanttFX extras module.
+ *
+ * <h2>Key Types</h2>
+ * <ul>
+ * <li>{@link com.flexganttfx.extras.util.Messages} - lookup of localized
+ * strings used by the extras controls.</li>
+ * <li>{@link com.flexganttfx.extras.util.StageManager} - persists and restores
+ * the location and size of a stage across user sessions.</li>
+ * </ul>
  *
  * @since 1.0
  */

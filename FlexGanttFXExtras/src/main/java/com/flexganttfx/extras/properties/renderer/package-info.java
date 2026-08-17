@@ -17,6 +17,14 @@
 /**
  * ControlsFX property-sheet item providers for FlexGanttFX renderers.
  *
+ * <p>
+ * {@link com.flexganttfx.extras.properties.renderer.RendererItemProvider} is
+ * the common base class. Specialized providers exist for
+ * {@link com.flexganttfx.view.graphics.renderer.ActivityRenderer},
+ * {@link com.flexganttfx.view.graphics.renderer.ActivityBarRenderer} and
+ * {@link com.flexganttfx.view.graphics.renderer.CompletableActivityRenderer},
+ * exposing their fill and stroke colors for the various visual states.
+ *
  * @since 1.0
  */
 package com.flexganttfx.extras.properties.renderer;

@@ -18,6 +18,33 @@
 	</properties>
 
 	<build>
+		<plugins>
+
+			<!-- The Javadoc of this module is kept free of warnings. Doclint is
+			     enabled and any Javadoc warning will fail the build so that the
+			     documentation can not regress. -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<doclint>all</doclint>
+					<failOnError>true</failOnError>
+					<failOnWarnings>true</failOnWarnings>
+					<links combine.self="override"/>
+				</configuration>
+				<executions>
+					<execution>
+						<id>javadoc-lint</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>javadoc</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+
 
 		<resources>
 			<resource>

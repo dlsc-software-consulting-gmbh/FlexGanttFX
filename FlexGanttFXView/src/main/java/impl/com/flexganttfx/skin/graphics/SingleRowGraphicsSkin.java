@@ -31,6 +31,8 @@ import java.util.stream.Collectors;
 /**
  * Graphics skin for controls that show a single row. It hosts one {@link RowPane} and maps
  * lasso selection results back to the activities of that row.
+ *
+ * @param <R> the type of the rows
  */
 public class SingleRowGraphicsSkin<R extends Row<?, ?, ?>>
 		extends GraphicsBaseSkin<SingleRowGraphics<R>, R> {

@@ -38,6 +38,8 @@ import static com.flexganttfx.view.util.Position.ONLY;
 /**
  * Canvas used to render drag visuals for activities. It can paint the dragged activity
  * together with the current selection to produce the drag image shown during drag and drop.
+ *
+ * @param <R> the type of the rows
  */
 public class DragCanvas<R extends Row<?, ?, ?>> extends Canvas {
 

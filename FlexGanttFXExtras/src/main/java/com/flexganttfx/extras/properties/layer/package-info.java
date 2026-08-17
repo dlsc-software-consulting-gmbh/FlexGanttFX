@@ -15,7 +15,16 @@
  * By using FlexGanttFX, the licensee accepts and agrees to the applicable licensing terms.
  */
 /**
- * ControlsFX property-sheet item providers for FlexGanttFX system layers.
+ * ControlsFX property-sheet item providers for the system layers of a
+ * FlexGanttFX graphics view.
+ *
+ * <p>
+ * Each provider exposes the configurable properties of one system layer, for
+ * example {@link com.flexganttfx.extras.properties.layer.GridLinesLayerItemProvider}
+ * for the grid lines layer or
+ * {@link com.flexganttfx.extras.properties.layer.NowLineLayerItemProvider} for
+ * the "now" line. The common base class is
+ * {@link com.flexganttfx.extras.properties.layer.SystemLayerItemProvider}.
  *
  * @since 1.0
  */

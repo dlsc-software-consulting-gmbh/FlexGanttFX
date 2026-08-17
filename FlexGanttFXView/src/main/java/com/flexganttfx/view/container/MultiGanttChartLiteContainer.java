@@ -23,9 +23,8 @@ import javafx.scene.control.SplitPane;
  * A container capable of displaying multiple instances of {@link GanttChartLite}
  * and keeping their layouts and their scrolling and zooming behavior in sync.
  * The control uses a standard {@link SplitPane} for laying out the charts vertically.
- * <p/>
+ * <p>
  *     <img src="doc-files/multi-gantt-chart-lite.png" alt="Multi Gantt Chart Lite Container" width="100%">
- * <p/>
  *
  * @see DualGanttChartLiteContainer
  *

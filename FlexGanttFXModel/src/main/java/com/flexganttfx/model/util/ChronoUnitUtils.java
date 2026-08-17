@@ -31,6 +31,13 @@ import static java.time.temporal.ChronoUnit.DAYS;
 public class ChronoUnitUtils {
 
     /**
+     * Constructs a new utility instance. All methods of this class are static,
+     * hence instances of it are normally not needed.
+     */
+    public ChronoUnitUtils() {
+    }
+
+    /**
      * Truncates the given time for the given chrono unit. The method
      * {@link ZonedDateTime#truncatedTo(java.time.temporal.TemporalUnit)} is not
      * sufficient as it only works for small units (hours, minutes, seconds). It

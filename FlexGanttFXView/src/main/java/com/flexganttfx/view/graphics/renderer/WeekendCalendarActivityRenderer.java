@@ -23,6 +23,8 @@ import javafx.scene.paint.Color;
 /**
  * Specialized calendar activity renderer for weekend intervals.
  * It binds its fill and opacity to the graphics view's weekend styling properties and omits a visible stroke.
+ *
+ * @param <A> the type of the weekend calendar activities drawn by this renderer
  */
 public class WeekendCalendarActivityRenderer<A extends WeekendCalendarActivity>
 		extends CalendarActivityRenderer<A> {

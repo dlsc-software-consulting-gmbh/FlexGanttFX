@@ -34,7 +34,22 @@ import static java.util.Objects.requireNonNull;
 
 /**
  * A control used to select a {@link VirtualGrid} from a list of possible
- * virtual grids.
+ * virtual grids. The selected grid is normally passed on to the Gantt chart so
+ * that activities snap to it while being edited.
+ *
+ * <h2>Example</h2>
+ * <pre>{@code
+ * VirtualGridControl control = new VirtualGridControl();
+ * control.getGrids().setAll(
+ *     new VirtualGrid<>("Hours", ChronoUnit.HOURS, 1),
+ *     new VirtualGrid<>("Days", ChronoUnit.DAYS, 1));
+ * control.setShowNoGridOption(true);
+ *
+ * control.valueProperty().addListener(it ->
+ *     gantt.getGraphics().setVirtualGrid(control.getValue()));
+ * }</pre>
+ *
+ * @see VirtualGrid
  *
  * @since 1.0
  */

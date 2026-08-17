@@ -37,7 +37,10 @@ public final class ThemingUtil {
      * contains the string {@code "atlantafx"}. No compile-time dependency on the
      * AtlantaFX library is required.
      *
-     * @param scene optional
+     * @param scene the scene whose user-agent stylesheet will be inspected, may be
+     *              {@code null} in which case the application-wide user-agent
+     *              stylesheet is used
+     * @return {@code true} if an AtlantaFX theme is active
      */
     public static boolean isAtlantaFXActive(Scene scene) {
         String uas = null;

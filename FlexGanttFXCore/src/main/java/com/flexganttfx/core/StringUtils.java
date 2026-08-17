@@ -17,11 +17,20 @@
 package com.flexganttfx.core;
 
 /**
- * A couple of utility methods for working with strings.
+ * A couple of utility methods for working with strings. These methods are used
+ * internally by the framework in order to avoid a dependency on a third-party
+ * commons library.
  *
  * @since 1.0
  */
 public class StringUtils {
+
+	/**
+	 * Constructs a new utility class instance. This class only contains static
+	 * methods and does not have to be instantiated.
+	 */
+	public StringUtils() {
+	}
 
 	// Empty checks
 	// -----------------------------------------------------------------------

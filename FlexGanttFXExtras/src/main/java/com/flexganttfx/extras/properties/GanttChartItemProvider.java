@@ -32,6 +32,12 @@ import java.util.Optional;
  */
 public class GanttChartItemProvider<R extends Row<?, ?, ?>> implements ItemProvider<GanttChart<R>> {
 
+    /**
+     * Constructs a new provider.
+     */
+    public GanttChartItemProvider() {
+    }
+
     private static final String GANTT_CHART_PROPERTIES_CATEGORY = "Control: Gantt Chart";
 
     @Override

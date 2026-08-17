@@ -29,11 +29,16 @@ import javafx.scene.shape.PathElement;
 /**
  * The straight link renderer is used to draw any link of type
  * {@link ActivityLink}. It is only used by the {@link LinksCanvas}.
+ *
+ * @param <T> the type of the activity links drawn by this renderer
  */
 public class StraightLinkRenderer<T extends ActivityLink<?>> extends LinkRenderer<T> {
 
     /**
      * Constructs a new link renderer.
+     *
+     * @param graphics the graphics view where the renderer will be used
+     * @param name the name of the renderer, used for logging and debugging
      */
     public StraightLinkRenderer(GraphicsBase<?> graphics, String name) {
         super(graphics, name);

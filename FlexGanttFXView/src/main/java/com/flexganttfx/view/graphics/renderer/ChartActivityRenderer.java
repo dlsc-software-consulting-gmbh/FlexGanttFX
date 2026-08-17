@@ -25,6 +25,8 @@ import static javafx.scene.paint.Color.TRANSPARENT;
 /**
  * Renders chart activities as simple semi-transparent bars.
  * The renderer uses a flat fill, no border stroke, and disabled corner rounding to visualize chart values.
+ *
+ * @param <A> the type of the chart activities drawn by this renderer
  */
 public class ChartActivityRenderer<A extends ChartActivity> extends ActivityRenderer<A> {
 

@@ -53,7 +53,10 @@ public class GanttChartConfigurationView extends TabPane  {
     }
 
     /**
-     * Constructs a new view for the given gantt chart.
+     * Constructs a new view for the given Gantt chart.
+     *
+     * @param ganttChart the Gantt chart whose controls, layers, and renderers will be
+     *                   displayed by this view
      */
     public GanttChartConfigurationView(GanttChartBase<?> ganttChart) {
         this();

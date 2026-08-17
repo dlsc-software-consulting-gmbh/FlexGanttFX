@@ -29,6 +29,8 @@ import java.util.List;
 /**
  * Base skin implementation for containers that manage multiple Gantt charts. It assigns chart
  * positions, shares the master timeline, and binds related state across the charts.
+ *
+ * @param <T> the type of the container
  */
 public abstract class MultiGanttChartContainerSkinBase<T extends ContainerBase> extends ContainerSkinBase<T> {
 

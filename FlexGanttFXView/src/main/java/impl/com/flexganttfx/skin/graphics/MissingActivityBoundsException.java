@@ -30,9 +30,16 @@ import java.text.MessageFormat;
 public class MissingActivityBoundsException extends Exception {
 
 	private static final long serialVersionUID = -6806986448373406748L;
+	/** The activity for which no bounds were returned. */
 	private final Activity activity;
+
+	/** The row on which the activity was drawn. */
 	private final Row<?, ?, ?> row;
+
+	/** The index of the line on which the activity was drawn. */
 	private final int lineIndex;
+
+	/** The renderer that failed to return the activity bounds. */
 	private final ActivityRenderer<?> renderer;
 
 	/**

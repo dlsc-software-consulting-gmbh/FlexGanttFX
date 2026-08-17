@@ -37,6 +37,12 @@ import java.util.Optional;
  */
 public class RendererItemProvider implements ItemProvider<Renderer> {
 
+    /**
+     * Constructs a new provider.
+     */
+    public RendererItemProvider() {
+    }
+
     @Override
     public List<PropertySheet.Item> getPropertySheetItems(Renderer renderer) {
         ObservableList<Item> items = FXCollections.observableArrayList();

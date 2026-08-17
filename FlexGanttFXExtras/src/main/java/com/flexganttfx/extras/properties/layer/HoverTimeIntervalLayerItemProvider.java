@@ -35,6 +35,12 @@ import java.util.Optional;
  */
 public class HoverTimeIntervalLayerItemProvider implements ItemProvider<HoverTimeIntervalLayer> {
 
+    /**
+     * Constructs a new provider.
+     */
+    public HoverTimeIntervalLayerItemProvider() {
+    }
+
     @Override
     public List<PropertySheet.Item> getPropertySheetItems(HoverTimeIntervalLayer layer) {
         SystemLayerItemProvider provider = new SystemLayerItemProvider();

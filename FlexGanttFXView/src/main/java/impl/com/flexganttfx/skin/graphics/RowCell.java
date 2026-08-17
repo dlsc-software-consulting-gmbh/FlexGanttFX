@@ -30,6 +30,8 @@ import static java.util.Objects.requireNonNull;
 /**
  * List cell implementation that hosts a {@link RowPane}. It keeps the row pane bound to the
  * current row item and sized to fill the list cell.
+ *
+ * @param <R> the type of the rows
  */
 public class RowCell<R extends Row<?, ?, ?>> extends ListCell<R> {
 

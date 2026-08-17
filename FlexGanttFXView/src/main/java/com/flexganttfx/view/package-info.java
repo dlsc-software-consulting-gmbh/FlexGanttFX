@@ -16,7 +16,26 @@
  */
 /**
  * The main Gantt chart controls.
- * 
+ *
+ * <h2>Key Types</h2>
+ * <ul>
+ * <li>{@link com.flexganttfx.view.GanttChart} - the full-featured Gantt chart
+ * control with a tree table on the left-hand side and a graphics area on the
+ * right-hand side.</li>
+ * <li>{@link com.flexganttfx.view.GanttChartLite} - a light-weight variant
+ * without the tree table.</li>
+ * <li>{@link com.flexganttfx.view.GanttChartBase} - the common base class of
+ * both controls, defining the timeline, the graphics view, the layers and the
+ * activity links.</li>
+ * </ul>
+ *
+ * <p>
+ * The data shown by these controls is defined by the model types found in
+ * {@link com.flexganttfx.model}, in particular
+ * {@link com.flexganttfx.model.Row}, {@link com.flexganttfx.model.Activity} and
+ * {@link com.flexganttfx.model.Layer}. The rendering itself is performed by the
+ * renderers in {@link com.flexganttfx.view.graphics.renderer}.
+ *
  * @since 1.0
  */
 package com.flexganttfx.view;
