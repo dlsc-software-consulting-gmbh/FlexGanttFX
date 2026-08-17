@@ -22,7 +22,35 @@ import java.time.Instant;
  * Activities represent objects that will be displayed below the timeline in the
  * graphics view of the Gantt chart control. Activities can be added to a
  * specific layer on a row by calling {@link Row#addActivity(Layer, Activity)}.
+ * <p>
+ * Applications rarely implement this interface directly. Instead they extend one of
+ * the base classes found in the {@code com.flexganttfx.model.activity} package, as
+ * those classes already support the storage of a user object, which is the link
+ * between the activity and the business object of the application.
  *
+ * <h2>Code Example</h2>
+ *
+ * <pre>
+ * public class Flight extends MutableActivityBase&lt;FlightData&gt; {
+ *
+ *     public Flight(FlightData data) {
+ *         setUserObject(data);
+ *         setName(data.flightNo);
+ *         setStartTime(data.departureTime);
+ *         setEndTime(data.arrivalTime);
+ *     }
+ * }
+ *
+ * Layer layer = new Layer("Flights");
+ * Aircraft aircraft = new Aircraft("D-ABCD");
+ * aircraft.addActivity(layer, new Flight(flightData));
+ * </pre>
+ *
+ * @see Row#addActivity(Layer, Activity)
+ * @see ActivityRef
+ * @see ActivityRepository
+ * @see com.flexganttfx.model.activity.ActivityBase
+ * @see com.flexganttfx.model.activity.MutableActivityBase
  * @since 1.0
  */
 public interface Activity {

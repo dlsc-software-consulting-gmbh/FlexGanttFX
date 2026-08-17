@@ -24,6 +24,17 @@ import com.flexganttfx.model.Row;
  * The standard layout used by all rows and lines. Lays out activities
  * horizontally.
  *
+ * <h2>Code Example</h2>
+ *
+ * <pre>
+ * Aircraft aircraft = new Aircraft("D-ABCD");
+ * aircraft.setLayout(new GanttLayout());
+ *
+ * graphics.setActivityRenderer(Flight.class, GanttLayout.class, flightRenderer);
+ * </pre>
+ *
+ * @see AgendaLayout
+ * @see ChartLayout
  * @see Row#setLayout(Layout)
  * @see Row#getLineLayout(int)
  * @see LinesManager#getLineLayout(int)

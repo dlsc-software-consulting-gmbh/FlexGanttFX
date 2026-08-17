@@ -19,7 +19,22 @@
  * The dateline model defines the various resolutions that are available for the
  * dateline when zooming in or out. The model also specifies how many dateline scales
  * (rows) are used by the dateline (1 to 5).
- * 
+ *
+ * <h2>Key Types</h2>
+ * <ul>
+ * <li>{@link com.flexganttfx.model.dateline.DatelineModel} - the base model, defines the
+ * available resolutions, time zones, and the number of visible scales.</li>
+ * <li>{@link com.flexganttfx.model.dateline.ChronoUnitDatelineModel} /
+ * {@link com.flexganttfx.model.dateline.SimpleUnitDatelineModel} - the two shipped
+ * specializations, one for calendar-based units and one for fixed-length units.</li>
+ * <li>{@link com.flexganttfx.model.dateline.Resolution} - the visual representation of a
+ * temporal unit (format, step rate, supported scale positions).</li>
+ * <li>{@link com.flexganttfx.model.dateline.VirtualGrid} - used to snap times to a grid
+ * during editing and navigation.</li>
+ * </ul>
+ *
+ * @see com.flexganttfx.model.timeline.TimelineModel
+ *
  * @since 1.0
  */
 package com.flexganttfx.model.dateline;

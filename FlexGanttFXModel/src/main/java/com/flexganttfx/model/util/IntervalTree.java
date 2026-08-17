@@ -116,6 +116,14 @@ public class IntervalTree<A extends Activity> {
         return true;
     }
 
+    /**
+     * Removes all activities that match the given predicate.
+     *
+     * @param predicate the predicate used to decide whether an activity will be removed
+     * @return true if at least one activity was removed from this tree
+     * @throws NullPointerException if the given predicate is {@code null}
+     * @see #remove(Activity)
+     */
     public final boolean removeIf(Predicate<A> predicate) {
         Collection<A> matches = new ArrayList<>();
         for (A activity : getIntersectingObjects(Long.MIN_VALUE, Long.MAX_VALUE)) {
@@ -381,11 +389,9 @@ public class IntervalTree<A extends Activity> {
     private final boolean BLACK = true;
 
     /**
-     * Internal Entry class.
+     * Internal Entry class. Represents a single node of the red-black tree.
      *
-     * @author koop
-     *
-     * @param <V>
+     * @param <V> the type of the value stored in the node
      */
     private final class Entry<V> {
         private long low;
@@ -398,8 +404,13 @@ public class IntervalTree<A extends Activity> {
         private boolean color = BLACK;
 
         /**
-         * Make a new cell with given key, value, and parent, and with
-         * <tt>null</tt> child links, and BLACK color.
+         * Makes a new cell with the given interval, value, and parent, and with
+         * {@code null} child links, and BLACK color.
+         *
+         * @param low the lower bound of the interval (epoch milli)
+         * @param high the upper bound of the interval (epoch milli)
+         * @param value the value stored in the node
+         * @param parent the parent node, {@code null} for the root node
          */
         Entry(long low, long high, V value, Entry<V> parent) {
             this.low = low;
@@ -425,10 +436,11 @@ public class IntervalTree<A extends Activity> {
     }
 
     /**
-     * Returns the successor of the specified Entry, or null if no such.
+     * Returns the successor of the specified entry, or null if no such entry exists.
      *
-     * @param <V>
-     *            the value type
+     * @param <V> the value type
+     * @param t the entry for which the successor will be returned
+     * @return the successor of the given entry or {@code null}
      */
     private <V> Entry<V> successor(Entry<V> t) {
         if (t == null) {
@@ -450,7 +462,7 @@ public class IntervalTree<A extends Activity> {
         }
     }
 
-    /**
+    /*
      * Balancing operations.
      *
      * Implementations of rebalancings during insertion and deletion are
@@ -593,7 +605,9 @@ public class IntervalTree<A extends Activity> {
     }
 
     /**
-     * Delete node p, and then rebalance the tree.
+     * Deletes the given node and then rebalances the tree.
+     *
+     * @param p the node that will be deleted
      */
     private void deleteEntry(Entry<A> p) {
         treeSize--;

@@ -55,6 +55,8 @@ public abstract class VirtualGrid<T extends TemporalUnit> {
 	 * @param amount
 	 *            the amount of the temporal unit (e.g. "15")
 	 *
+	 * @throws NullPointerException if the name, the short name, or the unit is {@code null}
+	 * @throws IllegalArgumentException if the amount is smaller than or equal to 0
 	 * @since 1.1
 	 */
 	public VirtualGrid(String name, String shortName, T unit, int amount) {
@@ -80,6 +82,8 @@ public abstract class VirtualGrid<T extends TemporalUnit> {
 	 * @param amount
 	 *            the amount of the temporal unit (e.g. "15")
 	 *
+	 * @throws NullPointerException if the name or the unit is {@code null}
+	 * @throws IllegalArgumentException if the amount is smaller than or equal to 0
 	 * @since 1.0
 	 */
 	public VirtualGrid(String name, T unit, int amount) {

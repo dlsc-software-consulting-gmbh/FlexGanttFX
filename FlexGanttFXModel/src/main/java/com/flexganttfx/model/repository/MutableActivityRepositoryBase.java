@@ -18,8 +18,25 @@ package com.flexganttfx.model.repository;
 
 import com.flexganttfx.model.Activity;
 
+/**
+ * An abstract base implementation for repositories that not only store activities but
+ * also support adding and removing them at runtime. It combines the event handler
+ * support inherited from {@link ActivityRepositoryBase} with the mutation operations
+ * defined by {@link MutableActivityRepository}.
+ * <p>
+ * Subclasses only need to implement the actual storage and lookup logic. Whenever the
+ * content of the repository changes they should notify listeners by calling
+ * {@link #fireEvent(RepositoryEvent)}.
+ *
+ * @param <A> the type of the activities stored in this repository
+ * @see ListActivityRepository
+ * @see IntervalTreeActivityRepository
+ */
 public abstract class MutableActivityRepositoryBase<A extends Activity> extends ActivityRepositoryBase<A> implements MutableActivityRepository<A> {
 
+	/**
+	 * Constructs a new mutable repository.
+	 */
 	public MutableActivityRepositoryBase() {
 	}
 }

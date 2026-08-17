@@ -17,6 +17,22 @@
 /**
  * Various utility classes for comparing, sorting, and storing activities.
  *
+ * <h2>Key Types</h2>
+ * <ul>
+ * <li>{@link com.flexganttfx.model.util.IntervalTree} - a red-black tree optimized for
+ * time interval queries. Used by the default activity repository.</li>
+ * <li>{@link com.flexganttfx.model.util.TimeInterval} - an immutable start / end time
+ * pair.</li>
+ * <li>{@link com.flexganttfx.model.util.ActivityComparator} - compares activities based
+ * on their start time.</li>
+ * <li>{@link com.flexganttfx.model.util.ActivityHelper} - convenience methods for working
+ * with activities and time intervals.</li>
+ * <li>{@link com.flexganttfx.model.util.ChronoUnitUtils} - convenience methods for working
+ * with {@link java.time.temporal.ChronoUnit}.</li>
+ * <li>{@link com.flexganttfx.model.util.SimpleUnit} - a temporal unit of fixed length,
+ * an alternative to the calendar-based chrono units.</li>
+ * </ul>
+ *
  * @since 1.0
  */
 package com.flexganttfx.model.util;

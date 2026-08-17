@@ -32,6 +32,10 @@ import static java.util.Objects.requireNonNull;
  */
 public class ActivityBase<T> implements Activity {
 
+	/**
+	 * The duration that will be used for activities that are created without an
+	 * explicit start and end time.
+	 */
 	public static final Duration DEFAULT_DURATION = Duration.ofDays(5);
 
 	private static long ID_COUNTER = 1;
@@ -121,12 +125,30 @@ public class ActivityBase<T> implements Activity {
 
 	// User object support
 
+	/**
+	 * Stores an arbitrary object that the application wants to attach to this
+	 * activity, for example a business object (a flight, a task, an order).
+	 */
 	protected T userObject;
 
+	/**
+	 * Sets the user object of this activity. The user object is the link between
+	 * the activity shown in the Gantt chart and the business object of the
+	 * application.
+	 *
+	 * @param userObject the user object, may be {@code null}
+	 * @see #getUserObject()
+	 */
     public void setUserObject(T userObject) {
         this.userObject = userObject;
     }
 
+	/**
+	 * Returns the user object of this activity.
+	 *
+	 * @return the user object, may be {@code null}
+	 * @see #setUserObject(Object)
+	 */
 	public T getUserObject() {
 		return userObject;
 	}

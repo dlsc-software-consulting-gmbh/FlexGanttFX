@@ -25,10 +25,12 @@ package com.flexganttfx.model.activity;
 public interface MutableCompletableActivity extends MutableActivity, CompletableActivity {
 
 	/**
-	 * Returns the percentage complete value of the activity.
+	 * Sets the percentage complete value of the activity.
 	 *
 	 * @param complete
 	 *            the new percentage complete value (must be between 0 and 100).
+	 * @throws IllegalArgumentException if the given value is not within the range 0 to 100
+	 * @see CompletableActivity#getPercentageComplete()
 	 * @since 1.0
 	 */
 	void setPercentageComplete(double complete);

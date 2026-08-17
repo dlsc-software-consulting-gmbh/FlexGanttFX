@@ -58,11 +58,25 @@ public abstract class ActivityRepositoryBase<A extends Activity> implements Acti
         repositoryListeners.remove(l);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * This default implementation always returns {@link Instant#MIN}, as the base class
+     * does not know anything about the way the activities are stored. Subclasses should
+     * override this method whenever they are able to determine the earliest time used.
+     */
     @Override
     public Instant getEarliestTimeUsed() {
         return Instant.MIN;
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * This default implementation always returns {@link Instant#MAX}, as the base class
+     * does not know anything about the way the activities are stored. Subclasses should
+     * override this method whenever they are able to determine the latest time used.
+     */
     @Override
     public Instant getLatestTimeUsed() {
         return Instant.MAX;
@@ -81,6 +95,14 @@ public abstract class ActivityRepositoryBase<A extends Activity> implements Acti
         });
     }
 
+    /**
+     * Fires the given repository event so that all registered event handlers get
+     * notified about a change of the repository content.
+     *
+     * @param evt the event that will be delivered to the registered handlers
+     * @throws NullPointerException if the given event is {@code null}
+     * @see #addEventHandler(EventHandler)
+     */
     protected void fireEvent(RepositoryEvent evt) {
         if (DND.isLoggable(Level.FINER)) {
             DND.finer("firing event: " + evt);

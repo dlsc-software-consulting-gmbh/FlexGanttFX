@@ -55,6 +55,23 @@ import static java.util.Objects.requireNonNull;
  * lookup the "next" temporal unit after it has either failed or succeeded to
  * create a scale for the current unit.</li>
  * </ul>
+ *
+ * <h2>Code Example</h2>
+ *
+ * <pre>
+ * DatelineModel&lt;ChronoUnit&gt; model = new ChronoUnitDatelineModel();
+ * model.setMinScaleCount(1);
+ * model.setMaxScaleCount(3);
+ * model.setScaleCount(2);
+ * model.addZoneId("Europe/Zurich");
+ *
+ * dateline.setModel(model);
+ * </pre>
+ *
+ * @see ChronoUnitDatelineModel
+ * @see SimpleUnitDatelineModel
+ * @see Resolution
+ * @see com.flexganttfx.model.timeline.TimelineModel
  * 
  * @param <T>
  *            the type of the temporal unit for which the model is defined
@@ -106,6 +123,7 @@ public abstract class DatelineModel<T extends TemporalUnit> {
 	 * 
 	 * @param zoneId
 	 *            the zone ID to add
+	 * @throws IllegalArgumentException if the given zone ID is {@code null} or blank
 	 * @since 1.0
 	 */
 	public final void addZoneId(String zoneId) {
@@ -245,6 +263,8 @@ public abstract class DatelineModel<T extends TemporalUnit> {
 	 * 
 	 * @param count
 	 *            the new scale count
+	 * @throws IllegalArgumentException if the given count is smaller than
+	 *             {@link #getMinScaleCount()} or larger than {@link #getMaxScaleCount()}
 	 * @since 1.0
 	 */
 	public final void setScaleCount(int count) {
@@ -298,6 +318,8 @@ public abstract class DatelineModel<T extends TemporalUnit> {
 	 * 
 	 * @param count
 	 *            the new maximum scale count
+	 * @throws IllegalArgumentException if the given count is not within the range
+	 *             1 to 5 or if it is smaller than {@link #getMinScaleCount()}
 	 * @since 1.0
 	 */
 	public final void setMaxScaleCount(int count) {
@@ -352,6 +374,8 @@ public abstract class DatelineModel<T extends TemporalUnit> {
 	 * 
 	 * @param count
 	 *            the new minimum scale count
+	 * @throws IllegalArgumentException if the given count is not within the range
+	 *             1 to 5 or if it is larger than {@link #getMaxScaleCount()}
 	 * @since 1.0
 	 */
 	public final void setMinScaleCount(int count) {

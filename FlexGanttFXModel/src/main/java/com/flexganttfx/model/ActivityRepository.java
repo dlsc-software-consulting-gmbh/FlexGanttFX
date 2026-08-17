@@ -31,8 +31,29 @@ import java.util.Iterator;
  * row by default owns an {@link IntervalTreeActivityRepository}. This default
  * repository can be replaced with a custom one, for example if your application
  * requires a lazy loading strategy.
+ * <p>
+ * Two implementations ship with the framework: {@link IntervalTreeActivityRepository}
+ * stores the activities inside an interval tree and is very fast when it comes to
+ * time interval queries, while
+ * {@link com.flexganttfx.model.repository.ListActivityRepository} keeps the activities
+ * inside a simple list. Custom repositories should extend
+ * {@link com.flexganttfx.model.repository.ActivityRepositoryBase} or
+ * {@link com.flexganttfx.model.repository.MutableActivityRepositoryBase} in order to
+ * inherit the event handler support.
+ *
+ * <h2>Code Example</h2>
+ *
+ * <pre>
+ * Aircraft aircraft = new Aircraft("D-ABCD");
+ * aircraft.setRepository(new ListActivityRepository&lt;&gt;());
+ *
+ * Iterator&lt;Flight&gt; it = aircraft.getRepository().getActivities(layer, startTime,
+ *         endTime, ChronoUnit.HOURS, ZoneId.systemDefault());
+ * </pre>
  *
  * @see Row#setRepository(ActivityRepository)
+ * @see com.flexganttfx.model.repository.MutableActivityRepository
+ * @see RepositoryEvent
  *
  * @param <A>
  *            the type of activities stored in the repository

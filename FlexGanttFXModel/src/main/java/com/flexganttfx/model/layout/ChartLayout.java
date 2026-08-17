@@ -39,6 +39,19 @@ import javafx.collections.ObservableList;
  *
  * <img src="doc-files/layout-capacity.png" alt="Capacity Layout">
  *
+ * <h2>Code Example</h2>
+ *
+ * <pre>
+ * ChartLayout layout = new ChartLayout();
+ * layout.setMinValue(0);
+ * layout.setMaxValue(100);
+ * layout.getMinorTicks().addAll(25d, 50d, 75d);
+ *
+ * capacityRow.setLayout(layout);
+ * </pre>
+ *
+ * @see GanttLayout
+ * @see AgendaLayout
  * @see ChartActivity
  * @see HighLowChartActivity
  *

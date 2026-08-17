@@ -42,7 +42,21 @@ import static java.util.Objects.requireNonNull;
  * </ul>
  * This class is also responsible for calculating the location for a given time
  * and vice versa.
- * <p>
+ *
+ * <h2>Code Example</h2>
+ *
+ * <pre>
+ * TimelineModel&lt;ChronoUnit&gt; model = new ChronoUnitTimelineModel();
+ * model.setStartTime(Instant.now());
+ * model.setZoomRange(ChronoUnit.MINUTES, 5, 100, ChronoUnit.MONTHS, 1, 50);
+ *
+ * double x = model.calculateLocationForTime(Instant.now());
+ * Instant time = model.calculateTimeForLocation(x);
+ * </pre>
+ *
+ * @see ChronoUnitTimelineModel
+ * @see SimpleUnitTimelineModel
+ * @see com.flexganttfx.model.dateline.DatelineModel
  *
  * @param <T>
  *            the temporal unit supported by the model (e.g. ChronoUnit).
@@ -68,14 +82,34 @@ public abstract class TimelineModel<T extends TemporalUnit> {
 
     private final DoubleProperty offset = new SimpleDoubleProperty(this, "offset");
 
-    public final double getOffset() {
-        return offset.get();
-    }
-
+    /**
+     * The property used to store the offset (in pixels) that will be added to
+     * all location calculations performed by this model. The offset is normally
+     * bound to the width of the area that is used for displaying the row headers,
+     * as this area shifts the origin of the time axis to the right.
+     *
+     * @return the location offset in pixels
+     * @see #calculateLocationForTime(Instant)
+     * @see #calculateTimeForLocation(double)
+     */
     public final DoubleProperty offsetProperty() {
         return offset;
     }
 
+    /**
+     * Returns the value of {@link #offsetProperty()}.
+     *
+     * @return the location offset in pixels
+     */
+    public final double getOffset() {
+        return offset.get();
+    }
+
+    /**
+     * Sets the value of {@link #offsetProperty()}.
+     *
+     * @param offset the location offset in pixels
+     */
     public final void setOffset(double offset) {
         this.offset.set(offset);
     }
@@ -227,7 +261,8 @@ public abstract class TimelineModel<T extends TemporalUnit> {
     /**
      * A property used to store the minimum number of milliseconds that will be
      * represented by a single pixel on the screen. Zoom-In operations will be
-     * limited by this value.
+     * limited by this value. The value must not be negative, otherwise an
+     * {@link IllegalArgumentException} will be thrown.
      *
      * @see #setZoomRange(TemporalUnit, int, double, TemporalUnit, int, double)
      *
@@ -242,7 +277,8 @@ public abstract class TimelineModel<T extends TemporalUnit> {
      * Sets the value of {@link #minimumMillisPerPixelProperty()}.
      *
      * @param min
-     *            the minimum MPP value
+     *            the minimum MPP value, must be &gt;= 0
+     * @throws IllegalArgumentException if the given value is negative
      * @see #setZoomRange(TemporalUnit, int, double, TemporalUnit, int, double)
      * @since 1.4
      */
@@ -332,6 +368,11 @@ public abstract class TimelineModel<T extends TemporalUnit> {
      *            the width of the unit in pixels, must be larger than 10 (e.g.
      *            "30")
      *
+     * @throws NullPointerException if the smallest or the largest unit is {@code null}
+     * @throws IllegalArgumentException if the smallest unit is larger than the largest
+     *             unit, if one of the unit counts is smaller than 1, if one of the unit
+     *             widths is smaller than 10, or if the resulting minimum MPP value ends
+     *             up being larger than the resulting maximum MPP value
      * @see #setMinimumMillisPerPixel(double)
      * @see #setMaximumMillisPerPixel(double)
      *

@@ -20,6 +20,20 @@
  * A calendar has a name and can be shown or hidden. The activities returned by a calendar can not be manipulated 
  * by the user (e.g. dragging, changing start time, etc...).
  *
+ * <h2>Key Types</h2>
+ * <ul>
+ * <li>{@link com.flexganttfx.model.calendar.CalendarBase} - the base class for custom
+ * calendars.</li>
+ * <li>{@link com.flexganttfx.model.calendar.WeekendCalendar} - a ready-to-use calendar
+ * that returns an activity for every weekend day.</li>
+ * <li>{@link com.flexganttfx.model.calendar.CalendarActivity} /
+ * {@link com.flexganttfx.model.calendar.CalendarActivityBase} - the activities returned
+ * by a calendar.</li>
+ * </ul>
+ *
+ * @see com.flexganttfx.model.Calendar
+ * @see com.flexganttfx.model.ActivityRepository
+ *
  * @since 1.0
  */
 package com.flexganttfx.model.calendar;

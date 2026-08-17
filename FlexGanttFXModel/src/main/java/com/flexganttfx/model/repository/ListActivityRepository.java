@@ -84,6 +84,8 @@ public class ListActivityRepository<A extends Activity> extends MutableActivityR
          * the first visible activity inside the given time interval. The
          * iterator stops once it reaches an activity with a start time after
          * the given time interval.
+         *
+         * @since 1.0
          */
         LINEAR_ITERATOR
     }
@@ -112,6 +114,8 @@ public class ListActivityRepository<A extends Activity> extends MutableActivityR
      * when the application queries the repository for the activities within a specific
      * time interval.
      *
+     * @param iteratorType the type of iterator used for time interval queries
+     * @throws NullPointerException if the given iterator type is {@code null}
      * @since 1.0
      */
     public ListActivityRepository(IteratorType iteratorType) {
@@ -132,6 +136,8 @@ public class ListActivityRepository<A extends Activity> extends MutableActivityR
      * Sets a different iterator type on this repository.
      *
      * @param iteratorType the new iterator type
+     * @throws NullPointerException if the given iterator type is {@code null}
+     * @see IteratorType
      * @since 1.0
      */
     public final void setIteratorType(IteratorType iteratorType) {
@@ -144,6 +150,16 @@ public class ListActivityRepository<A extends Activity> extends MutableActivityR
         this.iteratorType = iteratorType;
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * The type of the returned iterator depends on the value of
+     * {@link #getIteratorType()}. Note that {@link IteratorType#SIMPLE_ITERATOR} returns
+     * <b>all</b> activities of the layer, no matter whether they intersect with the
+     * given time interval or not.
+     *
+     * @see #setIteratorType(IteratorType)
+     */
     @Override
     public final Iterator<A> getActivities(Layer layer, Instant startTime,
                                            Instant endTime, TemporalUnit temporalUnit, ZoneId zoneId) {

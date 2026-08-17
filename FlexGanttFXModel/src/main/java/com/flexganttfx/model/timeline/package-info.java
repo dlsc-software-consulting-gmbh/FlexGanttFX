@@ -15,9 +15,26 @@
  * By using FlexGanttFX, the licensee accepts and agrees to the applicable licensing terms.
  */
 /**
- * Timeline model class and the two specializations for the temporal 
+ * Timeline model class and the two specializations for the temporal
  * units ChronoUnit and SimpleUnit.
- * 
+ * <p>
+ * The timeline model stores everything that is needed for navigating in time: the
+ * current time ("now"), the start time, the horizon, the zoom level (millis per pixel),
+ * and the supported zoom range. It is also responsible for converting a point in time
+ * into a pixel location and vice versa.
+ *
+ * <h2>Key Types</h2>
+ * <ul>
+ * <li>{@link com.flexganttfx.model.timeline.TimelineModel} - the base model.</li>
+ * <li>{@link com.flexganttfx.model.timeline.ChronoUnitTimelineModel} - the default model,
+ * based on calendar units ranging from milliseconds to millennia.</li>
+ * <li>{@link com.flexganttfx.model.timeline.SimpleUnitTimelineModel} - a model based on
+ * fixed-length units, useful when the chart does not follow a calendar.</li>
+ * </ul>
+ *
+ * @see com.flexganttfx.model.dateline.DatelineModel
+ * @see com.flexganttfx.model.util.SimpleUnit
+ *
  * @since 1.0
  */
 package com.flexganttfx.model.timeline;

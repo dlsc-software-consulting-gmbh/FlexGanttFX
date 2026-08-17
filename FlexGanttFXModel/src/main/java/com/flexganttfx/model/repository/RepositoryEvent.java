@@ -67,6 +67,7 @@ public final class RepositoryEvent extends Event {
      * @param eventType   the type of the event, e.g. #ACTIVITY_ADDED
      * @param repository  the repository where the event occurred
      * @param activityRef the affected activity (ref)
+     * @throws NullPointerException if the event type, the repository, or the activity reference is {@code null}
      * @since 1.0
      */
     public RepositoryEvent(EventType<RepositoryEvent> eventType, ActivityRepository<?> repository, ActivityRef<?> activityRef) {

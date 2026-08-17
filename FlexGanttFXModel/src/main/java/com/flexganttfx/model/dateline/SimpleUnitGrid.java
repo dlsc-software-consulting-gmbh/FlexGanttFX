@@ -69,6 +69,15 @@ public final class SimpleUnitGrid extends VirtualGrid<SimpleUnit> {
         return Instant.ofEpochMilli(millis);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * A grid based on {@link SimpleUnit} operates on absolute millisecond values and
+     * therefore has no notion of a local time. This operation is not supported.
+     *
+     * @throws UnsupportedOperationException always, as local times are not supported
+     *             by this type of grid
+     */
     @Override
     public LocalTime adjustTime(LocalTime time, boolean roundUp) {
         throw new UnsupportedOperationException("local time not supported by grid");

@@ -36,8 +36,30 @@ import static java.util.Objects.requireNonNull;
  */
 public abstract class Resolution<T extends TemporalUnit> {
 
+    /**
+     * The possible positions (scales) a resolution can occupy inside the dateline.
+     */
     public enum Position {
-        TOP, MIDDLE, BOTTOM, ONLY
+
+        /**
+         * The topmost scale of the dateline.
+         */
+        TOP,
+
+        /**
+         * A scale in between the top and the bottom scale.
+         */
+        MIDDLE,
+
+        /**
+         * The bottom scale of the dateline.
+         */
+        BOTTOM,
+
+        /**
+         * The only scale, used when the dateline shows a single scale.
+         */
+        ONLY
     }
 
     private final Set<Position> supportedPositions = new HashSet<>();
@@ -54,6 +76,9 @@ public abstract class Resolution<T extends TemporalUnit> {
      * @param format             the display format (e.g. HH:MM)
      * @param stepRate           the step rate (e.g. 1, 5, 10, 15, 30)
      * @param supportedPositions the supported positions (top, middle, bottom) inside the dateline
+     * @throws NullPointerException if the temporal unit, the format, or the positions array is {@code null}
+     * @throws IllegalArgumentException if the step rate is smaller than or equal to 0 or if the
+     *             positions array is empty
      * @since 1.0
      */
     public Resolution(T temporalUnit, String format, int stepRate, Position... supportedPositions) {
@@ -82,6 +107,8 @@ public abstract class Resolution<T extends TemporalUnit> {
      * @param temporalUnit the temporal unit (e.g. DAYS)
      * @param format       the display format (e.g. HH:MM)
      * @param stepRate     the step rate (e.g. 1, 5, 10, 15, 30)
+     * @throws NullPointerException if the temporal unit or the format is {@code null}
+     * @throws IllegalArgumentException if the step rate is smaller than or equal to 0
      * @since 1.0
      */
     public Resolution(T temporalUnit, String format, int stepRate) {

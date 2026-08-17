@@ -72,6 +72,7 @@ public abstract class CalendarBase<A extends CalendarActivity> extends ActivityR
 	 * 
 	 * @param name
 	 *            the calendar name
+	 * @throws NullPointerException if the given name is {@code null}
 	 * @since 1.0
 	 */
 	public final void setName(String name) {

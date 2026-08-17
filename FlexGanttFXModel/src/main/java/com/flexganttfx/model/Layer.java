@@ -36,7 +36,22 @@ import static java.util.Objects.requireNonNull;
  * with the same ID. The layer name will be used as the default ID for newly
  * created layers. The ID only needs to be changed if the same layer type will
  * be used with different names in different Gantt charts.
- * 
+ *
+ * <h2>Code Example</h2>
+ *
+ * <pre>
+ * Layer flights = new Layer("Flights");
+ * Layer maintenance = new Layer("Maintenance");
+ * maintenance.setOpacity(.5);
+ *
+ * ganttChart.getLayers().addAll(flights, maintenance);
+ *
+ * aircraft.addActivity(flights, new Flight(flightData));
+ * </pre>
+ *
+ * @see Row#addActivity(Layer, Activity)
+ * @see ActivityRef#getLayer()
+ * @see ActivityRepository#getActivities(Layer, java.time.Instant, java.time.Instant, java.time.temporal.TemporalUnit, java.time.ZoneId)
  * @since 1.0
  */
 public class Layer {
@@ -46,6 +61,7 @@ public class Layer {
 	 * 
 	 * @param name
 	 *            the name of the layer
+	 * @throws NullPointerException if the given name is {@code null}
 	 * @since 1.0
 	 */
 	public Layer(String name) {
@@ -82,6 +98,7 @@ public class Layer {
 	 * 
 	 * @param name
 	 *            the new name of the layer
+	 * @throws NullPointerException if the given name is {@code null}
 	 * @since 1.0
 	 */
 	public final void setName(String name) {
@@ -116,6 +133,7 @@ public class Layer {
 	 * 
 	 * @param id
 	 *            the new id of the layer
+	 * @throws NullPointerException if the given ID is {@code null}
 	 * @since 1.0
 	 */
 	public final void setId(String id) {

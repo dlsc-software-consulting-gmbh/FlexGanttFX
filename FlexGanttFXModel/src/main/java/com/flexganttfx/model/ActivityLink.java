@@ -88,6 +88,7 @@ public class ActivityLink<A extends Activity> implements Activity {
 	 *            an activity reference pointing to the link target
 	 * @param type
 	 *            the type of the link (E-S, S-E, S-S, E-E)
+	 * @throws NullPointerException if the source reference, the target reference, or the link type is {@code null}
 	 * @since 1.0
 	 */
 	public ActivityLink(ActivityRef<A> sourceRef, ActivityRef<A> targetRef,
@@ -122,6 +123,7 @@ public class ActivityLink<A extends Activity> implements Activity {
 	 *
 	 * @param ref
 	 *            the source activity reference
+	 * @throws NullPointerException if the given reference is {@code null}
 	 * @since 1.0
 	 */
 	public void setSourceActivityRef(ActivityRef<A> ref) {
@@ -147,6 +149,7 @@ public class ActivityLink<A extends Activity> implements Activity {
 	 *
 	 * @param ref
 	 *            the target activity reference
+	 * @throws NullPointerException if the given reference is {@code null}
 	 * @since 1.0
 	 */
 	public void setTargetActivityRef(ActivityRef<A> ref) {
@@ -182,6 +185,7 @@ public class ActivityLink<A extends Activity> implements Activity {
 	 *
 	 * @param type
 	 *            the link type
+	 * @throws NullPointerException if the given link type is {@code null}
 	 * @since 1.0
 	 */
 	public void setType(LinkType type) {

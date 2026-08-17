@@ -446,6 +446,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
      * Sets the value of the {@link #layoutProperty()}.
      *
      * @param layout the new row layout
+     * @throws NullPointerException if the given layout is {@code null}
      * @since 1.0
      */
     public final void setLayout(Layout layout) {
@@ -484,6 +485,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
      * Sets the value of the {@link #repositoryProperty()}.
      *
      * @param repository the new repository to use
+     * @throws NullPointerException if the given repository is {@code null}
      * @since 1.0
      */
     public final void setRepository(ActivityRepository<A> repository) {
@@ -547,6 +549,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
      * Sets the value of the {@link #nameProperty()}.
      *
      * @param name the new name of the row
+     * @throws NullPointerException if the given name is {@code null}
      * @since 1.0
      */
     public final void setName(String name) {
@@ -735,6 +738,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
      * Sets the value of {@link #linesManagerProperty()}.
      *
      * @param manager the new lines manager
+     * @throws NullPointerException if the given lines manager is {@code null}
      * @since 1.0
      */
     public final void setLinesManager(LinesManager<A> manager) {
@@ -776,6 +780,7 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
      * Sets the value of the {@link #zoneIdProperty()}.
      *
      * @param zoneId the new zone ID for this row
+     * @throws NullPointerException if the given zone ID is {@code null}
      * @since 1.0
      */
     public final void setZoneId(ZoneId zoneId) {
@@ -853,7 +858,10 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
      *
      * @param layer    the layer where the activity will be displayed
      * @param activity the activity that will be added
+     * @throws RepositoryException if the repository of this row does not implement
+     *             {@link MutableActivityRepository} and hence does not support adding activities
      * @see MutableActivityRepository#addActivity(ActivityRef)
+     * @see #setRepository(ActivityRepository)
      * @since 1.0
      */
     public final void addActivity(Layer layer, A activity) {
@@ -866,6 +874,8 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
      *
      * @param layer    the layer from which to remove the activity
      * @param activity the activity to remove
+     * @throws RepositoryException if the repository of this row does not implement
+     *             {@link MutableActivityRepository} and hence does not support removing activities
      * @see MutableActivityRepository#removeActivity(ActivityRef)
      * @since 1.0
      */
@@ -877,6 +887,8 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
     /**
      * Removes all activities from the row.
      *
+     * @throws RepositoryException if the repository of this row does not implement
+     *             {@link MutableActivityRepository} and hence does not support removing activities
      * @see MutableActivityRepository#clearActivities()
      * @since 1.0
      */
@@ -888,6 +900,8 @@ public abstract class Row<P extends Row<?, ?, ?>, C extends Row<?, ?, ?>, A exte
      * Removes all activities on the given layer from the row.
      *
      * @param layer the layer from which to remove all activities
+     * @throws RepositoryException if the repository of this row does not implement
+     *             {@link MutableActivityRepository} and hence does not support removing activities
      * @see MutableActivityRepository#clearActivities(Layer)
      * @since 1.0
      */

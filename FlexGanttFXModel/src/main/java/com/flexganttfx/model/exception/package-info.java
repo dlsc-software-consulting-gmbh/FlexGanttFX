@@ -16,7 +16,14 @@
  */
 /**
  * Specialized exception classes.
- * 
+ * <ul>
+ * <li>{@link com.flexganttfx.model.exception.RepositoryException} - thrown when an
+ * operation is performed on an activity repository that does not support it, for example
+ * when adding an activity to a row that uses an immutable repository.</li>
+ * <li>{@link com.flexganttfx.model.exception.IllegalLineIndexException} - thrown when a
+ * line index is used that does not exist on the given row.</li>
+ * </ul>
+ *
  * @since 1.0
  */
 package com.flexganttfx.model.exception;

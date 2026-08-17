@@ -44,6 +44,7 @@ public final class ActivityRef<A extends Activity> {
 	 *            the model layer where the activity is located (optional)
 	 * @param activity
 	 *            the referenced activity
+	 * @throws NullPointerException if the given activity is {@code null}
 	 * @since 1.0
 	 */
 	public ActivityRef(Row<?, ?, A> row, Layer layer, A activity) {

@@ -80,6 +80,17 @@ public class IntervalTreeActivityRepository<A extends Activity> extends MutableA
         fireEvent(new RepositoryEvent(ACTIVITY_ADDED, this, activityRef));
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * The interval tree locates the activity based on its start and end time. If the
+     * time bounds of the activity were modified after it had been added to the
+     * repository then the activity can no longer be found and this method fails.
+     *
+     * @throws IllegalArgumentException if the given activity is not a member of this
+     *             repository, for example because its start or end time were changed
+     *             after it was added
+     */
     @Override
     public final void removeActivity(ActivityRef<A> activityRef) {
         A activity = activityRef.getActivity();

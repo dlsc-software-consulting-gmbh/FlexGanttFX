@@ -38,6 +38,19 @@ import static java.util.Objects.requireNonNull;
  * is, for example, the case when an activity spans several days. <img
  * src="doc-files/layout-agenda.png" alt="Agenda Layout">
  *
+ * <h2>Code Example</h2>
+ *
+ * <pre>
+ * AgendaLayout layout = new AgendaLayout();
+ * layout.setStartTime(LocalTime.of(8, 0));
+ * layout.setEndTime(LocalTime.of(18, 0));
+ * layout.setLayoutStrategy(LayoutStrategy.OVERLAPPING);
+ *
+ * calendarRow.setLayout(layout);
+ * </pre>
+ *
+ * @see GanttLayout
+ * @see ChartLayout
  * @see Row#setLayout(Layout)
  * @see Row#getLineLayout(int)
  * @see LinesManager#getLineLayout(int)
@@ -241,7 +254,9 @@ public class AgendaLayout extends Layout {
 	 * Sets the value of the {@link #minDurationProperty()}.
 	 *
 	 * @param duration
-	 *            the new minimum duration of agenda activities
+	 *            the new minimum duration of agenda activities, must not be
+	 *            {@code null} and must be larger than {@link Duration#ZERO}
+	 * @throws IllegalArgumentException if the duration is {@code null} or zero
 	 * @since 1.0
 	 */
 	public final void setMinDuration(Duration duration) {
@@ -314,6 +329,7 @@ public class AgendaLayout extends Layout {
 	 *
 	 * @param offset
 	 *            the offset in pixels
+	 * @throws IllegalArgumentException if the offset is not within the range 0 to .5
 	 * @since 1.0
 	 */
 	public final void setOverlapOffset(double offset) {

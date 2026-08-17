@@ -36,6 +36,8 @@ public final class TimeInterval {
 	 *
 	 * @param startTime the start time of the interval
 	 * @param endTime the end time of the interval
+	 * @throws NullPointerException if the start time or the end time is {@code null}
+	 * @throws IllegalArgumentException if the start time lies after the end time
 	 */
 	public TimeInterval(Instant startTime, Instant endTime) {
 		requireNonNull(startTime);

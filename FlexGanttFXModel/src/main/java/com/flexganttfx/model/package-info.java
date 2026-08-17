@@ -29,6 +29,23 @@
  * </ul>
  * More information for each model type can be found inside the individual class documentation.
  *
+ * <h2>How the types relate to each other</h2>
+ * A {@link com.flexganttfx.model.Row} stores its activities inside an
+ * {@link com.flexganttfx.model.ActivityRepository}. Each activity is assigned to a
+ * {@link com.flexganttfx.model.Layer}, which controls the z-order, the visibility, and
+ * the opacity of a whole group of activities. The combination of row, layer, and activity
+ * is expressed by an {@link com.flexganttfx.model.ActivityRef}, which is the type used
+ * whenever an activity has to be identified unambiguously, for example when creating an
+ * {@link com.flexganttfx.model.ActivityLink} between two activities. How the activities
+ * of a row are arranged is controlled by a {@link com.flexganttfx.model.Layout} and a
+ * {@link com.flexganttfx.model.LinesManager}.
+ *
+ * @see com.flexganttfx.model.activity
+ * @see com.flexganttfx.model.repository
+ * @see com.flexganttfx.model.layout
+ * @see com.flexganttfx.model.timeline
+ * @see com.flexganttfx.model.dateline
+ *
  * @since 1.0
  */
 package com.flexganttfx.model;

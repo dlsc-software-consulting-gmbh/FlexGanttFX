@@ -31,6 +31,10 @@
  * <li>CompletableActivity / CompletableActivityBase / MutableCompletableActivity / MutableCompletableActivityBase</li>
  * </ul>
  * <p>
+ * All base implementations store an optional user object, which is the link between the
+ * activity displayed in the Gantt chart and the business object of the application. The
+ * mutable variants add setters for the name, the start time, and the end time and are the
+ * ones to use whenever the user should be able to edit activities interactively.
  *
  * @see com.flexganttfx.model.ActivityRef
  * @see com.flexganttfx.model.ActivityRepository
