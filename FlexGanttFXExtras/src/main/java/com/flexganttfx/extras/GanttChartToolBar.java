@@ -28,14 +28,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
-import javafx.geometry.Point2D;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import javafx.stage.PopupWindow.AnchorLocation;
 import javafx.util.StringConverter;
-import org.controlsfx.control.PopOver;
+import com.dlsc.gemsfx.PopOver;
 import javafx.scene.control.TextField;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
@@ -43,7 +41,7 @@ import org.kordamp.ikonli.materialdesign.MaterialDesign;
 import java.text.MessageFormat;
 
 import static java.util.Objects.requireNonNull;
-import static org.controlsfx.control.PopOver.ArrowLocation.TOP_CENTER;
+import static com.dlsc.gemsfx.PopOver.ArrowLocation.TOP_CENTER;
 
 /**
  * A toolbar implementation that can be used in combination with the Gantt chart
@@ -331,13 +329,10 @@ public class GanttChartToolBar<R extends Row<?, ?, ?>> extends ToolBar {
                 LayersView<R> layersView = new LayersView<>();
                 layersView.setGraphics(getGanttChart().getGraphics());
                 layerControlsPopOver = new PopOver(layersView);
-                layerControlsPopOver.setTitle(Messages.getString("GanttChartToolBar.BUTTON_LAYERS"));
                 layerControlsPopOver.setArrowLocation(TOP_CENTER);
             }
 
-            Point2D localToScreen = button.localToScreen(0, 0);
-            layerControlsPopOver.setAnchorLocation(AnchorLocation.WINDOW_TOP_LEFT);
-            layerControlsPopOver.show(button, localToScreen.getX() + button.getWidth() / 2, localToScreen.getY() + button.getHeight() - 2);
+            layerControlsPopOver.show(button);
         };
     }
 
@@ -349,13 +344,10 @@ public class GanttChartToolBar<R extends Row<?, ?, ?>> extends ToolBar {
                 RadarView<R> radarView = new RadarView<>();
                 radarView.setGraphics(getGanttChart().getGraphics());
                 radarPopOver = new PopOver(radarView);
-                radarPopOver.setTitle(Messages.getString("GanttChartToolBar.TITLE_RADAR"));
                 radarPopOver.setArrowLocation(TOP_CENTER);
             }
 
-            Point2D localToScreen = button.localToScreen(0, 0);
-            radarPopOver.setAnchorLocation(AnchorLocation.WINDOW_TOP_LEFT);
-            radarPopOver.show(button, localToScreen.getX() + button.getWidth() / 2, localToScreen.getY() + button.getHeight() - 2);
+            radarPopOver.show(button);
         };
     }
 

@@ -39,7 +39,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import org.controlsfx.control.PopOver;
+import com.dlsc.gemsfx.PopOver;
 import org.controlsfx.control.StatusBar;
 
 import java.time.*;
@@ -51,7 +51,7 @@ import java.util.List;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 import static java.time.temporal.ChronoUnit.MINUTES;
-import static org.controlsfx.control.PopOver.ArrowLocation.BOTTOM_CENTER;
+import static com.dlsc.gemsfx.PopOver.ArrowLocation.BOTTOM_CENTER;
 
 public class AgendaEditorSkin extends SkinBase<AgendaEditor> {
 

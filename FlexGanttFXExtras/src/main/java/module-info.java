@@ -20,6 +20,7 @@
 module com.flexganttfx.extras {
 
     requires transitive com.flexganttfx.view;
+    requires com.dlsc.gemsfx;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.materialdesign;
     requires java.prefs;

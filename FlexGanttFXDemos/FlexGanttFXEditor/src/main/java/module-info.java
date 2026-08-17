@@ -17,6 +17,7 @@
 module com.flexganttfx.editor {
     requires com.flexganttfx.view;
     requires com.flexganttfx.extras;
+    requires com.dlsc.gemsfx;
 
     exports com.flexganttfx.editor;
 }

@@ -19,7 +19,6 @@
  */
 module com.flexganttfx.core {
 
-    requires license4j;
     requires transitive java.logging;
 
     exports com.flexganttfx.core;

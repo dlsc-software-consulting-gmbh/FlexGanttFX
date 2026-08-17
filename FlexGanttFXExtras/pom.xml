@@ -25,6 +25,11 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.dlsc.gemsfx</groupId>
+			<artifactId>gemsfx</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>org.kordamp.ikonli</groupId>
 			<artifactId>ikonli-core</artifactId>
 			<version>${ikonli.version}</version>

@@ -34,6 +34,7 @@
         <javafx.version>17.0.14</javafx.version>
         <gson.version>2.10.1</gson.version>
         <controlsfx.version>11.1.1</controlsfx.version>
+        <gemsfx.version>4.4.1</gemsfx.version>
         <ikonli.version>12.4.0</ikonli.version>
         <atlantafx.version>2.1.0</atlantafx.version>
         <devtoolsfx.version>1.0.1</devtoolsfx.version>
@@ -58,9 +59,6 @@
         <module>FlexGanttFXExtras</module>
         <module>FlexGanttFXShowcase</module>
         <module>FlexGanttFXProject</module>
-        <module>FlexGanttFXiCal</module>
-        <module>FlexGanttFXExperimental</module>
-        <module>FlexGanttFXLicensing</module>
         <module>FlexGanttFXTutorials</module>
         <module>FlexGanttFXAssembly</module>
         <module>FlexGanttFXDemos</module>
@@ -229,6 +227,26 @@
                 <groupId>com.google.code.gson</groupId>
                 <artifactId>gson</artifactId>
                 <version>${gson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.dlsc.gemsfx</groupId>
+                <artifactId>gemsfx</artifactId>
+                <version>${gemsfx.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.openjfx</groupId>
+                        <artifactId>javafx-base</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.openjfx</groupId>
+                        <artifactId>javafx-controls</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.openjfx</groupId>
+                        <artifactId>javafx-graphics</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
         </dependencies>
