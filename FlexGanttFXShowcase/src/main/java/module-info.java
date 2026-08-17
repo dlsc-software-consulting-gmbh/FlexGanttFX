@@ -47,6 +47,5 @@ open module com.flexganttfx.sampler {
     requires com.flexganttfx.f1;
     requires com.flexganttfx.earthquake;
     requires com.flexganttfx.naturalevents;
-    requires com.flexganttfx.spacex;
     requires jpro.webapi;
 }

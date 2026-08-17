@@ -37,6 +37,5 @@
         <module>FlexGanttFXF1</module>
         <module>FlexGanttFXEarthquake</module>
         <module>FlexGanttFXNaturalEvents</module>
-        <module>FlexGanttFXSpaceX</module>
     </modules>
 </project>

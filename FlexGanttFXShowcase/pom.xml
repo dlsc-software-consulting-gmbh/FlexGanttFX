@@ -134,12 +134,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.flexganttfx</groupId>
-			<artifactId>spacex</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
-
-		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-web</artifactId>
 			<version>${javafx.version}</version>
