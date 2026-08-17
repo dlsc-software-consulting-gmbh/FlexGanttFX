@@ -124,21 +124,35 @@ Available domain demos: `AirportApp`, `FactoryApp`, `HospitalApp`, `F1App`, `Spr
 `SpaceMissionApp`, `EmiratesApp`, `WeatherApp`, `EarthquakeApp`, `NaturalEventsApp`,
 `MSProjectApp`, `AgendaEditorApp`.
 
-### Shot-to-demo mapping
+### Shot-to-demo mapping (verified by recording each one)
 
 | Storyboard shot | Source | Class / demo |
 |-----------------|--------|--------------|
-| 5 — hero chart | Domain demo | `AirportApp` or `FactoryApp` — visually rich, immediately legible |
-| 6 — smooth scrolling | Showcase | `gantt/GanttChartDemo` or `AirportApp` with many rows |
-| 7 — scale / 60 fps | Showcase | `gantt/CanvasBufferDemo`, or `gantt/LinksStressTestDemo` for a heavy load |
-| 8 — renderers & layers | Showcase | `gantt/SystemLayersDemo`, `layout/MixedLayoutsDemo`, `layout/ChartLayoutDemo`, `gantt/AtlantaFXStylingDemo` |
-| 9 — timeline zoom | Showcase | `timeline/ChronoUnitTimelineDemo` and `timeline/SimpleUnitTimelineDemo` |
-| 10 — containers | Showcase | `container/DualGanttChartContainerDemo`, `container/QuadGanttChartContainerDemo`, `container/MultiGanttChartContainerDemo` |
-| 11 — activity links | Showcase | `model/LinksDemo`, `gantt/LinksStressTestDemo` |
+| 5 — hero chart | Domain demo | `AirportApp` — dark theme, dual container, immediately legible |
+| 6 — smooth panning | Domain demo | `AirportApp`, driven with `hscroll` |
+| 7 — scale / 60 fps | Domain demo | `FactoryApp` — ~50 resources, drives well with a long `scroll` |
+| 8 — renderers & status colours | Domain demo | `FactoryApp` — Scheduled / In Progress / Done / Delayed legend |
+| 9 — timeline zoom | Domain demo | `FactoryApp`, stepped with `click <zoom-in> 10 0.7` (days → minutes) |
+| 10 — synchronized containers | Domain demo | `HospitalApp` — dual pane plus agenda day view |
+| 11 — activity links | Domain demo | `HospitalApp` or `SpaceMissionApp` — zoom in ~2–3 steps from the default view |
 | 12–14 — device screens | Domain demo | Same chart as shot 5, recaptured at each device aspect ratio |
 
-`AirportApp` is the strongest single source: aircraft, gates, and ground operations read
-instantly to a non-domain audience, and it exercises renderers, links and hierarchy at once.
+> **Use the domain demos, not the showcase demos.** `FlexGanttFXShowcase` demos such as
+> `QuadGanttChartContainerDemo` and `LinksStressTestDemo` are development fixtures: they
+> render empty charts or placeholder rows named `row 0 / sub Row0 : 0`, which look amateurish
+> on video. `FlexGanttFXDemos` (Airport, Factory, Hospital, F1, Sprint, SpaceMission) ship
+> realistic data and custom renderers.
+>
+> `ShowcaseApp` additionally fails to start on JavaFX 25 — `ShowcaseView` uses
+> `StageStyle.EXTENDED`, a preview feature — so launch individual demos directly:
+>
+> ```bash
+> mvn -pl <module> dependency:build-classpath -Dmdep.outputFile=/tmp/cp.txt -DincludeScope=runtime
+> java -cp "<module>/target/classes:$(cat /tmp/cp.txt)" com.flexganttfx.factory.FactoryApp
+> ```
+>
+> Standalone demo windows are titled `FlexGanttFX — <demo name>`; domain demos use their own
+> titles, e.g. `FlexGanttFX – Factory Scheduling Demo`.
 
 ### Capture settings
 

@@ -19,7 +19,7 @@ All coordinates are SCREEN points (not pixels). With the demo window placed at
 100,100 by capture.sh, window-relative point (x, y) is screen (100+x, 100+y).
 
 Usage:
-    drive.py click   X Y
+    drive.py click   X Y [TIMES] [DELAY]
     drive.py scroll  X Y LINES [STEPS] [DELAY]     # vertical, negative = up
     drive.py hscroll X Y LINES [STEPS] [DELAY]     # horizontal
     drive.py drag    X1 Y1 X2 Y2 [STEPS] [DELAY]
@@ -55,12 +55,16 @@ def move(x, y):
     _post(Quartz.CGEventCreateMouseEvent(None, Quartz.kCGEventMouseMoved, (x, y), 0))
 
 
-def click(x, y):
-    move(x, y)
-    time.sleep(0.05)
-    _post(Quartz.CGEventCreateMouseEvent(None, Quartz.kCGEventLeftMouseDown, (x, y), BUTTON))
-    time.sleep(0.05)
-    _post(Quartz.CGEventCreateMouseEvent(None, Quartz.kCGEventLeftMouseUp, (x, y), BUTTON))
+def click(x, y, times=1, delay=0.4):
+    """Click once, or repeatedly — e.g. stepping a toolbar zoom button."""
+    for i in range(int(times)):
+        move(x, y)
+        time.sleep(0.05)
+        _post(Quartz.CGEventCreateMouseEvent(None, Quartz.kCGEventLeftMouseDown, (x, y), BUTTON))
+        time.sleep(0.05)
+        _post(Quartz.CGEventCreateMouseEvent(None, Quartz.kCGEventLeftMouseUp, (x, y), BUTTON))
+        if i < int(times) - 1:
+            time.sleep(delay)
 
 
 def _scroll(x, y, lines, steps, delay, axis, flags=0):
