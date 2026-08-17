@@ -16,12 +16,11 @@
  */
 package com.flexganttfx.demo;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-
+import com.flexganttfx.model.activity.MutableCompletableActivityBase;
 import javafx.scene.paint.Color;
 
-import com.flexganttfx.model.activity.MutableCompletableActivityBase;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 public class DemoActivity extends MutableCompletableActivityBase<String> {
 

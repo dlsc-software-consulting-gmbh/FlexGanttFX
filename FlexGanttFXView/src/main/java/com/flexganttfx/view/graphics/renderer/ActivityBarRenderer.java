@@ -29,8 +29,6 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
-import java.util.Objects;
-
 /**
  * Renders activities as bars or milestone diamonds and can paint labels around them.
  * It adds bar-specific styling such as bar height, glossy fills, and text placement support on top of {@link ActivityRenderer}.

@@ -16,6 +16,8 @@
  */
 package impl.com.flexganttfx.skin.util;
 
+import com.flexganttfx.model.Activity;
+
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,8 +25,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
-
-import com.flexganttfx.model.Activity;
 
 /**
  * A cluster is a group of activities placed on multiple columns. The activities

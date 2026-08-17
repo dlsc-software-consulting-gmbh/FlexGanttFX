@@ -16,9 +16,8 @@
  */
 package impl.com.flexganttfx.skin.timeline;
 
-import javafx.util.Callback;
-
 import com.flexganttfx.model.util.SimpleUnit;
+import javafx.util.Callback;
 
 /**
  * Factory for creating {@link SimpleUnitDatelineCell} instances. It binds a dateline scale to

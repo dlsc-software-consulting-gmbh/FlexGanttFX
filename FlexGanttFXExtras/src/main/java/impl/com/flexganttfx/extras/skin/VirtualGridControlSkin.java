@@ -16,15 +16,15 @@
  */
 package impl.com.flexganttfx.extras.skin;
 
-import static java.lang.Double.MAX_VALUE;
+import com.flexganttfx.extras.VirtualGridControl;
+import com.flexganttfx.model.dateline.VirtualGrid;
 import javafx.beans.Observable;
 import javafx.scene.control.SkinBase;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 
-import com.flexganttfx.extras.VirtualGridControl;
-import com.flexganttfx.model.dateline.VirtualGrid;
+import static java.lang.Double.MAX_VALUE;
 
 public class VirtualGridControlSkin extends SkinBase<VirtualGridControl> {
 

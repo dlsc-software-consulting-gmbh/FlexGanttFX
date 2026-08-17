@@ -154,21 +154,26 @@
 <li>css – Kopien der von FlexGanttFX verwendeten Stylesheets (die Originale sind in der JAR-Datei enthalten)</li>
 <li>docs – die API-Dokumentation von FlexGanttFX</li>
 <li>ext – JAR-Dateien von Drittanbietern, die für den Betrieb von FlexGanttFX erforderlich sind</li>
-<li>legal – die Lizenzvereinbarungen als PDF-Dateien</li>
+<li>legal – die Lizenztexte (AGPLv3 und die kommerziellen Lizenzbedingungen)</li>
 <li>lib – die FlexGanttFX-Bibliotheken</li>
 <li>tutorial – Einstiegsdateien für den schnellen Start</li>
 </ul>
 <h2 id="add-jar-files-to-classpath">JAR-Dateien zum Classpath hinzufügen</h2>
 <p>Vorausgesetzt, Sie haben Release 11.12.5 heruntergeladen, fügen Sie die folgenden Dateien (im Verzeichnis lib der Distribution) zu Ihrem Classpath hinzu.</p>
 <ul>
-<li>flexganttfx-core-11.12.8.jar – enthält verschiedene Hilfsklassen und die Lizenzierungsunterstützung</li>
+<li>flexganttfx-core-11.12.8.jar – enthält verschiedene Hilfsklassen, die vom Framework genutzt werden</li>
 <li>flexganttfx-model-11.12.8.jar – alle Klassen des Datenmodells (Activities, Rows, Repositories)</li>
 <li>flexganttfx-view-11.12.8.jar – die View-Klassen, darunter das eigentliche Gantt-Chart-Steuerelement</li>
 <li>flexganttfx-extras-11.12.8.jar – zusätzliche Klassen wie eine Toolbar und eine Statusbar</li>
 </ul>
 <p>Fügen Sie die Dateien im Verzeichnis ext zu Ihrem Classpath hinzu.
 - controlsfx.jar – die Distribution des ControlsFX-Projekts
-- license4j.jar – Code zur Unterstützung der Lizenzierungskonzepte</p>
+</p>
+<h2 id="licensing">Lizenzierung</h2>
+<p>FlexGanttFX ist dual lizenziert. Sie können es kostenlos unter der GNU Affero General Public License v3 nutzen, wenn Ihre
+eigene Anwendung ebenfalls Open Source unter derselben Lizenz ist. Für proprietäre Anwendungen mit geschlossenem Quellcode
+oder SaaS-Angebote wird eine kommerzielle Lizenz benötigt. Ein Lizenzschlüssel muss nicht installiert werden — Details
+finden Sie auf der <a href="../pages/licensing.html">Lizenzierungsseite</a>.</p>
 <h2 id="create-application-class">Anwendungsklasse erstellen</h2>
 <p>Das folgende Listing zeigt das grundlegendste Setup, das zum Starten einer Gantt-Chart-Benutzeroberfläche erforderlich ist.</p>
 <pre><code class="language-java">

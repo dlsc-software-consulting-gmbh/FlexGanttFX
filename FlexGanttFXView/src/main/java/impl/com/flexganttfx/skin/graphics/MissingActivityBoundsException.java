@@ -16,11 +16,11 @@
  */
 package impl.com.flexganttfx.skin.graphics;
 
-import java.text.MessageFormat;
-
 import com.flexganttfx.model.Activity;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.view.graphics.renderer.ActivityRenderer;
+
+import java.text.MessageFormat;
 
 /**
  * Exception thrown when an activity renderer does not provide bounds after drawing an

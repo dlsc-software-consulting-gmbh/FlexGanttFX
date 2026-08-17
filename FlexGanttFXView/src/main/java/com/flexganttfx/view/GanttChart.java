@@ -24,7 +24,6 @@ import com.flexganttfx.view.graphics.ListViewGraphics;
 import com.flexganttfx.view.timeline.Dateline;
 import com.flexganttfx.view.timeline.Eventline;
 import com.flexganttfx.view.timeline.Timeline;
-import com.flexganttfx.view.util.FlexGanttFXControl;
 import com.flexganttfx.view.util.Messages;
 import com.flexganttfx.view.util.Position;
 import com.flexganttfx.view.util.RowHeaderColumn;

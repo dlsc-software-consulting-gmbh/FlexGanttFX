@@ -16,6 +16,7 @@
  */
 package com.flexganttfx.extras;
 
+import com.dlsc.gemsfx.PopOver;
 import com.flexganttfx.extras.util.Messages;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.view.GanttChart;
@@ -33,15 +34,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.util.StringConverter;
-import com.dlsc.gemsfx.PopOver;
-import javafx.scene.control.TextField;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
 import java.text.MessageFormat;
 
-import static java.util.Objects.requireNonNull;
 import static com.dlsc.gemsfx.PopOver.ArrowLocation.TOP_CENTER;
+import static java.util.Objects.requireNonNull;
 
 /**
  * A toolbar implementation that can be used in combination with the Gantt chart

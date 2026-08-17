@@ -16,9 +16,9 @@
  */
 package impl.com.flexganttfx.skin.util;
 
-import static java.util.Objects.requireNonNull;
-
 import com.flexganttfx.model.Activity;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * A data structure to store the placement of an activity. A placement is

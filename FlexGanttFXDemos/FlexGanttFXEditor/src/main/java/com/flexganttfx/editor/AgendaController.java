@@ -16,9 +16,27 @@
  */
 package com.flexganttfx.editor;
 
-import static javafx.scene.input.KeyEvent.KEY_PRESSED;
-import static javafx.scene.input.MouseEvent.MOUSE_CLICKED;
-import static javafx.scene.input.MouseEvent.MOUSE_MOVED;
+import com.flexganttfx.editor.AgendaEntryBase.Type;
+import com.flexganttfx.model.Activity;
+import com.flexganttfx.model.ActivityRef;
+import com.flexganttfx.model.ActivityRepository;
+import com.flexganttfx.model.Layer;
+import com.flexganttfx.model.Row;
+import com.flexganttfx.model.activity.MutableActivity;
+import com.flexganttfx.model.dateline.VirtualGrid;
+import com.flexganttfx.model.repository.MutableActivityRepository;
+import com.flexganttfx.model.util.ActivityHelper;
+import com.flexganttfx.view.graphics.ActivityEvent;
+import com.flexganttfx.view.graphics.GraphicsBase;
+import com.flexganttfx.view.graphics.GraphicsBase.EditingCallbackParameter;
+import com.flexganttfx.view.graphics.LassoEvent;
+import com.flexganttfx.view.graphics.LassoEvent.LassoInfo;
+import com.flexganttfx.view.timeline.Dateline;
+import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.util.Callback;
 
 import java.time.DayOfWeek;
 import java.time.Duration;
@@ -36,28 +54,9 @@ import java.util.Map;
 import java.util.Stack;
 import java.util.UUID;
 
-import javafx.application.Platform;
-import javafx.collections.ListChangeListener;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.util.Callback;
-
-import com.flexganttfx.editor.AgendaEntryBase.Type;
-import com.flexganttfx.model.Activity;
-import com.flexganttfx.model.ActivityRef;
-import com.flexganttfx.model.ActivityRepository;
-import com.flexganttfx.model.Layer;
-import com.flexganttfx.model.Row;
-import com.flexganttfx.model.activity.MutableActivity;
-import com.flexganttfx.model.dateline.VirtualGrid;
-import com.flexganttfx.model.repository.MutableActivityRepository;
-import com.flexganttfx.model.util.ActivityHelper;
-import com.flexganttfx.view.graphics.ActivityEvent;
-import com.flexganttfx.view.graphics.GraphicsBase;
-import com.flexganttfx.view.graphics.GraphicsBase.EditingCallbackParameter;
-import com.flexganttfx.view.graphics.LassoEvent;
-import com.flexganttfx.view.graphics.LassoEvent.LassoInfo;
-import com.flexganttfx.view.timeline.Dateline;
+import static javafx.scene.input.KeyEvent.KEY_PRESSED;
+import static javafx.scene.input.MouseEvent.MOUSE_CLICKED;
+import static javafx.scene.input.MouseEvent.MOUSE_MOVED;
 
 /**
  * The agenda controller is used to handle the various editing operations that

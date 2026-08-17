@@ -22,8 +22,6 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Insets;
 import javafx.scene.paint.Paint;
 
-import java.util.Objects;
-
 import static java.util.Objects.requireNonNull;
 
 /**

@@ -16,8 +16,8 @@
  */
 package com.flexganttfx.demo.model;
 
-import com.flexganttfx.demo.GanttChartDemoBase;
 import com.flexganttfx.demo.DemoActivity;
+import com.flexganttfx.demo.GanttChartDemoBase;
 import com.flexganttfx.model.Activity;
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.model.Row;
@@ -31,7 +31,6 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 import org.controlsfx.dialog.ProgressDialog;
 
 import java.time.Duration;

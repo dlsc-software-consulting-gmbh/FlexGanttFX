@@ -16,9 +16,9 @@
  */
 package com.flexganttfx.model.activity;
 
-import java.time.Instant;
-
 import com.flexganttfx.model.Activity;
+
+import java.time.Instant;
 
 /**
  * An add-on interface that needs to be implemented by any activity that can be

@@ -138,7 +138,7 @@
           <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
         </div>
         <div class="faq-answer">
-          不是，FlexGanttFX 是商业软件。公司可以购买许可证，用于使用它，并将其作为自身解决方案的组成部分进行部署。
+          部分是。FlexGanttFX 采用双重许可。它以 <b>GNU Affero 通用公共许可证 v3（AGPLv3）</b>开源提供，只要你自己的应用也以 AGPLv3 许可发布，就可以免费使用。开发专有或闭源解决方案的公司则需要购买<b>商业许可证</b>。详情请参阅<a href="licensing.html"><u>许可页面</u></a>。
         </div>
       </div>
 
@@ -168,7 +168,7 @@
           <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
         </div>
         <div class="faq-answer">
-          FlexGanttFX 发行包包含一个 lib 文件夹。该文件夹中的四个 JAR 文件需要添加到应用程序的 classpath 或 module path。此外，名为“ext”的文件夹中包含两个同样必需的 JAR 文件。一个是 FlexGanttFX 所需的 ControlsFX 版本，另一个用于支持许可证密钥。
+          FlexGanttFX 发行包包含一个 lib 文件夹。该文件夹中的四个 JAR 文件需要添加到应用程序的 classpath 或 module path。此外，名为“ext”的文件夹中包含 FlexGanttFX 所需的 ControlsFX 版本。
         </div>
       </div>
 
@@ -306,27 +306,37 @@
           <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
         </div>
         <div class="faq-answer">
-          我们支持两种许可证类型：开发者许可证和运行时许可证。<b><i>开发者</i></b> 许可证在 30 天试用期结束后即为必需。开发者许可证允许你继续使用产品，但会在控制台看到提示，说明该产品只能用于开发目的。一旦你的产品准备发布，就必须使用 <b><i>运行时</i></b> 许可证。这与发布对象是内部使用还是第三方无关。
+          FlexGanttFX 采用双重许可。你可以在 <b><i>GNU Affero 通用公共许可证 v3</i></b> 下使用它 — 完全免费，但你的应用也必须以 AGPLv3 开源，并向所有用户（包括仅通过网络访问的用户）提供源代码 — 或者购买<b><i>商业许可证</i></b>，以免除这些 Copyleft 义务，并可交付专有、闭源和 SaaS 应用。
         </div>
       </div>
 
       <div class="faq-item">
         <div class="faq-question">
-          在哪里购买许可证？
+          我必须将自己的应用开源吗？
           <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
         </div>
         <div class="faq-answer">
-          你可以直接向 <b>DLSC Software &amp; Consulting GmbH</b> 订购。只需<a href="mailto:mail@dlsc.com"><u>给我们发送电子邮件</u></a>。
+          仅当你在 AGPLv3 下使用 FlexGanttFX 时才需要。AGPL 要求向应用的用户提供完整源代码 — 即使应用仅通过网络提供访问也是如此。如果你无法或不愿这样做，商业许可证就是正确选择。
         </div>
       </div>
 
       <div class="faq-item">
         <div class="faq-question">
-          如何设置许可证密钥？
+          在哪里购买商业许可证？
           <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
         </div>
         <div class="faq-answer">
-          你必须在创建任何 FlexGanttFX 控件之前调用 <code>FlexGanttFX.setLicenseKey("...")</code>。理想情况下，应在应用程序的 <code>main()</code> 方法中立即调用它。或者，也可以将密钥作为名为 <code>flexganttfx.license</code> 的系统属性传入。
+          你可以直接向 <b>DLSC Software &amp; Consulting GmbH</b> 订购。只需<a href="mailto:mail@dlsc.com"><u>给我们发送电子邮件</u></a>即可。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          我需要许可证密钥吗？
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          不需要。FlexGanttFX 不再使用许可证密钥或试用期。直接将库添加到项目中即可开始开发。使用 FlexGanttFX 即表示你接受适用于你使用场景的许可条款。
         </div>
       </div>
 

@@ -21,7 +21,6 @@ import com.flexganttfx.model.LinesManager;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.model.activity.ChartActivity;
 import com.flexganttfx.model.activity.HighLowChartActivity;
-
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;

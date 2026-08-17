@@ -138,7 +138,7 @@
           <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
         </div>
         <div class="faq-answer">
-          Nein, FlexGanttFX ist eine kommerzielle Software. Unternehmen können Lizenzen erwerben, um damit zu arbeiten und es als integralen Bestandteil ihrer Lösungen einzusetzen.
+          Teilweise. FlexGanttFX ist dual lizenziert. Es ist als Open Source unter der <b>GNU Affero General Public License v3</b> verfügbar, die Sie kostenlos nutzen können, solange Ihre eigene Anwendung ebenfalls unter der AGPLv3 steht. Unternehmen, die proprietäre Lösungen mit geschlossenem Quellcode entwickeln, erwerben stattdessen eine <b>kommerzielle Lizenz</b>. Details finden Sie auf der <a href="licensing.html"><u>Lizenzierungsseite</u></a>.
         </div>
       </div>
 
@@ -168,7 +168,7 @@
           <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
         </div>
         <div class="faq-answer">
-          Die FlexGanttFX-Distribution enthält einen lib-Ordner. Die vier darin enthaltenen JAR-Dateien müssen zum Klassenpfad oder Modulpfad Ihrer Anwendung hinzugefügt werden. Darüber hinaus enthält ein Ordner namens „ext" zwei JAR-Dateien, die ebenfalls benötigt werden. Eine davon ist das für FlexGanttFX erforderliche ControlsFX-Release, die andere dient der Unterstützung von Lizenzschlüsseln.
+          Die FlexGanttFX-Distribution enthält einen lib-Ordner. Die vier darin enthaltenen JAR-Dateien müssen zum Klassenpfad oder Modulpfad Ihrer Anwendung hinzugefügt werden. Darüber hinaus enthält ein Ordner namens „ext" das für FlexGanttFX erforderliche ControlsFX-Release.
         </div>
       </div>
 
@@ -306,27 +306,37 @@
           <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
         </div>
         <div class="faq-answer">
-          Wir unterstützen zwei Lizenztypen: eine Entwicklerlizenz und eine Laufzeitlizenz. Die <b><i>Entwicklerlizenz</i></b> wird nach Ablauf der 30-tägigen Testphase benötigt. Sie erlaubt die weitere Nutzung des Produkts, wobei in der Konsole angezeigt wird, dass das Produkt nur für Entwicklungszwecke verwendet werden darf. Sobald Ihr Produkt veröffentlicht werden soll, benötigen Sie eine <b><i>Laufzeitlizenz</i></b> — unabhängig davon, ob die Veröffentlichung intern oder an Dritte erfolgt.
+          FlexGanttFX ist dual lizenziert. Sie können es entweder unter der <b><i>GNU Affero General Public License v3</i></b> nutzen — kostenlos, aber Ihre Anwendung muss ebenfalls Open Source unter der AGPLv3 sein und ihr Quellcode muss allen Nutzern zur Verfügung gestellt werden, auch denjenigen, die sie nur über ein Netzwerk verwenden — oder Sie erwerben eine <b><i>kommerzielle Lizenz</i></b>, die Sie von diesen Copyleft-Pflichten befreit und die Auslieferung proprietärer, geschlossener und SaaS-Anwendungen erlaubt.
         </div>
       </div>
 
       <div class="faq-item">
         <div class="faq-question">
-          Wo kann ich eine Lizenz erwerben?
+          Muss ich meine Anwendung als Open Source veröffentlichen?
           <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
         </div>
         <div class="faq-answer">
-          Sie können direkt bei <b>DLSC Software &amp; Consulting GmbH</b> bestellen. <a href="mailto:mail@dlsc.com"><u>Schreiben Sie uns einfach eine E-Mail</u></a>.
+          Nur wenn Sie FlexGanttFX unter der AGPLv3 verwenden. Die AGPL verlangt, dass der vollständige Quellcode Ihrer Anwendung ihren Nutzern zur Verfügung gestellt wird — auch dann, wenn die Anwendung nur über ein Netzwerk erreichbar ist. Wenn Sie das nicht können oder wollen, ist eine kommerzielle Lizenz die richtige Wahl.
         </div>
       </div>
 
       <div class="faq-item">
         <div class="faq-question">
-          Wie setze ich den Lizenzschlüssel?
+          Wo kann ich eine kommerzielle Lizenz erwerben?
           <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
         </div>
         <div class="faq-answer">
-          Sie müssen <code>FlexGanttFX.setLicenseKey("...")</code> aufrufen, bevor Sie FlexGanttFX-Steuerelemente erstellen. Idealerweise erfolgt dieser Aufruf direkt in der <code>main()</code>-Methode Ihrer Anwendung. Alternativ können Sie den Schlüssel als System-Property namens <code>flexganttfx.license</code> übergeben.
+          Sie können direkt bei der <b>DLSC Software &amp; Consulting GmbH</b> bestellen. <a href="mailto:mail@dlsc.com"><u>Schreiben Sie uns einfach eine E-Mail</u></a>.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Benötige ich einen Lizenzschlüssel?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          Nein. FlexGanttFX verwendet keine Lizenzschlüssel und keine Testphasen mehr. Binden Sie die Bibliotheken einfach in Ihr Projekt ein und legen Sie los. Mit der Nutzung von FlexGanttFX akzeptieren Sie die Bedingungen der für Ihren Anwendungsfall geltenden Lizenz.
         </div>
       </div>
 

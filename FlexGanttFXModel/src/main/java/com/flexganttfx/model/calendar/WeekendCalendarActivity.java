@@ -16,10 +16,10 @@
  */
 package com.flexganttfx.model.calendar;
 
-import static java.util.Objects.requireNonNull;
-
 import java.time.DayOfWeek;
 import java.time.Instant;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * A specialized calendar activity used to represent weekend days (e.g.

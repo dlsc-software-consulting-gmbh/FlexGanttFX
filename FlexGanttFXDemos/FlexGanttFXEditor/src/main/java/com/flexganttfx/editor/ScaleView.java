@@ -16,21 +16,20 @@
  */
 package com.flexganttfx.editor;
 
-import static javafx.geometry.VPos.CENTER;
-import static javafx.scene.text.TextAlignment.RIGHT;
-
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.util.List;
-
 import com.flexganttfx.model.layout.AgendaLayout;
-
 import impl.com.flexganttfx.skin.util.AgendaHelper;
 import impl.com.flexganttfx.skin.util.AgendaHelper.AgendaLineLocation;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.List;
+
+import static javafx.geometry.VPos.CENTER;
+import static javafx.scene.text.TextAlignment.RIGHT;
 
 /**
  * A custom control for rendering a vertical time scale. This control is used by

@@ -16,11 +16,10 @@
  */
 package com.flexganttfx.view.graphics;
 
+import com.flexganttfx.model.Row;
 import impl.com.flexganttfx.skin.graphics.RowPane;
 import impl.com.flexganttfx.skin.graphics.SingleRowGraphicsSkin;
 import javafx.scene.control.Skin;
-
-import com.flexganttfx.model.Row;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -24,7 +24,6 @@ import com.flexganttfx.msproject.model.MSProjectTaskActivity;
 import com.flexganttfx.msproject.model.MSProjectTaskRow;
 import com.flexganttfx.view.GanttChart;
 import com.flexganttfx.view.timeline.Timeline;
-import com.jpro.webapi.WebAPI;
 import javafx.application.Platform;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TreeTableCell;

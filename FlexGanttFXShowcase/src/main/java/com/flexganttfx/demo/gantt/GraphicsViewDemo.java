@@ -16,8 +16,8 @@
  */
 package com.flexganttfx.demo.gantt;
 
-import com.flexganttfx.demo.DemoBase;
 import com.flexganttfx.demo.DemoActivity;
+import com.flexganttfx.demo.DemoBase;
 import com.flexganttfx.demo.DemoRow;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.model.layout.GanttLayout;
@@ -29,7 +29,6 @@ import com.flexganttfx.view.graphics.renderer.ActivityBarRenderer;
 import com.flexganttfx.view.timeline.Timeline;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
-import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;

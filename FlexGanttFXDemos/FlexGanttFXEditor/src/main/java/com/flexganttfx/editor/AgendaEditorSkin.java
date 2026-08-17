@@ -16,6 +16,7 @@
  */
 package com.flexganttfx.editor;
 
+import com.dlsc.gemsfx.PopOver;
 import com.flexganttfx.extras.VirtualGridControl;
 import com.flexganttfx.model.ActivityRef;
 import com.flexganttfx.model.Layer;
@@ -39,7 +40,6 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import com.dlsc.gemsfx.PopOver;
 import org.controlsfx.control.StatusBar;
 
 import java.time.*;
@@ -49,9 +49,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static com.dlsc.gemsfx.PopOver.ArrowLocation.BOTTOM_CENTER;
 import static java.time.temporal.ChronoUnit.DAYS;
 import static java.time.temporal.ChronoUnit.MINUTES;
-import static com.dlsc.gemsfx.PopOver.ArrowLocation.BOTTOM_CENTER;
 
 public class AgendaEditorSkin extends SkinBase<AgendaEditor> {
 

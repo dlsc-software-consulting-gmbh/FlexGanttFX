@@ -138,7 +138,7 @@
           <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
         </div>
         <div class="faq-answer">
-          No, FlexGanttFX is a commercial piece of software. Companies can acquire licenses in order to work with it and to deploy it as an integral part of their solutions.
+          Partly. FlexGanttFX is dual licensed. It is available as open source under the <b>GNU Affero General Public License v3</b>, which you may use free of charge as long as your own application is licensed under the AGPLv3 too. Companies that build proprietary or closed-source solutions acquire a <b>commercial license</b> instead. See the <a href="licensing.html"><u>licensing page</u></a> for details.
         </div>
       </div>
 
@@ -168,7 +168,7 @@
           <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
         </div>
         <div class="faq-answer">
-          The FlexGanttFX distribution includes a lib folder. The four JAR files inside that folder need to be added to your application's classpath or module path. In addition a folder called "ext" contains two JAR files that are also required. One is the ControlsFX release needed for FlexGanttFX and one is used for supporting licensing keys.
+          The FlexGanttFX distribution includes a lib folder. The four JAR files inside that folder need to be added to your application's classpath or module path. In addition a folder called "ext" contains the ControlsFX release required by FlexGanttFX.
         </div>
       </div>
 
@@ -306,13 +306,23 @@
           <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
         </div>
         <div class="faq-answer">
-          We support two license types. A developer license and a runtime license. The <b><i>developer</i></b> license becomes necessary once the 30 day trial period has expired. A developer license allows you to continue using the product but you will see console output that the product can only be used for development purposes. Once your product is ready for release you have to use a <b><i>runtime</i></b> license. This is independent of whether the release will be in-house or to a third party.
+          FlexGanttFX is dual licensed. You can either use it under the <b><i>GNU Affero General Public License v3</i></b> — free of charge, but your application has to be open source under the AGPLv3 as well and its source code must be made available to all users, including those who only access it over a network — or you acquire a <b><i>commercial license</i></b>, which frees you from these copyleft obligations and allows you to ship proprietary, closed-source and SaaS applications.
         </div>
       </div>
 
       <div class="faq-item">
         <div class="faq-question">
-          Where can I purchase a license?
+          Do I have to make my application open source?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          Only if you use FlexGanttFX under the AGPLv3. The AGPL requires that the complete source code of your application is made available to its users — also when the application is only reachable over a network. If you cannot or do not want to do that, a commercial license is the right choice.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Where can I purchase a commercial license?
           <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
         </div>
         <div class="faq-answer">
@@ -322,11 +332,11 @@
 
       <div class="faq-item">
         <div class="faq-question">
-          How do I set the license key?
+          Do I need a license key?
           <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
         </div>
         <div class="faq-answer">
-          You have to call <code>FlexGanttFX.setLicenseKey("...")</code> before creating any FlexGanttFX controls. Ideally you call this immediately in your application's <code>main()</code> method. Alternatively you can pass the key as a system property called <code>flexganttfx.license</code>.
+          No. FlexGanttFX no longer uses license keys or trial periods. Simply add the libraries to your project and start building. By using FlexGanttFX you accept the terms of whichever license applies to your use case.
         </div>
       </div>
 

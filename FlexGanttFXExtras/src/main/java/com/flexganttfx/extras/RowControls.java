@@ -19,7 +19,6 @@ package com.flexganttfx.extras;
 import com.flexganttfx.extras.util.Messages;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.view.graphics.GraphicsBase;
-
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;

@@ -63,7 +63,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static java.time.DayOfWeek.MONDAY;
-import static java.util.Objects.requireNonNull;
 
 public class AgendaLayoutDemo extends GanttChartDemoBase {
 

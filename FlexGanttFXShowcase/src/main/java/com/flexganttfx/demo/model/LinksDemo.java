@@ -16,8 +16,8 @@
  */
 package com.flexganttfx.demo.model;
 
-import com.flexganttfx.demo.GanttChartDemoBase;
 import com.flexganttfx.demo.DemoActivity;
+import com.flexganttfx.demo.GanttChartDemoBase;
 import com.flexganttfx.model.ActivityLink;
 import com.flexganttfx.model.ActivityLink.LinkType;
 import com.flexganttfx.model.ActivityRef;

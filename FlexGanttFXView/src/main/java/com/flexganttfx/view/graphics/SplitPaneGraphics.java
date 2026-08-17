@@ -16,6 +16,7 @@
  */
 package com.flexganttfx.view.graphics;
 
+import com.flexganttfx.model.Row;
 import impl.com.flexganttfx.skin.graphics.RowPane;
 import impl.com.flexganttfx.skin.graphics.SplitPaneGraphicsSkin;
 import javafx.beans.property.ObjectProperty;
@@ -23,8 +24,6 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Skin;
 import javafx.scene.control.SplitPane;
 import javafx.util.Callback;
-
-import com.flexganttfx.model.Row;
 
 import java.util.ArrayList;
 import java.util.List;

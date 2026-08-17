@@ -16,6 +16,7 @@
  */
 package com.flexganttfx.weather.view;
 
+import com.flexganttfx.extras.GanttChartToolBar;
 import com.flexganttfx.model.ActivityRef;
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.model.Layout;
@@ -25,7 +26,6 @@ import com.flexganttfx.model.activity.MutableActivity;
 import com.flexganttfx.model.activity.MutableChartActivityBase;
 import com.flexganttfx.model.activity.MutableHighLowChartActivityBase;
 import com.flexganttfx.model.layout.ChartLayout;
-import com.flexganttfx.extras.GanttChartToolBar;
 import com.flexganttfx.view.GanttChartLite;
 import com.flexganttfx.view.graphics.ActivityBounds;
 import com.flexganttfx.view.graphics.GraphicsBase;

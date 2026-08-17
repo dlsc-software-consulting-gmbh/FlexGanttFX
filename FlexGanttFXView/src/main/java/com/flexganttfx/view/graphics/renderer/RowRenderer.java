@@ -16,13 +16,13 @@
  */
 package com.flexganttfx.view.graphics.renderer;
 
-import static javafx.scene.paint.Color.TRANSPARENT;
-import static javafx.scene.paint.Color.YELLOW;
+import com.flexganttfx.model.Row;
+import com.flexganttfx.view.graphics.GraphicsBase;
 import javafx.geometry.Insets;
 import javafx.scene.canvas.GraphicsContext;
 
-import com.flexganttfx.model.Row;
-import com.flexganttfx.view.graphics.GraphicsBase;
+import static javafx.scene.paint.Color.TRANSPARENT;
+import static javafx.scene.paint.Color.YELLOW;
 
 /**
  * Renders the background area of a row.

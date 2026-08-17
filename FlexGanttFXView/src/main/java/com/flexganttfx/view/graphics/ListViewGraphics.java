@@ -22,8 +22,6 @@ import impl.com.flexganttfx.skin.graphics.RowPane;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Skin;
 import javafx.scene.control.skin.VirtualFlow;
@@ -31,7 +29,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**

@@ -18,8 +18,8 @@ package com.flexganttfx.demo.gantt;
 
 import atlantafx.base.theme.Styles;
 import atlantafx.base.theme.Tweaks;
-import com.flexganttfx.demo.GanttChartDemoBase;
 import com.flexganttfx.demo.DemoRow;
+import com.flexganttfx.demo.GanttChartDemoBase;
 import com.flexganttfx.view.GanttChart;
 import com.flexganttfx.view.GanttChartBase;
 import javafx.application.Application;

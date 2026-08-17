@@ -58,7 +58,6 @@
         <module>FlexGanttFXView</module>
         <module>FlexGanttFXExtras</module>
         <module>FlexGanttFXShowcase</module>
-        <module>FlexGanttFXProject</module>
         <module>FlexGanttFXTutorials</module>
         <module>FlexGanttFXAssembly</module>
         <module>FlexGanttFXDemos</module>

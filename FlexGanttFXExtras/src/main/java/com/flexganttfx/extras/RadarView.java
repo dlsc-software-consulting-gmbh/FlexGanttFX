@@ -16,16 +16,15 @@
  */
 package com.flexganttfx.extras;
 
+import com.flexganttfx.model.Row;
+import com.flexganttfx.view.graphics.GraphicsBase;
+import com.flexganttfx.view.util.FlexGanttFXControl;
 import impl.com.flexganttfx.extras.skin.RadarViewSkin;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Skin;
-
-import com.flexganttfx.model.Row;
-import com.flexganttfx.view.util.FlexGanttFXControl;
-import com.flexganttfx.view.graphics.GraphicsBase;
 
 /**
  * A control used for rendering an overview of all activities within a Gantt

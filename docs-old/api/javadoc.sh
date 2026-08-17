@@ -1,1 +1,1 @@
-/Users/lemmi/.sdkman/candidates/java/current/bin/javadoc @options @packages @argfile
+/Users/lemmi/.sdkman/candidates/java/25.fx-zulu/zulu-25.jdk/Contents/Home/bin/javadoc @options @packages @argfile

@@ -19,7 +19,6 @@ package com.flexganttfx.demo.demos;
 import com.flexganttfx.demo.DemoBase;
 import com.flexganttfx.extras.GanttChartStatusBar;
 import com.flexganttfx.extras.GanttChartToolBar;
-import com.flexganttfx.extras.properties.view.GanttChartConfigurationView;
 import com.flexganttfx.model.ActivityLink;
 import com.flexganttfx.msproject.SampleProject;
 import com.flexganttfx.msproject.SampleProjectFactory;

@@ -16,8 +16,8 @@
  */
 package com.flexganttfx.demo.gantt;
 
-import com.flexganttfx.demo.DemoBase;
 import com.flexganttfx.demo.DemoActivity;
+import com.flexganttfx.demo.DemoBase;
 import com.flexganttfx.demo.DemoRow;
 import com.flexganttfx.model.ActivityRef;
 import com.flexganttfx.model.Layer;
@@ -53,7 +53,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;

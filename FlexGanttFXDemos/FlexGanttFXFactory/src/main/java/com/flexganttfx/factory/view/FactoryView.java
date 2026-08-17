@@ -18,7 +18,6 @@ package com.flexganttfx.factory.view;
 
 import com.flexganttfx.extras.GanttChartToolBar;
 import com.flexganttfx.factory.model.DataModel;
-import com.flexganttfx.factory.model.JobStatus;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;

@@ -19,16 +19,15 @@ package com.flexganttfx.view.graphics;
 import com.flexganttfx.model.ActivityRef;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.model.layout.AgendaLayout;
+import javafx.event.EventType;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.MouseEvent;
 
 import java.time.Instant;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-
-import javafx.event.EventType;
-import javafx.scene.input.InputEvent;
-import javafx.scene.input.MouseEvent;
 
 /**
  * Lasso events are being fired whenever the user uses the lasso tool to select

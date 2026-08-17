@@ -38,19 +38,6 @@ import com.flexganttfx.view.graphics.LassoEvent.LassoInfo;
 import com.flexganttfx.view.timeline.Dateline;
 import com.flexganttfx.view.timeline.Eventline;
 import com.flexganttfx.view.timeline.Timeline;
-
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.temporal.TemporalUnit;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.stream.Collectors;
-
 import impl.com.flexganttfx.skin.util.AgendaHelper;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
@@ -74,6 +61,18 @@ import javafx.scene.layout.Region;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Callback;
+
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.temporal.TemporalUnit;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 /**
  * Abstract base skin for graphics controls. It installs the shared overlays, listeners,

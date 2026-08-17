@@ -16,9 +16,9 @@
  */
 package com.flexganttfx.demo.gantt;
 
-import com.flexganttfx.demo.GanttChartDemoBase;
 import com.flexganttfx.demo.DemoActivity;
 import com.flexganttfx.demo.DemoRow;
+import com.flexganttfx.demo.GanttChartDemoBase;
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.view.GanttChart;
 import com.flexganttfx.view.GanttChartBase;
@@ -30,7 +30,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 
 import java.time.*;

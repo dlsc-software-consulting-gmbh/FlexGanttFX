@@ -16,8 +16,8 @@
  */
 package com.flexganttfx.demo.gantt;
 
-import com.flexganttfx.demo.GanttChartDemoBase;
 import com.flexganttfx.demo.DemoRow;
+import com.flexganttfx.demo.GanttChartDemoBase;
 import com.flexganttfx.view.GanttChart;
 import javafx.application.Application;
 import javafx.scene.Node;

@@ -18,9 +18,6 @@ package impl.com.flexganttfx.skin;
 
 import com.flexganttfx.model.Row;
 import com.flexganttfx.view.GanttChartLite;
-import javafx.beans.property.ListProperty;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 
 /**
  * Skin for {@link com.flexganttfx.view.GanttChartLite}.

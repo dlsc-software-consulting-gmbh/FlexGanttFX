@@ -16,11 +16,10 @@
  */
 package impl.com.flexganttfx.skin.treetable;
 
-import java.io.Serializable;
-
 import com.flexganttfx.model.Row;
-
 import javafx.scene.control.TreeTableRow;
+
+import java.io.Serializable;
 
 /**
  * Custom {@link javafx.scene.control.TreeTableRow} used by the Gantt chart tree table. It

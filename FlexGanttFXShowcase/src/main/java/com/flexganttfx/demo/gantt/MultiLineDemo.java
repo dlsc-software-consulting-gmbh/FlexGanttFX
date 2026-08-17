@@ -16,9 +16,9 @@
  */
 package com.flexganttfx.demo.gantt;
 
-import com.flexganttfx.demo.GanttChartDemoBase;
 import com.flexganttfx.demo.DemoActivity;
 import com.flexganttfx.demo.DemoRow;
+import com.flexganttfx.demo.GanttChartDemoBase;
 import com.flexganttfx.model.ActivityRef;
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.model.Layout;
@@ -38,7 +38,6 @@ import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;

@@ -16,10 +16,10 @@
  */
 package com.flexganttfx.model.activity;
 
-import static java.util.Objects.requireNonNull;
-
 import java.time.Duration;
 import java.time.Instant;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * The base implementation of a mutable activity. An activity is considered

@@ -16,12 +16,12 @@
  */
 package impl.com.flexganttfx.skin.util;
 
+import com.flexganttfx.model.Activity;
+import com.flexganttfx.model.util.ActivityHelper;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
-
-import com.flexganttfx.model.Activity;
-import com.flexganttfx.model.util.ActivityHelper;
 
 /**
  * A column is part of a {@link Cluster}. Each cluster can have one or more

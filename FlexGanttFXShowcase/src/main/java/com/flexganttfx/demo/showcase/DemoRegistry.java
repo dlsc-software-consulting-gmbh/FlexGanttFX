@@ -16,13 +16,13 @@
  */
 package com.flexganttfx.demo.showcase;
 
+import com.flexganttfx.demo.DemoBase;
 import com.flexganttfx.demo.container.*;
 import com.flexganttfx.demo.demos.*;
 import com.flexganttfx.demo.gantt.*;
 import com.flexganttfx.demo.layout.*;
 import com.flexganttfx.demo.model.*;
 import com.flexganttfx.demo.timeline.*;
-import com.flexganttfx.demo.DemoBase;
 import com.jpro.webapi.WebAPI;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
@@ -72,8 +72,7 @@ public class DemoRegistry {
                             SprintDemo::new,
                             F1RaceStrategyDemo::new,
                             EarthquakeDemo::new,
-                            NaturalEventsDemo::new,
-                            SpaceXLaunchesDemo::new
+                            NaturalEventsDemo::new
                     )
             ),
 

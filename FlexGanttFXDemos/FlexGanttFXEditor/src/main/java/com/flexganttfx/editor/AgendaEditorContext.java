@@ -16,19 +16,18 @@
  */
 package com.flexganttfx.editor;
 
-import java.time.Duration;
-import java.util.List;
-
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.LongProperty;
-import javafx.beans.property.ObjectProperty;
-
 import com.flexganttfx.model.ActivityRef;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.model.util.TimeInterval;
 import com.flexganttfx.view.graphics.GraphicsBase;
 import com.flexganttfx.view.graphics.ListViewGraphics;
 import com.flexganttfx.view.graphics.SingleRowGraphics;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.ObjectProperty;
+
+import java.time.Duration;
+import java.util.List;
 
 /**
  * The interface required for any control that wants to work together with the

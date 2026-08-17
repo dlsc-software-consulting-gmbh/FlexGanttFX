@@ -31,8 +31,6 @@ import javafx.geometry.Insets;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
 
-import java.util.Objects;
-
 /**
  * Base renderer for drawing activities as filled and stroked shapes.
  * It manages state-specific styling, safe graphics context handling, and returns the bounds of the rendered activity.

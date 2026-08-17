@@ -19,7 +19,6 @@ package com.flexganttfx.core;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-import java.util.logging.Logger;
 
 /**
  * Utility class providing general information about the framework, e.g. its version number.

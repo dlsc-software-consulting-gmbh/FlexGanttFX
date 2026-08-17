@@ -16,11 +16,11 @@
  */
 package impl.com.flexganttfx.skin.util;
 
-import static java.util.Objects.requireNonNull;
+import com.flexganttfx.model.Activity;
 
 import java.util.Map;
 
-import com.flexganttfx.model.Activity;
+import static java.util.Objects.requireNonNull;
 
 /**
  * The result object returned by the {@link Resolver} class after resolving

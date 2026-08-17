@@ -16,14 +16,11 @@
  */
 package com.flexganttfx.demo.timeline;
 
-import javafx.geometry.Insets;
+import com.flexganttfx.view.timeline.Timeline;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-
-import com.flexganttfx.view.timeline.Timeline;
 
 public class TimelineControlPanel extends HBox {
 

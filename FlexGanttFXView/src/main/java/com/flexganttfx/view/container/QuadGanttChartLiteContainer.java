@@ -16,8 +16,8 @@
  */
 package com.flexganttfx.view.container;
 
-import com.flexganttfx.view.GanttChartLite;
 import com.flexganttfx.view.GanttChartBase;
+import com.flexganttfx.view.GanttChartLite;
 import org.controlsfx.control.MasterDetailPane;
 
 /**

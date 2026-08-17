@@ -156,7 +156,7 @@ ZIP archive containing the required JAR files, demos, tutorials, API documentati
 <li>css - copies of the stylesheets used by FlexGanttFX (the originals are included in the JAR file)</li>
 <li>docs - the API documentation of FlexGanttFX</li>
 <li>ext - third-party JAR files required for running FlexGanttFX</li>
-<li>legal - the license agreements as PDF files</li>
+<li>legal - the license texts (AGPLv3 and the commercial license terms)</li>
 <li>lib - the FlexGanttFX libraries</li>
 <li>tutorial - files to get you started</li>
 </ul>
@@ -164,14 +164,18 @@ ZIP archive containing the required JAR files, demos, tutorials, API documentati
 <p>Assuming that you downloaded release 11.12.5 then add the following files (located in the distribution's lib folder) 
 to your classpath.</p>
 <ul>
-<li>flexganttfx-core-11.12.8.jar - contains various utility classes and the licensing support</li>
+<li>flexganttfx-core-11.12.8.jar - contains various utility classes used by the framework</li>
 <li>flexganttfx-model-11.12.8.jar - all classes related to the data model (activities, rows, repositories)</li>
 <li>flexganttfx-view-11.12.8.jar - the view classes, such as the actual Gantt Chart control</li>
 <li>flexganttfx-extras-11.12.8.jar - additional classes such as a toolbar and a statusbar</li>
 </ul>
 <p>Add the files located in the ext folder to your classpath.
-- controlsfx.jar - the distribution of the ControlsFX project
-- license4j.jar - code for supporting the licensing concepts</p>
+- controlsfx.jar - the distribution of the ControlsFX project</p>
+<h2 id="licensing">Licensing</h2>
+<p>FlexGanttFX is dual licensed. You may use it free of charge under the GNU Affero General Public License v3 if your
+own application is open source under the same license. For proprietary, closed-source or SaaS applications a commercial
+license is required. No license key has to be installed — see the <a href="../pages/licensing.html">licensing page</a>
+for details.</p>
 <h2 id="create-application-class">Create Application Class</h2>
 <p>The following listing shows the most basic setup required to launch a Gantt chart user interface.</p>
 <pre><code class="language-java">

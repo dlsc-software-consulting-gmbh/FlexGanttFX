@@ -16,14 +16,12 @@
  */
 package com.flexganttfx.demo.gantt;
 
-import com.flexganttfx.demo.GanttChartDemoBase;
 import com.flexganttfx.demo.DemoActivity;
 import com.flexganttfx.demo.DemoRow;
-import com.flexganttfx.extras.properties.view.GanttChartConfigurationView;
+import com.flexganttfx.demo.GanttChartDemoBase;
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.view.GanttChart;
 import javafx.application.Application;
-import javafx.scene.Node;
 
 import java.time.Duration;
 import java.time.Instant;

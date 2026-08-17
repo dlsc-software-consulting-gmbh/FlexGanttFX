@@ -18,8 +18,8 @@ package com.flexganttfx.demo.container;
 
 import com.flexganttfx.demo.DemoBase;
 import com.flexganttfx.demo.DemoRow;
-import com.flexganttfx.view.container.DualGanttChartLiteContainer;
 import com.flexganttfx.view.GanttChartLite;
+import com.flexganttfx.view.container.DualGanttChartLiteContainer;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;

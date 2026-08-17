@@ -16,9 +16,10 @@
  */
 package com.flexganttfx.editor;
 
-import java.util.List;
-import java.util.UUID;
-
+import com.flexganttfx.editor.AgendaEntryBase.Type;
+import com.flexganttfx.model.ActivityRef;
+import com.flexganttfx.view.graphics.GraphicsBase;
+import com.flexganttfx.view.graphics.GraphicsBase.ContextMenuParameter;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -26,10 +27,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Callback;
 
-import com.flexganttfx.editor.AgendaEntryBase.Type;
-import com.flexganttfx.model.ActivityRef;
-import com.flexganttfx.view.graphics.GraphicsBase;
-import com.flexganttfx.view.graphics.GraphicsBase.ContextMenuParameter;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * Just a prototype context menu. Not for production use.

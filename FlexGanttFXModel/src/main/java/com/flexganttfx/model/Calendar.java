@@ -16,10 +16,9 @@
  */
 package com.flexganttfx.model;
 
+import com.flexganttfx.model.calendar.CalendarActivity;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
-
-import com.flexganttfx.model.calendar.CalendarActivity;
 
 /**
  * A calendar is an extension of an activity repository with the additions of a

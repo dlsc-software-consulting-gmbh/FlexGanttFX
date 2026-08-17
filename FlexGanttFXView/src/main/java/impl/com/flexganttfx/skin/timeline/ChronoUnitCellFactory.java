@@ -16,9 +16,9 @@
  */
 package impl.com.flexganttfx.skin.timeline;
 
-import java.time.temporal.ChronoUnit;
-
 import javafx.util.Callback;
+
+import java.time.temporal.ChronoUnit;
 
 /**
  * Factory for creating {@link ChronoUnitDatelineCell} instances. It binds a dateline scale to

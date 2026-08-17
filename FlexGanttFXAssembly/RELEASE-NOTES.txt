@@ -1,8 +1,13 @@
 ----------------------------------------------------------------
-Release: xxx, Date: yyy
+Release: 12.0.0, Date: August 17th 2026 (Dual License Release)
 ----------------------------------------------------------------
 
+** Removed the modules FlexGanttProject and FlexGanttICal and FlexGanttExperimental.
+** Removed requirement for setting a license key. Removed dependency to license4j.
+** Renamed all samples from "HelloXYZ" to "XYZDemo".
+** Simplified the class hierarchy for samples / demos.
 ** Support for AtlantaFX theming
+** Organized / cleaned up all imports in the source code.
 ** Added new stylable property "-fx-text-fill" to GraphicsBase to ease styling for different themes
 ** Support for "content display" property in GanttChartToolBar to show smaller buttons
 ** New demos (space, sprint planning, project management)

@@ -16,10 +16,9 @@
  */
 package impl.com.flexganttfx.skin.container;
 
+import com.flexganttfx.view.container.MultiGanttChartContainerBase;
 import javafx.beans.binding.Bindings;
 import javafx.scene.control.SplitPane;
-
-import com.flexganttfx.view.container.MultiGanttChartContainerBase;
 
 /**
  * Skin for {@link com.flexganttfx.view.container.MultiGanttChartContainerBase}. It installs

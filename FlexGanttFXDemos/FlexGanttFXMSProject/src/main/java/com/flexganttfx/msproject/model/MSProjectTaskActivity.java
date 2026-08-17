@@ -16,9 +16,8 @@
  */
 package com.flexganttfx.msproject.model;
 
-import net.sf.mpxj.Task;
-
 import com.flexganttfx.model.activity.MutableCompletableActivityBase;
+import net.sf.mpxj.Task;
 
 public class MSProjectTaskActivity extends
 		MutableCompletableActivityBase<MSProjectTaskRow> {

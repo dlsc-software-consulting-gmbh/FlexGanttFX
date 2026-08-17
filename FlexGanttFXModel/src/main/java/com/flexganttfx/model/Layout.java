@@ -18,7 +18,6 @@ package com.flexganttfx.model;
 
 import com.flexganttfx.model.layout.AgendaLayout;
 import com.flexganttfx.model.layout.ChartLayout;
-
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 

@@ -16,14 +16,12 @@
  */
 package com.flexganttfx.editor;
 
-import static com.flexganttfx.editor.AgendaEntry.PushDirection.DOWN;
-import static com.flexganttfx.editor.AgendaEntry.PushDirection.NONE;
-import static com.flexganttfx.editor.AgendaEntry.PushDirection.UP;
-import static com.flexganttfx.view.graphics.ActivityEvent.END_TIME_CHANGE_FINISHED;
-import static com.flexganttfx.view.graphics.ActivityEvent.HORIZONTAL_DRAG_FINISHED;
-import static com.flexganttfx.view.graphics.ActivityEvent.START_TIME_CHANGE_FINISHED;
-import static java.time.temporal.ChronoUnit.DAYS;
-import static java.util.Objects.requireNonNull;
+import com.flexganttfx.editor.AgendaEntry.PushDirection;
+import com.flexganttfx.model.ActivityRef;
+import com.flexganttfx.model.Layer;
+import com.flexganttfx.model.Row;
+import com.flexganttfx.model.repository.MutableActivityRepository;
+import com.flexganttfx.model.util.ActivityHelper;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -39,12 +37,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.flexganttfx.editor.AgendaEntry.PushDirection;
-import com.flexganttfx.model.ActivityRef;
-import com.flexganttfx.model.Layer;
-import com.flexganttfx.model.Row;
-import com.flexganttfx.model.repository.MutableActivityRepository;
-import com.flexganttfx.model.util.ActivityHelper;
+import static com.flexganttfx.editor.AgendaEntry.PushDirection.DOWN;
+import static com.flexganttfx.editor.AgendaEntry.PushDirection.NONE;
+import static com.flexganttfx.editor.AgendaEntry.PushDirection.UP;
+import static com.flexganttfx.view.graphics.ActivityEvent.END_TIME_CHANGE_FINISHED;
+import static com.flexganttfx.view.graphics.ActivityEvent.HORIZONTAL_DRAG_FINISHED;
+import static com.flexganttfx.view.graphics.ActivityEvent.START_TIME_CHANGE_FINISHED;
+import static java.time.temporal.ChronoUnit.DAYS;
+import static java.util.Objects.requireNonNull;
 
 /**
  * The conflict resolver is responsible for fixing an agenda schedule while the

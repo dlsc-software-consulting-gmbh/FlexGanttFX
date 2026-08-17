@@ -16,9 +16,8 @@
  */
 package com.flexganttfx.demo.gantt;
 
-import com.flexganttfx.demo.GanttChartDemoBase;
 import com.flexganttfx.demo.DemoRow;
-import com.flexganttfx.extras.properties.view.GanttChartConfigurationView;
+import com.flexganttfx.demo.GanttChartDemoBase;
 import com.flexganttfx.model.ActivityRef;
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.model.Row;
@@ -41,7 +40,6 @@ import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.VPos;
-import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.paint.Color;

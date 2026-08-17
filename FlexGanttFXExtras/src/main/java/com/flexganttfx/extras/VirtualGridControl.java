@@ -16,12 +16,9 @@
  */
 package com.flexganttfx.extras;
 
-import static java.util.Objects.requireNonNull;
-
 import com.flexganttfx.extras.util.Messages;
 import com.flexganttfx.model.dateline.VirtualGrid;
 import com.flexganttfx.view.util.FlexGanttFXControl;
-
 import impl.com.flexganttfx.extras.skin.VirtualGridControlSkin;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
@@ -32,6 +29,8 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Skin;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * A control used to select a {@link VirtualGrid} from a list of possible

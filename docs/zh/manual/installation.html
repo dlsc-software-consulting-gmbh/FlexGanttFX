@@ -154,21 +154,24 @@
 <li>css - FlexGanttFX 使用的样式表副本（原始文件包含在 JAR 文件中）</li>
 <li>docs - FlexGanttFX 的 API 文档</li>
 <li>ext - 运行 FlexGanttFX 所需的第三方 JAR 文件</li>
-<li>legal - PDF 格式的许可协议</li>
+<li>legal - 许可文本（AGPLv3 与商业许可条款）</li>
 <li>lib - FlexGanttFX 库</li>
 <li>tutorial - 帮助你入门的文件</li>
 </ul>
 <h2 id="add-jar-files-to-classpath">将 JAR 文件添加到 classpath</h2>
 <p>假设你下载的是 11.12.5 版本，请将以下文件（位于发行包的 lib 文件夹中）添加到你的 classpath。</p>
 <ul>
-<li>flexganttfx-core-11.12.8.jar - 包含各种工具类和许可支持</li>
+<li>flexganttfx-core-11.12.8.jar - 包含框架使用的各种工具类</li>
 <li>flexganttfx-model-11.12.8.jar - 与数据模型相关的所有类（活动、行、仓库）</li>
 <li>flexganttfx-view-11.12.8.jar - 视图类，例如实际的 Gantt 图表控件</li>
 <li>flexganttfx-extras-11.12.8.jar - 其他类，例如工具栏和状态栏</li>
 </ul>
 <p>将 ext 文件夹中的文件添加到你的 classpath。
 - controlsfx.jar - ControlsFX 项目的发行包
-- license4j.jar - 用于支持许可概念的代码</p>
+</p>
+<h2 id="licensing">许可</h2>
+<p>FlexGanttFX 采用双重许可。如果你自己的应用以相同许可开源，则可以免费在 GNU Affero 通用公共许可证 v3 下使用它。
+对于专有、闭源或 SaaS 应用，则需要商业许可证。无需安装许可证密钥 — 详情请参阅<a href="../pages/licensing.html">许可页面</a>。</p>
 <h2 id="create-application-class">创建应用程序类</h2>
 <p>以下代码清单展示了启动 Gantt 图表用户界面所需的最基本设置。</p>
 <pre><code class="language-java">

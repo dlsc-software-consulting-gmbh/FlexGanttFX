@@ -22,7 +22,6 @@ import com.flexganttfx.model.Layer;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.model.activity.CompletableActivityBase;
 import com.flexganttfx.view.GanttChart;
-import javafx.application.Platform;
 
 import java.time.Instant;
 import java.time.ZoneId;

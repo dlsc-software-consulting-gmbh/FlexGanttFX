@@ -16,7 +16,21 @@
  */
 package com.flexganttfx.editor;
 
-import static com.flexganttfx.model.layout.AgendaLayout.LayoutStrategy.OVERLAPPING;
+import com.flexganttfx.model.ActivityRef;
+import com.flexganttfx.model.dateline.VirtualGrid;
+import com.flexganttfx.model.layout.AgendaLayout;
+import com.flexganttfx.model.util.TimeInterval;
+import com.flexganttfx.view.graphics.GraphicsBase;
+import com.flexganttfx.view.graphics.SingleRowGraphics;
+import com.flexganttfx.view.timeline.Dateline;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.scene.control.Control;
+import javafx.scene.control.Skin;
 
 import java.time.DayOfWeek;
 import java.time.Duration;
@@ -29,22 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.LongProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleLongProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.control.Control;
-import javafx.scene.control.Skin;
-
-import com.flexganttfx.model.ActivityRef;
-import com.flexganttfx.model.dateline.VirtualGrid;
-import com.flexganttfx.model.layout.AgendaLayout;
-import com.flexganttfx.model.util.TimeInterval;
-import com.flexganttfx.view.graphics.GraphicsBase;
-import com.flexganttfx.view.graphics.SingleRowGraphics;
-import com.flexganttfx.view.timeline.Dateline;
+import static com.flexganttfx.model.layout.AgendaLayout.LayoutStrategy.OVERLAPPING;
 
 /**
  * The agenda editor is a custom control for creating agendas. The editor

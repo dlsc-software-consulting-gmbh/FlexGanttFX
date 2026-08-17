@@ -16,8 +16,8 @@
  */
 package com.flexganttfx.demo.demos;
 
-import com.flexganttfx.demo.DemoBase;
 import com.flexganttfx.airport.view.AirportView;
+import com.flexganttfx.demo.DemoBase;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.stage.Stage;

@@ -16,8 +16,8 @@
  */
 package com.flexganttfx.view.container;
 
-import com.flexganttfx.view.util.FlexGanttFXControl;
 import com.flexganttfx.view.GanttChartBase;
+import com.flexganttfx.view.util.FlexGanttFXControl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

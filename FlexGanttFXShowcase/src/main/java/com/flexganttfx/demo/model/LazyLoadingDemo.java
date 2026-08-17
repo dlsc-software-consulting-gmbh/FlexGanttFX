@@ -16,8 +16,8 @@
  */
 package com.flexganttfx.demo.model;
 
-import com.flexganttfx.demo.GanttChartDemoBase;
 import com.flexganttfx.demo.DemoActivity;
+import com.flexganttfx.demo.GanttChartDemoBase;
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.model.repository.MutableActivityRepositoryBase;
@@ -37,7 +37,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 
 import java.io.FileNotFoundException;
 import java.time.Instant;

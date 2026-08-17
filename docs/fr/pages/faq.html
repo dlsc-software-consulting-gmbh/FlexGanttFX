@@ -138,7 +138,7 @@
           <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
         </div>
         <div class="faq-answer">
-          Non, FlexGanttFX est un logiciel commercial. Les entreprises peuvent acquérir des licences afin de l’utiliser et de le déployer comme partie intégrante de leurs solutions.
+          En partie. FlexGanttFX est sous double licence. Il est disponible en open source sous la <b>GNU Affero General Public License v3</b>, que vous pouvez utiliser gratuitement tant que votre propre application est elle aussi publiée sous licence AGPLv3. Les entreprises qui développent des solutions propriétaires ou à code fermé acquièrent une <b>licence commerciale</b>. Voir la <a href="licensing.html"><u>page des licences</u></a> pour plus de détails.
         </div>
       </div>
 
@@ -168,7 +168,7 @@
           <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
         </div>
         <div class="faq-answer">
-          La distribution FlexGanttFX inclut un dossier lib. Les quatre fichiers JAR qu’il contient doivent être ajoutés au classpath ou au module path de votre application. De plus, un dossier nommé « ext » contient deux fichiers JAR également requis. L’un correspond à la version de ControlsFX nécessaire à FlexGanttFX, l’autre sert à prendre en charge les clés de licence.
+          La distribution FlexGanttFX inclut un dossier lib. Les quatre fichiers JAR qu’il contient doivent être ajoutés au classpath ou au module path de votre application. De plus, un dossier nommé « ext » contient la version de ControlsFX nécessaire à FlexGanttFX.
         </div>
       </div>
 
@@ -306,13 +306,23 @@
           <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
         </div>
         <div class="faq-answer">
-          Nous proposons deux types de licences : une licence développeur et une licence runtime. La licence <b><i>développeur</i></b> devient nécessaire une fois la période d’essai de 30 jours expirée. Elle vous permet de continuer à utiliser le produit, mais un message dans la console indique qu’il ne peut être utilisé qu’à des fins de développement. Lorsque votre produit est prêt à être publié, vous devez utiliser une licence <b><i>runtime</i></b>. Cela s’applique que la publication soit interne ou destinée à un tiers.
+          FlexGanttFX est sous double licence. Vous pouvez l’utiliser sous la <b><i>GNU Affero General Public License v3</i></b> — gratuitement, mais votre application doit elle aussi être open source sous licence AGPLv3 et son code source doit être mis à disposition de tous les utilisateurs, y compris ceux qui y accèdent uniquement via un réseau — ou acquérir une <b><i>licence commerciale</i></b>, qui vous libère de ces obligations de copyleft et vous permet de livrer des applications propriétaires, à code fermé et SaaS.
         </div>
       </div>
 
       <div class="faq-item">
         <div class="faq-question">
-          Où puis-je acheter une licence ?
+          Dois-je publier mon application en open source ?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </div>
+        <div class="faq-answer">
+          Uniquement si vous utilisez FlexGanttFX sous licence AGPLv3. L’AGPL exige que l’intégralité du code source de votre application soit mise à la disposition de ses utilisateurs — y compris lorsque l’application n’est accessible qu’à travers un réseau. Si vous ne pouvez pas ou ne souhaitez pas le faire, la licence commerciale est le bon choix.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Où puis-je acheter une licence commerciale ?
           <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
         </div>
         <div class="faq-answer">
@@ -322,11 +332,11 @@
 
       <div class="faq-item">
         <div class="faq-question">
-          Comment définir la clé de licence ?
+          Ai-je besoin d’une clé de licence ?
           <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
         </div>
         <div class="faq-answer">
-          Vous devez appeler <code>FlexGanttFX.setLicenseKey("...")</code> avant de créer tout contrôle FlexGanttFX. Idéalement, appelez cette méthode immédiatement dans la méthode <code>main()</code> de votre application. Vous pouvez également transmettre la clé comme propriété système nommée <code>flexganttfx.license</code>.
+          Non. FlexGanttFX n’utilise plus de clés de licence ni de période d’essai. Ajoutez simplement les bibliothèques à votre projet et commencez. En utilisant FlexGanttFX, vous acceptez les conditions de la licence applicable à votre cas d’usage.
         </div>
       </div>
 

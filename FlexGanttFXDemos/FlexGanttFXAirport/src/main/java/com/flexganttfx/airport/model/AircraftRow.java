@@ -18,7 +18,6 @@ package com.flexganttfx.airport.model;
 
 import com.flexganttfx.model.Activity;
 import com.flexganttfx.model.Row;
-import com.flexganttfx.model.repository.ListActivityRepository;
 
 /**
  * Represents an individual aircraft in the FRA fleet. Acts as both the root

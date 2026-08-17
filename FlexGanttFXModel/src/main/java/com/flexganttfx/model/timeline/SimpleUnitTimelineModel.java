@@ -16,9 +16,9 @@
  */
 package com.flexganttfx.model.timeline;
 
-import java.time.Instant;
-
 import com.flexganttfx.model.util.SimpleUnit;
+
+import java.time.Instant;
 
 /**
  * A specialized timeline model for the {@link SimpleUnit} temporal unit.

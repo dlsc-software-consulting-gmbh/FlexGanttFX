@@ -16,6 +16,7 @@
  */
 package com.flexganttfx.view.graphics;
 
+import com.flexganttfx.model.Row;
 import impl.com.flexganttfx.skin.graphics.RowPane;
 import impl.com.flexganttfx.skin.graphics.VBoxGraphicsSkin;
 import javafx.beans.property.ObjectProperty;
@@ -24,8 +25,6 @@ import javafx.scene.control.Skin;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
-
-import com.flexganttfx.model.Row;
 
 import java.util.ArrayList;
 import java.util.List;
