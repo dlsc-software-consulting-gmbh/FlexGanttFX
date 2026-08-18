@@ -57,6 +57,8 @@ jobs:
 
       # Builds the whole reactor but publishes only the four library modules. The demo,
       # showcase, tutorial and assembly modules skip publishing via their own POMs.
+      # The build runs the TestFX based UI tests, which need an X display, hence
+      # xvfb-run. Xvfb is pre-installed on the GitHub-hosted Ubuntu runners.
       - name: 'Release to Maven Central'
         env:
           MAVEN_USERNAME: ${{ secrets.PUBLISHER_PORTAL_USERNAME }}
@@ -64,7 +66,7 @@ jobs:
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
           export GPG_TTY=$(tty)
-          ./mvnw --no-transfer-progress -B --file pom.xml \
+          xvfb-run -a ./mvnw --no-transfer-progress -B --file pom.xml \
             -Dmaven.site.skip=true -Drelease=true deploy -s ./settings.xml
 
       # Creates the tag, the changelog and the GitHub release and attaches the
