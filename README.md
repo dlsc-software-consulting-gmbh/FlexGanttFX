@@ -20,7 +20,7 @@ Documentation, screenshots, and product information are available at [flexganttf
 
 ## Coordinates
 
-FlexGanttFX publishing to Maven Central is being set up. These are the coordinates for the upcoming `12.0.0` release.
+FlexGanttFX publishing to Maven Central is being set up. These are the coordinates for the upcoming `12.1.0` release.
 
 ### Maven
 
@@ -28,7 +28,7 @@ FlexGanttFX publishing to Maven Central is being set up. These are the coordinat
 <dependency>
     <groupId>com.flexganttfx</groupId>
     <artifactId>view</artifactId>
-    <version>12.0.0</version>
+    <version>12.1.0</version>
 </dependency>
 ```
 
@@ -38,15 +38,15 @@ Add `extras` if you need the optional helper controls:
 <dependency>
     <groupId>com.flexganttfx</groupId>
     <artifactId>extras</artifactId>
-    <version>12.0.0</version>
+    <version>12.1.0</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```groovy
-implementation "com.flexganttfx:view:12.0.0"
-implementation "com.flexganttfx:extras:12.0.0" // optional
+implementation "com.flexganttfx:view:12.1.0"
+implementation "com.flexganttfx:extras:12.1.0" // optional
 ```
 
 The lower-level artifacts are `core`, `model`, `view`, and `extras`.
