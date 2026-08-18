@@ -42,8 +42,8 @@ These dependencies are declared outside the four published library modules. They
 
 | Area | Dependency | Version declared in POM | License | Notes |
 | --- | --- | --- | --- | --- |
-| Tutorials | FlexGanttFX `view` | `12.1.0` | FlexGanttFX dual license | Internal module dependency. |
-| Assembly | FlexGanttFX demo/tool modules | `12.1.0` | FlexGanttFX dual license | Packaging dependencies only. |
+| Tutorials | FlexGanttFX `view` | `12.2.0` | FlexGanttFX dual license | Internal module dependency. |
+| Assembly | FlexGanttFX demo/tool modules | `12.2.0` | FlexGanttFX dual license | Packaging dependencies only. |
 | Demos / Showcase | `io.github.mkpaz:atlantafx-base` | `2.1.0` | MIT License | Demo styling. |
 | Showcase | `com.dlsc.atlantafx:themes` | `1.9.0` | MIT License | Showcase styling. |
 | Showcase | `fr.brouillard.oss:cssfx` | `11.5.1` | MIT License | CSS hot-reload tooling. |
