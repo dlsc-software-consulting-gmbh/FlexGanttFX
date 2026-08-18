@@ -8,26 +8,51 @@
     <packaging>pom</packaging>
     <name>FlexGanttFX</name>
     <description>The parent project for the various FlexGanttFX modules.</description>
+    <url>https://www.flexganttfx.com</url>
+
     <organization>
         <name>DLSC Software &amp; Consulting GmbH</name>
+        <url>https://www.dlsc.com</url>
     </organization>
+
+    <inceptionYear>2014</inceptionYear>
+
+    <licenses>
+        <license>
+            <name>GNU Affero General Public License v3.0</name>
+            <url>https://www.gnu.org/licenses/agpl-3.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>
+                FlexGanttFX is dual-licensed. It may be used under the terms of the GNU Affero General
+                Public License v3.0 for open source projects. Use in proprietary or commercial
+                applications requires a commercial license from DLSC Software &amp; Consulting GmbH,
+                see https://www.flexganttfx.com/pages/licensing.html.
+            </comments>
+        </license>
+    </licenses>
 
     <developers>
         <developer>
+            <id>dlemmermann</id>
             <name>Dirk Lemmermann</name>
             <email>dlemmermann@gmail.com</email>
             <organization>DLSC Software &amp; Consulting GmbH</organization>
-            <url>http://www.dlsc.com</url>
+            <organizationUrl>https://www.dlsc.com</organizationUrl>
+            <url>https://www.dlsc.com</url>
         </developer>
     </developers>
 
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>GitHub Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/senapt/maven-repository</url>
-        </repository>
-    </distributionManagement>
+    <scm>
+        <connection>scm:git:https://github.com/dlemmermann/FlexGanttFX.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/dlemmermann/FlexGanttFX.git</developerConnection>
+        <url>https://github.com/dlemmermann/FlexGanttFX</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/dlemmermann/FlexGanttFX/issues</url>
+    </issueManagement>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -69,11 +94,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>3.5.6</version>
                 <configuration>
-                    <forkCount>0</forkCount>
+                    <forkCount>1</forkCount>
                     <argLine>
                         --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
+                        --add-opens javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
                     </argLine>
                 </configuration>
             </plugin>
@@ -168,8 +194,81 @@
                 </executions>
             </plugin>
 
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.8.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <autoPublish>false</autoPublish>
+                    <waitUntil>validated</waitUntil>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
+
+    <profiles>
+        <!-- Activate with -Prelease when deploying to Maven Central. Maven Central
+             requires a sources JAR, a Javadoc JAR and a GPG signature for every
+             published artifact. These are kept out of the default build so that a
+             plain "mvn install" stays fast and needs no GPG setup. -->
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.3.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.2.7</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <configuration>
+                                    <gpgArguments>
+                                        <arg>--pinentry-mode</arg>
+                                        <arg>loopback</arg>
+                                    </gpgArguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <dependencyManagement>
         <dependencies>
@@ -266,6 +365,15 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Without the engine on the test classpath no JUnit 5 test is ever
+             discovered and Surefire silently reports "Tests run: 0". -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.8.1</version>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-junit5</artifactId>
@@ -295,6 +403,13 @@
         </dependency>
 
         <dependency>
+            <groupId>org.testfx</groupId>
+            <artifactId>openjfx-monocle</artifactId>
+            <version>17.0.10</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>de.sandec</groupId>
             <artifactId>JMemoryBuddy</artifactId>
             <version>0.5.5</version>
@@ -305,22 +420,11 @@
 
     <pluginRepositories>
         <pluginRepository>
-            <id>jpro - sandec repository</id>
-            <url>https://sandec.jfrog.io/artifactory/repo</url>
-        </pluginRepository>
-        <pluginRepository>
             <id>gluon-releases</id>
             <url>
                 https://nexus.gluonhq.com/nexus/content/repositories/releases/
             </url>
         </pluginRepository>
     </pluginRepositories>
-
-    <repositories>
-        <repository>
-            <id>jpro - sandec repository</id>
-            <url>https://sandec.jfrog.io/artifactory/repo</url>
-        </repository>
-    </repositories>
 
 </project>

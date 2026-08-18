@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions and usage discussions
+    url: https://github.com/dlemmermann/FlexGanttFX/discussions
+    about: Please use GitHub Discussions for how-to questions and general usage help.
+  - name: FlexGanttFX website and documentation
+    url: https://www.flexganttfx.com
+    about: Read the product documentation, tutorials, and examples on the FlexGanttFX website.
+  - name: Commercial licensing
+    url: https://www.flexganttfx.com/pages/licensing.html
+    about: For commercial licensing questions, see the licensing page or contact dlemmermann@gmail.com.

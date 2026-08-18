@@ -17,12 +17,34 @@
     <description>Parent module for the FlexGanttFX demo applications.</description>
 
     <properties>
+        <maven.deploy.skip>true</maven.deploy.skip>
+        <gpg.skip>true</gpg.skip>
+        <maven.source.skip>true</maven.source.skip>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
         <java.version>25</java.version>
         <maven.compiler.source>25</maven.compiler.source>
         <maven.compiler.target>25</maven.compiler.target>
         <maven.compiler.release>25</maven.compiler.release>
         <javafx.version>25</javafx.version>
     </properties>
+
+    <!-- The demos use JPro and Gluon artifacts which are not available on Maven
+         Central. These repositories are deliberately declared here and not in the
+         root POM so that the published FlexGanttFX libraries do not force these
+         repositories onto their consumers. -->
+    <repositories>
+        <repository>
+            <id>jpro-sandec</id>
+            <url>https://sandec.jfrog.io/artifactory/repo</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>jpro-sandec</id>
+            <url>https://sandec.jfrog.io/artifactory/repo</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <modules>
         <module>FlexGanttFXAirport</module>

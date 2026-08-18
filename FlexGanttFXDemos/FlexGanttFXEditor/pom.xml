@@ -19,11 +19,6 @@
 
 	<dependencies>
 
-		<dependency>
-			<groupId>com.flexganttfx</groupId>
-			<artifactId>experimental</artifactId>
-			<version>11.13.19</version>
-		</dependency>
 
 		<dependency>
 			<groupId>com.flexganttfx</groupId>

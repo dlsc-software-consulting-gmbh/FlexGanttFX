@@ -5,6 +5,8 @@
 	<packaging>jar</packaging>
 
 	<name>FlexGanttFXCore</name>
+	<description>Core utilities and logging infrastructure shared by all FlexGanttFX modules.</description>
+	<url>https://www.flexganttfx.com</url>
 
 	<parent>
 		<groupId>com.flexganttfx</groupId>

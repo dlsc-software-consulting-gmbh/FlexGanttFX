@@ -1,0 +1,74 @@
+name: Bug report
+description: Report a reproducible FlexGanttFX bug
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting a bug. Please include a minimal reproducible example whenever possible.
+  - type: input
+    id: version
+    attributes:
+      label: FlexGanttFX version
+      placeholder: "11.13.19"
+    validations:
+      required: true
+  - type: input
+    id: java-version
+    attributes:
+      label: Java version
+      placeholder: "11.0.22"
+    validations:
+      required: true
+  - type: input
+    id: javafx-version
+    attributes:
+      label: JavaFX version
+      placeholder: "17.0.14"
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: "macOS 14, Windows 11, Ubuntu 24.04"
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+      description: What did you expect to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+      description: What happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: reproducer
+    attributes:
+      label: Minimal reproducible example
+      description: Paste a small self-contained code sample or link to a minimal repository.
+      render: java
+    validations:
+      required: true
+  - type: textarea
+    id: stack-trace
+    attributes:
+      label: Stack trace or logs
+      description: Paste any exception stack trace or relevant log output.
+      render: text
+    validations:
+      required: false
+  - type: textarea
+    id: extra
+    attributes:
+      label: Additional context
+      description: Screenshots, recordings, workarounds, or other details.
+    validations:
+      required: false

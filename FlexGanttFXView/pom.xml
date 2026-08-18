@@ -4,6 +4,7 @@
 	<artifactId>view</artifactId>
 	<name>FlexGanttFXView</name>
 	<description>A Gantt chart component for JavaFX.</description>
+	<url>https://www.flexganttfx.com</url>
 	<packaging>jar</packaging>
 	
 	<parent>
@@ -16,17 +17,6 @@
 	<properties>
 		<maven.javadoc.skip>false</maven.javadoc.skip>
 	</properties>
-
-	<repositories>
-		<repository>
-			<id>oss-sonatype</id>
-			<name>oss-sonatype</name>
-			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
 
 	<dependencies>
 

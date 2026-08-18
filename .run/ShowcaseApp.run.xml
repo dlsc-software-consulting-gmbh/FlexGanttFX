@@ -1,6 +1,5 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="ShowcaseApp" type="Application" factoryName="Application" nameIsGenerated="true">
-    <option name="ALTERNATIVE_JRE_PATH" value="zulu-26 (2)" />
     <option name="MAIN_CLASS_NAME" value="com.flexganttfx.demo.showcase.ShowcaseApp" />
     <module name="showcase" />
     <option name="VM_PARAMETERS" value="-Djavafx.enablePreview=true" />

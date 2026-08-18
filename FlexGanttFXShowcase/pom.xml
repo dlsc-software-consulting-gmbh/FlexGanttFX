@@ -15,6 +15,8 @@
 
 	<properties>
 		<maven.deploy.skip>true</maven.deploy.skip>
+		<gpg.skip>true</gpg.skip>
+		<maven.source.skip>true</maven.source.skip>
 		<maven.javadoc.skip>true</maven.javadoc.skip>
 		<java.version>25</java.version>
 		<maven.compiler.source>25</maven.compiler.source>
@@ -22,6 +24,23 @@
 		<maven.compiler.release>25</maven.compiler.release>
 		<javafx.version>25</javafx.version>
 	</properties>
+
+	<!-- The showcase uses JPro artifacts which are not available on Maven Central.
+	     This repository is deliberately declared here and not in the root POM so
+	     that the published FlexGanttFX libraries do not force it onto consumers. -->
+	<repositories>
+		<repository>
+			<id>jpro-sandec</id>
+			<url>https://sandec.jfrog.io/artifactory/repo</url>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>jpro-sandec</id>
+			<url>https://sandec.jfrog.io/artifactory/repo</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<dependencies>
 
@@ -61,11 +80,6 @@
 			<version>${project.parent.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.flexganttfx</groupId>
-			<artifactId>experimental</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
 
 		<dependency>
 			<groupId>com.flexganttfx</groupId>

@@ -4,6 +4,8 @@
 	<artifactId>model</artifactId>
 	<packaging>jar</packaging>
 	<name>FlexGanttFXModel</name>
+	<description>The data model of FlexGanttFX: rows, activities, layers, links, repositories and layouts.</description>
+	<url>https://www.flexganttfx.com</url>
 
 	<parent>
 		<groupId>com.flexganttfx</groupId>

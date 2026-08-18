@@ -4,6 +4,7 @@
 	<artifactId>extras</artifactId>
 	<name>FlexGanttFXExtras</name>
 	<description>Utility controls for the Gantt chart control.</description>
+	<url>https://www.flexganttfx.com</url>
 	<packaging>jar</packaging>
 	
 	<parent>

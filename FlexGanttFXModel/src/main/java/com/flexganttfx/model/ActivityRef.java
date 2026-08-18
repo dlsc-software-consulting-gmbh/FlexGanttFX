@@ -5,12 +5,12 @@
  *
  * 1. Commercial Use
  *    Use of FlexGanttFX in proprietary or commercial applications requires the purchase of a commercial license.
- *    The applicable terms and conditions can be found on the product's homepage at <https://www.flexganttfx.com/pages/licensing/>.
+ *    The applicable terms and conditions can be found on the product's homepage at <https://www.flexganttfx.com/pages/licensing.html>.
  *
  * 2. Open Source Use
  *    For use in open source projects, FlexGanttFX is made available under the **GNU AFFERO GENERAL PUBLIC LICENSE V3**.
  *    The full text of the license is available at:
- *    <https://github.com/dlemmermann/FlexGanttFX/blob/master/LICENSE>
+ *    <https://www.gnu.org/licenses/agpl-3.0.html>
  *
  * By using FlexGanttFX, the licensee accepts and agrees to the applicable licensing terms.
  */
@@ -44,10 +44,11 @@ public final class ActivityRef<A extends Activity> {
 	 *            the model layer where the activity is located (optional)
 	 * @param activity
 	 *            the referenced activity
-	 * @throws NullPointerException if the given activity is {@code null}
+	 * @throws NullPointerException if the given row or activity is {@code null}
 	 * @since 1.0
 	 */
 	public ActivityRef(Row<?, ?, A> row, Layer layer, A activity) {
+		requireNonNull(row);
 		requireNonNull(activity);
 
 		this.row = row;

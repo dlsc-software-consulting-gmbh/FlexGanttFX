@@ -5,12 +5,12 @@
  *
  * 1. Commercial Use
  *    Use of FlexGanttFX in proprietary or commercial applications requires the purchase of a commercial license.
- *    The applicable terms and conditions can be found on the product's homepage at <https://www.flexganttfx.com/pages/licensing/>.
+ *    The applicable terms and conditions can be found on the product's homepage at <https://www.flexganttfx.com/pages/licensing.html>.
  *
  * 2. Open Source Use
  *    For use in open source projects, FlexGanttFX is made available under the **GNU AFFERO GENERAL PUBLIC LICENSE V3**.
  *    The full text of the license is available at:
- *    <https://github.com/dlemmermann/FlexGanttFX/blob/master/LICENSE>
+ *    <https://www.gnu.org/licenses/agpl-3.0.html>
  *
  * By using FlexGanttFX, the licensee accepts and agrees to the applicable licensing terms.
  */
@@ -20,6 +20,7 @@ import com.flexganttfx.model.Activity;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.view.GanttChart;
 import de.sandec.jmemorybuddy.JMemoryBuddy;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -51,6 +52,7 @@ public class MemoryTest extends ApplicationTest {
                 FxToolkit.setupScene(() -> new Scene(label));
                 FxToolkit.showStage();
                 FxToolkit.hideStage();
+                FxToolkit.setupScene(() -> new Scene(new Group()));
                 memoryTestAPI.assertCollectable(label);
             } catch (TimeoutException e) {
                 e.printStackTrace();

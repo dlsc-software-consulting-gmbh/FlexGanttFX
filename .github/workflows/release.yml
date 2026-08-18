@@ -9,6 +9,8 @@ jobs:
   release:
     name: Create Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: 'Checkout code'
         uses: actions/checkout@v6
@@ -23,47 +25,54 @@ jobs:
         shell: bash
         run: |
           version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-          echo ::set-output name=VERSION::$(echo "$version")
-
-      - name: 'Cache Maven packages'
-        uses: actions/cache@v5
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
+          echo "VERSION=$version" >> "$GITHUB_OUTPUT"
 
       - name: 'Build with Maven'
         run: mvn -B install --file pom.xml
 
       - name: 'Create Release'
-        id: create_release
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          name: Release ${{ github.ref_name }}
           draft: false
           prerelease: false
+          files: |
+            ./FlexGanttFXAssembly/target/flexganttfx-${{ steps.vars.outputs.VERSION }}-bin.zip
+            ./FlexGanttFXAssembly/target/flexganttfx-${{ steps.vars.outputs.VERSION }}-src.zip
 
-      - name: 'Upload Binaries'
-        id: upload-zip-binaries
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  deploy:
+    name: Deploy to Maven Central
+    runs-on: ubuntu-latest
+    # Required repository secrets:
+    # - MAVEN_USERNAME
+    # - MAVEN_CENTRAL_TOKEN
+    # - MAVEN_GPG_PASSPHRASE
+    # - GPG_PRIVATE_KEY
+    steps:
+      - name: 'Checkout code'
+        uses: actions/checkout@v6
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./FlexGanttFXAssembly/target/flexganttfx-${{ steps.version.outputs.VERSION }}-bin.zip
-          asset_name: flexganttfx-${{ steps.version.outputs.VERSION }}-bin.zip
-          asset_content_type: application/zip
+          fetch-depth: 0
 
-      - name: 'Upload Source Code'
-        id: upload-zip-source-code
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup Java
+        uses: actions/setup-java@v5
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./FlexGanttFXAssembly/target/flexganttfx-${{ steps.version.outputs.VERSION }}-src.zip
-          asset_name: flexganttfx-${{ steps.version.outputs.VERSION }}-src.zip
-          asset_content_type: application/zip
+          distribution: 'zulu'
+          java-version: 25
+          cache: maven
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
+
+      # Only the four library modules are published. The demos, showcase,
+      # tutorials and assembly modules are excluded because they are not part of
+      # the release and pull in artifacts that are not on Maven Central.
+      - name: Deploy with Maven
+        run: >
+          mvn -B -Prelease deploy -s settings.xml --file pom.xml
+          -pl FlexGanttFXCore,FlexGanttFXModel,FlexGanttFXView,FlexGanttFXExtras -am
+        env:
+          MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+          MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}

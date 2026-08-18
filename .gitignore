@@ -1,4 +1,6 @@
 **/target/
+**/.DS_Store
+**/logs/
 /FlexGanttFXMSProject/logs/
 tmp/
 /docs-old/_site/*

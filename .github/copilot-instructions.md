@@ -13,9 +13,9 @@ mvn test -pl FlexGanttFXModel -Dtest=IntervalTreeActivityRepositoryTest#myMethod
 mvn license:format                                   # Apply/fix license headers on all .java files
 ```
 
-- Java 11, JavaFX 19.0.2.1
-- CI uses `mvn -B install` on JDK 11 (see `.github/workflows/build.yml`)
-- Test stack: JUnit 5, TestFX 4.0.16-alpha, Mockito, Hamcrest, JMemoryBuddy
+- Libraries target Java 11 with JavaFX 17.0.14; the demo and showcase modules target Java 25
+- A full build therefore requires JDK 25; CI uses `mvn -B install` on JDK 25 (see `.github/workflows/build.yml`)
+- Test stack: JUnit 5 (api, params **and engine** — without the engine Surefire runs zero tests), TestFX, Mockito, Hamcrest, JMemoryBuddy
 
 ## Module Dependency Order
 
@@ -26,7 +26,7 @@ FlexGanttFXCore      (licensing, logging — no FX deps)
               └── FlexGanttFXExtras  (statusbar, toolbar, radar, layers panel)
 ```
 
-Modules in this repo beyond the four above are either demos/tutorials (`FlexGanttFXSampler`, `FlexGanttFXTutorials`, `FlexGanttFXEmirates`, `FlexGanttFXCovid`), integrations (`FlexGanttFXMSProject`, `FlexGanttFXiCal`, `FlexGanttFXProject`), tooling (`FlexGanttFXEditor`, `FlexGanttFXExperimental`, `FlexGanttFXLicensing`), or distribution (`FlexGanttFXAssembly`).
+Modules in this repo beyond the four above are either the demo applications under `FlexGanttFXDemos` (Airport, Earthquake, Editor, Emirates, F1, Factory, Hospital, MSProject, NaturalEvents, SpaceMission, Sprint, Weather), samples and docs (`FlexGanttFXShowcase`, `FlexGanttFXTutorials`), or distribution (`FlexGanttFXAssembly`).
 
 ## Architecture
 
@@ -98,7 +98,7 @@ Set per row: `row.setLayout(new GanttLayout())`.
 ### Package Structure
 
 ```
-com.flexganttfx.core.*              Licensing (FlexGanttFX), logging (LoggingDomain)
+com.flexganttfx.core.*              Logging (LoggingDomain), utilities
 com.flexganttfx.model.*             Row, Activity, Layer, ActivityLink, ActivityRef
   .activity.*                       Activity implementations
   .repository.*                     Repository implementations

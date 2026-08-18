@@ -1,1 +1,0 @@
-/Users/lemmi/.sdkman/candidates/java/current/bin/javadoc @options @packages @argfile
