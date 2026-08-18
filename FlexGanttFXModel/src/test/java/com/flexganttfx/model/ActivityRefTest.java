@@ -16,7 +16,6 @@
  */
 package com.flexganttfx.model;
 
-import com.flexganttfx.model.activity.ActivityBase;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -24,8 +23,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class ActivityRefTest {
 
     @Test
-    public void shouldRequireNonNullRow() {
+    public void shouldRequireNonNullActivity() {
         assertThrows(NullPointerException.class,
-                () -> new ActivityRef<>(null, null, new ActivityBase<>()));
+                () -> new ActivityRef<>(null, null, null));
     }
 }
