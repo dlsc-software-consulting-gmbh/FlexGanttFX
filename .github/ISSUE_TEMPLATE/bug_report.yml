@@ -11,7 +11,7 @@ body:
     id: version
     attributes:
       label: FlexGanttFX version
-      placeholder: "12.2.0"
+      placeholder: "12.3.0"
     validations:
       required: true
   - type: input
