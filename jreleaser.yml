@@ -1,0 +1,30 @@
+project:
+  name: FlexGanttFX
+  description: A Gantt chart framework for JavaFX.
+  links:
+    homepage: https://www.flexganttfx.com
+  authors:
+    - Dirk Lemmermann
+  license: AGPL-3.0-only
+  inceptionYear: 2014
+
+release:
+  github:
+    branch: master
+    overwrite: true
+    milestone:
+      name: '{{projectVersion}}'
+    changelog:
+      sort: DESC
+      formatted: ALWAYS
+      format: '- {{commitShortHash}} {{commitTitle}}'
+      contributors:
+        format: '- {{contributorName}}{{#contributorUsernameAsLink}} ({{.}}){{/contributorUsernameAsLink}}'
+      hide:
+        contributors:
+          - 'GitHub'
+
+files:
+  artifacts:
+    - path: FlexGanttFXAssembly/target/flexganttfx-{{projectVersion}}-bin.zip
+    - path: FlexGanttFXAssembly/target/flexganttfx-{{projectVersion}}-src.zip

@@ -89,6 +89,17 @@
     </modules>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <!-- Used by the release workflow to set the version in all modules. -->
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>versions-maven-plugin</artifactId>
+                    <version>2.18.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
         <plugins>
 
             <plugin>
@@ -204,8 +215,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <publishingServerId>central</publishingServerId>
-                    <autoPublish>false</autoPublish>
-                    <waitUntil>validated</waitUntil>
+                    <autoPublish>true</autoPublish>
                 </configuration>
             </plugin>
 
@@ -213,12 +223,17 @@
     </build>
 
     <profiles>
-        <!-- Activate with -Prelease when deploying to Maven Central. Maven Central
-             requires a sources JAR, a Javadoc JAR and a GPG signature for every
-             published artifact. These are kept out of the default build so that a
-             plain "mvn install" stays fast and needs no GPG setup. -->
+        <!-- Activated by -Drelease=true (or explicitly with -Prelease) when deploying to
+             Maven Central. Maven Central requires a sources JAR, a Javadoc JAR and a GPG
+             signature for every published artifact. These are kept out of the default build
+             so that a plain "mvn install" stays fast and needs no GPG setup. -->
         <profile>
             <id>release</id>
+            <activation>
+                <property>
+                    <name>release</name>
+                </property>
+            </activation>
             <build>
                 <plugins>
                     <plugin>
@@ -267,6 +282,19 @@
                                 </configuration>
                             </execution>
                         </executions>
+                    </plugin>
+
+                    <!-- Creates the GitHub release (tag, changelog, milestone and the
+                         assembly ZIPs) based on the jreleaser.yml in the project root.
+                         Only executed for the aggregator project. -->
+                    <plugin>
+                        <groupId>org.jreleaser</groupId>
+                        <artifactId>jreleaser-maven-plugin</artifactId>
+                        <version>1.19.0</version>
+                        <inherited>false</inherited>
+                        <configuration>
+                            <configFile>${project.basedir}/jreleaser.yml</configFile>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>

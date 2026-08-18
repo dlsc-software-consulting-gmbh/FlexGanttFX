@@ -1,81 +1,84 @@
-name: 'Release'
+name: Release
+
 on:
-  push:
-    # Sequence of patterns matched against refs/tags
-    tags:
-      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version"
+        required: true
 
 jobs:
   release:
-    name: Create Release
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    steps:
-      - name: 'Checkout code'
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-
-      - name: Setup Java
-        uses: ./.github/actions/prepare-java
-
-      - name: 'Version'
-        id: vars
-        shell: bash
-        run: |
-          version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-          echo "VERSION=$version" >> "$GITHUB_OUTPUT"
-
-      # The UI tests (TestFX) need an X display. Xvfb is pre-installed on the
-      # GitHub-hosted Ubuntu runners.
-      - name: 'Build with Maven'
-        run: xvfb-run -a mvn -B install --file pom.xml
-
-      - name: 'Create Release'
-        uses: softprops/action-gh-release@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          name: Release ${{ github.ref_name }}
-          draft: false
-          prerelease: false
-          files: |
-            ./FlexGanttFXAssembly/target/flexganttfx-${{ steps.vars.outputs.VERSION }}-bin.zip
-            ./FlexGanttFXAssembly/target/flexganttfx-${{ steps.vars.outputs.VERSION }}-src.zip
-
-  deploy:
-    name: Deploy to Maven Central
-    runs-on: ubuntu-latest
     # Required repository secrets:
-    # - MAVEN_USERNAME
-    # - MAVEN_CENTRAL_TOKEN
-    # - MAVEN_GPG_PASSPHRASE
+    # - PUBLISHER_PORTAL_USERNAME
+    # - PUBLISHER_PORTAL_TOKEN
     # - GPG_PRIVATE_KEY
+    # - GPG_PASSPHRASE
     steps:
       - name: 'Checkout code'
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
-      - name: Setup Java
+      - name: 'Set up Java 25'
         uses: actions/setup-java@v5
         with:
-          distribution: 'zulu'
           java-version: 25
-          cache: maven
+          distribution: 'zulu'
+          server-id: central
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_CENTRAL_TOKEN
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
 
-      # Only the four library modules are published. The demos, showcase,
-      # tutorials and assembly modules are excluded because they are not part of
-      # the release and pull in artifacts that are not on Maven Central.
-      - name: Deploy with Maven
-        run: >
-          xvfb-run -a
-          mvn -B -Prelease deploy -s settings.xml --file pom.xml
-          -pl FlexGanttFXCore,FlexGanttFXModel,FlexGanttFXView,FlexGanttFXExtras -am
+      - name: 'Cache Maven packages'
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: 'Update version'
+        id: version
+        run: |
+          VERSION=${{ github.event.inputs.version }}
+          OLD_VERSION=$(./mvnw -B -q -DforceStdout help:evaluate -Dexpression=project.version)
+          echo "Updating POMs from version $OLD_VERSION to version $VERSION"
+          ./mvnw -B versions:set versions:commit -DnewVersion=$VERSION -DprocessAllModules=true
+          echo "Updating documentation to version $VERSION"
+          sed -i "s|$OLD_VERSION|$VERSION|g" README.md NOTICE.md .github/ISSUE_TEMPLATE/bug_report.yml
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "GitHub Action"
+          git commit -a -m "🏁 Releasing version $VERSION"
+          git push origin HEAD:master
+
+      # Builds the whole reactor but publishes only the four library modules. The demo,
+      # showcase, tutorial and assembly modules skip publishing via their own POMs.
+      - name: 'Release to Maven Central'
         env:
-          MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
-          MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
-          MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+          MAVEN_USERNAME: ${{ secrets.PUBLISHER_PORTAL_USERNAME }}
+          MAVEN_CENTRAL_TOKEN: ${{ secrets.PUBLISHER_PORTAL_TOKEN }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        run: |
+          export GPG_TTY=$(tty)
+          ./mvnw --no-transfer-progress -B --file pom.xml \
+            -Dmaven.site.skip=true -Drelease=true deploy -s ./settings.xml
+
+      # Creates the tag, the changelog and the GitHub release and attaches the
+      # assembly ZIPs built by the previous step.
+      - name: 'Release to GitHub'
+        env:
+          JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: ./mvnw -B --file pom.xml -Prelease -pl :gantt jreleaser:full-release
+
+      - name: 'JReleaser output'
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jreleaser-logs
+          path: |
+            target/jreleaser/trace.log
+            target/jreleaser/output.properties

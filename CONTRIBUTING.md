@@ -52,6 +52,28 @@ The published library modules are layered in this order:
 
 Please keep dependencies flowing in that direction only. Demo, showcase, tutorial, and assembly modules must not become dependencies of the library modules.
 
+## Releasing
+
+Releases are created by the **Release** GitHub Actions workflow
+(`.github/workflows/release.yml`). It is started manually via *Actions → Release → Run
+workflow* and takes the new version number as its only input. The workflow
+
+1. sets the version in all POMs (`versions:set`) and in `README.md`, `NOTICE.md` and the
+   bug report issue template, then commits and pushes the change to `master`,
+2. builds the whole reactor and deploys to Maven Central with `-Drelease=true`, which
+   activates the `release` profile (sources JAR, Javadoc JAR, GPG signatures). Only
+   `FlexGanttFXCore`, `FlexGanttFXModel`, `FlexGanttFXView` and `FlexGanttFXExtras` are
+   published; the demo, showcase, tutorial and assembly modules set `skipPublishing`,
+3. creates the `v<version>` tag, the changelog and the GitHub release with JReleaser
+   (`jreleaser.yml`) and attaches the assembly `-bin.zip` and `-src.zip` archives.
+
+Publishing is automatic (`autoPublish=true`), so a release becomes visible on Maven
+Central without a manual confirmation step in the Central portal. Do not push release
+tags by hand - the tag is created by the workflow.
+
+The workflow requires the repository secrets `PUBLISHER_PORTAL_USERNAME`,
+`PUBLISHER_PORTAL_TOKEN`, `GPG_PRIVATE_KEY` and `GPG_PASSPHRASE`.
+
 ## License headers
 
 Every `.java` file must carry the standard header from `license-header.txt`. Before submitting a pull request, run:
