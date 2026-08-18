@@ -97,6 +97,9 @@
                 <version>3.5.6</version>
                 <configuration>
                     <forkCount>1</forkCount>
+                    <!-- Without a display the JavaFX toolkit never starts and the UI
+                         tests block forever instead of failing. -->
+                    <forkedProcessTimeoutInSeconds>900</forkedProcessTimeoutInSeconds>
                     <argLine>
                         --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
                         --add-opens javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
@@ -399,13 +402,6 @@
             <groupId>org.testfx</groupId>
             <artifactId>testfx-core</artifactId>
             <version>4.0.18</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.testfx</groupId>
-            <artifactId>openjfx-monocle</artifactId>
-            <version>17.0.10</version>
             <scope>test</scope>
         </dependency>
 

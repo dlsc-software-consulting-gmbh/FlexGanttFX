@@ -15,5 +15,7 @@ jobs:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: Setup Java
         uses: ./.github/actions/prepare-java
+      # The UI tests (TestFX) need an X display. Xvfb is pre-installed on the
+      # GitHub-hosted Ubuntu runners.
       - name: Build with Maven
-        run: mvn -B install --file pom.xml
+        run: xvfb-run -a mvn -B install --file pom.xml
