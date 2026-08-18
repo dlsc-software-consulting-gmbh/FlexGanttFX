@@ -17,6 +17,7 @@ jobs:
     # - PUBLISHER_PORTAL_TOKEN
     # - GPG_PRIVATE_KEY
     # - GPG_PASSPHRASE
+    # - NPM_TOKEN (jdeploy publishes the showcase installer to npm)
     steps:
       - name: 'Checkout code'
         uses: actions/checkout@v6
@@ -50,6 +51,8 @@ jobs:
           ./mvnw -B versions:set versions:commit -DnewVersion=$VERSION -DprocessAllModules=true
           echo "Updating documentation to version $VERSION"
           sed -i "s|$OLD_VERSION|$VERSION|g" README.md NOTICE.md .github/ISSUE_TEMPLATE/bug_report.yml
+          echo "Updating the jdeploy package of the showcase to version $VERSION"
+          npm --prefix FlexGanttFXShowcase pkg set version="$VERSION" jdeploy.jar="target/showcase-$VERSION.jar"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --global user.name "GitHub Action"
           git commit -a -m "🏁 Releasing version $VERSION"
@@ -78,6 +81,24 @@ jobs:
           ./mvnw --no-transfer-progress -B --file pom.xml \
             -Dmaven.site.skip=true -Drelease=true -DskipTests deploy -s ./settings.xml \
             -pl FlexGanttFXCore,FlexGanttFXModel,FlexGanttFXView,FlexGanttFXExtras -am
+
+      # Publishes the showcase application to npm, which is how its jdeploy installer
+      # and download page (https://www.jdeploy.com/~flexganttfxshowcase) are updated.
+      # Version and JAR path were set in the 'Update version' step (jdeploy documents a
+      # glob for "jar", but that is broken in 6.1.5), and the JAR was built above.
+      - name: 'Set up Node'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: 'Publish showcase installer with jdeploy'
+        working-directory: FlexGanttFXShowcase
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          npm install -g jdeploy@6.1.5
+          jdeploy publish
 
       # Creates the tag, the changelog and the GitHub release and attaches the
       # assembly ZIPs built by the previous step.
