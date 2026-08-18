@@ -55,10 +55,19 @@ jobs:
           git commit -a -m "🏁 Releasing version $VERSION"
           git push origin HEAD:master
 
-      # Builds the whole reactor but publishes only the four library modules. The demo,
-      # showcase, tutorial and assembly modules skip publishing via their own POMs.
-      # The build runs the TestFX based UI tests, which need an X display, hence
+      # Builds and tests the whole reactor, including the assembly ZIPs that the GitHub
+      # release step attaches. The TestFX based UI tests need an X display, hence
       # xvfb-run. Xvfb is pre-installed on the GitHub-hosted Ubuntu runners.
+      - name: 'Build'
+        run: |
+          xvfb-run -a ./mvnw --no-transfer-progress -B --file pom.xml \
+            -Dmaven.site.skip=true install
+
+      # Publishes the four library modules and the parent POM. The deploy has to be
+      # scoped with -pl: the central-publishing plugin defers the upload of the whole
+      # bundle to the last module of the reactor, and that module (FlexGanttFXAssembly)
+      # sets skipPublishing - which silently cancelled the upload for the entire build.
+      # Tests already ran in the previous step.
       - name: 'Release to Maven Central'
         env:
           MAVEN_USERNAME: ${{ secrets.PUBLISHER_PORTAL_USERNAME }}
@@ -66,8 +75,9 @@ jobs:
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
           export GPG_TTY=$(tty)
-          xvfb-run -a ./mvnw --no-transfer-progress -B --file pom.xml \
-            -Dmaven.site.skip=true -Drelease=true deploy -s ./settings.xml
+          ./mvnw --no-transfer-progress -B --file pom.xml \
+            -Dmaven.site.skip=true -Drelease=true -DskipTests deploy -s ./settings.xml \
+            -pl FlexGanttFXCore,FlexGanttFXModel,FlexGanttFXView,FlexGanttFXExtras -am
 
       # Creates the tag, the changelog and the GitHub release and attaches the
       # assembly ZIPs built by the previous step.
