@@ -1,1 +1,0 @@
-moduleSearchIndex = [{"l":"com.flexganttfx.core"},{"l":"com.flexganttfx.extras"},{"l":"com.flexganttfx.model"},{"l":"com.flexganttfx.view"}];updateSearchResults();
