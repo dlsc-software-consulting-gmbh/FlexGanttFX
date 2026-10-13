@@ -141,7 +141,7 @@
       </nav>
       <article class="prose">
 <h1 id="tutorial">教程</h1>
-<p>在本教程中，我们将创建一个用于显示机队排班的基础解决方案。要安装 <strong>FlexGanttFX</strong>，请按照 <a href="/docs/installation">安装</a> 中的说明操作。</p>
+<p>在本教程中，我们将创建一个用于显示机队排班的基础解决方案。要安装 <strong>FlexGanttFX</strong>，请按照 <a href="installation.html">安装</a> 中的说明操作。</p>
 <p><img alt="Airbus A380" src="../../assets/images/docs/a380.png" /></p>
 <h2 id="view-model">视图模型</h2>
 <p>让我们先为 Gantt 图表创建一个视图模型。我们的对象包括 <code>Fleet</code>、<code>Aircraft</code>、<code>Crew</code> 和 <code>Flight</code>。<code>Flight</code> 实例会在 Gantt 图表的图形区域中显示为水平条，而前三个对象会显示在树表区域的行中。<code>Fleet</code>、<code>Aircraft</code> 和 <code>Crew</code> 共享一个名为 <code>ModelObject</code> 的公共父类，它扩展自 <code>Row</code>。<code>Row</code> 类通过三个类型参数来定义层次化数据结构：第一个指定父行类型，第二个指定子行类型，第三个指定将在 Gantt 图表右侧显示的活动类型。</p>

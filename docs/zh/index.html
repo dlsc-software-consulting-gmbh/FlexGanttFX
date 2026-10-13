@@ -67,6 +67,12 @@
     /* ── Releases 2-col ─────────────────────────── */
     .releases-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
     @media (max-width: 768px) { .releases-cols { grid-template-columns: 1fr; } }
+    .dependency-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 960px; margin: 0 auto; }
+    .dependency-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); }
+    .dependency-card h3 { color: var(--navy); margin-bottom: 12px; }
+    .dependency-card pre { overflow-x: auto; background: var(--navy); color: var(--gray-100); padding: 16px; border-radius: var(--radius-sm); font-size: 0.85rem; line-height: 1.6; }
+    .dependency-note { margin-top: 12px; color: var(--text-muted); font-size: 0.9rem; }
+    @media (max-width: 768px) { .dependency-grid { grid-template-columns: 1fr; } }
   </style>
   <link rel="alternate" hreflang="en" href="https://www.flexganttfx.com/" />
   <link rel="alternate" hreflang="de" href="https://www.flexganttfx.com/de/" />
@@ -179,7 +185,7 @@
         <div class="stat-label">企业客户</div>
       </div>
       <div class="stat-item fade-in">
-        <div class="stat-number"><span>11</span></div>
+        <div class="stat-number"><span>12</span></div>
         <div class="stat-label">主要版本</div>
       </div>
       <div class="stat-item fade-in">
@@ -232,6 +238,38 @@
         <div class="feature-icon icon-pink"><i class="fa-solid fa-globe"></i></div>
         <h3>桌面与 Web</h3>
         <p>同一套代码库可通过 JavaFX 部署到桌面，通过 JPro 部署到浏览器，也可借助 GraalVM + Gluon 原生部署到 iOS 和 Android。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ INSTALLATION ═══════════════════════════════════════════ -->
+<section class="section section-alt" id="installation">
+  <div class="container">
+    <div class="text-center">
+      <div class="badge"><i class="fa-solid fa-box" style="font-size:0.7rem"></i> 现已发布</div>
+      <h2 class="section-title">FlexGanttFX 12.4.0</h2>
+      <p class="section-subtitle">通过 Maven 或 Gradle 从 Maven Central 将 FlexGanttFX 添加到项目中。</p>
+    </div>
+    <div class="dependency-grid">
+      <div class="dependency-card">
+        <h3>Maven</h3>
+        <pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;com.flexganttfx&lt;/groupId&gt;
+    &lt;artifactId&gt;view&lt;/artifactId&gt;
+    &lt;version&gt;12.4.0&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.flexganttfx&lt;/groupId&gt;
+    &lt;artifactId&gt;extras&lt;/artifactId&gt;
+    &lt;version&gt;12.4.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+        <p class="dependency-note"><code>extras</code> 为可选依赖。</p>
+      </div>
+      <div class="dependency-card">
+        <h3>Gradle</h3>
+        <pre><code>implementation "com.flexganttfx:view:12.4.0"
+implementation "com.flexganttfx:extras:12.4.0" // 可选</code></pre>
       </div>
     </div>
   </div>
@@ -374,6 +412,10 @@
     </div>
     <div class="releases-cols">
       <div class="releases-timeline fade-in">
+        <div class="release-item">
+          <div class="release-version">12.4.0 — 现已发布</div>
+          <div class="release-desc">FlexGanttFX 12.4.0 现已在 Maven Central 上发布。</div>
+        </div>
         <div class="release-item">
           <div class="release-version">11.12.8 — 移除 OSGi 包</div>
           <div class="release-date"><i class="fa-regular fa-calendar" style="font-size:0.75rem"></i> January 17th, 2024</div>

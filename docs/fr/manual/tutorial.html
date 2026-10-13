@@ -141,7 +141,7 @@
       </nav>
       <article class="prose">
 <h1 id="tutorial">Tutoriel</h1>
-<p>Dans ce tutoriel, nous créons une solution simple pour afficher le planning d’une flotte d’avions. Pour installer <strong>FlexGanttFX</strong>, veuillez suivre les instructions de la section <a href="/docs/installation">Installation</a>.</p>
+<p>Dans ce tutoriel, nous créons une solution simple pour afficher le planning d’une flotte d’avions. Pour installer <strong>FlexGanttFX</strong>, veuillez suivre les instructions de la section <a href="installation.html">Installation</a>.</p>
 <p><img alt="Airbus A380" src="../../assets/images/docs/a380.png" /></p>
 <h2 id="view-model">Modèle de vue</h2>
 <p>Commençons par créer un modèle de vue pour le diagramme de Gantt. Nos objets sont <code>Fleet</code>, <code>Aircraft</code>, <code>Crew</code> et <code>Flight</code>. Les instances de <code>Flight</code> seront affichées sous forme de barre horizontale dans la zone graphique du diagramme de Gantt, tandis que les trois premiers objets seront affichés dans les lignes de la zone de table arborescente. <code>Fleet</code>, <code>Aircraft</code> et <code>Crew</code> partagent une superclasse commune appelée <code>ModelObject</code>, une extension de <code>Row</code>. La classe <code>Row</code> sert à définir une structure de données hiérarchique à l’aide de trois arguments de type : le premier indique le type de la ligne parente, le deuxième le type des lignes enfants, et le troisième le type des activités qui seront affichées sur le côté droit du diagramme de Gantt. </p>

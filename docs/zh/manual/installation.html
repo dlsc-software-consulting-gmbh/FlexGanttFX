@@ -141,34 +141,23 @@
       </nav>
       <article class="prose">
 <h1 id="installation">安装</h1>
-<p>以下步骤说明如何在你的项目中安装 FlexGanttFX。</p>
-<h2 id="install-java">安装 Java</h2>
-<p>从 Java 11 开始，Oracle 的 JDK 不再捆绑 JavaFX，因此你需要确保下载并安装包含 JavaFX 的 JDK 11+ 发行版，例如 Azul 提供的发行版。</p>
-<h2 id="download-the-distribution">下载发行包</h2>
-<p>前往 FlexGanttFX.com 的下载页面并下载最新版本。下载文件是一个 ZIP 归档，其中包含所需的 JAR 文件、演示、教程、API 文档等。</p>
-<h2 id="unpack-the-distribution">解压发行包</h2>
-<p>将发行包解压到本地文件系统。解压后你会看到以下内容：</p>
-<p><img alt="安装目录" src="../../assets/images/docs/directory.png" /></p>
-<p>发行包包含以下子文件夹：</p>
-<ul>
-<li>css - FlexGanttFX 使用的样式表副本（原始文件包含在 JAR 文件中）</li>
-<li>docs - FlexGanttFX 的 API 文档</li>
-<li>ext - 运行 FlexGanttFX 所需的第三方 JAR 文件</li>
-<li>legal - 许可文本（AGPLv3 与商业许可条款）</li>
-<li>lib - FlexGanttFX 库</li>
-<li>tutorial - 帮助你入门的文件</li>
-</ul>
-<h2 id="add-jar-files-to-classpath">将 JAR 文件添加到 classpath</h2>
-<p>假设你下载的是 11.12.5 版本，请将以下文件（位于发行包的 lib 文件夹中）添加到你的 classpath。</p>
-<ul>
-<li>flexganttfx-core-11.12.8.jar - 包含框架使用的各种工具类</li>
-<li>flexganttfx-model-11.12.8.jar - 与数据模型相关的所有类（活动、行、仓库）</li>
-<li>flexganttfx-view-11.12.8.jar - 视图类，例如实际的 Gantt 图表控件</li>
-<li>flexganttfx-extras-11.12.8.jar - 其他类，例如工具栏和状态栏</li>
-</ul>
-<p>将 ext 文件夹中的文件添加到你的 classpath。
-- controlsfx.jar - ControlsFX 项目的发行包
-</p>
+<p>FlexGanttFX 12.4.0 已在 Maven Central 发布。使用 Maven 或 Gradle 添加 <code>view</code> 依赖。如需可选的辅助控件，请同时添加 <code>extras</code>。</p>
+<h2 id="maven">Maven</h2>
+<pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;com.flexganttfx&lt;/groupId&gt;
+    &lt;artifactId&gt;view&lt;/artifactId&gt;
+    &lt;version&gt;12.4.0&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;!-- 可选的辅助控件 --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.flexganttfx&lt;/groupId&gt;
+    &lt;artifactId&gt;extras&lt;/artifactId&gt;
+    &lt;version&gt;12.4.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+<h2 id="gradle">Gradle</h2>
+<pre><code class="language-groovy">implementation "com.flexganttfx:view:12.4.0"
+implementation "com.flexganttfx:extras:12.4.0" // 可选</code></pre>
 <h2 id="licensing">许可</h2>
 <p>FlexGanttFX 采用双重许可。如果你自己的应用以相同许可开源，则可以免费在 GNU Affero 通用公共许可证 v3 下使用它。
 对于专有、闭源或 SaaS 应用，则需要商业许可证。无需安装许可证密钥 — 详情请参阅<a href="../pages/licensing.html">许可页面</a>。</p>

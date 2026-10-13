@@ -20,7 +20,7 @@ Documentation, screenshots, and product information are available at [flexganttf
 
 ## Coordinates
 
-FlexGanttFX publishing to Maven Central is being set up. These are the coordinates for the upcoming `12.4.0` release.
+FlexGanttFX `12.4.0` is now available on Maven Central.
 
 ### Maven
 

@@ -141,34 +141,23 @@
       </nav>
       <article class="prose">
 <h1 id="installation">Installation</h1>
-<p>Die folgenden Schritte beschreiben, wie Sie FlexGanttFX in Ihr Projekt einbinden.</p>
-<h2 id="install-java">Java installieren</h2>
-<p>Ab Java 11 ist JavaFX nicht mehr im JDK von Oracle enthalten. Stellen Sie daher sicher, dass Sie eine JDK 11+-Distribution herunterladen und installieren, die JavaFX enthält, z. B. von Azul.</p>
-<h2 id="download-the-distribution">Distribution herunterladen</h2>
-<p>Besuchen Sie den Download-Bereich von FlexGanttFX.com und laden Sie das neueste Release herunter. Die Download-Datei ist ein ZIP-Archiv mit den benötigten JAR-Dateien, Demos, Tutorials, API-Dokumentation usw.</p>
-<h2 id="unpack-the-distribution">Distribution entpacken</h2>
-<p>Entpacken Sie die Distribution auf Ihrem lokalen Dateisystem. Nach dem Entpacken sehen Sie folgenden Inhalt: </p>
-<p><img alt="Installationsverzeichnis" src="../../assets/images/docs/directory.png" /></p>
-<p>Die Distribution enthält folgende Unterordner:</p>
-<ul>
-<li>css – Kopien der von FlexGanttFX verwendeten Stylesheets (die Originale sind in der JAR-Datei enthalten)</li>
-<li>docs – die API-Dokumentation von FlexGanttFX</li>
-<li>ext – JAR-Dateien von Drittanbietern, die für den Betrieb von FlexGanttFX erforderlich sind</li>
-<li>legal – die Lizenztexte (AGPLv3 und die kommerziellen Lizenzbedingungen)</li>
-<li>lib – die FlexGanttFX-Bibliotheken</li>
-<li>tutorial – Einstiegsdateien für den schnellen Start</li>
-</ul>
-<h2 id="add-jar-files-to-classpath">JAR-Dateien zum Classpath hinzufügen</h2>
-<p>Vorausgesetzt, Sie haben Release 11.12.5 heruntergeladen, fügen Sie die folgenden Dateien (im Verzeichnis lib der Distribution) zu Ihrem Classpath hinzu.</p>
-<ul>
-<li>flexganttfx-core-11.12.8.jar – enthält verschiedene Hilfsklassen, die vom Framework genutzt werden</li>
-<li>flexganttfx-model-11.12.8.jar – alle Klassen des Datenmodells (Activities, Rows, Repositories)</li>
-<li>flexganttfx-view-11.12.8.jar – die View-Klassen, darunter das eigentliche Gantt-Chart-Steuerelement</li>
-<li>flexganttfx-extras-11.12.8.jar – zusätzliche Klassen wie eine Toolbar und eine Statusbar</li>
-</ul>
-<p>Fügen Sie die Dateien im Verzeichnis ext zu Ihrem Classpath hinzu.
-- controlsfx.jar – die Distribution des ControlsFX-Projekts
-</p>
+<p>FlexGanttFX 12.4.0 ist auf Maven Central verfügbar. Fügen Sie die Abhängigkeit <code>view</code> mit Maven oder Gradle hinzu. Wenn Sie die optionalen Zusatzsteuerelemente benötigen, fügen Sie außerdem <code>extras</code> hinzu.</p>
+<h2 id="maven">Maven</h2>
+<pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;com.flexganttfx&lt;/groupId&gt;
+    &lt;artifactId&gt;view&lt;/artifactId&gt;
+    &lt;version&gt;12.4.0&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;!-- Optionale Zusatzsteuerelemente --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.flexganttfx&lt;/groupId&gt;
+    &lt;artifactId&gt;extras&lt;/artifactId&gt;
+    &lt;version&gt;12.4.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+<h2 id="gradle">Gradle</h2>
+<pre><code class="language-groovy">implementation "com.flexganttfx:view:12.4.0"
+implementation "com.flexganttfx:extras:12.4.0" // optional</code></pre>
 <h2 id="licensing">Lizenzierung</h2>
 <p>FlexGanttFX ist dual lizenziert. Sie können es kostenlos unter der GNU Affero General Public License v3 nutzen, wenn Ihre
 eigene Anwendung ebenfalls Open Source unter derselben Lizenz ist. Für proprietäre Anwendungen mit geschlossenem Quellcode
