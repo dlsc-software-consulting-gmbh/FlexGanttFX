@@ -308,14 +308,17 @@ a:hover { color: var(--blue-dark); }
 /* ── Demo Cards ───────────────────────────────────────────── */
 .demos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; }
 .demo-card {
+  display: block;
   background: var(--white);
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow);
   transition: all var(--transition);
   border: 1px solid var(--gray-200);
+  color: inherit;
+  text-decoration: none;
 }
-.demo-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.demo-card:hover { color: inherit; transform: translateY(-4px); box-shadow: var(--shadow-lg); }
 .demo-card-img { overflow: hidden; background: var(--navy-light); }
 .demo-card-img img { width: 100%; height: auto; display: block; object-fit: contain; transition: transform 0.4s ease; }
 .demo-card:hover .demo-card-img img { transform: scale(1.04); }
